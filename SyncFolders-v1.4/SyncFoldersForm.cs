@@ -915,9 +915,9 @@ namespace SyncFolders
         {
             if (_bDeleteInSecond)
             {
-                System.IO.FileInfo fi2ri = new System.IO.FileInfo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
-                if (fi2ri.Exists)
-                    fi2ri.Delete();
+                System.IO.FileInfo fiSavedInfo2 = new System.IO.FileInfo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
+                if (fiSavedInfo2.Exists)
+                    fiSavedInfo2.Delete();
                 fi2.Delete();
                 WriteLog(0, "Deleted file ", fi2.FullName, " that is not present in ", fi1.Directory.FullName, " anymore");
             }
@@ -930,16 +930,16 @@ namespace SyncFolders
 
                 if (_bTestFiles)
                 {
-                    System.IO.FileInfo fi2ri = new System.IO.FileInfo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
+                    System.IO.FileInfo fiSavedInfo2 = new System.IO.FileInfo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
                     bool bForceCreateInfo = false;
                     if (_bRepairFiles)
-                        TestAndRepairSingleFile(fi2.FullName, fi2ri.FullName, ref bForceCreateInfo);
+                        TestAndRepairSingleFile(fi2.FullName, fiSavedInfo2.FullName, ref bForceCreateInfo);
                     else
-                        TestSingleFile(fi2.FullName, fi2ri.FullName, ref bForceCreateInfo, true, !_bSkipRecentlyTested, true);
+                        TestSingleFile(fi2.FullName, fiSavedInfo2.FullName, ref bForceCreateInfo, true, !_bSkipRecentlyTested, true);
 
-                    if (_bCreateInfo && (!fi2ri.Exists || bForceCreateInfo))
+                    if (_bCreateInfo && (!fiSavedInfo2.Exists || bForceCreateInfo))
                     {
-                        CreateRestoreInfo(fi2.FullName, fi2ri.FullName);
+                        CreateSavedInfo(fi2.FullName, fiSavedInfo2.FullName);
                     }
                 }
             }
@@ -952,8 +952,8 @@ namespace SyncFolders
                 WriteLog(0, "Warning: file has zero length, indicating a failed copy operation in the past: ", filePath1);
             }
 
-            System.IO.FileInfo fi1ri = new System.IO.FileInfo(CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
-            System.IO.FileInfo fi2ri = new System.IO.FileInfo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
+            System.IO.FileInfo fiSavedInfo1 = new System.IO.FileInfo(CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
+            System.IO.FileInfo fiSavedInfo2 = new System.IO.FileInfo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
 
             bool bForceCreatInfo = false;
             bool bForceCreatInfo2 = false;
@@ -966,26 +966,26 @@ namespace SyncFolders
                 if (_cancelClicked)
                     return;
 
-                CopyRepairSingleFile(fi2.FullName, fi1.FullName, fi1ri.FullName, ref bForceCreatInfo, ref bForceCreatInfo2, "(file was new)", false, false);
+                CopyRepairSingleFile(fi2.FullName, fi1.FullName, fiSavedInfo1.FullName, ref bForceCreatInfo, ref bForceCreatInfo2, "(file was new)", false, false);
             }
             finally
             {
                 _copyFiles.Release();
             }
 
-            if (_bCreateInfo || fi1ri.Exists || fi2ri.Exists)
+            if (_bCreateInfo || fiSavedInfo1.Exists || fiSavedInfo2.Exists)
             {
-                if (fi1ri.Exists && !bForceCreatInfo && !bForceCreatInfo2)
+                if (fiSavedInfo1.Exists && !bForceCreatInfo && !bForceCreatInfo2)
                 {
                     try
                     {
                         _copyFiles.WaitOne();
 
-                        //CopyFileSafely(fi1ri, fi2ri.FullName);
-                        fi1ri.CopyTo(fi2ri.FullName, true);
+                        //CopyFileSafely(fiSavedInfo1, fiSavedInfo2.FullName);
+                        fiSavedInfo1.CopyTo(fiSavedInfo2.FullName, true);
                     } catch 
                     {
-                        CreateRestoreInfo(fi2.FullName, fi2ri.FullName);
+                        CreateSavedInfo(fi2.FullName, fiSavedInfo2.FullName);
                     }
                     finally
                     {
@@ -993,7 +993,7 @@ namespace SyncFolders
                     }
                 }
                 else
-                    CreateRestoreInfo(fi2.FullName, fi2ri.FullName);
+                    CreateSavedInfo(fi2.FullName, fiSavedInfo2.FullName);
             }
         }
 
@@ -1010,13 +1010,13 @@ namespace SyncFolders
 
         void ProcessFilePair_FirstToSecond_FirstReadonly_BothExist_NeedToCopy(string filePath1, string filePath2, System.IO.FileInfo fi1, System.IO.FileInfo fi2)
         {
-            System.IO.FileInfo fi1ri = new System.IO.FileInfo(CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
-            System.IO.FileInfo fi2ri = new System.IO.FileInfo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
+            System.IO.FileInfo fiSavedInfo1 = new System.IO.FileInfo(CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
+            System.IO.FileInfo fiSavedInfo2 = new System.IO.FileInfo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
 
             bool bForceCreateInfo = false;
 
             // if the first file is ok
-            if (TestSingleFile(filePath1, fi1ri.FullName, ref bForceCreateInfo, _bTestFiles, true, false))
+            if (TestSingleFile(filePath1, fiSavedInfo1.FullName, ref bForceCreateInfo, _bTestFiles, true, false))
             {
                 if (_cancelClicked)
                     return;
@@ -1036,16 +1036,16 @@ namespace SyncFolders
                     _copyFiles.Release();
                 }
 
-                if (_bCreateInfo || fi2ri.Exists || fi1ri.Exists)
+                if (_bCreateInfo || fiSavedInfo2.Exists || fiSavedInfo1.Exists)
                 {
                     if (bForceCreateInfo)
-                        CreateRestoreInfo(fi2.FullName, fi2ri.FullName);
+                        CreateSavedInfo(fi2.FullName, fiSavedInfo2.FullName);
                     else
                     {
                         try
                         {
                             _copyFiles.WaitOne();
-                            fi1ri.CopyTo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"), true);
+                            fiSavedInfo1.CopyTo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"), true);
                         }
                         finally
                         {
@@ -1061,8 +1061,8 @@ namespace SyncFolders
 
         void ProcessFilePair_FirstToSecond_FirstReadonly_BothExist_NoNeedToCopy(string filePath1, string filePath2, System.IO.FileInfo fi1, System.IO.FileInfo fi2)
         {
-            System.IO.FileInfo fi2ri = new System.IO.FileInfo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
-            System.IO.FileInfo fi1ri = new System.IO.FileInfo(CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
+            System.IO.FileInfo fiSavedInfo2 = new System.IO.FileInfo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
+            System.IO.FileInfo fiSavedInfo1 = new System.IO.FileInfo(CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
 
             if (FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) && fi1.Length == fi2.Length)
             {
@@ -1070,44 +1070,44 @@ namespace SyncFolders
                 // both files are present and have same modification date and lentgh
 
                 // if the second restoreinfo is missing or has wrong date, but the other is OK then copy the one to the other
-                if (fi1ri.Exists && fi1ri.LastWriteTimeUtc == fi1.LastWriteTimeUtc && (!fi2ri.Exists || fi2ri.LastWriteTimeUtc != fi2.LastWriteTimeUtc))
+                if (fiSavedInfo1.Exists && fiSavedInfo1.LastWriteTimeUtc == fi1.LastWriteTimeUtc && (!fiSavedInfo2.Exists || fiSavedInfo2.LastWriteTimeUtc != fi2.LastWriteTimeUtc))
                 {
                     try
                     {
                         _copyFiles.WaitOne();
-                        fi1ri.CopyTo(fi2ri.FullName, true);
+                        fiSavedInfo1.CopyTo(fiSavedInfo2.FullName, true);
                     }
                     finally
                     {
                         _copyFiles.Release();
                     }
 
-                    fi2ri = new System.IO.FileInfo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
+                    fiSavedInfo2 = new System.IO.FileInfo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
                 }
 
                 bool bForceCreateInfoBecauseDamaged = false;
                 if (_bTestFiles)
                     if (_bRepairFiles)
-                        TestAndRepairSecondFile(fi1.FullName, fi2.FullName, fi1ri.FullName, fi2ri.FullName, ref bForceCreateInfoBecauseDamaged);
+                        TestAndRepairSecondFile(fi1.FullName, fi2.FullName, fiSavedInfo1.FullName, fiSavedInfo2.FullName, ref bForceCreateInfoBecauseDamaged);
                     else
-                        TestSingleFile(fi2.FullName, fi2ri.FullName, ref bForceCreateInfoBecauseDamaged, true, !_bSkipRecentlyTested, true);
+                        TestSingleFile(fi2.FullName, fiSavedInfo2.FullName, ref bForceCreateInfoBecauseDamaged, true, !_bSkipRecentlyTested, true);
 
 
-                if (_bCreateInfo && (!fi2ri.Exists || fi2ri.LastWriteTimeUtc != fi2.LastWriteTimeUtc || bForceCreateInfoBecauseDamaged))
+                if (_bCreateInfo && (!fiSavedInfo2.Exists || fiSavedInfo2.LastWriteTimeUtc != fi2.LastWriteTimeUtc || bForceCreateInfoBecauseDamaged))
                 {
-                    CreateRestoreInfo(fi2.FullName, fi2ri.FullName);
+                    CreateSavedInfo(fi2.FullName, fiSavedInfo2.FullName);
                 }
 
-                fi2ri = new System.IO.FileInfo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
-                fi1ri = new System.IO.FileInfo(CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
+                fiSavedInfo2 = new System.IO.FileInfo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
+                fiSavedInfo1 = new System.IO.FileInfo(CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
 
                 // if one of the files is missing or has wrong date, but the other is OK then copy the one to the other
-                if (fi1ri.Exists && fi1ri.LastWriteTimeUtc == fi1.LastWriteTimeUtc && (!fi2ri.Exists || fi2ri.LastWriteTimeUtc != fi2.LastWriteTimeUtc))
+                if (fiSavedInfo1.Exists && fiSavedInfo1.LastWriteTimeUtc == fi1.LastWriteTimeUtc && (!fiSavedInfo2.Exists || fiSavedInfo2.LastWriteTimeUtc != fi2.LastWriteTimeUtc))
                 {
                     try
                     {
                         _copyFiles.WaitOne();
-                        fi1ri.CopyTo(fi2ri.FullName, true);
+                        fiSavedInfo1.CopyTo(fiSavedInfo2.FullName, true);
                     }
                     finally
                     {
@@ -1129,9 +1129,9 @@ namespace SyncFolders
                     else
                         bOK = TestSingleFile(filePath2, CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"), ref bForceCreateInfoBecauseDamaged, true, !_bSkipRecentlyTested, true);
 
-                    if (bOK && _bCreateInfo && (!fi2ri.Exists || bForceCreateInfoBecauseDamaged))
+                    if (bOK && _bCreateInfo && (!fiSavedInfo2.Exists || bForceCreateInfoBecauseDamaged))
                     {
-                        CreateRestoreInfo(fi2.FullName, fi2ri.FullName);
+                        CreateSavedInfo(fi2.FullName, fiSavedInfo2.FullName);
                     }
                 }
             }
@@ -1168,9 +1168,9 @@ namespace SyncFolders
         {
             if (_bDeleteInSecond)
             {
-                System.IO.FileInfo fi2ri = new System.IO.FileInfo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
-                if (fi2ri.Exists)
-                    fi2ri.Delete();
+                System.IO.FileInfo fiSavedInfo2 = new System.IO.FileInfo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
+                if (fiSavedInfo2.Exists)
+                    fiSavedInfo2.Delete();
                 fi2.Delete();
                 WriteLog(0, "Deleted file ", fi2.FullName, " that is not present in ", fi1.Directory.FullName, " anymore");
             }
@@ -1183,18 +1183,18 @@ namespace SyncFolders
 
                 if (_bTestFiles)
                 {
-                    System.IO.FileInfo fi2ri = new System.IO.FileInfo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
+                    System.IO.FileInfo fiSavedInfo2 = new System.IO.FileInfo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
                     bool bForceCreateInfo = false;
                     bool bOK = true;
 
                     if (_bRepairFiles)
-                        TestAndRepairSingleFile(fi2.FullName, fi2ri.FullName, ref bForceCreateInfo);
+                        TestAndRepairSingleFile(fi2.FullName, fiSavedInfo2.FullName, ref bForceCreateInfo);
                     else
-                        bOK = TestSingleFile(fi2.FullName, fi2ri.FullName, ref bForceCreateInfo, true, !_bSkipRecentlyTested, true);
+                        bOK = TestSingleFile(fi2.FullName, fiSavedInfo2.FullName, ref bForceCreateInfo, true, !_bSkipRecentlyTested, true);
 
-                    if (bOK && _bCreateInfo && (!fi2ri.Exists || bForceCreateInfo))
+                    if (bOK && _bCreateInfo && (!fiSavedInfo2.Exists || bForceCreateInfo))
                     {
-                        CreateRestoreInfo(fi2.FullName, fi2ri.FullName);
+                        CreateSavedInfo(fi2.FullName, fiSavedInfo2.FullName);
                     }
                 }
             }
@@ -1226,8 +1226,8 @@ namespace SyncFolders
         void ProcessFilePair_FirstToSecond_FirstReadWrite_BothExist_NoNeedToCopy(string filePath1, string filePath2, System.IO.FileInfo fi1, System.IO.FileInfo fi2)
         {
             // both files are present and have same modification date
-            System.IO.FileInfo fi2ri = new System.IO.FileInfo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
-            System.IO.FileInfo fi1ri = new System.IO.FileInfo(CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
+            System.IO.FileInfo fiSavedInfo2 = new System.IO.FileInfo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
+            System.IO.FileInfo fiSavedInfo1 = new System.IO.FileInfo(CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
 
             // first to second, but first can be written to
             if (FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) && fi1.Length == fi2.Length)
@@ -1249,7 +1249,7 @@ namespace SyncFolders
 
                         if (bOK && bForceCreateInfo)
                         {
-                            CreateRestoreInfo(filePath2, CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
+                            CreateSavedInfo(filePath2, CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
                         }
                         bForceCreateInfo = false;
 
@@ -1262,7 +1262,7 @@ namespace SyncFolders
 
                             if (bOK && bForceCreateInfo)
                             {
-                                bOK = CreateRestoreInfo(filePath1, CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
+                                bOK = CreateSavedInfo(filePath1, CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
                                 bForceCreateInfo = false;
                             }
 
@@ -1287,7 +1287,7 @@ namespace SyncFolders
 
                             if (bOK && bForceCreateInfo)
                             {
-                                CreateRestoreInfo(filePath1, CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
+                                CreateSavedInfo(filePath1, CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
                             }
                             bForceCreateInfo = false;
 
@@ -1300,7 +1300,7 @@ namespace SyncFolders
 
                                 if (bOK && bForceCreateInfo)
                                 {
-                                    bOK = CreateRestoreInfo(filePath2, CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
+                                    bOK = CreateSavedInfo(filePath2, CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
                                     bForceCreateInfo = false;
                                 }
 
@@ -1375,7 +1375,7 @@ namespace SyncFolders
                 WriteLog(0, "Warning: file has zero length, indicating a failed copy operation in the past: ", filePath1);
             }
 
-            System.IO.FileInfo fi1ri = new System.IO.FileInfo(CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
+            System.IO.FileInfo fiSavedInfo1 = new System.IO.FileInfo(CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
 
             bool bForceCreateInfo = false;
             bool bForceCreateInfo2 = false;
@@ -1388,16 +1388,16 @@ namespace SyncFolders
                 if (_cancelClicked)
                     return;
 
-                if (_bCreateInfo && (!fi1ri.Exists || fi1ri.LastWriteTimeUtc != fi1.LastWriteTimeUtc || bForceCreateInfo))
+                if (_bCreateInfo && (!fiSavedInfo1.Exists || fiSavedInfo1.LastWriteTimeUtc != fi1.LastWriteTimeUtc || bForceCreateInfo))
                 {
-                    if (!CreateRestoreInfoAndCopy(fi1.FullName, fi1ri.FullName, fi2.FullName, "(file was new)"))
+                    if (!CreateRestoreInfoAndCopy(fi1.FullName, fiSavedInfo1.FullName, fi2.FullName, "(file was new)"))
                     {
-                        CopyRepairSingleFile(filePath2, filePath1, fi1ri.FullName, ref bForceCreateInfo, ref bForceCreateInfo2, "(file was new)", false, false);
-                        CreateRestoreInfo(filePath2, CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
+                        CopyRepairSingleFile(filePath2, filePath1, fiSavedInfo1.FullName, ref bForceCreateInfo, ref bForceCreateInfo2, "(file was new)", false, false);
+                        CreateSavedInfo(filePath2, CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
                         return;
                     }
 
-                    fi1ri = new System.IO.FileInfo(CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
+                    fiSavedInfo1 = new System.IO.FileInfo(CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
                     bForceCreateInfo = false;
                 }
                 else
@@ -1405,7 +1405,7 @@ namespace SyncFolders
                     try
                     {
                         if (_bTestFiles)
-                            CopyRepairSingleFile(filePath2, fi1.FullName, fi1ri.FullName, ref bForceCreateInfo, ref bForceCreateInfo2, "(file was new)", true, _bRepairFiles);
+                            CopyRepairSingleFile(filePath2, fi1.FullName, fiSavedInfo1.FullName, ref bForceCreateInfo, ref bForceCreateInfo2, "(file was new)", true, _bRepairFiles);
                         else
                             CopyFileSafely(fi1, filePath2, "(file was new)");
                     }
@@ -1413,28 +1413,28 @@ namespace SyncFolders
                     {
                         WriteLog(0, "Warning: Encountered error while copying ", fi1.FullName, ", trying to automatically repair");
                         if (_bTestFiles && _bRepairFiles)
-                            TestAndRepairSingleFile(fi1.FullName, fi1ri.FullName, ref bForceCreateInfo);
+                            TestAndRepairSingleFile(fi1.FullName, fiSavedInfo1.FullName, ref bForceCreateInfo);
                         if (bInTheEndOK)
-                            bInTheEndOK = CopyRepairSingleFile(filePath2, fi1.FullName, fi1ri.FullName, ref bForceCreateInfo, ref bForceCreateInfo2, "(file was new)", false, _bTestFiles && _bRepairFiles);
+                            bInTheEndOK = CopyRepairSingleFile(filePath2, fi1.FullName, fiSavedInfo1.FullName, ref bForceCreateInfo, ref bForceCreateInfo2, "(file was new)", false, _bTestFiles && _bRepairFiles);
                     }
                 }
 
 
                 if (bInTheEndOK)
                 {
-                    if (_bCreateInfo || fi1ri.Exists)
+                    if (_bCreateInfo || fiSavedInfo1.Exists)
                     {
-                        if (!fi1ri.Exists || bForceCreateInfo || fi1ri.LastWriteTimeUtc != fi1.LastWriteTimeUtc)
+                        if (!fiSavedInfo1.Exists || bForceCreateInfo || fiSavedInfo1.LastWriteTimeUtc != fi1.LastWriteTimeUtc)
                         {
-                            CreateRestoreInfo(filePath1, CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
-                            fi1ri = new System.IO.FileInfo(CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
+                            CreateSavedInfo(filePath1, CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
+                            fiSavedInfo1 = new System.IO.FileInfo(CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
                         }
 
                         if (bForceCreateInfo2)
-                            CreateRestoreInfo(filePath2, CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
+                            CreateSavedInfo(filePath2, CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
                         else
-                            if (fi1ri.Exists)
-                                fi1ri.CopyTo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"), true);
+                            if (fiSavedInfo1.Exists)
+                                fiSavedInfo1.CopyTo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"), true);
                     }
                 }
             }
@@ -1469,8 +1469,8 @@ namespace SyncFolders
 
         void ProcessFilePair_Bidirectionally_BothExist_FirstNewer(string filePath1, string filePath2, System.IO.FileInfo fi1, System.IO.FileInfo fi2, string strReason)
         {
-            System.IO.FileInfo fi1ri = new System.IO.FileInfo(CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
-            System.IO.FileInfo fi2ri = new System.IO.FileInfo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
+            System.IO.FileInfo fiSavedInfo1 = new System.IO.FileInfo(CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
+            System.IO.FileInfo fiSavedInfo2 = new System.IO.FileInfo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
 
             bool bForceCreateInfo1 = false;
             bool bForceCreateInfo2 = false;
@@ -1485,10 +1485,10 @@ namespace SyncFolders
                 if (_cancelClicked)
                     return;
 
-                if (_bCreateInfo && (!fi1ri.Exists || fi1ri.LastWriteTimeUtc != fi1.LastWriteTimeUtc || bForceCreateInfo1))
+                if (_bCreateInfo && (!fiSavedInfo1.Exists || fiSavedInfo1.LastWriteTimeUtc != fi1.LastWriteTimeUtc || bForceCreateInfo1))
                 {
-                    bCopied1To2 = CreateRestoreInfoAndCopy(fi1.FullName, fi1ri.FullName, fi2.FullName, strReason);
-                    fi1ri = new System.IO.FileInfo(CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
+                    bCopied1To2 = CreateRestoreInfoAndCopy(fi1.FullName, fiSavedInfo1.FullName, fi2.FullName, strReason);
+                    fiSavedInfo1 = new System.IO.FileInfo(CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
 
                     if (bCopied1To2)
                         bForceCreateInfo1 = false;
@@ -1497,13 +1497,10 @@ namespace SyncFolders
                 {
                     try
                     {
-                        /*
-                        if (_bTestFiles && _bRepairFiles)
-                            CopyRepairSingleFile(filePath2, fi1.FullName, fi1ri.FullName, ref bForceCreateInfo1, ref bForceCreateInfo2, "(file was new)", true, true);
+                        if (_bTestFiles)
+                            CopyRepairSingleFile(filePath2, fi1.FullName, fiSavedInfo1.FullName, ref bForceCreateInfo1, ref bForceCreateInfo2, "(file was new)", true, _bRepairFiles);
                         else
-                         */
-                        // just try to copy, we still can try repair options later
-                        CopyFileSafely(fi1, filePath2, strReason);
+                            CopyFileSafely(fi1, filePath2, strReason);
                     }
                     catch (Exception)
                     {
@@ -1526,13 +1523,13 @@ namespace SyncFolders
                     }
 
                     // first try to copy the first/needed file, if it can be restored
-                    if (TestSingleFileHealthyOrCanRepair(filePath1, fi1ri.FullName, ref bForceCreateInfo1) &&
-                        TestAndRepairSingleFile(filePath1, fi1ri.FullName, ref bForceCreateInfo1))
+                    if (TestSingleFileHealthyOrCanRepair(filePath1, fiSavedInfo1.FullName, ref bForceCreateInfo1) &&
+                        TestAndRepairSingleFile(filePath1, fiSavedInfo1.FullName, ref bForceCreateInfo1))
                     {
                         if (bForceCreateInfo1)
                         {
-                            bCopied1To2 = CreateRestoreInfoAndCopy(fi1.FullName, fi1ri.FullName, fi2.FullName, strReason);
-                            fi1ri = new System.IO.FileInfo(CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
+                            bCopied1To2 = CreateRestoreInfoAndCopy(fi1.FullName, fiSavedInfo1.FullName, fi2.FullName, strReason);
+                            fiSavedInfo1 = new System.IO.FileInfo(CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
                             bForceCreateInfo1 = false;
                         }
                         else
@@ -1545,9 +1542,9 @@ namespace SyncFolders
                     if (!bCopied1To2)
                     {
                         // well, then try the second, older file. Let's see if it is OK, or can be restored in place
-                        if ((TestSingleFile(filePath2, fi2ri.FullName, ref bForceCreateInfo2, true, true, true) ||
-                                (TestSingleFileHealthyOrCanRepair(filePath2, fi2ri.FullName, ref bForceCreateInfo2) &&
-                                 TestAndRepairSingleFile(filePath2, fi2ri.FullName, ref bForceCreateInfo2)))
+                        if ((TestSingleFile(filePath2, fiSavedInfo2.FullName, ref bForceCreateInfo2, true, true, true) ||
+                                (TestSingleFileHealthyOrCanRepair(filePath2, fiSavedInfo2.FullName, ref bForceCreateInfo2) &&
+                                 TestAndRepairSingleFile(filePath2, fiSavedInfo2.FullName, ref bForceCreateInfo2)))
                              && fi2.LastWriteTime.Year>1975)
                         {
                             WriteLog(0, "Warning: Encountered I/O error while copying ", fi1.FullName, ". The older file ", filePath2, " seems to be OK");
@@ -1557,10 +1554,10 @@ namespace SyncFolders
                         else
                         {
                             WriteLog(0, "Warning: Encountered I/O error while copying ", fi1.FullName, ". Other file has errors as well: ", filePath2, ", or is a product of last chance restore, trying to automatically repair ", filePath1);
-                            TestAndRepairSingleFile(fi1.FullName, fi1ri.FullName, ref bForceCreateInfo1);
+                            TestAndRepairSingleFile(fi1.FullName, fiSavedInfo1.FullName, ref bForceCreateInfo1);
                             bForceCreateInfo2 = false;
 
-                            CopyRepairSingleFile(filePath2, fi1.FullName, fi1ri.FullName, ref bForceCreateInfo1, ref bForceCreateInfo2, strReason, false, true);
+                            CopyRepairSingleFile(filePath2, fi1.FullName, fiSavedInfo1.FullName, ref bForceCreateInfo1, ref bForceCreateInfo2, strReason, false, true);
                             bCopied1To2 = true;
                         }
                     }
@@ -1568,21 +1565,21 @@ namespace SyncFolders
 
                 if (bCopied1To2)
                 {
-                    if ((_bCreateInfo && (!fi1ri.Exists || fi1ri.LastWriteTimeUtc != fi1.LastWriteTimeUtc)) || (fi1ri.Exists && bForceCreateInfo1))
+                    if ((_bCreateInfo && (!fiSavedInfo1.Exists || fiSavedInfo1.LastWriteTimeUtc != fi1.LastWriteTimeUtc)) || (fiSavedInfo1.Exists && bForceCreateInfo1))
                     {
-                        CreateRestoreInfo(filePath1, CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
-                        fi1ri = new System.IO.FileInfo(CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
+                        CreateSavedInfo(filePath1, CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
+                        fiSavedInfo1 = new System.IO.FileInfo(CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
                     }
 
-                    if (fi1ri.Exists)
+                    if (fiSavedInfo1.Exists)
                     {
                         if (bForceCreateInfo2)
                         {
-                            if (_bCreateInfo || fi2ri.Exists)
-                                CreateRestoreInfo(filePath2, CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
+                            if (_bCreateInfo || fiSavedInfo2.Exists)
+                                CreateSavedInfo(filePath2, CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
                         }
                         else
-                            fi1ri.CopyTo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"), true);
+                            fiSavedInfo1.CopyTo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"), true);
                     }
 
                     return;
@@ -1599,13 +1596,13 @@ namespace SyncFolders
                 }
 
                 // there we try to restore the older file 2, since it seems to be OK, while newer file 1 failed.
-                fi2ri = new System.IO.FileInfo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
+                fiSavedInfo2 = new System.IO.FileInfo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
                 bForceCreateInfo2 = false;
 
-                if (_bCreateInfo && (!fi2ri.Exists || fi2ri.LastWriteTimeUtc != fi2.LastWriteTimeUtc || bForceCreateInfo2))
+                if (_bCreateInfo && (!fiSavedInfo2.Exists || fiSavedInfo2.LastWriteTimeUtc != fi2.LastWriteTimeUtc || bForceCreateInfo2))
                 {
-                    bCopied2To1 = CreateRestoreInfoAndCopy(fi2.FullName, fi2ri.FullName, filePath1, "(file was healthy)");
-                    fi2ri = new System.IO.FileInfo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
+                    bCopied2To1 = CreateRestoreInfoAndCopy(fi2.FullName, fiSavedInfo2.FullName, filePath1, "(file was healthy)");
+                    fiSavedInfo2 = new System.IO.FileInfo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
 
                     if (bCopied2To1)
                         bForceCreateInfo2 = false;
@@ -1620,7 +1617,7 @@ namespace SyncFolders
                 {
                     try
                     {
-                        CopyRepairSingleFile(filePath1, filePath2,fi2ri.FullName,ref bForceCreateInfo2, ref bForceCreateInfo1, "(file was healthy)", true, true);
+                        CopyRepairSingleFile(filePath1, filePath2, fiSavedInfo2.FullName,ref bForceCreateInfo2, ref bForceCreateInfo1, "(file was healthy)", true, true);
                     }
                     catch (Exception)
                     {
@@ -1631,21 +1628,21 @@ namespace SyncFolders
                 }
 
 
-                if ((_bCreateInfo && (!fi2ri.Exists || fi2ri.LastWriteTimeUtc!=fi2ri.LastWriteTimeUtc)) || (fi2ri.Exists && bForceCreateInfo2))
+                if ((_bCreateInfo && (!fiSavedInfo2.Exists || fiSavedInfo2.LastWriteTimeUtc!=fi2.LastWriteTimeUtc)) || (fiSavedInfo2.Exists && bForceCreateInfo2))
                 {
-                    CreateRestoreInfo(filePath2, CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
-                    fi2ri = new System.IO.FileInfo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
+                    CreateSavedInfo(filePath2, CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
+                    fiSavedInfo2 = new System.IO.FileInfo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
                 }
 
-                if (fi2ri.Exists)
+                if (fiSavedInfo2.Exists)
                 {
                     if (bForceCreateInfo1)
                     {
-                        if (_bCreateInfo || fi1ri.Exists)
-                            CreateRestoreInfo(filePath1, CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
+                        if (_bCreateInfo || fiSavedInfo1.Exists)
+                            CreateSavedInfo(filePath1, CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
                     }
                     else
-                        fi2ri.CopyTo(CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"), true);
+                        fiSavedInfo2.CopyTo(CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"), true);
                 }
             }
             finally
@@ -1664,39 +1661,39 @@ namespace SyncFolders
         {
             // bidirectionally path
             // both files are present and have same modification date
-            System.IO.FileInfo fi2ri = new System.IO.FileInfo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
-            //System.IO.FileInfo fi2ri = new System.IO.FileInfo(System.IO.Path.Combine(System.IO.Path.Combine(fi2.DirectoryName, "RestoreInfo"), fi2.Name + ".chk"));
-            System.IO.FileInfo fi1ri = new System.IO.FileInfo(CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
+            System.IO.FileInfo fiSavedInfo2 = new System.IO.FileInfo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
+            //System.IO.FileInfo fiSavedInfo2 = new System.IO.FileInfo(System.IO.Path.Combine(System.IO.Path.Combine(fi2.DirectoryName, "RestoreInfo"), fi2.Name + ".chk"));
+            System.IO.FileInfo fiSavedInfo1 = new System.IO.FileInfo(CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
 
             // if one of the restoreinfo files is missing or has wrong date, but the oOtherSaveInfo is OK then copy the one to the oOtherSaveInfo
-            if (fi1ri.Exists && fi1ri.LastWriteTimeUtc == fi1.LastWriteTimeUtc && (!fi2ri.Exists || fi2ri.LastWriteTimeUtc != fi2.LastWriteTimeUtc))
+            if (fiSavedInfo1.Exists && fiSavedInfo1.LastWriteTimeUtc == fi1.LastWriteTimeUtc && (!fiSavedInfo2.Exists || fiSavedInfo2.LastWriteTimeUtc != fi2.LastWriteTimeUtc))
             {
                 try
                 {
                     _copyFiles.WaitOne();
-                    fi1ri.CopyTo(fi2ri.FullName, true);
+                    fiSavedInfo1.CopyTo(fiSavedInfo2.FullName, true);
                 }
                 finally
                 {
                     _copyFiles.Release();
                 }
 
-                fi2ri = new System.IO.FileInfo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
+                fiSavedInfo2 = new System.IO.FileInfo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
             }
             else
-                if (fi2ri.Exists && fi2ri.LastWriteTimeUtc == fi2.LastWriteTimeUtc && (!fi1ri.Exists || fi1ri.LastWriteTimeUtc != fi1.LastWriteTimeUtc))
+                if (fiSavedInfo2.Exists && fiSavedInfo2.LastWriteTimeUtc == fi2.LastWriteTimeUtc && (!fiSavedInfo1.Exists || fiSavedInfo1.LastWriteTimeUtc != fi1.LastWriteTimeUtc))
                 {
                     try
                     {
                         _copyFiles.WaitOne();
-                        fi2ri.CopyTo(fi1ri.FullName, true);
+                        fiSavedInfo2.CopyTo(fiSavedInfo1.FullName, true);
                     }
                     finally
                     {
                         _copyFiles.Release();
                     }
 
-                    fi1ri = new System.IO.FileInfo(CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
+                    fiSavedInfo1 = new System.IO.FileInfo(CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
                 }
 
 
@@ -1716,17 +1713,17 @@ namespace SyncFolders
                     bool bTotalResultOk = true;
                     if (bFirstOrSecond)
                     {
-                        bTotalResultOk = TestSingleFile2(fi1.FullName, fi1ri.FullName, ref bCreateInfo1, true, !_bSkipRecentlyTested, true, true, false);
+                        bTotalResultOk = TestSingleFile2(fi1.FullName, fiSavedInfo1.FullName, ref bCreateInfo1, true, !_bSkipRecentlyTested, true, true, false);
                         if (!string.Equals(fi1.FullName, fi2.FullName, StringComparison.CurrentCultureIgnoreCase))
-                            bTotalResultOk = bTotalResultOk && TestSingleFile2(fi2.FullName, fi2ri.FullName, ref bCreateInfo2, true, !_bSkipRecentlyTested, true, true, false);
+                            bTotalResultOk = bTotalResultOk && TestSingleFile2(fi2.FullName, fiSavedInfo2.FullName, ref bCreateInfo2, true, !_bSkipRecentlyTested, true, true, false);
                         else
                             bCreateInfo2 = false;
                     }
                     else
                     {
-                        bTotalResultOk = TestSingleFile2(fi2.FullName, fi2ri.FullName, ref bCreateInfo2, true, !_bSkipRecentlyTested, true, true, false);
+                        bTotalResultOk = TestSingleFile2(fi2.FullName, fiSavedInfo2.FullName, ref bCreateInfo2, true, !_bSkipRecentlyTested, true, true, false);
                         if (!string.Equals(fi1.FullName, fi2.FullName, StringComparison.CurrentCultureIgnoreCase))
-                            bTotalResultOk = bTotalResultOk && TestSingleFile2(fi1.FullName, fi1ri.FullName, ref bCreateInfo1, true, !_bSkipRecentlyTested, true, true, false);
+                            bTotalResultOk = bTotalResultOk && TestSingleFile2(fi1.FullName, fiSavedInfo1.FullName, ref bCreateInfo1, true, !_bSkipRecentlyTested, true, true, false);
                         else
                         {
                             bCreateInfo1 = bCreateInfo2;
@@ -1736,7 +1733,7 @@ namespace SyncFolders
 
                     if (!bTotalResultOk)
                     {
-                        TestAndRepairTwoFiles(fi1.FullName, fi2.FullName, fi1ri.FullName, fi2ri.FullName, ref bCreateInfo);
+                        TestAndRepairTwoFiles(fi1.FullName, fi2.FullName, fiSavedInfo1.FullName, fiSavedInfo2.FullName, ref bCreateInfo);
                         bCreateInfo1 = bCreateInfo;
                         bCreateInfo2 = bCreateInfo;
                     }
@@ -1745,49 +1742,49 @@ namespace SyncFolders
                 {
                     if (bFirstOrSecond)
                     {
-                        TestSingleFile2(fi1.FullName, fi1ri.FullName, ref bCreateInfo1, true, !_bSkipRecentlyTested, true, false, false);
+                        TestSingleFile2(fi1.FullName, fiSavedInfo1.FullName, ref bCreateInfo1, true, !_bSkipRecentlyTested, true, false, false);
                         if (!string.Equals(fi1.FullName, fi2.FullName, StringComparison.CurrentCultureIgnoreCase))
-                            TestSingleFile2(fi2.FullName, fi2ri.FullName, ref bCreateInfo2, true, !_bSkipRecentlyTested, true, false, false);
+                            TestSingleFile2(fi2.FullName, fiSavedInfo2.FullName, ref bCreateInfo2, true, !_bSkipRecentlyTested, true, false, false);
                         else
                             bCreateInfo2 = false;
                     }
                     else
                     {
-                        TestSingleFile2(fi2.FullName, fi2ri.FullName, ref bCreateInfo2, true, !_bSkipRecentlyTested, true, false, false);
+                        TestSingleFile2(fi2.FullName, fiSavedInfo2.FullName, ref bCreateInfo2, true, !_bSkipRecentlyTested, true, false, false);
                         if (!string.Equals(fi1.FullName, fi2.FullName, StringComparison.CurrentCultureIgnoreCase))
-                            TestSingleFile2(fi1.FullName, fi1ri.FullName, ref bCreateInfo1, true, !_bSkipRecentlyTested, true, false, false);
+                            TestSingleFile2(fi1.FullName, fiSavedInfo1.FullName, ref bCreateInfo1, true, !_bSkipRecentlyTested, true, false, false);
                         else
                             bCreateInfo1 = false;
                     }
 
-                    //TestSingleFile(fi1.FullName, fi1ri.FullName, ref bCreateInfo1);
-                    //TestSingleFile(fi2.FullName, fi2ri.FullName, ref bCreateInfo2);
+                    //TestSingleFile(fi1.FullName, fiSavedInfo1.FullName, ref bCreateInfo1);
+                    //TestSingleFile(fi2.FullName, fiSavedInfo2.FullName, ref bCreateInfo2);
                 }
             }
 
-            if (_bCreateInfo && (!fi1ri.Exists || fi1ri.LastWriteTimeUtc != fi1.LastWriteTimeUtc || bCreateInfo1))
+            if (_bCreateInfo && (!fiSavedInfo1.Exists || fiSavedInfo1.LastWriteTimeUtc != fi1.LastWriteTimeUtc || bCreateInfo1))
             {
-                CreateRestoreInfo(fi1.FullName, fi1ri.FullName);
-                if (fi1ri.FullName.Equals(fi2ri.FullName, StringComparison.InvariantCultureIgnoreCase))
-                    fi2ri = new System.IO.FileInfo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
+                CreateSavedInfo(fi1.FullName, fiSavedInfo1.FullName);
+                if (fiSavedInfo1.FullName.Equals(fiSavedInfo2.FullName, StringComparison.InvariantCultureIgnoreCase))
+                    fiSavedInfo2 = new System.IO.FileInfo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
             }
 
-            if (_bCreateInfo && (!fi2ri.Exists || fi2ri.LastWriteTimeUtc != fi2.LastWriteTimeUtc || bCreateInfo2))
+            if (_bCreateInfo && (!fiSavedInfo2.Exists || fiSavedInfo2.LastWriteTimeUtc != fi2.LastWriteTimeUtc || bCreateInfo2))
             {
-                CreateRestoreInfo(fi2.FullName, fi2ri.FullName);
+                CreateSavedInfo(fi2.FullName, fiSavedInfo2.FullName);
             }
 
 
-            fi2ri = new System.IO.FileInfo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
-            fi1ri = new System.IO.FileInfo(CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
+            fiSavedInfo2 = new System.IO.FileInfo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
+            fiSavedInfo1 = new System.IO.FileInfo(CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
 
             // if one of the files is missing or has wrong date, but the oOtherSaveInfo is OK then copy the one to the oOtherSaveInfo
-            if (fi1ri.Exists && fi1ri.LastWriteTimeUtc == fi1.LastWriteTimeUtc && (!fi2ri.Exists || fi2ri.LastWriteTimeUtc != fi2.LastWriteTimeUtc))
+            if (fiSavedInfo1.Exists && fiSavedInfo1.LastWriteTimeUtc == fi1.LastWriteTimeUtc && (!fiSavedInfo2.Exists || fiSavedInfo2.LastWriteTimeUtc != fi2.LastWriteTimeUtc))
             {
                 try
                 {
                     _copyFiles.WaitOne();
-                    fi1ri.CopyTo(fi2ri.FullName, true);
+                    fiSavedInfo1.CopyTo(fiSavedInfo2.FullName, true);
                 }
                 finally
                 {
@@ -1795,12 +1792,12 @@ namespace SyncFolders
                 }
             }
             else
-                if (fi2ri.Exists && fi2ri.LastWriteTimeUtc == fi2.LastWriteTimeUtc && (!fi1ri.Exists || fi1ri.LastWriteTimeUtc != fi1.LastWriteTimeUtc))
+                if (fiSavedInfo2.Exists && fiSavedInfo2.LastWriteTimeUtc == fi2.LastWriteTimeUtc && (!fiSavedInfo1.Exists || fiSavedInfo1.LastWriteTimeUtc != fi1.LastWriteTimeUtc))
                 {
                     try
                     {
                         _copyFiles.WaitOne();
-                        fi2ri.CopyTo(fi1ri.FullName, true);
+                        fiSavedInfo2.CopyTo(fiSavedInfo1.FullName, true);
                     }
                     finally
                     {
@@ -1900,8 +1897,8 @@ namespace SyncFolders
                 }
 
                 // save last write time also at the time of the .chk file
-                System.IO.FileInfo firi = new System.IO.FileInfo(pathRestoreInfoFile);
-                firi.LastWriteTimeUtc = finfo.LastWriteTimeUtc;
+                System.IO.FileInfo fiSavedInfo = new System.IO.FileInfo(pathRestoreInfoFile);
+                fiSavedInfo.LastWriteTimeUtc = finfo.LastWriteTimeUtc;
 
             }
             catch (System.IO.IOException ex)
@@ -1916,7 +1913,7 @@ namespace SyncFolders
             return true;
         }
 
-        bool CreateRestoreInfo(string pathFile, string pathRestoreInfoFile)
+        bool CreateSavedInfo(string pathFile, string strPathSavedChkInfoFile)
         {
             System.IO.FileInfo finfo = new System.IO.FileInfo(pathFile);
             SavedInfo si = new SavedInfo(finfo.Length, finfo.LastWriteTimeUtc, false);
@@ -1958,35 +1955,35 @@ namespace SyncFolders
 
             try
             {
-                System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(pathRestoreInfoFile.Substring(0, pathRestoreInfoFile.LastIndexOfAny(new char[] { '\\', '/' })));
+                System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(strPathSavedChkInfoFile.Substring(0, strPathSavedChkInfoFile.LastIndexOfAny(new char[] { '\\', '/' })));
                 if (!di.Exists)
                 {
                     di.Create();
-                    di = new System.IO.DirectoryInfo(pathRestoreInfoFile.Substring(0, pathRestoreInfoFile.LastIndexOfAny(new char[] { '\\', '/' })));
+                    di = new System.IO.DirectoryInfo(strPathSavedChkInfoFile.Substring(0, strPathSavedChkInfoFile.LastIndexOfAny(new char[] { '\\', '/' })));
                     di.Attributes = di.Attributes | System.IO.FileAttributes.Hidden;
                 }
 
-                System.IO.FileInfo firi = new System.IO.FileInfo(pathRestoreInfoFile);
-                if (firi.Exists)
+                System.IO.FileInfo fiSavedInfo = new System.IO.FileInfo(strPathSavedChkInfoFile);
+                if (fiSavedInfo.Exists)
                 {
-                    firi.Delete();
+                    fiSavedInfo.Delete();
                 }
 
-                using (System.IO.FileStream s = System.IO.File.Create(pathRestoreInfoFile, 1024*1024))
+                using (System.IO.FileStream s = System.IO.File.Create(strPathSavedChkInfoFile, 1024*1024))
                 {
                     si.SaveTo(s);
                     s.Close();
                 }
 
                 // save last write time also at the time of the .chk file
-                firi = new System.IO.FileInfo(pathRestoreInfoFile);
-                firi.LastWriteTimeUtc = finfo.LastWriteTimeUtc;
+                fiSavedInfo = new System.IO.FileInfo(strPathSavedChkInfoFile);
+                fiSavedInfo.LastWriteTimeUtc = finfo.LastWriteTimeUtc;
 
-                CreateOrUpdateFileChecked(pathRestoreInfoFile);
+                CreateOrUpdateFileChecked(strPathSavedChkInfoFile);
 
             } catch (System.IO.IOException ex)
             {
-                WriteLog(0, "I/O Error writing file: \"", pathRestoreInfoFile, "\": " + ex.Message);
+                WriteLog(0, "I/O Error writing file: \"", strPathSavedChkInfoFile, "\": " + ex.Message);
                 return false;
             }
             return true;
@@ -2002,7 +1999,7 @@ namespace SyncFolders
             bool bFailASAPwoMessage, bool bReturnFalseIfNonRecoverableNotIfDamaged)
         {
             System.IO.FileInfo finfo = new System.IO.FileInfo(pathFile);
-            System.IO.FileInfo firi = new System.IO.FileInfo(pathRestoreInfoFile);
+            System.IO.FileInfo fiSavedInfo = new System.IO.FileInfo(pathRestoreInfoFile);
             bool bSkipBufferedFile = false;
 
             try
@@ -2015,7 +2012,7 @@ namespace SyncFolders
                     // 100% of files are skipped within first 2 years after last check
                     // 0% after 7 years after last check
                     if (fichecked.Exists && finfo.Exists &&
-                        (!firi.Exists || firi.LastWriteTimeUtc == finfo.LastWriteTimeUtc) &&
+                        (!fiSavedInfo.Exists || fiSavedInfo.LastWriteTimeUtc == finfo.LastWriteTimeUtc) &&
                         fichecked.LastWriteTimeUtc.CompareTo(finfo.LastWriteTimeUtc) > 0 &&
                         Math.Abs(DateTime.UtcNow.Year * 366 + DateTime.UtcNow.DayOfYear - fichecked.LastWriteTimeUtc.Year * 366 - fichecked.LastWriteTimeUtc.DayOfYear) < 366 * 2.2 + 366 * 4.6 * _randomizeChecked.NextDouble())
                     {
@@ -2030,12 +2027,12 @@ namespace SyncFolders
 
         repeat:
             SavedInfo si = new SavedInfo();
-            bool bSaveInfoUnreadable = !firi.Exists;
+            bool bSaveInfoUnreadable = !fiSavedInfo.Exists;
             if (!bSaveInfoUnreadable)
             {
                 try
                 {
-                    using (System.IO.BufferedStream s = new System.IO.BufferedStream(System.IO.File.OpenRead(pathRestoreInfoFile), (int)Math.Min(firi.Length + 1, 32 * 1024 * 1024)))
+                    using (System.IO.BufferedStream s = new System.IO.BufferedStream(System.IO.File.OpenRead(pathRestoreInfoFile), (int)Math.Min(fiSavedInfo.Length + 1, 32 * 1024 * 1024)))
                     {
                         si.ReadFrom(s);
                         s.Close();
@@ -2065,7 +2062,7 @@ namespace SyncFolders
             if (!bForcePhysicalTest)
             {
                 if (!bSkipBufferedFile && fichecked.Exists && finfo.Exists &&
-                    (!firi.Exists || firi.LastWriteTimeUtc == finfo.LastWriteTimeUtc) &&
+                    (!fiSavedInfo.Exists || fiSavedInfo.LastWriteTimeUtc == finfo.LastWriteTimeUtc) &&
                     fichecked.LastWriteTimeUtc.CompareTo(finfo.LastWriteTimeUtc) > 0 &&
                     Math.Abs(DateTime.UtcNow.Year * 366 + DateTime.UtcNow.DayOfYear - fichecked.LastWriteTimeUtc.Year * 366 - fichecked.LastWriteTimeUtc.DayOfYear) < 366 * 2.2 + 366 * 4.6 * _randomizeChecked.NextDouble())
                 {
@@ -2211,7 +2208,7 @@ namespace SyncFolders
                     };
                     Block.ReleaseBlock(b);
 
-                    List<RestoreInfo> ri = si.EndRestore(out nonRestoredSize, firi.FullName, this);
+                    List<RestoreInfo> ri = si.EndRestore(out nonRestoredSize, fiSavedInfo.FullName, this);
                     if (ri.Count > 1)
                         WriteLog(0, "There are ", ri.Count, " bad blocks in the file ", finfo.FullName, ", non-restorable parts: ", nonRestoredSize, " bytes, file remains unchanged, it was only tested");
                     else
@@ -2272,16 +2269,16 @@ namespace SyncFolders
         bool TestAndRepairSingleFile(string pathFile, string pathRestoreInfoFile, ref bool bForceCreateInfo)
         {
             System.IO.FileInfo finfo = new System.IO.FileInfo(pathFile);
-            System.IO.FileInfo firi = new System.IO.FileInfo(pathRestoreInfoFile);
+            System.IO.FileInfo fiSavedInfo = new System.IO.FileInfo(pathRestoreInfoFile);
 
             SavedInfo si = new SavedInfo();
-            bool bNotReadableSi = !firi.Exists;
+            bool bNotReadableSi = !fiSavedInfo.Exists;
 
             if (!bNotReadableSi)
             {
                 try
                 {
-                    using (System.IO.BufferedStream s = new System.IO.BufferedStream(System.IO.File.OpenRead(pathRestoreInfoFile), (int)Math.Min(firi.Length + 1, 8 * 1024 * 1024)))
+                    using (System.IO.BufferedStream s = new System.IO.BufferedStream(System.IO.File.OpenRead(pathRestoreInfoFile), (int)Math.Min(fiSavedInfo.Length + 1, 8 * 1024 * 1024)))
                     {
                         si.ReadFrom(s);
                         s.Close();
@@ -2308,7 +2305,7 @@ namespace SyncFolders
             if (bNotReadableSi || si.Length != finfo.Length || !FileTimesEqual(si.TimeStamp, finfo.LastWriteTimeUtc) /* si.TimeStamp != finfo.LastWriteTimeUtc*/)
             {
                 bool bAllBlocksOk = true;
-                if (firi.Exists)
+                if (fiSavedInfo.Exists)
                     bForceCreateInfo = true;
 
                 if (!bNotReadableSi)
@@ -2433,7 +2430,7 @@ namespace SyncFolders
             try
             { 
                 long nonRestoredSize = 0;
-                List<RestoreInfo> rinfos = si.EndRestore(out nonRestoredSize, firi.FullName, this);
+                List<RestoreInfo> rinfos = si.EndRestore(out nonRestoredSize, fiSavedInfo.FullName, this);
                 if (nonRestoredSize > 0)
                     bForceCreateInfo = true;
 
@@ -2507,8 +2504,8 @@ namespace SyncFolders
         {
             System.IO.FileInfo fi1 = new System.IO.FileInfo(path1);
             System.IO.FileInfo fi2 = new System.IO.FileInfo(path2);
-            System.IO.FileInfo fi1ri = new System.IO.FileInfo(path1ri);
-            System.IO.FileInfo fi2ri = new System.IO.FileInfo(path2ri);
+            System.IO.FileInfo fiSavedInfo1 = new System.IO.FileInfo(path1ri);
+            System.IO.FileInfo fiSavedInfo2 = new System.IO.FileInfo(path2ri);
             System.IO.FileInfo fi1checked = new System.IO.FileInfo(path1ri + "ed");
             System.IO.FileInfo fi2checked = new System.IO.FileInfo(path2ri + "ed");
 
@@ -2516,9 +2513,9 @@ namespace SyncFolders
             SavedInfo si2 = new SavedInfo();
 
             bool bSaveInfo1Present = false;
-            if (fi1ri.Exists && fi1ri.LastWriteTimeUtc == fi1.LastWriteTimeUtc)
+            if (fiSavedInfo1.Exists && fiSavedInfo1.LastWriteTimeUtc == fi1.LastWriteTimeUtc)
             {
-                using (System.IO.Stream s = System.IO.File.OpenRead(fi1ri.FullName))
+                using (System.IO.Stream s = System.IO.File.OpenRead(fiSavedInfo1.FullName))
                 {
                     si1.ReadFrom(s);
                     bSaveInfo1Present = si1.Length==fi1.Length && FileTimesEqual(si1.TimeStamp, fi1.LastWriteTimeUtc) /*si1.TimeStamp==fi1.LastWriteTimeUtc*/;
@@ -2536,9 +2533,9 @@ namespace SyncFolders
                 }
             }
 
-            if (fi2ri.Exists && fi2ri.LastWriteTimeUtc == fi2.LastWriteTimeUtc)
+            if (fiSavedInfo2.Exists && fiSavedInfo2.LastWriteTimeUtc == fi2.LastWriteTimeUtc)
             {
-                using (System.IO.Stream s = System.IO.File.OpenRead(fi2ri.FullName))
+                using (System.IO.Stream s = System.IO.File.OpenRead(fiSavedInfo2.FullName))
                 {
                     SavedInfo si3 = new SavedInfo();
                     si3.ReadFrom(s);
@@ -2743,9 +2740,9 @@ namespace SyncFolders
                 }
 
                 long notRestoredSize1 = 0;
-                restore1.AddRange(si1.EndRestore(out notRestoredSize1, fi1ri.FullName, this));
+                restore1.AddRange(si1.EndRestore(out notRestoredSize1, fiSavedInfo1.FullName, this));
                 long notRestoredSize2 = 0;
-                restore2.AddRange(si2.EndRestore(out notRestoredSize2, fi2ri.FullName, this));
+                restore2.AddRange(si2.EndRestore(out notRestoredSize2, fiSavedInfo2.FullName, this));
 
                 // now we've got the list of improvements for both files
                 using (System.IO.Stream s1 = System.IO.File.Open(path1, System.IO.FileMode.Open, System.IO.FileAccess.ReadWrite, System.IO.FileShare.Read))
@@ -3066,6 +3063,7 @@ namespace SyncFolders
         {
             // if same file then try to repair in place
             if (string.Equals(pathTargetFile, pathFile, StringComparison.InvariantCultureIgnoreCase))
+            {
                 if (_bRepairFiles)
                     return TestAndRepairSingleFile(pathFile, pathRestoreInfoFile, ref bForceCreateInfo);
                 else
@@ -3087,15 +3085,16 @@ namespace SyncFolders
                     else
                         return true;
                 }
+            }
 
 
             System.IO.FileInfo finfo = new System.IO.FileInfo(pathFile);
-            System.IO.FileInfo firi = new System.IO.FileInfo(pathRestoreInfoFile);
+            System.IO.FileInfo fiSavedInfo = new System.IO.FileInfo(pathRestoreInfoFile);
 
             DateTime dtmOriginalTime = finfo.LastWriteTimeUtc;
 
             SavedInfo si = new SavedInfo();
-            bool bNotReadableSi = !firi.Exists;
+            bool bNotReadableSi = !fiSavedInfo.Exists;
 
             if (!bNotReadableSi)
             {
@@ -3423,16 +3422,16 @@ namespace SyncFolders
 
             System.IO.FileInfo fi1 = new System.IO.FileInfo(path1);
             System.IO.FileInfo fi2 = new System.IO.FileInfo(path2);
-            System.IO.FileInfo fi1ri = new System.IO.FileInfo(path1ri);
-            System.IO.FileInfo fi2ri = new System.IO.FileInfo(path2ri);
+            System.IO.FileInfo fiSavedInfo1 = new System.IO.FileInfo(path1ri);
+            System.IO.FileInfo fiSavedInfo2 = new System.IO.FileInfo(path2ri);
 
             SavedInfo si1 = new SavedInfo();
             SavedInfo si2 = new SavedInfo();
 
             bool bSaveInfo1Present = false;
-            if (fi1ri.Exists && (_bIgnoreTimeDifferences || fi1ri.LastWriteTimeUtc == fi1.LastWriteTimeUtc) )
+            if (fiSavedInfo1.Exists && (_bIgnoreTimeDifferences || fiSavedInfo1.LastWriteTimeUtc == fi1.LastWriteTimeUtc) )
             {
-                using (System.IO.Stream s = System.IO.File.OpenRead(fi1ri.FullName))
+                using (System.IO.Stream s = System.IO.File.OpenRead(fiSavedInfo1.FullName))
                 {
                     si1.ReadFrom(s);
                     bSaveInfo1Present = si1.Length == fi1.Length && (_bIgnoreTimeDifferences || FileTimesEqual(si1.TimeStamp, fi1.LastWriteTimeUtc) )/*si1.TimeStamp == fi1.LastWriteTimeUtc*/;
@@ -3450,9 +3449,9 @@ namespace SyncFolders
                 }
             }
 
-            if (fi2ri.Exists && (_bIgnoreTimeDifferences || fi2ri.LastWriteTimeUtc == fi2.LastWriteTimeUtc) )
+            if (fiSavedInfo2.Exists && (_bIgnoreTimeDifferences || fiSavedInfo2.LastWriteTimeUtc == fi2.LastWriteTimeUtc) )
             {
-                using (System.IO.Stream s = System.IO.File.OpenRead(fi2ri.FullName))
+                using (System.IO.Stream s = System.IO.File.OpenRead(fiSavedInfo2.FullName))
                 {
                     SavedInfo si3 = new SavedInfo();
                     si3.ReadFrom(s);
@@ -3619,11 +3618,11 @@ namespace SyncFolders
                 }
 
                 long notRestoredSize1 = 0;
-                restore1.AddRange(si1.EndRestore(out notRestoredSize1, fi1ri.FullName, this));
+                restore1.AddRange(si1.EndRestore(out notRestoredSize1, fiSavedInfo1.FullName, this));
                 notRestoredSize1 = 0;
 
                 long notRestoredSize2 = 0;
-                restore2.AddRange(si2.EndRestore(out notRestoredSize2, fi2ri.FullName, this));
+                restore2.AddRange(si2.EndRestore(out notRestoredSize2, fiSavedInfo2.FullName, this));
                 notRestoredSize2 = 0;
 
                 // now we've got the list of improvements for both files
@@ -4013,7 +4012,7 @@ namespace SyncFolders
             
             System.IO.File.Copy(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"Coolpix_2010-08-01_23-57-56.JPG"),
                 System.IO.Path.Combine(textBoxFirstFolder.Text,"TestPicture1.jpg"));
-            CreateRestoreInfo(System.IO.Path.Combine(textBoxFirstFolder.Text,"TestPicture1.jpg"),System.IO.Path.Combine(textBoxFirstFolder.Text,"RestoreInfo\\TestPicture1.jpg.chk"));
+            CreateSavedInfo(System.IO.Path.Combine(textBoxFirstFolder.Text,"TestPicture1.jpg"),System.IO.Path.Combine(textBoxFirstFolder.Text,"RestoreInfo\\TestPicture1.jpg.chk"));
             DateTime dtmOld = System.IO.File.GetLastWriteTimeUtc(System.IO.Path.Combine(textBoxFirstFolder.Text, "TestPicture1.jpg"));
             using (System.IO.FileStream s = System.IO.File.OpenWrite(System.IO.Path.Combine(textBoxFirstFolder.Text, "TestPicture1.jpg")))
             {
@@ -4027,11 +4026,11 @@ namespace SyncFolders
             System.IO.File.Copy(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Coolpix_2010-08-01_23-57-56.JPG"),
                 System.IO.Path.Combine(textBoxFirstFolder.Text, "TestPicture2.jpg"));
             System.IO.File.SetLastWriteTimeUtc(System.IO.Path.Combine(textBoxFirstFolder.Text, "TestPicture2.jpg"), dtmOld);
-            CreateRestoreInfo(System.IO.Path.Combine(textBoxFirstFolder.Text, "TestPicture2.jpg"), System.IO.Path.Combine(textBoxFirstFolder.Text, "RestoreInfo\\TestPicture2.jpg.chk"));
+            CreateSavedInfo(System.IO.Path.Combine(textBoxFirstFolder.Text, "TestPicture2.jpg"), System.IO.Path.Combine(textBoxFirstFolder.Text, "RestoreInfo\\TestPicture2.jpg.chk"));
             System.IO.File.Copy(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Coolpix_2010-08-01_23-57-56.JPG"),
                 System.IO.Path.Combine(textBoxSecondFolder.Text, "TestPicture2.jpg"));
             System.IO.File.SetLastWriteTimeUtc(System.IO.Path.Combine(textBoxSecondFolder.Text, "TestPicture2.jpg"), dtmOld);
-            CreateRestoreInfo(System.IO.Path.Combine(textBoxSecondFolder.Text, "TestPicture2.jpg"), System.IO.Path.Combine(textBoxSecondFolder.Text, "RestoreInfo\\TestPicture2.jpg.chk"));
+            CreateSavedInfo(System.IO.Path.Combine(textBoxSecondFolder.Text, "TestPicture2.jpg"), System.IO.Path.Combine(textBoxSecondFolder.Text, "RestoreInfo\\TestPicture2.jpg.chk"));
             using (System.IO.FileStream s = System.IO.File.OpenWrite(System.IO.Path.Combine(textBoxFirstFolder.Text, "TestPicture2.jpg")))
             {
                 s.Seek(81920 + 2048, System.IO.SeekOrigin.Begin);

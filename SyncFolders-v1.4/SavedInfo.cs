@@ -284,19 +284,19 @@ namespace SyncFolders
             // read blocks of the first row
             for (long i = lBlocksInFirstRow - 1; i >= 0; --i)
             {
-                Block b = null;
+                Block oBlock = null;
 
-                b = Block.GetBlock();
+                oBlock = Block.GetBlock();
 
                 try
                 {
-                    if (b.ReadFrom(oInputStream) != b.Length)
+                    if (oBlock.ReadFrom(oInputStream) != oBlock.Length)
                     {
                         m_aBlocks.Clear();
                         return;
                     }
 
-                    m_aBlocks.Add(b);
+                    m_aBlocks.Add(oBlock);
                 }
                 catch (System.IO.IOException)
                 {
@@ -304,20 +304,20 @@ namespace SyncFolders
                     // add a null block for failed reads
                     m_aBlocks.Add(null);
                     // seek the next block
-                    oInputStream.Seek(b.Length * (lBlocksInFirstRow - i) + 34, System.IO.SeekOrigin.Begin);
+                    oInputStream.Seek(oBlock.Length * (lBlocksInFirstRow - i) + 34, System.IO.SeekOrigin.Begin);
                 }
             };
 
             // read blocks of second row
             for (long i = lBlocksInSecondRow - 1; i >= 0; --i)
             {
-                Block b = null;
+                Block oBlock = null;
 
-                b = Block.GetBlock();
+                oBlock = Block.GetBlock();
 
                 try
                 {
-                    if (b.ReadFrom(oInputStream) != b.Length)
+                    if (oBlock.ReadFrom(oInputStream) != oBlock.Length)
                     {
                         // clear both lists if the file has been tampered with
                         m_aBlocks.Clear();
@@ -325,7 +325,7 @@ namespace SyncFolders
                         return;
                     }
 
-                    m_aOtherBlocks.Add(b);
+                    m_aOtherBlocks.Add(oBlock);
                 }
                 catch (System.IO.IOException)
                 {
@@ -333,7 +333,7 @@ namespace SyncFolders
                     // add a null block for failed reads
                     m_aOtherBlocks.Add(null);
                     // seek the next block
-                    oInputStream.Seek(b.Length * (lBlocksInSecondRow - i + lBlocksInFirstRow) + 34, System.IO.SeekOrigin.Begin);
+                    oInputStream.Seek(oBlock.Length * (lBlocksInSecondRow - i + lBlocksInFirstRow) + 34, System.IO.SeekOrigin.Begin);
                 };
             };
 
@@ -530,10 +530,10 @@ namespace SyncFolders
         /// can be missing. All readable blocks are expected to come from
         /// beginning to end of original file.
         /// </summary>
-        /// <param name="b">The block from original file</param>
+        /// <param name="oBlock">The block from original file</param>
         /// <param name="index">Index of the block</param>
         /// <returns>true iff the block has been accepted (e.g. if its checksum matches)</returns>
-        public bool AnalyzeForTestOrRestore(Block b, long index)
+        public bool AnalyzeForTestOrRestore(Block oBlock, long index)
         {
 
             if (m_aBlocks.Count == 0)
@@ -544,12 +544,12 @@ namespace SyncFolders
             if (m_aChecksums.Count <= index)
             {
                 //m_aBlocks[(int)(lBlockIndex % m_aBlocks.Count)] = m_aBlocks[(int)(lBlockIndex % m_aBlocks.Count)] ^ oBlockOfOriginalFile;
-                m_aBlocks[(int)(index % m_aBlocks.Count)].DoXor(b);
+                m_aBlocks[(int)(index % m_aBlocks.Count)].DoXor(oBlock);
 
                 // if there is a second row of blocks, then perform also preparation of oOtherSaveInfo blocks;
                 if (m_aOtherBlocks.Count > 0)
                     //m_aOtherBlocks[(int)(lBlockIndex % m_aOtherBlocks.Count)] = m_aOtherBlocks[(int)(lBlockIndex % m_aOtherBlocks.Count)] ^ oBlockOfOriginalFile;
-                    m_aOtherBlocks[(int)(index % m_aOtherBlocks.Count)].DoXor(b);
+                    m_aOtherBlocks[(int)(index % m_aOtherBlocks.Count)].DoXor(oBlock);
 
                 // analyze which blocks have been skipped
                 while (++m_lCurrentlyRestoredBlock < index)
@@ -563,7 +563,7 @@ namespace SyncFolders
             // calc a checksum for verification of the block
             byte[] checksum = new byte[3];
             int currentIndex = 0;
-            foreach (byte by in b)
+            foreach (byte by in oBlock)
             {
                 checksum[currentIndex++] ^= by;
                 if (currentIndex >= checksum.Length)
@@ -584,12 +584,12 @@ namespace SyncFolders
             else
             {
                 //m_aBlocks[(int)(lBlockIndex % m_aBlocks.Count)] = m_aBlocks[(int)(lBlockIndex % m_aBlocks.Count)] ^ oBlockOfOriginalFile;
-                m_aBlocks[(int)(index % m_aBlocks.Count)].DoXor(b);
+                m_aBlocks[(int)(index % m_aBlocks.Count)].DoXor(oBlock);
 
                 // if there is a second row of blocks, then perform also preparation of oOtherSaveInfo blocks;
                 if (m_aOtherBlocks.Count > 0)
                     //m_aOtherBlocks[(int)(lBlockIndex % m_aOtherBlocks.Count)] = m_aOtherBlocks[(int)(lBlockIndex % m_aOtherBlocks.Count)] ^ oBlockOfOriginalFile;
-                    m_aOtherBlocks[(int)(index % m_aOtherBlocks.Count)].DoXor(b);
+                    m_aOtherBlocks[(int)(index % m_aOtherBlocks.Count)].DoXor(oBlock);
 
                 // analyze which blocks have been skipped
                 while (++m_lCurrentlyRestoredBlock < index)
@@ -662,9 +662,9 @@ namespace SyncFolders
                 {
                     if (!aUsedIndexesInFirstRow.Contains(i))
                     {
-                        Block b = m_aBlocks[i];
-                        for (int j = b.Length - 1; j >= 0; --j)
-                            if (b[j] != 0)
+                        Block oBlock = m_aBlocks[i];
+                        for (int j = oBlock.Length - 1; j >= 0; --j)
+                            if (oBlock[j] != 0)
                             {
                                 bOtherSeemOk = false;
                                 break;
@@ -871,9 +871,13 @@ namespace SyncFolders
             //  then all contents of the m_aBlocks shall be zero
             for (int i = m_aBlocks.Count - 1; i >= 0; --i)
             {
-                Block b = m_aBlocks[i];
-                for (int j = b.Length - 1; j >= 0; --j)
-                    if (b[j] != 0)
+                Block oBlock = m_aBlocks[i];
+
+                if (oBlock == null)
+                    return false;
+
+                for (int j = oBlock.Length - 1; j >= 0; --j)
+                    if (oBlock[j] != 0)
                         return false;
             }
 
@@ -883,9 +887,13 @@ namespace SyncFolders
                 //  then all contents of the m_aOtherBlocks also shall be zero
                 for (int i = m_aOtherBlocks.Count - 1; i >= 0; --i)
                 {
-                    Block b = m_aOtherBlocks[i];
-                    for (int j = b.Length - 1; j >= 0; --j)
-                        if (b[j] != 0)
+                    Block oBlock = m_aOtherBlocks[i];
+
+                    if (oBlock == null)
+                        return false;
+
+                    for (int j = oBlock.Length - 1; j >= 0; --j)
+                        if (oBlock[j] != 0)
                             return false;
                 }
             }
