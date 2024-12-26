@@ -155,9 +155,9 @@ namespace SyncFolders
             this.checkBoxCreateRestoreInfo.Location = new System.Drawing.Point(20, 220);
             this.checkBoxCreateRestoreInfo.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxCreateRestoreInfo.Name = "checkBoxCreateRestoreInfo";
-            this.checkBoxCreateRestoreInfo.Size = new System.Drawing.Size(292, 20);
+            this.checkBoxCreateRestoreInfo.Size = new System.Drawing.Size(299, 20);
             this.checkBoxCreateRestoreInfo.TabIndex = 6;
-            this.checkBoxCreateRestoreInfo.Text = "Add info for restoring single blocks, if missing";
+            this.checkBoxCreateRestoreInfo.Text = "Save info for restoring single blocks, if missing";
             this.checkBoxCreateRestoreInfo.UseVisualStyleBackColor = true;
             // 
             // checkBoxTestAllFiles
