@@ -837,7 +837,7 @@ namespace SyncFolders
                 fi1 = new System.IO.FileInfo(filePath1);
                 fi2 = new System.IO.FileInfo(filePath2);
             }
-            // this solves the problem in this place, but oOtherSaveInfo problems appear down the code
+            // this solves the problem in this place, but other problems appear down the code
             //catch (Exception ex)
             //{
             //    string name1 = filePath1.Substring(filePath1.LastIndexOf('\\') + 1);
@@ -923,6 +923,11 @@ namespace SyncFolders
             }
             else
             {
+                if (fi2.Length == 0 && CheckIfZeroLengthIsInteresting(filePath2))
+                {
+                    WriteLog(0, "Warning: file has zero length, indicating a failed copy operation in the past: ", filePath2);
+                }
+
                 if (_bTestFiles)
                 {
                     System.IO.FileInfo fi2ri = new System.IO.FileInfo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
@@ -942,6 +947,11 @@ namespace SyncFolders
 
         void ProcessFilePair_FirstToSecond_FirstReadonly_FirstExists(string filePath1, string filePath2, System.IO.FileInfo fi1, System.IO.FileInfo fi2)
         {
+            if (fi1.Length == 0 && CheckIfZeroLengthIsInteresting(filePath1))
+            {
+                WriteLog(0, "Warning: file has zero length, indicating a failed copy operation in the past: ", filePath1);
+            }
+
             System.IO.FileInfo fi1ri = new System.IO.FileInfo(CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
             System.IO.FileInfo fi2ri = new System.IO.FileInfo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
 
@@ -1059,7 +1069,7 @@ namespace SyncFolders
                 // we are in first readonly path
                 // both files are present and have same modification date and lentgh
 
-                // if the second restoreinfo is missing or has wrong date, but the oOtherSaveInfo is OK then copy the one to the oOtherSaveInfo
+                // if the second restoreinfo is missing or has wrong date, but the other is OK then copy the one to the other
                 if (fi1ri.Exists && fi1ri.LastWriteTimeUtc == fi1.LastWriteTimeUtc && (!fi2ri.Exists || fi2ri.LastWriteTimeUtc != fi2.LastWriteTimeUtc))
                 {
                     try
@@ -1075,15 +1085,15 @@ namespace SyncFolders
                     fi2ri = new System.IO.FileInfo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
                 }
 
-                bool bCreateInfo = false;
+                bool bForceCreateInfoBecauseDamaged = false;
                 if (_bTestFiles)
                     if (_bRepairFiles)
-                        TestAndRepairSecondFile(fi1.FullName, fi2.FullName, fi1ri.FullName, fi2ri.FullName, ref bCreateInfo);
+                        TestAndRepairSecondFile(fi1.FullName, fi2.FullName, fi1ri.FullName, fi2ri.FullName, ref bForceCreateInfoBecauseDamaged);
                     else
-                        TestSingleFile(fi2.FullName, fi2ri.FullName, ref bCreateInfo, true, !_bSkipRecentlyTested, true);
+                        TestSingleFile(fi2.FullName, fi2ri.FullName, ref bForceCreateInfoBecauseDamaged, true, !_bSkipRecentlyTested, true);
 
 
-                if (_bCreateInfo && (!fi2ri.Exists || fi2ri.LastWriteTimeUtc != fi2.LastWriteTimeUtc || bCreateInfo))
+                if (_bCreateInfo && (!fi2ri.Exists || fi2ri.LastWriteTimeUtc != fi2.LastWriteTimeUtc || bForceCreateInfoBecauseDamaged))
                 {
                     CreateRestoreInfo(fi2.FullName, fi2ri.FullName);
                 }
@@ -1091,7 +1101,7 @@ namespace SyncFolders
                 fi2ri = new System.IO.FileInfo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
                 fi1ri = new System.IO.FileInfo(CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
 
-                // if one of the files is missing or has wrong date, but the oOtherSaveInfo is OK then copy the one to the oOtherSaveInfo
+                // if one of the files is missing or has wrong date, but the other is OK then copy the one to the other
                 if (fi1ri.Exists && fi1ri.LastWriteTimeUtc == fi1.LastWriteTimeUtc && (!fi2ri.Exists || fi2ri.LastWriteTimeUtc != fi2.LastWriteTimeUtc))
                 {
                     try
@@ -1106,20 +1116,20 @@ namespace SyncFolders
                 }
             } else
             {
-                bool bForceCreateInfo = false;
+                bool bForceCreateInfoBecauseDamaged = false;
                 bool bOK = true;
                 if (_bTestFiles)
                 {
                     // test first file
-                    TestSingleFile(filePath1, CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"), ref bForceCreateInfo, true, !_bSkipRecentlyTested, true);
+                    TestSingleFile(filePath1, CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"), ref bForceCreateInfoBecauseDamaged, true, !_bSkipRecentlyTested, true);
 
                     // test or repair second file, which is different from first
                     if (_bRepairFiles)
-                        TestAndRepairSingleFile(filePath2, CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"), ref bForceCreateInfo);
+                        TestAndRepairSingleFile(filePath2, CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"), ref bForceCreateInfoBecauseDamaged);
                     else
-                        bOK = TestSingleFile(filePath2, CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"), ref bForceCreateInfo, true, !_bSkipRecentlyTested, true);
+                        bOK = TestSingleFile(filePath2, CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"), ref bForceCreateInfoBecauseDamaged, true, !_bSkipRecentlyTested, true);
 
-                    if (bOK && _bCreateInfo && (!fi2ri.Exists || bForceCreateInfo))
+                    if (bOK && _bCreateInfo && (!fi2ri.Exists || bForceCreateInfoBecauseDamaged))
                     {
                         CreateRestoreInfo(fi2.FullName, fi2ri.FullName);
                     }
@@ -1166,6 +1176,11 @@ namespace SyncFolders
             }
             else
             {
+                if (fi2.Length == 0 && CheckIfZeroLengthIsInteresting(filePath2))
+                {
+                    WriteLog(0, "Warning: file has zero length, indicating a failed copy operation in the past: ", filePath2);
+                }
+
                 if (_bTestFiles)
                 {
                     System.IO.FileInfo fi2ri = new System.IO.FileInfo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
@@ -1355,6 +1370,11 @@ namespace SyncFolders
 
         void ProcessFilePair_Bidirectionally_FirstExists(string filePath1, string filePath2, System.IO.FileInfo fi1, System.IO.FileInfo fi2)
         {
+            if (fi1.Length == 0 && CheckIfZeroLengthIsInteresting(filePath1))
+            {
+                WriteLog(0, "Warning: file has zero length, indicating a failed copy operation in the past: ", filePath1);
+            }
+
             System.IO.FileInfo fi1ri = new System.IO.FileInfo(CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
 
             bool bForceCreateInfo = false;
@@ -1477,10 +1497,13 @@ namespace SyncFolders
                 {
                     try
                     {
-                        if (_bTestFiles)
-                            CopyRepairSingleFile(filePath2, fi1.FullName, fi1ri.FullName, ref bForceCreateInfo1, ref bForceCreateInfo2, "(file was new)", true, _bRepairFiles);
+                        /*
+                        if (_bTestFiles && _bRepairFiles)
+                            CopyRepairSingleFile(filePath2, fi1.FullName, fi1ri.FullName, ref bForceCreateInfo1, ref bForceCreateInfo2, "(file was new)", true, true);
                         else
-                            CopyFileSafely(fi1, filePath2, strReason);
+                         */
+                        // just try to copy, we still can try repair options later
+                        CopyFileSafely(fi1, filePath2, strReason);
                     }
                     catch (Exception)
                     {
@@ -1502,7 +1525,7 @@ namespace SyncFolders
                         return;
                     }
 
-                    // first try to copy the first/needed file
+                    // first try to copy the first/needed file, if it can be restored
                     if (TestSingleFileHealthyOrCanRepair(filePath1, fi1ri.FullName, ref bForceCreateInfo1) &&
                         TestAndRepairSingleFile(filePath1, fi1ri.FullName, ref bForceCreateInfo1))
                     {
@@ -1521,7 +1544,7 @@ namespace SyncFolders
 
                     if (!bCopied1To2)
                     {
-                        // well, then try the second, older file.
+                        // well, then try the second, older file. Let's see if it is OK, or can be restored in place
                         if ((TestSingleFile(filePath2, fi2ri.FullName, ref bForceCreateInfo2, true, true, true) ||
                                 (TestSingleFileHealthyOrCanRepair(filePath2, fi2ri.FullName, ref bForceCreateInfo2) &&
                                  TestAndRepairSingleFile(filePath2, fi2ri.FullName, ref bForceCreateInfo2)))
@@ -2757,7 +2780,7 @@ namespace SyncFolders
                         foreach (RestoreInfo ri1 in restore1)
                         {
                             if (ri1.NotRecoverableArea || (_bPreferPhysicalCopies && equalBlocks.ContainsKey(ri1.Position / ri1.Data.Length)))
-                                ;// bForceCreateInfo = true;
+                                ;// bForceCreateInfoBecauseDamaged = true;
                             else
                             {
                                 WriteLog(1, "Recovering block of ", fi1.FullName, " at position ", ri1.Position);
@@ -2775,7 +2798,7 @@ namespace SyncFolders
                         foreach (RestoreInfo ri2 in restore2)
                         {
                             if (ri2.NotRecoverableArea || (_bPreferPhysicalCopies && equalBlocks.ContainsKey(ri2.Position / ri2.Data.Length)))
-                                ; // bForceCreateInfo = true;
+                                ; // bForceCreateInfoBecauseDamaged = true;
                             else
                             {
                                 WriteLog(1, "Recovering block of ", fi2.FullName, " at position ", ri2.Position);
@@ -3627,7 +3650,7 @@ namespace SyncFolders
                         foreach (RestoreInfo ri2 in restore2)
                         {
                             if (ri2.NotRecoverableArea || (_bPreferPhysicalCopies && equalBlocks.ContainsKey(ri2.Position / ri2.Data.Length)))
-                                ; // bForceCreateInfo = true;
+                                ; // bForceCreateInfoBecauseDamaged = true;
                             else
                             {
                                 WriteLog(1, "Recovering block of ", fi2.FullName, " at position ", ri2.Position);
