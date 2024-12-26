@@ -72,25 +72,29 @@ namespace SyncFolders
         }
 
         /// <summary>
-        /// Some filesystems have milliseconds in them, some oOtherSaveInfo don't even have all seconds on file times
+        /// Some filesystems have milliseconds in them, some oOtherSaveInfo don't even
+        /// have all seconds on file times.
+        /// 
         /// So compare the file times in a smart manner
         /// </summary>
-        /// <param name="t1">Time of a file in one file system</param>
-        /// <param name="t2">Time of a file in a different file system</param>
+        /// <param name="dtmTime1">Time of a file in one file system</param>
+        /// <param name="dtmTime2">Time of a file in a different file system</param>
         /// <returns></returns>
-        private bool FileTimesEqual(DateTime t1, DateTime t2)
+        private bool FileTimesEqual(DateTime dtmTime1, DateTime dtmTime2)
         {
-            // if one time is with milliseconds and the oOtherSaveInfo without
-            if ((t1.Millisecond == 0) != (t2.Millisecond == 0))
+            // if one time is with milliseconds and the other without
+            if ((dtmTime1.Millisecond == 0) != (dtmTime2.Millisecond == 0))
             {
-                // then the difference should be within two seconds
-                TimeSpan span = new TimeSpan(Math.Abs(t1.Ticks - t2.Ticks));
-                bool bResult = span.TotalSeconds < 2;
+                // then the difference should be within five seconds
+                TimeSpan oTimeSpanDifference = 
+                    new TimeSpan(Math.Abs(dtmTime1.Ticks - dtmTime2.Ticks));
+                bool bResult = oTimeSpanDifference.TotalSeconds < 5;
                 return bResult;
             }
             else
-                // if both times are with milliseconds or both are without then simply compare the times
-                return t1 == t2;
+                // if both times are with milliseconds or both are without 
+                // then simply compare the times
+                return dtmTime1 == dtmTime2;
         }
 
         private void checkBoxTestAllFiles_CheckedChanged(object sender, EventArgs e)
