@@ -80,7 +80,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Resources.Designer.cs" />
     <Compile Include="RestoreInfo.cs" />
-    <Compile Include="SaveInfo.cs" />
+    <Compile Include="SavedInfo.cs" />
     <Compile Include="Settings.Designer.cs" />
     <Compile Include="Settings1.Designer.cs">
       <AutoGen>True</AutoGen>
