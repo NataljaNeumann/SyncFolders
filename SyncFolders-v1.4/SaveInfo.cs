@@ -25,461 +25,536 @@ using System.Text;
 
 namespace SyncFolders
 {
+
+    /// <summary>
+    /// Objects of this class provide means for analyzing and saving information
+    /// about a file, as well as possibility to restore some of the missing parts.
+    /// 
+    /// The restore algorithm works as XOR of blocks. E.g. if there are 16 blocks
+    /// (64K) stored in m_aBlocks then a continuous error range of 64K can be restored.
+    /// Additionally, if only one block in a range is bad, then there is a good
+    /// probability that two or three ranges, consisting of 1 block each can be 
+    /// restored.
+    /// 
+    /// But, if two blocks (e.g. block 0 of the original file and block 32 of the
+    /// original file) hit the same XORed lBlockIndex 0 in m_aBlocks (since 0%16 = 0 = 32%16)
+    /// then neither of the blocks can be restored. We need to XOR all but one block
+    /// for each lBlockIndex in m_aBlocks, so the remaining data reads exactly the missing
+    /// block.
+    /// 
+    /// Having two rows of blocks with different lenths improves the probability
+    /// of restoring single block failures (e.g. if length of m_aBlocks is 16 and
+    /// length of m_aOtherBlocks is 17 then non restorable single blocks will be
+    /// every 16*17 = 272 blocks, not every 16+17=33 blocks) but it reduces the
+    /// maximum number of blocks that can be restored in a continuous range by half.
+    /// </summary>
     [Serializable]
     class SaveInfo
     {
-        long _file_length;
-        DateTime _file_timestamp_utc;
-        public List<Block> _blocks = new List<Block>();
-        List<Block> _other_blocks = new List<Block>();
-        List<byte[]> _checksums = new List<byte[]>();
 
+        /// <summary>
+        /// Holds the file length of the original file
+        /// </summary>
+        long m_lFileLength;
+        /// <summary>
+        /// Holds the time stamp of the original file
+        /// </summary>
+        DateTime m_dtmFileTimestampUtc;
+        /// <summary>
+        /// Holds first row of blocks for restoring single block failures
+        /// </summary>
+        public List<Block> m_aBlocks = new List<Block>();
+        /// <summary>
+        /// Holds second row of blocks for restoring single block failures
+        /// </summary>
+        List<Block> m_aOtherBlocks = new List<Block>();
+        /// <summary>
+        /// Simple checksums of the blocks of the original file
+        /// </summary>
+        List<byte[]> m_aChecksums = new List<byte[]>();
+
+        /// <summary>
+        /// Gets the length of the original file
+        /// </summary>
         public long Length
         {
             get
             {
-                return _file_length;
+                return m_lFileLength;
             }
         }
 
+        /// <summary>
+        /// Gets the UTC timestamp of the original file.
+        /// </summary>
         public DateTime TimeStamp
         {
             get
             {
-                return _file_timestamp_utc;
+                return m_dtmFileTimestampUtc;
             }
         }
 
 
+        /// <summary>
+        /// Constructs a new empty SaveInfo (64 K, no checksums)
+        /// </summary>
         public SaveInfo()
         {
             Block testb = Block.GetBlock();
             for (int i = 1024 * 64 / testb.Length - 1; i >= 0; --i)
-                _blocks.Add(Block.GetBlock());
-            _checksums = new List<byte[]>();
+                m_aBlocks.Add(Block.GetBlock());
+            m_aChecksums = new List<byte[]>();
         }
 
-        public SaveInfo(long fileLength, DateTime timestamp_utc, bool force_other_blocks)
+        /// <summary>
+        /// Constructs a new SaveInfo with data
+        /// </summary>
+        /// <param name="lFileLength">The length of the file</param>
+        /// <param name="dtmFileTimestampUtc">The UTC timestamp of the file</param>
+        /// <param name="bForceOtherBlocks">Force creation of second row of blocks, even if
+        /// the file is too small for it</param>
+        public SaveInfo(long lFileLength, DateTime dtmFileTimestampUtc, bool bForceOtherBlocks)
         {
-            _file_length = fileLength;
-            _file_timestamp_utc = timestamp_utc;
+            m_lFileLength = lFileLength;
+            m_dtmFileTimestampUtc = dtmFileTimestampUtc;
 
-            Block testb = Block.GetBlock();
+            Block oTestBlock = Block.GetBlock();
             // maxblocks is at least 0.5 per cent of the file or at least 64K in 64K steps
-            int max_blocks = ((int)(fileLength / 200)) / (1024 * 64) * (1024 * 64) / testb.Length;
-            if (max_blocks < 1024 * 64 / testb.Length)
-                max_blocks = 1024 * 64 / testb.Length;
+            int nMaxBlocks = ((int)(lFileLength / 200)) / (1024 * 64) * (1024 * 64) / oTestBlock.Length;
+            if (nMaxBlocks < 1024 * 64 / oTestBlock.Length)
+                nMaxBlocks = 1024 * 64 / oTestBlock.Length;
 
-            if (max_blocks > (fileLength + testb.Length - 1) / testb.Length)
-                max_blocks = (int)((fileLength + testb.Length - 1) / testb.Length);
+            // no more blocks than in original file, if the file is small
+            if (nMaxBlocks > (lFileLength + oTestBlock.Length - 1) / oTestBlock.Length)
+                nMaxBlocks = (int)((lFileLength + oTestBlock.Length - 1) / oTestBlock.Length);
 
-            for (int i = max_blocks - 1; i >= 0; --i)
-                _blocks.Add(Block.GetBlock());
+            // fill first row of the blocks
+            for (int i = nMaxBlocks - 1; i >= 0; --i)
+                m_aBlocks.Add(Block.GetBlock());
 
-            int max_other_blocks = ((int)(fileLength / 100)) / (1024 * 64) * (1024 * 64) / testb.Length - max_blocks;
+            // calculate the length of the second row: Total number of blocks ~ 1% in
+            // both rows
+            int nMaxOtherBlocks = ((int)(lFileLength / 100)) / (1024 * 64) * (1024 * 64) 
+                / oTestBlock.Length - nMaxBlocks;
 
-            if ( (max_other_blocks < 1024 * 64 / testb.Length) && !force_other_blocks)
-                max_other_blocks = 0;
+            // if the original file is too small for two rows then no second row
+            if ( (nMaxOtherBlocks < 1024 * 64 / oTestBlock.Length) && !bForceOtherBlocks)
+                nMaxOtherBlocks = 0;
             else
             {
-                if (max_blocks >= 48)
+                // if there are many blocks
+                if (nMaxBlocks >= 48)
                 {
-                    max_other_blocks = max_blocks + 1;
-                    for (int i = 17; i*2<max_blocks; i+=2)
-                        if ((max_blocks % i) != 0)
+                    // default: one block more
+                    nMaxOtherBlocks = nMaxBlocks + 1;
+                    // try to find a length of at least 17 blocks
+                    // so there is a chance for restoring two different 16K ranges
+                    for (int i = 17; i*2<nMaxBlocks; i+=2)
+                        if ((nMaxBlocks % i) != 0)
                         {
-                            max_other_blocks = max_blocks - i;
+                            nMaxOtherBlocks = nMaxBlocks - i;
                             break;
                         }
                 }
                 else
-                    if (max_blocks >= 24 && ( (max_blocks%9) != 0) )
-                        max_other_blocks = max_blocks - 9;
+                    // same procedure for 32K, 16K, 8K
+                    if (nMaxBlocks >= 24 && ( (nMaxBlocks%9) != 0) )
+                        nMaxOtherBlocks = nMaxBlocks - 9;
                     else
-                        if (max_blocks >= 12 && ((max_blocks % 5) != 0)  )
-                            max_other_blocks = max_blocks - 5;
+                        if (nMaxBlocks >= 12 && ((nMaxBlocks % 5) != 0)  )
+                            nMaxOtherBlocks = nMaxBlocks - 5;
                         else
-                            if (max_blocks >= 6 && ((max_blocks % 3) != 0) )
-                                max_other_blocks = max_blocks - 3;
+                            if (nMaxBlocks >= 6 && ((nMaxBlocks % 3) != 0) )
+                                nMaxOtherBlocks = nMaxBlocks - 3;
                             else
-                                max_other_blocks = max_blocks + 1;
+                                // default: one block more
+                                nMaxOtherBlocks = nMaxBlocks + 1;
             }
 
-            for (int i = max_other_blocks - 1; i >= 0; --i)
-                _other_blocks.Add(Block.GetBlock());
+            // fill second row of blocks
+            for (int i = nMaxOtherBlocks - 1; i >= 0; --i)
+                m_aOtherBlocks.Add(Block.GetBlock());
 
-            _checksums = new List<byte[]>();
+            // init checksums
+            m_aChecksums = new List<byte[]>();
         }
 
+        /// <summary>
+        /// This simple checksum calculator is used to verify
+        /// that we can trust m_aChecksums
+        /// </summary>
         private class CheckSumCalculator
         {
+            /// <summary>
+            /// The stored checksum
+            /// </summary>
             public byte[] Checksum = new byte[31];
+            /// <summary>
+            /// Current position in Checksum
+            /// </summary>
             private int _pos;
-            public void PutByte(byte b)
+            /// <summary>
+            /// Adds a byte to the checksum (XORs it somewhere)
+            /// </summary>
+            /// <param name="oBlockOfOriginalFile">Byte to addd</param>
+            public void AddByte(byte b)
             {
                 Checksum[_pos++] ^= b;
                 if (_pos >= Checksum.Length)
                     _pos = 0;
             }
-            public void PutByte(int b)
+            /// <summary>
+            /// Adds a byte to the checksum (XORs it somewhere)
+            /// </summary>
+            /// <param name="oBlockOfOriginalFile">Byte to addd</param>
+            public void AddByte(int b)
             {
                 Checksum[_pos++] ^= (byte)b;
                 if (_pos >= Checksum.Length)
                     _pos = 0;
             }
-
         }
 
-        public void ReadFrom(System.IO.Stream s, bool bForTestOnly)
+        /// <summary>
+        /// Reads information about an original file from stream, containg saved info
+        /// </summary>
+        /// <param name="oInputStream">The stream to read from</param>
+        public void ReadFrom(System.IO.Stream oInputStream)
         {
-            //ignore the for test only flag
-            bForTestOnly = false;
-
-            CheckSumCalculator streamChecksum = new CheckSumCalculator();
-            _blocks.Clear();
-            _other_blocks.Clear();
-            _checksums.Clear();
-
-            Block dummy_block = null;
-            Block dummy_block2 = null;
-            if (bForTestOnly)
-            {
-                dummy_block = Block.GetBlock();
-
-                for (int ii = dummy_block.Length - 1; ii >= 0; --ii)
-                    dummy_block[ii] = 0;
-
-                dummy_block2 = Block.GetBlock();
-            }
+            CheckSumCalculator oMetadataChecksum = new CheckSumCalculator();
+            m_aBlocks.Clear();
+            m_aOtherBlocks.Clear();
+            m_aChecksums.Clear();
 
 
             // read in the minimum version
-            if (s.ReadByte() != 0)
+            if (oInputStream.ReadByte() != 0)
             {
                 // not supported version
                 return;
             }
 
-            streamChecksum.PutByte(0);
+            oMetadataChecksum.AddByte(0);
 
             // read the maximum supported version (should be different from -1, which means eof)
-            int maxVersion = s.ReadByte();
-            if (maxVersion == -1)
+            int nMaxVersion = oInputStream.ReadByte();
+            if (nMaxVersion == -1)
                 return;
 
-            streamChecksum.PutByte(maxVersion);
+            oMetadataChecksum.AddByte(nMaxVersion);
 
             // read in the time
             long ticks = 0;
             for (int i = 7; i >= 0; --i)
             {
-                int b = s.ReadByte(); if (b == -1) return;
-                streamChecksum.PutByte(b);
+                int b = oInputStream.ReadByte(); if (b == -1) return;
+                oMetadataChecksum.AddByte(b);
                 ticks = ticks * 256 + b;
             };
-            _file_timestamp_utc = new DateTime(ticks);
+            m_dtmFileTimestampUtc = new DateTime(ticks);
 
             // read in the original file length
-            _file_length = 0;
+            m_lFileLength = 0;
             for (int i = 7; i >= 0; --i)
             {
-                int b = s.ReadByte(); if (b == -1) return;
-                streamChecksum.PutByte(b);
-                _file_length = _file_length * 256 + b;
+                int b = oInputStream.ReadByte(); if (b == -1) return;
+                oMetadataChecksum.AddByte(b);
+                m_lFileLength = m_lFileLength * 256 + b;
             };
 
-            // read in the blocks number
-            long primary_blocks = 0;
-            long secondary_blocks = 0;
-
-            for (int i = 7; i >= 0; --i)
-            {
-                int b = s.ReadByte(); if (b == -1) return;
-                streamChecksum.PutByte(b);
-                primary_blocks = primary_blocks * 256 + b;
-            };
+            // read in the number of blocks in each row
+            long lBlocksInFirstRow = 0;
+            long lBlocksInSecondRow = 0;
 
             for (int i = 7; i >= 0; --i)
             {
-                int b = s.ReadByte(); if (b == -1) return;
-                streamChecksum.PutByte(b);
-                secondary_blocks = secondary_blocks * 256 + b;
+                int b = oInputStream.ReadByte(); if (b == -1) return;
+                oMetadataChecksum.AddByte(b);
+                lBlocksInFirstRow = lBlocksInFirstRow * 256 + b;
             };
 
+            for (int i = 7; i >= 0; --i)
+            {
+                int b = oInputStream.ReadByte(); if (b == -1) return;
+                oMetadataChecksum.AddByte(b);
+                lBlocksInSecondRow = lBlocksInSecondRow * 256 + b;
+            };
 
-            for (long i = primary_blocks - 1; i >= 0; --i)
+            // read blocks of the first row
+            for (long i = lBlocksInFirstRow - 1; i >= 0; --i)
             {
                 Block b = null;
 
-                if (bForTestOnly)
-                    b = dummy_block2;
-                else
-                    b = Block.GetBlock();
+                b = Block.GetBlock();
 
                 try
                 {
-                    if (b.ReadFrom(s) != b.Length)
+                    if (b.ReadFrom(oInputStream) != b.Length)
                     {
-                        _blocks.Clear();
+                        m_aBlocks.Clear();
                         return;
                     }
 
-                    if (bForTestOnly)
-                        _blocks.Add(dummy_block);
-                    else
-                        _blocks.Add(b);
+                    m_aBlocks.Add(b);
                 }
                 catch (System.IO.IOException)
                 {
                     // we don't expect the restore file to be perfect
                     // add a null block for failed reads
-                    _blocks.Add(null);
+                    m_aBlocks.Add(null);
                     // seek the next block
-                    s.Seek(b.Length * (primary_blocks - i) + 34, System.IO.SeekOrigin.Begin);
+                    oInputStream.Seek(b.Length * (lBlocksInFirstRow - i) + 34, System.IO.SeekOrigin.Begin);
                 }
             };
 
-            for (long i = secondary_blocks - 1; i >= 0; --i)
+            // read blocks of second row
+            for (long i = lBlocksInSecondRow - 1; i >= 0; --i)
             {
                 Block b = null;
 
-                if (bForTestOnly)
-                    b = dummy_block2;
-                else
-                    b = Block.GetBlock();
+                b = Block.GetBlock();
 
                 try
                 {
-                    if (b.ReadFrom(s) != b.Length)
+                    if (b.ReadFrom(oInputStream) != b.Length)
                     {
                         // clear both lists if the file has been tampered with
-                        _blocks.Clear();
-                        _other_blocks.Clear();
+                        m_aBlocks.Clear();
+                        m_aOtherBlocks.Clear();
                         return;
                     }
 
-                    if (bForTestOnly)
-                        _other_blocks.Add(dummy_block);
-                    else
-                        _other_blocks.Add(b);
+                    m_aOtherBlocks.Add(b);
                 }
                 catch (System.IO.IOException)
                 {
                     // we don't expect the restore file to be perfect
                     // add a null block for failed reads
-                    _other_blocks.Add(null);
+                    m_aOtherBlocks.Add(null);
                     // seek the next block
-                    s.Seek(b.Length * (secondary_blocks - i + primary_blocks) + 34, System.IO.SeekOrigin.Begin);
+                    oInputStream.Seek(b.Length * (lBlocksInSecondRow - i + lBlocksInFirstRow) + 34, System.IO.SeekOrigin.Begin);
                 };
             };
 
-            int checksumCount = 0;
+            // read the number of checksums of original file.
+            // this should be exactly the same as the nuber of blocks in original file
+            int nChecksumCount = 0;
             for (int i = 7; i >= 0; --i)
             {
-                int b = s.ReadByte(); if (b == -1) return;
-                streamChecksum.PutByte(b);
-                checksumCount = checksumCount * 256 + b;
+                int b = oInputStream.ReadByte(); if (b == -1) return;
+                oMetadataChecksum.AddByte(b);
+                nChecksumCount = nChecksumCount * 256 + b;
             };
 
-
-            for (int i = 0; i < checksumCount; ++i)
+            // read the checksums
+            for (int i = 0; i < nChecksumCount; ++i)
             {
                 byte[] checksum = new byte[3];
-                if (s.Read(checksum, 0, checksum.Length) < checksum.Length)
+                if (oInputStream.Read(checksum, 0, checksum.Length) < checksum.Length)
                     return;
 
-                streamChecksum.PutByte(checksum[0]);
-                streamChecksum.PutByte(checksum[1]);
-                streamChecksum.PutByte(checksum[2]);
+                oMetadataChecksum.AddByte(checksum[0]);
+                oMetadataChecksum.AddByte(checksum[1]);
+                oMetadataChecksum.AddByte(checksum[2]);
 
-                _checksums.Add(checksum);
+                m_aChecksums.Add(checksum);
             }
 
+            // read the final checksum over metadata from stream
             CheckSumCalculator checksumInFile = new CheckSumCalculator();
-            if (s.Read(checksumInFile.Checksum, 0, checksumInFile.Checksum.Length) < checksumInFile.Checksum.Length)
+            if (oInputStream.Read(checksumInFile.Checksum, 0, checksumInFile.Checksum.Length) < checksumInFile.Checksum.Length)
             {
                 // saved checksums are not reliable, so clear them and trust the CRC checksums of the drive
-                _checksums.Clear();
+                m_aChecksums.Clear();
                 return;
             }
 
-            // compare calculated checksum to the one, stored in file
+            // compare calculated checksum to the one, read from stream
             for (int i = 0; i < checksumInFile.Checksum.Length; ++i)
             {
-                if (checksumInFile.Checksum[i] != streamChecksum.Checksum[i])
+                if (checksumInFile.Checksum[i] != oMetadataChecksum.Checksum[i])
                 {
                     // if they differ then checksums in the file are not reliable
-                    _checksums.Clear();
+                    m_aChecksums.Clear();
                     return;
                 }
             }
 
         }
 
-        public void ReadFrom(System.IO.Stream s)
+        /// <summary>
+        /// Saves calculated information about the original file to stream
+        /// </summary>
+        /// <param name="oOutputStream">The stream to save to</param>
+        public void SaveTo(System.IO.Stream oOutputStream)
         {
-            ReadFrom(s, false);
-        }
-
-        public void ReadForTestOnlyFrom(System.IO.Stream s)
-        {
-            ReadFrom(s, true);
-        }
-
-
-        public void SaveTo(System.IO.Stream s)
-        {
-            CheckSumCalculator streamChecksum = new CheckSumCalculator();
+            CheckSumCalculator oMetadataChecksum = new CheckSumCalculator();
 
             // minimum version
-            s.WriteByte(0);
-            streamChecksum.PutByte(0);
+            oOutputStream.WriteByte(0);
+            oMetadataChecksum.AddByte(0);
 
             // maximum version
-            s.WriteByte(0);
-            streamChecksum.PutByte(0);
+            oOutputStream.WriteByte(0);
+            oMetadataChecksum.AddByte(0);
 
-            ulong tostore = (ulong)(_file_timestamp_utc.Ticks);
+            // save the timestamp of the original file
+            ulong ulToWriteBytewise = (ulong)(m_dtmFileTimestampUtc.Ticks);
             for (int i = 7; i >= 0; --i)
             {
-                byte b = (byte)(tostore >> 56);
-                streamChecksum.PutByte(b);
-                tostore = tostore * 256;
-                s.WriteByte(b);
+                byte b = (byte)(ulToWriteBytewise >> 56);
+                oMetadataChecksum.AddByte(b);
+                ulToWriteBytewise = ulToWriteBytewise * 256;
+                oOutputStream.WriteByte(b);
             };
 
-            tostore = (ulong)_file_length;
+            // save the length of the original file
+            ulToWriteBytewise = (ulong)m_lFileLength;
             for (int i = 7; i >= 0; --i)
             {
-                byte b = (byte)(tostore >> 56);
-                streamChecksum.PutByte(b);
-                tostore = tostore * 256;
-                s.WriteByte(b);
+                byte b = (byte)(ulToWriteBytewise >> 56);
+                oMetadataChecksum.AddByte(b);
+                ulToWriteBytewise = ulToWriteBytewise * 256;
+                oOutputStream.WriteByte(b);
             };
 
-
-            tostore = (ulong)_blocks.Count;
+            // save the number of blocks
+            ulToWriteBytewise = (ulong)m_aBlocks.Count;
             for (int i = 7; i >= 0; --i)
             {
-                byte b = (byte)(tostore >> 56);
-                streamChecksum.PutByte(b);
-                tostore = tostore * 256;
-                s.WriteByte(b);
+                byte b = (byte)(ulToWriteBytewise >> 56);
+                oMetadataChecksum.AddByte(b);
+                ulToWriteBytewise = ulToWriteBytewise * 256;
+                oOutputStream.WriteByte(b);
             };
 
-            tostore = (ulong)_other_blocks.Count;
+            // save the number of blocks in second row
+            ulToWriteBytewise = (ulong)m_aOtherBlocks.Count;
             for (int i = 7; i >= 0; --i)
             {
-                byte b = (byte)(tostore >> 56);
-                streamChecksum.PutByte(b);
-                tostore = tostore * 256;
-                s.WriteByte(b);
+                byte b = (byte)(ulToWriteBytewise >> 56);
+                oMetadataChecksum.AddByte(b);
+                ulToWriteBytewise = ulToWriteBytewise * 256;
+                oOutputStream.WriteByte(b);
             };
 
-            for (int i = 0; i < _blocks.Count; ++i)
-                _blocks[i].WriteTo(s);
+            // save the blocks in first row
+            for (int i = 0; i < m_aBlocks.Count; ++i)
+                m_aBlocks[i].WriteTo(oOutputStream);
 
-            for (int i = 0; i < _other_blocks.Count; ++i)
-                _other_blocks[i].WriteTo(s);
+            // save the blocks in second row
+            for (int i = 0; i < m_aOtherBlocks.Count; ++i)
+                m_aOtherBlocks[i].WriteTo(oOutputStream);
 
-            tostore = (ulong)_checksums.Count;
+            // save the number of checksums (shall be same as number
+            // of blocks in original file
+            ulToWriteBytewise = (ulong)m_aChecksums.Count;
             for (int i = 7; i >= 0; --i)
             {
-                byte b = (byte)(tostore >> 56);
-                streamChecksum.PutByte(b);
-                tostore = tostore * 256;
-                s.WriteByte(b);
+                byte b = (byte)(ulToWriteBytewise >> 56);
+                oMetadataChecksum.AddByte(b);
+                ulToWriteBytewise = ulToWriteBytewise * 256;
+                oOutputStream.WriteByte(b);
             };
 
-            for (int i = 0; i < _checksums.Count; ++i)
+            // save the checksum of blocks of original file
+            for (int i = 0; i < m_aChecksums.Count; ++i)
             {
-                s.Write(_checksums[i], 0, _checksums[i].Length);
-                streamChecksum.PutByte(_checksums[i][0]);
-                streamChecksum.PutByte(_checksums[i][1]);
-                streamChecksum.PutByte(_checksums[i][2]);
+                oOutputStream.Write(m_aChecksums[i], 0, m_aChecksums[i].Length);
+                oMetadataChecksum.AddByte(m_aChecksums[i][0]);
+                oMetadataChecksum.AddByte(m_aChecksums[i][1]);
+                oMetadataChecksum.AddByte(m_aChecksums[i][2]);
             }
 
-            // save the checksum of checksums, so we know if they are reliable
-            s.Write(streamChecksum.Checksum, 0, streamChecksum.Checksum.Length);
+            // save the checksum of metadata, so we know if checksums are reliable
+            oOutputStream.Write(oMetadataChecksum.Checksum, 0, oMetadataChecksum.Checksum.Length);
         }
 
-        public void Analyze(Block b, long index)
+        /// <summary>
+        /// Analyzes a block, read from original file, for creating SaveInfo
+        /// It is expected that all blocks are readable and come 
+        /// sequentially from beginning to end of original file
+        /// </summary>
+        /// <param name="oBlockOfOriginalFile">The block of original file</param>
+        /// <param name="lBlockIndex">Zero-based lBlockIndex of the block</param>
+        public void AnalyzeForInfoCollection(Block oBlockOfOriginalFile, long lBlockIndex)
         {
-            if (_blocks.Count == 0)
+            if (m_aBlocks.Count == 0)
                 return;
 
-            //_blocks[(int)(index % _blocks.Count)] = _blocks[(int)(index % _blocks.Count)] ^ b;
-            _blocks[(int)(index % _blocks.Count)].DoXor(b);
+            m_aBlocks[(int)(lBlockIndex % m_aBlocks.Count)].DoXor(oBlockOfOriginalFile);
 
-            if (_other_blocks.Count > 0)
-                //_other_blocks[(int)(index % _other_blocks.Count)] = _blocks[(int)(index % _other_blocks.Count)] ^ b;
-                _other_blocks[(int)(index % _other_blocks.Count)].DoXor(b);
+            if (m_aOtherBlocks.Count > 0)
+                m_aOtherBlocks[(int)(lBlockIndex % m_aOtherBlocks.Count)].DoXor(oBlockOfOriginalFile);
 
             // if we can save checksum of the block in a list
-            if (index < int.MaxValue)
+            if (lBlockIndex < int.MaxValue)
             {
                 // calc a checksum for later verification of the block
                 // you may wonder why I used 3... Why not?
                 byte[] checksum = new byte[3];
                 int currentIndex = 0;
-                foreach (byte by in b)
+                foreach (byte by in oBlockOfOriginalFile)
                 {
                     checksum[currentIndex++] ^= by;
                     if (currentIndex >= checksum.Length)
                         currentIndex = 0;
                 }
-                while (_checksums.Count <= index)
-                    _checksums.Add(new byte[] { 0, 0, 0 });
-                _checksums[(int)index] = checksum;
+                while (m_aChecksums.Count <= lBlockIndex)
+                    m_aChecksums.Add(new byte[] { 0, 0, 0 });
+                m_aChecksums[(int)lBlockIndex] = checksum;
             }
         }
 
-        long _currentRestore = -1;
-        List<long> _blocksToRestore;
+        /// <summary>
+        /// Last analyzed block for restore
+        /// </summary>
+        long m_lCurrentlyRestoredBlock = -1;
+        /// <summary>
+        /// List of blocks that need to be restored
+        /// </summary>
+        List<long> m_aListOfBlocksToRestore;
 
+        /// <summary>
+        /// Starts to restore a file. This shall only be executed after ReadFrom
+        /// </summary>
         public void StartRestore()
         {
-            _currentRestore = -1;
-            _blocksToRestore = new List<long>();
-
-            //for (int i = 0; i < _blocks.Count; ++i)
-            //{
-            //    for (int j = 2; j < 4096; ++j)
-            //    {
-            //        if (_blocks[i][j] == 253 && _blocks[i][j - 1] == 254 && _blocks[i][j - 2] == 63)
-            //        {
-            //            System.Console.WriteLine("position: " + (i.ToString()) + "/" + (j.ToString()));
-            //        }
-            //        if (_blocks[i][j] == 63 && _blocks[i][j - 1] == 254 && _blocks[i][j - 2] == 253)
-            //        {
-            //            System.Console.WriteLine("rposition: " + (i.ToString()) + "/" + (j.ToString()));
-            //        }
-            //    }
-            //}
+            m_lCurrentlyRestoredBlock = -1;
+            m_aListOfBlocksToRestore = new List<long>();
         }
 
-        public bool AnalyzeForRestore(Block b, long index)
+        /// <summary>
+        /// Analyzes a block for test or restore. There some blocks
+        /// can be missing. All readable blocks are expected to come from
+        /// beginning to end of original file.
+        /// </summary>
+        /// <param name="b">The block from original file</param>
+        /// <param name="index">Index of the block</param>
+        /// <returns>true iff the block has been accepted (e.g. if its checksum matches)</returns>
+        public bool AnalyzeForTestOrRestore(Block b, long index)
         {
 
-            if (_blocks.Count == 0)
+            if (m_aBlocks.Count == 0)
                 return false;
 
             // if there are not enough checksums (e.g. .chk file from old version)
             // then simply add the block as OK
-            if (_checksums.Count <= index)
+            if (m_aChecksums.Count <= index)
             {
-                //_blocks[(int)(index % _blocks.Count)] = _blocks[(int)(index % _blocks.Count)] ^ b;
-                _blocks[(int)(index % _blocks.Count)].DoXor(b);
+                //m_aBlocks[(int)(lBlockIndex % m_aBlocks.Count)] = m_aBlocks[(int)(lBlockIndex % m_aBlocks.Count)] ^ oBlockOfOriginalFile;
+                m_aBlocks[(int)(index % m_aBlocks.Count)].DoXor(b);
 
-                // if there is a second row of blocks, then perform also preparation of other blocks;
-                if (_other_blocks.Count > 0)
-                    //_other_blocks[(int)(index % _other_blocks.Count)] = _other_blocks[(int)(index % _other_blocks.Count)] ^ b;
-                    _other_blocks[(int)(index % _other_blocks.Count)].DoXor(b);
+                // if there is a second row of blocks, then perform also preparation of oOtherSaveInfo blocks;
+                if (m_aOtherBlocks.Count > 0)
+                    //m_aOtherBlocks[(int)(lBlockIndex % m_aOtherBlocks.Count)] = m_aOtherBlocks[(int)(lBlockIndex % m_aOtherBlocks.Count)] ^ oBlockOfOriginalFile;
+                    m_aOtherBlocks[(int)(index % m_aOtherBlocks.Count)].DoXor(b);
 
                 // analyze which blocks have been skipped
-                while (++_currentRestore < index)
+                while (++m_lCurrentlyRestoredBlock < index)
                 {
-                    _blocksToRestore.Add(_currentRestore);
+                    m_aListOfBlocksToRestore.Add(m_lCurrentlyRestoredBlock);
                 };
 
                 return true;
@@ -497,170 +572,97 @@ namespace SyncFolders
 
             bool bChecksumOk = true;
             for (int i = checksum.Length - 1; i >= 0; --i)
-                if (checksum[i] != _checksums[(int)index][i])
+                if (checksum[i] != m_aChecksums[(int)index][i])
                     bChecksumOk = false;
 
             if (!bChecksumOk)
             {
                 // don't add to restore there, we could try several variants
-                //_blocksToRestore.Add(index);
+                //m_aListOfBlocksToRestore.Add(lBlockIndex);
                 return false;
             }
             else
             {
-                //_blocks[(int)(index % _blocks.Count)] = _blocks[(int)(index % _blocks.Count)] ^ b;
-                _blocks[(int)(index % _blocks.Count)].DoXor(b);
+                //m_aBlocks[(int)(lBlockIndex % m_aBlocks.Count)] = m_aBlocks[(int)(lBlockIndex % m_aBlocks.Count)] ^ oBlockOfOriginalFile;
+                m_aBlocks[(int)(index % m_aBlocks.Count)].DoXor(b);
 
-                // if there is a second row of blocks, then perform also preparation of other blocks;
-                if (_other_blocks.Count > 0)
-                    //_other_blocks[(int)(index % _other_blocks.Count)] = _other_blocks[(int)(index % _other_blocks.Count)] ^ b;
-                    _other_blocks[(int)(index % _other_blocks.Count)].DoXor(b);
+                // if there is a second row of blocks, then perform also preparation of oOtherSaveInfo blocks;
+                if (m_aOtherBlocks.Count > 0)
+                    //m_aOtherBlocks[(int)(lBlockIndex % m_aOtherBlocks.Count)] = m_aOtherBlocks[(int)(lBlockIndex % m_aOtherBlocks.Count)] ^ oBlockOfOriginalFile;
+                    m_aOtherBlocks[(int)(index % m_aOtherBlocks.Count)].DoXor(b);
 
                 // analyze which blocks have been skipped
-                while (++_currentRestore < index)
+                while (++m_lCurrentlyRestoredBlock < index)
                 {
-                    _blocksToRestore.Add(_currentRestore);
+                    m_aListOfBlocksToRestore.Add(m_lCurrentlyRestoredBlock);
                 };
 
                 return true;
             }
         }
 
-        public bool AnalyzeForTest(Block b, long index)
+        /// <summary>
+        /// Ends a restore proces
+        /// </summary>
+        /// <param name="outlNotRestoredSize">[OUT] the size of the file that could not be restored</param>
+        /// <param name="strCurrentFile">The file name of current file for messages</param>
+        /// <param name="iLogWriter">The log writer</param>
+        /// <returns>List of restore informations</returns>
+        public List<RestoreInfo> EndRestore(out long outlNotRestoredSize, string strCurrentFile, ILogWriter iLogWriter)
         {
-            // ignore the for test only
-            return AnalyzeForRestore(b, index);
-
-            /*
-            if (_blocks.Count == 0)
-                return false;
-
-            // throw away all the data, since we are only testing
-            if (_blocks.Count>1 && _blocks[0]!=_blocks[1])
+            // add the missing blocks at the end of file
+            Block oTestBlock = Block.GetBlock();
+            while (++m_lCurrentlyRestoredBlock < (m_lFileLength + oTestBlock.Length - 1) / oTestBlock.Length)
             {
-                Block dummy = Block.GetBlock();
-                for (int iii = _blocks.Count - 1; iii >= 0; --iii)
-                    _blocks[iii] = dummy;
-            }
-            if (_other_blocks.Count > 1 && _other_blocks[0] != _other_blocks[1])
-            {
-                Block dummy = Block.GetBlock();
-                for (int iii = _other_blocks.Count - 1; iii >= 0; --iii)
-                    _other_blocks[iii] = dummy;
-            }
-
-            // if there are not enough checksums (e.g. .chk file from old version)
-            // then simply add the block as OK
-            if (_checksums.Count <= index)
-            {
-                // analyze which blocks have been skipped
-                while (++_currentRestore < index)
-                {
-                    _blocksToRestore.Add(_currentRestore);
-                };
-
-                return true;
-            }
-
-
-            // calc a checksum for verification of the block
-            byte[] checksum = new byte[3];
-            int currentIndex = 0;
-            int ii = 0;
-            byte b0 = 0;
-            byte b1 = 0;
-            byte b2 = 0;
-            while (ii < b.Length-9)
-            {
-                b0 = (byte)(b0 ^ b[ii] ^ b[ii + 3] ^ b[ii + 6]);
-                b1 = (byte)(b1 ^ b[ii+1] ^ b[ii + 4] ^ b[ii + 7]);
-                b2 = (byte)(b2 ^ b[ii+2] ^ b[ii + 5] ^ b[ii + 8]);
-                ii += 9;
-            }
-
-            checksum[0] = b0;
-            checksum[1] = b1;
-            checksum[2] = b2;
-
-            for (; ii<b.Length; ii++) { byte by = b[ii];
-            //foreach (byte by in b) {
-
-                checksum[currentIndex++] ^= by;
-                if (currentIndex >= checksum.Length)
-                    currentIndex = 0;
-            }
-
-            bool bChecksumOk = true;
-            for (int i = checksum.Length - 1; i >= 0; --i)
-                if (checksum[i] != _checksums[(int)index][i])
-                    bChecksumOk = false;
-
-            if (bChecksumOk)
-            {
-                // analyze which blocks have been skipped
-                while (++_currentRestore < index)
-                {
-                    _blocksToRestore.Add(_currentRestore);
-                };
-                return true;
-            }
-            else
-                return false;
-             */
-        }
-
-
-        public List<RestoreInfo> EndRestore(out long notRestoredSize, string strCurrentFile, ILogWriter iLogWriter)
-        {
-            Block testb = Block.GetBlock();
-            while (++_currentRestore < (_file_length + testb.Length - 1) / testb.Length)
-            {
-                _blocksToRestore.Add(_currentRestore);
+                m_aListOfBlocksToRestore.Add(m_lCurrentlyRestoredBlock);
             };
 
-            List<RestoreInfo> result = new List<RestoreInfo>();
-            if (_blocks.Count == 0)
+            // this is the resulting list that we will return
+            List<RestoreInfo> oResult = new List<RestoreInfo>();
+            // if there is not even the first row of blocks, then we can't restore anything
+            if (m_aBlocks.Count == 0)
             {
-                notRestoredSize = 0;
-                for (int i = 0; i < _blocksToRestore.Count; i++)
+                outlNotRestoredSize = 0;
+                for (int i = 0; i < m_aListOfBlocksToRestore.Count; i++)
                 {
-                    long blockToRestore = _blocksToRestore[i];
-                    notRestoredSize = notRestoredSize + testb.Length;
-                    result.Add(new RestoreInfo(blockToRestore * testb.Length, Block.GetBlock(), true));
+                    // all blocks are non-restorable
+                    long blockToRestore = m_aListOfBlocksToRestore[i];
+                    outlNotRestoredSize = outlNotRestoredSize + oTestBlock.Length;
+                    oResult.Add(new RestoreInfo(blockToRestore * oTestBlock.Length, Block.GetBlock(), true));
                 }
-                return result;
+                return oResult;
             };
 
             // if there is no second row of blocks, then just use the primary row
-            if (_other_blocks.Count == 0)
+            if (m_aOtherBlocks.Count == 0)
             {
-                List<int> usedBlocks = new List<int>();
-                List<int> notRestorable = new List<int>();
+                List<int> aUsedIndexesInFirstRow = new List<int>();
+                List<int> aNonRecoverableIndexesInFirstRow = new List<int>();
 
-                for (int i = 0; i < _blocksToRestore.Count; i++)
+                for (int i = 0; i < m_aListOfBlocksToRestore.Count; i++)
                 {
-                    long blockToRestore = _blocksToRestore[i];
-                    int blockToUse = (int)(blockToRestore % _blocks.Count);
-                    if (usedBlocks.Contains(blockToUse) || _blocks[blockToUse] == null)
+                    long blockToRestore = m_aListOfBlocksToRestore[i];
+                    int nIndexToUseFromFirstRow = (int)(blockToRestore % m_aBlocks.Count);
+                    if (aUsedIndexesInFirstRow.Contains(nIndexToUseFromFirstRow) || m_aBlocks[nIndexToUseFromFirstRow] == null)
                     {
-                        if (!notRestorable.Contains(blockToUse))
-                            notRestorable.Add(blockToUse);
+                        if (!aNonRecoverableIndexesInFirstRow.Contains(nIndexToUseFromFirstRow))
+                            aNonRecoverableIndexesInFirstRow.Add(nIndexToUseFromFirstRow);
                     }
                     else
                     {
-                        usedBlocks.Add(blockToUse);
+                        aUsedIndexesInFirstRow.Add(nIndexToUseFromFirstRow);
                     }
                 }
 
                 // check integrity of remaining blocks
-                // if there is doubt that other blocks are valid then don't use 
+                // if there is doubt that oOtherSaveInfo blocks are valid then don't use 
                 // the checksum blocks
                 bool bOtherSeemOk = true;
-                for (int i = _blocks.Count - 1; i >= 0; --i)
+                for (int i = m_aBlocks.Count - 1; i >= 0; --i)
                 {
-                    if (!usedBlocks.Contains(i))
+                    if (!aUsedIndexesInFirstRow.Contains(i))
                     {
-                        Block b = _blocks[i];
+                        Block b = m_aBlocks[i];
                         for (int j = b.Length - 1; j >= 0; --j)
                             if (b[j] != 0)
                             {
@@ -671,25 +673,25 @@ namespace SyncFolders
 
                     if (!bOtherSeemOk)
                     {
-                        iLogWriter.WriteLog(1, "Warning: several blocks don't match in restoreinfo ", strCurrentFile, ", restoreinfo will be ignored completely");
+                        iLogWriter.WriteLog(1, "Warning: several blocks don't match in saved info ", strCurrentFile, ", saved info will be ignored completely");
                         break;
                     }
                 }
                 
 
-                notRestoredSize = 0;
-                for (int i = 0; i < _blocksToRestore.Count; i++)
+                outlNotRestoredSize = 0;
+                for (int i = 0; i < m_aListOfBlocksToRestore.Count; i++)
                 {
-                    long blockToRestore = _blocksToRestore[i];
-                    int blockToUse = (int)(blockToRestore % _blocks.Count);
-                    if (notRestorable.Contains(blockToUse) || !bOtherSeemOk)
+                    long blockToRestore = m_aListOfBlocksToRestore[i];
+                    int nIndexToUseFromFirstRow = (int)(blockToRestore % m_aBlocks.Count);
+                    if (aNonRecoverableIndexesInFirstRow.Contains(nIndexToUseFromFirstRow) || !bOtherSeemOk)
                     {
-                        notRestoredSize = notRestoredSize + testb.Length;
-                        result.Add(new RestoreInfo(blockToRestore * testb.Length, Block.GetBlock(), true));
+                        outlNotRestoredSize = outlNotRestoredSize + oTestBlock.Length;
+                        oResult.Add(new RestoreInfo(blockToRestore * oTestBlock.Length, Block.GetBlock(), true));
                     }
                     else
                     {
-                        result.Add(new RestoreInfo(blockToRestore * testb.Length, _blocks[blockToUse], false));
+                        oResult.Add(new RestoreInfo(blockToRestore * oTestBlock.Length, m_aBlocks[nIndexToUseFromFirstRow], false));
                     }
                 }
             }
@@ -703,40 +705,42 @@ namespace SyncFolders
                 while (bRepeat)
                 {
                     bRepeat = false;
-                    List<int> proposedBlocks = new List<int>();
-                    List<int> proposedOtherBlocks = new List<int>();
-                    List<int> notUsableBlocks = new List<int>();
-                    List<int> notUsableOtherBlocks = new List<int>();
+                    List<int> aProposedIndexesInFirstRow = new List<int>();
+                    List<int> aProposedIndexesInOtherBlocks = new List<int>();
+                    List<int> aNonUsableIndexesInFirstRow = new List<int>();
+                    List<int> aNonUsableIndexesInOtherBlocks = new List<int>();
 
-                    for (int i = 0; i < _blocksToRestore.Count; i++)
+                    // test, if we can restore something from the first row of saved blocks
+                    for (int i = 0; i < m_aListOfBlocksToRestore.Count; i++)
                     {
-                        long blockToRestore = _blocksToRestore[i];
-                        int blockToUse = (int)(blockToRestore % _blocks.Count);
-                        if (proposedBlocks.Contains(blockToUse) || _blocks[blockToUse] == null)
+                        long blockToRestore = m_aListOfBlocksToRestore[i];
+                        int nIndexToUseInFirstRow = (int)(blockToRestore % m_aBlocks.Count);
+                        if (aProposedIndexesInFirstRow.Contains(nIndexToUseInFirstRow) || m_aBlocks[nIndexToUseInFirstRow] == null)
                         {
-                            if (!notUsableBlocks.Contains(blockToUse))
-                                notUsableBlocks.Add(blockToUse);
+                            if (!aNonUsableIndexesInFirstRow.Contains(nIndexToUseInFirstRow))
+                                aNonUsableIndexesInFirstRow.Add(nIndexToUseInFirstRow);
                         }
                         else
                         {
-                            proposedBlocks.Add(blockToUse);
+                            aProposedIndexesInFirstRow.Add(nIndexToUseInFirstRow);
                         }
                     }
 
-                    for (int i = _blocksToRestore.Count - 1; i >= 0; i--)
+                    // restore, if we can restore something from the first row of saved blocks
+                    for (int i = m_aListOfBlocksToRestore.Count - 1; i >= 0; i--)
                     {
-                        long blockToRestore = _blocksToRestore[i];
-                        int blockToUse = (int)(blockToRestore % _blocks.Count);
-                        if (!notUsableBlocks.Contains(blockToUse))
+                        long blockToRestore = m_aListOfBlocksToRestore[i];
+                        int nIndexToUseInFirstRow = (int)(blockToRestore % m_aBlocks.Count);
+                        if (!aNonUsableIndexesInFirstRow.Contains(nIndexToUseInFirstRow))
                         {
                             bool bChecksumOk2 = true;
 
-                            if (blockToRestore < _checksums.Count)
+                            if (blockToRestore < m_aChecksums.Count)
                             {
                                 // calc a checksum for verification of the block
                                 byte[] checksum = new byte[3];
                                 int currentIndex = 0;
-                                foreach (byte by in _blocks[blockToUse])
+                                foreach (byte by in m_aBlocks[nIndexToUseInFirstRow])
                                 {
                                     checksum[currentIndex++] ^= by;
                                     if (currentIndex >= checksum.Length)
@@ -744,61 +748,66 @@ namespace SyncFolders
                                 }
 
                                 for (int j = checksum.Length - 1; j >= 0; --j)
-                                    if (checksum[j] != _checksums[(int)blockToRestore][j])
+                                    if (checksum[j] != m_aChecksums[(int)blockToRestore][j])
                                         bChecksumOk2 = false;
                             }
 
-                            // if there is a checksum for the block then we'll use it only if checksum matches
+                            // if there is a checksum for the block then we'll use restored block only if checksum matches
                             if (bChecksumOk2)
                             {
-                                result.Add(new RestoreInfo(blockToRestore * testb.Length, _blocks[blockToUse], false));
+                                oResult.Add(new RestoreInfo(blockToRestore * oTestBlock.Length, m_aBlocks[nIndexToUseInFirstRow], false));
 
-                                // we calculated the new block, it could improve the situation at the other row of blocks
-                                _other_blocks[(int)(blockToRestore % _other_blocks.Count)] = _other_blocks[(int)(blockToRestore % _other_blocks.Count)] ^ _blocks[blockToUse];
+                                // we calculated the new block, it could improve the situation at the oOtherSaveInfo row of blocks
+                                m_aOtherBlocks[(int)(blockToRestore % m_aOtherBlocks.Count)] = 
+                                    m_aOtherBlocks[(int)(blockToRestore % m_aOtherBlocks.Count)] ^ m_aBlocks[nIndexToUseInFirstRow];
 
-                                _blocksToRestore.RemoveAt(i);
+                                // we need i to run backwards for this to work
+                                m_aListOfBlocksToRestore.RemoveAt(i);
 
                                 // no need to repeat if we restored something from the primary row of blocks,
-                                // since we run analysis on the second row of blocks anyway
+                                // since we run analysis on the second row of blocks afterwards
                                 // bRepeat = true;
                             }
                             else
                             {
-                                iLogWriter.WriteLog(1, "Warning: checksum of block at offsset ",blockToRestore * testb.Length," doesn't match available in primary blocks of restoreinfo ", strCurrentFile, ", primary restoreinfo for the block will be ignored");
+                                iLogWriter.WriteLog(1, "Warning: checksum of block at offsset ",blockToRestore * oTestBlock.Length,
+                                    " doesn't match available in primary blocks of restoreinfo ", strCurrentFile, 
+                                    ", primary restoreinfo for the block will be ignored");
                             }
                         }
                     }
 
-
-                    for (int i = _blocksToRestore.Count - 1; i >= 0; i--)
+                    // test, if we can restore something from the second row of blocks
+                    for (int i = m_aListOfBlocksToRestore.Count - 1; i >= 0; i--)
                     {
-                        long blockToRestore = _blocksToRestore[i];
-                        int blockToUse = (int)(blockToRestore % _other_blocks.Count);
-                        if (proposedOtherBlocks.Contains(blockToUse) || _other_blocks[blockToUse] == null)
+                        long blockToRestore = m_aListOfBlocksToRestore[i];
+                        int nIndexToUseFromOtherBlocks = (int)(blockToRestore % m_aOtherBlocks.Count);
+                        if (aProposedIndexesInOtherBlocks.Contains(nIndexToUseFromOtherBlocks) || m_aOtherBlocks[nIndexToUseFromOtherBlocks] == null)
                         {
-                            if (!notUsableOtherBlocks.Contains(blockToUse))
-                                notUsableOtherBlocks.Add(blockToUse);
+                            if (!aNonUsableIndexesInOtherBlocks.Contains(nIndexToUseFromOtherBlocks))
+                                aNonUsableIndexesInOtherBlocks.Add(nIndexToUseFromOtherBlocks);
                         }
                         else
                         {
-                            proposedOtherBlocks.Add(blockToUse);
+                            aProposedIndexesInOtherBlocks.Add(nIndexToUseFromOtherBlocks);
                         }
                     }
 
-                    for (int i = _blocksToRestore.Count - 1; i >= 0; i--)
+                    // restore, if we can restore something from the second row of blocks
+                    for (int i = m_aListOfBlocksToRestore.Count - 1; i >= 0; i--)
                     {
-                        long blockToRestore = _blocksToRestore[i];
-                        int blockToUse = (int)(blockToRestore % _other_blocks.Count);
-                        if (!notUsableOtherBlocks.Contains(blockToUse))
+                        long blockToRestore = m_aListOfBlocksToRestore[i];
+                        int blockToUse = (int)(blockToRestore % m_aOtherBlocks.Count);
+                        if (!aNonUsableIndexesInOtherBlocks.Contains(blockToUse))
                         {
                             bool bChecksumOk3 = true;
 
-                            if (blockToRestore < _checksums.Count)
+                            if (blockToRestore < m_aChecksums.Count)
                             {
                                 // calc a checksum for verification of the block
                                 byte[] checksum = new byte[3];
                                 int currentIndex = 0;
-                                foreach (byte by in _other_blocks[blockToUse])
+                                foreach (byte by in m_aOtherBlocks[blockToUse])
                                 {
                                     checksum[currentIndex++] ^= by;
                                     if (currentIndex >= checksum.Length)
@@ -806,18 +815,19 @@ namespace SyncFolders
                                 }
 
                                 for (int j = checksum.Length - 1; j >= 0; --j)
-                                    if (checksum[j] != _checksums[(int)blockToRestore][j])
+                                    if (checksum[j] != m_aChecksums[(int)blockToRestore][j])
                                         bChecksumOk3 = false;
                             }
 
                             if (bChecksumOk3)
                             {
                                 // we calculated the new block, it could improve the situation at the primary row of blocks
-                                _blocks[(int)(blockToRestore % _blocks.Count)] = _blocks[(int)(blockToRestore % _blocks.Count)] ^ _other_blocks[blockToUse];
+                                m_aBlocks[(int)(blockToRestore % m_aBlocks.Count)] = 
+                                    m_aBlocks[(int)(blockToRestore % m_aBlocks.Count)] ^ m_aOtherBlocks[blockToUse];
 
                                 // skip these two lines in test case for testing the "repeat" case 
-                                result.Add(new RestoreInfo(blockToRestore * testb.Length, _other_blocks[blockToUse], false));
-                                _blocksToRestore.RemoveAt(i);
+                                oResult.Add(new RestoreInfo(blockToRestore * oTestBlock.Length, m_aOtherBlocks[blockToUse], false));
+                                m_aListOfBlocksToRestore.RemoveAt(i);
 
                                 // repeat restoring using the primary and the secondary row of blocks:
                                 // we restored something using the second row, this could improve the situation with the primary blocks.
@@ -825,48 +835,55 @@ namespace SyncFolders
                             }
                             else
                             {
-                                iLogWriter.WriteLog(1, "Warning: checksum of block at offset ", blockToRestore * testb.Length, " doesn't match available in secondary blocks of restoreinfo ", strCurrentFile, ", secondary restoreinfo for the block will be ignored");
+                                iLogWriter.WriteLog(1, "Warning: checksum of block at offset ", blockToRestore * oTestBlock.Length, 
+                                    " doesn't match available in secondary blocks of restoreinfo ", strCurrentFile, 
+                                    ", secondary restoreinfo for the block will be ignored");
                             }
                         }
                     }
 
                     // don't repeat if nothing more to restore
-                    if (_blocksToRestore.Count == 0)
+                    if (m_aListOfBlocksToRestore.Count == 0)
                         bRepeat = false;
                 }
 
-                // reset other blocks
-                notRestoredSize = 0;
-                for (int i = 0; i < _blocksToRestore.Count; i++)
+                // the remaining blocks are non-recoverable, fill them with zeros
+                outlNotRestoredSize = 0;
+                for (int i = 0; i < m_aListOfBlocksToRestore.Count; i++)
                 {
-                    long blockToRestore = _blocksToRestore[i];
-                    notRestoredSize = notRestoredSize + testb.Length;
-                    result.Add(new RestoreInfo(blockToRestore * testb.Length, Block.GetBlock(), true));
+                    long blockToRestore = m_aListOfBlocksToRestore[i];
+                    outlNotRestoredSize = outlNotRestoredSize + oTestBlock.Length;
+                    oResult.Add(new RestoreInfo(blockToRestore * oTestBlock.Length, Block.GetBlock(), true));
                 }
 
             }
-            return result;
+            return oResult;
         }
 
+        /// <summary>
+        /// After we tested readability of the file and the saved info we can verify
+        /// that all saved blocks XOR to zero.
+        /// </summary>
+        /// <returns>true iff all blocks matched</returns>
         public bool VerifyIntegrityAfterRestoreTest()
         {
             // if the original file matches the chk file and there were no checksum errors
-            //  then all contents of the _blocks shall be zero
-            for (int i = _blocks.Count - 1; i >= 0; --i)
+            //  then all contents of the m_aBlocks shall be zero
+            for (int i = m_aBlocks.Count - 1; i >= 0; --i)
             {
-                Block b = _blocks[i];
+                Block b = m_aBlocks[i];
                 for (int j = b.Length - 1; j >= 0; --j)
                     if (b[j] != 0)
                         return false;
             }
 
-            if (_other_blocks.Count > 0)
+            if (m_aOtherBlocks.Count > 0)
             {
                 // if the original file matches the chk file and there were no checksum errors
-                //  then all contents of the _other_blocks also shall be zero
-                for (int i = _other_blocks.Count - 1; i >= 0; --i)
+                //  then all contents of the m_aOtherBlocks also shall be zero
+                for (int i = m_aOtherBlocks.Count - 1; i >= 0; --i)
                 {
-                    Block b = _other_blocks[i];
+                    Block b = m_aOtherBlocks[i];
                     for (int j = b.Length - 1; j >= 0; --j)
                         if (b[j] != 0)
                             return false;
@@ -875,10 +892,14 @@ namespace SyncFolders
             return true;
         }
 
+        /// <summary>
+        /// Counts non-empty blocks in first row
+        /// </summary>
+        /// <returns>The number of non-empty blocks</returns>
         public int NonEmptyBlocks()
         {
             int cnt = 0;
-            foreach (Block blk in _blocks)
+            foreach (Block blk in m_aBlocks)
             {
                 foreach (byte b in blk)
                 {
@@ -892,101 +913,123 @@ namespace SyncFolders
             return cnt;
         }
 
-
-        public void ImproveWith(SaveInfo other)
+        /// <summary>
+        /// If there are two copies of saved info then we can improve both copies
+        /// from each other
+        /// </summary>
+        /// <param name="oOtherSaveInfo">Other saved info</param>
+        public void ImproveWith(SaveInfo oOtherSaveInfo)
         {
-            if (this._checksums.Count == 0 && other._checksums.Count > 0)
+            // Match checksums
+            if (this.m_aChecksums.Count == 0 && oOtherSaveInfo.m_aChecksums.Count > 0)
             {
-                this._checksums = other._checksums;
+                this.m_aChecksums = oOtherSaveInfo.m_aChecksums;
                 // remove blocks on this saveinfo, if too many
-                while (this._blocks.Count > other._blocks.Count)
+                while (this.m_aBlocks.Count > oOtherSaveInfo.m_aBlocks.Count)
                 {
-                    this._blocks.RemoveAt(this._blocks.Count - 1);
+                    this.m_aBlocks.RemoveAt(this.m_aBlocks.Count - 1);
                 }
-                while (this._other_blocks.Count > other._other_blocks.Count)
+                while (this.m_aOtherBlocks.Count > oOtherSaveInfo.m_aOtherBlocks.Count)
                 {
-                    this._other_blocks.RemoveAt(this._other_blocks.Count - 1);
+                    this.m_aOtherBlocks.RemoveAt(this.m_aOtherBlocks.Count - 1);
                 }
             }
             else
             {
-                if (other._checksums.Count == 0 && this._checksums.Count > 0)
+                if (oOtherSaveInfo.m_aChecksums.Count == 0 && this.m_aChecksums.Count > 0)
                 {
-                    other._checksums = this._checksums;
-                    // remove blocks on the other saveinfo, if too many
-                    while (other._blocks.Count > this._blocks.Count)
+                    oOtherSaveInfo.m_aChecksums = this.m_aChecksums;
+                    // remove blocks on the oOtherSaveInfo saveinfo, if too many
+                    while (oOtherSaveInfo.m_aBlocks.Count > this.m_aBlocks.Count)
                     {
-                        other._blocks.RemoveAt(other._blocks.Count - 1);
+                        oOtherSaveInfo.m_aBlocks.RemoveAt(oOtherSaveInfo.m_aBlocks.Count - 1);
                     }
-                    while (other._other_blocks.Count > this._other_blocks.Count)
+                    while (oOtherSaveInfo.m_aOtherBlocks.Count > this.m_aOtherBlocks.Count)
                     {
-                        other._other_blocks.RemoveAt(other._other_blocks.Count - 1);
+                        oOtherSaveInfo.m_aOtherBlocks.RemoveAt(oOtherSaveInfo.m_aOtherBlocks.Count - 1);
                     }
                 }
             }
 
-            // add missing blocks on the other
-            for (int i=0;i<_blocks.Count;++i)
+            // add primary missing blocks on the oOtherSaveInfo
+            if (m_aBlocks.Count == oOtherSaveInfo.m_aBlocks.Count ||
+                oOtherSaveInfo.m_aBlocks.Count == 0)
             {
-                if (other._blocks.Count <= i)
-                    other._blocks.Add(null);
-
-                if (other._blocks[i]==null && this._blocks[i]!=null)
+                for (int i = 0; i < m_aBlocks.Count; ++i)
                 {
-                    Block newB = Block.GetBlock();
-                    Block oldB = this._blocks[i];
-                    for (int j = newB.Length - 1; j >= 0; --j)
-                        newB[j] = oldB[j];
-                    other._blocks[i] = newB;
+                    if (oOtherSaveInfo.m_aBlocks.Count <= i)
+                        oOtherSaveInfo.m_aBlocks.Add(null);
+
+                    if (oOtherSaveInfo.m_aBlocks[i] == null && this.m_aBlocks[i] != null)
+                    {
+                        Block newB = Block.GetBlock();
+                        Block oldB = this.m_aBlocks[i];
+                        for (int j = newB.Length - 1; j >= 0; --j)
+                            newB[j] = oldB[j];
+                        oOtherSaveInfo.m_aBlocks[i] = newB;
+                    }
                 }
             }
 
-            for (int i = 0; i < _other_blocks.Count; ++i)
+            // add secondary missing blocks on the oOtherSaveInfo
+            if (m_aOtherBlocks.Count == oOtherSaveInfo.m_aOtherBlocks.Count ||
+                oOtherSaveInfo.m_aOtherBlocks.Count == 0)
             {
-                if (other._other_blocks.Count <= i)
-                    other._other_blocks.Add(null);
-
-                if (other._other_blocks[i] == null && this._other_blocks[i] != null)
+                for (int i = 0; i < m_aOtherBlocks.Count; ++i)
                 {
-                    Block newB = Block.GetBlock();
-                    Block oldB = this._other_blocks[i];
-                    for (int j = newB.Length - 1; j >= 0; --j)
-                        newB[j] = oldB[j];
-                    other._other_blocks[i] = newB;
+                    if (oOtherSaveInfo.m_aOtherBlocks.Count <= i)
+                        oOtherSaveInfo.m_aOtherBlocks.Add(null);
+
+                    if (oOtherSaveInfo.m_aOtherBlocks[i] == null && this.m_aOtherBlocks[i] != null)
+                    {
+                        Block newB = Block.GetBlock();
+                        Block oldB = this.m_aOtherBlocks[i];
+                        for (int j = newB.Length - 1; j >= 0; --j)
+                            newB[j] = oldB[j];
+                        oOtherSaveInfo.m_aOtherBlocks[i] = newB;
+                    }
                 }
             }
 
-            // add missing blocks on this
-            for (int i = 0; i < other._blocks.Count; ++i)
+            // add primary missing blocks on this
+            if (m_aBlocks.Count == oOtherSaveInfo.m_aBlocks.Count ||
+                m_aBlocks.Count == 0)
             {
-                if (this._blocks.Count <= i)
-                    this._blocks.Add(null);
-
-                if (this._blocks[i] == null && other._blocks[i] != null)
+                for (int i = 0; i < oOtherSaveInfo.m_aBlocks.Count; ++i)
                 {
-                    Block newB = Block.GetBlock();
-                    Block oldB = other._blocks[i];
-                    for (int j = newB.Length - 1; j >= 0; --j)
-                        newB[j] = oldB[j];
-                    this._blocks[i] = newB;
+                    if (this.m_aBlocks.Count <= i)
+                        this.m_aBlocks.Add(null);
+
+                    if (this.m_aBlocks[i] == null && oOtherSaveInfo.m_aBlocks[i] != null)
+                    {
+                        Block newB = Block.GetBlock();
+                        Block oldB = oOtherSaveInfo.m_aBlocks[i];
+                        for (int j = newB.Length - 1; j >= 0; --j)
+                            newB[j] = oldB[j];
+                        this.m_aBlocks[i] = newB;
+                    }
                 }
             }
 
-            for (int i = 0; i < other._other_blocks.Count; ++i)
+            // add secondary missing blocks on this
+            if (m_aOtherBlocks.Count == oOtherSaveInfo.m_aOtherBlocks.Count ||
+                oOtherSaveInfo.m_aOtherBlocks.Count == 0)
             {
-                if (this._other_blocks.Count <= i)
-                    this._other_blocks.Add(null);
-
-                if (this._other_blocks[i] == null && other._other_blocks[i] != null)
+                for (int i = 0; i < oOtherSaveInfo.m_aOtherBlocks.Count; ++i)
                 {
-                    Block newB = Block.GetBlock();
-                    Block oldB = other._other_blocks[i];
-                    for (int j = newB.Length - 1; j >= 0; --j)
-                        newB[j] = oldB[j];
-                    this._other_blocks[i] = newB;
+                    if (this.m_aOtherBlocks.Count <= i)
+                        this.m_aOtherBlocks.Add(null);
+
+                    if (this.m_aOtherBlocks[i] == null && oOtherSaveInfo.m_aOtherBlocks[i] != null)
+                    {
+                        Block newB = Block.GetBlock();
+                        Block oldB = oOtherSaveInfo.m_aOtherBlocks[i];
+                        for (int j = newB.Length - 1; j >= 0; --j)
+                            newB[j] = oldB[j];
+                        this.m_aOtherBlocks[i] = newB;
+                    }
                 }
             }
-
         }
     }
 }

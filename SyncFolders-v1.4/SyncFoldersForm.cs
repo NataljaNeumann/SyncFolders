@@ -72,7 +72,7 @@ namespace SyncFolders
         }
 
         /// <summary>
-        /// Some filesystems have milliseconds in them, some other don't even have all seconds on file times
+        /// Some filesystems have milliseconds in them, some oOtherSaveInfo don't even have all seconds on file times
         /// So compare the file times in a smart manner
         /// </summary>
         /// <param name="t1">Time of a file in one file system</param>
@@ -80,7 +80,7 @@ namespace SyncFolders
         /// <returns></returns>
         private bool FileTimesEqual(DateTime t1, DateTime t2)
         {
-            // if one time is with milliseconds and the other without
+            // if one time is with milliseconds and the oOtherSaveInfo without
             if ((t1.Millisecond == 0) != (t2.Millisecond == 0))
             {
                 // then the difference should be within two seconds
@@ -483,7 +483,7 @@ namespace SyncFolders
             if (di1.Name.Equals("System Volume Information", StringComparison.InvariantCultureIgnoreCase))
                 return;
 
-            // if one of the directories exists while the other doesn't then create the missing one
+            // if one of the directories exists while the oOtherSaveInfo doesn't then create the missing one
             // and set its attributes
             if (di1.Exists && !di2.Exists)
             {
@@ -620,7 +620,7 @@ namespace SyncFolders
             if (di1.Name == "RestoreInfo")
                 return;
 
-            // if one of the directories exists while the other doesn't then create the missing one
+            // if one of the directories exists while the oOtherSaveInfo doesn't then create the missing one
             // and set its attributes
             if (di2.Exists && !di1.Exists)
             {
@@ -833,7 +833,7 @@ namespace SyncFolders
                 fi1 = new System.IO.FileInfo(filePath1);
                 fi2 = new System.IO.FileInfo(filePath2);
             }
-            // this solves the problem in this place, but other problems appear down the code
+            // this solves the problem in this place, but oOtherSaveInfo problems appear down the code
             //catch (Exception ex)
             //{
             //    string name1 = filePath1.Substring(filePath1.LastIndexOf('\\') + 1);
@@ -1055,7 +1055,7 @@ namespace SyncFolders
                 // we are in first readonly path
                 // both files are present and have same modification date and lentgh
 
-                // if the second restoreinfo is missing or has wrong date, but the other is OK then copy the one to the other
+                // if the second restoreinfo is missing or has wrong date, but the oOtherSaveInfo is OK then copy the one to the oOtherSaveInfo
                 if (fi1ri.Exists && fi1ri.LastWriteTimeUtc == fi1.LastWriteTimeUtc && (!fi2ri.Exists || fi2ri.LastWriteTimeUtc != fi2.LastWriteTimeUtc))
                 {
                     try
@@ -1087,7 +1087,7 @@ namespace SyncFolders
                 fi2ri = new System.IO.FileInfo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
                 fi1ri = new System.IO.FileInfo(CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
 
-                // if one of the files is missing or has wrong date, but the other is OK then copy the one to the other
+                // if one of the files is missing or has wrong date, but the oOtherSaveInfo is OK then copy the one to the oOtherSaveInfo
                 if (fi1ri.Exists && fi1ri.LastWriteTimeUtc == fi1.LastWriteTimeUtc && (!fi2ri.Exists || fi2ri.LastWriteTimeUtc != fi2.LastWriteTimeUtc))
                 {
                     try
@@ -1641,7 +1641,7 @@ namespace SyncFolders
             //System.IO.FileInfo fi2ri = new System.IO.FileInfo(System.IO.Path.Combine(System.IO.Path.Combine(fi2.DirectoryName, "RestoreInfo"), fi2.Name + ".chk"));
             System.IO.FileInfo fi1ri = new System.IO.FileInfo(CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
 
-            // if one of the restoreinfo files is missing or has wrong date, but the other is OK then copy the one to the other
+            // if one of the restoreinfo files is missing or has wrong date, but the oOtherSaveInfo is OK then copy the one to the oOtherSaveInfo
             if (fi1ri.Exists && fi1ri.LastWriteTimeUtc == fi1.LastWriteTimeUtc && (!fi2ri.Exists || fi2ri.LastWriteTimeUtc != fi2.LastWriteTimeUtc))
             {
                 try
@@ -1754,7 +1754,7 @@ namespace SyncFolders
             fi2ri = new System.IO.FileInfo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
             fi1ri = new System.IO.FileInfo(CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
 
-            // if one of the files is missing or has wrong date, but the other is OK then copy the one to the other
+            // if one of the files is missing or has wrong date, but the oOtherSaveInfo is OK then copy the one to the oOtherSaveInfo
             if (fi1ri.Exists && fi1ri.LastWriteTimeUtc == fi1.LastWriteTimeUtc && (!fi2ri.Exists || fi2ri.LastWriteTimeUtc != fi2.LastWriteTimeUtc))
             {
                 try
@@ -1808,12 +1808,12 @@ namespace SyncFolders
                                 if ((readCount = b.ReadFrom(s)) == b.Length)
                                 {
                                     b.WriteTo(s2);
-                                    si.Analyze(b, index);
+                                    si.AnalyzeForInfoCollection(b, index);
                                 }
                                 else
                                 {
                                     b.WriteTo(s2, readCount);
-                                    si.Analyze(b, index);
+                                    si.AnalyzeForInfoCollection(b, index);
                                     break;
                                 }
                             };
@@ -1906,11 +1906,11 @@ namespace SyncFolders
 
                         if (b.ReadFrom(s) == b.Length)
                         {
-                            si.Analyze(b, index);
+                            si.AnalyzeForInfoCollection(b, index);
                         }
                         else
                         {
-                            si.Analyze(b, index);
+                            si.AnalyzeForInfoCollection(b, index);
                             break;
                         }
                         if (_cancelClicked)
@@ -2010,7 +2010,7 @@ namespace SyncFolders
                 {
                     using (System.IO.BufferedStream s = new System.IO.BufferedStream(System.IO.File.OpenRead(pathRestoreInfoFile), (int)Math.Min(firi.Length + 1, 32 * 1024 * 1024)))
                     {
-                        si.ReadForTestOnlyFrom(s);
+                        si.ReadFrom(s);
                         s.Close();
                     }
                 }
@@ -2020,7 +2020,7 @@ namespace SyncFolders
                     {
                         using (System.IO.FileStream s = System.IO.File.OpenRead(pathRestoreInfoFile))
                         {
-                            si.ReadForTestOnlyFrom(s);
+                            si.ReadFrom(s);
                             s.Close();
                         }
                     }
@@ -2130,7 +2130,7 @@ namespace SyncFolders
                             int nRead = 0;
                             if ( (nRead = b.ReadFrom(s)) == b.Length)
                             {
-                                bBlockOk = si.AnalyzeForTest(b, index);
+                                bBlockOk = si.AnalyzeForTestOrRestore(b, index);
                                 if (!bBlockOk)
                                 {
                                     if (bFailASAPwoMessage)
@@ -2147,7 +2147,7 @@ namespace SyncFolders
                                     while (nRead < b.Length)
                                         b[nRead++] = 0;
 
-                                    bBlockOk = si.AnalyzeForTest(b, index);
+                                    bBlockOk = si.AnalyzeForTestOrRestore(b, index);
                                     if (!bBlockOk)
                                     {
                                         if (bFailASAPwoMessage)
@@ -2345,7 +2345,7 @@ namespace SyncFolders
                             bool bBlockOk = true;
                             if (b.ReadFrom(s) == b.Length)
                             {
-                                bBlockOk = si.AnalyzeForRestore(b, index);
+                                bBlockOk = si.AnalyzeForTestOrRestore(b, index);
                                 if (!bBlockOk)
                                 {
                                     bAllBlocksOK = false;
@@ -2355,7 +2355,7 @@ namespace SyncFolders
                             }
                             else
                             {
-                                bBlockOk = si.AnalyzeForRestore(b, index);
+                                bBlockOk = si.AnalyzeForTestOrRestore(b, index);
                                 if (!bBlockOk)
                                 {
                                     bAllBlocksOK = false;
@@ -2547,7 +2547,7 @@ namespace SyncFolders
                 List<RestoreInfo> restore1 = new List<RestoreInfo>();
                 List<RestoreInfo> restore2 = new List<RestoreInfo>();
 
-                // now let's try to read the files and compare 
+                // now let'oInputStream try to read the files and compare 
                 using (System.IO.Stream s1 = System.IO.File.OpenRead(path1))
                 {
                     using (System.IO.Stream s2 = System.IO.File.OpenRead(path2))
@@ -2574,7 +2574,7 @@ namespace SyncFolders
                                 int nRead = 0;
                                 if ((nRead = b1.ReadFrom(s1)) == b1.Length)
                                 {
-                                    b1Ok = si1.AnalyzeForRestore(b1, index);
+                                    b1Ok = si1.AnalyzeForTestOrRestore(b1, index);
                                     s1Continue = true;
                                     readableBlocks1[index] = true;
                                     b1Present = true;
@@ -2587,7 +2587,7 @@ namespace SyncFolders
                                         while (nRead < b1.Length)
                                             b1[nRead++] = 0;
 
-                                        b1Ok = si1.AnalyzeForRestore(b1, index);
+                                        b1Ok = si1.AnalyzeForTestOrRestore(b1, index);
                                         readableBlocks1[index] = true;
                                         b1Present = true;
                                     }
@@ -2612,7 +2612,7 @@ namespace SyncFolders
                                 int nRead = 0;
                                 if ((nRead = b2.ReadFrom(s2)) == b2.Length)
                                 {
-                                    b2Ok = si2.AnalyzeForRestore(b2, index);
+                                    b2Ok = si2.AnalyzeForTestOrRestore(b2, index);
                                     s2Continue = true;
                                     readableBlocks2[index] = true;
                                     b2Present = true;
@@ -2624,7 +2624,7 @@ namespace SyncFolders
                                         // fill the rest with zeros
                                         while (nRead < b2.Length)
                                             b2[nRead++] = 0;
-                                        b2Ok = si2.AnalyzeForRestore(b2, index);
+                                        b2Ok = si2.AnalyzeForTestOrRestore(b2, index);
                                         readableBlocks2[index] = true;
                                         b2Present = true;
                                     }
@@ -2643,7 +2643,7 @@ namespace SyncFolders
 
                             if (b1Present && !b2Present)
                             {
-                                if (si2.AnalyzeForRestore(b1, index))
+                                if (si2.AnalyzeForTestOrRestore(b1, index))
                                 {
                                     WriteLog(1, "Block of ", fi2.FullName, " position ", index * b1.Length, " will be restored from ", fi1.FullName);
                                     restore2.Add(new RestoreInfo(index * b1.Length, b1, false));
@@ -2652,7 +2652,7 @@ namespace SyncFolders
                             else
                                 if (b2Present && !b1Present)
                             {
-                                if (si1.AnalyzeForRestore(b2, index))
+                                if (si1.AnalyzeForTestOrRestore(b2, index))
                                 {
                                     WriteLog(1, "Block of ", fi1.FullName, " position ", index * b1.Length, " will be restored from ", fi2.FullName);
                                     restore1.Add(new RestoreInfo(index * b1.Length, b2, false));
@@ -2662,7 +2662,7 @@ namespace SyncFolders
                             {
                                 if (b2Present && !b1Ok)
                                 {
-                                    if (si1.AnalyzeForRestore(b2, index))
+                                    if (si1.AnalyzeForTestOrRestore(b2, index))
                                     {
                                         WriteLog(1, "Block of ", fi1.FullName, " position ", index * b1.Length, " will be restored from ", fi2.FullName);
                                         restore1.Add(new RestoreInfo(index * b1.Length, b2, false));
@@ -2671,7 +2671,7 @@ namespace SyncFolders
 
                                 if (b1Present && !b2Ok)
                                 {
-                                    if (si2.AnalyzeForRestore(b1, index))
+                                    if (si2.AnalyzeForTestOrRestore(b1, index))
                                     {
                                         WriteLog(1, "Block of ", fi2.FullName, " position ", index * b1.Length, " will be restored from ", fi1.FullName);
                                         restore2.Add(new RestoreInfo(index * b1.Length, b1, false));
@@ -2726,7 +2726,7 @@ namespace SyncFolders
 
                     using (System.IO.Stream s2 = System.IO.File.Open(path2, System.IO.FileMode.Open, System.IO.FileAccess.ReadWrite, System.IO.FileShare.Read))
                     {
-                        // let's apply improvements of one file to the list of the other, whenever possible
+                        // let'oInputStream apply improvements of one file to the list of the oOtherSaveInfo, whenever possible
                         foreach (RestoreInfo ri1 in restore1)
                         {
                             foreach (RestoreInfo ri2 in restore2)
@@ -2749,7 +2749,7 @@ namespace SyncFolders
                         }
 
 
-                        // let's apply the definitive improvements
+                        // let'oInputStream apply the definitive improvements
                         foreach (RestoreInfo ri1 in restore1)
                         {
                             if (ri1.NotRecoverableArea || (_bPreferPhysicalCopies && equalBlocks.ContainsKey(ri1.Position / ri1.Data.Length)))
@@ -2787,7 +2787,7 @@ namespace SyncFolders
 
 
 
-                        // let's try to copy non-recoverable blocks from one file to another, whenever possible
+                        // let'oInputStream try to copy non-recoverable blocks from one file to another, whenever possible
                         foreach (RestoreInfo ri1 in restore1)
                         {
                             if (ri1.NotRecoverableArea && !equalBlocks.ContainsKey(ri1.Position / ri1.Data.Length) && 
@@ -2897,11 +2897,11 @@ namespace SyncFolders
             {
                 System.DateTime prevLastWriteTime = fi1.LastWriteTimeUtc;
 
-                // let's read both copies of the file that obviously are both present, without saved info
+                // let'oInputStream read both copies of the file that obviously are both present, without saved info
                 List<RestoreInfo> restore1 = new List<RestoreInfo>();
                 List<RestoreInfo> restore2 = new List<RestoreInfo>();
 
-                // now let's try to read the files and compare 
+                // now let'oInputStream try to read the files and compare 
                 long notRestoredSize1 = 0;
                 long notRestoredSize2 = 0;
                 long badBlocks1 = 0;
@@ -3186,7 +3186,7 @@ namespace SyncFolders
                             int nRead = 0;
                             if ( (nRead = b.ReadFrom(s)) == b.Length)
                             {
-                                bBlockOk = si.AnalyzeForRestore(b, index);
+                                bBlockOk = si.AnalyzeForTestOrRestore(b, index);
                                 if (!bBlockOk)
                                 {
                                     bAllBlocksOK = false;
@@ -3202,7 +3202,7 @@ namespace SyncFolders
                                     while (nRead < b.Length)
                                         b[nRead++] = 0;
 
-                                    bBlockOk = si.AnalyzeForRestore(b, index);
+                                    bBlockOk = si.AnalyzeForTestOrRestore(b, index);
                                     if (!bBlockOk)
                                     {
                                         bAllBlocksOK = false;
@@ -3461,7 +3461,7 @@ namespace SyncFolders
                 List<RestoreInfo> restore1 = new List<RestoreInfo>();
                 List<RestoreInfo> restore2 = new List<RestoreInfo>();
 
-                // now let's try to read the files and compare 
+                // now let'oInputStream try to read the files and compare 
                 using (System.IO.Stream s1 = System.IO.File.OpenRead(path1))
                 {
                     using (System.IO.Stream s2 = System.IO.File.OpenRead(path2))
@@ -3481,12 +3481,12 @@ namespace SyncFolders
                             {
                                 if (b1.ReadFrom(s1) == b1.Length)
                                 {
-                                    b1Ok = si1.AnalyzeForRestore(b1, index);
+                                    b1Ok = si1.AnalyzeForTestOrRestore(b1, index);
                                     s1Continue = true;
                                 }
                                 else
                                 {
-                                    b1Ok = si1.AnalyzeForRestore(b1, index);
+                                    b1Ok = si1.AnalyzeForTestOrRestore(b1, index);
                                 }
                                 readableBlocks1[index] = true;
                                 b1Present = true;
@@ -3504,12 +3504,12 @@ namespace SyncFolders
                             {
                                 if (b2.ReadFrom(s2) == b2.Length)
                                 {
-                                    b2Ok = si2.AnalyzeForRestore(b2, index);
+                                    b2Ok = si2.AnalyzeForTestOrRestore(b2, index);
                                     s2Continue = true;
                                 }
                                 else
                                 {
-                                    b2Ok = si2.AnalyzeForRestore(b2, index);
+                                    b2Ok = si2.AnalyzeForTestOrRestore(b2, index);
                                 }
                                 readableBlocks2[index] = true;
                                 b2Present = true;
@@ -3522,7 +3522,7 @@ namespace SyncFolders
 
                             if (b1Present && !b2Present)
                             {
-                                if (si2.AnalyzeForRestore(b1, index))
+                                if (si2.AnalyzeForTestOrRestore(b1, index))
                                 {
                                     WriteLog(1, "Block of ", fi2.FullName, " position ", index * b1.Length, " will be restored from ", fi1.FullName);
                                     restore2.Add(new RestoreInfo(index * b1.Length, b1, false));
@@ -3531,7 +3531,7 @@ namespace SyncFolders
                             else
                                 if (b2Present && !b1Present)
                             {
-                                if (si1.AnalyzeForRestore(b2, index))
+                                if (si1.AnalyzeForTestOrRestore(b2, index))
                                 {
                                     restore1.Add(new RestoreInfo(index * b1.Length, b2, false));
                                     WriteLog(1, "Block of ", fi1.FullName, " position ", index * b1.Length, " could be restored from ", fi2.FullName, " but it is not possible to write to the first folder");
@@ -3541,7 +3541,7 @@ namespace SyncFolders
                             {
                                 if (b2Present && !b1Ok)
                                 {
-                                    if (si1.AnalyzeForRestore(b2, index))
+                                    if (si1.AnalyzeForTestOrRestore(b2, index))
                                     {
                                         WriteLog(1, "Block of ", fi1.FullName, " position ", index * b1.Length, " could be restored from ", fi2.FullName, " but it is not possible to write to the first folder");
                                         restore1.Add(new RestoreInfo(index * b1.Length, b2, false));
@@ -3550,7 +3550,7 @@ namespace SyncFolders
 
                                 if (b1Present && !b2Ok)
                                 {
-                                    if (si2.AnalyzeForRestore(b1, index))
+                                    if (si2.AnalyzeForTestOrRestore(b1, index))
                                     {
                                         WriteLog(1, "Block of ", fi2.FullName, " position ", index * b1.Length, " will be restored from ", fi1.FullName);
                                         restore2.Add(new RestoreInfo(index * b1.Length, b1, false));
@@ -3605,7 +3605,7 @@ namespace SyncFolders
 
                     using (System.IO.Stream s2 = System.IO.File.Open(path2, System.IO.FileMode.Open, System.IO.FileAccess.ReadWrite, System.IO.FileShare.Read))
                     {
-                        // let's apply improvements of one file to the list of the other, whenever possible (we are in first folder readonly case)
+                        // let'oInputStream apply improvements of one file to the list of the oOtherSaveInfo, whenever possible (we are in first folder readonly case)
                         foreach (RestoreInfo ri1 in restore1)
                         {
                             foreach (RestoreInfo ri2 in restore2)
@@ -3619,7 +3619,7 @@ namespace SyncFolders
                             }
                         }
 
-                        // let's apply the definitive improvements
+                        // let'oInputStream apply the definitive improvements
                         foreach (RestoreInfo ri2 in restore2)
                         {
                             if (ri2.NotRecoverableArea || (_bPreferPhysicalCopies && equalBlocks.ContainsKey(ri2.Position / ri2.Data.Length)))
@@ -3639,7 +3639,7 @@ namespace SyncFolders
 
 
 
-                        // let's try to copy non-recoverable blocks from one file to another, whenever possible
+                        // let'oInputStream try to copy non-recoverable blocks from one file to another, whenever possible
                         foreach (RestoreInfo ri2 in restore2)
                         {
                             if (ri2.NotRecoverableArea && !equalBlocks.ContainsKey(ri2.Position / ri2.Data.Length) &&
@@ -3691,10 +3691,10 @@ namespace SyncFolders
             {
                 System.DateTime prevLastWriteTime = fi1.LastWriteTimeUtc;
 
-                // let's read both copies of the file that obviously are both present, without saved info
+                // let'oInputStream read both copies of the file that obviously are both present, without saved info
                 List<RestoreInfo> restore2 = new List<RestoreInfo>();
 
-                // now let's try to read the files and compare 
+                // now let'oInputStream try to read the files and compare 
                 long notRestoredSize2 = 0;
                 long badBlocks2 = 0;
                 long badBlocks1 = 0;
@@ -3907,7 +3907,7 @@ namespace SyncFolders
             using (System.IO.FileStream s = System.IO.File.Create((System.IO.Path.Combine(di4.FullName, "restore1.txt.chk"))))
             {
                 b[0] = 1;
-                si.Analyze(b, 0);
+                si.AnalyzeForInfoCollection(b, 0);
                 si.SaveTo(s);
                 s.Close();
             }
@@ -3926,9 +3926,9 @@ namespace SyncFolders
             using (System.IO.FileStream s = System.IO.File.Create((System.IO.Path.Combine(di4.FullName, "restore2.txt.chk"))))
             {
                 b[0] = 2;
-                si.Analyze(b, 0);
+                si.AnalyzeForInfoCollection(b, 0);
                 b[0] = 0;
-                si.Analyze(b, 1);
+                si.AnalyzeForInfoCollection(b, 1);
                 si.SaveTo(s);
                 s.Close();
             }
@@ -3970,11 +3970,11 @@ namespace SyncFolders
             using (System.IO.FileStream s = System.IO.File.Create((System.IO.Path.Combine(di4.FullName, "restore3.txt.chk"))))
             {
                 b[0] = 255;
-                si.Analyze(b, 0);
+                si.AnalyzeForInfoCollection(b, 0);
                 b[0] = 3;
-                si.Analyze(b, 1);
-                si.Analyze(b, 2);
-                si.Analyze(b, 3);
+                si.AnalyzeForInfoCollection(b, 1);
+                si.AnalyzeForInfoCollection(b, 2);
+                si.AnalyzeForInfoCollection(b, 3);
                 si.SaveTo(s);
                 s.Close();
             }
