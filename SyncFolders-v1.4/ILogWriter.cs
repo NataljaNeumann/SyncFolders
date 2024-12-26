@@ -33,8 +33,8 @@ namespace SyncFolders
         /// <summary>
         /// Writes a log message, consisting of one or more parts
         /// </summary>
-        /// <param name="indent">Intent of currrent message</param>
-        /// <param name="parts">Parts of current message</param>
-        void WriteLog(int indent, params object[] parts);
+        /// <param name="nIndent">Intent of currrent message</param>
+        /// <param name="aParts">Parts of current message</param>
+        void WriteLog(int nIndent, params object[] aParts);
     }
 }
