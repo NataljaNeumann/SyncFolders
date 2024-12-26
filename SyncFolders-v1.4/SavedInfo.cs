@@ -49,7 +49,7 @@ namespace SyncFolders
     /// maximum number of blocks that can be restored in a continuous range by half.
     /// </summary>
     [Serializable]
-    class SaveInfo
+    class SavedInfo
     {
 
         /// <summary>
@@ -97,9 +97,9 @@ namespace SyncFolders
 
 
         /// <summary>
-        /// Constructs a new empty SaveInfo (64 K, no checksums)
+        /// Constructs a new empty SavedInfo (64 K, no checksums)
         /// </summary>
-        public SaveInfo()
+        public SavedInfo()
         {
             Block testb = Block.GetBlock();
             for (int i = 1024 * 64 / testb.Length - 1; i >= 0; --i)
@@ -108,13 +108,13 @@ namespace SyncFolders
         }
 
         /// <summary>
-        /// Constructs a new SaveInfo with data
+        /// Constructs a new SavedInfo with data
         /// </summary>
         /// <param name="lFileLength">The length of the file</param>
         /// <param name="dtmFileTimestampUtc">The UTC timestamp of the file</param>
         /// <param name="bForceOtherBlocks">Force creation of second row of blocks, even if
         /// the file is too small for it</param>
-        public SaveInfo(long lFileLength, DateTime dtmFileTimestampUtc, bool bForceOtherBlocks)
+        public SavedInfo(long lFileLength, DateTime dtmFileTimestampUtc, bool bForceOtherBlocks)
         {
             m_lFileLength = lFileLength;
             m_dtmFileTimestampUtc = dtmFileTimestampUtc;
@@ -472,7 +472,7 @@ namespace SyncFolders
         }
 
         /// <summary>
-        /// Analyzes a block, read from original file, for creating SaveInfo
+        /// Analyzes a block, read from original file, for creating SavedInfo
         /// It is expected that all blocks are readable and come 
         /// sequentially from beginning to end of original file
         /// </summary>
@@ -918,7 +918,7 @@ namespace SyncFolders
         /// from each other
         /// </summary>
         /// <param name="oOtherSaveInfo">Other saved info</param>
-        public void ImproveWith(SaveInfo oOtherSaveInfo)
+        public void ImproveWith(SavedInfo oOtherSaveInfo)
         {
             // Match checksums
             if (this.m_aChecksums.Count == 0 && oOtherSaveInfo.m_aChecksums.Count > 0)

@@ -1788,7 +1788,7 @@ namespace SyncFolders
 
 
             System.IO.FileInfo finfo = new System.IO.FileInfo(pathFile);
-            SaveInfo si = new SaveInfo(finfo.Length, finfo.LastWriteTimeUtc, false);
+            SavedInfo si = new SavedInfo(finfo.Length, finfo.LastWriteTimeUtc, false);
             try
             {
                 using (System.IO.BufferedStream s = new System.IO.BufferedStream(System.IO.File.OpenRead(finfo.FullName), (int)Math.Min(finfo.Length + 1, 64 * 1024 * 1024)))
@@ -1892,7 +1892,7 @@ namespace SyncFolders
         bool CreateRestoreInfo(string pathFile, string pathRestoreInfoFile)
         {
             System.IO.FileInfo finfo = new System.IO.FileInfo(pathFile);
-            SaveInfo si = new SaveInfo(finfo.Length, finfo.LastWriteTimeUtc, false);
+            SavedInfo si = new SavedInfo(finfo.Length, finfo.LastWriteTimeUtc, false);
             try
             {
                 using (System.IO.BufferedStream s = new System.IO.BufferedStream(System.IO.File.OpenRead(finfo.FullName), (int)Math.Min(finfo.Length + 1, 64 * 1024 * 1024)))
@@ -2002,7 +2002,7 @@ namespace SyncFolders
             }
 
         repeat:
-            SaveInfo si = new SaveInfo();
+            SavedInfo si = new SavedInfo();
             bool bSaveInfoUnreadable = !firi.Exists;
             if (!bSaveInfoUnreadable)
             {
@@ -2247,7 +2247,7 @@ namespace SyncFolders
             System.IO.FileInfo finfo = new System.IO.FileInfo(pathFile);
             System.IO.FileInfo firi = new System.IO.FileInfo(pathRestoreInfoFile);
 
-            SaveInfo si = new SaveInfo();
+            SavedInfo si = new SavedInfo();
             bool bNotReadableSi = !firi.Exists;
 
             if (!bNotReadableSi)
@@ -2485,8 +2485,8 @@ namespace SyncFolders
             System.IO.FileInfo fi1checked = new System.IO.FileInfo(path1ri + "ed");
             System.IO.FileInfo fi2checked = new System.IO.FileInfo(path2ri + "ed");
 
-            SaveInfo si1 = new SaveInfo();
-            SaveInfo si2 = new SaveInfo();
+            SavedInfo si1 = new SavedInfo();
+            SavedInfo si2 = new SavedInfo();
 
             bool bSaveInfo1Present = false;
             if (fi1ri.Exists && fi1ri.LastWriteTimeUtc == fi1.LastWriteTimeUtc)
@@ -2497,7 +2497,7 @@ namespace SyncFolders
                     bSaveInfo1Present = si1.Length==fi1.Length && FileTimesEqual(si1.TimeStamp, fi1.LastWriteTimeUtc) /*si1.TimeStamp==fi1.LastWriteTimeUtc*/;
                     if (!bSaveInfo1Present)
                     {
-                        si1 = new SaveInfo();
+                        si1 = new SavedInfo();
                         bForceCreateInfo = true;
                     }
                     else
@@ -2513,7 +2513,7 @@ namespace SyncFolders
             {
                 using (System.IO.Stream s = System.IO.File.OpenRead(fi2ri.FullName))
                 {
-                    SaveInfo si3 = new SaveInfo();
+                    SavedInfo si3 = new SavedInfo();
                     si3.ReadFrom(s);
                     if (si3.Length == fi2.Length && FileTimesEqual(si3.TimeStamp, fi2.LastWriteTimeUtc) /*si3.TimeStamp == fi2.LastWriteTimeUtc*/)
                     {
@@ -3067,7 +3067,7 @@ namespace SyncFolders
 
             DateTime dtmOriginalTime = finfo.LastWriteTimeUtc;
 
-            SaveInfo si = new SaveInfo();
+            SavedInfo si = new SavedInfo();
             bool bNotReadableSi = !firi.Exists;
 
             if (!bNotReadableSi)
@@ -3399,8 +3399,8 @@ namespace SyncFolders
             System.IO.FileInfo fi1ri = new System.IO.FileInfo(path1ri);
             System.IO.FileInfo fi2ri = new System.IO.FileInfo(path2ri);
 
-            SaveInfo si1 = new SaveInfo();
-            SaveInfo si2 = new SaveInfo();
+            SavedInfo si1 = new SavedInfo();
+            SavedInfo si2 = new SavedInfo();
 
             bool bSaveInfo1Present = false;
             if (fi1ri.Exists && (_bIgnoreTimeDifferences || fi1ri.LastWriteTimeUtc == fi1.LastWriteTimeUtc) )
@@ -3411,7 +3411,7 @@ namespace SyncFolders
                     bSaveInfo1Present = si1.Length == fi1.Length && (_bIgnoreTimeDifferences || FileTimesEqual(si1.TimeStamp, fi1.LastWriteTimeUtc) )/*si1.TimeStamp == fi1.LastWriteTimeUtc*/;
                     if (!bSaveInfo1Present)
                     {
-                        si1 = new SaveInfo();
+                        si1 = new SavedInfo();
                         bForceCreateInfo = true;
                     }
                     else
@@ -3427,7 +3427,7 @@ namespace SyncFolders
             {
                 using (System.IO.Stream s = System.IO.File.OpenRead(fi2ri.FullName))
                 {
-                    SaveInfo si3 = new SaveInfo();
+                    SavedInfo si3 = new SavedInfo();
                     si3.ReadFrom(s);
                     if (si3.Length == fi2.Length && (_bIgnoreTimeDifferences || FileTimesEqual(si3.TimeStamp, fi2.LastWriteTimeUtc) )/*si3.TimeStamp == fi2.LastWriteTimeUtc*/)
                     {
@@ -3903,7 +3903,7 @@ namespace SyncFolders
             System.IO.FileInfo fi2 = new System.IO.FileInfo((System.IO.Path.Combine(textBoxFirstFolder.Text, "restore1.txt")));
             System.IO.DirectoryInfo di4 = new System.IO.DirectoryInfo((System.IO.Path.Combine(textBoxFirstFolder.Text, "RestoreInfo")));
             di4.Create();
-            SaveInfo si = new SaveInfo(fi2.Length, fi2.LastWriteTimeUtc, false);
+            SavedInfo si = new SavedInfo(fi2.Length, fi2.LastWriteTimeUtc, false);
             using (System.IO.FileStream s = System.IO.File.Create((System.IO.Path.Combine(di4.FullName, "restore1.txt.chk"))))
             {
                 b[0] = 1;
@@ -3922,7 +3922,7 @@ namespace SyncFolders
                 s.Close();
             }
             fi2 = new System.IO.FileInfo((System.IO.Path.Combine(textBoxFirstFolder.Text, "restore2.txt")));
-            si = new SaveInfo(fi2.Length, fi2.LastWriteTimeUtc, false);
+            si = new SavedInfo(fi2.Length, fi2.LastWriteTimeUtc, false);
             using (System.IO.FileStream s = System.IO.File.Create((System.IO.Path.Combine(di4.FullName, "restore2.txt.chk"))))
             {
                 b[0] = 2;
@@ -3966,7 +3966,7 @@ namespace SyncFolders
             }
 
             fi2 = new System.IO.FileInfo((System.IO.Path.Combine(textBoxFirstFolder.Text, "restore3.txt")));
-            si = new SaveInfo(fi2.Length, fi2.LastWriteTimeUtc, false);
+            si = new SavedInfo(fi2.Length, fi2.LastWriteTimeUtc, false);
             using (System.IO.FileStream s = System.IO.File.Create((System.IO.Path.Combine(di4.FullName, "restore3.txt.chk"))))
             {
                 b[0] = 255;
