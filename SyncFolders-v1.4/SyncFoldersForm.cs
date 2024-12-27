@@ -90,12 +90,12 @@ namespace SyncFolders
         /// <summary>
         /// This is executed on a help request
         /// </summary>
-        /// <param name="sender">Sender object</param>
-        /// <param name="e">Event args</param>
+        /// <param name="oSender">Sender object</param>
+        /// <param name="oEventArgs">Event args</param>
         //===================================================================================================
         private void folderBrowserDialog1_HelpRequest(
-            object sender, 
-            EventArgs e)
+            object oSender, 
+            EventArgs oEventArgs)
         {
 
         }
@@ -134,12 +134,12 @@ namespace SyncFolders
         /// <summary>
         /// This is executed when Test all files checkbox is clicked
         /// </summary>
-        /// <param name="sender">Sender object</param>
-        /// <param name="e">Event args</param>
+        /// <param name="oSender">Sender object</param>
+        /// <param name="oEventArgs">Event args</param>
         //===================================================================================================
         private void checkBoxTestAllFiles_CheckedChanged(
-            object sender, 
-            EventArgs e)
+            object oSender, 
+            EventArgs oEventArgs)
         {
             checkBoxRepairBlockFailures.Enabled = checkBoxTestAllFiles.Checked;
             checkBoxPreferCopies.Enabled = checkBoxTestAllFiles.Checked && 
@@ -151,12 +151,12 @@ namespace SyncFolders
         /// <summary>
         /// This is executed when ... at first folder is clicked
         /// </summary>
-        /// <param name="sender">Sender object</param>
-        /// <param name="e">Event args</param>
+        /// <param name="oSender">Sender object</param>
+        /// <param name="oEventArgs">Event args</param>
         //===================================================================================================
         private void buttonSelectFirstFolder_Click(
-            object sender, 
-            EventArgs e)
+            object oSender, 
+            EventArgs oEventArgs)
         {
             if (!string.IsNullOrEmpty(textBoxFirstFolder.Text))
                 folderBrowserDialogFolder1.SelectedPath = textBoxFirstFolder.Text;
@@ -171,12 +171,12 @@ namespace SyncFolders
         /// <summary>
         /// This is executed when ... at second folder is clicked
         /// </summary>
-        /// <param name="sender">Sender object</param>
-        /// <param name="e">Event args</param>
+        /// <param name="oSender">Sender object</param>
+        /// <param name="oEventArgs">Event args</param>
         //===================================================================================================
         private void buttonSelectSecondFolder_Click(
-            object sender, 
-            EventArgs e)
+            object oSender, 
+            EventArgs oEventArgs)
         {
             if (!string.IsNullOrEmpty(textBoxSecondFolder.Text))
                 folderBrowserDialogFolder2.SelectedPath = textBoxSecondFolder.Text;
@@ -191,12 +191,12 @@ namespace SyncFolders
         /// <summary>
         /// This is executed when user clicks "Sync"
         /// </summary>
-        /// <param name="sender">Sender object</param>
-        /// <param name="e">Event args</param>
+        /// <param name="oSender">Sender object</param>
+        /// <param name="oEventArgs">Event args</param>
         //===================================================================================================
         private void buttonSync_Click(
-            object sender, 
-            EventArgs e)
+            object oSender, 
+            EventArgs oEventArgs)
         {
 
             _folder1 = textBoxFirstFolder.Text;
@@ -318,32 +318,32 @@ namespace SyncFolders
         /// the target file by .tmp
         /// </summary>
         /// <param name="fi">File info of the source file</param>
-        /// <param name="targetPath">target path</param>
+        /// <param name="strTargetPath">target path</param>
         /// <param name="strReason">Reason of the copy for messages</param>
         //===================================================================================================
         void CopyFileSafely(
             System.IO.FileInfo fi, 
-            string targetPath, 
+            string strTargetPath, 
             string strReason)
         {
-            string targetPath2 = targetPath + ".tmp";
+            string strTargetPath2 = strTargetPath + ".tmp";
             try
             {
-                fi.CopyTo(targetPath2,true);
+                fi.CopyTo(strTargetPath2,true);
 
-                System.IO.FileInfo fi2 = new System.IO.FileInfo(targetPath);
+                System.IO.FileInfo fi2 = new System.IO.FileInfo(strTargetPath);
                 if (fi2.Exists)
                     fi2.Delete();
 
-                System.IO.FileInfo fi2tmp = new System.IO.FileInfo(targetPath2);
-                fi2tmp.MoveTo(targetPath);
-                WriteLog(0, "Copied ", fi.FullName, " to ", targetPath, " ", strReason);                
+                System.IO.FileInfo fi2tmp = new System.IO.FileInfo(strTargetPath2);
+                fi2tmp.MoveTo(strTargetPath);
+                WriteLog(0, "Copied ", fi.FullName, " to ", strTargetPath, " ", strReason);                
             } catch
             {
                 try
                 {
                     System.Threading.Thread.Sleep(5000);
-                    System.IO.FileInfo fi2 = new System.IO.FileInfo(targetPath2);
+                    System.IO.FileInfo fi2 = new System.IO.FileInfo(strTargetPath2);
                     if (fi2.Exists)
                         fi2.Delete();
                 } catch
@@ -445,9 +445,9 @@ namespace SyncFolders
 
                             ProcessFilePair(pathPair.Key, pathPair.Value);
                         }
-                        catch (Exception ex)
+                        catch (Exception oEx)
                         {
-                            WriteLog(0, "Error while processing file pair \"", pathPair.Key, "\" | \"", pathPair.Value, "\": ", ex.Message);
+                            WriteLog(0, "Error while processing file pair \"", pathPair.Key, "\" | \"", pathPair.Value, "\": ", oEx.Message);
                         };
 
                         //*/
@@ -587,15 +587,15 @@ namespace SyncFolders
         /// Searches directories for files and subdirectories. The collected file pairs are storedd to
         /// _filePairs
         /// </summary>
-        /// <param name="path1">Path in subdir of first folder</param>
-        /// <param name="path2">Path in subdir of second folder</param>
+        /// <param name="strDirPath1">Path in subdir of first folder</param>
+        /// <param name="strDirPath2">Path in subdir of second folder</param>
         //===================================================================================================
         void FindFilePairs(
-            string path1, 
-            string path2)
+            string strDirPath1, 
+            string strDirPath2)
         {
-            System.IO.DirectoryInfo di1 = new System.IO.DirectoryInfo(path1);
-            System.IO.DirectoryInfo di2 = new System.IO.DirectoryInfo(path2);
+            System.IO.DirectoryInfo di1 = new System.IO.DirectoryInfo(strDirPath1);
+            System.IO.DirectoryInfo di2 = new System.IO.DirectoryInfo(strDirPath2);
 
             // don't sync recycle bin
             if (di1.Name.Equals("$RECYCLE.BIN", 
@@ -612,7 +612,7 @@ namespace SyncFolders
             if (di1.Exists && !di2.Exists)
             {
                 di2.Create();
-                di2 = new System.IO.DirectoryInfo(path2);
+                di2 = new System.IO.DirectoryInfo(strDirPath2);
                 di2.Attributes = di1.Attributes;
             } else
             if (di2.Exists && !di1.Exists)
@@ -635,23 +635,23 @@ namespace SyncFolders
                 if (!_bFirstToSecond || !_bFirstReadOnly)
                 {
                     di3 = new System.IO.DirectoryInfo(
-                        System.IO.Path.Combine(path1, "RestoreInfo"));
+                        System.IO.Path.Combine(strDirPath1, "RestoreInfo"));
                     if (!di3.Exists)
                     {
                         di3.Create();
                         di3 = new System.IO.DirectoryInfo(
-                            System.IO.Path.Combine(path1, "RestoreInfo"));
+                            System.IO.Path.Combine(strDirPath1, "RestoreInfo"));
                         di3.Attributes = di3.Attributes | System.IO.FileAttributes.Hidden;
                     }
                 }
 
                 di3 = new System.IO.DirectoryInfo(
-                    System.IO.Path.Combine(path2, "RestoreInfo"));
+                    System.IO.Path.Combine(strDirPath2, "RestoreInfo"));
                 if (!di3.Exists)
                 {
                     di3.Create();
                     di3 = new System.IO.DirectoryInfo(
-                        System.IO.Path.Combine(path2, "RestoreInfo"));
+                        System.IO.Path.Combine(strDirPath2, "RestoreInfo"));
                     di3.Attributes = di3.Attributes | System.IO.FileAttributes.Hidden;
                 }
 
@@ -677,7 +677,7 @@ namespace SyncFolders
 
 
             // find files in both directories
-            Dictionary<string, bool> fileNames = new Dictionary<string, bool>();
+            Dictionary<string, bool> oFileNames = new Dictionary<string, bool>();
             if (di1.Exists || !_bFirstToSecond)
             {
                 foreach (System.IO.FileInfo fi1 in di1.GetFiles())
@@ -685,7 +685,7 @@ namespace SyncFolders
                     if (fi1.Name.Length<=4 || !".tmp".Equals(
                         fi1.Name.Substring(fi1.Name.Length - 4), 
                         StringComparison.InvariantCultureIgnoreCase))
-                        fileNames[fi1.Name] = false;
+                        oFileNames[fi1.Name] = false;
                 }
 
                 foreach (System.IO.FileInfo fi2 in di2.GetFiles())
@@ -693,27 +693,27 @@ namespace SyncFolders
                     if (fi2.Name.Length <= 4 || !".tmp".Equals(
                         fi2.Name.Substring(fi2.Name.Length - 4), 
                         StringComparison.InvariantCultureIgnoreCase))
-                        fileNames[fi2.Name] = false;
+                        oFileNames[fi2.Name] = false;
                 }
             }
 
 
-            foreach (string fileName in fileNames.Keys)
+            foreach (string strFileName in oFileNames.Keys)
                 _filePairs.Add( new KeyValuePair<string,string>(
-                    System.IO.Path.Combine(path1, fileName), 
-                    System.IO.Path.Combine(path2, fileName)));
+                    System.IO.Path.Combine(strDirPath1, strFileName), 
+                    System.IO.Path.Combine(strDirPath2, strFileName)));
 
 
             // find subdirectories in both directories
-            Dictionary<string, bool> dirNames = new Dictionary<string, bool>();
+            Dictionary<string, bool> oDirNames = new Dictionary<string, bool>();
 
             if (di1.Exists || !_bFirstToSecond)
             {
                 foreach (System.IO.DirectoryInfo sub1 in di1.GetDirectories())
-                    dirNames[sub1.Name] = false;
+                    oDirNames[sub1.Name] = false;
 
                 foreach (System.IO.DirectoryInfo sub2 in di2.GetDirectories())
-                    dirNames[sub2.Name] = false;
+                    oDirNames[sub2.Name] = false;
             }
 
             // free the parent directory info objects
@@ -721,10 +721,10 @@ namespace SyncFolders
             di2 = null;
 
             // continue with the subdirs
-            foreach (string subDirName in dirNames.Keys)
+            foreach (string strSubDirName in oDirNames.Keys)
             {
-                FindFilePairs(System.IO.Path.Combine(path1, subDirName), 
-                    System.IO.Path.Combine(path2, subDirName));
+                FindFilePairs(System.IO.Path.Combine(strDirPath1, strSubDirName), 
+                    System.IO.Path.Combine(strDirPath2, strSubDirName));
                 if (_cancelClicked)
                     break;
             }
@@ -735,26 +735,25 @@ namespace SyncFolders
         /// This method is used for elimination of old .chk und .chked files that don't have original
         /// files for them anymore
         /// </summary>
-        /// <param name="availableFiles"></param>
-        /// <param name="fi"></param>
-        /// <param name="cmp"></param>
-        /// <param name="cmp2"></param>
-        /// <returns></returns>
+        /// <param name="iAvailableFiles">Files, available in the original directory</param>
+        /// <param name="fi">Fileinfo of the chk file</param>
+        /// <param name="oComparer1">Simple file name comparer</param>
+        /// <param name="oComparer2">Special file name comparer</param>
+        /// <returns>true iff iAvailableFiles contains specified file info</returns>
         //===================================================================================================
-
         bool CheckIfContains(
-            IEnumerable<System.IO.FileInfo> availableFiles, 
+            IEnumerable<System.IO.FileInfo> iAvailableFiles, 
             System.IO.FileInfo fi, 
-            FileEqualityComparer cmp, 
-            FileEqualityComparer2 cmp2
+            FileEqualityComparer oComparer1, 
+            FileEqualityComparer2 oComparer2
             )
         {
-            foreach (System.IO.FileInfo fi2 in availableFiles)
-                if (cmp.Equals(fi2, fi))
+            foreach (System.IO.FileInfo fi2 in iAvailableFiles)
+                if (oComparer1.Equals(fi2, fi))
                     return true;
 
-            foreach (System.IO.FileInfo fi2 in availableFiles)
-                if (cmp2.Equals(fi2, fi))
+            foreach (System.IO.FileInfo fi2 in iAvailableFiles)
+                if (oComparer2.Equals(fi2, fi))
                     return true;
 
             return false;
@@ -765,16 +764,16 @@ namespace SyncFolders
         /// This method deletes files and folders in second folder, if there is no corresponding files and
         /// folders in first folder
         /// </summary>
-        /// <param name="folderPath1">first folder</param>
-        /// <param name="folderPath2">second folder</param>
+        /// <param name="strFolderPath1">first folder</param>
+        /// <param name="strFolderPath2">second folder</param>
         //===================================================================================================
         void RemoveOldFilesAndDirs(
-            string folderPath1, 
-            string folderPath2
+            string strFolderPath1, 
+            string strFolderPath2
             )
         {
-            System.IO.DirectoryInfo di1 = new System.IO.DirectoryInfo(folderPath1);
-            System.IO.DirectoryInfo di2 = new System.IO.DirectoryInfo(folderPath2);
+            System.IO.DirectoryInfo di1 = new System.IO.DirectoryInfo(strFolderPath1);
+            System.IO.DirectoryInfo di2 = new System.IO.DirectoryInfo(strFolderPath2);
 
             // don't sync recycle bin
             if (di1.Name.Equals("$RECYCLE.BIN", StringComparison.InvariantCultureIgnoreCase))
@@ -798,7 +797,7 @@ namespace SyncFolders
                     di2.Delete(true);
                     WriteLog(0, "Deleted folder ", di2.FullName, 
                         " including contents, because there is no ", 
-                        folderPath1, " anymore");
+                        strFolderPath1, " anymore");
                     return;
                 }
             };
@@ -808,12 +807,12 @@ namespace SyncFolders
             if (!_bFirstToSecond || !_bFirstReadOnly)
             {
                 di3 = new System.IO.DirectoryInfo(
-                    System.IO.Path.Combine(folderPath1, "RestoreInfo"));
+                    System.IO.Path.Combine(strFolderPath1, "RestoreInfo"));
 
                 if (di3.Exists)
                 {
-                    List<System.IO.FileInfo> availableFiles = new List<System.IO.FileInfo>();
-                    availableFiles.AddRange(di1.GetFiles());
+                    List<System.IO.FileInfo> aAvailableFiles = new List<System.IO.FileInfo>();
+                    aAvailableFiles.AddRange(di1.GetFiles());
 
                     FileEqualityComparer feq = new FileEqualityComparer();
                     FileEqualityComparer2 feq2 = new FileEqualityComparer2();
@@ -823,30 +822,30 @@ namespace SyncFolders
                         try
                         {
                             if (fi.Extension.Equals(".chk", StringComparison.InvariantCultureIgnoreCase) && 
-                                !CheckIfContains(availableFiles, new System.IO.FileInfo(
+                                !CheckIfContains(aAvailableFiles, new System.IO.FileInfo(
                                     System.IO.Path.Combine(
                                     di3.FullName,fi.Name.Substring(0, fi.Name.Length - 4))), feq, feq2))
                             {
                                 fi.Delete();
                             } else
                             if (fi.Extension.Equals(".chked", StringComparison.InvariantCultureIgnoreCase) && 
-                                !CheckIfContains(availableFiles, new System.IO.FileInfo(
+                                !CheckIfContains(aAvailableFiles, new System.IO.FileInfo(
                                     System.IO.Path.Combine(
                                     di3.FullName,fi.Name.Substring(0, fi.Name.Length - 6))), feq, feq2))
                             {
                                 fi.Delete();
                             }
                         }
-                        catch (Exception ex)
+                        catch (Exception oEx)
                         {
                             try
                             {
                                 WriteLog(0, "Error while deleting ", 
-                                    System.IO.Path.Combine(di3.FullName,fi.Name), ": ", ex.Message);
+                                    System.IO.Path.Combine(di3.FullName,fi.Name), ": ", oEx.Message);
                             }
-                            catch (Exception ex2)
+                            catch (Exception oEx2)
                             {
-                                WriteLog(0, "Error in RemoveOldFilesAndDirs: ", ex2.Message); 
+                                WriteLog(0, "Error in RemoveOldFilesAndDirs: ", oEx2.Message); 
                             }
                         }
                     }
@@ -855,11 +854,11 @@ namespace SyncFolders
 
 
             // consider contents of the second folder
-            di3 = new System.IO.DirectoryInfo(System.IO.Path.Combine(folderPath2, "RestoreInfo"));
+            di3 = new System.IO.DirectoryInfo(System.IO.Path.Combine(strFolderPath2, "RestoreInfo"));
             if (di3.Exists)
             {
-                List<System.IO.FileInfo> availableFiles = new List<System.IO.FileInfo>();
-                availableFiles.AddRange(di2.GetFiles());
+                List<System.IO.FileInfo> aAvailableFiles = new List<System.IO.FileInfo>();
+                aAvailableFiles.AddRange(di2.GetFiles());
 
                 FileEqualityComparer feq = new FileEqualityComparer();
                 FileEqualityComparer2 feq2 = new FileEqualityComparer2();
@@ -869,7 +868,7 @@ namespace SyncFolders
                     try
                     {
                         if (fi.Extension.Equals(".chk", StringComparison.InvariantCultureIgnoreCase) && 
-                            !CheckIfContains(availableFiles, new System.IO.FileInfo(
+                            !CheckIfContains(aAvailableFiles, new System.IO.FileInfo(
                                 System.IO.Path.Combine(
                                 di3.FullName, fi.Name.Substring(0, fi.Name.Length - 4))), feq, feq2))
                         {
@@ -877,26 +876,26 @@ namespace SyncFolders
                         }
                         else
                         if (fi.Extension.Equals(".chked", StringComparison.InvariantCultureIgnoreCase) && 
-                            !CheckIfContains(availableFiles, new System.IO.FileInfo(
+                            !CheckIfContains(aAvailableFiles, new System.IO.FileInfo(
                                 System.IO.Path.Combine(
                                 di3.FullName, fi.Name.Substring(0, fi.Name.Length - 6))), feq, feq2))
                         {
                             fi.Delete();
                         }
                     }
-                    catch (Exception ex)
+                    catch (Exception oEx)
                     {
                         try
                         {
                             WriteLog(0, "Error while deleting ", 
                                 System.IO.Path.Combine(di3.FullName, fi.Name), 
-                                ": ", ex.Message);
+                                ": ", oEx.Message);
                         }
-                        catch (Exception ex2)
+                        catch (Exception oEx2)
                         {
                             WriteLog(0, "Error while deleting files in ", 
-                                di3.FullName, ": ", ex.Message);
-                            WriteLog(1, "Error while writing log: ", ex2.Message);
+                                di3.FullName, ": ", oEx.Message);
+                            WriteLog(1, "Error while writing log: ", oEx2.Message);
                         }
                     }
                 }
@@ -904,15 +903,15 @@ namespace SyncFolders
 
 
             // find subdirectories in both directories
-            Dictionary<string, bool> dirNames = new Dictionary<string, bool>();
+            Dictionary<string, bool> oDirNames = new Dictionary<string, bool>();
 
             if (di1.Exists)
-                foreach (System.IO.DirectoryInfo sub1 in di1.GetDirectories())
-                    dirNames[sub1.Name] = false;
+                foreach (System.IO.DirectoryInfo diSubDir1 in di1.GetDirectories())
+                    oDirNames[diSubDir1.Name] = false;
 
             if (di2.Exists)
-                foreach (System.IO.DirectoryInfo sub2 in di2.GetDirectories())
-                    dirNames[sub2.Name] = false;
+                foreach (System.IO.DirectoryInfo diSubDir2 in di2.GetDirectories())
+                    oDirNames[diSubDir2.Name] = false;
 
             // free the parent directory info objects
             di1 = null;
@@ -920,10 +919,10 @@ namespace SyncFolders
             di3 = null;
 
             // continue with the subdirs
-            foreach (string subDirName in dirNames.Keys)
+            foreach (string strSubDirName in oDirNames.Keys)
             {
-                RemoveOldFilesAndDirs(System.IO.Path.Combine(folderPath1, subDirName), 
-                    System.IO.Path.Combine(folderPath2, subDirName));
+                RemoveOldFilesAndDirs(System.IO.Path.Combine(strFolderPath1, strSubDirName), 
+                    System.IO.Path.Combine(strFolderPath2, strSubDirName));
                 if (_cancelClicked)
                     break;
             }
@@ -943,19 +942,19 @@ namespace SyncFolders
             /// <summary>
             /// Compares two file names
             /// </summary>
-            /// <param name="x">First name</param>
-            /// <param name="y">Second name</param>
+            /// <param name="fi1">First name</param>
+            /// <param name="fi2">Second name</param>
             /// <returns>true iff the file names are equal case insensitively</returns>
             //===============================================================================================
             public bool Equals(
-                System.IO.FileInfo x, 
-                System.IO.FileInfo y
+                System.IO.FileInfo fi1, 
+                System.IO.FileInfo fi2
                 )
             {
-                if (x == null || y == null)
-                    return x == y;
+                if (fi1 == null || fi2 == null)
+                    return fi1 == fi2;
 
-                return string.Equals(x.Name, y.Name, 
+                return string.Equals(fi1.Name, fi2.Name, 
                     StringComparison.InvariantCultureIgnoreCase);
             }
 
@@ -990,19 +989,19 @@ namespace SyncFolders
             /// <summary>
             /// Compares two file names
             /// </summary>
-            /// <param name="x">First name</param>
-            /// <param name="y">Second name</param>
+            /// <param name="fi1">First name</param>
+            /// <param name="fi2">Second name</param>
             /// <returns>true iff the file names are considered equal</returns>
             //===============================================================================================
             public bool Equals(
-                System.IO.FileInfo x, 
-                System.IO.FileInfo y)
+                System.IO.FileInfo fi1, 
+                System.IO.FileInfo fi2)
             {
-                if (x == null || y == null)
-                    return x == y;
+                if (fi1 == null || fi2 == null)
+                    return fi1 == fi2;
 
-                return (x.Name[0]==y.Name[0]) && 
-                    string.Equals(x.Name.Substring(0,1)+(x.Name.GetHashCode()), y.Name, 
+                return (fi1.Name[0]==fi2.Name[0]) && 
+                    string.Equals(fi1.Name.Substring(0,1)+(fi1.Name.GetHashCode()), fi2.Name, 
                     StringComparison.InvariantCultureIgnoreCase);
             }
 
@@ -1029,28 +1028,28 @@ namespace SyncFolders
         /// This method is the main entry point for processing a file pair. It runs in a separate thread.
         /// Several threads may run in parallel
         /// </summary>
-        /// <param name="filePair">The file pair to process</param>
+        /// <param name="oFilePair">The file pair to process</param>
         void FilePairWorker(
-            object filePair
+            object oFilePair
             )
         {
             KeyValuePair<string, string> pathPair = 
-                (KeyValuePair<string, string>)filePair;
+                (KeyValuePair<string, string>)oFilePair;
             try
             {
                 ProcessFilePair(pathPair.Key, pathPair.Value);
             }
-            catch (OperationCanceledException ex)
+            catch (OperationCanceledException oEx)
             {
                 // report only if it is unexpected
                 if (!_cancelClicked)
                     WriteLog(0, "Error while processing file pair \"", 
-                        pathPair.Key, "\" | \"", pathPair.Value, "\": ", ex.Message);
+                        pathPair.Key, "\" | \"", pathPair.Value, "\": ", oEx.Message);
             }
-            catch (Exception ex)
+            catch (Exception oEx2)
             {
                 WriteLog(0, "Error while processing file pair \"", 
-                    pathPair.Key, "\" | \"", pathPair.Value, "\": ", ex.Message);
+                    pathPair.Key, "\" | \"", pathPair.Value, "\": ", oEx2.Message);
             }
             finally
             {
@@ -1064,32 +1063,32 @@ namespace SyncFolders
         /// <summary>
         /// This method calcs a possibly valid path for the .chk file
         /// </summary>
-        /// <param name="originaldir">The location of original file</param>
-        /// <param name="diraddon">Subdir name</param>
-        /// <param name="filename">Original file name</param>
-        /// <param name="newext">New extension</param>
+        /// <param name="strOriginalDir">The location of original file</param>
+        /// <param name="strSubDirForSavedInfo">Subdir name</param>
+        /// <param name="strFileName">Original file name</param>
+        /// <param name="strNewExtension">New extension</param>
         /// <returns>The combined information, or a special path, if in other case the path would be
         /// too long</returns>
         //===================================================================================================
         string CreatePathOfChkFile(
-            string originaldir, 
-            string diraddon, 
-            string filename, 
-            string newext
+            string strOriginalDir, 
+            string strSubDirForSavedInfo, 
+            string strFileName, 
+            string strNewExtension
             )
         {
             string str1 = System.IO.Path.Combine(
-                System.IO.Path.Combine(originaldir, diraddon), filename+newext);
+                System.IO.Path.Combine(strOriginalDir, strSubDirForSavedInfo), strFileName+strNewExtension);
             if (str1.Length >= 258)
             {
                 str1 = System.IO.Path.Combine(
-                    System.IO.Path.Combine(originaldir, diraddon), 
-                    filename.Substring(0, 1) + filename.GetHashCode().ToString() + newext);
+                    System.IO.Path.Combine(strOriginalDir, strSubDirForSavedInfo), 
+                    strFileName.Substring(0, 1) + strFileName.GetHashCode().ToString() + strNewExtension);
                 if (str1.Length >= 258)
                 {
                     str1 = System.IO.Path.Combine(
-                        System.IO.Path.Combine(originaldir, diraddon), 
-                        filename.Substring(0, 1) + ((++_dummy_counter).ToString()) + newext);
+                        System.IO.Path.Combine(strOriginalDir, strSubDirForSavedInfo), 
+                        strFileName.Substring(0, 1) + ((++_dummy_counter).ToString()) + strNewExtension);
                 }
             }
             return str1;
@@ -1102,41 +1101,41 @@ namespace SyncFolders
         /// <summary>
         /// This method processes a file pair
         /// </summary>
-        /// <param name="filePath1">first file</param>
-        /// <param name="filePath2">second file</param>
+        /// <param name="strFilePath1">first file</param>
+        /// <param name="strFilePath2">second file</param>
         //===================================================================================================
         void ProcessFilePair(
-            string filePath1, 
-            string filePath2
+            string strFilePath1, 
+            string strFilePath2
             )
         {
             System.IO.FileInfo fi1 = null, fi2 = null;
 
             //try
             {
-                fi1 = new System.IO.FileInfo(filePath1);
-                fi2 = new System.IO.FileInfo(filePath2);
+                fi1 = new System.IO.FileInfo(strFilePath1);
+                fi2 = new System.IO.FileInfo(strFilePath2);
             }
             // this solves the problem in this place, but other problems appear down the code
-            //catch (Exception ex)
+            //catch (Exception oEx)
             //{
-            //    string name1 = filePath1.Substring(filePath1.LastIndexOf('\\') + 1);
-            //    foreach(System.IO.FileInfo fitest in new System.IO.DirectoryInfo(filePath1.Substring(0,filePath1.LastIndexOf('\\'))).GetFiles())
+            //    string name1 = strFilePath1.Substring(strFilePath1.LastIndexOf('\\') + 1);
+            //    foreach(System.IO.FileInfo fitest in new System.IO.DirectoryInfo(strFilePath1.Substring(0,strFilePath1.LastIndexOf('\\'))).GetFiles())
             //        if (fitest.Name.Equals(name1, StringComparison.InvariantCultureIgnoreCase))
             //        {
             //            fi1 = fitest;
             //            break;
             //        }
             //
-            //    string name2 = filePath2.Substring(filePath1.LastIndexOf('\\') + 1);
-            //    foreach (System.IO.FileInfo fitest in new System.IO.DirectoryInfo(filePath2.Substring(0, filePath2.LastIndexOf('\\'))).GetFiles())
+            //    string name2 = strFilePath2.Substring(strFilePath1.LastIndexOf('\\') + 1);
+            //    foreach (System.IO.FileInfo fitest in new System.IO.DirectoryInfo(strFilePath2.Substring(0, strFilePath2.LastIndexOf('\\'))).GetFiles())
             //        if (fitest.Name.Equals(name2, StringComparison.InvariantCultureIgnoreCase))
             //        {
             //            fi2 = fitest;
             //            break;
             //        }
             //    if (fi1 == null || fi2 == null)
-            //        throw ex;
+            //        throw oEx;
             //}
 
             // this must be there, surely, don't question that again
@@ -1156,31 +1155,31 @@ namespace SyncFolders
             }
 
             if (_bFirstToSecond)
-                ProcessFilePair_FirstToSecond(filePath1, filePath2, fi1, fi2);
+                ProcessFilePair_FirstToSecond(strFilePath1, strFilePath2, fi1, fi2);
             else
-                ProcessFilePair_Bidirectionally(filePath1, filePath2, fi1, fi2);
+                ProcessFilePair_Bidirectionally(strFilePath1, strFilePath2, fi1, fi2);
         }
 
         //===================================================================================================
         /// <summary>
         /// This method processes a file pair in first-to-second folder mode
         /// </summary>
-        /// <param name="filePath1">first file</param>
-        /// <param name="filePath2">second file</param>
+        /// <param name="strFilePath1">first file</param>
+        /// <param name="strFilePath2">second file</param>
         //===================================================================================================
         void ProcessFilePair_FirstToSecond(
-            string filePath1, 
-            string filePath2, 
+            string strFilePath1, 
+            string strFilePath2, 
             System.IO.FileInfo fi1,
             System.IO.FileInfo fi2
             )
         {
             if (_bFirstReadOnly)
                 ProcessFilePair_FirstToSecond_FirstReadonly(
-                    filePath1, filePath2, fi1, fi2);            
+                    strFilePath1, strFilePath2, fi1, fi2);            
             else
                 ProcessFilePair_FirstToSecond_FirstReadWrite(
-                    filePath1, filePath2, fi1, fi2);            
+                    strFilePath1, strFilePath2, fi1, fi2);            
         }
 
         //===================================================================================================
@@ -1188,14 +1187,14 @@ namespace SyncFolders
         /// This method processes a file pair in first-to-second folder mode, in case user specified
         /// that first folder is read-only
         /// </summary>
-        /// <param name="filePath1">first file</param>
-        /// <param name="filePath2">second file</param>
+        /// <param name="strFilePath1">first file</param>
+        /// <param name="strFilePath2">second file</param>
         /// <param name="fi1">The file information about first file</param>
         /// <param name="fi2">The file information about second file</param>
         //===================================================================================================
         void ProcessFilePair_FirstToSecond_FirstReadonly(
-            string filePath1, 
-            string filePath2, 
+            string strFilePath1, 
+            string strFilePath2, 
             System.IO.FileInfo fi1, 
             System.IO.FileInfo fi2
             )
@@ -1204,31 +1203,31 @@ namespace SyncFolders
             if (fi1.Exists && fi2.Exists && 
                 fi1.Length == 0 && fi2.Length == 0)
             {
-                if (CheckIfZeroLengthIsInteresting(filePath2))
+                if (CheckIfZeroLengthIsInteresting(strFilePath2))
                 {
-                    if (filePath1.Equals(filePath2, StringComparison.CurrentCultureIgnoreCase))
+                    if (strFilePath1.Equals(strFilePath2, StringComparison.CurrentCultureIgnoreCase))
                         WriteLog(0, "Warning: file has zero length, "+
                             "indicating a failed copy operation in the past: ",
-                            filePath1);
+                            strFilePath1);
                     else
                         WriteLog(0, "Warning: both files have zero length, "+
                             "indicating a failed copy operation in the past: ", 
-                            filePath1, ", ", filePath2);
+                            strFilePath1, ", ", strFilePath2);
                 }
             }
             else
             {
                 if (fi2.Exists && (!fi1.Exists || fi1.Length == 0))
                     ProcessFilePair_FirstToSecond_FirstReadonly_SecondExists(
-                        filePath1, filePath2, fi1, fi2);
+                        strFilePath1, strFilePath2, fi1, fi2);
                 else
                 {
                     if (fi1.Exists && (!fi2.Exists || fi2.Length == 0))
                         ProcessFilePair_FirstToSecond_FirstReadonly_FirstExists(
-                            filePath1, filePath2, fi1, fi2);
+                            strFilePath1, strFilePath2, fi1, fi2);
                     else
                         ProcessFilePair_FirstToSecond_FirstReadonly_BothExist(
-                            filePath1, filePath2, fi1, fi2);
+                            strFilePath1, strFilePath2, fi1, fi2);
                 }
             }
         }
@@ -1239,14 +1238,14 @@ namespace SyncFolders
         /// This method processes a file pair in first-to-second folder mode, in case user specified
         /// that first folder is read-only and only second file exists
         /// </summary>
-        /// <param name="filePath1">first file</param>
-        /// <param name="filePath2">second file</param>
+        /// <param name="strFilePath1">first file</param>
+        /// <param name="strFilePath2">second file</param>
         /// <param name="fi1">The file information about first file</param>
         /// <param name="fi2">The file information about second file</param>
         //===================================================================================================
         void ProcessFilePair_FirstToSecond_FirstReadonly_SecondExists(
-            string filePath1, 
-            string filePath2, 
+            string strFilePath1, 
+            string strFilePath2, 
             System.IO.FileInfo fi1, 
             System.IO.FileInfo fi2
             )
@@ -1264,10 +1263,10 @@ namespace SyncFolders
             }
             else
             {
-                if (fi2.Length == 0 && CheckIfZeroLengthIsInteresting(filePath2))
+                if (fi2.Length == 0 && CheckIfZeroLengthIsInteresting(strFilePath2))
                 {
                     WriteLog(0, "Warning: file has zero length, "+
-                        "indicating a failed copy operation in the past: ", filePath2);
+                        "indicating a failed copy operation in the past: ", strFilePath2);
                 }
 
                 if (_bTestFiles)
@@ -1294,22 +1293,22 @@ namespace SyncFolders
         /// This method processes a file pair in first-to-second folder mode, in case user specified
         /// that first folder is read-only and only first file exists
         /// </summary>
-        /// <param name="filePath1">first file</param>
-        /// <param name="filePath2">second file</param>
+        /// <param name="strFilePath1">first file</param>
+        /// <param name="strFilePath2">second file</param>
         /// <param name="fi1">The file information about first file</param>
         /// <param name="fi2">The file information about second file</param>
         //===================================================================================================
         void ProcessFilePair_FirstToSecond_FirstReadonly_FirstExists(
-            string filePath1, 
-            string filePath2, 
+            string strFilePath1, 
+            string strFilePath2, 
             System.IO.FileInfo fi1, 
             System.IO.FileInfo fi2
             )
         {
-            if (fi1.Length == 0 && CheckIfZeroLengthIsInteresting(filePath1))
+            if (fi1.Length == 0 && CheckIfZeroLengthIsInteresting(strFilePath1))
             {
                 WriteLog(0, "Warning: file has zero length, "+
-                    "indicating a failed copy operation in the past: ", filePath1);
+                    "indicating a failed copy operation in the past: ", strFilePath1);
             }
 
             System.IO.FileInfo fiSavedInfo1 = new System.IO.FileInfo(
@@ -1365,14 +1364,14 @@ namespace SyncFolders
         /// This method processes a file pair in first-to-second folder mode, in case user specified
         /// that first folder is read-only and both files exist
         /// </summary>
-        /// <param name="filePath1">first file</param>
-        /// <param name="filePath2">second file</param>
+        /// <param name="strFilePath1">first file</param>
+        /// <param name="strFilePath2">second file</param>
         /// <param name="fi1">The file information about first file</param>
         /// <param name="fi2">The file information about second file</param>
         //===================================================================================================
         void ProcessFilePair_FirstToSecond_FirstReadonly_BothExist(
-            string filePath1, 
-            string filePath2, 
+            string strFilePath1, 
+            string strFilePath2, 
             System.IO.FileInfo fi1, 
             System.IO.FileInfo fi2
             )
@@ -1381,10 +1380,10 @@ namespace SyncFolders
                            ((!FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) && (fi1.LastWriteTimeUtc > fi2.LastWriteTimeUtc)) || (FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) && fi1.Length > fi2.Length))
                 )
                 ProcessFilePair_FirstToSecond_FirstReadonly_BothExist_NeedToCopy(
-                    filePath1, filePath2, fi1, fi2);            
+                    strFilePath1, strFilePath2, fi1, fi2);            
             else
                 ProcessFilePair_FirstToSecond_FirstReadonly_BothExist_NoNeedToCopy(
-                    filePath1, filePath2, fi1, fi2);
+                    strFilePath1, strFilePath2, fi1, fi2);
         }
 
 
@@ -1393,14 +1392,14 @@ namespace SyncFolders
         /// This method processes a file pair in first-to-second folder mode, in case user specified
         /// that first folder is read-only, both files exist and first needs to be copied over second file
         /// </summary>
-        /// <param name="filePath1">first file</param>
-        /// <param name="filePath2">second file</param>
+        /// <param name="strFilePath1">first file</param>
+        /// <param name="strFilePath2">second file</param>
         /// <param name="fi1">The file information about first file</param>
         /// <param name="fi2">The file information about second file</param>
         //===================================================================================================
         void ProcessFilePair_FirstToSecond_FirstReadonly_BothExist_NeedToCopy(
-            string filePath1, 
-            string filePath2, 
+            string strFilePath1, 
+            string strFilePath2, 
             System.IO.FileInfo fi1, 
             System.IO.FileInfo fi2
             )
@@ -1413,7 +1412,7 @@ namespace SyncFolders
             bool bForceCreateInfo = false;
 
             // if the first file is ok
-            if (TestSingleFile(filePath1, fiSavedInfo1.FullName, 
+            if (TestSingleFile(strFilePath1, fiSavedInfo1.FullName, 
                 ref bForceCreateInfo, _bTestFiles, true, false))
             {
                 if (_cancelClicked)
@@ -1426,8 +1425,8 @@ namespace SyncFolders
                     if (_cancelClicked)
                         return;
 
-                    CopyFileSafely(fi1, filePath2, "(file newer or bigger)");
-                    //fi1.CopyTo(filePath2, true);
+                    CopyFileSafely(fi1, strFilePath2, "(file newer or bigger)");
+                    //fi1.CopyTo(strFilePath2, true);
                 }
                 finally
                 {
@@ -1455,8 +1454,8 @@ namespace SyncFolders
                 }
             }
             else
-                WriteLog(0, "Warning: First file ", filePath1, 
-                    " has bad blocks, overwriting file ", filePath2, 
+                WriteLog(0, "Warning: First file ", strFilePath1, 
+                    " has bad blocks, overwriting file ", strFilePath2, 
                     " has been skipped, so the it remains as backup");
         }
 
@@ -1465,14 +1464,14 @@ namespace SyncFolders
         /// This method processes a file pair in first-to-second folder mode, in case user specified
         /// that first folder is read-only, both files exist and there is no obvious neeed to copy anything
         /// </summary>
-        /// <param name="filePath1">first file</param>
-        /// <param name="filePath2">second file</param>
+        /// <param name="strFilePath1">first file</param>
+        /// <param name="strFilePath2">second file</param>
         /// <param name="fi1">The file information about first file</param>
         /// <param name="fi2">The file information about second file</param>
         //===================================================================================================
         void ProcessFilePair_FirstToSecond_FirstReadonly_BothExist_NoNeedToCopy(
-            string filePath1, 
-            string filePath2, 
+            string strFilePath1, 
+            string strFilePath2, 
             System.IO.FileInfo fi1, 
             System.IO.FileInfo fi2
             )
@@ -1555,17 +1554,17 @@ namespace SyncFolders
                 if (_bTestFiles)
                 {
                     // test first file
-                    TestSingleFile(filePath1, CreatePathOfChkFile(
+                    TestSingleFile(strFilePath1, CreatePathOfChkFile(
                         fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"), 
                         ref bForceCreateInfoBecauseDamaged, true, !_bSkipRecentlyTested, true);
 
                     // test or repair second file, which is different from first
                     if (_bRepairFiles)
-                        TestAndRepairSingleFile(filePath2, CreatePathOfChkFile(
+                        TestAndRepairSingleFile(strFilePath2, CreatePathOfChkFile(
                             fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"), 
                             ref bForceCreateInfoBecauseDamaged);
                     else
-                        bOK = TestSingleFile(filePath2, CreatePathOfChkFile(
+                        bOK = TestSingleFile(strFilePath2, CreatePathOfChkFile(
                             fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"), 
                             ref bForceCreateInfoBecauseDamaged, true, !_bSkipRecentlyTested, true);
 
@@ -1583,14 +1582,14 @@ namespace SyncFolders
         /// This method processes a file pair in first-to-second folder mode, in case user specified
         /// that first folder can be written to.
         /// </summary>
-        /// <param name="filePath1">first file</param>
-        /// <param name="filePath2">second file</param>
+        /// <param name="strFilePath1">first file</param>
+        /// <param name="strFilePath2">second file</param>
         /// <param name="fi1">The file information about first file</param>
         /// <param name="fi2">The file information about second file</param>
         //===================================================================================================
         void ProcessFilePair_FirstToSecond_FirstReadWrite(
-            string filePath1, 
-            string filePath2, 
+            string strFilePath1, 
+            string strFilePath2, 
             System.IO.FileInfo fi1, 
             System.IO.FileInfo fi2
             )
@@ -1598,29 +1597,29 @@ namespace SyncFolders
             // special case: both exist and both zero length
             if (fi2.Exists && fi1.Exists && fi1.Length == 0 && fi2.Length == 0)
             {
-                if (CheckIfZeroLengthIsInteresting(filePath2))
+                if (CheckIfZeroLengthIsInteresting(strFilePath2))
                 {
-                    if (filePath1.Equals(filePath2, StringComparison.CurrentCultureIgnoreCase))
+                    if (strFilePath1.Equals(strFilePath2, StringComparison.CurrentCultureIgnoreCase))
                         WriteLog(0, "Warning: file has zero length, "+
-                            "indicating a failed copy operation in the past: ", filePath1);
+                            "indicating a failed copy operation in the past: ", strFilePath1);
                     else
                         WriteLog(0, "Warning: both files have zero length, "+
-                            "indicating a failed copy operation in the past: ", filePath1, ", ", filePath2);
+                            "indicating a failed copy operation in the past: ", strFilePath1, ", ", strFilePath2);
                 }
             }
             else
             {
                 if (fi2.Exists && (!fi1.Exists || fi1.Length == 0))
                     ProcessFilePair_FirstToSecond_FirstReadWrite_SecondExists(
-                        filePath1, filePath2, fi1, fi2);
+                        strFilePath1, strFilePath2, fi1, fi2);
                 else
                 {
                     if (fi1.Exists && (!fi2.Exists || fi2.Length == 0))
                         ProcessFilePair_FirstToSecond_FirstReadWrite_FirstExists(
-                            filePath1, filePath2, fi1, fi2);
+                            strFilePath1, strFilePath2, fi1, fi2);
                     else
                         ProcessFilePair_FirstToSecond_FirstReadWrite_BothExist(
-                            filePath1, filePath2, fi1, fi2);
+                            strFilePath1, strFilePath2, fi1, fi2);
                 }
             }
         }
@@ -1630,14 +1629,14 @@ namespace SyncFolders
         /// This method processes a file pair in first-to-second folder mode, in case user specified
         /// that first folder can be written to and only file in second folder exists
         /// </summary>
-        /// <param name="filePath1">first file</param>
-        /// <param name="filePath2">second file</param>
+        /// <param name="strFilePath1">first file</param>
+        /// <param name="strFilePath2">second file</param>
         /// <param name="fi1">The file information about first file</param>
         /// <param name="fi2">The file information about second file</param>
         //===================================================================================================
         void ProcessFilePair_FirstToSecond_FirstReadWrite_SecondExists(
-            string filePath1, 
-            string filePath2, 
+            string strFilePath1, 
+            string strFilePath2, 
             System.IO.FileInfo fi1, 
             System.IO.FileInfo fi2
             )
@@ -1655,10 +1654,10 @@ namespace SyncFolders
             }
             else
             {
-                if (fi2.Length == 0 && CheckIfZeroLengthIsInteresting(filePath2))
+                if (fi2.Length == 0 && CheckIfZeroLengthIsInteresting(strFilePath2))
                 {
                     WriteLog(0, "Warning: file has zero length, "+
-                        "indicating a failed copy operation in the past: ", filePath2);
+                        "indicating a failed copy operation in the past: ", strFilePath2);
                 }
 
                 if (_bTestFiles)
@@ -1690,19 +1689,19 @@ namespace SyncFolders
         /// This method processes a file pair in first-to-second folder mode, in case user specified
         /// that first folder can be written to and only file in first folder exists
         /// </summary>
-        /// <param name="filePath1">first file</param>
-        /// <param name="filePath2">second file</param>
+        /// <param name="strFilePath1">first file</param>
+        /// <param name="strFilePath2">second file</param>
         /// <param name="fi1">The file information about first file</param>
         /// <param name="fi2">The file information about second file</param>
         //===================================================================================================
         void ProcessFilePair_FirstToSecond_FirstReadWrite_FirstExists(
-            string filePath1, 
-            string filePath2, 
+            string strFilePath1, 
+            string strFilePath2, 
             System.IO.FileInfo fi1, 
             System.IO.FileInfo fi2
             )
         {
-            ProcessFilePair_Bidirectionally_FirstExists(filePath1, filePath2, fi1, fi2);
+            ProcessFilePair_Bidirectionally_FirstExists(strFilePath1, strFilePath2, fi1, fi2);
         }
 
         //===================================================================================================
@@ -1710,14 +1709,14 @@ namespace SyncFolders
         /// This method processes a file pair in first-to-second folder mode, in case user specified
         /// that first folder can be written to and both files exist.
         /// </summary>
-        /// <param name="filePath1">first file</param>
-        /// <param name="filePath2">second file</param>
+        /// <param name="strFilePath1">first file</param>
+        /// <param name="strFilePath2">second file</param>
         /// <param name="fi1">The file information about first file</param>
         /// <param name="fi2">The file information about second file</param>
         //===================================================================================================
         void ProcessFilePair_FirstToSecond_FirstReadWrite_BothExist(
-            string filePath1, 
-            string filePath2, 
+            string strFilePath1, 
+            string strFilePath2, 
             System.IO.FileInfo fi1, 
             System.IO.FileInfo fi2
             )
@@ -1727,10 +1726,10 @@ namespace SyncFolders
                            ((!FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) && fi1.LastAccessTimeUtc > fi2.LastAccessTimeUtc) || (FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) && (fi1.Length != fi2.Length)))
                )
                 ProcessFilePair_FirstToSecond_FirstReadWrite_BothExist_NeedToCopy(
-                    filePath1, filePath2, fi1, fi2);            
+                    strFilePath1, strFilePath2, fi1, fi2);            
             else
                 ProcessFilePair_FirstToSecond_FirstReadWrite_BothExist_NoNeedToCopy(
-                    filePath1, filePath2, fi1, fi2);
+                    strFilePath1, strFilePath2, fi1, fi2);
         }
 
 
@@ -1740,19 +1739,19 @@ namespace SyncFolders
         /// that first folder can be written to, both files exist and the first needs to be written over
         /// second file.
         /// </summary>
-        /// <param name="filePath1">first file</param>
-        /// <param name="filePath2">second file</param>
+        /// <param name="strFilePath1">first file</param>
+        /// <param name="strFilePath2">second file</param>
         /// <param name="fi1">The file information about first file</param>
         /// <param name="fi2">The file information about second file</param>
         //===================================================================================================
         void ProcessFilePair_FirstToSecond_FirstReadWrite_BothExist_NeedToCopy(
-            string filePath1, 
-            string filePath2, 
+            string strFilePath1, 
+            string strFilePath2, 
             System.IO.FileInfo fi1, 
             System.IO.FileInfo fi2
             )
         {
-            ProcessFilePair_Bidirectionally_BothExist_FirstNewer(filePath1, filePath2, fi1, fi2, 
+            ProcessFilePair_Bidirectionally_BothExist_FirstNewer(strFilePath1, strFilePath2, fi1, fi2, 
                 _syncMode?"(file was newer or bigger)":"(file has a different date or length)");
         }
 
@@ -1762,14 +1761,14 @@ namespace SyncFolders
         /// that first folder can be written to, both files exist and there is no obvious reason for
         /// copying anything
         /// </summary>
-        /// <param name="filePath1">first file</param>
-        /// <param name="filePath2">second file</param>
+        /// <param name="strFilePath1">first file</param>
+        /// <param name="strFilePath2">second file</param>
         /// <param name="fi1">The file information about first file</param>
         /// <param name="fi2">The file information about second file</param>
         //===================================================================================================
         void ProcessFilePair_FirstToSecond_FirstReadWrite_BothExist_NoNeedToCopy(
-            string filePath1, 
-            string filePath2, 
+            string strFilePath1, 
+            string strFilePath2, 
             System.IO.FileInfo fi1, 
             System.IO.FileInfo fi2
             )
@@ -1785,7 +1784,7 @@ namespace SyncFolders
                 fi1.Length == fi2.Length)
             {
                 ProcessFilePair_Bidirectionally_BothExist_AssumingBothEqual(
-                    filePath1, filePath2, fi1, fi2);
+                    strFilePath1, strFilePath2, fi1, fi2);
             }
             else
             {
@@ -1793,24 +1792,24 @@ namespace SyncFolders
                 bool bOK = true;
                 if (_bTestFiles)
                 {
-                    bOK = TestSingleFile(filePath2, CreatePathOfChkFile(
+                    bOK = TestSingleFile(strFilePath2, CreatePathOfChkFile(
                         fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"), 
                         ref bForceCreateInfo, true, !_bSkipRecentlyTested, true);
                     if (!bOK && _bRepairFiles)
                     {
                         // first try to repair second file internally
-                        if (TestSingleFileHealthyOrCanRepair(filePath2,
+                        if (TestSingleFileHealthyOrCanRepair(strFilePath2,
                             CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo",
                             fi2.Name, ".chk"), ref bForceCreateInfo))
                         {
-                            bOK = TestAndRepairSingleFile(filePath2, CreatePathOfChkFile(
+                            bOK = TestAndRepairSingleFile(strFilePath2, CreatePathOfChkFile(
                                 fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"),
                                 ref bForceCreateInfo);
                         }
 
                         if (bOK && bForceCreateInfo)
                         {
-                            CreateSavedInfo(filePath2, 
+                            CreateSavedInfo(strFilePath2, 
                                 CreatePathOfChkFile(
                                 fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
                         }
@@ -1819,47 +1818,47 @@ namespace SyncFolders
                         // if it didn't work, then try to repair using first file
                         if (!bOK)
                         {
-                            bOK = TestSingleFile(filePath1, CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"), ref bForceCreateInfo, true, true, true);
-                            if (!bOK && TestSingleFileHealthyOrCanRepair(filePath1, CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"), ref bForceCreateInfo))
-                                bOK = TestAndRepairSingleFile(filePath1, CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"), ref bForceCreateInfo);
+                            bOK = TestSingleFile(strFilePath1, CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"), ref bForceCreateInfo, true, true, true);
+                            if (!bOK && TestSingleFileHealthyOrCanRepair(strFilePath1, CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"), ref bForceCreateInfo))
+                                bOK = TestAndRepairSingleFile(strFilePath1, CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"), ref bForceCreateInfo);
 
                             if (bOK && bForceCreateInfo)
                             {
-                                bOK = CreateSavedInfo(filePath1, CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
+                                bOK = CreateSavedInfo(strFilePath1, CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
                                 bForceCreateInfo = false;
                             }
 
                             if (bOK)
                             {
                                 if (fi1.LastWriteTime.Year>1975)
-                                    CopyFileSafely(fi1, filePath2, 
+                                    CopyFileSafely(fi1, strFilePath2, 
                                         "(file was healthy, or repaired)");
                                 else
                                     WriteLog(0, "Warning: couldn't use outdated file ", 
-                                        filePath1," with year 1975 or earlier for restoring ",
-                                        filePath2, ", signaling this was a last chance restore");
+                                        strFilePath1," with year 1975 or earlier for restoring ",
+                                        strFilePath2, ", signaling this was a last chance restore");
                             }
                         }
                     }
                     else
                     {
                         // second file was OK, or no repair option, still need to process first file
-                        bOK = TestSingleFile(filePath1, CreatePathOfChkFile(
+                        bOK = TestSingleFile(strFilePath1, CreatePathOfChkFile(
                             fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"), 
                             ref bForceCreateInfo, true, true, true);
 
                         if (!bOK && _bRepairFiles)
                         {
-                            if (TestSingleFileHealthyOrCanRepair(filePath1,
+                            if (TestSingleFileHealthyOrCanRepair(strFilePath1,
                                 CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo",
                                 fi1.Name, ".chk"), ref bForceCreateInfo))
                             {
-                                bOK = TestAndRepairSingleFile(filePath1, CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"), ref bForceCreateInfo);
+                                bOK = TestAndRepairSingleFile(strFilePath1, CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"), ref bForceCreateInfo);
                             }
 
                             if (bOK && bForceCreateInfo)
                             {
-                                CreateSavedInfo(filePath1, CreatePathOfChkFile(
+                                CreateSavedInfo(strFilePath1, CreatePathOfChkFile(
                                     fi1.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
                             }
                             bForceCreateInfo = false;
@@ -1867,24 +1866,24 @@ namespace SyncFolders
                             // if it didn't work, then try to repair using second file
                             if (!bOK)
                             {
-                                bOK = TestSingleFile(filePath2, CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"), ref bForceCreateInfo, true, true, true);
-                                if (!bOK && TestSingleFileHealthyOrCanRepair(filePath2, CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"), ref bForceCreateInfo))
-                                    bOK = TestAndRepairSingleFile(filePath2, CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"), ref bForceCreateInfo);
+                                bOK = TestSingleFile(strFilePath2, CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"), ref bForceCreateInfo, true, true, true);
+                                if (!bOK && TestSingleFileHealthyOrCanRepair(strFilePath2, CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"), ref bForceCreateInfo))
+                                    bOK = TestAndRepairSingleFile(strFilePath2, CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"), ref bForceCreateInfo);
 
                                 if (bOK && bForceCreateInfo)
                                 {
-                                    bOK = CreateSavedInfo(filePath2, CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
+                                    bOK = CreateSavedInfo(strFilePath2, CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
                                     bForceCreateInfo = false;
                                 }
 
                                 if (bOK)
                                 {
                                     if (fi2.LastWriteTime.Year > 1975)
-                                        CopyFileSafely(fi2, filePath1, "(file was healthy, or repaired)");
+                                        CopyFileSafely(fi2, strFilePath1, "(file was healthy, or repaired)");
                                     else
-                                        WriteLog(0, "Warning: couldn't use outdated file ", filePath2, 
+                                        WriteLog(0, "Warning: couldn't use outdated file ", strFilePath2, 
                                             " with year 1975 or earlier for restoring ",
-                                            filePath1, ", signaling this was a last chance restore");
+                                            strFilePath1, ", signaling this was a last chance restore");
                                 }
                             }
                         }
@@ -1898,47 +1897,47 @@ namespace SyncFolders
         /// This method identifies files that are interesting for messages about zero length and failed
         /// copy
         /// </summary>
-        /// <param name="filePath">Path of the file for testing, if extension is interesting</param>
+        /// <param name="strFilePath">Path of the file for testing, if extension is interesting</param>
         /// <returns>true iff a message about zero-length of the file is desired</returns>
         //===================================================================================================
         bool CheckIfZeroLengthIsInteresting(
-            string filePath
+            string strFilePath
             )
         {
-            return filePath.EndsWith(".jpg", StringComparison.InvariantCultureIgnoreCase) ||
-                   filePath.EndsWith(".jpeg", StringComparison.InvariantCultureIgnoreCase) ||
-                   filePath.EndsWith(".cr2", StringComparison.InvariantCultureIgnoreCase) ||
-                   filePath.EndsWith(".raf", StringComparison.InvariantCultureIgnoreCase) ||
-                   filePath.EndsWith(".mov", StringComparison.InvariantCultureIgnoreCase) ||
-                   filePath.EndsWith(".mp3", StringComparison.InvariantCultureIgnoreCase) ||
-                   filePath.EndsWith(".mp4", StringComparison.InvariantCultureIgnoreCase) ||
-                   filePath.EndsWith(".mpeg4", StringComparison.InvariantCultureIgnoreCase) ||
-                   filePath.EndsWith(".aac", StringComparison.InvariantCultureIgnoreCase) ||
-                   filePath.EndsWith(".avc", StringComparison.InvariantCultureIgnoreCase) ||
-                   filePath.EndsWith(".m2ts", StringComparison.InvariantCultureIgnoreCase) ||
-                   filePath.EndsWith(".heic", StringComparison.InvariantCultureIgnoreCase) ||
-                   filePath.EndsWith(".avi", StringComparison.InvariantCultureIgnoreCase) ||
-                   filePath.EndsWith(".wmv", StringComparison.InvariantCultureIgnoreCase) ||
-                   filePath.EndsWith(".jp2", StringComparison.InvariantCultureIgnoreCase) ||
-                   filePath.EndsWith(".png", StringComparison.InvariantCultureIgnoreCase) ||
-                   filePath.EndsWith(".gif", StringComparison.InvariantCultureIgnoreCase) ||
-                   filePath.EndsWith(".tif", StringComparison.InvariantCultureIgnoreCase) ||
-                   filePath.EndsWith(".wma", StringComparison.InvariantCultureIgnoreCase) ||
-                   filePath.EndsWith(".flac", StringComparison.InvariantCultureIgnoreCase);
+            return strFilePath.EndsWith(".jpg", StringComparison.InvariantCultureIgnoreCase) ||
+                   strFilePath.EndsWith(".jpeg", StringComparison.InvariantCultureIgnoreCase) ||
+                   strFilePath.EndsWith(".cr2", StringComparison.InvariantCultureIgnoreCase) ||
+                   strFilePath.EndsWith(".raf", StringComparison.InvariantCultureIgnoreCase) ||
+                   strFilePath.EndsWith(".mov", StringComparison.InvariantCultureIgnoreCase) ||
+                   strFilePath.EndsWith(".mp3", StringComparison.InvariantCultureIgnoreCase) ||
+                   strFilePath.EndsWith(".mp4", StringComparison.InvariantCultureIgnoreCase) ||
+                   strFilePath.EndsWith(".mpeg4", StringComparison.InvariantCultureIgnoreCase) ||
+                   strFilePath.EndsWith(".aac", StringComparison.InvariantCultureIgnoreCase) ||
+                   strFilePath.EndsWith(".avc", StringComparison.InvariantCultureIgnoreCase) ||
+                   strFilePath.EndsWith(".m2ts", StringComparison.InvariantCultureIgnoreCase) ||
+                   strFilePath.EndsWith(".heic", StringComparison.InvariantCultureIgnoreCase) ||
+                   strFilePath.EndsWith(".avi", StringComparison.InvariantCultureIgnoreCase) ||
+                   strFilePath.EndsWith(".wmv", StringComparison.InvariantCultureIgnoreCase) ||
+                   strFilePath.EndsWith(".jp2", StringComparison.InvariantCultureIgnoreCase) ||
+                   strFilePath.EndsWith(".png", StringComparison.InvariantCultureIgnoreCase) ||
+                   strFilePath.EndsWith(".gif", StringComparison.InvariantCultureIgnoreCase) ||
+                   strFilePath.EndsWith(".tif", StringComparison.InvariantCultureIgnoreCase) ||
+                   strFilePath.EndsWith(".wma", StringComparison.InvariantCultureIgnoreCase) ||
+                   strFilePath.EndsWith(".flac", StringComparison.InvariantCultureIgnoreCase);
         }
 
         //===================================================================================================
         /// <summary>
         /// This method processes a file pair in bidirectional folder mode (default)
         /// </summary>
-        /// <param name="filePath1">first file</param>
-        /// <param name="filePath2">second file</param>
+        /// <param name="strFilePath1">first file</param>
+        /// <param name="strFilePath2">second file</param>
         /// <param name="fi1">The file information about first file</param>
         /// <param name="fi2">The file information about second file</param>
         //===================================================================================================
         void ProcessFilePair_Bidirectionally(
-            string filePath1, 
-            string filePath2, 
+            string strFilePath1, 
+            string strFilePath2, 
             System.IO.FileInfo fi1, 
             System.IO.FileInfo fi2)
         {
@@ -1946,33 +1945,33 @@ namespace SyncFolders
             if (fi1.Exists && fi2.Exists && 
                 fi1.Length == 0 && fi2.Length == 0)
             {
-                if (CheckIfZeroLengthIsInteresting(filePath2))
+                if (CheckIfZeroLengthIsInteresting(strFilePath2))
                 {
-                    if (filePath1.Equals(filePath2,
+                    if (strFilePath1.Equals(strFilePath2,
                         StringComparison.CurrentCultureIgnoreCase))
                     {
                         WriteLog(0, "Warning: file has zero length, " +
-                            "indicating a failed copy operation in the past: ", filePath1);
+                            "indicating a failed copy operation in the past: ", strFilePath1);
                     }
                     else
                     {
                         WriteLog(0, "Warning: both files have zero length, " +
-                            "indicating a failed copy operation in the past: ", filePath1, ", ", filePath2);
+                            "indicating a failed copy operation in the past: ", strFilePath1, ", ", strFilePath2);
                     }
                 }
             }
             else
                 if (fi1.Exists && (!fi2.Exists || fi2.Length==0))
                     ProcessFilePair_Bidirectionally_FirstExists(
-                        filePath1, filePath2, fi1, fi2);            
+                        strFilePath1, strFilePath2, fi1, fi2);            
                 else
                 {
                     if (fi2.Exists && (!fi1.Exists || fi1.Length==0))
                        ProcessFilePair_Bidirectionally_SecondExists(
-                           filePath1, filePath2, fi1, fi2);
+                           strFilePath1, strFilePath2, fi1, fi2);
                     else
                        ProcessFilePair_Bidirectionally_BothExist(
-                           filePath1, filePath2, fi1, fi2);
+                           strFilePath1, strFilePath2, fi1, fi2);
                 }
         }
 
@@ -1981,22 +1980,22 @@ namespace SyncFolders
         /// This method processes a file pair in bidirectional folder mode (default), in case only first of
         /// the two files exists
         /// </summary>
-        /// <param name="filePath1">first file</param>
-        /// <param name="filePath2">second file</param>
+        /// <param name="strFilePath1">first file</param>
+        /// <param name="strFilePath2">second file</param>
         /// <param name="fi1">The file information about first file</param>
         /// <param name="fi2">The file information about second file</param>
         //===================================================================================================
         void ProcessFilePair_Bidirectionally_FirstExists(
-            string filePath1, 
-            string filePath2, 
+            string strFilePath1, 
+            string strFilePath2, 
             System.IO.FileInfo fi1, 
             System.IO.FileInfo fi2
             )
         {
-            if (fi1.Length == 0 && CheckIfZeroLengthIsInteresting(filePath1))
+            if (fi1.Length == 0 && CheckIfZeroLengthIsInteresting(strFilePath1))
             {
                 WriteLog(0, "Warning: file has zero length, "+
-                    "indicating a failed copy operation in the past: ", filePath1);
+                    "indicating a failed copy operation in the past: ", strFilePath1);
             }
 
             System.IO.FileInfo fiSavedInfo1 = new System.IO.FileInfo(
@@ -2022,10 +2021,10 @@ namespace SyncFolders
                         fi1.FullName, fiSavedInfo1.FullName, 
                         fi2.FullName, "(file was new)"))
                     {
-                        CopyRepairSingleFile(filePath2, filePath1, 
+                        CopyRepairSingleFile(strFilePath2, strFilePath1, 
                             fiSavedInfo1.FullName, ref bForceCreateInfo,
                             ref bForceCreateInfo2, "(file was new)", false, false);
-                        CreateSavedInfo(filePath2, 
+                        CreateSavedInfo(strFilePath2, 
                             CreatePathOfChkFile(fi2.DirectoryName, 
                             "RestoreInfo", fi2.Name, ".chk"));
                         return;
@@ -2041,11 +2040,11 @@ namespace SyncFolders
                     try
                     {
                         if (_bTestFiles)
-                            CopyRepairSingleFile(filePath2, fi1.FullName, 
+                            CopyRepairSingleFile(strFilePath2, fi1.FullName, 
                                 fiSavedInfo1.FullName, ref bForceCreateInfo, ref bForceCreateInfo2, 
                                 "(file was new)", true, _bRepairFiles);
                         else
-                            CopyFileSafely(fi1, filePath2, "(file was new)");
+                            CopyFileSafely(fi1, strFilePath2, "(file was new)");
                     }
                     catch (Exception)
                     {
@@ -2055,7 +2054,7 @@ namespace SyncFolders
                             TestAndRepairSingleFile(fi1.FullName, 
                                 fiSavedInfo1.FullName, ref bForceCreateInfo);
                         if (bInTheEndOK)
-                            bInTheEndOK = CopyRepairSingleFile(filePath2, 
+                            bInTheEndOK = CopyRepairSingleFile(strFilePath2, 
                                 fi1.FullName, fiSavedInfo1.FullName, 
                                 ref bForceCreateInfo, ref bForceCreateInfo2, 
                                 "(file was new)", false, _bTestFiles && _bRepairFiles);
@@ -2070,7 +2069,7 @@ namespace SyncFolders
                         if (!fiSavedInfo1.Exists || bForceCreateInfo || 
                             fiSavedInfo1.LastWriteTimeUtc != fi1.LastWriteTimeUtc)
                         {
-                            CreateSavedInfo(filePath1, 
+                            CreateSavedInfo(strFilePath1, 
                                 CreatePathOfChkFile(fi1.DirectoryName, 
                                 "RestoreInfo", fi1.Name, ".chk"));
                             fiSavedInfo1 = new System.IO.FileInfo(
@@ -2079,7 +2078,7 @@ namespace SyncFolders
                         }
 
                         if (bForceCreateInfo2)
-                            CreateSavedInfo(filePath2, 
+                            CreateSavedInfo(strFilePath2, 
                                 CreatePathOfChkFile(fi2.DirectoryName, 
                                 "RestoreInfo", fi2.Name, ".chk"));
                         else
@@ -2101,21 +2100,21 @@ namespace SyncFolders
         /// This method processes a file pair in bidirectional folder mode (default), in case only second of
         /// the two files exists
         /// </summary>
-        /// <param name="filePath1">first file</param>
-        /// <param name="filePath2">second file</param>
+        /// <param name="strFilePath1">first file</param>
+        /// <param name="strFilePath2">second file</param>
         /// <param name="fi1">The file information about first file</param>
         /// <param name="fi2">The file information about second file</param>
         //===================================================================================================
         void ProcessFilePair_Bidirectionally_SecondExists(
-            string filePath1, 
-            string filePath2, 
+            string strFilePath1, 
+            string strFilePath2, 
             System.IO.FileInfo fi1, 
             System.IO.FileInfo fi2
             )
         {
             // symmetric situation
             ProcessFilePair_Bidirectionally_FirstExists(
-                filePath2, filePath1, fi2, fi1);
+                strFilePath2, strFilePath1, fi2, fi1);
         }
 
         //===================================================================================================
@@ -2123,14 +2122,14 @@ namespace SyncFolders
         /// This method processes a file pair in bidirectional folder mode (default), in case both files
         /// exist
         /// </summary>
-        /// <param name="filePath1">first file</param>
-        /// <param name="filePath2">second file</param>
+        /// <param name="strFilePath1">first file</param>
+        /// <param name="strFilePath2">second file</param>
         /// <param name="fi1">The file information about first file</param>
         /// <param name="fi2">The file information about second file</param>
         //===================================================================================================
         void ProcessFilePair_Bidirectionally_BothExist(
-            string filePath1, 
-            string filePath2, 
+            string strFilePath1, 
+            string strFilePath2, 
             System.IO.FileInfo fi1, 
             System.IO.FileInfo fi2
             )
@@ -2138,15 +2137,15 @@ namespace SyncFolders
             // bidirectionally path
             if ((!FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) && (fi1.LastWriteTimeUtc > fi2.LastWriteTimeUtc)) || 
                 (FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) && fi1.Length > fi2.Length))
-                ProcessFilePair_Bidirectionally_BothExist_FirstNewer(filePath1, filePath2, fi1, fi2, "(file newer or bigger)");
+                ProcessFilePair_Bidirectionally_BothExist_FirstNewer(strFilePath1, strFilePath2, fi1, fi2, "(file newer or bigger)");
             else
             {
                 // bidirectionally path
                 if ((!FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) && (fi2.LastWriteTimeUtc > fi1.LastWriteTimeUtc)) || 
                     (FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) && fi2.Length > fi1.Length))
-                    ProcessFilePair_Bidirectionally_BothExist_SecondNewer(filePath1, filePath2, fi1, fi2);
+                    ProcessFilePair_Bidirectionally_BothExist_SecondNewer(strFilePath1, strFilePath2, fi1, fi2);
                 else
-                    ProcessFilePair_Bidirectionally_BothExist_AssumingBothEqual(filePath1, filePath2, fi1, fi2);
+                    ProcessFilePair_Bidirectionally_BothExist_AssumingBothEqual(strFilePath1, strFilePath2, fi1, fi2);
             }
         }
 
@@ -2155,14 +2154,14 @@ namespace SyncFolders
         /// This method processes a file pair in bidirectional folder mode (default), in case both files
         /// exist and first file has a more recent date
         /// </summary>
-        /// <param name="filePath1">first file</param>
-        /// <param name="filePath2">second file</param>
+        /// <param name="strFilePath1">first file</param>
+        /// <param name="strFilePath2">second file</param>
         /// <param name="fi1">The file information about first file</param>
         /// <param name="fi2">The file information about second file</param>
         //===================================================================================================
         void ProcessFilePair_Bidirectionally_BothExist_FirstNewer(
-            string filePath1, 
-            string filePath2, 
+            string strFilePath1, 
+            string strFilePath2, 
             System.IO.FileInfo fi1, 
             System.IO.FileInfo fi2, 
             string strReason)
@@ -2206,11 +2205,11 @@ namespace SyncFolders
                     try
                     {
                         if (_bTestFiles)
-                            CopyRepairSingleFile(filePath2, fi1.FullName, fiSavedInfo1.FullName, 
+                            CopyRepairSingleFile(strFilePath2, fi1.FullName, fiSavedInfo1.FullName, 
                                 ref bForceCreateInfo1, ref bForceCreateInfo2, 
                                 "(file was new)", true, _bRepairFiles);
                         else
-                            CopyFileSafely(fi1, filePath2, strReason);
+                            CopyFileSafely(fi1, strFilePath2, strReason);
                     }
                     catch (Exception)
                     {
@@ -2228,7 +2227,7 @@ namespace SyncFolders
                         // first failed,  still need to test the second
                         if (_bTestFiles)
                         {
-                            TestSingleFile(filePath2, 
+                            TestSingleFile(strFilePath2, 
                                 CreatePathOfChkFile(fi2.DirectoryName, 
                                 "RestoreInfo", fi2.Name, ".chk"), ref bForceCreateInfo2, true
                               , !_bSkipRecentlyTested, true);
@@ -2237,8 +2236,8 @@ namespace SyncFolders
                     }
 
                     // first try to copy the first/needed file, if it can be restored
-                    if (TestSingleFileHealthyOrCanRepair(filePath1, fiSavedInfo1.FullName, ref bForceCreateInfo1) &&
-                        TestAndRepairSingleFile(filePath1, fiSavedInfo1.FullName, ref bForceCreateInfo1))
+                    if (TestSingleFileHealthyOrCanRepair(strFilePath1, fiSavedInfo1.FullName, ref bForceCreateInfo1) &&
+                        TestAndRepairSingleFile(strFilePath1, fiSavedInfo1.FullName, ref bForceCreateInfo1))
                     {
                         if (bForceCreateInfo1)
                         {
@@ -2250,7 +2249,7 @@ namespace SyncFolders
                         }
                         else
                         {
-                            CopyFileSafely(fi1, filePath2, strReason);
+                            CopyFileSafely(fi1, strFilePath2, strReason);
                             bCopied1To2 = true;
                         }
                     }
@@ -2258,26 +2257,26 @@ namespace SyncFolders
                     if (!bCopied1To2)
                     {
                         // well, then try the second, older file. Let's see if it is OK, or can be restored in place
-                        if ((TestSingleFile(filePath2, fiSavedInfo2.FullName, ref bForceCreateInfo2, true, true, true) ||
-                                (TestSingleFileHealthyOrCanRepair(filePath2, fiSavedInfo2.FullName, ref bForceCreateInfo2) &&
-                                 TestAndRepairSingleFile(filePath2, fiSavedInfo2.FullName, ref bForceCreateInfo2)))
+                        if ((TestSingleFile(strFilePath2, fiSavedInfo2.FullName, ref bForceCreateInfo2, true, true, true) ||
+                                (TestSingleFileHealthyOrCanRepair(strFilePath2, fiSavedInfo2.FullName, ref bForceCreateInfo2) &&
+                                 TestAndRepairSingleFile(strFilePath2, fiSavedInfo2.FullName, ref bForceCreateInfo2)))
                              && fi2.LastWriteTime.Year>1975)
                         {
                             WriteLog(0, "Warning: Encountered I/O error while copying ", 
-                                fi1.FullName, ". The older file ", filePath2, " seems to be OK");
+                                fi1.FullName, ". The older file ", strFilePath2, " seems to be OK");
                             bCopied1To2 = false;
                             bCopy2To1 = true;
                         }
                         else
                         {
                             WriteLog(0, "Warning: Encountered I/O error while copying ", fi1.FullName, 
-                                ". Other file has errors as well: ", filePath2, 
+                                ". Other file has errors as well: ", strFilePath2, 
                                 ", or is a product of last chance restore, trying to automatically repair ", 
-                                filePath1);
+                                strFilePath1);
                             TestAndRepairSingleFile(fi1.FullName, fiSavedInfo1.FullName, ref bForceCreateInfo1);
                             bForceCreateInfo2 = false;
 
-                            CopyRepairSingleFile(filePath2, fi1.FullName, fiSavedInfo1.FullName, 
+                            CopyRepairSingleFile(strFilePath2, fi1.FullName, fiSavedInfo1.FullName, 
                                 ref bForceCreateInfo1, ref bForceCreateInfo2, strReason, false, true);
                             bCopied1To2 = true;
                         }
@@ -2290,7 +2289,7 @@ namespace SyncFolders
                         (!fiSavedInfo1.Exists || fiSavedInfo1.LastWriteTimeUtc != fi1.LastWriteTimeUtc)) || 
                         (fiSavedInfo1.Exists && bForceCreateInfo1))
                     {
-                        CreateSavedInfo(filePath1, 
+                        CreateSavedInfo(strFilePath1, 
                             CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
                         fiSavedInfo1 = new System.IO.FileInfo(
                             CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
@@ -2301,7 +2300,7 @@ namespace SyncFolders
                         if (bForceCreateInfo2)
                         {
                             if (_bCreateInfo || fiSavedInfo2.Exists)
-                                CreateSavedInfo(filePath2, CreatePathOfChkFile(
+                                CreateSavedInfo(strFilePath2, CreatePathOfChkFile(
                                     fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
                         }
                         else
@@ -2334,7 +2333,7 @@ namespace SyncFolders
                         bForceCreateInfo2))
                 {
                     bCopied2To1 = CreateSavedInfoAndCopy(
-                        fi2.FullName, fiSavedInfo2.FullName, filePath1, "(file was healthy)");
+                        fi2.FullName, fiSavedInfo2.FullName, strFilePath1, "(file was healthy)");
                     fiSavedInfo2 = new System.IO.FileInfo(
                         CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
 
@@ -2352,7 +2351,7 @@ namespace SyncFolders
                 {
                     try
                     {
-                        CopyRepairSingleFile(filePath1, filePath2, fiSavedInfo2.FullName,
+                        CopyRepairSingleFile(strFilePath1, strFilePath2, fiSavedInfo2.FullName,
                             ref bForceCreateInfo2, ref bForceCreateInfo1, "(file was healthy)", true, true);
                     }
                     catch (Exception)
@@ -2369,7 +2368,7 @@ namespace SyncFolders
                     (!fiSavedInfo2.Exists || fiSavedInfo2.LastWriteTimeUtc!=fi2.LastWriteTimeUtc)) || 
                     (fiSavedInfo2.Exists && bForceCreateInfo2))
                 {
-                    CreateSavedInfo(filePath2, 
+                    CreateSavedInfo(strFilePath2, 
                         CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
                     fiSavedInfo2 = new System.IO.FileInfo(
                         CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
@@ -2380,7 +2379,7 @@ namespace SyncFolders
                     if (bForceCreateInfo1)
                     {
                         if (_bCreateInfo || fiSavedInfo1.Exists)
-                            CreateSavedInfo(filePath1, 
+                            CreateSavedInfo(strFilePath1, 
                                 CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
                     }
                     else
@@ -2399,20 +2398,20 @@ namespace SyncFolders
         /// This method processes a file pair in bidirectional folder mode (default), in case both files
         /// exist and second file has a more recent date
         /// </summary>
-        /// <param name="filePath1">first file</param>
-        /// <param name="filePath2">second file</param>
+        /// <param name="strFilePath1">first file</param>
+        /// <param name="strFilePath2">second file</param>
         /// <param name="fi1">The file information about first file</param>
         /// <param name="fi2">The file information about second file</param>
         //===================================================================================================
         void ProcessFilePair_Bidirectionally_BothExist_SecondNewer(
-            string filePath1, 
-            string filePath2, 
+            string strFilePath1, 
+            string strFilePath2, 
             System.IO.FileInfo fi1, 
             System.IO.FileInfo fi2
             )
         {
             ProcessFilePair_Bidirectionally_BothExist_FirstNewer(
-                filePath2, filePath1, fi2, fi1, "(file was newer or bigger)");
+                strFilePath2, strFilePath1, fi2, fi1, "(file was newer or bigger)");
         }
 
         //===================================================================================================
@@ -2420,14 +2419,14 @@ namespace SyncFolders
         /// This method processes a file pair in bidirectional folder mode (default), in case both files
         /// exist and seem to have same last-write-time and length
         /// </summary>
-        /// <param name="filePath1">first file</param>
-        /// <param name="filePath2">second file</param>
+        /// <param name="strFilePath1">first file</param>
+        /// <param name="strFilePath2">second file</param>
         /// <param name="fi1">The file information about first file</param>
         /// <param name="fi2">The file information about second file</param>
         //===================================================================================================
         void ProcessFilePair_Bidirectionally_BothExist_AssumingBothEqual(
-            string filePath1, 
-            string filePath2, 
+            string strFilePath1, 
+            string strFilePath2, 
             System.IO.FileInfo fi1, 
             System.IO.FileInfo fi2)
         {
@@ -2599,22 +2598,22 @@ namespace SyncFolders
         /// This method combines copying of a file with creation of SavedInfo (.chk) file. So there is no
         /// need to read a big data file twice.
         /// </summary>
-        /// <param name="pathFile">The source path for copy</param>
-        /// <param name="targetPath">The target path for copy</param>
-        /// <param name="pathRestoreInfoFile">The target path for saved info</param>
+        /// <param name="strPathFile">The source path for copy</param>
+        /// <param name="strTargetPath">The target path for copy</param>
+        /// <param name="strPathSavedInfoFile">The target path for saved info</param>
         /// <param name="strReason">The reason of copy for messages</param>
         /// <returns>true iff the operation succeeded</returns>
         //===================================================================================================
         bool CreateSavedInfoAndCopy(
-            string pathFile, 
-            string pathRestoreInfoFile, 
-            string targetPath, 
+            string strPathFile, 
+            string strPathSavedInfoFile, 
+            string strTargetPath, 
             string strReason)
         {
-            string pathFileCopy = targetPath + ".tmp";
+            string pathFileCopy = strTargetPath + ".tmp";
 
 
-            System.IO.FileInfo finfo = new System.IO.FileInfo(pathFile);
+            System.IO.FileInfo finfo = new System.IO.FileInfo(strPathFile);
             SavedInfo si = new SavedInfo(finfo.Length, finfo.LastWriteTimeUtc, false);
             try
             {
@@ -2655,13 +2654,13 @@ namespace SyncFolders
                             System.IO.FileInfo fi2tmp = new System.IO.FileInfo(pathFileCopy);
                             fi2tmp.LastWriteTimeUtc = finfo.LastWriteTimeUtc;
 
-                            System.IO.FileInfo fi2 = new System.IO.FileInfo(targetPath);
+                            System.IO.FileInfo fi2 = new System.IO.FileInfo(strTargetPath);
                             if (fi2.Exists)
                                 fi2.Delete();
 
-                            fi2tmp.MoveTo(targetPath);
+                            fi2tmp.MoveTo(strTargetPath);
 
-                            WriteLog(0, "Copied ", pathFile, " to ", targetPath, " ", strReason);
+                            WriteLog(0, "Copied ", strPathFile, " to ", strTargetPath, " ", strReason);
                         }
                     } catch
                     {
@@ -2692,35 +2691,35 @@ namespace SyncFolders
             try
             {
                 System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(
-                    pathRestoreInfoFile.Substring(0, 
-                    pathRestoreInfoFile.LastIndexOfAny(new char[] { '\\', '/' })));
+                    strPathSavedInfoFile.Substring(0, 
+                    strPathSavedInfoFile.LastIndexOfAny(new char[] { '\\', '/' })));
                 if (!di.Exists)
                 {
                     di.Create();
                     di = new System.IO.DirectoryInfo(
-                        pathRestoreInfoFile.Substring(0, 
-                        pathRestoreInfoFile.LastIndexOfAny(new char[] { '\\', '/' })));
+                        strPathSavedInfoFile.Substring(0, 
+                        strPathSavedInfoFile.LastIndexOfAny(new char[] { '\\', '/' })));
                     di.Attributes = di.Attributes | System.IO.FileAttributes.Hidden;
                 }
-                using (System.IO.FileStream s = System.IO.File.Create(pathRestoreInfoFile))
+                using (System.IO.FileStream s = System.IO.File.Create(strPathSavedInfoFile))
                 {
                     si.SaveTo(s);
                     s.Close();
                 }
 
                 // save last write time also at the time of the .chk file
-                System.IO.FileInfo fiSavedInfo = new System.IO.FileInfo(pathRestoreInfoFile);
+                System.IO.FileInfo fiSavedInfo = new System.IO.FileInfo(strPathSavedInfoFile);
                 fiSavedInfo.LastWriteTimeUtc = finfo.LastWriteTimeUtc;
 
             }
             catch (System.IO.IOException ex)
             {
-                WriteLog(0, "I/O Error writing file: \"", pathRestoreInfoFile, "\": " + ex.Message);
+                WriteLog(0, "I/O Error writing file: \"", strPathSavedInfoFile, "\": " + ex.Message);
                 return false;
             }
 
             // we just created the file, so assume we checked everything, no need to double-check immediately
-            CreateOrUpdateFileChecked(pathRestoreInfoFile);
+            CreateOrUpdateFileChecked(strPathSavedInfoFile);
 
             return true;
         }
@@ -2729,16 +2728,16 @@ namespace SyncFolders
         /// <summary>
         /// This method reads a file and creates saved info for it.
         /// </summary>
-        /// <param name="pathFile">Path of the original file</param>
+        /// <param name="strPathFile">Path of the original file</param>
         /// <param name="strPathSavedChkInfoFile">The target path for .CHK file</param>
         /// <returns>true iff the operation succeeded</returns>
         //===================================================================================================
         bool CreateSavedInfo(
-            string pathFile, 
+            string strPathFile, 
             string strPathSavedChkInfoFile
             )
         {
-            System.IO.FileInfo finfo = new System.IO.FileInfo(pathFile);
+            System.IO.FileInfo finfo = new System.IO.FileInfo(strPathFile);
             SavedInfo si = new SavedInfo(finfo.Length, finfo.LastWriteTimeUtc, false);
             try
             {
@@ -2825,11 +2824,11 @@ namespace SyncFolders
         /// <summary>
         /// This method tests a single file, together with its saved info, if present
         /// </summary>
-        /// <param name="pathFile">The path of original file</param>
-        /// <param name="pathRestoreInfoFile">The path of saved info (.chk)</param>
+        /// <param name="strPathFile">The path of original file</param>
+        /// <param name="strPathSavedInfoFile">The path of saved info (.chk)</param>
         /// <param name="bForceCreateInfo">If saved info needs to be updated then method sets given 
         /// var to true</param>
-        /// <param name="needsMessageAboutOldRestoreInfo">Specifies, if method shall add a message
+        /// <param name="bNeedsMessageAboutOldSavedInfo">Specifies, if method shall add a message
         /// in case saved info is outdated or wrong</param>
         /// <param name="bForcePhysicalTest">If set to false, method will analyze the last date and
         /// time the original file has been tested or copied and skip physical test, if possible</param>
@@ -2838,15 +2837,15 @@ namespace SyncFolders
         /// <returns>true iff the test succeeded</returns>
         //===================================================================================================
         bool TestSingleFile(
-            string pathFile, 
-            string pathRestoreInfoFile, 
+            string strPathFile, 
+            string strPathSavedInfoFile, 
             ref bool bForceCreateInfo, 
-            bool needsMessageAboutOldRestoreInfo, 
+            bool bNeedsMessageAboutOldSavedInfo, 
             bool bForcePhysicalTest, 
             bool bCreateConfirmationFile)
         {
-            return TestSingleFile2(pathFile, pathRestoreInfoFile, ref bForceCreateInfo, 
-                needsMessageAboutOldRestoreInfo, bForcePhysicalTest, bCreateConfirmationFile, 
+            return TestSingleFile2(strPathFile, strPathSavedInfoFile, ref bForceCreateInfo, 
+                bNeedsMessageAboutOldSavedInfo, bForcePhysicalTest, bCreateConfirmationFile, 
                 false, false);
         }
 
@@ -2854,11 +2853,11 @@ namespace SyncFolders
         /// <summary>
         /// This method tests a single file, together with its saved info, if present
         /// </summary>
-        /// <param name="pathFile">The path of original file</param>
-        /// <param name="pathRestoreInfoFile">The path of saved info (.chk)</param>
+        /// <param name="strPathFile">The path of original file</param>
+        /// <param name="strPathSavedInfoFile">The path of saved info (.chk)</param>
         /// <param name="bForceCreateInfo">If saved info needs to be updated then method sets given 
         /// var to true</param>
-        /// <param name="needsMessageAboutOldRestoreInfo">Specifies, if method shall add a message
+        /// <param name="bNeedsMessageAboutOldSavedInfo">Specifies, if method shall add a message
         /// in case saved info is outdated or wrong</param>
         /// <param name="bForcePhysicalTest">If set to false, method will analyze the last date and
         /// time the original file has been tested or copied and skip physical test, if possible</param>
@@ -2872,9 +2871,9 @@ namespace SyncFolders
         //===================================================================================================
         bool TestSingleFile2(
             string pathFile, 
-            string pathRestoreInfoFile, 
+            string strPathSavedInfoFile, 
             ref bool bForceCreateInfo, 
-            bool needsMessageAboutOldRestoreInfo, 
+            bool bNeedsMessageAboutOldSavedInfo, 
             bool bForcePhysicalTest, 
             bool bCreateConfirmationFile,
             bool bFailASAPwoMessage, 
@@ -2884,7 +2883,7 @@ namespace SyncFolders
             System.IO.FileInfo finfo = 
                 new System.IO.FileInfo(pathFile);
             System.IO.FileInfo fiSavedInfo = 
-                new System.IO.FileInfo(pathRestoreInfoFile);
+                new System.IO.FileInfo(strPathSavedInfoFile);
             bool bSkipBufferedFile = false;
 
             try
@@ -2892,7 +2891,7 @@ namespace SyncFolders
                 if (!bForcePhysicalTest)
                 {
                     System.IO.FileInfo fichecked = 
-                        new System.IO.FileInfo(pathRestoreInfoFile + "ed");
+                        new System.IO.FileInfo(strPathSavedInfoFile + "ed");
                     // this randomly skips testing of files,
                     // so the user doesn't have to wait long, when performing checks annually:
                     // 100% of files are skipped within first 2 years after last check
@@ -2923,7 +2922,7 @@ namespace SyncFolders
                 try
                 {
                     using (System.IO.BufferedStream s = 
-                        new System.IO.BufferedStream(System.IO.File.OpenRead(pathRestoreInfoFile), 
+                        new System.IO.BufferedStream(System.IO.File.OpenRead(strPathSavedInfoFile), 
                             (int)Math.Min(fiSavedInfo.Length + 1, 32 * 1024 * 1024)))
                     {
                         si.ReadFrom(s);
@@ -2935,7 +2934,7 @@ namespace SyncFolders
                     try
                     {
                         using (System.IO.FileStream s = 
-                            System.IO.File.OpenRead(pathRestoreInfoFile))
+                            System.IO.File.OpenRead(strPathSavedInfoFile))
                         {
                             si.ReadFrom(s);
                             s.Close();
@@ -2944,7 +2943,7 @@ namespace SyncFolders
                     catch (System.IO.IOException ex)
                     {
                         WriteLog(0, "I/O Error reading file: \"", 
-                            pathRestoreInfoFile, "\": " + ex.Message);
+                            strPathSavedInfoFile, "\": " + ex.Message);
                         bSaveInfoUnreadable = true;
                         bForceCreateInfo = true;
                         bForcePhysicalTest = true;
@@ -2960,8 +2959,8 @@ namespace SyncFolders
 
                 bForceCreateInfo = true;
                 if (!bSaveInfoUnreadable)
-                    if (needsMessageAboutOldRestoreInfo)
-                        WriteLog(0, "RestoreInfo file \"", pathRestoreInfoFile, 
+                    if (bNeedsMessageAboutOldSavedInfo)
+                        WriteLog(0, "RestoreInfo file \"", strPathSavedInfoFile, 
                             "\" can't be used for testing file \"", pathFile, 
                             "\": it was created for another version of the file");
 
@@ -3015,7 +3014,7 @@ namespace SyncFolders
 
                 if (bAllBlocksOK && bCreateConfirmationFile)
                 {
-                    CreateOrUpdateFileChecked(pathRestoreInfoFile);
+                    CreateOrUpdateFileChecked(strPathSavedInfoFile);
                 }
 
                 return bAllBlocksOK;
@@ -3127,8 +3126,8 @@ namespace SyncFolders
                     // match the file itself, or if they have been corrupted somehow
                     if (!si.VerifyIntegrityAfterRestoreTest())
                     {
-                        if (needsMessageAboutOldRestoreInfo)
-                            WriteLog(0, "RestoreInfo file \"", pathRestoreInfoFile, 
+                        if (bNeedsMessageAboutOldSavedInfo)
+                            WriteLog(0, "RestoreInfo file \"", strPathSavedInfoFile, 
                                 "\" has been damaged and needs to be recreated from \"", 
                                 pathFile,"\"");
                         bForceCreateInfo = true;
@@ -3137,7 +3136,7 @@ namespace SyncFolders
 
                 if (bAllBlocksOK && bCreateConfirmationFile)
                 {
-                    CreateOrUpdateFileChecked(pathRestoreInfoFile);
+                    CreateOrUpdateFileChecked(strPathSavedInfoFile);
                 }
 
                 if (bReturnFalseIfNonRecoverableNotIfDamaged)
@@ -3157,13 +3156,13 @@ namespace SyncFolders
         /// <summary>
         /// Saves information, when the original file has been last read completely
         /// </summary>
-        /// <param name="pathRestoreInfoFile">The path of restore info file (not original file)</param>
+        /// <param name="strPathSavedInfoFile">The path of restore info file (not original file)</param>
         //===================================================================================================
         void CreateOrUpdateFileChecked(
-            string pathRestoreInfoFile
+            string strPathSavedInfoFile
             )
         {
-            string strPath = pathRestoreInfoFile + "ed";
+            string strPath = strPathSavedInfoFile + "ed";
 
             try
             {
@@ -3187,20 +3186,20 @@ namespace SyncFolders
         /// <summary>
         /// This method tests a single file, and repairs it, if there are read or checkum errors
         /// </summary>
-        /// <param name="pathFile">The path of original file</param>
-        /// <param name="pathRestoreInfoFile">The path of saved info (.chk)</param>
+        /// <param name="strPathFile">The path of original file</param>
+        /// <param name="strPathSavedInfoFile">The path of saved info (.chk)</param>
         /// <param name="bForceCreateInfo">If saved info needs to be updated then method sets given 
         /// var to true</param>
         /// <returns>true iff the test or restore succeeded</returns>
         //===================================================================================================
         bool TestAndRepairSingleFile(
-            string pathFile, 
-            string pathRestoreInfoFile, 
+            string strPathFile, 
+            string strPathSavedInfoFile, 
             ref bool bForceCreateInfo
             )
         {
-            System.IO.FileInfo finfo = new System.IO.FileInfo(pathFile);
-            System.IO.FileInfo fiSavedInfo = new System.IO.FileInfo(pathRestoreInfoFile);
+            System.IO.FileInfo finfo = new System.IO.FileInfo(strPathFile);
+            System.IO.FileInfo fiSavedInfo = new System.IO.FileInfo(strPathSavedInfoFile);
 
             SavedInfo si = new SavedInfo();
             bool bNotReadableSi = !fiSavedInfo.Exists;
@@ -3211,7 +3210,7 @@ namespace SyncFolders
                 {
                     using (System.IO.BufferedStream s = 
                         new System.IO.BufferedStream(System.IO.File.OpenRead(
-                            pathRestoreInfoFile), 
+                            strPathSavedInfoFile), 
                             (int)Math.Min(fiSavedInfo.Length + 1, 8 * 1024 * 1024)))
                     {
                         si.ReadFrom(s);
@@ -3223,7 +3222,7 @@ namespace SyncFolders
                     try
                     {
                         using (System.IO.FileStream s = 
-                            System.IO.File.OpenRead(pathRestoreInfoFile))
+                            System.IO.File.OpenRead(strPathSavedInfoFile))
                         {
                             si.ReadFrom(s);
                             s.Close();
@@ -3232,7 +3231,7 @@ namespace SyncFolders
                     catch (System.IO.IOException ex)
                     {
                         WriteLog(0, "I/O Error reading file: \"", 
-                            pathRestoreInfoFile, "\": " + ex.Message);
+                            strPathSavedInfoFile, "\": " + ex.Message);
                         bNotReadableSi = true;
                     }
                 }
@@ -3247,8 +3246,8 @@ namespace SyncFolders
                     bForceCreateInfo = true;
 
                 if (!bNotReadableSi)
-                    WriteLog(0, "RestoreInfo file \"", pathRestoreInfoFile, 
-                        "\" can't be used for testing file \"", pathFile, 
+                    WriteLog(0, "RestoreInfo file \"", strPathSavedInfoFile, 
+                        "\" can't be used for testing file \"", strPathFile, 
                         "\": it was created for another version of the file");
 
                 using (System.IO.FileStream s = System.IO.File.Open(
@@ -3290,7 +3289,7 @@ namespace SyncFolders
 
                 if (bAllBlocksOk)
                 {
-                    CreateOrUpdateFileChecked(pathRestoreInfoFile);
+                    CreateOrUpdateFileChecked(strPathSavedInfoFile);
                 }
 
                 return bAllBlocksOk;
@@ -3369,14 +3368,14 @@ namespace SyncFolders
                     // match the file itself, or if they have been corrupted somehow
                     if (!si.VerifyIntegrityAfterRestoreTest())
                     {
-                        WriteLog(0, "RestoreInfo file \"", pathRestoreInfoFile, 
+                        WriteLog(0, "RestoreInfo file \"", strPathSavedInfoFile, 
                             "\" has been damaged and needs to be recreated from \"", 
-                            pathFile, "\"");
+                            strPathFile, "\"");
                         bForceCreateInfo = true;
                     }
                     else
                     {
-                        CreateOrUpdateFileChecked(pathRestoreInfoFile);
+                        CreateOrUpdateFileChecked(strPathSavedInfoFile);
                     }
                 }
             }
@@ -3445,7 +3444,7 @@ namespace SyncFolders
 
                 if (nonRestoredSize == 0 && rinfos.Count == 0)
                 {
-                    CreateOrUpdateFileChecked(pathRestoreInfoFile);
+                    CreateOrUpdateFileChecked(strPathSavedInfoFile);
                 }
 
                 if (nonRestoredSize > 0)
@@ -3473,19 +3472,19 @@ namespace SyncFolders
         /// This method tests a single file, together with its saved info, if the original file is healthy,
         /// or can be restored using the saved info.
         /// </summary>
-        /// <param name="pathFile">The path of original file</param>
-        /// <param name="pathRestoreInfoFile">The path of saved info (.chk)</param>
+        /// <param name="strPathFile">The path of original file</param>
+        /// <param name="strPathSavedInfoFile">The path of saved info (.chk)</param>
         /// <param name="bForceCreateInfo">If saved info needs to be updated then method sets given 
         /// var to true</param>
         /// <returns>true iff the file is healthy or can be restored</returns>
         //===================================================================================================
         bool TestSingleFileHealthyOrCanRepair(
-            string pathFile, 
-            string pathRestoreInfoFile, 
+            string strPathFile, 
+            string strPathSavedInfoFile, 
             ref bool bForceCreateInfo
             )
         {
-            return TestSingleFile2(pathFile, pathRestoreInfoFile, 
+            return TestSingleFile2(strPathFile, strPathSavedInfoFile, 
                 ref bForceCreateInfo, true, true, true, false, true);
         }
 
@@ -3494,27 +3493,27 @@ namespace SyncFolders
         /// This method bidirectionylly tests and/or repairs two original files, together with two saved 
         /// info files
         /// </summary>
-        /// <param name="path1">The path of first original file</param>
-        /// <param name="path2">The path of second original file</param>
-        /// <param name="path1ri">The path of saved info for first file</param>
-        /// <param name="path2ri">The path of saved info for second file</param>
+        /// <param name="strPathFile1">The path of first original file</param>
+        /// <param name="strPathFile2">The path of second original file</param>
+        /// <param name="strPathSavedInfo1">The path of saved info for first file</param>
+        /// <param name="strPathSavedInfo2">The path of saved info for second file</param>
         /// <param name="bForceCreateInfo">If saved info needs to be updated then method sets given 
         /// var to true</param>
         //===================================================================================================
         void TestAndRepairTwoFiles(
-            string path1, 
-            string path2, 
-            string path1ri, 
-            string path2ri, 
+            string strPathFile1, 
+            string strPathFile2, 
+            string strPathSavedInfo1, 
+            string strPathSavedInfo2, 
             ref bool bForceCreateInfo
             )
         {
-            System.IO.FileInfo fi1 = new System.IO.FileInfo(path1);
-            System.IO.FileInfo fi2 = new System.IO.FileInfo(path2);
-            System.IO.FileInfo fiSavedInfo1 = new System.IO.FileInfo(path1ri);
-            System.IO.FileInfo fiSavedInfo2 = new System.IO.FileInfo(path2ri);
-            System.IO.FileInfo fi1checked = new System.IO.FileInfo(path1ri + "ed");
-            System.IO.FileInfo fi2checked = new System.IO.FileInfo(path2ri + "ed");
+            System.IO.FileInfo fi1 = new System.IO.FileInfo(strPathFile1);
+            System.IO.FileInfo fi2 = new System.IO.FileInfo(strPathFile2);
+            System.IO.FileInfo fiSavedInfo1 = new System.IO.FileInfo(strPathSavedInfo1);
+            System.IO.FileInfo fiSavedInfo2 = new System.IO.FileInfo(strPathSavedInfo2);
+            System.IO.FileInfo fi1checked = new System.IO.FileInfo(strPathSavedInfo1 + "ed");
+            System.IO.FileInfo fi2checked = new System.IO.FileInfo(strPathSavedInfo2 + "ed");
 
             SavedInfo si1 = new SavedInfo();
             SavedInfo si2 = new SavedInfo();
@@ -3585,9 +3584,9 @@ namespace SyncFolders
                 List<RestoreInfo> restore2 = new List<RestoreInfo>();
 
                 // now let'oInputStream try to read the files and compare 
-                using (System.IO.Stream s1 = System.IO.File.OpenRead(path1))
+                using (System.IO.Stream s1 = System.IO.File.OpenRead(strPathFile1))
                 {
-                    using (System.IO.Stream s2 = System.IO.File.OpenRead(path2))
+                    using (System.IO.Stream s2 = System.IO.File.OpenRead(strPathFile2))
                     {
                         si1.StartRestore();
                         si2.StartRestore();
@@ -3632,14 +3631,14 @@ namespace SyncFolders
 
                                 if (!b1Ok)
                                 {
-                                    WriteLog(2, path1, ": checksum of block at offset ", 
+                                    WriteLog(2, strPathFile1, ": checksum of block at offset ", 
                                         index * b1.Length, " not OK");
                                 }
                             }
                             catch (System.IO.IOException ex)
                             {
                                 WriteLog(2, "I/O exception while reading file \"", 
-                                    path1, "\": ", ex.Message);
+                                    strPathFile1, "\": ", ex.Message);
                                 s1.Seek((index + 1) * b1.Length, 
                                     System.IO.SeekOrigin.Begin);
                             }
@@ -3672,14 +3671,14 @@ namespace SyncFolders
 
                                 if (!b2Ok)
                                 {
-                                    WriteLog(2, path2, ": checksum of block at offset ", 
+                                    WriteLog(2, strPathFile2, ": checksum of block at offset ", 
                                         index * b2.Length, " not OK");
                                 }
                             }
                             catch (System.IO.IOException ex)
                             {
                                 WriteLog(2, "I/O exception while reading file \"", 
-                                    path2, "\": ", ex.Message);
+                                    strPathFile2, "\": ", ex.Message);
                                 s2.Seek((index + 1) * b2.Length, 
                                     System.IO.SeekOrigin.Begin);
                             }
@@ -3773,12 +3772,12 @@ namespace SyncFolders
 
                 // now we've got the list of improvements for both files
                 using (System.IO.Stream s1 = System.IO.File.Open(
-                    path1, System.IO.FileMode.Open, 
+                    strPathFile1, System.IO.FileMode.Open, 
                     System.IO.FileAccess.ReadWrite, System.IO.FileShare.Read))
                 {
 
                     using (System.IO.Stream s2 = System.IO.File.Open(
-                        path2, System.IO.FileMode.Open, 
+                        strPathFile2, System.IO.FileMode.Open, 
                         System.IO.FileAccess.ReadWrite, System.IO.FileShare.Read))
                     {
                         // let'oInputStream apply improvements of one file 
@@ -4000,9 +3999,9 @@ namespace SyncFolders
                 long notRestoredSize2 = 0;
                 long badBlocks1 = 0;
                 long badBlocks2 = 0;
-                using (System.IO.Stream s1 = System.IO.File.OpenRead(path1))
+                using (System.IO.Stream s1 = System.IO.File.OpenRead(strPathFile1))
                 {
-                    using (System.IO.Stream s2 = System.IO.File.OpenRead(path2))
+                    using (System.IO.Stream s2 = System.IO.File.OpenRead(strPathFile2))
                     {
                         for (int index = 0; ; ++index)
                         {
@@ -4020,7 +4019,7 @@ namespace SyncFolders
                             catch (System.IO.IOException ex)
                             {
                                 WriteLog(2, "I/O exception while reading file \"", 
-                                    path1, "\": ", ex.Message);
+                                    strPathFile1, "\": ", ex.Message);
                                 s1.Seek((index + 1) * b1.Length, 
                                     System.IO.SeekOrigin.Begin);
                                 ++badBlocks1;
@@ -4038,7 +4037,7 @@ namespace SyncFolders
                             catch (System.IO.IOException ex)
                             {
                                 WriteLog(2, "I/O exception while reading file \"", 
-                                    path2, "\": ", ex.Message);
+                                    strPathFile2, "\": ", ex.Message);
                                 s2.Seek((index + 1) * b2.Length, 
                                     System.IO.SeekOrigin.Begin);
                             }
@@ -4089,7 +4088,7 @@ namespace SyncFolders
 
                 // now we've got the list of improvements for both files
                 using (System.IO.Stream s1 = System.IO.File.Open(
-                    path1, System.IO.FileMode.Open, 
+                    strPathFile1, System.IO.FileMode.Open, 
                     System.IO.FileAccess.Read, System.IO.FileShare.Read))
                 {
                     foreach (RestoreInfo ri1 in restore1)
@@ -4112,7 +4111,7 @@ namespace SyncFolders
 
 
                 using (System.IO.Stream s2 = System.IO.File.Open(
-                    path2, System.IO.FileMode.Open, 
+                    strPathFile2, System.IO.FileMode.Open, 
                     System.IO.FileAccess.ReadWrite, System.IO.FileShare.Read))
                 {
                     foreach (RestoreInfo ri2 in restore2)
@@ -4164,9 +4163,9 @@ namespace SyncFolders
         /// <summary>
         /// This method copies a single file, and repairs it on the way, if it encounters some bad blocks.
         /// </summary>
-        /// <param name="pathFile">The path of original file</param>
-        /// <param name="pathTargetFile">The path of target file for copy</param>
-        /// <param name="pathRestoreInfoFile">The path of saved info (.chk)</param>
+        /// <param name="strPathFile">The path of original file</param>
+        /// <param name="strPathTargetFile">The path of target file for copy</param>
+        /// <param name="strPathSavedInfoFile">The path of saved info (.chk)</param>
         /// <param name="bForceCreateInfo">If saved info needs to be updated then method sets given 
         /// var to true</param>
         /// <param name="bForceCreateInfoTarget">If saved info of target file needs to be updated then 
@@ -4179,9 +4178,9 @@ namespace SyncFolders
         /// <returns>true iff copy succeeded</returns>
         //===================================================================================================
         bool CopyRepairSingleFile(
-            string pathTargetFile, 
-            string pathFile, 
-            string pathRestoreInfoFile, 
+            string strPathTargetFile, 
+            string strPathFile, 
+            string strPathSavedInfoFile, 
             ref bool bForceCreateInfo, 
             ref bool bForceCreateInfoTarget, 
             string strReason, 
@@ -4189,26 +4188,26 @@ namespace SyncFolders
             bool bApplyRepairsToSrc)
         {
             // if same file then try to repair in place
-            if (string.Equals(pathTargetFile, pathFile, 
+            if (string.Equals(strPathTargetFile, strPathFile, 
                 StringComparison.InvariantCultureIgnoreCase))
             {
                 if (_bRepairFiles)
-                    return TestAndRepairSingleFile(pathFile, pathRestoreInfoFile, 
+                    return TestAndRepairSingleFile(strPathFile, strPathSavedInfoFile, 
                         ref bForceCreateInfo);
                 else
                 {
                     if (_bTestFiles)
                     {
-                        if (TestSingleFile2(pathFile, pathRestoreInfoFile, 
+                        if (TestSingleFile2(strPathFile, strPathSavedInfoFile, 
                             ref bForceCreateInfo, false, true, true, true, false))
                         {
                             return true;
                         }
                         else
                         {
-                            WriteLog(1, "Error while testing file ", pathFile);
+                            WriteLog(1, "Error while testing file ", strPathFile);
                             if (bFailOnNonRecoverable)
-                                throw new Exception("Error while testing file " + pathFile);
+                                throw new Exception("Error while testing file " + strPathFile);
                             return false;
                         }
                     }
@@ -4218,8 +4217,8 @@ namespace SyncFolders
             }
 
 
-            System.IO.FileInfo finfo = new System.IO.FileInfo(pathFile);
-            System.IO.FileInfo fiSavedInfo = new System.IO.FileInfo(pathRestoreInfoFile);
+            System.IO.FileInfo finfo = new System.IO.FileInfo(strPathFile);
+            System.IO.FileInfo fiSavedInfo = new System.IO.FileInfo(strPathSavedInfoFile);
 
             DateTime dtmOriginalTime = finfo.LastWriteTimeUtc;
 
@@ -4231,7 +4230,7 @@ namespace SyncFolders
                 try
                 {
                     using (System.IO.FileStream s = 
-                        System.IO.File.OpenRead(pathRestoreInfoFile))
+                        System.IO.File.OpenRead(strPathSavedInfoFile))
                     {
                         si.ReadFrom(s);
                         s.Close();
@@ -4240,7 +4239,7 @@ namespace SyncFolders
                 catch (System.IO.IOException ex)
                 {
                     WriteLog(0, "I/O Error reading file: \"", 
-                        pathRestoreInfoFile, "\": " + ex.Message);
+                        strPathSavedInfoFile, "\": " + ex.Message);
                     bNotReadableSi = true;
                 }
             }
@@ -4252,9 +4251,9 @@ namespace SyncFolders
                 bForceCreateInfo = true;
 
                 if (!bNotReadableSi)
-                    WriteLog(0, "RestoreInfo file \"", pathRestoreInfoFile, 
+                    WriteLog(0, "RestoreInfo file \"", strPathSavedInfoFile, 
                         "\" can't be used for restoring file \"", 
-                        pathFile, "\": it was created for another version of the file");
+                        strPathFile, "\": it was created for another version of the file");
 
                 using (System.IO.FileStream s = System.IO.File.Open(
                     finfo.FullName, System.IO.FileMode.Open, 
@@ -4264,7 +4263,7 @@ namespace SyncFolders
                     {
                         int countErrors = 0;
                         using (System.IO.FileStream s2 = System.IO.File.Open(
-                            pathTargetFile + ".tmp", System.IO.FileMode.Create, 
+                            strPathTargetFile + ".tmp", System.IO.FileMode.Create, 
                             System.IO.FileAccess.Write, System.IO.FileShare.None))
                         {
                             for (long index = 0; ; index++)
@@ -4303,13 +4302,13 @@ namespace SyncFolders
                         }
 
                         // after the file has been copied to a ".tmp" delete old one
-                        System.IO.FileInfo fi2 = new System.IO.FileInfo(pathTargetFile);
+                        System.IO.FileInfo fi2 = new System.IO.FileInfo(strPathTargetFile);
 
                         if (fi2.Exists)
                             fi2.Delete();
 
                         // and replace it with the new one
-                        System.IO.FileInfo fi2tmp = new System.IO.FileInfo(pathTargetFile + ".tmp");
+                        System.IO.FileInfo fi2tmp = new System.IO.FileInfo(strPathTargetFile + ".tmp");
                         if (bAllBlocksOk)
                             // if everything OK set original time
                             fi2tmp.LastWriteTimeUtc = dtmOriginalTime;
@@ -4321,14 +4320,14 @@ namespace SyncFolders
                             bForceCreateInfoTarget = true;
                         }
                         //fi2tmp.LastWriteTimeUtc = finfo.LastWriteTimeUtc;
-                        fi2tmp.MoveTo(pathTargetFile);
+                        fi2tmp.MoveTo(strPathTargetFile);
 
                         if (!bAllBlocksOk)
-                            WriteLog(0, "Warning: copied ", pathFile, " to ", 
-                                pathTargetFile, " ", strReason, " with errors");
+                            WriteLog(0, "Warning: copied ", strPathFile, " to ", 
+                                strPathTargetFile, " ", strReason, " with errors");
                         else
-                            WriteLog(0, "Copied ", pathFile, " to ", 
-                                pathTargetFile, " ", strReason);
+                            WriteLog(0, "Copied ", strPathFile, " to ", 
+                                strPathTargetFile, " ", strReason);
 
                     } catch
                     {
@@ -4416,9 +4415,9 @@ namespace SyncFolders
                     if (!si.VerifyIntegrityAfterRestoreTest())
                     {
                         WriteLog(0, "RestoreInfo file \"", 
-                            pathRestoreInfoFile, 
+                            strPathSavedInfoFile, 
                             "\" has been damaged and needs to be recreated from \"", 
-                            pathFile, "\"");
+                            strPathFile, "\"");
                         bForceCreateInfo = true;
                     }
                 }
@@ -4439,7 +4438,7 @@ namespace SyncFolders
             {
                 long nonRestoredSize = 0;
                 List<RestoreInfo> rinfos = si.EndRestore(
-                    out nonRestoredSize, pathRestoreInfoFile, this);
+                    out nonRestoredSize, strPathSavedInfoFile, this);
 
                 if (nonRestoredSize > 0)
                 {
@@ -4480,7 +4479,7 @@ namespace SyncFolders
                         System.IO.FileShare.Read))
                     {
                         using (System.IO.FileStream s = System.IO.File.Open(
-                            pathTargetFile + ".tmp", System.IO.FileMode.Create, 
+                            strPathTargetFile + ".tmp", System.IO.FileMode.Create, 
                             System.IO.FileAccess.Write, System.IO.FileShare.None))
                         {
                             long blockSize = Block.GetBlock().Length;
@@ -4498,7 +4497,7 @@ namespace SyncFolders
                                             {
                                                 WriteLog(1, "Keeping readable but not recoverable block at offset ", 
                                                     ri.Position, ", of original file ", finfo.FullName, 
-                                                    " also in copy ", pathTargetFile, 
+                                                    " also in copy ", strPathTargetFile, 
                                                     ", checksum indicates the block is wrong");
                                             }
                                             else
@@ -4506,7 +4505,7 @@ namespace SyncFolders
                                                 s2.Seek(ri.Position + ri.Data.Length, System.IO.SeekOrigin.Begin);
 
                                                 WriteLog(1, "Filling not recoverable block at offset ", 
-                                                    ri.Position, " of copied file ", pathTargetFile, " with a dummy");
+                                                    ri.Position, " of copied file ", strPathTargetFile, " with a dummy");
 
                                                 //bNonRecoverablePresent = true;
                                                 int lengthToWrite = (int)(finfo.Length - position > blockSize ? 
@@ -4520,7 +4519,7 @@ namespace SyncFolders
                                         else
                                         {
                                             WriteLog(1, "Recovering block at offset ", 
-                                                ri.Position, " of copied file ", pathTargetFile);
+                                                ri.Position, " of copied file ", strPathTargetFile);
                                             int lengthToWrite = (int)(si.Length - ri.Position >= ri.Data.Length ? 
                                                 ri.Data.Length : 
                                                 si.Length - ri.Position);
@@ -4563,13 +4562,13 @@ namespace SyncFolders
                     if (bApplyRepairsToSrc && (rinfos.Count > 0))
                         finfo.LastWriteTimeUtc = dtmOriginalTime;
                 }
-                System.IO.FileInfo finfoTmp = new System.IO.FileInfo(pathTargetFile + ".tmp");
-                if (System.IO.File.Exists(pathTargetFile))
-                    System.IO.File.Delete(pathTargetFile);
-                finfoTmp.MoveTo(pathTargetFile);
+                System.IO.FileInfo finfoTmp = new System.IO.FileInfo(strPathTargetFile + ".tmp");
+                if (System.IO.File.Exists(strPathTargetFile))
+                    System.IO.File.Delete(strPathTargetFile);
+                finfoTmp.MoveTo(strPathTargetFile);
 
 
-                System.IO.FileInfo finfo2 = new System.IO.FileInfo(pathTargetFile);
+                System.IO.FileInfo finfo2 = new System.IO.FileInfo(strPathTargetFile);
                 if (rinfos.Count > 1)
                     WriteLog(1, "Out of ", rinfos.Count, 
                         " bad blocks in the original file not restored parts in the copy ", 
@@ -4591,11 +4590,11 @@ namespace SyncFolders
                     finfo2.LastWriteTimeUtc = dtmOriginalTime;
 
                 if (nonRestoredSize != 0)
-                    WriteLog(0, "Warning: copied ", pathFile, " to ", 
-                        pathTargetFile, " ", strReason, " with errors");
+                    WriteLog(0, "Warning: copied ", strPathFile, " to ", 
+                        strPathTargetFile, " ", strReason, " with errors");
                 else
-                    WriteLog(0, "Copied ", pathFile, " to ",
-                        pathTargetFile, " ", strReason);
+                    WriteLog(0, "Copied ", strPathFile, " to ",
+                        strPathTargetFile, " ", strReason);
 
                 //finfo2.LastWriteTimeUtc = prevLastWriteTime;
 
@@ -4604,7 +4603,7 @@ namespace SyncFolders
             catch (System.IO.IOException ex)
             {
                 WriteLog(0, "I/O Error during repair copy to file: \"", 
-                    pathTargetFile, "\": " + ex.Message);
+                    strPathTargetFile, "\": " + ex.Message);
                 return false;
             }
         }
@@ -4613,30 +4612,30 @@ namespace SyncFolders
         /// <summary>
         /// This method tests and repairs the second file with all available means
         /// </summary>
-        /// <param name="path1">Path of first file</param>
-        /// <param name="path2">Path of second file to be tested and repaired</param>
-        /// <param name="path1ri">Saved info of the first file</param>
-        /// <param name="path2ri">Saved info of the second file</param>
+        /// <param name="strPathFile1">Path of first file</param>
+        /// <param name="strPathFile2">Path of second file to be tested and repaired</param>
+        /// <param name="strPathSavedInfo1">Saved info of the first file</param>
+        /// <param name="strPathSavedInfo2">Saved info of the second file</param>
         /// <param name="bForceCreateInfo">If saved info needs to be updated then method sets given 
         /// var to true</param>
         //===================================================================================================
         void TestAndRepairSecondFile(
-            string path1, 
-            string path2, 
-            string path1ri, 
-            string path2ri, 
+            string strPathFile1, 
+            string strPathFile2, 
+            string strPathSavedInfo1, 
+            string strPathSavedInfo2, 
             ref bool bForceCreateInfo
             )
         {
             // if we can skip repairs, then try to test first and repair only in case there are some errors.
             if (_bSkipRecentlyTested)
-                if (TestSingleFile(path2, path2ri, ref bForceCreateInfo, false, false, true))
+                if (TestSingleFile(strPathFile2, strPathSavedInfo2, ref bForceCreateInfo, false, false, true))
                     return;
 
-            System.IO.FileInfo fi1 = new System.IO.FileInfo(path1);
-            System.IO.FileInfo fi2 = new System.IO.FileInfo(path2);
-            System.IO.FileInfo fiSavedInfo1 = new System.IO.FileInfo(path1ri);
-            System.IO.FileInfo fiSavedInfo2 = new System.IO.FileInfo(path2ri);
+            System.IO.FileInfo fi1 = new System.IO.FileInfo(strPathFile1);
+            System.IO.FileInfo fi2 = new System.IO.FileInfo(strPathFile2);
+            System.IO.FileInfo fiSavedInfo1 = new System.IO.FileInfo(strPathSavedInfo1);
+            System.IO.FileInfo fiSavedInfo2 = new System.IO.FileInfo(strPathSavedInfo2);
 
             SavedInfo si1 = new SavedInfo();
             SavedInfo si2 = new SavedInfo();
@@ -4705,9 +4704,9 @@ namespace SyncFolders
                 List<RestoreInfo> restore2 = new List<RestoreInfo>();
 
                 // now let'oInputStream try to read the files and compare 
-                using (System.IO.Stream s1 = System.IO.File.OpenRead(path1))
+                using (System.IO.Stream s1 = System.IO.File.OpenRead(strPathFile1))
                 {
-                    using (System.IO.Stream s2 = System.IO.File.OpenRead(path2))
+                    using (System.IO.Stream s2 = System.IO.File.OpenRead(strPathFile2))
                     {
                         si1.StartRestore();
                         si2.StartRestore();
@@ -4736,7 +4735,7 @@ namespace SyncFolders
                             }
                             catch (System.IO.IOException ex)
                             {
-                                WriteLog(2, "I/O exception while reading file \"", path1, "\": ", ex.Message);
+                                WriteLog(2, "I/O exception while reading file \"", strPathFile1, "\": ", ex.Message);
                                 s1.Seek((index + 1) * b1.Length, System.IO.SeekOrigin.Begin);
                             }
 
@@ -4760,7 +4759,7 @@ namespace SyncFolders
                             catch (System.IO.IOException ex)
                             {
                                 WriteLog(2, "I/O exception while reading file \"", 
-                                    path2, "\": ", ex.Message);
+                                    strPathFile2, "\": ", ex.Message);
                                 s2.Seek((index + 1) * b2.Length, System.IO.SeekOrigin.Begin);
                             }
 
@@ -4853,12 +4852,12 @@ namespace SyncFolders
 
                 // now we've got the list of improvements for both files
                 using (System.IO.Stream s1 = System.IO.File.Open(
-                    path1, System.IO.FileMode.Open, 
+                    strPathFile1, System.IO.FileMode.Open, 
                     System.IO.FileAccess.Read, System.IO.FileShare.Read))
                 {
 
                     using (System.IO.Stream s2 = System.IO.File.Open(
-                        path2, System.IO.FileMode.Open, 
+                        strPathFile2, System.IO.FileMode.Open, 
                         System.IO.FileAccess.ReadWrite, System.IO.FileShare.Read))
                     {
                         // let'oInputStream apply improvements of one file to the list 
@@ -4975,9 +4974,9 @@ namespace SyncFolders
                 long notRestoredSize2 = 0;
                 long badBlocks2 = 0;
                 long badBlocks1 = 0;
-                using (System.IO.Stream s1 = System.IO.File.OpenRead(path1))
+                using (System.IO.Stream s1 = System.IO.File.OpenRead(strPathFile1))
                 {
-                    using (System.IO.Stream s2 = System.IO.File.OpenRead(path2))
+                    using (System.IO.Stream s2 = System.IO.File.OpenRead(strPathFile2))
                     {
                         for (int index = 0; ; ++index)
                         {
@@ -4996,7 +4995,7 @@ namespace SyncFolders
                             {
                                 ++badBlocks1;
                                 WriteLog(2, "I/O exception while reading file \"", 
-                                    path1, "\": ", ex.Message);
+                                    strPathFile1, "\": ", ex.Message);
                                 s1.Seek((index + 1) * b1.Length, 
                                     System.IO.SeekOrigin.Begin);
                             }
@@ -5013,7 +5012,7 @@ namespace SyncFolders
                             {
                                 ++badBlocks2;
                                 WriteLog(2, "I/O exception while reading file \"", 
-                                    path2, "\": ", ex.Message);
+                                    strPathFile2, "\": ", ex.Message);
                                 s2.Seek((index + 1) * b2.Length, 
                                     System.IO.SeekOrigin.Begin);
                             }
@@ -5050,7 +5049,7 @@ namespace SyncFolders
 
 
                 using (System.IO.Stream s2 = System.IO.File.Open(
-                    path2, System.IO.FileMode.Open, 
+                    strPathFile2, System.IO.FileMode.Open, 
                     System.IO.FileAccess.ReadWrite, System.IO.FileShare.Read))
                 {
                     foreach (RestoreInfo ri2 in restore2)
@@ -5085,12 +5084,12 @@ namespace SyncFolders
         /// <summary>
         /// Writes a log message
         /// </summary>
-        /// <param name="indent">The indent of the new message</param>
-        /// <param name="parts">Message parts</param>
+        /// <param name="nIndent">The nIndent of the new message</param>
+        /// <param name="aParts">Message aParts</param>
         //===================================================================================================
         public void WriteLog(
-            int indent, 
-            params object [] parts
+            int nIndent, 
+            params object [] aParts
             )
         {
             if (_logFile != null)
@@ -5101,13 +5100,13 @@ namespace SyncFolders
                 {
                     _logFile.Write("{0}UT\t{1}\t", utc, now);
 
-                    while (indent-- > 0)
+                    while (nIndent-- > 0)
                     {
                         _logFile.Write("\t");
                         _log.Append("        ");
                     }
 
-                    foreach (object part in parts)
+                    foreach (object part in aParts)
                     {
                         string s = part.ToString().Replace(Environment.NewLine,"");
                         _log.Append(s);
@@ -5123,12 +5122,12 @@ namespace SyncFolders
             {
                 lock (_log)
                 {
-                    while (indent-- > 0)
+                    while (nIndent-- > 0)
                     {
                         _log.Append("        ");
                     }
 
-                    foreach (object part in parts)
+                    foreach (object part in aParts)
                     {
                         _log.Append(part.ToString());
                     }
@@ -5143,12 +5142,12 @@ namespace SyncFolders
         /// <summary>
         /// This is executed when user clicks the cancel button
         /// </summary>
-        /// <param name="sender">Sender object</param>
-        /// <param name="e">Event args</param>
+        /// <param name="oSender">Sender object</param>
+        /// <param name="oEventArgs">Event args</param>
         //===================================================================================================
         void buttonCancel_Click(
-            object sender, 
-            EventArgs e)
+            object oSender, 
+            EventArgs oEventArgs)
         {
             if (_bWorking)
             {
@@ -5163,12 +5162,12 @@ namespace SyncFolders
         /// <summary>
         /// This is executed whenn user clicks the self-test button
         /// </summary>
-        /// <param name="sender">Sender object</param>
-        /// <param name="e">Event args</param>
+        /// <param name="oSender">Sender object</param>
+        /// <param name="oEventArgs">Event args</param>
         //===================================================================================================
         void buttonSelfTest_Click(
-             object sender, 
-             EventArgs e
+             object oSender, 
+             EventArgs oEventArgs
              )
          {
             if (string.IsNullOrEmpty(textBoxFirstFolder.Text))
@@ -5398,12 +5397,12 @@ namespace SyncFolders
         /// <summary>
         /// This is executed when user clicks the "repair" checkbox
         /// </summary>
-        /// <param name="sender">Sender object</param>
-        /// <param name="e">Event args</param>
+        /// <param name="oSender">Sender object</param>
+        /// <param name="oEventArgs">Event args</param>
         //===================================================================================================
         void checkBoxRepairBlockFailures_CheckedChanged(
-            object sender, 
-            EventArgs e)
+            object oSender, 
+            EventArgs oEventArgs)
         {
             checkBoxPreferCopies.Enabled = 
                 checkBoxTestAllFiles.Checked && 
@@ -5419,12 +5418,12 @@ namespace SyncFolders
         /// <summary>
         /// This is executed when user edits first folder
         /// </summary>
-        /// <param name="sender">Sender object</param>
-        /// <param name="e">Event args</param>
+        /// <param name="oSender">Sender object</param>
+        /// <param name="oEventArgs">Event args</param>
         //===================================================================================================
         void textBoxFirstFolder_TextChanged(
-            object sender,
-            EventArgs e)
+            object oSender,
+            EventArgs oEventArgs)
         {
             buttonSync.Enabled = 
                 !string.IsNullOrEmpty(textBoxFirstFolder.Text) && 
@@ -5435,12 +5434,12 @@ namespace SyncFolders
         /// <summary>
         /// This is executed when user edits the second folder
         /// </summary>
-        /// <param name="sender">Sender object</param>
-        /// <param name="e">Event args</param>
+        /// <param name="oSender">Sender object</param>
+        /// <param name="oEventArgs">Event args</param>
         //===================================================================================================
         void textBoxSecondFolder_TextChanged(
-            object sender, 
-            EventArgs e)
+            object oSender, 
+            EventArgs oEventArgs)
         {
             buttonSync.Enabled = 
                 !string.IsNullOrEmpty(textBoxFirstFolder.Text) && 
@@ -5451,12 +5450,12 @@ namespace SyncFolders
         /// <summary>
         /// This is executed when user clicks the "first-to-second" checkbox
         /// </summary>
-        /// <param name="sender">Sender object</param>
-        /// <param name="e">Event args</param>
+        /// <param name="oSender">Sender object</param>
+        /// <param name="oEventArgs">Event args</param>
         //===================================================================================================
         void checkBoxFirstToSecond_CheckedChanged(
-            object sender, 
-            EventArgs e
+            object oSender, 
+            EventArgs oEventArgs
             )
         {
             checkBoxDeleteFilesInSecond.Enabled = 
@@ -5476,12 +5475,12 @@ namespace SyncFolders
         /// <summary>
         /// This is executed when user clicks the 'about' link
         /// </summary>
-        /// <param name="sender">Sender object</param>
-        /// <param name="e">Event args</param>
+        /// <param name="oSender">Sender object</param>
+        /// <param name="oEventArgs">Event args</param>
         //===================================================================================================
         private void linkLabelAbout_LinkClicked(
-            object sender, 
-            LinkLabelLinkClickedEventArgs e
+            object oSender, 
+            LinkLabelLinkClickedEventArgs oEventArgs
             )
         {
             using (AboutForm form = new AboutForm())
@@ -5492,12 +5491,12 @@ namespace SyncFolders
         /// <summary>
         /// This is executed when user clicks the 'licence' link
         /// </summary>
-        /// <param name="sender">Sender object</param>
-        /// <param name="e">Event args</param>
+        /// <param name="oSender">Sender object</param>
+        /// <param name="oEventArgs">Event args</param>
         //===================================================================================================
         private void linkLabelLicence_LinkClicked(
-            object sender, 
-            LinkLabelLinkClickedEventArgs e
+            object oSender, 
+            LinkLabelLinkClickedEventArgs oEventArgs
             )
         {
             System.Diagnostics.Process.Start(
@@ -5508,27 +5507,27 @@ namespace SyncFolders
         /// <summary>
         /// This is executed when user clicks (X) in window header
         /// </summary>
-        /// <param name="sender">Sender object</param>
-        /// <param name="e">Event args</param>
+        /// <param name="oSender">Sender object</param>
+        /// <param name="oEventArgs">Event args</param>
         //===================================================================================================
         private void FormSyncFolders_FormClosing(
-            object sender, 
-            FormClosingEventArgs e)
+            object oSender, 
+            FormClosingEventArgs oEventArgs)
         {
             if (_bWorking)
-               this.buttonCancel_Click(sender, EventArgs.Empty);
+               this.buttonCancel_Click(oSender, EventArgs.Empty);
         }
 
         //===================================================================================================
         /// <summary>
         /// This is executed when user clicks the "parallel" checkbox
         /// </summary>
-        /// <param name="sender">Sender object</param>
-        /// <param name="e">Event args</param>
+        /// <param name="oSender">Sender object</param>
+        /// <param name="oEventArgs">Event args</param>
         //===================================================================================================
         private void checkBoxParallel_CheckedChanged(
-            object sender, 
-            EventArgs e
+            object oSender, 
+            EventArgs oEventArgs
             )
         {
             if (checkBoxParallel.Checked)
@@ -5553,12 +5552,12 @@ namespace SyncFolders
         /// <summary>
         /// This is executed when user clicks the "first folder is read-only" checkbox
         /// </summary>
-        /// <param name="sender">Sender object</param>
-        /// <param name="e">Event args</param>
+        /// <param name="oSender">Sender object</param>
+        /// <param name="oEventArgs">Event args</param>
         //===================================================================================================
         private void checkBoxFirstReadonly_CheckedChanged(
-            object sender, 
-            EventArgs e)
+            object oSender, 
+            EventArgs oEventArgs)
         {
             checkBoxIgnoreTime.Enabled = 
                 checkBoxFirstToSecond.Checked && 
@@ -5577,12 +5576,12 @@ namespace SyncFolders
         /// <summary>
         /// This is regularly executed for updating currently processed file
         /// </summary>
-        /// <param name="sender">Sender object</param>
-        /// <param name="e">Event args</param>
+        /// <param name="oSender">Sender object</param>
+        /// <param name="oEventArgs">Event args</param>
         //===================================================================================================
         private void timerUpdateFileDescription_Tick(
-            object sender, 
-            EventArgs e
+            object oSender, 
+            EventArgs oEventArgs
             )
         {
             if (InvokeRequired)
@@ -5608,12 +5607,12 @@ namespace SyncFolders
         /// <summary>
         /// This is executed when user clicks the "ignore time difference" checkbox
         /// </summary>
-        /// <param name="sender">Sender object</param>
-        /// <param name="e">Event args</param>
+        /// <param name="oSender">Sender object</param>
+        /// <param name="oEventArgs">Event args</param>
         //===================================================================================================
         private void checkBoxIgnoreTime_CheckedChanged(
-            object sender, 
-            EventArgs e
+            object oSender, 
+            EventArgs oEventArgs
             )
         {
 
@@ -5623,12 +5622,12 @@ namespace SyncFolders
         /// <summary>
         /// This is executed when user clicks the "sync mode" checkbox
         /// </summary>
-        /// <param name="sender">Sender object</param>
-        /// <param name="e">Event args</param>
+        /// <param name="oSender">Sender object</param>
+        /// <param name="oEventArgs">Event args</param>
         //===================================================================================================
         private void checkBoxSyncMode_CheckedChanged(
-            object sender, 
-            EventArgs e
+            object oSender, 
+            EventArgs oEventArgs
             )
         {
             checkBoxIgnoreTime.Enabled = 
