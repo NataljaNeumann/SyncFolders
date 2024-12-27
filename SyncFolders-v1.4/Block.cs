@@ -25,6 +25,11 @@ using System.Text;
 
 namespace SyncFolders
 {
+    //*******************************************************************************************************
+    /// <summary>
+    /// The implementation of a 4K block
+    /// </summary>
+    //*******************************************************************************************************
     [Serializable]
     class Block : IEnumerable<byte>
     {
@@ -35,6 +40,12 @@ namespace SyncFolders
 
 
         static System.Collections.Generic.Queue<Block> _freeBlocks = new Queue<Block>();
+        //===================================================================================================
+        /// <summary>
+        /// Gets a new block, or from pool of released blocks
+        /// </summary>
+        /// <returns>A block</returns>
+        //===================================================================================================
         public static Block GetBlock()
         {
             // Fixme: I consider it to be unsafe to reuse blocks
@@ -55,6 +66,12 @@ namespace SyncFolders
             */
         }
 
+        //===================================================================================================
+        /// <summary>
+        /// Releases given block
+        /// </summary>
+        /// <param name="b">Block to release</param>
+        //===================================================================================================
         public static void ReleaseBlock(Block b)
         {
             /*
@@ -65,8 +82,17 @@ namespace SyncFolders
             */
         }
 
+        //===================================================================================================
+        /// <summary>
+        /// The data of the block
+        /// </summary>
         public byte[] _data = new byte[4096];
 
+        //===================================================================================================
+        /// <summary>
+        /// Gets or sets the data of the block
+        /// </summary>
+        //===================================================================================================
         public byte this[int i]
         {
             get
@@ -79,6 +105,11 @@ namespace SyncFolders
             }
         }
 
+        //===================================================================================================
+        /// <summary>
+        /// Gets the length of the block
+        /// </summary>
+        //===================================================================================================
         public int Length
         {
             get
@@ -87,6 +118,14 @@ namespace SyncFolders
             }
         }
 
+        //===================================================================================================
+        /// <summary>
+        /// Bitwise or
+        /// </summary>
+        /// <param name="b1">first block</param>
+        /// <param name="b2">second block</param>
+        /// <returns>a new block obtained by bitwise or from other two</returns>
+        //===================================================================================================
         public static Block operator |(Block b1, Block b2)
         {
             Block rb = GetBlock();
@@ -95,6 +134,13 @@ namespace SyncFolders
             return rb;
         }
 
+        //===================================================================================================
+        /// <summary>
+        /// Bitwise-inversion
+        /// </summary>
+        /// <param name="b1">block to compleent</param>
+        /// <returns>a new block, obtainded by inversion of given</returns>
+        //===================================================================================================
         public static Block operator ~(Block b1)
         {
             Block rb = GetBlock();
@@ -103,6 +149,14 @@ namespace SyncFolders
             return rb;
         }
 
+        //===================================================================================================
+        /// <summary>
+        /// Bitwise-and of two blocks
+        /// </summary>
+        /// <param name="b1">first block</param>
+        /// <param name="b2">second block</param>
+        /// <returns>A new block, obtained by bitwise-and of two other</returns>
+        //===================================================================================================
         public static Block operator &(Block b1, Block b2)
         {
             Block rb = GetBlock();
@@ -111,6 +165,14 @@ namespace SyncFolders
             return rb;
         }
 
+        //===================================================================================================
+        /// <summary>
+        /// Bitwise-xor of two blocks
+        /// </summary>
+        /// <param name="b1">First block</param>
+        /// <param name="b2">Second block</param>
+        /// <returns>A new block, obtained by bitwise-xor of two other blocks</returns>
+        //===================================================================================================
         public static Block operator ^(Block b1, Block b2)
         {
             Block rb = GetBlock();
@@ -119,27 +181,59 @@ namespace SyncFolders
             return rb;
         }
 
+        //===================================================================================================
+        /// <summary>
+        /// Bitwise XOR other block inside this block
+        /// </summary>
+        /// <param name="other">Other block</param>
         public void DoXor(Block other)
         {
             for (int i = _data.Length - 1; i >= 0; --i)
                 _data[i] = (byte)(_data[i] ^ other._data[i]);
         }
 
+        //===================================================================================================
+        /// <summary>
+        /// Reads a block from given stream
+        /// </summary>
+        /// <param name="s">Stream to read from</param>
+        /// <returns>The number of bytes read</returns>
+        //===================================================================================================
         public int ReadFrom(System.IO.Stream s)
         {
             return s.Read(_data, 0, _data.Length);
         }
 
+        //===================================================================================================
+        /// <summary>
+        /// Writes the block to stream
+        /// </summary>
+        /// <param name="s">Stream to write to</param>
+        //===================================================================================================
         public void WriteTo(System.IO.Stream s)
         {
             s.Write(_data, 0, _data.Length);
         }
 
+        //===================================================================================================
+        /// <summary>
+        /// Writes the beginning of the block to stream
+        /// </summary>
+        /// <param name="s">Stream to write to</param>
+        /// <param name="length">Numbe of bytes to write</param>
+        //===================================================================================================
         public void WriteTo(System.IO.Stream s, int length)
         {
             s.Write(_data, 0, length);
         }
 
+        //===================================================================================================
+        /// <summary>
+        /// Compares to another block
+        /// </summary>
+        /// <param name="obj">Other block for comparison</param>
+        /// <returns>true iff the contents of the blocks are equal</returns>
+        //===================================================================================================
         public override bool Equals(object obj)
         {
             if (!(obj is Block))
@@ -156,6 +250,12 @@ namespace SyncFolders
             return true;
         }
 
+        //===================================================================================================
+        /// <summary>
+        /// Calculates hash code of the object
+        /// </summary>
+        /// <returns>hash code</returns>
+        //===================================================================================================
         public override int GetHashCode()
         {
             int h = 0;
@@ -169,6 +269,12 @@ namespace SyncFolders
 
         #region IEnumerable<byte> Members
 
+        //===================================================================================================
+        /// <summary>
+        /// Gets enumerator over contained bytes
+        /// </summary>
+        /// <returns>An enumerator object</returns>
+        //===================================================================================================
         public IEnumerator<byte> GetEnumerator()
         {
             return ((IEnumerable<byte>)_data).GetEnumerator();
@@ -178,6 +284,12 @@ namespace SyncFolders
 
         #region IEnumerable Members
 
+        //===================================================================================================
+        /// <summary>
+        /// Gets enumerator over contained byte
+        /// </summary>
+        /// <returns>An enuerator over bytes as objects</returns>
+        //===================================================================================================
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return _data.GetEnumerator();

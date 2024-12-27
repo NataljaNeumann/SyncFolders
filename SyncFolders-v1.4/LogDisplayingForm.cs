@@ -26,6 +26,11 @@ using System.Windows.Forms;
 
 namespace SyncFolders
 {
+    //*******************************************************************************************************
+    /// <summary>
+    /// Shows the log of last sync
+    /// </summary>
+    //*******************************************************************************************************
     public partial class LogDisplayingForm : Form
     {
         public LogDisplayingForm()

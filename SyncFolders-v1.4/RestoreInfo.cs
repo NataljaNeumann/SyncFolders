@@ -25,9 +25,11 @@ using System.Text;
 
 namespace SyncFolders
 {
+    //*******************************************************************************************************
     /// <summary>
     /// Object of this class provide information about single restores
     /// </summary>
+    //*******************************************************************************************************
     class RestoreInfo
     {
         /// <summary>
@@ -45,13 +47,16 @@ namespace SyncFolders
         /// </summary>
         public bool NotRecoverableArea;
 
+        //===================================================================================================
         /// <summary>
         /// Constructs a new restore info
         /// </summary>
+        //===================================================================================================
         public RestoreInfo()
         {
         }
 
+        //===================================================================================================
         /// <summary>
         /// Constructs a new restore info
         /// </summary>
@@ -59,6 +64,7 @@ namespace SyncFolders
         /// <param name="oData">The data to write</param>
         /// <param name="bNotRecoverable">Indicates that this is an empty block for non-recoverabl
         /// area</param>
+        //===================================================================================================
         public RestoreInfo(long nPos, Block oData, bool bNotRecoverable)
         {
             Position = nPos;

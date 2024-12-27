@@ -26,6 +26,7 @@ using System.Text;
 namespace SyncFolders
 {
 
+    //*******************************************************************************************************
     /// <summary>
     /// Objects of this class provide means for analyzing and saving information
     /// about a file, as well as possibility to restore some of the missing parts.
@@ -48,6 +49,7 @@ namespace SyncFolders
     /// every 16*17 = 272 blocks, not every 16+17=33 blocks) but it reduces the
     /// maximum number of blocks that can be restored in a continuous range by half.
     /// </summary>
+    //*******************************************************************************************************
     [Serializable]
     class SavedInfo
     {
@@ -73,9 +75,11 @@ namespace SyncFolders
         /// </summary>
         List<byte[]> m_aChecksums = new List<byte[]>();
 
+        //===================================================================================================
         /// <summary>
         /// Gets the length of the original file
         /// </summary>
+        //===================================================================================================
         public long Length
         {
             get
@@ -84,9 +88,11 @@ namespace SyncFolders
             }
         }
 
+        //===================================================================================================
         /// <summary>
         /// Gets the UTC timestamp of the original file.
         /// </summary>
+        //===================================================================================================
         public DateTime TimeStamp
         {
             get
@@ -96,9 +102,11 @@ namespace SyncFolders
         }
 
 
+        //===================================================================================================
         /// <summary>
         /// Constructs a new empty SavedInfo (64 K, no checksums)
         /// </summary>
+        //===================================================================================================
         public SavedInfo()
         {
             Block testb = Block.GetBlock();
@@ -107,6 +115,7 @@ namespace SyncFolders
             m_aChecksums = new List<byte[]>();
         }
 
+        //===================================================================================================
         /// <summary>
         /// Constructs a new SavedInfo with data
         /// </summary>
@@ -114,6 +123,7 @@ namespace SyncFolders
         /// <param name="dtmFileTimestampUtc">The UTC timestamp of the file</param>
         /// <param name="bForceOtherBlocks">Force creation of second row of blocks, even if
         /// the file is too small for it</param>
+        //===================================================================================================
         public SavedInfo(
             long lFileLength, 
             DateTime dtmFileTimestampUtc, 
@@ -183,10 +193,12 @@ namespace SyncFolders
             m_aChecksums = new List<byte[]>();
         }
 
+        //***************************************************************************************************
         /// <summary>
         /// This simple checksum calculator is used to verify
         /// that we can trust m_aChecksums
         /// </summary>
+        //***************************************************************************************************
         private class CheckSumCalculator
         {
             /// <summary>
@@ -197,20 +209,24 @@ namespace SyncFolders
             /// Current position in Checksum
             /// </summary>
             private int _pos;
+            //===============================================================================================
             /// <summary>
             /// Adds a byte to the checksum (XORs it somewhere)
             /// </summary>
             /// <param name="oBlockOfOriginalFile">Byte to addd</param>
+            //===============================================================================================
             public void AddByte(byte b)
             {
                 Checksum[_pos++] ^= b;
                 if (_pos >= Checksum.Length)
                     _pos = 0;
             }
+            //===============================================================================================
             /// <summary>
             /// Adds a byte to the checksum (XORs it somewhere)
             /// </summary>
             /// <param name="oBlockOfOriginalFile">Byte to addd</param>
+            //===============================================================================================
             public void AddByte(int b)
             {
                 Checksum[_pos++] ^= (byte)b;
@@ -219,10 +235,12 @@ namespace SyncFolders
             }
         }
 
+        //===================================================================================================
         /// <summary>
         /// Reads information about an original file from stream, containg saved info
         /// </summary>
         /// <param name="oInputStream">The stream to read from</param>
+        //===================================================================================================
         public void ReadFrom(
             System.IO.Stream oInputStream
             )
@@ -393,10 +411,12 @@ namespace SyncFolders
 
         }
 
+        //===================================================================================================
         /// <summary>
         /// Saves calculated information about the original file to stream
         /// </summary>
         /// <param name="oOutputStream">The stream to save to</param>
+        //===================================================================================================
         public void SaveTo(
             System.IO.Stream oOutputStream
             )
@@ -483,6 +503,7 @@ namespace SyncFolders
             oOutputStream.Write(oMetadataChecksum.Checksum, 0, oMetadataChecksum.Checksum.Length);
         }
 
+        //===================================================================================================
         /// <summary>
         /// Analyzes a block, read from original file, for creating SavedInfo
         /// It is expected that all blocks are readable and come 
@@ -490,6 +511,7 @@ namespace SyncFolders
         /// </summary>
         /// <param name="oBlockOfOriginalFile">The block of original file</param>
         /// <param name="lBlockIndex">Zero-based lBlockIndex of the block</param>
+        //===================================================================================================
         public void AnalyzeForInfoCollection(
             Block oBlockOfOriginalFile, 
             long lBlockIndex)
@@ -530,15 +552,18 @@ namespace SyncFolders
         /// </summary>
         List<long> m_aListOfBlocksToRestore;
 
+        //===================================================================================================
         /// <summary>
         /// Starts to restore a file. This shall only be executed after ReadFrom
         /// </summary>
+        //===================================================================================================
         public void StartRestore()
         {
             m_lCurrentlyRestoredBlock = -1;
             m_aListOfBlocksToRestore = new List<long>();
         }
 
+        //===================================================================================================
         /// <summary>
         /// Analyzes a block for test or restore. There some blocks
         /// can be missing. All readable blocks are expected to come from
@@ -547,6 +572,7 @@ namespace SyncFolders
         /// <param name="oBlock">The block from original file</param>
         /// <param name="index">Index of the block</param>
         /// <returns>true iff the block has been accepted (e.g. if its checksum matches)</returns>
+        //===================================================================================================
         public bool AnalyzeForTestOrRestore(
             Block oBlock, 
             long index)
@@ -623,6 +649,7 @@ namespace SyncFolders
             }
         }
 
+        //===================================================================================================
         /// <summary>
         /// Ends a restore proces
         /// </summary>
@@ -630,6 +657,7 @@ namespace SyncFolders
         /// <param name="strCurrentFile">The file name of current file for messages</param>
         /// <param name="iLogWriter">The log writer</param>
         /// <returns>List of restore informations</returns>
+        //===================================================================================================
         public List<RestoreInfo> EndRestore(
             out long outlNotRestoredSize, 
             string strCurrentFile, 
@@ -906,11 +934,13 @@ namespace SyncFolders
             return oResult;
         }
 
+        //===================================================================================================
         /// <summary>
         /// After we tested readability of the file and the saved info we can verify
         /// that all saved blocks XOR to zero.
         /// </summary>
         /// <returns>true iff all blocks matched</returns>
+        //===================================================================================================
         public bool VerifyIntegrityAfterRestoreTest()
         {
             // if the original file matches the chk file and there were no checksum errors
@@ -946,10 +976,12 @@ namespace SyncFolders
             return true;
         }
 
+        //===================================================================================================
         /// <summary>
         /// Counts non-empty blocks in first row
         /// </summary>
         /// <returns>The number of non-empty blocks</returns>
+        //===================================================================================================
         public int NonEmptyBlocks()
         {
             int cnt = 0;
@@ -967,11 +999,13 @@ namespace SyncFolders
             return cnt;
         }
 
+        //===================================================================================================
         /// <summary>
         /// If there are two copies of saved info then we can improve both copies
         /// from each other
         /// </summary>
         /// <param name="oOtherSaveInfo">Other saved info</param>
+        //===================================================================================================
         public void ImproveThisAndOther(
             SavedInfo oOtherSaveInfo
             )
