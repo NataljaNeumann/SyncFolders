@@ -33,11 +33,23 @@ namespace SyncFolders
     //*******************************************************************************************************
     public partial class LogDisplayingForm : Form
     {
+        //===================================================================================================
+        /// <summary>
+        /// Constructs the form object
+        /// </summary>
+        //===================================================================================================
         public LogDisplayingForm()
         {
             InitializeComponent();
         }
 
+        //===================================================================================================
+        /// <summary>
+        /// This is executed when visibility of the form changes
+        /// </summary>
+        /// <param name="oSender">Sender object</param>
+        /// <param name="oEventArgs">Event args</param>
+        //===================================================================================================
         private void LogDisplayingForm_VisibleChanged(object sender, EventArgs e)
         {
             textBoxLog.Select(0, 0);

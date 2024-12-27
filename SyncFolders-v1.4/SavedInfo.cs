@@ -29,12 +29,12 @@ namespace SyncFolders
     //*******************************************************************************************************
     /// <summary>
     /// Objects of this class provide means for analyzing and saving information
-    /// about a file, as well as possibility to restore some of the missing parts.
+    /// about a file, as well as possibility to restore some of the missing aParts.
     /// 
     /// The restore algorithm works as XOR of blocks. E.g. if there are 16 blocks
     /// (64K) stored in m_aBlocks then a continuous error range of 64K can be restored.
     /// Additionally, if only one block in a range is bad, then there is a good
-    /// probability that two or three ranges, consisting of 1 block each can be 
+    /// probability that two or three ranges, consisting of 1 block each, can be 
     /// restored.
     /// 
     /// But, if two blocks (e.g. block 0 of the original file and block 32 of the
