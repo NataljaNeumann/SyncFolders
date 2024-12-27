@@ -114,7 +114,10 @@ namespace SyncFolders
         /// <param name="dtmFileTimestampUtc">The UTC timestamp of the file</param>
         /// <param name="bForceOtherBlocks">Force creation of second row of blocks, even if
         /// the file is too small for it</param>
-        public SavedInfo(long lFileLength, DateTime dtmFileTimestampUtc, bool bForceOtherBlocks)
+        public SavedInfo(
+            long lFileLength, 
+            DateTime dtmFileTimestampUtc, 
+            bool bForceOtherBlocks)
         {
             m_lFileLength = lFileLength;
             m_dtmFileTimestampUtc = dtmFileTimestampUtc;
@@ -220,7 +223,9 @@ namespace SyncFolders
         /// Reads information about an original file from stream, containg saved info
         /// </summary>
         /// <param name="oInputStream">The stream to read from</param>
-        public void ReadFrom(System.IO.Stream oInputStream)
+        public void ReadFrom(
+            System.IO.Stream oInputStream
+            )
         {
             CheckSumCalculator oMetadataChecksum = new CheckSumCalculator();
             m_aBlocks.Clear();
@@ -237,7 +242,8 @@ namespace SyncFolders
 
             oMetadataChecksum.AddByte(0);
 
-            // read the maximum supported version (should be different from -1, which means eof)
+            // read the maximum supported version 
+            // (should be different from -1, which means eof)
             int nMaxVersion = oInputStream.ReadByte();
             if (nMaxVersion == -1)
                 return;
@@ -304,7 +310,8 @@ namespace SyncFolders
                     // add a null block for failed reads
                     m_aBlocks.Add(null);
                     // seek the next block
-                    oInputStream.Seek(oBlock.Length * (lBlocksInFirstRow - i) + 34, System.IO.SeekOrigin.Begin);
+                    oInputStream.Seek(oBlock.Length * (lBlocksInFirstRow - i) + 34, 
+                        System.IO.SeekOrigin.Begin);
                 }
             };
 
@@ -333,7 +340,8 @@ namespace SyncFolders
                     // add a null block for failed reads
                     m_aOtherBlocks.Add(null);
                     // seek the next block
-                    oInputStream.Seek(oBlock.Length * (lBlocksInSecondRow - i + lBlocksInFirstRow) + 34, System.IO.SeekOrigin.Begin);
+                    oInputStream.Seek(oBlock.Length * (lBlocksInSecondRow - i + lBlocksInFirstRow) + 34, 
+                        System.IO.SeekOrigin.Begin);
                 };
             };
 
@@ -363,9 +371,11 @@ namespace SyncFolders
 
             // read the final checksum over metadata from stream
             CheckSumCalculator checksumInFile = new CheckSumCalculator();
-            if (oInputStream.Read(checksumInFile.Checksum, 0, checksumInFile.Checksum.Length) < checksumInFile.Checksum.Length)
+            if (oInputStream.Read(checksumInFile.Checksum, 0, checksumInFile.Checksum.Length) < 
+                checksumInFile.Checksum.Length)
             {
-                // saved checksums are not reliable, so clear them and trust the CRC checksums of the drive
+                // saved checksums are not reliable, so clear them and trust the 
+                // CRC checksums of the drive
                 m_aChecksums.Clear();
                 return;
             }
@@ -387,7 +397,9 @@ namespace SyncFolders
         /// Saves calculated information about the original file to stream
         /// </summary>
         /// <param name="oOutputStream">The stream to save to</param>
-        public void SaveTo(System.IO.Stream oOutputStream)
+        public void SaveTo(
+            System.IO.Stream oOutputStream
+            )
         {
             CheckSumCalculator oMetadataChecksum = new CheckSumCalculator();
 
@@ -478,7 +490,9 @@ namespace SyncFolders
         /// </summary>
         /// <param name="oBlockOfOriginalFile">The block of original file</param>
         /// <param name="lBlockIndex">Zero-based lBlockIndex of the block</param>
-        public void AnalyzeForInfoCollection(Block oBlockOfOriginalFile, long lBlockIndex)
+        public void AnalyzeForInfoCollection(
+            Block oBlockOfOriginalFile, 
+            long lBlockIndex)
         {
             if (m_aBlocks.Count == 0)
                 return;
@@ -533,7 +547,9 @@ namespace SyncFolders
         /// <param name="oBlock">The block from original file</param>
         /// <param name="index">Index of the block</param>
         /// <returns>true iff the block has been accepted (e.g. if its checksum matches)</returns>
-        public bool AnalyzeForTestOrRestore(Block oBlock, long index)
+        public bool AnalyzeForTestOrRestore(
+            Block oBlock, 
+            long index)
         {
 
             if (m_aBlocks.Count == 0)
@@ -543,12 +559,15 @@ namespace SyncFolders
             // then simply add the block as OK
             if (m_aChecksums.Count <= index)
             {
-                //m_aBlocks[(int)(lBlockIndex % m_aBlocks.Count)] = m_aBlocks[(int)(lBlockIndex % m_aBlocks.Count)] ^ oBlockOfOriginalFile;
+                //m_aBlocks[(int)(lBlockIndex % m_aBlocks.Count)] = 
+                //   m_aBlocks[(int)(lBlockIndex % m_aBlocks.Count)] ^ oBlockOfOriginalFile;
                 m_aBlocks[(int)(index % m_aBlocks.Count)].DoXor(oBlock);
 
-                // if there is a second row of blocks, then perform also preparation of oOtherSaveInfo blocks;
+                // if there is a second row of blocks, then perform also
+                // preparation of oOtherSaveInfo blocks;
                 if (m_aOtherBlocks.Count > 0)
-                    //m_aOtherBlocks[(int)(lBlockIndex % m_aOtherBlocks.Count)] = m_aOtherBlocks[(int)(lBlockIndex % m_aOtherBlocks.Count)] ^ oBlockOfOriginalFile;
+                    //m_aOtherBlocks[(int)(lBlockIndex % m_aOtherBlocks.Count)] 
+                    //   = m_aOtherBlocks[(int)(lBlockIndex % m_aOtherBlocks.Count)] ^ oBlockOfOriginalFile;
                     m_aOtherBlocks[(int)(index % m_aOtherBlocks.Count)].DoXor(oBlock);
 
                 // analyze which blocks have been skipped
@@ -583,12 +602,15 @@ namespace SyncFolders
             }
             else
             {
-                //m_aBlocks[(int)(lBlockIndex % m_aBlocks.Count)] = m_aBlocks[(int)(lBlockIndex % m_aBlocks.Count)] ^ oBlockOfOriginalFile;
+                // m_aBlocks[(int)(lBlockIndex % m_aBlocks.Count)] = 
+                // m_aBlocks[(int)(lBlockIndex % m_aBlocks.Count)] ^ oBlockOfOriginalFile;
                 m_aBlocks[(int)(index % m_aBlocks.Count)].DoXor(oBlock);
 
-                // if there is a second row of blocks, then perform also preparation of oOtherSaveInfo blocks;
+                // if there is a second row of blocks, then perform also 
+                // preparation of oOtherSaveInfo blocks;
                 if (m_aOtherBlocks.Count > 0)
-                    //m_aOtherBlocks[(int)(lBlockIndex % m_aOtherBlocks.Count)] = m_aOtherBlocks[(int)(lBlockIndex % m_aOtherBlocks.Count)] ^ oBlockOfOriginalFile;
+                    // m_aOtherBlocks[(int)(lBlockIndex % m_aOtherBlocks.Count)] = 
+                    // m_aOtherBlocks[(int)(lBlockIndex % m_aOtherBlocks.Count)] ^ oBlockOfOriginalFile;
                     m_aOtherBlocks[(int)(index % m_aOtherBlocks.Count)].DoXor(oBlock);
 
                 // analyze which blocks have been skipped
@@ -608,11 +630,15 @@ namespace SyncFolders
         /// <param name="strCurrentFile">The file name of current file for messages</param>
         /// <param name="iLogWriter">The log writer</param>
         /// <returns>List of restore informations</returns>
-        public List<RestoreInfo> EndRestore(out long outlNotRestoredSize, string strCurrentFile, ILogWriter iLogWriter)
+        public List<RestoreInfo> EndRestore(
+            out long outlNotRestoredSize, 
+            string strCurrentFile, 
+            ILogWriter iLogWriter)
         {
             // add the missing blocks at the end of file
             Block oTestBlock = Block.GetBlock();
-            while (++m_lCurrentlyRestoredBlock < (m_lFileLength + oTestBlock.Length - 1) / oTestBlock.Length)
+            while (++m_lCurrentlyRestoredBlock < 
+                (m_lFileLength + oTestBlock.Length - 1) / oTestBlock.Length)
             {
                 m_aListOfBlocksToRestore.Add(m_lCurrentlyRestoredBlock);
             };
@@ -628,7 +654,8 @@ namespace SyncFolders
                     // all blocks are non-restorable
                     long blockToRestore = m_aListOfBlocksToRestore[i];
                     outlNotRestoredSize = outlNotRestoredSize + oTestBlock.Length;
-                    oResult.Add(new RestoreInfo(blockToRestore * oTestBlock.Length, Block.GetBlock(), true));
+                    oResult.Add(new RestoreInfo(blockToRestore * oTestBlock.Length,
+                        Block.GetBlock(), true));
                 }
                 return oResult;
             };
@@ -643,7 +670,8 @@ namespace SyncFolders
                 {
                     long blockToRestore = m_aListOfBlocksToRestore[i];
                     int nIndexToUseFromFirstRow = (int)(blockToRestore % m_aBlocks.Count);
-                    if (aUsedIndexesInFirstRow.Contains(nIndexToUseFromFirstRow) || m_aBlocks[nIndexToUseFromFirstRow] == null)
+                    if (aUsedIndexesInFirstRow.Contains(nIndexToUseFromFirstRow) || 
+                        m_aBlocks[nIndexToUseFromFirstRow] == null)
                     {
                         if (!aNonRecoverableIndexesInFirstRow.Contains(nIndexToUseFromFirstRow))
                             aNonRecoverableIndexesInFirstRow.Add(nIndexToUseFromFirstRow);
@@ -673,7 +701,8 @@ namespace SyncFolders
 
                     if (!bOtherSeemOk)
                     {
-                        iLogWriter.WriteLog(1, "Warning: several blocks don't match in saved info ", strCurrentFile, ", saved info will be ignored completely");
+                        iLogWriter.WriteLog(1, "Warning: several blocks don't match in saved info ",
+                            strCurrentFile, ", saved info will be ignored completely");
                         break;
                     }
                 }
@@ -684,14 +713,17 @@ namespace SyncFolders
                 {
                     long blockToRestore = m_aListOfBlocksToRestore[i];
                     int nIndexToUseFromFirstRow = (int)(blockToRestore % m_aBlocks.Count);
-                    if (aNonRecoverableIndexesInFirstRow.Contains(nIndexToUseFromFirstRow) || !bOtherSeemOk)
+                    if (aNonRecoverableIndexesInFirstRow.Contains(nIndexToUseFromFirstRow) || 
+                        !bOtherSeemOk)
                     {
                         outlNotRestoredSize = outlNotRestoredSize + oTestBlock.Length;
-                        oResult.Add(new RestoreInfo(blockToRestore * oTestBlock.Length, Block.GetBlock(), true));
+                        oResult.Add(new RestoreInfo(blockToRestore * oTestBlock.Length, 
+                            Block.GetBlock(), true));
                     }
                     else
                     {
-                        oResult.Add(new RestoreInfo(blockToRestore * oTestBlock.Length, m_aBlocks[nIndexToUseFromFirstRow], false));
+                        oResult.Add(new RestoreInfo(blockToRestore * oTestBlock.Length, 
+                            m_aBlocks[nIndexToUseFromFirstRow], false));
                     }
                 }
             }
@@ -715,7 +747,8 @@ namespace SyncFolders
                     {
                         long blockToRestore = m_aListOfBlocksToRestore[i];
                         int nIndexToUseInFirstRow = (int)(blockToRestore % m_aBlocks.Count);
-                        if (aProposedIndexesInFirstRow.Contains(nIndexToUseInFirstRow) || m_aBlocks[nIndexToUseInFirstRow] == null)
+                        if (aProposedIndexesInFirstRow.Contains(nIndexToUseInFirstRow) || 
+                            m_aBlocks[nIndexToUseInFirstRow] == null)
                         {
                             if (!aNonUsableIndexesInFirstRow.Contains(nIndexToUseInFirstRow))
                                 aNonUsableIndexesInFirstRow.Add(nIndexToUseInFirstRow);
@@ -752,14 +785,18 @@ namespace SyncFolders
                                         bChecksumOk2 = false;
                             }
 
-                            // if there is a checksum for the block then we'll use restored block only if checksum matches
+                            // if there is a checksum for the block then we'll use restored 
+                            // block only if checksum matches
                             if (bChecksumOk2)
                             {
-                                oResult.Add(new RestoreInfo(blockToRestore * oTestBlock.Length, m_aBlocks[nIndexToUseInFirstRow], false));
+                                oResult.Add(new RestoreInfo(blockToRestore * oTestBlock.Length, 
+                                    m_aBlocks[nIndexToUseInFirstRow], false));
 
-                                // we calculated the new block, it could improve the situation at the oOtherSaveInfo row of blocks
+                                // we calculated the new block, it could improve the situation 
+                                // at the other row of blocks
                                 m_aOtherBlocks[(int)(blockToRestore % m_aOtherBlocks.Count)] = 
-                                    m_aOtherBlocks[(int)(blockToRestore % m_aOtherBlocks.Count)] ^ m_aBlocks[nIndexToUseInFirstRow];
+                                    m_aOtherBlocks[(int)(blockToRestore % m_aOtherBlocks.Count)] ^ 
+                                    m_aBlocks[nIndexToUseInFirstRow];
 
                                 // we need i to run backwards for this to work
                                 m_aListOfBlocksToRestore.RemoveAt(i);
@@ -770,7 +807,8 @@ namespace SyncFolders
                             }
                             else
                             {
-                                iLogWriter.WriteLog(1, "Warning: checksum of block at offsset ",blockToRestore * oTestBlock.Length,
+                                iLogWriter.WriteLog(1, "Warning: checksum of block at offsset ",
+                                    blockToRestore * oTestBlock.Length,
                                     " doesn't match available in primary blocks of restoreinfo ", strCurrentFile, 
                                     ", primary restoreinfo for the block will be ignored");
                             }
@@ -782,7 +820,8 @@ namespace SyncFolders
                     {
                         long blockToRestore = m_aListOfBlocksToRestore[i];
                         int nIndexToUseFromOtherBlocks = (int)(blockToRestore % m_aOtherBlocks.Count);
-                        if (aProposedIndexesInOtherBlocks.Contains(nIndexToUseFromOtherBlocks) || m_aOtherBlocks[nIndexToUseFromOtherBlocks] == null)
+                        if (aProposedIndexesInOtherBlocks.Contains(nIndexToUseFromOtherBlocks) || 
+                            m_aOtherBlocks[nIndexToUseFromOtherBlocks] == null)
                         {
                             if (!aNonUsableIndexesInOtherBlocks.Contains(nIndexToUseFromOtherBlocks))
                                 aNonUsableIndexesInOtherBlocks.Add(nIndexToUseFromOtherBlocks);
@@ -821,22 +860,28 @@ namespace SyncFolders
 
                             if (bChecksumOk3)
                             {
-                                // we calculated the new block, it could improve the situation at the primary row of blocks
+                                // we calculated the new block, it could improve the situation 
+                                // at the primary row of blocks
                                 m_aBlocks[(int)(blockToRestore % m_aBlocks.Count)] = 
-                                    m_aBlocks[(int)(blockToRestore % m_aBlocks.Count)] ^ m_aOtherBlocks[blockToUse];
+                                    m_aBlocks[(int)(blockToRestore % m_aBlocks.Count)] ^ 
+                                    m_aOtherBlocks[blockToUse];
 
                                 // skip these two lines in test case for testing the "repeat" case 
-                                oResult.Add(new RestoreInfo(blockToRestore * oTestBlock.Length, m_aOtherBlocks[blockToUse], false));
+                                oResult.Add(new RestoreInfo(blockToRestore * oTestBlock.Length, 
+                                    m_aOtherBlocks[blockToUse], false));
                                 m_aListOfBlocksToRestore.RemoveAt(i);
 
                                 // repeat restoring using the primary and the secondary row of blocks:
-                                // we restored something using the second row, this could improve the situation with the primary blocks.
+                                // we restored something using the second row, 
+                                // this could improve the situation with the primary blocks.
                                 bRepeat = true;
                             }
                             else
                             {
-                                iLogWriter.WriteLog(1, "Warning: checksum of block at offset ", blockToRestore * oTestBlock.Length, 
-                                    " doesn't match available in secondary blocks of restoreinfo ", strCurrentFile, 
+                                iLogWriter.WriteLog(1, "Warning: checksum of block at offset ", 
+                                    blockToRestore * oTestBlock.Length, 
+                                    " doesn't match available in secondary blocks of restoreinfo ", 
+                                    strCurrentFile, 
                                     ", secondary restoreinfo for the block will be ignored");
                             }
                         }
@@ -853,7 +898,8 @@ namespace SyncFolders
                 {
                     long blockToRestore = m_aListOfBlocksToRestore[i];
                     outlNotRestoredSize = outlNotRestoredSize + oTestBlock.Length;
-                    oResult.Add(new RestoreInfo(blockToRestore * oTestBlock.Length, Block.GetBlock(), true));
+                    oResult.Add(new RestoreInfo(blockToRestore * oTestBlock.Length, 
+                        Block.GetBlock(), true));
                 }
 
             }
@@ -926,36 +972,20 @@ namespace SyncFolders
         /// from each other
         /// </summary>
         /// <param name="oOtherSaveInfo">Other saved info</param>
-        public void ImproveWith(SavedInfo oOtherSaveInfo)
+        public void ImproveThisAndOther(
+            SavedInfo oOtherSaveInfo
+            )
         {
             // Match checksums
             if (this.m_aChecksums.Count == 0 && oOtherSaveInfo.m_aChecksums.Count > 0)
             {
                 this.m_aChecksums = oOtherSaveInfo.m_aChecksums;
-                // remove blocks on this saveinfo, if too many
-                while (this.m_aBlocks.Count > oOtherSaveInfo.m_aBlocks.Count)
-                {
-                    this.m_aBlocks.RemoveAt(this.m_aBlocks.Count - 1);
-                }
-                while (this.m_aOtherBlocks.Count > oOtherSaveInfo.m_aOtherBlocks.Count)
-                {
-                    this.m_aOtherBlocks.RemoveAt(this.m_aOtherBlocks.Count - 1);
-                }
             }
             else
             {
                 if (oOtherSaveInfo.m_aChecksums.Count == 0 && this.m_aChecksums.Count > 0)
                 {
                     oOtherSaveInfo.m_aChecksums = this.m_aChecksums;
-                    // remove blocks on the oOtherSaveInfo saveinfo, if too many
-                    while (oOtherSaveInfo.m_aBlocks.Count > this.m_aBlocks.Count)
-                    {
-                        oOtherSaveInfo.m_aBlocks.RemoveAt(oOtherSaveInfo.m_aBlocks.Count - 1);
-                    }
-                    while (oOtherSaveInfo.m_aOtherBlocks.Count > this.m_aOtherBlocks.Count)
-                    {
-                        oOtherSaveInfo.m_aOtherBlocks.RemoveAt(oOtherSaveInfo.m_aOtherBlocks.Count - 1);
-                    }
                 }
             }
 

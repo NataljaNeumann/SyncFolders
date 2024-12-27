@@ -2561,7 +2561,7 @@ namespace SyncFolders
                 System.DateTime prevLastWriteTime = fi1.LastWriteTimeUtc;
 
                 // improve the available saved infos, if needed 
-                si1.ImproveWith(si2);
+                si1.ImproveThisAndOther(si2);
 
                 // the list of equal blocks, so we don't overwrite obviously correct blocks
                 Dictionary<long, bool> equalBlocks = new Dictionary<long, bool>();
@@ -3477,7 +3477,7 @@ namespace SyncFolders
                 System.DateTime prevLastWriteTime = fi1.LastWriteTimeUtc;
 
                 // improve the available saved infos, if needed 
-                si1.ImproveWith(si2);
+                si1.ImproveThisAndOther(si2);
 
                 // the list of equal blocks, so we don't overwrite obviously correct blocks
                 Dictionary<long, bool> equalBlocks = new Dictionary<long, bool>();
