@@ -589,7 +589,6 @@ namespace SyncFolders
         {
             // replace default abstraction with error simulation
             Dictionary<string, List<long>> oSimulatedReadErrors = new Dictionary<string, List<long>>();
-            m_iFileOpenAndCopyAbstraction = new FileOpenAndCopyWithSimulatedErrors(oSimulatedReadErrors);
 
             if (string.IsNullOrEmpty(textBoxFirstFolder.Text))
                 textBoxFirstFolder.Text = Application.StartupPath + "\\TestFolder1";
@@ -811,8 +810,92 @@ namespace SyncFolders
                 System.IO.Path.Combine(textBoxSecondFolder.Text,
                 "TestPicture2.jpg"), dtmOld);
 
+            DateTime dtmTimeForFile = DateTime.UtcNow;
+            string strPathOfTestFile = CreateSelfTestFile(textBoxFirstFolder.Text, 
+                "NonRestorableBecauseNoSaveInfo.dat", 2, false, 
+                dtmTimeForFile, dtmTimeForFile);
+
+            // add simulated read errors for this file
+            oSimulatedReadErrors[strPathOfTestFile] = new List<long>(new long[] { 0 });
+
+
+            // replace default abstraction with error simulation
+            m_iFileOpenAndCopyAbstraction = new FileOpenAndCopyWithSimulatedErrors(oSimulatedReadErrors);
+
             buttonSync_Click(this, EventArgs.Empty);
         }
+
+
+        //===================================================================================================
+        /// <summary>
+        /// Creates a pre-defined test file for self-test
+        /// </summary>
+        /// <param name="strFolder">Folder of the file</param>
+        /// <param name="strFileName">File name</param>
+        /// <param name="nBlockCount">Number of blocks</param>
+        /// <param name="bCreateSaveInfo">If true, the save info file will be created</param>
+        /// <param name="dtmTimeForFile">Date and time for the data file</param>
+        /// <param name="dtmTimeForSaveInfo">Date and time for the saveinfo (.chk) file</param>
+        /// <returns>The path of created data file</returns>
+        //===================================================================================================
+        string CreateSelfTestFile(
+            string strFolder,
+            string strFileName,
+            int nBlockCount,
+            bool bCreateSaveInfo,
+            DateTime dtmTimeForFile,
+            DateTime dtmTimeForSaveInfo
+            )
+        {
+            string strDestDataFilePath = System.IO.Path.Combine(strFolder,  strFileName);
+            Block oBlock = Block.GetBlock();
+            using (System.IO.FileStream s = System.IO.File.OpenWrite(
+                strDestDataFilePath))
+            {
+                for (int i=0; i<nBlockCount; ++i)
+                {
+                    // setting block number within the block helps
+                    // in identification of errors
+                    oBlock[3] = (byte)(i >> 24);
+                    oBlock[2] = (byte)(i >> 16);
+                    oBlock[1] = (byte)(i >> 8);
+                    oBlock[0] = (byte)(i);
+
+                    if (i == nBlockCount - 1)
+                    {
+                        // randomly write either half or complete block as
+                        // last block, so we have both variants
+                        if (dtmTimeForFile.Second % 2 != 0)
+                        {
+                            oBlock.WriteTo(s, oBlock.Length / 2);
+                        }
+                        else
+                        {
+                            oBlock.WriteTo(s, oBlock.Length / 2);
+                        }
+                    }
+                    else
+                    {
+                        oBlock.WriteTo(s);
+                    }
+                }
+            }
+
+            Block.ReleaseBlock(oBlock);
+
+            // if need saved info, then create it with the specified date and time
+            if (bCreateSaveInfo)
+            {
+                System.IO.File.SetLastWriteTimeUtc(strDestDataFilePath, dtmTimeForSaveInfo);
+                CreateSavedInfo(strDestDataFilePath, 
+                    CreatePathOfChkFile(strFolder, "RestoreInfo", strFileName, ".chk"));
+            }
+            // set date and time to specified value
+            System.IO.File.SetLastWriteTimeUtc(strDestDataFilePath, dtmTimeForFile);
+
+            return strDestDataFilePath;
+        }
+
 
         //===================================================================================================
         /// <summary>
@@ -838,7 +921,7 @@ namespace SyncFolders
 
                 System.IO.FileInfo fi2 = new System.IO.FileInfo(strTargetPath);
                 if (fi2.Exists)
-                    fi2.Delete();
+                    m_iFileOpenAndCopyAbstraction.Delete(fi2);
 
                 System.IO.FileInfo fi2tmp = new System.IO.FileInfo(strTargetPath2);
                 fi2tmp.MoveTo(strTargetPath);
@@ -850,7 +933,7 @@ namespace SyncFolders
                     System.Threading.Thread.Sleep(5000);
                     System.IO.FileInfo fi2 = new System.IO.FileInfo(strTargetPath2);
                     if (fi2.Exists)
-                        fi2.Delete();
+                        m_iFileOpenAndCopyAbstraction.Delete(fi2);
                 } catch
                 {
                     // ignore additional exceptions
@@ -1335,14 +1418,14 @@ namespace SyncFolders
                                     System.IO.Path.Combine(
                                     di3.FullName,fi.Name.Substring(0, fi.Name.Length - 4))), feq, feq2))
                             {
-                                fi.Delete();
+                                m_iFileOpenAndCopyAbstraction.Delete(fi);
                             } else
                             if (fi.Extension.Equals(".chked", StringComparison.InvariantCultureIgnoreCase) && 
                                 !CheckIfContains(aAvailableFiles, new System.IO.FileInfo(
                                     System.IO.Path.Combine(
                                     di3.FullName,fi.Name.Substring(0, fi.Name.Length - 6))), feq, feq2))
                             {
-                                fi.Delete();
+                                m_iFileOpenAndCopyAbstraction.Delete(fi);
                             }
                         }
                         catch (Exception oEx)
@@ -1381,7 +1464,7 @@ namespace SyncFolders
                                 System.IO.Path.Combine(
                                 di3.FullName, fi.Name.Substring(0, fi.Name.Length - 4))), feq, feq2))
                         {
-                            fi.Delete();
+                            m_iFileOpenAndCopyAbstraction.Delete(fi);
                         }
                         else
                         if (fi.Extension.Equals(".chked", StringComparison.InvariantCultureIgnoreCase) && 
@@ -1389,7 +1472,7 @@ namespace SyncFolders
                                 System.IO.Path.Combine(
                                 di3.FullName, fi.Name.Substring(0, fi.Name.Length - 6))), feq, feq2))
                         {
-                            fi.Delete();
+                            m_iFileOpenAndCopyAbstraction.Delete(fi);
                         }
                     }
                     catch (Exception oEx)
@@ -1765,8 +1848,8 @@ namespace SyncFolders
                     new System.IO.FileInfo(CreatePathOfChkFile(
                         fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
                 if (fiSavedInfo2.Exists)
-                    fiSavedInfo2.Delete();
-                fi2.Delete();
+                    m_iFileOpenAndCopyAbstraction.Delete(fiSavedInfo2);
+                m_iFileOpenAndCopyAbstraction.Delete(fi2);
                 WriteLog(0, "Deleted file ", fi2.FullName, 
                     " that is not present in ", fi1.Directory.FullName, " anymore");
             }
@@ -2157,8 +2240,8 @@ namespace SyncFolders
                     new System.IO.FileInfo(CreatePathOfChkFile(
                         fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
                 if (fiSavedInfo2.Exists)
-                    fiSavedInfo2.Delete();
-                fi2.Delete();
+                    m_iFileOpenAndCopyAbstraction.Delete(fiSavedInfo2);
+                m_iFileOpenAndCopyAbstraction.Delete(fi2);
                 WriteLog(0, "Deleted file ", fi2.FullName, 
                     " that is not present in ", fi1.Directory.FullName, " anymore");
             }
@@ -3167,7 +3250,7 @@ namespace SyncFolders
 
                             System.IO.FileInfo fi2 = new System.IO.FileInfo(strTargetPath);
                             if (fi2.Exists)
-                                fi2.Delete();
+                                m_iFileOpenAndCopyAbstraction.Delete(fi2);
 
                             fi2tmp.MoveTo(strTargetPath);
 
@@ -3180,7 +3263,7 @@ namespace SyncFolders
                             System.Threading.Thread.Sleep(5000);
                             System.IO.FileInfo finfoCopy = new System.IO.FileInfo(pathFileCopy);
                             if (finfoCopy.Exists)
-                                finfoCopy.Delete();
+                                m_iFileOpenAndCopyAbstraction.Delete(finfoCopy);
                         }
                         catch
                         {
@@ -3306,7 +3389,7 @@ namespace SyncFolders
                 System.IO.FileInfo fiSavedInfo = new System.IO.FileInfo(strPathSavedChkInfoFile);
                 if (fiSavedInfo.Exists)
                 {
-                    fiSavedInfo.Delete();
+                    m_iFileOpenAndCopyAbstraction.Delete(fiSavedInfo);
                 }
 
                 using (System.IO.FileStream s = System.IO.File.Create(strPathSavedChkInfoFile, 
@@ -4801,7 +4884,7 @@ namespace SyncFolders
                         System.IO.FileInfo fi2 = new System.IO.FileInfo(strPathTargetFile);
 
                         if (fi2.Exists)
-                            fi2.Delete();
+                            m_iFileOpenAndCopyAbstraction.Delete(fi2);
 
                         // and replace it with the new one
                         System.IO.FileInfo fi2tmp = new System.IO.FileInfo(strPathTargetFile + ".tmp");
@@ -5063,7 +5146,7 @@ namespace SyncFolders
                 }
                 System.IO.FileInfo finfoTmp = new System.IO.FileInfo(strPathTargetFile + ".tmp");
                 if (System.IO.File.Exists(strPathTargetFile))
-                    System.IO.File.Delete(strPathTargetFile);
+                    m_iFileOpenAndCopyAbstraction.Delete(strPathTargetFile);
                 finfoTmp.MoveTo(strPathTargetFile);
 
 
