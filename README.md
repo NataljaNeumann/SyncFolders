@@ -25,3 +25,6 @@ Many media applications can jump over these missing parts.
 All of this is done automatically, so your personal family photos and videos are kept safe as good as possible.
 
 A log is shown after completion of the operation and also saved in Documents folder for later reference.
+
+If you want to thank for the work that has already been done, you can send some money via PayPal to 
+NataljaNeumann@gmx.de
