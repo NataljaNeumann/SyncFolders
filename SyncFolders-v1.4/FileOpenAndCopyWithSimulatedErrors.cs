@@ -36,6 +36,46 @@ namespace SyncFolders
             }
         }
 
+        //===================================================================================================
+        /// <summary>
+        /// This method is used for notification of the simulator that it shall clear error list of a file
+        /// because it has been replaced by another one. Also it physically deletes the file.
+        /// </summary>
+        /// <param name="strFilePath">Path of the file</param>
+        //===================================================================================================
+        public void Delete(
+            string strFilePath
+            )
+        {
+            // we compare in upper case
+            string strFilePathUpper = strFilePath.ToUpper();
+            if (m_oSimulatedReadErrors.ContainsKey(strFilePathUpper))
+            {
+                m_oSimulatedReadErrors[strFilePathUpper].Clear();
+            }
+            File.Delete(strFilePath);
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// This method is used for notification of the simulator that it shall clear error list of a file
+        /// because it has been replaced by another one. Also it physically deletes the file.
+        /// </summary>
+        /// <param name="fi">Path of the file</param>
+        //===================================================================================================
+        public void Delete(
+            FileInfo fi
+            )
+        {
+            // we compare in upper case
+            string strFilePathUpper = fi.FullName.ToUpper();
+            if (m_oSimulatedReadErrors.ContainsKey(strFilePathUpper))
+            {
+                m_oSimulatedReadErrors[strFilePathUpper].Clear();
+            }
+            fi.Delete();
+        }
+
 
         //===================================================================================================
         /// <summary>
@@ -61,7 +101,7 @@ namespace SyncFolders
                 foreach (long lErrorPosition in m_oSimulatedReadErrors[strFilePathUpper])
                 {
                     // we simulate a complete range of 4096 bytes from each position
-                    if (lErrorPosition + 4096 >= lStartPosition && lErrorPosition < lEndPosition)
+                    if (lErrorPosition + 4095 >= lStartPosition && lErrorPosition < lEndPosition)
                     {
                         throw new IOException("This is a simulated I/O error for testing");
                     }
@@ -310,7 +350,7 @@ namespace SyncFolders
                     long lCurrentPos = Position;
                     for (int i = m_aListOfReadErrors.Count - 1; i >= 0; --i)
                     {
-                        if (m_aListOfReadErrors[i] + 4096 >= lCurrentPos &&
+                        if (m_aListOfReadErrors[i] + 4095 >= lCurrentPos &&
                             m_aListOfReadErrors[i] < lCurrentPos + nCount)
                         {
                             throw new IOException("This is a simulated I/O error at position " + 
@@ -335,7 +375,7 @@ namespace SyncFolders
                     long lCurrentPos = Position;
                     for (int i = m_aListOfReadErrors.Count - 1; i >= 0; --i)
                     {
-                        if (m_aListOfReadErrors[i] + 4096 >= lCurrentPos &&
+                        if (m_aListOfReadErrors[i] + 4095 >= lCurrentPos &&
                             m_aListOfReadErrors[i] <= lCurrentPos)
                         {
                             throw new IOException("This is a simulated I/O error at position " + 

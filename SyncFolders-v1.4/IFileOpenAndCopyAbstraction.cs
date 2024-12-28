@@ -109,5 +109,26 @@ namespace SyncFolders
             );
 
 
+        //===================================================================================================
+        /// <summary>
+        /// This method is used for notification of the simulator that it shall clear error list of a file
+        /// because it has been replaced by another one. Also it physically deletes the file.
+        /// </summary>
+        /// <param name="strFilePath">Path of the file</param>
+        //===================================================================================================
+        void Delete(
+            string strFilePath
+            );
+
+        //===================================================================================================
+        /// <summary>
+        /// This method is used for notification of the simulator that it shall clear error list of a file
+        /// because it has been replaced by another one. Also it physically deletes the file.
+        /// </summary>
+        /// <param name="fi">Path of the file</param>
+        //===================================================================================================
+        void Delete(
+            FileInfo fi
+            );
     }
 }

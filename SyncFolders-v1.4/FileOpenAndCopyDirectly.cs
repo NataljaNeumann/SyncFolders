@@ -127,5 +127,31 @@ namespace SyncFolders
             return File.OpenWrite(strPath);
         }
 
+
+        //===================================================================================================
+        /// <summary>
+        /// Physically deletes the file.
+        /// </summary>
+        /// <param name="strFilePath">Path of the file</param>
+        //===================================================================================================
+        public void Delete(
+            string strFilePath
+            )
+        {
+            File.Delete(strFilePath);
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// Physically deletes the file.
+        /// </summary>
+        /// <param name="fi">Path of the file</param>
+        //===================================================================================================
+        public void Delete(
+            FileInfo fi
+            )
+        {
+            fi.Delete();
+        }
     }
 }
