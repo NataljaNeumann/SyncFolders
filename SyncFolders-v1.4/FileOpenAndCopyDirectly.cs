@@ -19,12 +19,12 @@ namespace SyncFolders
         /// <param name="fi">fileinfo of source</param>
         /// <param name="strDestFileName">destinationn file name</param>
         //===================================================================================================
-        public void CopyTo(
+        public FileInfo CopyTo(
             FileInfo fi, 
             string strDestFileName
             )
         {
-            fi.CopyTo(strDestFileName);
+            return fi.CopyTo(strDestFileName);
         }
 
         //===================================================================================================
@@ -35,13 +35,97 @@ namespace SyncFolders
         /// <param name="strDestFileName">destinationn file name</param>
         /// <param name="bOverwrite">Indicates, if the file shall be overwritten, if exists</param>
         //===================================================================================================
-        public void CopyTo(
+        public FileInfo CopyTo(
             FileInfo fi, 
             string strDestFileName, 
             bool bOverwrite
             )
         {
-            fi.CopyTo(strDestFileName, bOverwrite);
+            return fi.CopyTo(strDestFileName, bOverwrite);
         }
+
+        //===================================================================================================
+        /// <summary>
+        /// Opens a file
+        /// </summary>
+        /// <param name="strPath">Path of the file</param>
+        /// <param name="eMode">Open mode</param>
+        /// <returns>File stream</returns>
+        //===================================================================================================
+        public FileStream Open(
+            string strPath,
+            FileMode eMode
+            )
+        {
+            return File.Open(strPath, eMode);
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// Opens a file
+        /// </summary>
+        /// <param name="strPath">Path of the file</param>
+        /// <param name="eMode">Open mode</param>
+        /// <param name="eAccess">Access</param>
+        /// <returns>File stream</returns>
+        //===================================================================================================
+        public FileStream Open(
+            string strPath,
+            FileMode eMode,
+            FileAccess eAccess
+            )
+        {
+            return File.Open(strPath, eMode, eAccess);
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// Opens a file
+        /// </summary>
+        /// <param name="strPath">Path of the file</param>
+        /// <param name="eMode">Open mode</param>
+        /// <param name="eAccess">Access</param>
+        /// <param name="eShare">File share</param>
+        /// <returns>File stream</returns>
+        //===================================================================================================
+        public FileStream Open(
+            string strPath,
+            FileMode eMode,
+            FileAccess eAccess,
+            FileShare eShare
+            )
+        {
+            return File.Open(strPath, eMode, eAccess, eShare);
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// Opens a file for reading
+        /// </summary>
+        /// <param name="strPath">Path of the file</param>
+        /// <returns>File stream</returns>
+        //===================================================================================================
+        public FileStream OpenRead(
+            string strPath
+            )
+        {
+            return File.OpenRead(strPath);
+        }
+
+
+        //===================================================================================================
+        /// <summary>
+        /// Opens a file for writing
+        /// </summary>
+        /// <param name="strPath">Path of the file</param>
+        /// <returns>File stream</returns>
+        //===================================================================================================
+        public FileStream OpenWrite(
+            string strPath
+            )
+        {
+            return File.OpenWrite(strPath);
+        }
+
     }
 }

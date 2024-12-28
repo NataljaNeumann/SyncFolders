@@ -3129,7 +3129,7 @@ namespace SyncFolders
             try
             {
                 using (System.IO.BufferedStream s = 
-                    new System.IO.BufferedStream(System.IO.File.OpenRead(finfo.FullName), 
+                    new System.IO.BufferedStream(m_iFileOpenAndCopyAbstraction.OpenRead(finfo.FullName), 
                         (int)Math.Min(finfo.Length + 1, 64 * 1024 * 1024)))
                 {
                     try
@@ -3252,8 +3252,8 @@ namespace SyncFolders
             SavedInfo si = new SavedInfo(finfo.Length, finfo.LastWriteTimeUtc, false);
             try
             {
-                using (System.IO.BufferedStream s = 
-                    new System.IO.BufferedStream(System.IO.File.OpenRead(finfo.FullName), 
+                using (System.IO.BufferedStream s =
+                    new System.IO.BufferedStream(m_iFileOpenAndCopyAbstraction.OpenRead(finfo.FullName), 
                         (int)Math.Min(finfo.Length + 1, 64 * 1024 * 1024)))
                 {
                     Block b = Block.GetBlock();
@@ -3432,8 +3432,9 @@ namespace SyncFolders
             {
                 try
                 {
-                    using (System.IO.BufferedStream s = 
-                        new System.IO.BufferedStream(System.IO.File.OpenRead(strPathSavedInfoFile), 
+                    using (System.IO.BufferedStream s =
+                        new System.IO.BufferedStream(
+                            m_iFileOpenAndCopyAbstraction.OpenRead(strPathSavedInfoFile), 
                             (int)Math.Min(fiSavedInfo.Length + 1, 32 * 1024 * 1024)))
                     {
                         si.ReadFrom(s);
@@ -3444,8 +3445,8 @@ namespace SyncFolders
                 {
                     try
                     {
-                        using (System.IO.FileStream s = 
-                            System.IO.File.OpenRead(strPathSavedInfoFile))
+                        using (System.IO.FileStream s =
+                            m_iFileOpenAndCopyAbstraction.OpenRead(strPathSavedInfoFile))
                         {
                             si.ReadFrom(s);
                             s.Close();
@@ -3478,8 +3479,9 @@ namespace SyncFolders
                 Block b = Block.GetBlock();
                 try
                 {
-                    using (System.IO.BufferedStream s = 
-                        new System.IO.BufferedStream(System.IO.File.OpenRead(finfo.FullName), 
+                    using (System.IO.BufferedStream s =
+                        new System.IO.BufferedStream(
+                            m_iFileOpenAndCopyAbstraction.OpenRead(finfo.FullName), 
                             (int)Math.Min(finfo.Length + 1, 32 * 1024 * 1024)))
                     {
                         for (int index = 0; ; index++)
@@ -3498,8 +3500,8 @@ namespace SyncFolders
                     if (bReturnFalseIfNonRecoverableNotIfDamaged)
                         return false;
 
-                    using (System.IO.FileStream s = 
-                        System.IO.File.OpenRead(finfo.FullName))
+                    using (System.IO.FileStream s =
+                        m_iFileOpenAndCopyAbstraction.OpenRead(finfo.FullName))
                     {
                         for (int index = 0; ; index++)
                         {
@@ -3537,7 +3539,8 @@ namespace SyncFolders
                 long nonRestoredSize = 0;
                 bool bAllBlocksOK = true;
 
-                System.IO.Stream s = System.IO.File.OpenRead(finfo.FullName);
+                System.IO.Stream s = 
+                    m_iFileOpenAndCopyAbstraction.OpenRead(finfo.FullName);
                 if (!bSkipBufferedFile)
                     s = new System.IO.BufferedStream(s, 
                         (int)Math.Min(finfo.Length + 1, 8 * 1024 * 1024));
@@ -3677,11 +3680,18 @@ namespace SyncFolders
 
             try
             {
-
                 if (System.IO.File.Exists(strPath))
+                {
                     System.IO.File.SetLastWriteTimeUtc(strPath, DateTime.UtcNow);
+                }
                 else
-                    using (System.IO.Stream s = System.IO.File.OpenWrite(strPath)) { s.Close(); };
+                {
+                    // there we use the simple File.OpenWrite since we need only the date of the file
+                    using (System.IO.Stream s = System.IO.File.OpenWrite(strPath))
+                    {
+                        s.Close();
+                    };
+                }
 
                 System.IO.File.SetAttributes(
                     strPath, System.IO.FileAttributes.Hidden | System.IO.FileAttributes.System);
@@ -3719,8 +3729,9 @@ namespace SyncFolders
             {
                 try
                 {
-                    using (System.IO.BufferedStream s = 
-                        new System.IO.BufferedStream(System.IO.File.OpenRead(
+                    using (System.IO.BufferedStream s =
+                        new System.IO.BufferedStream(
+                            m_iFileOpenAndCopyAbstraction.OpenRead(
                             strPathSavedInfoFile), 
                             (int)Math.Min(fiSavedInfo.Length + 1, 8 * 1024 * 1024)))
                     {
@@ -3732,8 +3743,8 @@ namespace SyncFolders
                 {
                     try
                     {
-                        using (System.IO.FileStream s = 
-                            System.IO.File.OpenRead(strPathSavedInfoFile))
+                        using (System.IO.FileStream s =
+                            m_iFileOpenAndCopyAbstraction.OpenRead(strPathSavedInfoFile))
                         {
                             si.ReadFrom(s);
                             s.Close();
@@ -3761,7 +3772,7 @@ namespace SyncFolders
                         "\" can't be used for testing file \"", strPathFile, 
                         "\": it was created for another version of the file");
 
-                using (System.IO.FileStream s = System.IO.File.Open(
+                using (System.IO.FileStream s = m_iFileOpenAndCopyAbstraction.Open(
                     finfo.FullName, System.IO.FileMode.Open, 
                     System.IO.FileAccess.ReadWrite, System.IO.FileShare.Read))
                 {
@@ -3813,8 +3824,8 @@ namespace SyncFolders
             try
             {
                 bool bAllBlocksOK = true;
-                using (System.IO.FileStream s = 
-                    System.IO.File.OpenRead(finfo.FullName))
+                using (System.IO.FileStream s =
+                    m_iFileOpenAndCopyAbstraction.OpenRead(finfo.FullName))
                 {
                     si.StartRestore();
                     Block b = Block.GetBlock();
@@ -3905,8 +3916,8 @@ namespace SyncFolders
                 if (nonRestoredSize > 0)
                     bForceCreateInfo = true;
 
-                using (System.IO.FileStream s = 
-                    System.IO.File.OpenWrite(finfo.FullName))
+                using (System.IO.FileStream s =
+                    m_iFileOpenAndCopyAbstraction.OpenWrite(finfo.FullName))
                 {
                     foreach (RestoreInfo ri in rinfos)
                     {
@@ -4023,8 +4034,6 @@ namespace SyncFolders
             System.IO.FileInfo fi2 = new System.IO.FileInfo(strPathFile2);
             System.IO.FileInfo fiSavedInfo1 = new System.IO.FileInfo(strPathSavedInfo1);
             System.IO.FileInfo fiSavedInfo2 = new System.IO.FileInfo(strPathSavedInfo2);
-            System.IO.FileInfo fi1checked = new System.IO.FileInfo(strPathSavedInfo1 + "ed");
-            System.IO.FileInfo fi2checked = new System.IO.FileInfo(strPathSavedInfo2 + "ed");
 
             SavedInfo si1 = new SavedInfo();
             SavedInfo si2 = new SavedInfo();
@@ -4033,8 +4042,8 @@ namespace SyncFolders
             if (fiSavedInfo1.Exists && 
                 fiSavedInfo1.LastWriteTimeUtc == fi1.LastWriteTimeUtc)
             {
-                using (System.IO.Stream s = 
-                    System.IO.File.OpenRead(fiSavedInfo1.FullName))
+                using (System.IO.Stream s =
+                    m_iFileOpenAndCopyAbstraction.OpenRead(fiSavedInfo1.FullName))
                 {
                     si1.ReadFrom(s);
                     bSaveInfo1Present = si1.Length==fi1.Length && 
@@ -4056,8 +4065,8 @@ namespace SyncFolders
             if (fiSavedInfo2.Exists && 
                 fiSavedInfo2.LastWriteTimeUtc == fi2.LastWriteTimeUtc)
             {
-                using (System.IO.Stream s = 
-                    System.IO.File.OpenRead(fiSavedInfo2.FullName))
+                using (System.IO.Stream s =
+                    m_iFileOpenAndCopyAbstraction.OpenRead(fiSavedInfo2.FullName))
                 {
                     SavedInfo si3 = new SavedInfo();
                     si3.ReadFrom(s);
@@ -4095,9 +4104,11 @@ namespace SyncFolders
                 List<RestoreInfo> restore2 = new List<RestoreInfo>();
 
                 // now let'oInputStream try to read the files and compare 
-                using (System.IO.Stream s1 = System.IO.File.OpenRead(strPathFile1))
+                using (System.IO.Stream s1 = 
+                    m_iFileOpenAndCopyAbstraction.OpenRead(strPathFile1))
                 {
-                    using (System.IO.Stream s2 = System.IO.File.OpenRead(strPathFile2))
+                    using (System.IO.Stream s2 = 
+                        m_iFileOpenAndCopyAbstraction.OpenRead(strPathFile2))
                     {
                         si1.StartRestore();
                         si2.StartRestore();
@@ -4282,12 +4293,12 @@ namespace SyncFolders
                 restore2.AddRange(si2.EndRestore(out notRestoredSize2, fiSavedInfo2.FullName, this));
 
                 // now we've got the list of improvements for both files
-                using (System.IO.Stream s1 = System.IO.File.Open(
+                using (System.IO.Stream s1 = m_iFileOpenAndCopyAbstraction.Open(
                     strPathFile1, System.IO.FileMode.Open, 
                     System.IO.FileAccess.ReadWrite, System.IO.FileShare.Read))
                 {
 
-                    using (System.IO.Stream s2 = System.IO.File.Open(
+                    using (System.IO.Stream s2 = m_iFileOpenAndCopyAbstraction.Open(
                         strPathFile2, System.IO.FileMode.Open, 
                         System.IO.FileAccess.ReadWrite, System.IO.FileShare.Read))
                     {
@@ -4473,26 +4484,12 @@ namespace SyncFolders
 
                 if (notRestoredSize1 == 0 && restore1.Count==0)
                 {
-                    if (fi1checked.Exists)
-                        fi1checked.LastWriteTimeUtc = DateTime.UtcNow;
-                    else
-                        using (System.IO.Stream s = 
-                            System.IO.File.OpenWrite(fi1checked.FullName)) 
-                        { 
-                            s.Close(); 
-                        };
+                    CreateOrUpdateFileChecked(strPathSavedInfo1);
                 }
 
                 if (notRestoredSize2 == 0 && restore2.Count==0)
                 {
-                    if (fi2checked.Exists)
-                        fi2checked.LastWriteTimeUtc = DateTime.UtcNow;
-                    else
-                        using (System.IO.Stream s = 
-                            System.IO.File.OpenWrite(fi2checked.FullName))
-                        {
-                            s.Close();
-                        };
+                    CreateOrUpdateFileChecked(strPathSavedInfo2);
                 }
 
             }
@@ -4510,9 +4507,11 @@ namespace SyncFolders
                 long notRestoredSize2 = 0;
                 long badBlocks1 = 0;
                 long badBlocks2 = 0;
-                using (System.IO.Stream s1 = System.IO.File.OpenRead(strPathFile1))
+                using (System.IO.Stream s1 = 
+                    m_iFileOpenAndCopyAbstraction.OpenRead(strPathFile1))
                 {
-                    using (System.IO.Stream s2 = System.IO.File.OpenRead(strPathFile2))
+                    using (System.IO.Stream s2 = 
+                        m_iFileOpenAndCopyAbstraction.OpenRead(strPathFile2))
                     {
                         for (int index = 0; ; ++index)
                         {
@@ -4598,7 +4597,7 @@ namespace SyncFolders
 
 
                 // now we've got the list of improvements for both files
-                using (System.IO.Stream s1 = System.IO.File.Open(
+                using (System.IO.Stream s1 = m_iFileOpenAndCopyAbstraction.Open(
                     strPathFile1, System.IO.FileMode.Open, 
                     System.IO.FileAccess.Read, System.IO.FileShare.Read))
                 {
@@ -4621,7 +4620,7 @@ namespace SyncFolders
                         " not restored bytes: ", notRestoredSize1);
 
 
-                using (System.IO.Stream s2 = System.IO.File.Open(
+                using (System.IO.Stream s2 = m_iFileOpenAndCopyAbstraction.Open(
                     strPathFile2, System.IO.FileMode.Open, 
                     System.IO.FileAccess.ReadWrite, System.IO.FileShare.Read))
                 {
@@ -4644,26 +4643,12 @@ namespace SyncFolders
 
                 if (notRestoredSize1 == 0 && restore1.Count==0)
                 {
-                    if (fi1checked.Exists)
-                        fi1checked.LastWriteTimeUtc = DateTime.UtcNow;
-                    else
-                        using (System.IO.Stream s = 
-                            System.IO.File.OpenWrite(fi1checked.FullName)) 
-                        {
-                            s.Close();
-                        };
+                    CreateOrUpdateFileChecked(strPathSavedInfo1);
                 }
 
                 if (notRestoredSize2 == 0 && restore2.Count==0)
                 {
-                    if (fi2checked.Exists)
-                        fi2checked.LastWriteTimeUtc = DateTime.UtcNow;
-                    else
-                        using (System.IO.Stream s = 
-                            System.IO.File.OpenWrite(fi2checked.FullName)) 
-                        { 
-                            s.Close(); 
-                        };
+                    CreateOrUpdateFileChecked(strPathSavedInfo2);
                 }
 
             }
@@ -4740,8 +4725,8 @@ namespace SyncFolders
             {
                 try
                 {
-                    using (System.IO.FileStream s = 
-                        System.IO.File.OpenRead(strPathSavedInfoFile))
+                    using (System.IO.FileStream s =
+                        m_iFileOpenAndCopyAbstraction.OpenRead(strPathSavedInfoFile))
                     {
                         si.ReadFrom(s);
                         s.Close();
@@ -4766,14 +4751,14 @@ namespace SyncFolders
                         "\" can't be used for restoring file \"", 
                         strPathFile, "\": it was created for another version of the file");
 
-                using (System.IO.FileStream s = System.IO.File.Open(
+                using (System.IO.FileStream s = m_iFileOpenAndCopyAbstraction.Open(
                     finfo.FullName, System.IO.FileMode.Open, 
                     System.IO.FileAccess.Read, System.IO.FileShare.Read))
                 {
                     try
                     {
                         int countErrors = 0;
-                        using (System.IO.FileStream s2 = System.IO.File.Open(
+                        using (System.IO.FileStream s2 = m_iFileOpenAndCopyAbstraction.Open(
                             strPathTargetFile + ".tmp", System.IO.FileMode.Create, 
                             System.IO.FileAccess.Write, System.IO.FileShare.None))
                         {
@@ -4856,7 +4841,8 @@ namespace SyncFolders
             try
             {
                 bool bAllBlocksOK = true;
-                using (System.IO.FileStream s = System.IO.File.OpenRead(finfo.FullName))
+                using (System.IO.FileStream s = 
+                    m_iFileOpenAndCopyAbstraction.OpenRead(finfo.FullName))
                 {
                     si.StartRestore();
                     Block b = Block.GetBlock();
@@ -4983,13 +4969,15 @@ namespace SyncFolders
                 //bool bNonRecoverablePresent = false;
                 try
                 {
-                    using (System.IO.FileStream s2 = System.IO.File.Open(
-                        finfo.FullName, System.IO.FileMode.Open, 
-                        bApplyRepairsToSrc && (rinfos.Count > 0) ? 
-                            System.IO.FileAccess.ReadWrite : System.IO.FileAccess.Read, 
-                        System.IO.FileShare.Read))
+                    using (System.IO.FileStream s2 = 
+                        m_iFileOpenAndCopyAbstraction.Open(
+                            finfo.FullName, System.IO.FileMode.Open, 
+                            bApplyRepairsToSrc && (rinfos.Count > 0) ? 
+                                System.IO.FileAccess.ReadWrite : System.IO.FileAccess.Read, 
+                            System.IO.FileShare.Read))
                     {
-                        using (System.IO.FileStream s = System.IO.File.Open(
+                        using (System.IO.FileStream s = 
+                            m_iFileOpenAndCopyAbstraction.Open(
                             strPathTargetFile + ".tmp", System.IO.FileMode.Create, 
                             System.IO.FileAccess.Write, System.IO.FileShare.None))
                         {
@@ -5155,7 +5143,7 @@ namespace SyncFolders
             if (fiSavedInfo1.Exists && 
                 (_bIgnoreTimeDifferences || fiSavedInfo1.LastWriteTimeUtc == fi1.LastWriteTimeUtc) )
             {
-                using (System.IO.Stream s = System.IO.File.OpenRead(fiSavedInfo1.FullName))
+                using (System.IO.Stream s = m_iFileOpenAndCopyAbstraction.OpenRead(fiSavedInfo1.FullName))
                 {
                     si1.ReadFrom(s);
                     bSaveInfo1Present = si1.Length == fi1.Length && 
@@ -5177,7 +5165,7 @@ namespace SyncFolders
             if (fiSavedInfo2.Exists && 
                 (_bIgnoreTimeDifferences || fiSavedInfo2.LastWriteTimeUtc == fi2.LastWriteTimeUtc) )
             {
-                using (System.IO.Stream s = System.IO.File.OpenRead(fiSavedInfo2.FullName))
+                using (System.IO.Stream s = m_iFileOpenAndCopyAbstraction.OpenRead(fiSavedInfo2.FullName))
                 {
                     SavedInfo si3 = new SavedInfo();
                     si3.ReadFrom(s);
@@ -5215,9 +5203,11 @@ namespace SyncFolders
                 List<RestoreInfo> restore2 = new List<RestoreInfo>();
 
                 // now let'oInputStream try to read the files and compare 
-                using (System.IO.Stream s1 = System.IO.File.OpenRead(strPathFile1))
+                using (System.IO.Stream s1 = 
+                    m_iFileOpenAndCopyAbstraction.OpenRead(strPathFile1))
                 {
-                    using (System.IO.Stream s2 = System.IO.File.OpenRead(strPathFile2))
+                    using (System.IO.Stream s2 = 
+                        m_iFileOpenAndCopyAbstraction.OpenRead(strPathFile2))
                     {
                         si1.StartRestore();
                         si2.StartRestore();
@@ -5362,12 +5352,12 @@ namespace SyncFolders
                 notRestoredSize2 = 0;
 
                 // now we've got the list of improvements for both files
-                using (System.IO.Stream s1 = System.IO.File.Open(
+                using (System.IO.Stream s1 = m_iFileOpenAndCopyAbstraction.Open(
                     strPathFile1, System.IO.FileMode.Open, 
                     System.IO.FileAccess.Read, System.IO.FileShare.Read))
                 {
 
-                    using (System.IO.Stream s2 = System.IO.File.Open(
+                    using (System.IO.Stream s2 = m_iFileOpenAndCopyAbstraction.Open(
                         strPathFile2, System.IO.FileMode.Open, 
                         System.IO.FileAccess.ReadWrite, System.IO.FileShare.Read))
                     {
@@ -5485,9 +5475,11 @@ namespace SyncFolders
                 long notRestoredSize2 = 0;
                 long badBlocks2 = 0;
                 long badBlocks1 = 0;
-                using (System.IO.Stream s1 = System.IO.File.OpenRead(strPathFile1))
+                using (System.IO.Stream s1 = 
+                    m_iFileOpenAndCopyAbstraction.OpenRead(strPathFile1))
                 {
-                    using (System.IO.Stream s2 = System.IO.File.OpenRead(strPathFile2))
+                    using (System.IO.Stream s2 = 
+                        m_iFileOpenAndCopyAbstraction.OpenRead(strPathFile2))
                     {
                         for (int index = 0; ; ++index)
                         {
@@ -5559,7 +5551,7 @@ namespace SyncFolders
                 }
 
 
-                using (System.IO.Stream s2 = System.IO.File.Open(
+                using (System.IO.Stream s2 = m_iFileOpenAndCopyAbstraction.Open(
                     strPathFile2, System.IO.FileMode.Open, 
                     System.IO.FileAccess.ReadWrite, System.IO.FileShare.Read))
                 {

@@ -58,9 +58,10 @@ namespace SyncFolders
             {
                 // there is such a file, let's see if this read hits one of the mines
                 long lEndPosition = lStartPosition + lLength;
-                foreach (long lPosition in m_oSimulatedReadErrors[strFilePathUpper])
+                foreach (long lErrorPosition in m_oSimulatedReadErrors[strFilePathUpper])
                 {
-                    if (lPosition >= lStartPosition && lPosition < lEndPosition)
+                    // we simulate a complete range of 4096 bytes from each position
+                    if (lErrorPosition + 4096 >= lStartPosition && lErrorPosition < lEndPosition)
                     {
                         throw new IOException("This is a simulated I/O error for testing");
                     }
@@ -93,13 +94,13 @@ namespace SyncFolders
         /// <param name="fi">fileinfo of source</param>
         /// <param name="strDestFileName">destinationn file name</param>
         //===================================================================================================
-        public void CopyTo(
+        public FileInfo CopyTo(
             FileInfo fi, 
             string strDestFileName
             )
         {
             ThrowSimulatedReadErrorIfNeeded(fi, 0, fi.Exists ? fi.Length : 0);
-            fi.CopyTo(strDestFileName);
+            return fi.CopyTo(strDestFileName);
         }
 
         //===================================================================================================
@@ -110,16 +111,293 @@ namespace SyncFolders
         /// <param name="strDestFileName">destinationn file name</param>
         /// <param name="bOverwrite">Indicates, if the file shall be overwritten, if exists</param>
         //===================================================================================================
-        public void CopyTo(
+        public FileInfo CopyTo(
             FileInfo fi, 
             string strDestFileName, 
             bool bOverwrite
             )
         {
             ThrowSimulatedReadErrorIfNeeded(fi, 0, fi.Exists ? fi.Length : 0);
-            fi.CopyTo(strDestFileName, bOverwrite);
+            return fi.CopyTo(strDestFileName, bOverwrite);
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// Opens a file
+        /// </summary>
+        /// <param name="strPath">Path of the file</param>
+        /// <param name="eMode">Open mode</param>
+        /// <returns>File stream</returns>
+        //===================================================================================================
+        public FileStream Open(
+            string strPath,
+            FileMode eMode
+            )
+        {
+            string strPathUpper = strPath.ToUpper();
+            if (m_oSimulatedReadErrors.ContainsKey(strPathUpper))
+            {
+                switch (eMode)
+                {
+                    case FileMode.Append:
+                    case FileMode.Create:
+                    case FileMode.CreateNew:
+                    case FileMode.Truncate:
+                        return File.Open(strPath, eMode);
+                    default:
+                        return new FileStreamWithErrors(strPath,
+                            eMode, FileAccess.ReadWrite, FileShare.Read, m_oSimulatedReadErrors[strPathUpper]);
+                }
+            }
+            else
+            {
+                return File.Open(strPath, eMode);
+            }
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// Opens a file
+        /// </summary>
+        /// <param name="strPath">Path of the file</param>
+        /// <param name="eMode">Open mode</param>
+        /// <param name="eAccess">Access</param>
+        /// <returns>File stream</returns>
+        //===================================================================================================
+        public FileStream Open(
+            string strPath,
+            FileMode eMode,
+            FileAccess eAccess
+            )
+        {
+            string strPathUpper = strPath.ToUpper();
+            if (m_oSimulatedReadErrors.ContainsKey(strPathUpper))
+            {
+                return new FileStreamWithErrors(strPath,
+                    eMode, eAccess, FileShare.Read, m_oSimulatedReadErrors[strPathUpper]);
+            }
+            else
+            {
+                return File.Open(strPath, eMode, eAccess);
+            }
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// Opens a file
+        /// </summary>
+        /// <param name="strPath">Path of the file</param>
+        /// <param name="eMode">Open mode</param>
+        /// <param name="eAccess">Access</param>
+        /// <param name="eShare">File share</param>
+        /// <returns>File stream</returns>
+        //===================================================================================================
+        public FileStream Open(
+            string strPath,
+            FileMode eMode,
+            FileAccess eAccess,
+            FileShare eShare
+            )
+        {
+            string strPathUpper = strPath.ToUpper();
+            if (m_oSimulatedReadErrors.ContainsKey(strPathUpper))
+            {
+                return new FileStreamWithErrors(strPath,
+                    eMode, eAccess, eShare, m_oSimulatedReadErrors[strPathUpper]);
+            }
+            else
+            {
+                return File.Open(strPath, eMode, eAccess, eShare);
+            }
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// Opens a file for reading
+        /// </summary>
+        /// <param name="strPath">Path of the file</param>
+        /// <returns>File stream</returns>
+        //===================================================================================================
+        public FileStream OpenRead(
+            string strPath
+            )
+        {
+            string strPathUpper = strPath.ToUpper();
+            if (m_oSimulatedReadErrors.ContainsKey(strPathUpper))
+            {
+                return new FileStreamWithErrors(strPath, 
+                    FileMode.Open, FileAccess.Read, FileShare.Read, m_oSimulatedReadErrors[strPathUpper]);
+            }
+            else
+            {
+                return File.OpenRead(strPath);
+            }
         }
 
 
+        //===================================================================================================
+        /// <summary>
+        /// Opens a file for writing
+        /// </summary>
+        /// <param name="strPath">Path of the file</param>
+        /// <returns>File stream</returns>
+        //===================================================================================================
+        public FileStream OpenWrite(
+            string strPath
+            )
+        {
+            string strPathUpper = strPath.ToUpper();
+            if (m_oSimulatedReadErrors.ContainsKey(strPathUpper))
+            {
+                return new FileStreamWithErrors(strPath,
+                    FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read, m_oSimulatedReadErrors[strPathUpper]);
+            }
+            else
+            {
+                return File.OpenWrite(strPath);
+            }
+        }
+
+        //***************************************************************************************************
+        /// <summary>
+        /// Objects of this class provide means for simulation of read errors
+        /// </summary>
+        //***************************************************************************************************
+        private class FileStreamWithErrors : FileStream
+        {
+            /// <summary>
+            /// List of errors to simulate
+            /// </summary>
+            List<long> m_aListOfReadErrors;
+
+            //===============================================================================================
+            /// <summary>
+            /// Constructs a new FileStreamWithErrors for simulation of reading errors
+            /// </summary>
+            /// <param name="strPath">File to open</param>
+            /// <param name="eMode">Open mode</param>
+            /// <param name="eAccess">File access type</param>
+            /// <param name="eShare">File share type</param>
+            /// <param name="aListOfReadErrors">List of errors to simulate</param>
+            //===============================================================================================
+            public FileStreamWithErrors(
+                string strPath,
+                FileMode eMode,
+                FileAccess eAccess,
+                FileShare eShare,
+                List<long> aListOfReadErrors
+                )
+                :base(strPath, eMode, eAccess, eShare)
+            {
+                m_aListOfReadErrors = aListOfReadErrors;
+            }
+
+
+            //===============================================================================================
+            /// <summary>
+            /// Reads from file, or throws an intentional I/O error at specific position
+            /// </summary>
+            /// <param name="aArray">Array for storing read data</param>
+            /// <param name="nOffset">Offset inside the array</param>
+            /// <param name="nCount">Count of bytes to read</param>
+            /// <returns>The counnt of bytes actually read</returns>
+            //===============================================================================================
+            public override int Read(byte[] aArray, int nOffset, int nCount)
+            {
+                // simulate reading errors
+                if (m_aListOfReadErrors.Count > 0)
+                {
+                    long lCurrentPos = Position;
+                    for (int i = m_aListOfReadErrors.Count - 1; i >= 0; --i)
+                    {
+                        if (m_aListOfReadErrors[i] + 4096 >= lCurrentPos &&
+                            m_aListOfReadErrors[i] < lCurrentPos + nCount)
+                        {
+                            throw new IOException("This is a simulated I/O error at position " + 
+                                m_aListOfReadErrors[i]);
+                        }
+                    }
+                }
+                return base.Read(aArray, nOffset, nCount);                     
+            }
+
+            //===============================================================================================
+            /// <summary>
+            /// Reads a byte from file, or throws an intentional I/O exception at specific position
+            /// </summary>
+            /// <returns>Read byte, or -1 if end of file</returns>
+            //===============================================================================================
+            public override int ReadByte()
+            {
+                // simulate reading errors
+                if (m_aListOfReadErrors.Count > 0)
+                {
+                    long lCurrentPos = Position;
+                    for (int i = m_aListOfReadErrors.Count - 1; i >= 0; --i)
+                    {
+                        if (m_aListOfReadErrors[i] + 4096 >= lCurrentPos &&
+                            m_aListOfReadErrors[i] <= lCurrentPos)
+                        {
+                            throw new IOException("This is a simulated I/O error at position " + 
+                                m_aListOfReadErrors[i]);
+                        }
+                    }
+                }
+                return base.ReadByte();
+            }
+
+
+            //===============================================================================================
+            /// <summary>
+            /// Writes data to the destination file. If a simulated error location is overwritten then it
+            /// disappears from the list
+            /// </summary>
+            /// <param name="aArray">Source data to write</param>
+            /// <param name="nOffset">Position inside the array</param>
+            /// <param name="nCount">Count of bytes to write</param>
+            //===============================================================================================
+            public override void Write(byte[] aArray, int nOffset, int nCount)
+            {
+                if (m_aListOfReadErrors.Count > 0)
+                {
+                    // if the program overwrites the error then we simulate its
+                    // disappearance
+                    long lCurrentPos = Position;
+                    for (int i = m_aListOfReadErrors.Count - 1; i >= 0; --i)
+                    {
+                        if (m_aListOfReadErrors[i] >= lCurrentPos &&
+                            m_aListOfReadErrors[i] < lCurrentPos + nCount)
+                        {
+                            m_aListOfReadErrors.RemoveAt(i);
+                        }
+                    }
+                }
+                base.Write(aArray, nOffset, nCount);
+            }
+
+            //===============================================================================================
+            /// <summary>
+            /// Writes a byte to the file. If a simulated error location is overwritten then it disappears
+            /// </summary>
+            /// <param name="byValue">The byte to write</param>
+            //===============================================================================================
+            public override void WriteByte(byte byValue)
+            {
+                if (m_aListOfReadErrors.Count > 0)
+                {
+                    // if the program overwrites the error then we simulate its
+                    // disappearance
+                    long lCurrentPos = Position;
+                    for (int i = m_aListOfReadErrors.Count - 1; i >= 0; --i)
+                    {
+                        if (m_aListOfReadErrors[i] == lCurrentPos)
+                        {
+                            m_aListOfReadErrors.RemoveAt(i);
+                        }
+                    }
+                }
+                base.WriteByte(byValue);
+            }
+        }
     }
 }
