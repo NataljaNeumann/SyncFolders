@@ -64,6 +64,9 @@
     </Compile>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Block.cs" />
+    <Compile Include="FileOpenAndCopyDirectly.cs" />
+    <Compile Include="FileOpenAndCopyWithSimulatedErrors.cs" />
+    <Compile Include="IFileOpenAndCopyAbstraction.cs" />
     <Compile Include="SyncFoldersForm.cs">
       <SubType>Form</SubType>
     </Compile>

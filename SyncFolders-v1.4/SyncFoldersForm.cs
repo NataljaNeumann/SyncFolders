@@ -70,6 +70,8 @@ namespace SyncFolders
         System.Threading.Semaphore _hugeReads = 
             new System.Threading.Semaphore(1, 1);
 
+        IFileOpenAndCopyAbstraction m_iFileOpenAndCopyAbstraction = new FileOpenAndCopyDirectly();
+
         //===================================================================================================
         /// <summary>
         /// Constructor
@@ -585,6 +587,10 @@ namespace SyncFolders
              EventArgs oEventArgs
              )
         {
+            // replace default abstraction with error simulation
+            Dictionary<string, List<long>> oSimulatedReadErrors = new Dictionary<string, List<long>>();
+            m_iFileOpenAndCopyAbstraction = new FileOpenAndCopyWithSimulatedErrors(oSimulatedReadErrors);
+
             if (string.IsNullOrEmpty(textBoxFirstFolder.Text))
                 textBoxFirstFolder.Text = Application.StartupPath + "\\TestFolder1";
 
@@ -828,7 +834,7 @@ namespace SyncFolders
             string strTargetPath2 = strTargetPath + ".tmp";
             try
             {
-                fi.CopyTo(strTargetPath2,true);
+                m_iFileOpenAndCopyAbstraction.CopyTo(fi, strTargetPath2, true);
 
                 System.IO.FileInfo fi2 = new System.IO.FileInfo(strTargetPath);
                 if (fi2.Exists)
@@ -994,6 +1000,10 @@ namespace SyncFolders
                 else
                     WriteLog(0, "Operation finished");
             };
+
+            // restore the default abstraction, so we don't get simulated errors
+            // by mistake
+            m_iFileOpenAndCopyAbstraction = new FileOpenAndCopyDirectly();
 
             _logFile.Close();
             _logFile.Dispose();
@@ -1844,7 +1854,7 @@ namespace SyncFolders
                         _copyFiles.WaitOne();
 
                         //CopyFileSafely(fiSavedInfo1, fiSavedInfo2.FullName);
-                        fiSavedInfo1.CopyTo(fiSavedInfo2.FullName, true);
+                        m_iFileOpenAndCopyAbstraction.CopyTo(fiSavedInfo1, fiSavedInfo2.FullName, true);
                     } catch 
                     {
                         CreateSavedInfo(fi2.FullName, fiSavedInfo2.FullName);
@@ -1926,7 +1936,7 @@ namespace SyncFolders
                         return;
 
                     CopyFileSafely(fi1, strFilePath2, "(file newer or bigger)");
-                    //fi1.CopyTo(strFilePath2, true);
+                    //m_iFileOpenAndCopyAbstraction.CopyTo(fi1,strFilePath2, true);
                 }
                 finally
                 {
@@ -1942,7 +1952,7 @@ namespace SyncFolders
                         try
                         {
                             _copyFiles.WaitOne();
-                            fiSavedInfo1.CopyTo(CreatePathOfChkFile(
+                            m_iFileOpenAndCopyAbstraction.CopyTo(fiSavedInfo1, CreatePathOfChkFile(
                                 fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"), true);
                         }
                         finally
@@ -1995,7 +2005,7 @@ namespace SyncFolders
                     try
                     {
                         _copyFiles.WaitOne();
-                        fiSavedInfo1.CopyTo(fiSavedInfo2.FullName, true);
+                        m_iFileOpenAndCopyAbstraction.CopyTo(fiSavedInfo1, fiSavedInfo2.FullName, true);
                     }
                     finally
                     {
@@ -2040,7 +2050,7 @@ namespace SyncFolders
                     try
                     {
                         _copyFiles.WaitOne();
-                        fiSavedInfo1.CopyTo(fiSavedInfo2.FullName, true);
+                        m_iFileOpenAndCopyAbstraction.CopyTo(fiSavedInfo1, fiSavedInfo2.FullName, true);
                     }
                     finally
                     {
@@ -2583,7 +2593,8 @@ namespace SyncFolders
                                 "RestoreInfo", fi2.Name, ".chk"));
                         else
                             if (fiSavedInfo1.Exists)
-                                fiSavedInfo1.CopyTo(CreatePathOfChkFile(
+                                m_iFileOpenAndCopyAbstraction.CopyTo(
+                                    fiSavedInfo1, CreatePathOfChkFile(
                                     fi2.DirectoryName, "RestoreInfo", 
                                     fi2.Name, ".chk"), true);
                     }
@@ -2804,7 +2815,7 @@ namespace SyncFolders
                                     fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
                         }
                         else
-                            fiSavedInfo1.CopyTo(CreatePathOfChkFile(
+                            m_iFileOpenAndCopyAbstraction.CopyTo(fiSavedInfo1, CreatePathOfChkFile(
                                 fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"), true);
                     }
 
@@ -2883,7 +2894,7 @@ namespace SyncFolders
                                 CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
                     }
                     else
-                        fiSavedInfo2.CopyTo(
+                        m_iFileOpenAndCopyAbstraction.CopyTo(fiSavedInfo2, 
                             CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"), true);
                 }
             }
@@ -2948,7 +2959,7 @@ namespace SyncFolders
                 try
                 {
                     _copyFiles.WaitOne();
-                    fiSavedInfo1.CopyTo(fiSavedInfo2.FullName, true);
+                    m_iFileOpenAndCopyAbstraction.CopyTo(fiSavedInfo1, fiSavedInfo2.FullName, true);
                 }
                 finally
                 {
@@ -2966,7 +2977,7 @@ namespace SyncFolders
                     try
                     {
                         _copyFiles.WaitOne();
-                        fiSavedInfo2.CopyTo(fiSavedInfo1.FullName, true);
+                        m_iFileOpenAndCopyAbstraction.CopyTo(fiSavedInfo2, fiSavedInfo1.FullName, true);
                     }
                     finally
                     {
@@ -3069,7 +3080,7 @@ namespace SyncFolders
                 try
                 {
                     _copyFiles.WaitOne();
-                    fiSavedInfo1.CopyTo(fiSavedInfo2.FullName, true);
+                    m_iFileOpenAndCopyAbstraction.CopyTo(fiSavedInfo1, fiSavedInfo2.FullName, true);
                 }
                 finally
                 {
@@ -3084,7 +3095,7 @@ namespace SyncFolders
                     try
                     {
                         _copyFiles.WaitOne();
-                        fiSavedInfo2.CopyTo(fiSavedInfo1.FullName, true);
+                        m_iFileOpenAndCopyAbstraction.CopyTo(fiSavedInfo2, fiSavedInfo1.FullName, true);
                     }
                     finally
                     {
