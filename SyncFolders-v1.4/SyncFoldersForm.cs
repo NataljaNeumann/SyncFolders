@@ -810,14 +810,22 @@ namespace SyncFolders
                 System.IO.Path.Combine(textBoxSecondFolder.Text,
                 "TestPicture2.jpg"), dtmOld);
 
+            // non-restorable test
             DateTime dtmTimeForFile = DateTime.UtcNow;
-            string strPathOfTestFile = CreateSelfTestFile(textBoxFirstFolder.Text, 
+            string strPathOfTestFile1 = CreateSelfTestFile(textBoxFirstFolder.Text, 
                 "NonRestorableBecauseNoSaveInfo.dat", 2, false, 
                 dtmTimeForFile, dtmTimeForFile);
 
             // add simulated read errors for this file
-            oSimulatedReadErrors[strPathOfTestFile] = new List<long>(new long[] { 0 });
+            oSimulatedReadErrors[strPathOfTestFile1] = new List<long>(new long[] { 0 });
 
+            // auto-repair test
+            string strPathOfTestFile2 = CreateSelfTestFile(textBoxFirstFolder.Text,
+                "AutoRepairFromSavedInfo.dat", 2, true,
+                dtmTimeForFile, dtmTimeForFile);
+
+            // add simulated read errors for this file
+            oSimulatedReadErrors[strPathOfTestFile2] = new List<long>(new long[] { 4096 });
 
             // replace default abstraction with error simulation
             m_iFileOpenAndCopyAbstraction = new FileOpenAndCopyWithSimulatedErrors(oSimulatedReadErrors);
@@ -3277,7 +3285,7 @@ namespace SyncFolders
             }
             catch (System.IO.IOException ex)
             {
-                WriteLog(0, "I/O Error while processing file: \"", 
+                WriteLog(1, "I/O Error while processing file: \"", 
                     finfo.FullName, "\": " + ex.Message);
                 return false;
             }
@@ -4861,7 +4869,7 @@ namespace SyncFolders
                                     if (bFailOnNonRecoverable)
                                         throw;
 
-                                    WriteLog(0, "I/O Error while reading file ", 
+                                    WriteLog(1, "I/O Error while reading file ", 
                                         finfo.FullName, " position ", index * b.Length, ": ", 
                                         ex.Message, ". Block will be replaced with a dummy during copy.");
                                     int lengthToWrite = (int)(finfo.Length - index * b.Length > b.Length ? 
