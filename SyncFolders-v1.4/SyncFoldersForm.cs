@@ -879,7 +879,7 @@ namespace SyncFolders
                         }
                         else
                         {
-                            oBlock.WriteTo(s, oBlock.Length / 2);
+                            oBlock.WriteTo(s, oBlock.Length);
                         }
                     }
                     else
@@ -1092,9 +1092,11 @@ namespace SyncFolders
                     WriteLog(0, "Operation finished");
             };
 
+#if !DEBUG
             // restore the default abstraction, so we don't get simulated errors
             // by mistake
             m_iFileOpenAndCopyAbstraction = new FileOpenAndCopyDirectly();
+#endif
 
             _logFile.Close();
             _logFile.Dispose();
