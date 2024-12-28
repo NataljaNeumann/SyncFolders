@@ -1,5 +1,6 @@
 
-![SyncFolders-1](https://github.com/user-attachments/assets/d2cf1ee2-3079-435c-b54a-9852c681042b)
+![SyncFolders-1](https://github.com/user-attachments/assets/3864175e-1b28-45eb-b56a-f95d1d338d44)
+
 
 SyncFolders is an application that aims to help you keep two folders or drives synchronised.
 With default settings this apllication creates hidden files, about 1% of the size of original files, that allow
