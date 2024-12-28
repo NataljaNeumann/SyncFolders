@@ -308,6 +308,505 @@ namespace SyncFolders
             worker.Start();
         }
 
+        //===================================================================================================
+        /// <summary>
+        /// This is executed when user clicks the "repair" checkbox
+        /// </summary>
+        /// <param name="oSender">Sender object</param>
+        /// <param name="oEventArgs">Event args</param>
+        //===================================================================================================
+        void checkBoxRepairBlockFailures_CheckedChanged(
+            object oSender,
+            EventArgs oEventArgs)
+        {
+            checkBoxPreferCopies.Enabled =
+                checkBoxTestAllFiles.Checked &&
+                checkBoxRepairBlockFailures.Checked;
+            checkBoxIgnoreTime.Enabled =
+                checkBoxFirstToSecond.Checked &&
+                !checkBoxSyncMode.Checked &&
+                checkBoxFirstReadonly.Checked &&
+                checkBoxRepairBlockFailures.Checked;
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// This is executed when user edits first folder
+        /// </summary>
+        /// <param name="oSender">Sender object</param>
+        /// <param name="oEventArgs">Event args</param>
+        //===================================================================================================
+        void textBoxFirstFolder_TextChanged(
+            object oSender,
+            EventArgs oEventArgs)
+        {
+            buttonSync.Enabled =
+                !string.IsNullOrEmpty(textBoxFirstFolder.Text) &&
+                !string.IsNullOrEmpty(textBoxSecondFolder.Text);
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// This is executed when user edits the second folder
+        /// </summary>
+        /// <param name="oSender">Sender object</param>
+        /// <param name="oEventArgs">Event args</param>
+        //===================================================================================================
+        void textBoxSecondFolder_TextChanged(
+            object oSender,
+            EventArgs oEventArgs)
+        {
+            buttonSync.Enabled =
+                !string.IsNullOrEmpty(textBoxFirstFolder.Text) &&
+                !string.IsNullOrEmpty(textBoxSecondFolder.Text);
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// This is executed when user clicks the "first-to-second" checkbox
+        /// </summary>
+        /// <param name="oSender">Sender object</param>
+        /// <param name="oEventArgs">Event args</param>
+        //===================================================================================================
+        void checkBoxFirstToSecond_CheckedChanged(
+            object oSender,
+            EventArgs oEventArgs
+            )
+        {
+            checkBoxDeleteFilesInSecond.Enabled =
+                checkBoxFirstToSecond.Checked;
+            checkBoxFirstReadonly.Enabled =
+                checkBoxFirstToSecond.Checked;
+            checkBoxSyncMode.Enabled =
+                checkBoxFirstToSecond.Checked;
+            checkBoxIgnoreTime.Enabled =
+                checkBoxFirstToSecond.Checked &&
+                !checkBoxSyncMode.Checked &&
+                checkBoxFirstReadonly.Checked &&
+                checkBoxRepairBlockFailures.Checked;
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// This is executed when user clicks the 'about' link
+        /// </summary>
+        /// <param name="oSender">Sender object</param>
+        /// <param name="oEventArgs">Event args</param>
+        //===================================================================================================
+        private void linkLabelAbout_LinkClicked(
+            object oSender,
+            LinkLabelLinkClickedEventArgs oEventArgs
+            )
+        {
+            using (AboutForm form = new AboutForm())
+                form.ShowDialog(this);
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// This is executed when user clicks the 'licence' link
+        /// </summary>
+        /// <param name="oSender">Sender object</param>
+        /// <param name="oEventArgs">Event args</param>
+        //===================================================================================================
+        private void linkLabelLicence_LinkClicked(
+            object oSender,
+            LinkLabelLinkClickedEventArgs oEventArgs
+            )
+        {
+            System.Diagnostics.Process.Start(
+                "https://www.gnu.org/licenses/gpl-2.0.html");
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// This is executed when user clicks (X) in window header
+        /// </summary>
+        /// <param name="oSender">Sender object</param>
+        /// <param name="oEventArgs">Event args</param>
+        //===================================================================================================
+        private void FormSyncFolders_FormClosing(
+            object oSender,
+            FormClosingEventArgs oEventArgs)
+        {
+            if (_bWorking)
+                this.buttonCancel_Click(oSender, EventArgs.Empty);
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// This is executed when user clicks the "parallel" checkbox
+        /// </summary>
+        /// <param name="oSender">Sender object</param>
+        /// <param name="oEventArgs">Event args</param>
+        //===================================================================================================
+        private void checkBoxParallel_CheckedChanged(
+            object oSender,
+            EventArgs oEventArgs
+            )
+        {
+            if (checkBoxParallel.Checked)
+            {
+                _maxParallelCopies = Math.Max(System.Environment.ProcessorCount * 5 / 8, 2);
+                _maxParallelThreads = System.Environment.ProcessorCount * 3 / 2;
+                _copyFiles = new System.Threading.Semaphore(_maxParallelCopies, _maxParallelCopies);
+                _parallelThreads = new System.Threading.Semaphore(_maxParallelThreads, _maxParallelThreads);
+                _hugeReads = new System.Threading.Semaphore(1, 1);
+            }
+            else
+            {
+                _maxParallelCopies = 1;
+                _maxParallelThreads = 1;
+                _copyFiles = new System.Threading.Semaphore(_maxParallelCopies, _maxParallelCopies);
+                _parallelThreads = new System.Threading.Semaphore(_maxParallelThreads, _maxParallelThreads);
+                _hugeReads = new System.Threading.Semaphore(1, 1);
+            }
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// This is executed when user clicks the "first folder is read-only" checkbox
+        /// </summary>
+        /// <param name="oSender">Sender object</param>
+        /// <param name="oEventArgs">Event args</param>
+        //===================================================================================================
+        private void checkBoxFirstReadonly_CheckedChanged(
+            object oSender,
+            EventArgs oEventArgs)
+        {
+            checkBoxIgnoreTime.Enabled =
+                checkBoxFirstToSecond.Checked &&
+                !checkBoxSyncMode.Checked &&
+                checkBoxFirstReadonly.Checked &&
+                checkBoxRepairBlockFailures.Checked;
+
+            if (checkBoxFirstReadonly.Checked)
+                checkBoxParallel.Checked = false;
+        }
+
+        volatile int _currentFile;
+        volatile string _currentPath;
+
+        //===================================================================================================
+        /// <summary>
+        /// This is regularly executed for updating currently processed file
+        /// </summary>
+        /// <param name="oSender">Sender object</param>
+        /// <param name="oEventArgs">Event args</param>
+        //===================================================================================================
+        private void timerUpdateFileDescription_Tick(
+            object oSender,
+            EventArgs oEventArgs
+            )
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new EventHandler(delegate(object sender2, EventArgs args)
+                {
+                    if (_currentFile > 0)
+                        progressBar1.Value = _currentFile;
+                    if (_currentPath != null)
+                        labelProgress.Text = _currentPath;
+                }));
+            }
+            else
+            {
+                if (_currentFile > 0)
+                    progressBar1.Value = _currentFile;
+                if (_currentPath != null)
+                    labelProgress.Text = _currentPath;
+            }
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// This is executed when user clicks the "ignore time difference" checkbox
+        /// </summary>
+        /// <param name="oSender">Sender object</param>
+        /// <param name="oEventArgs">Event args</param>
+        //===================================================================================================
+        private void checkBoxIgnoreTime_CheckedChanged(
+            object oSender,
+            EventArgs oEventArgs
+            )
+        {
+
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// This is executed when user clicks the "sync mode" checkbox
+        /// </summary>
+        /// <param name="oSender">Sender object</param>
+        /// <param name="oEventArgs">Event args</param>
+        //===================================================================================================
+        private void checkBoxSyncMode_CheckedChanged(
+            object oSender,
+            EventArgs oEventArgs
+            )
+        {
+            checkBoxIgnoreTime.Enabled =
+                checkBoxFirstToSecond.Checked &&
+                !checkBoxSyncMode.Checked &&
+                checkBoxFirstReadonly.Checked &&
+                checkBoxRepairBlockFailures.Checked;
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// This is executed when user clicks the cancel button
+        /// </summary>
+        /// <param name="oSender">Sender object</param>
+        /// <param name="oEventArgs">Event args</param>
+        //===================================================================================================
+        void buttonCancel_Click(
+            object oSender,
+            EventArgs oEventArgs)
+        {
+            if (_bWorking)
+            {
+                buttonCancel.Enabled = false;
+                _cancelClicked = true;
+            }
+            else
+                Close();
+        }
+
+
+        //===================================================================================================
+        /// <summary>
+        /// This is executed whenn user clicks the self-test button
+        /// </summary>
+        /// <param name="oSender">Sender object</param>
+        /// <param name="oEventArgs">Event args</param>
+        //===================================================================================================
+        void buttonSelfTest_Click(
+             object oSender,
+             EventArgs oEventArgs
+             )
+        {
+            if (string.IsNullOrEmpty(textBoxFirstFolder.Text))
+                textBoxFirstFolder.Text = Application.StartupPath + "\\TestFolder1";
+
+            if (string.IsNullOrEmpty(textBoxSecondFolder.Text))
+                textBoxSecondFolder.Text = Application.StartupPath + "\\TestFolder2";
+
+            System.IO.DirectoryInfo di1 =
+                new System.IO.DirectoryInfo(textBoxFirstFolder.Text);
+            if (!di1.Exists)
+                di1.Create();
+
+            System.IO.DirectoryInfo di2 =
+                new System.IO.DirectoryInfo(textBoxSecondFolder.Text);
+            if (!di2.Exists)
+                di2.Create();
+
+
+            // clear previous selftests
+            foreach (System.IO.FileInfo fi in di1.GetFiles())
+                fi.Delete();
+
+            foreach (System.IO.FileInfo fi in di2.GetFiles())
+                fi.Delete();
+
+            foreach (System.IO.DirectoryInfo di3 in di1.GetDirectories())
+                di3.Delete(true);
+
+            foreach (System.IO.DirectoryInfo di3 in di2.GetDirectories())
+                di3.Delete(true);
+
+            using (System.IO.StreamWriter w =
+                new System.IO.StreamWriter(System.IO.Path.Combine(
+                    textBoxFirstFolder.Text, "copy1-2.txt")))
+            {
+                w.WriteLine("Copy from 1 to 2");
+                w.Close();
+            }
+
+            using (System.IO.StreamWriter w =
+                new System.IO.StreamWriter(System.IO.Path.Combine(
+                    textBoxSecondFolder.Text, "copy2-1.txt")))
+            {
+                w.WriteLine("Copy from 2 to 1");
+                w.Close();
+            }
+
+
+            Block b = Block.GetBlock();
+            using (System.IO.FileStream s =
+                System.IO.File.Create((System.IO.Path.Combine(
+                    textBoxFirstFolder.Text, "restore1.txt"))))
+            {
+                b[0] = 3;
+                b.WriteTo(s, 100);
+                s.Close();
+            }
+            System.IO.FileInfo fi2 =
+                new System.IO.FileInfo((System.IO.Path.Combine(
+                    textBoxFirstFolder.Text, "restore1.txt")));
+            System.IO.DirectoryInfo di4 =
+                new System.IO.DirectoryInfo((System.IO.Path.Combine(
+                    textBoxFirstFolder.Text, "RestoreInfo")));
+            di4.Create();
+            SavedInfo si = new SavedInfo(fi2.Length, fi2.LastWriteTimeUtc, false);
+            using (System.IO.FileStream s =
+                System.IO.File.Create((System.IO.Path.Combine(
+                    di4.FullName, "restore1.txt.chk"))))
+            {
+                b[0] = 1;
+                si.AnalyzeForInfoCollection(b, 0);
+                si.SaveTo(s);
+                s.Close();
+            }
+            System.IO.FileInfo fi3 =
+                new System.IO.FileInfo((System.IO.Path.Combine(
+                    di4.FullName, "restore1.txt.chk")));
+            fi3.LastWriteTimeUtc = fi2.LastWriteTimeUtc;
+
+            using (System.IO.FileStream s =
+                System.IO.File.Create((System.IO.Path.Combine(
+                    textBoxFirstFolder.Text, "restore2.txt"))))
+            {
+                b[0] = 3;
+                b.WriteTo(s, b.Length);
+                b.WriteTo(s, b.Length);
+                s.Close();
+            }
+            fi2 = new System.IO.FileInfo((System.IO.Path.Combine(
+                textBoxFirstFolder.Text, "restore2.txt")));
+            si = new SavedInfo(fi2.Length, fi2.LastWriteTimeUtc, false);
+            using (System.IO.FileStream s =
+                System.IO.File.Create((System.IO.Path.Combine(
+                    di4.FullName, "restore2.txt.chk"))))
+            {
+                b[0] = 2;
+                si.AnalyzeForInfoCollection(b, 0);
+                b[0] = 0;
+                si.AnalyzeForInfoCollection(b, 1);
+                si.SaveTo(s);
+                s.Close();
+            }
+            fi3 = new System.IO.FileInfo(System.IO.Path.Combine(
+                di4.FullName, "restore2.txt.chk"));
+            fi3.LastWriteTimeUtc = fi2.LastWriteTimeUtc;
+
+            using (System.IO.FileStream s =
+                System.IO.File.Create(System.IO.Path.Combine(
+                    textBoxFirstFolder.Text, "restore3.txt")))
+            {
+                using (System.IO.FileStream s2 =
+                    System.IO.File.Create(System.IO.Path.Combine(
+                        textBoxSecondFolder.Text, "restore3.txt")))
+                {
+                    // first block of both files: equal, but the checksum will differ
+                    b[0] = 3;
+                    b.WriteTo(s, b.Length);
+                    b.WriteTo(s2, b.Length);
+
+                    // second block needs to be copied from first to second 
+                    b.WriteTo(s, b.Length);
+                    b[0] = 255;
+                    b.WriteTo(s2, b.Length);
+
+                    // third block needs to be copied from second to first
+                    b.WriteTo(s, b.Length);
+                    b[0] = 3;
+                    b.WriteTo(s2, b.Length);
+
+                    // fourth block: both files are different, and the checksum is different
+                    b[0] = 255;
+                    b.WriteTo(s, b.Length);
+                    b[0] = 254;
+                    b.WriteTo(s2, b.Length);
+
+                    s2.Close();
+                }
+                s.Close();
+            }
+
+            fi2 = new System.IO.FileInfo(System.IO.Path.Combine(
+                textBoxFirstFolder.Text, "restore3.txt"));
+            si = new SavedInfo(fi2.Length, fi2.LastWriteTimeUtc, false);
+            using (System.IO.FileStream s =
+                System.IO.File.Create(System.IO.Path.Combine(
+                di4.FullName, "restore3.txt.chk")))
+            {
+                b[0] = 255;
+                si.AnalyzeForInfoCollection(b, 0);
+                b[0] = 3;
+                si.AnalyzeForInfoCollection(b, 1);
+                si.AnalyzeForInfoCollection(b, 2);
+                si.AnalyzeForInfoCollection(b, 3);
+                si.SaveTo(s);
+                s.Close();
+            }
+            fi3 = new System.IO.FileInfo(System.IO.Path.Combine(
+                di4.FullName, "restore3.txt.chk"));
+            fi3.LastWriteTimeUtc = fi2.LastWriteTimeUtc;
+            fi3 = new System.IO.FileInfo(System.IO.Path.Combine(
+                textBoxSecondFolder.Text, "restore3.txt"));
+            fi3.LastWriteTimeUtc = fi2.LastWriteTimeUtc;
+
+
+            System.IO.File.Copy(System.IO.Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory, "Coolpix_2010-08-01_23-57-56.JPG"),
+                System.IO.Path.Combine(textBoxFirstFolder.Text, "TestPicture1.jpg"));
+            CreateSavedInfo(System.IO.Path.Combine(textBoxFirstFolder.Text, "TestPicture1.jpg"),
+                System.IO.Path.Combine(textBoxFirstFolder.Text, "RestoreInfo\\TestPicture1.jpg.chk"));
+            DateTime dtmOld = System.IO.File.GetLastWriteTimeUtc(
+                System.IO.Path.Combine(textBoxFirstFolder.Text, "TestPicture1.jpg"));
+            using (System.IO.FileStream s =
+                System.IO.File.OpenWrite(System.IO.Path.Combine(
+                    textBoxFirstFolder.Text, "TestPicture1.jpg")))
+            {
+                s.Seek(163840, System.IO.SeekOrigin.Begin);
+                s.Write(b._data, 0, b.Length);
+                s.Flush();
+                s.Close();
+            }
+            System.IO.File.SetLastWriteTimeUtc(System.IO.Path.Combine(
+                textBoxFirstFolder.Text, "TestPicture1.jpg"), dtmOld);
+
+            System.IO.File.Copy(System.IO.Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory, "Coolpix_2010-08-01_23-57-56.JPG"),
+                System.IO.Path.Combine(textBoxFirstFolder.Text, "TestPicture2.jpg"));
+            System.IO.File.SetLastWriteTimeUtc(System.IO.Path.Combine(
+                textBoxFirstFolder.Text, "TestPicture2.jpg"), dtmOld);
+            CreateSavedInfo(System.IO.Path.Combine(textBoxFirstFolder.Text, "TestPicture2.jpg"),
+                System.IO.Path.Combine(textBoxFirstFolder.Text, "RestoreInfo\\TestPicture2.jpg.chk"));
+            System.IO.File.Copy(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
+                "Coolpix_2010-08-01_23-57-56.JPG"),
+                System.IO.Path.Combine(textBoxSecondFolder.Text, "TestPicture2.jpg"));
+            System.IO.File.SetLastWriteTimeUtc(System.IO.Path.Combine(
+                textBoxSecondFolder.Text, "TestPicture2.jpg"), dtmOld);
+            CreateSavedInfo(System.IO.Path.Combine(textBoxSecondFolder.Text, "TestPicture2.jpg"),
+                System.IO.Path.Combine(textBoxSecondFolder.Text, "RestoreInfo\\TestPicture2.jpg.chk"));
+            using (System.IO.FileStream s =
+                System.IO.File.OpenWrite(System.IO.Path.Combine(
+                textBoxFirstFolder.Text, "TestPicture2.jpg")))
+            {
+                s.Seek(81920 + 2048, System.IO.SeekOrigin.Begin);
+                s.Write(b._data, 0, b.Length);
+                s.Flush();
+                s.Close();
+            }
+            System.IO.File.SetLastWriteTimeUtc(System.IO.Path.Combine(
+                textBoxFirstFolder.Text, "TestPicture2.jpg"), dtmOld);
+
+            using (System.IO.FileStream s =
+                System.IO.File.OpenWrite(System.IO.Path.Combine(
+                textBoxSecondFolder.Text, "TestPicture2.jpg")))
+            {
+                s.Seek(81920 + 4096 + 2048, System.IO.SeekOrigin.Begin);
+                s.Write(b._data, 0, b.Length);
+                s.Close();
+            }
+            System.IO.File.SetLastWriteTimeUtc(
+                System.IO.Path.Combine(textBoxSecondFolder.Text,
+                "TestPicture2.jpg"), dtmOld);
+
+            buttonSync_Click(this, EventArgs.Empty);
+        }
 
         //===================================================================================================
         /// <summary>
@@ -1278,7 +1777,8 @@ namespace SyncFolders
                     if (_bRepairFiles)
                         TestAndRepairSingleFile(fi2.FullName, fiSavedInfo2.FullName, ref bForceCreateInfo);
                     else
-                        TestSingleFile(fi2.FullName, fiSavedInfo2.FullName, ref bForceCreateInfo, true, !_bSkipRecentlyTested, true);
+                        TestSingleFile(fi2.FullName, fiSavedInfo2.FullName, 
+                            ref bForceCreateInfo, true, !_bSkipRecentlyTested, true);
 
                     if (_bCreateInfo && (!fiSavedInfo2.Exists || bForceCreateInfo))
                     {
@@ -5138,503 +5638,5 @@ namespace SyncFolders
         }
 
 
-        //===================================================================================================
-        /// <summary>
-        /// This is executed when user clicks the cancel button
-        /// </summary>
-        /// <param name="oSender">Sender object</param>
-        /// <param name="oEventArgs">Event args</param>
-        //===================================================================================================
-        void buttonCancel_Click(
-            object oSender, 
-            EventArgs oEventArgs)
-        {
-            if (_bWorking)
-            {
-                buttonCancel.Enabled = false;
-                _cancelClicked = true;
-            }
-            else
-                Close();
-        }
-
-        //===================================================================================================
-        /// <summary>
-        /// This is executed whenn user clicks the self-test button
-        /// </summary>
-        /// <param name="oSender">Sender object</param>
-        /// <param name="oEventArgs">Event args</param>
-        //===================================================================================================
-        void buttonSelfTest_Click(
-             object oSender, 
-             EventArgs oEventArgs
-             )
-         {
-            if (string.IsNullOrEmpty(textBoxFirstFolder.Text))
-                textBoxFirstFolder.Text = Application.StartupPath+"\\TestFolder1";
-
-            if (string.IsNullOrEmpty(textBoxSecondFolder.Text))
-                textBoxSecondFolder.Text = Application.StartupPath+"\\TestFolder2";
-
-            System.IO.DirectoryInfo di1 = 
-                new System.IO.DirectoryInfo(textBoxFirstFolder.Text);
-            if (!di1.Exists)
-                di1.Create();
-
-            System.IO.DirectoryInfo di2 = 
-                new System.IO.DirectoryInfo(textBoxSecondFolder.Text);
-            if (!di2.Exists)
-                di2.Create();
-
-
-            // clear previous selftests
-            foreach (System.IO.FileInfo fi in di1.GetFiles())
-                fi.Delete();
-
-            foreach (System.IO.FileInfo fi in di2.GetFiles())
-                fi.Delete();
-
-            foreach (System.IO.DirectoryInfo di3 in di1.GetDirectories())
-                di3.Delete(true);
-
-            foreach (System.IO.DirectoryInfo di3 in di2.GetDirectories())
-                di3.Delete(true);
-
-            using (System.IO.StreamWriter w = 
-                new System.IO.StreamWriter(System.IO.Path.Combine(
-                    textBoxFirstFolder.Text, "copy1-2.txt")))
-            {
-                w.WriteLine("Copy from 1 to 2");
-                w.Close();
-            }
-
-            using (System.IO.StreamWriter w = 
-                new System.IO.StreamWriter(System.IO.Path.Combine(
-                    textBoxSecondFolder.Text, "copy2-1.txt")))
-            {
-                w.WriteLine("Copy from 2 to 1");
-                w.Close();
-            }
-
-
-            Block b = Block.GetBlock();
-            using (System.IO.FileStream s = 
-                System.IO.File.Create((System.IO.Path.Combine(
-                    textBoxFirstFolder.Text, "restore1.txt"))))
-            {
-                b[0] = 3;
-                b.WriteTo(s, 100);
-                s.Close();
-            }
-            System.IO.FileInfo fi2 = 
-                new System.IO.FileInfo((System.IO.Path.Combine(
-                    textBoxFirstFolder.Text, "restore1.txt")));
-            System.IO.DirectoryInfo di4 = 
-                new System.IO.DirectoryInfo((System.IO.Path.Combine(
-                    textBoxFirstFolder.Text, "RestoreInfo")));
-            di4.Create();
-            SavedInfo si = new SavedInfo(fi2.Length, fi2.LastWriteTimeUtc, false);
-            using (System.IO.FileStream s = 
-                System.IO.File.Create((System.IO.Path.Combine(
-                    di4.FullName, "restore1.txt.chk"))))
-            {
-                b[0] = 1;
-                si.AnalyzeForInfoCollection(b, 0);
-                si.SaveTo(s);
-                s.Close();
-            }
-            System.IO.FileInfo fi3 = 
-                new System.IO.FileInfo((System.IO.Path.Combine(
-                    di4.FullName, "restore1.txt.chk")));
-            fi3.LastWriteTimeUtc = fi2.LastWriteTimeUtc;
-
-            using (System.IO.FileStream s = 
-                System.IO.File.Create((System.IO.Path.Combine(
-                    textBoxFirstFolder.Text, "restore2.txt"))))
-            {
-                b[0] = 3;
-                b.WriteTo(s, b.Length);
-                b.WriteTo(s, b.Length);
-                s.Close();
-            }
-            fi2 = new System.IO.FileInfo((System.IO.Path.Combine(
-                textBoxFirstFolder.Text, "restore2.txt")));
-            si = new SavedInfo(fi2.Length, fi2.LastWriteTimeUtc, false);
-            using (System.IO.FileStream s = 
-                System.IO.File.Create((System.IO.Path.Combine(
-                    di4.FullName, "restore2.txt.chk"))))
-            {
-                b[0] = 2;
-                si.AnalyzeForInfoCollection(b, 0);
-                b[0] = 0;
-                si.AnalyzeForInfoCollection(b, 1);
-                si.SaveTo(s);
-                s.Close();
-            }
-            fi3 = new System.IO.FileInfo(System.IO.Path.Combine(
-                di4.FullName, "restore2.txt.chk"));
-            fi3.LastWriteTimeUtc = fi2.LastWriteTimeUtc;
-
-            using (System.IO.FileStream s = 
-                System.IO.File.Create(System.IO.Path.Combine(
-                    textBoxFirstFolder.Text, "restore3.txt")))
-            {
-                using (System.IO.FileStream s2 = 
-                    System.IO.File.Create(System.IO.Path.Combine(
-                        textBoxSecondFolder.Text, "restore3.txt")))
-                {
-                    // first block of both files: equal, but the checksum will differ
-                    b[0] = 3;
-                    b.WriteTo(s, b.Length);
-                    b.WriteTo(s2, b.Length);
-
-                    // second block needs to be copied from first to second 
-                    b.WriteTo(s, b.Length);
-                    b[0] = 255;
-                    b.WriteTo(s2, b.Length);
-
-                    // third block needs to be copied from second to first
-                    b.WriteTo(s, b.Length);
-                    b[0] = 3;
-                    b.WriteTo(s2, b.Length);
-
-                    // fourth block: both files are different, and the checksum is different
-                    b[0] = 255;
-                    b.WriteTo(s, b.Length);
-                    b[0] = 254;
-                    b.WriteTo(s2, b.Length);
-
-                    s2.Close();
-                }
-                s.Close();
-            }
-
-            fi2 = new System.IO.FileInfo(System.IO.Path.Combine(
-                textBoxFirstFolder.Text, "restore3.txt"));
-            si = new SavedInfo(fi2.Length, fi2.LastWriteTimeUtc, false);
-            using (System.IO.FileStream s = 
-                System.IO.File.Create(System.IO.Path.Combine(
-                di4.FullName, "restore3.txt.chk")))
-            {
-                b[0] = 255;
-                si.AnalyzeForInfoCollection(b, 0);
-                b[0] = 3;
-                si.AnalyzeForInfoCollection(b, 1);
-                si.AnalyzeForInfoCollection(b, 2);
-                si.AnalyzeForInfoCollection(b, 3);
-                si.SaveTo(s);
-                s.Close();
-            }
-            fi3 = new System.IO.FileInfo(System.IO.Path.Combine(
-                di4.FullName, "restore3.txt.chk"));
-            fi3.LastWriteTimeUtc = fi2.LastWriteTimeUtc;
-            fi3 = new System.IO.FileInfo(System.IO.Path.Combine(
-                textBoxSecondFolder.Text, "restore3.txt"));
-            fi3.LastWriteTimeUtc = fi2.LastWriteTimeUtc;
-
-            
-            System.IO.File.Copy(System.IO.Path.Combine(
-                AppDomain.CurrentDomain.BaseDirectory,"Coolpix_2010-08-01_23-57-56.JPG"),
-                System.IO.Path.Combine(textBoxFirstFolder.Text,"TestPicture1.jpg"));
-            CreateSavedInfo(System.IO.Path.Combine(textBoxFirstFolder.Text,"TestPicture1.jpg"),
-                System.IO.Path.Combine(textBoxFirstFolder.Text,"RestoreInfo\\TestPicture1.jpg.chk"));
-            DateTime dtmOld = System.IO.File.GetLastWriteTimeUtc(
-                System.IO.Path.Combine(textBoxFirstFolder.Text, "TestPicture1.jpg"));
-            using (System.IO.FileStream s = 
-                System.IO.File.OpenWrite(System.IO.Path.Combine(
-                    textBoxFirstFolder.Text, "TestPicture1.jpg")))
-            {
-                s.Seek(163840, System.IO.SeekOrigin.Begin);
-                s.Write(b._data, 0, b.Length);
-                s.Flush();
-                s.Close();
-            }
-            System.IO.File.SetLastWriteTimeUtc(System.IO.Path.Combine(
-                textBoxFirstFolder.Text, "TestPicture1.jpg"), dtmOld);
-
-            System.IO.File.Copy(System.IO.Path.Combine(
-                AppDomain.CurrentDomain.BaseDirectory, "Coolpix_2010-08-01_23-57-56.JPG"),
-                System.IO.Path.Combine(textBoxFirstFolder.Text, "TestPicture2.jpg"));
-            System.IO.File.SetLastWriteTimeUtc(System.IO.Path.Combine(
-                textBoxFirstFolder.Text, "TestPicture2.jpg"), dtmOld);
-            CreateSavedInfo(System.IO.Path.Combine(textBoxFirstFolder.Text, "TestPicture2.jpg"), 
-                System.IO.Path.Combine(textBoxFirstFolder.Text, "RestoreInfo\\TestPicture2.jpg.chk"));
-            System.IO.File.Copy(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, 
-                "Coolpix_2010-08-01_23-57-56.JPG"),
-                System.IO.Path.Combine(textBoxSecondFolder.Text, "TestPicture2.jpg"));
-            System.IO.File.SetLastWriteTimeUtc(System.IO.Path.Combine(
-                textBoxSecondFolder.Text, "TestPicture2.jpg"), dtmOld);
-            CreateSavedInfo(System.IO.Path.Combine(textBoxSecondFolder.Text, "TestPicture2.jpg"), 
-                System.IO.Path.Combine(textBoxSecondFolder.Text, "RestoreInfo\\TestPicture2.jpg.chk"));
-            using (System.IO.FileStream s = 
-                System.IO.File.OpenWrite(System.IO.Path.Combine(
-                textBoxFirstFolder.Text, "TestPicture2.jpg")))
-            {
-                s.Seek(81920 + 2048, System.IO.SeekOrigin.Begin);
-                s.Write(b._data,0,b.Length);
-                s.Flush();
-                s.Close();
-            }
-            System.IO.File.SetLastWriteTimeUtc(System.IO.Path.Combine(
-                textBoxFirstFolder.Text, "TestPicture2.jpg"), dtmOld);
-
-            using (System.IO.FileStream s = 
-                System.IO.File.OpenWrite(System.IO.Path.Combine(
-                textBoxSecondFolder.Text, "TestPicture2.jpg")))
-            {
-                s.Seek(81920 + 4096 + 2048, System.IO.SeekOrigin.Begin);
-                s.Write(b._data, 0, b.Length);
-                s.Close();
-            }
-            System.IO.File.SetLastWriteTimeUtc(
-                System.IO.Path.Combine(textBoxSecondFolder.Text, 
-                "TestPicture2.jpg"), dtmOld);
-            
-            buttonSync_Click(this, EventArgs.Empty);
-        }
-
-        //===================================================================================================
-        /// <summary>
-        /// This is executed when user clicks the "repair" checkbox
-        /// </summary>
-        /// <param name="oSender">Sender object</param>
-        /// <param name="oEventArgs">Event args</param>
-        //===================================================================================================
-        void checkBoxRepairBlockFailures_CheckedChanged(
-            object oSender, 
-            EventArgs oEventArgs)
-        {
-            checkBoxPreferCopies.Enabled = 
-                checkBoxTestAllFiles.Checked && 
-                checkBoxRepairBlockFailures.Checked;
-            checkBoxIgnoreTime.Enabled = 
-                checkBoxFirstToSecond.Checked && 
-                !checkBoxSyncMode.Checked && 
-                checkBoxFirstReadonly.Checked && 
-                checkBoxRepairBlockFailures.Checked;
-        }
-
-        //===================================================================================================
-        /// <summary>
-        /// This is executed when user edits first folder
-        /// </summary>
-        /// <param name="oSender">Sender object</param>
-        /// <param name="oEventArgs">Event args</param>
-        //===================================================================================================
-        void textBoxFirstFolder_TextChanged(
-            object oSender,
-            EventArgs oEventArgs)
-        {
-            buttonSync.Enabled = 
-                !string.IsNullOrEmpty(textBoxFirstFolder.Text) && 
-                !string.IsNullOrEmpty(textBoxSecondFolder.Text);
-        }
-
-        //===================================================================================================
-        /// <summary>
-        /// This is executed when user edits the second folder
-        /// </summary>
-        /// <param name="oSender">Sender object</param>
-        /// <param name="oEventArgs">Event args</param>
-        //===================================================================================================
-        void textBoxSecondFolder_TextChanged(
-            object oSender, 
-            EventArgs oEventArgs)
-        {
-            buttonSync.Enabled = 
-                !string.IsNullOrEmpty(textBoxFirstFolder.Text) && 
-                !string.IsNullOrEmpty(textBoxSecondFolder.Text);
-        }
-
-        //===================================================================================================
-        /// <summary>
-        /// This is executed when user clicks the "first-to-second" checkbox
-        /// </summary>
-        /// <param name="oSender">Sender object</param>
-        /// <param name="oEventArgs">Event args</param>
-        //===================================================================================================
-        void checkBoxFirstToSecond_CheckedChanged(
-            object oSender, 
-            EventArgs oEventArgs
-            )
-        {
-            checkBoxDeleteFilesInSecond.Enabled = 
-                checkBoxFirstToSecond.Checked;
-            checkBoxFirstReadonly.Enabled = 
-                checkBoxFirstToSecond.Checked;
-            checkBoxSyncMode.Enabled = 
-                checkBoxFirstToSecond.Checked;
-            checkBoxIgnoreTime.Enabled = 
-                checkBoxFirstToSecond.Checked && 
-                !checkBoxSyncMode.Checked && 
-                checkBoxFirstReadonly.Checked && 
-                checkBoxRepairBlockFailures.Checked;
-        }
-
-        //===================================================================================================
-        /// <summary>
-        /// This is executed when user clicks the 'about' link
-        /// </summary>
-        /// <param name="oSender">Sender object</param>
-        /// <param name="oEventArgs">Event args</param>
-        //===================================================================================================
-        private void linkLabelAbout_LinkClicked(
-            object oSender, 
-            LinkLabelLinkClickedEventArgs oEventArgs
-            )
-        {
-            using (AboutForm form = new AboutForm())
-                form.ShowDialog(this);
-        }
-
-        //===================================================================================================
-        /// <summary>
-        /// This is executed when user clicks the 'licence' link
-        /// </summary>
-        /// <param name="oSender">Sender object</param>
-        /// <param name="oEventArgs">Event args</param>
-        //===================================================================================================
-        private void linkLabelLicence_LinkClicked(
-            object oSender, 
-            LinkLabelLinkClickedEventArgs oEventArgs
-            )
-        {
-            System.Diagnostics.Process.Start(
-                "https://www.gnu.org/licenses/gpl-2.0.html");
-        }
-
-        //===================================================================================================
-        /// <summary>
-        /// This is executed when user clicks (X) in window header
-        /// </summary>
-        /// <param name="oSender">Sender object</param>
-        /// <param name="oEventArgs">Event args</param>
-        //===================================================================================================
-        private void FormSyncFolders_FormClosing(
-            object oSender, 
-            FormClosingEventArgs oEventArgs)
-        {
-            if (_bWorking)
-               this.buttonCancel_Click(oSender, EventArgs.Empty);
-        }
-
-        //===================================================================================================
-        /// <summary>
-        /// This is executed when user clicks the "parallel" checkbox
-        /// </summary>
-        /// <param name="oSender">Sender object</param>
-        /// <param name="oEventArgs">Event args</param>
-        //===================================================================================================
-        private void checkBoxParallel_CheckedChanged(
-            object oSender, 
-            EventArgs oEventArgs
-            )
-        {
-            if (checkBoxParallel.Checked)
-            {
-                _maxParallelCopies = Math.Max(System.Environment.ProcessorCount * 5 / 8, 2);
-                _maxParallelThreads = System.Environment.ProcessorCount * 3 / 2;
-                _copyFiles = new System.Threading.Semaphore(_maxParallelCopies, _maxParallelCopies);
-                _parallelThreads = new System.Threading.Semaphore(_maxParallelThreads, _maxParallelThreads);
-                _hugeReads = new System.Threading.Semaphore(1, 1);
-            }
-            else
-            {
-                _maxParallelCopies = 1;
-                _maxParallelThreads = 1;
-                _copyFiles = new System.Threading.Semaphore(_maxParallelCopies, _maxParallelCopies);
-                _parallelThreads = new System.Threading.Semaphore(_maxParallelThreads, _maxParallelThreads);
-                _hugeReads = new System.Threading.Semaphore(1, 1);
-            }
-        }
-
-        //===================================================================================================
-        /// <summary>
-        /// This is executed when user clicks the "first folder is read-only" checkbox
-        /// </summary>
-        /// <param name="oSender">Sender object</param>
-        /// <param name="oEventArgs">Event args</param>
-        //===================================================================================================
-        private void checkBoxFirstReadonly_CheckedChanged(
-            object oSender, 
-            EventArgs oEventArgs)
-        {
-            checkBoxIgnoreTime.Enabled = 
-                checkBoxFirstToSecond.Checked && 
-                !checkBoxSyncMode.Checked && 
-                checkBoxFirstReadonly.Checked && 
-                checkBoxRepairBlockFailures.Checked;
-
-            if (checkBoxFirstReadonly.Checked)
-                checkBoxParallel.Checked = false;
-        }
-
-        volatile int _currentFile;
-        volatile string _currentPath;
-
-        //===================================================================================================
-        /// <summary>
-        /// This is regularly executed for updating currently processed file
-        /// </summary>
-        /// <param name="oSender">Sender object</param>
-        /// <param name="oEventArgs">Event args</param>
-        //===================================================================================================
-        private void timerUpdateFileDescription_Tick(
-            object oSender, 
-            EventArgs oEventArgs
-            )
-        {
-            if (InvokeRequired)
-            {
-                Invoke(new EventHandler(delegate(object sender2, EventArgs args)
-                {
-                    if (_currentFile>0)
-                        progressBar1.Value = _currentFile;
-                    if (_currentPath!=null)
-                        labelProgress.Text = _currentPath;
-                }));
-            }
-            else
-            {
-                if (_currentFile > 0)
-                    progressBar1.Value = _currentFile;
-                if (_currentPath != null)
-                    labelProgress.Text = _currentPath;
-            }
-        }
-
-        //===================================================================================================
-        /// <summary>
-        /// This is executed when user clicks the "ignore time difference" checkbox
-        /// </summary>
-        /// <param name="oSender">Sender object</param>
-        /// <param name="oEventArgs">Event args</param>
-        //===================================================================================================
-        private void checkBoxIgnoreTime_CheckedChanged(
-            object oSender, 
-            EventArgs oEventArgs
-            )
-        {
-
-        }
-
-        //===================================================================================================
-        /// <summary>
-        /// This is executed when user clicks the "sync mode" checkbox
-        /// </summary>
-        /// <param name="oSender">Sender object</param>
-        /// <param name="oEventArgs">Event args</param>
-        //===================================================================================================
-        private void checkBoxSyncMode_CheckedChanged(
-            object oSender, 
-            EventArgs oEventArgs
-            )
-        {
-            checkBoxIgnoreTime.Enabled = 
-                checkBoxFirstToSecond.Checked && 
-                !checkBoxSyncMode.Checked && 
-                checkBoxFirstReadonly.Checked && 
-                checkBoxRepairBlockFailures.Checked;
-        }
     }
 }
