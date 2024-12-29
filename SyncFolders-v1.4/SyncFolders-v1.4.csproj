@@ -96,6 +96,98 @@
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="LogDisplayingForm.ar.resx">
+      <DependentUpon>LogDisplayingForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LogDisplayingForm.be-BY.resx">
+      <DependentUpon>LogDisplayingForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LogDisplayingForm.cs.resx">
+      <DependentUpon>LogDisplayingForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LogDisplayingForm.de.resx">
+      <DependentUpon>LogDisplayingForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LogDisplayingForm.el.resx">
+      <DependentUpon>LogDisplayingForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LogDisplayingForm.es.resx">
+      <DependentUpon>LogDisplayingForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LogDisplayingForm.fi.resx">
+      <DependentUpon>LogDisplayingForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LogDisplayingForm.fr.resx">
+      <DependentUpon>LogDisplayingForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LogDisplayingForm.he.resx">
+      <DependentUpon>LogDisplayingForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LogDisplayingForm.hi.resx">
+      <DependentUpon>LogDisplayingForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LogDisplayingForm.it.resx">
+      <DependentUpon>LogDisplayingForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LogDisplayingForm.ja.resx">
+      <DependentUpon>LogDisplayingForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LogDisplayingForm.ko.resx">
+      <DependentUpon>LogDisplayingForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LogDisplayingForm.nl.resx">
+      <DependentUpon>LogDisplayingForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LogDisplayingForm.pl.resx">
+      <DependentUpon>LogDisplayingForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LogDisplayingForm.pt.resx">
+      <DependentUpon>LogDisplayingForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LogDisplayingForm.ru.resx">
+      <DependentUpon>LogDisplayingForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LogDisplayingForm.sa.resx">
+      <DependentUpon>LogDisplayingForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LogDisplayingForm.sv.resx">
+      <DependentUpon>LogDisplayingForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LogDisplayingForm.tr.resx">
+      <DependentUpon>LogDisplayingForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LogDisplayingForm.uk.resx">
+      <DependentUpon>LogDisplayingForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LogDisplayingForm.zh-CHS.resx">
+      <DependentUpon>LogDisplayingForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LogDisplayingForm.zh-CHT.resx">
+      <DependentUpon>LogDisplayingForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="SyncFoldersForm.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>

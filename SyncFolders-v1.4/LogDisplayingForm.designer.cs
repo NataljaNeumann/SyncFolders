@@ -49,34 +49,30 @@ namespace SyncFolders
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LogDisplayingForm));
             this.textBoxLog = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // textBoxLog
             // 
-            this.textBoxLog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxLog.Location = new System.Drawing.Point(1, 0);
-            this.textBoxLog.MaxLength = 1000000;
-            this.textBoxLog.Multiline = true;
+            this.textBoxLog.AccessibleDescription = null;
+            this.textBoxLog.AccessibleName = null;
+            resources.ApplyResources(this.textBoxLog, "textBoxLog");
+            this.textBoxLog.BackgroundImage = null;
+            this.textBoxLog.Font = null;
             this.textBoxLog.Name = "textBoxLog";
             this.textBoxLog.ReadOnly = true;
-            this.textBoxLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxLog.Size = new System.Drawing.Size(1270, 459);
-            this.textBoxLog.TabIndex = 0;
-            this.textBoxLog.WordWrap = false;
             // 
             // LogDisplayingForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AccessibleDescription = null;
+            this.AccessibleName = null;
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1272, 460);
+            this.BackgroundImage = null;
             this.Controls.Add(this.textBoxLog);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Icon = null;
             this.Name = "LogDisplayingForm";
-            this.Text = "Log";
             this.VisibleChanged += new System.EventHandler(this.LogDisplayingForm_VisibleChanged);
             this.ResumeLayout(false);
             this.PerformLayout();
