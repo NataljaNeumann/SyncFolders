@@ -2,7 +2,7 @@
     e.g. keeping one as a backup with your family photos. Optionally, 
     some information for restoring of files can be added
  
-    Copyright (C) 2024 NataljaNeumann@gmx.de
+    Copyright (C) 2024-2025 NataljaNeumann@gmx.de
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -31,7 +31,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("SyncFolders")]
-[assembly: AssemblyCopyright("Copyright © 2024 NataljaNeumann@gmx.de")]
+[assembly: AssemblyCopyright("Copyright © 2024-2025 NataljaNeumann@gmx.de")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
