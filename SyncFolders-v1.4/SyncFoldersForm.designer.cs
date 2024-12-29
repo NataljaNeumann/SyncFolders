@@ -50,6 +50,7 @@ namespace SyncFolders
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSyncFolders));
             this.folderBrowserDialogFolder1 = new System.Windows.Forms.FolderBrowserDialog();
             this.folderBrowserDialogFolder2 = new System.Windows.Forms.FolderBrowserDialog();
             this.labelFolder1 = new System.Windows.Forms.Label();
@@ -85,274 +86,163 @@ namespace SyncFolders
             // 
             // labelFolder1
             // 
-            this.labelFolder1.AutoSize = true;
-            this.labelFolder1.Location = new System.Drawing.Point(17, 16);
-            this.labelFolder1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            resources.ApplyResources(this.labelFolder1, "labelFolder1");
             this.labelFolder1.Name = "labelFolder1";
-            this.labelFolder1.Size = new System.Drawing.Size(78, 16);
-            this.labelFolder1.TabIndex = 0;
-            this.labelFolder1.Text = "First Folder:";
             // 
             // textBoxFirstFolder
             // 
             this.textBoxFirstFolder.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.textBoxFirstFolder.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystemDirectories;
-            this.textBoxFirstFolder.Location = new System.Drawing.Point(20, 36);
-            this.textBoxFirstFolder.Margin = new System.Windows.Forms.Padding(4);
+            resources.ApplyResources(this.textBoxFirstFolder, "textBoxFirstFolder");
             this.textBoxFirstFolder.Name = "textBoxFirstFolder";
-            this.textBoxFirstFolder.Size = new System.Drawing.Size(489, 22);
-            this.textBoxFirstFolder.TabIndex = 1;
             this.textBoxFirstFolder.TextChanged += new System.EventHandler(this.textBoxFirstFolder_TextChanged);
             // 
             // buttonSelectFirstFolder
             // 
-            this.buttonSelectFirstFolder.Location = new System.Drawing.Point(520, 33);
-            this.buttonSelectFirstFolder.Margin = new System.Windows.Forms.Padding(4);
+            resources.ApplyResources(this.buttonSelectFirstFolder, "buttonSelectFirstFolder");
             this.buttonSelectFirstFolder.Name = "buttonSelectFirstFolder";
-            this.buttonSelectFirstFolder.Size = new System.Drawing.Size(44, 28);
-            this.buttonSelectFirstFolder.TabIndex = 2;
-            this.buttonSelectFirstFolder.Text = "...";
             this.buttonSelectFirstFolder.UseVisualStyleBackColor = true;
             this.buttonSelectFirstFolder.Click += new System.EventHandler(this.buttonSelectFirstFolder_Click);
             // 
             // labelSecondFolder
             // 
-            this.labelSecondFolder.AutoSize = true;
-            this.labelSecondFolder.Location = new System.Drawing.Point(17, 72);
-            this.labelSecondFolder.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            resources.ApplyResources(this.labelSecondFolder, "labelSecondFolder");
             this.labelSecondFolder.Name = "labelSecondFolder";
-            this.labelSecondFolder.Size = new System.Drawing.Size(100, 16);
-            this.labelSecondFolder.TabIndex = 3;
-            this.labelSecondFolder.Text = "Second Folder:";
             // 
             // textBoxSecondFolder
             // 
             this.textBoxSecondFolder.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.textBoxSecondFolder.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystemDirectories;
-            this.textBoxSecondFolder.Location = new System.Drawing.Point(20, 92);
-            this.textBoxSecondFolder.Margin = new System.Windows.Forms.Padding(4);
+            resources.ApplyResources(this.textBoxSecondFolder, "textBoxSecondFolder");
             this.textBoxSecondFolder.Name = "textBoxSecondFolder";
-            this.textBoxSecondFolder.Size = new System.Drawing.Size(489, 22);
-            this.textBoxSecondFolder.TabIndex = 4;
             this.textBoxSecondFolder.TextChanged += new System.EventHandler(this.textBoxSecondFolder_TextChanged);
             // 
             // buttonSelectSecondFolder
             // 
-            this.buttonSelectSecondFolder.Location = new System.Drawing.Point(520, 92);
-            this.buttonSelectSecondFolder.Margin = new System.Windows.Forms.Padding(4);
+            resources.ApplyResources(this.buttonSelectSecondFolder, "buttonSelectSecondFolder");
             this.buttonSelectSecondFolder.Name = "buttonSelectSecondFolder";
-            this.buttonSelectSecondFolder.Size = new System.Drawing.Size(43, 28);
-            this.buttonSelectSecondFolder.TabIndex = 5;
-            this.buttonSelectSecondFolder.Text = "...";
             this.buttonSelectSecondFolder.UseVisualStyleBackColor = true;
             this.buttonSelectSecondFolder.Click += new System.EventHandler(this.buttonSelectSecondFolder_Click);
             // 
             // checkBoxCreateRestoreInfo
             // 
-            this.checkBoxCreateRestoreInfo.AutoSize = true;
+            resources.ApplyResources(this.checkBoxCreateRestoreInfo, "checkBoxCreateRestoreInfo");
             this.checkBoxCreateRestoreInfo.Checked = true;
             this.checkBoxCreateRestoreInfo.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxCreateRestoreInfo.Location = new System.Drawing.Point(20, 220);
-            this.checkBoxCreateRestoreInfo.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxCreateRestoreInfo.Name = "checkBoxCreateRestoreInfo";
-            this.checkBoxCreateRestoreInfo.Size = new System.Drawing.Size(336, 20);
-            this.checkBoxCreateRestoreInfo.TabIndex = 6;
-            this.checkBoxCreateRestoreInfo.Text = "Save some info for restoring single blocks, if missing";
             this.checkBoxCreateRestoreInfo.UseVisualStyleBackColor = true;
             // 
             // checkBoxTestAllFiles
             // 
-            this.checkBoxTestAllFiles.AutoSize = true;
-            this.checkBoxTestAllFiles.Location = new System.Drawing.Point(20, 248);
-            this.checkBoxTestAllFiles.Margin = new System.Windows.Forms.Padding(4);
+            resources.ApplyResources(this.checkBoxTestAllFiles, "checkBoxTestAllFiles");
             this.checkBoxTestAllFiles.Name = "checkBoxTestAllFiles";
-            this.checkBoxTestAllFiles.Size = new System.Drawing.Size(178, 20);
-            this.checkBoxTestAllFiles.TabIndex = 7;
-            this.checkBoxTestAllFiles.Text = "Test readability of all files";
             this.checkBoxTestAllFiles.UseVisualStyleBackColor = true;
             this.checkBoxTestAllFiles.CheckedChanged += new System.EventHandler(this.checkBoxTestAllFiles_CheckedChanged);
             // 
             // checkBoxRepairBlockFailures
             // 
-            this.checkBoxRepairBlockFailures.AutoSize = true;
+            resources.ApplyResources(this.checkBoxRepairBlockFailures, "checkBoxRepairBlockFailures");
             this.checkBoxRepairBlockFailures.Checked = true;
             this.checkBoxRepairBlockFailures.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxRepairBlockFailures.Enabled = false;
-            this.checkBoxRepairBlockFailures.Location = new System.Drawing.Point(37, 276);
-            this.checkBoxRepairBlockFailures.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxRepairBlockFailures.Name = "checkBoxRepairBlockFailures";
-            this.checkBoxRepairBlockFailures.Size = new System.Drawing.Size(189, 20);
-            this.checkBoxRepairBlockFailures.TabIndex = 8;
-            this.checkBoxRepairBlockFailures.Text = "Repair single block failures";
             this.checkBoxRepairBlockFailures.UseVisualStyleBackColor = true;
             this.checkBoxRepairBlockFailures.CheckedChanged += new System.EventHandler(this.checkBoxRepairBlockFailures_CheckedChanged);
             // 
             // buttonSync
             // 
-            this.buttonSync.Enabled = false;
-            this.buttonSync.Location = new System.Drawing.Point(356, 358);
-            this.buttonSync.Margin = new System.Windows.Forms.Padding(4);
+            resources.ApplyResources(this.buttonSync, "buttonSync");
             this.buttonSync.Name = "buttonSync";
-            this.buttonSync.Size = new System.Drawing.Size(100, 28);
-            this.buttonSync.TabIndex = 9;
-            this.buttonSync.Text = "Sync";
             this.buttonSync.UseVisualStyleBackColor = true;
             this.buttonSync.Click += new System.EventHandler(this.buttonSync_Click);
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCancel.Location = new System.Drawing.Point(464, 358);
-            this.buttonCancel.Margin = new System.Windows.Forms.Padding(4);
+            resources.ApplyResources(this.buttonCancel, "buttonCancel");
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(100, 28);
-            this.buttonCancel.TabIndex = 10;
-            this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // progressBar1
             // 
-            this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBar1.Location = new System.Drawing.Point(24, 358);
-            this.progressBar1.Margin = new System.Windows.Forms.Padding(4);
+            resources.ApplyResources(this.progressBar1, "progressBar1");
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(435, 28);
-            this.progressBar1.TabIndex = 11;
-            this.progressBar1.Visible = false;
             // 
             // buttonSelfTest
             // 
-            this.buttonSelfTest.Location = new System.Drawing.Point(467, 128);
-            this.buttonSelfTest.Margin = new System.Windows.Forms.Padding(4);
+            resources.ApplyResources(this.buttonSelfTest, "buttonSelfTest");
             this.buttonSelfTest.Name = "buttonSelfTest";
-            this.buttonSelfTest.Size = new System.Drawing.Size(100, 28);
-            this.buttonSelfTest.TabIndex = 12;
-            this.buttonSelfTest.Text = "SelfTest";
             this.buttonSelfTest.UseVisualStyleBackColor = true;
-            this.buttonSelfTest.Visible = false;
             this.buttonSelfTest.Click += new System.EventHandler(this.buttonSelfTest_Click);
             // 
             // checkBoxPreferCopies
             // 
-            this.checkBoxPreferCopies.AutoSize = true;
-            this.checkBoxPreferCopies.Enabled = false;
-            this.checkBoxPreferCopies.Location = new System.Drawing.Point(57, 304);
-            this.checkBoxPreferCopies.Margin = new System.Windows.Forms.Padding(4);
+            resources.ApplyResources(this.checkBoxPreferCopies, "checkBoxPreferCopies");
             this.checkBoxPreferCopies.Name = "checkBoxPreferCopies";
-            this.checkBoxPreferCopies.Size = new System.Drawing.Size(469, 20);
-            this.checkBoxPreferCopies.TabIndex = 13;
-            this.checkBoxPreferCopies.Text = "Prefer physical copies in case of conflicts during repair (not recommended)";
             this.checkBoxPreferCopies.UseVisualStyleBackColor = true;
             // 
             // labelProgress
             // 
-            this.labelProgress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.labelProgress, "labelProgress");
             this.labelProgress.AutoEllipsis = true;
-            this.labelProgress.Location = new System.Drawing.Point(21, 300);
-            this.labelProgress.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelProgress.Name = "labelProgress";
-            this.labelProgress.Size = new System.Drawing.Size(543, 53);
-            this.labelProgress.TabIndex = 14;
-            this.labelProgress.Text = "...";
-            this.labelProgress.Visible = false;
             // 
             // checkBoxFirstToSecond
             // 
-            this.checkBoxFirstToSecond.AutoSize = true;
-            this.checkBoxFirstToSecond.Location = new System.Drawing.Point(20, 137);
+            resources.ApplyResources(this.checkBoxFirstToSecond, "checkBoxFirstToSecond");
             this.checkBoxFirstToSecond.Name = "checkBoxFirstToSecond";
-            this.checkBoxFirstToSecond.Size = new System.Drawing.Size(257, 20);
-            this.checkBoxFirstToSecond.TabIndex = 15;
-            this.checkBoxFirstToSecond.Text = "Unidirictionally from 1st to 2nd (e.g. CD)";
             this.checkBoxFirstToSecond.UseVisualStyleBackColor = true;
             this.checkBoxFirstToSecond.CheckedChanged += new System.EventHandler(this.checkBoxFirstToSecond_CheckedChanged);
             // 
             // checkBoxFirstReadonly
             // 
-            this.checkBoxFirstReadonly.AutoSize = true;
-            this.checkBoxFirstReadonly.Enabled = false;
-            this.checkBoxFirstReadonly.Location = new System.Drawing.Point(37, 164);
+            resources.ApplyResources(this.checkBoxFirstReadonly, "checkBoxFirstReadonly");
             this.checkBoxFirstReadonly.Name = "checkBoxFirstReadonly";
-            this.checkBoxFirstReadonly.Size = new System.Drawing.Size(198, 20);
-            this.checkBoxFirstReadonly.TabIndex = 16;
-            this.checkBoxFirstReadonly.Text = "First folder is not changeable";
             this.checkBoxFirstReadonly.UseVisualStyleBackColor = true;
             this.checkBoxFirstReadonly.CheckedChanged += new System.EventHandler(this.checkBoxFirstReadonly_CheckedChanged);
             // 
             // checkBoxDeleteFilesInSecond
             // 
-            this.checkBoxDeleteFilesInSecond.AutoSize = true;
-            this.checkBoxDeleteFilesInSecond.Enabled = false;
-            this.checkBoxDeleteFilesInSecond.Location = new System.Drawing.Point(37, 191);
+            resources.ApplyResources(this.checkBoxDeleteFilesInSecond, "checkBoxDeleteFilesInSecond");
             this.checkBoxDeleteFilesInSecond.Name = "checkBoxDeleteFilesInSecond";
-            this.checkBoxDeleteFilesInSecond.Size = new System.Drawing.Size(321, 20);
-            this.checkBoxDeleteFilesInSecond.TabIndex = 17;
-            this.checkBoxDeleteFilesInSecond.Text = "Delete files in 2nd folder that aren\'t in first anymore";
             this.checkBoxDeleteFilesInSecond.UseVisualStyleBackColor = true;
             // 
             // linkLabelAbout
             // 
-            this.linkLabelAbout.AutoSize = true;
-            this.linkLabelAbout.Location = new System.Drawing.Point(26, 364);
+            resources.ApplyResources(this.linkLabelAbout, "linkLabelAbout");
             this.linkLabelAbout.Name = "linkLabelAbout";
-            this.linkLabelAbout.Size = new System.Drawing.Size(125, 16);
-            this.linkLabelAbout.TabIndex = 18;
             this.linkLabelAbout.TabStop = true;
-            this.linkLabelAbout.Text = "About Sync Folders";
             this.linkLabelAbout.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelAbout_LinkClicked);
             // 
             // linkLabelLicence
             // 
-            this.linkLabelLicence.AutoSize = true;
-            this.linkLabelLicence.Location = new System.Drawing.Point(192, 364);
+            resources.ApplyResources(this.linkLabelLicence, "linkLabelLicence");
             this.linkLabelLicence.Name = "linkLabelLicence";
-            this.linkLabelLicence.Size = new System.Drawing.Size(109, 16);
-            this.linkLabelLicence.TabIndex = 19;
             this.linkLabelLicence.TabStop = true;
-            this.linkLabelLicence.Text = "Licence (GPL v2)";
             this.linkLabelLicence.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelLicence_LinkClicked);
             // 
             // checkBoxSkipRecentlyTested
             // 
-            this.checkBoxSkipRecentlyTested.AutoSize = true;
+            resources.ApplyResources(this.checkBoxSkipRecentlyTested, "checkBoxSkipRecentlyTested");
             this.checkBoxSkipRecentlyTested.Checked = true;
             this.checkBoxSkipRecentlyTested.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxSkipRecentlyTested.Enabled = false;
-            this.checkBoxSkipRecentlyTested.Location = new System.Drawing.Point(195, 248);
             this.checkBoxSkipRecentlyTested.Name = "checkBoxSkipRecentlyTested";
-            this.checkBoxSkipRecentlyTested.Size = new System.Drawing.Size(144, 20);
-            this.checkBoxSkipRecentlyTested.TabIndex = 20;
-            this.checkBoxSkipRecentlyTested.Text = "if not tested recently";
             this.checkBoxSkipRecentlyTested.UseVisualStyleBackColor = true;
             // 
             // checkBoxParallel
             // 
-            this.checkBoxParallel.AutoSize = true;
+            resources.ApplyResources(this.checkBoxParallel, "checkBoxParallel");
             this.checkBoxParallel.Checked = true;
             this.checkBoxParallel.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxParallel.Location = new System.Drawing.Point(386, 136);
             this.checkBoxParallel.Name = "checkBoxParallel";
-            this.checkBoxParallel.Size = new System.Drawing.Size(73, 20);
-            this.checkBoxParallel.TabIndex = 21;
-            this.checkBoxParallel.Text = "Parallel";
             this.checkBoxParallel.UseVisualStyleBackColor = true;
             this.checkBoxParallel.CheckedChanged += new System.EventHandler(this.checkBoxParallel_CheckedChanged);
             // 
             // checkBoxSyncMode
             // 
-            this.checkBoxSyncMode.AutoSize = true;
+            resources.ApplyResources(this.checkBoxSyncMode, "checkBoxSyncMode");
             this.checkBoxSyncMode.Checked = true;
             this.checkBoxSyncMode.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxSyncMode.Enabled = false;
-            this.checkBoxSyncMode.Location = new System.Drawing.Point(276, 137);
             this.checkBoxSyncMode.Name = "checkBoxSyncMode";
-            this.checkBoxSyncMode.Size = new System.Drawing.Size(92, 20);
-            this.checkBoxSyncMode.TabIndex = 22;
-            this.checkBoxSyncMode.Text = "SyncMode";
             this.checkBoxSyncMode.UseVisualStyleBackColor = true;
             this.checkBoxSyncMode.CheckedChanged += new System.EventHandler(this.checkBoxSyncMode_CheckedChanged);
             // 
@@ -363,21 +253,15 @@ namespace SyncFolders
             // 
             // checkBoxIgnoreTime
             // 
-            this.checkBoxIgnoreTime.AutoSize = true;
-            this.checkBoxIgnoreTime.Enabled = false;
-            this.checkBoxIgnoreTime.Location = new System.Drawing.Point(242, 164);
+            resources.ApplyResources(this.checkBoxIgnoreTime, "checkBoxIgnoreTime");
             this.checkBoxIgnoreTime.Name = "checkBoxIgnoreTime";
-            this.checkBoxIgnoreTime.Size = new System.Drawing.Size(326, 20);
-            this.checkBoxIgnoreTime.TabIndex = 23;
-            this.checkBoxIgnoreTime.Text = "Ignore Time Difference betwen File and Checksum";
             this.checkBoxIgnoreTime.UseVisualStyleBackColor = true;
             this.checkBoxIgnoreTime.CheckedChanged += new System.EventHandler(this.checkBoxIgnoreTime_CheckedChanged);
             // 
             // FormSyncFolders
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(580, 405);
             this.Controls.Add(this.checkBoxIgnoreTime);
             this.Controls.Add(this.checkBoxSyncMode);
             this.Controls.Add(this.checkBoxParallel);
@@ -402,13 +286,10 @@ namespace SyncFolders
             this.Controls.Add(this.buttonSelectFirstFolder);
             this.Controls.Add(this.textBoxFirstFolder);
             this.Controls.Add(this.labelFolder1);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "FormSyncFolders";
             this.ShowIcon = false;
-            this.Text = "Sync Folders v1.4";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormSyncFolders_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
