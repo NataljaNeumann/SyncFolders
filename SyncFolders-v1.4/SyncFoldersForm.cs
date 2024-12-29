@@ -5795,6 +5795,11 @@ namespace SyncFolders
             }
         }
 
+        private void labelProgress_Click(object sender, EventArgs e)
+        {
+
+        }
+
 
     }
 }

@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="labelFolder1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>19, 14</value>
+  </data>
+  <data name="labelFolder1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>74, 20</value>
+  </data>
+  <data name="labelFolder1.Text" xml:space="preserve">
+    <value>पहला फ़ोल्डर:</value>
+  </data>
+  <data name="textBoxFirstFolder.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 39</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="textBoxFirstFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="textBoxFirstFolder.Size" type="System.Drawing.Size, System.Drawing">
+    <value>658, 26</value>
+  </data>
+  <data name="buttonSelectFirstFolder.Location" type="System.Drawing.Point, System.Drawing">
+    <value>690, 35</value>
+  </data>
+  <data name="buttonSelectFirstFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="buttonSelectFirstFolder.Size" type="System.Drawing.Size, System.Drawing">
+    <value>48, 35</value>
+  </data>
+  <data name="labelSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
+    <value>19, 73</value>
+  </data>
+  <data name="labelSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
+    <value>73, 20</value>
+  </data>
+  <data name="labelSecondFolder.Text" xml:space="preserve">
+    <value>दूसरा फ़ोल्डर:</value>
+  </data>
+  <data name="textBoxSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 98</value>
+  </data>
+  <data name="textBoxSecondFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="textBoxSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
+    <value>649, 26</value>
+  </data>
+  <data name="buttonSelectSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
+    <value>690, 94</value>
+  </data>
+  <data name="buttonSelectSecondFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="buttonSelectSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
+    <value>48, 35</value>
+  </data>
+  <data name="checkBoxCreateRestoreInfo.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left</value>
+  </data>
+  <data name="checkBoxCreateRestoreInfo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 247</value>
+  </data>
+  <data name="checkBoxCreateRestoreInfo.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="checkBoxCreateRestoreInfo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>420, 24</value>
+  </data>
+  <data name="checkBoxCreateRestoreInfo.Text" xml:space="preserve">
+    <value>यदि कोई ब्लॉक गायब है तो उसे पुनर्स्थापित करने के लिए कुछ जानकारी सहेजा जा रहा है</value>
+  </data>
+  <data name="checkBoxTestAllFiles.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left</value>
+  </data>
+  <data name="checkBoxTestAllFiles.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 273</value>
+  </data>
+  <data name="checkBoxTestAllFiles.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="checkBoxTestAllFiles.Size" type="System.Drawing.Size, System.Drawing">
+    <value>199, 24</value>
+  </data>
+  <data name="checkBoxTestAllFiles.Text" xml:space="preserve">
+    <value>सभी फ़ाइलों की पठनीयता का परीक्षण</value>
+  </data>
+  <data name="checkBoxRepairBlockFailures.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left</value>
+  </data>
+  <data name="checkBoxRepairBlockFailures.Location" type="System.Drawing.Point, System.Drawing">
+    <value>42, 301</value>
+  </data>
+  <data name="checkBoxRepairBlockFailures.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="checkBoxRepairBlockFailures.Size" type="System.Drawing.Size, System.Drawing">
+    <value>220, 24</value>
+  </data>
+  <data name="checkBoxRepairBlockFailures.Text" xml:space="preserve">
+    <value>एकल ब्लॉक विफलताओं की मरम्मत करना</value>
+  </data>
+  <data name="buttonSync.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="buttonSync.Location" type="System.Drawing.Point, System.Drawing">
+    <value>500, 409</value>
+  </data>
+  <data name="buttonSync.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="buttonSync.Size" type="System.Drawing.Size, System.Drawing">
+    <value>112, 35</value>
+  </data>
+  <data name="buttonSync.Text" xml:space="preserve">
+    <value>साथ-साथ करना</value>
+  </data>
+  <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>621, 409</value>
+  </data>
+  <data name="buttonCancel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="buttonCancel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>117, 35</value>
+  </data>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>ऑपरेशन रद्द करें</value>
+  </data>
+  <data name="progressBar1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 409</value>
+  </data>
+  <data name="progressBar1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="progressBar1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>590, 35</value>
+  </data>
+  <data name="buttonSelfTest.Location" type="System.Drawing.Point, System.Drawing">
+    <value>626, 132</value>
+  </data>
+  <data name="buttonSelfTest.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="buttonSelfTest.Size" type="System.Drawing.Size, System.Drawing">
+    <value>112, 35</value>
+  </data>
+  <data name="buttonSelfTest.Text" xml:space="preserve">
+    <value>आत्मपरीक्षण</value>
+  </data>
+  <data name="checkBoxPreferCopies.Location" type="System.Drawing.Point, System.Drawing">
+    <value>64, 326</value>
+  </data>
+  <data name="checkBoxPreferCopies.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="checkBoxPreferCopies.Size" type="System.Drawing.Size, System.Drawing">
+    <value>424, 24</value>
+  </data>
+  <data name="checkBoxPreferCopies.Text" xml:space="preserve">
+    <value>मरम्मत के दौरान टकराव की स्थिति में भौतिक प्रतियों को प्राथमिकता देना (अनुशंसित नहीं)</value>
+  </data>
+  <data name="labelProgress.Location" type="System.Drawing.Point, System.Drawing">
+    <value>24, 327</value>
+  </data>
+  <data name="labelProgress.Size" type="System.Drawing.Size, System.Drawing">
+    <value>710, 73</value>
+  </data>
+  <data name="checkBoxFirstToSecond.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 138</value>
+  </data>
+  <data name="checkBoxFirstToSecond.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
+  </data>
+  <data name="checkBoxFirstToSecond.Size" type="System.Drawing.Size, System.Drawing">
+    <value>294, 24</value>
+  </data>
+  <data name="checkBoxFirstToSecond.Text" xml:space="preserve">
+    <value>यूनिडायरेक्शनल रूप से, पहले फ़ोल्डर से दूसरे फ़ोल्डर तक</value>
+  </data>
+  <data name="checkBoxFirstReadonly.Location" type="System.Drawing.Point, System.Drawing">
+    <value>42, 163</value>
+  </data>
+  <data name="checkBoxFirstReadonly.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
+  </data>
+  <data name="checkBoxFirstReadonly.Size" type="System.Drawing.Size, System.Drawing">
+    <value>229, 24</value>
+  </data>
+  <data name="checkBoxFirstReadonly.Text" xml:space="preserve">
+    <value>पहला फ़ोल्डर परिवर्तनीय नहीं है (उदा. सीडी)</value>
+  </data>
+  <data name="checkBoxDeleteFilesInSecond.Location" type="System.Drawing.Point, System.Drawing">
+    <value>42, 191</value>
+  </data>
+  <data name="checkBoxDeleteFilesInSecond.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
+  </data>
+  <data name="checkBoxDeleteFilesInSecond.Size" type="System.Drawing.Size, System.Drawing">
+    <value>362, 24</value>
+  </data>
+  <data name="checkBoxDeleteFilesInSecond.Text" xml:space="preserve">
+    <value>दूसरे फ़ोल्डर में मौजूद उन फ़ाइलों को हटाएं जो अब पहले फ़ोल्डर में नहीं हैं</value>
+  </data>
+  <data name="linkLabelAbout.Location" type="System.Drawing.Point, System.Drawing">
+    <value>25, 416</value>
+  </data>
+  <data name="linkLabelAbout.Size" type="System.Drawing.Size, System.Drawing">
+    <value>123, 20</value>
+  </data>
+  <data name="linkLabelAbout.Text" xml:space="preserve">
+    <value>"सिंक फ़ोल्डर्स" के बारे में</value>
+  </data>
+  <data name="linkLabelLicence.Location" type="System.Drawing.Point, System.Drawing">
+    <value>212, 416</value>
+  </data>
+  <data name="linkLabelLicence.Size" type="System.Drawing.Size, System.Drawing">
+    <value>111, 20</value>
+  </data>
+  <data name="linkLabelLicence.Text" xml:space="preserve">
+    <value>लाइसेंस (GPL v2)</value>
+  </data>
+  <data name="checkBoxSkipRecentlyTested.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left</value>
+  </data>
+  <data name="checkBoxSkipRecentlyTested.Location" type="System.Drawing.Point, System.Drawing">
+    <value>219, 273</value>
+  </data>
+  <data name="checkBoxSkipRecentlyTested.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
+  </data>
+  <data name="checkBoxSkipRecentlyTested.Size" type="System.Drawing.Size, System.Drawing">
+    <value>204, 24</value>
+  </data>
+  <data name="checkBoxSkipRecentlyTested.Text" xml:space="preserve">
+    <value>यदि हाल ही में परीक्षण नहीं किया गया है</value>
+  </data>
+  <data name="checkBoxParallel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>429, 138</value>
+  </data>
+  <data name="checkBoxParallel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
+  </data>
+  <data name="checkBoxParallel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>71, 24</value>
+  </data>
+  <data name="checkBoxParallel.Text" xml:space="preserve">
+    <value>समानांतर</value>
+  </data>
+  <data name="checkBoxSyncMode.Location" type="System.Drawing.Point, System.Drawing">
+    <value>331, 138</value>
+  </data>
+  <data name="checkBoxSyncMode.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
+  </data>
+  <data name="checkBoxSyncMode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>73, 24</value>
+  </data>
+  <data name="checkBoxSyncMode.Text" xml:space="preserve">
+    <value>सिंक मोड</value>
+  </data>
+  <data name="checkBoxIgnoreTime.Location" type="System.Drawing.Point, System.Drawing">
+    <value>42, 221</value>
+  </data>
+  <data name="checkBoxIgnoreTime.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
+  </data>
+  <data name="checkBoxIgnoreTime.Size" type="System.Drawing.Size, System.Drawing">
+    <value>638, 24</value>
+  </data>
+  <data name="checkBoxIgnoreTime.Text" xml:space="preserve">
+    <value>फ़ाइल और सहेजी गई जानकारी के बीच समय के अंतर पर ध्यान न देंफ़ाइल और सहेजी गई जानकारी के बीच समय के अंतर पर ध्यान न दें</value>
+  </data>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>9, 20</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>753, 467</value>
+  </data>
+  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 12pt</value>
+  </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>Inherit</value>
+  </data>
+  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>फ़ोल्डर सिंक करें v1.4</value>
+  </data>
+</root>
