@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="labelFolder1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>106, 16</value>
+  </data>
+  <data name="labelFolder1.Text" xml:space="preserve">
+    <value>第一個資料夾：</value>
+  </data>
+  <data name="textBoxFirstFolder.Size" type="System.Drawing.Size, System.Drawing">
+    <value>521, 22</value>
+  </data>
+  <data name="buttonSelectFirstFolder.Location" type="System.Drawing.Point, System.Drawing">
+    <value>556, 33</value>
+  </data>
+  <data name="labelSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
+    <value>106, 16</value>
+  </data>
+  <data name="labelSecondFolder.Text" xml:space="preserve">
+    <value>第二個資料夾：</value>
+  </data>
+  <data name="textBoxSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
+    <value>521, 22</value>
+  </data>
+  <data name="buttonSelectSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
+    <value>556, 89</value>
+  </data>
+  <data name="checkBoxCreateRestoreInfo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 219</value>
+  </data>
+  <data name="checkBoxCreateRestoreInfo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>298, 20</value>
+  </data>
+  <data name="checkBoxCreateRestoreInfo.Text" xml:space="preserve">
+    <value>保存一些資訊以恢復單一區塊（如果遺失）</value>
+  </data>
+  <data name="checkBoxTestAllFiles.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 247</value>
+  </data>
+  <data name="checkBoxTestAllFiles.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 20</value>
+  </data>
+  <data name="checkBoxTestAllFiles.Text" xml:space="preserve">
+    <value>測試所有文件的可讀性</value>
+  </data>
+  <data name="checkBoxRepairBlockFailures.Location" type="System.Drawing.Point, System.Drawing">
+    <value>37, 275</value>
+  </data>
+  <data name="checkBoxRepairBlockFailures.Size" type="System.Drawing.Size, System.Drawing">
+    <value>117, 20</value>
+  </data>
+  <data name="checkBoxRepairBlockFailures.Text" xml:space="preserve">
+    <value>修復單塊故障</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="buttonSync.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="buttonSync.Location" type="System.Drawing.Point, System.Drawing">
+    <value>388, 357</value>
+  </data>
+  <data name="buttonSync.Text" xml:space="preserve">
+    <value>同步</value>
+  </data>
+  <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>496, 357</value>
+  </data>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>取消操作</value>
+  </data>
+  <data name="progressBar1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>24, 357</value>
+  </data>
+  <data name="progressBar1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>464, 28</value>
+  </data>
+  <data name="buttonSelfTest.Location" type="System.Drawing.Point, System.Drawing">
+    <value>499, 131</value>
+  </data>
+  <data name="buttonSelfTest.Text" xml:space="preserve">
+    <value>自檢</value>
+  </data>
+  <data name="checkBoxPreferCopies.Size" type="System.Drawing.Size, System.Drawing">
+    <value>368, 20</value>
+  </data>
+  <data name="checkBoxPreferCopies.Text" xml:space="preserve">
+    <value>優先使用實體副本，以防修復期間發生衝突（不建議）</value>
+  </data>
+  <data name="labelProgress.Location" type="System.Drawing.Point, System.Drawing">
+    <value>21, 299</value>
+  </data>
+  <data name="labelProgress.Size" type="System.Drawing.Size, System.Drawing">
+    <value>575, 53</value>
+  </data>
+  <data name="checkBoxFirstToSecond.Size" type="System.Drawing.Size, System.Drawing">
+    <value>277, 20</value>
+  </data>
+  <data name="checkBoxFirstToSecond.Text" xml:space="preserve">
+    <value>單向，從第一個資料夾到第二個資料夾</value>
+  </data>
+  <data name="checkBoxFirstReadonly.Size" type="System.Drawing.Size, System.Drawing">
+    <value>245, 20</value>
+  </data>
+  <data name="checkBoxFirstReadonly.Text" xml:space="preserve">
+    <value>第一個資料夾不可更改（例如 CD）</value>
+  </data>
+  <data name="checkBoxDeleteFilesInSecond.Size" type="System.Drawing.Size, System.Drawing">
+    <value>372, 20</value>
+  </data>
+  <data name="checkBoxDeleteFilesInSecond.Text" xml:space="preserve">
+    <value>刪除第二個資料夾中不再位於第一個資料夾中的文件</value>
+  </data>
+  <data name="linkLabelAbout.Location" type="System.Drawing.Point, System.Drawing">
+    <value>26, 363</value>
+  </data>
+  <data name="linkLabelAbout.Size" type="System.Drawing.Size, System.Drawing">
+    <value>121, 16</value>
+  </data>
+  <data name="linkLabelAbout.Text" xml:space="preserve">
+    <value>關於“同步資料夾”</value>
+  </data>
+  <data name="linkLabelLicence.Location" type="System.Drawing.Point, System.Drawing">
+    <value>192, 363</value>
+  </data>
+  <data name="linkLabelLicence.Size" type="System.Drawing.Size, System.Drawing">
+    <value>92, 16</value>
+  </data>
+  <data name="linkLabelLicence.Text" xml:space="preserve">
+    <value>執照 (GPL v2)</value>
+  </data>
+  <data name="checkBoxSkipRecentlyTested.Location" type="System.Drawing.Point, System.Drawing">
+    <value>204, 247</value>
+  </data>
+  <data name="checkBoxSkipRecentlyTested.Size" type="System.Drawing.Size, System.Drawing">
+    <value>132, 20</value>
+  </data>
+  <data name="checkBoxSkipRecentlyTested.Text" xml:space="preserve">
+    <value>如果最近未測試</value>
+  </data>
+  <data name="checkBoxParallel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>396, 136</value>
+  </data>
+  <data name="checkBoxParallel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>72, 20</value>
+  </data>
+  <data name="checkBoxParallel.Text" xml:space="preserve">
+    <value>平行線</value>
+  </data>
+  <data name="checkBoxSyncMode.Location" type="System.Drawing.Point, System.Drawing">
+    <value>303, 136</value>
+  </data>
+  <data name="checkBoxSyncMode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>87, 20</value>
+  </data>
+  <data name="checkBoxSyncMode.Text" xml:space="preserve">
+    <value>同步模式</value>
+  </data>
+  <data name="checkBoxIgnoreTime.Location" type="System.Drawing.Point, System.Drawing">
+    <value>276, 164</value>
+  </data>
+  <data name="checkBoxIgnoreTime.Size" type="System.Drawing.Size, System.Drawing">
+    <value>252, 20</value>
+  </data>
+  <data name="checkBoxIgnoreTime.Text" xml:space="preserve">
+    <value>忽略文件和保存資訊之間的時間差</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>612, 404</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>同步資料夾 v1.4</value>
+  </data>
+</root>
