@@ -587,8 +587,11 @@ namespace SyncFolders
              EventArgs oEventArgs
              )
         {
-            // replace default abstraction with error simulation
+            // replace file abstraction layer with default, as long as we create all the files
+            m_iFileOpenAndCopyAbstraction = new FileOpenAndCopyDirectly();
+            // but collect simulated errors for later exchange of the file layer
             Dictionary<string, List<long>> oSimulatedReadErrors = new Dictionary<string, List<long>>();
+            DateTime dtmTimeForFile = DateTime.UtcNow;
 
             if (string.IsNullOrEmpty(textBoxFirstFolder.Text))
                 textBoxFirstFolder.Text = Application.StartupPath + "\\TestFolder1";
@@ -619,6 +622,8 @@ namespace SyncFolders
 
             foreach (System.IO.DirectoryInfo di3 in di2.GetDirectories())
                 di3.Delete(true);
+
+            //*
 
             using (System.IO.StreamWriter w =
                 new System.IO.StreamWriter(System.IO.Path.Combine(
@@ -811,7 +816,6 @@ namespace SyncFolders
                 "TestPicture2.jpg"), dtmOld);
 
             // non-restorable test
-            DateTime dtmTimeForFile = DateTime.UtcNow;
             string strPathOfTestFile1 = CreateSelfTestFile(textBoxFirstFolder.Text, 
                 "NonRestorableBecauseNoSaveInfo.dat", 2, false, 
                 dtmTimeForFile, dtmTimeForFile);
@@ -826,6 +830,33 @@ namespace SyncFolders
 
             // add simulated read errors for this file
             oSimulatedReadErrors[strPathOfTestFile2] = new List<long>(new long[] { 4096 });
+
+            // restore older healthy from backup
+            string strPathOfTestFile3 = CreateSelfTestFile(textBoxFirstFolder.Text,
+                "RestoreOldFromBackup.dat", 2, false,
+                dtmTimeForFile, dtmTimeForFile);
+
+            // add simulated read errors for this file
+            oSimulatedReadErrors[strPathOfTestFile3] = new List<long>(new long[] { 4096 });
+
+            strPathOfTestFile3 = CreateSelfTestFile(textBoxSecondFolder.Text,
+                "RestoreOldFromBackup.dat", 2, false,
+                dtmTimeForFile.AddDays(-1), dtmTimeForFile.AddDays(-1));
+            
+
+            // restore older healthy from backup
+            string strPathOfTestFile4 = CreateSelfTestFile(textBoxFirstFolder.Text,
+                "RestoreOldFromBackupWithRepairingBackup.dat", 2, false,
+                dtmTimeForFile, dtmTimeForFile);
+
+            // add simulated read errors for this file
+            oSimulatedReadErrors[strPathOfTestFile4] = new List<long>(new long[] { 0 });
+
+            strPathOfTestFile4 = CreateSelfTestFile(textBoxSecondFolder.Text,
+                "RestoreOldFromBackupWithRepairingBackup.dat", 2, true,
+                dtmTimeForFile.AddDays(-1), dtmTimeForFile.AddDays(-1));
+
+            oSimulatedReadErrors[strPathOfTestFile4] = new List<long>(new long[] { 4096 });
 
             // replace default abstraction with error simulation
             m_iFileOpenAndCopyAbstraction = new FileOpenAndCopyWithSimulatedErrors(oSimulatedReadErrors);
@@ -1878,7 +1909,7 @@ namespace SyncFolders
                             fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
                     bool bForceCreateInfo = false;
                     if (_bRepairFiles)
-                        TestAndRepairSingleFile(fi2.FullName, fiSavedInfo2.FullName, ref bForceCreateInfo);
+                        TestAndRepairSingleFile(fi2.FullName, fiSavedInfo2.FullName, ref bForceCreateInfo, false);
                     else
                         TestSingleFile(fi2.FullName, fiSavedInfo2.FullName, 
                             ref bForceCreateInfo, true, !_bSkipRecentlyTested, true);
@@ -2165,7 +2196,7 @@ namespace SyncFolders
                     if (_bRepairFiles)
                         TestAndRepairSingleFile(strFilePath2, CreatePathOfChkFile(
                             fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"), 
-                            ref bForceCreateInfoBecauseDamaged);
+                            ref bForceCreateInfoBecauseDamaged, false);
                     else
                         bOK = TestSingleFile(strFilePath2, CreatePathOfChkFile(
                             fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"), 
@@ -2273,7 +2304,7 @@ namespace SyncFolders
 
                     if (_bRepairFiles)
                         TestAndRepairSingleFile(fi2.FullName, fiSavedInfo2.FullName, 
-                            ref bForceCreateInfo);
+                            ref bForceCreateInfo, false);
                     else
                         bOK = TestSingleFile(fi2.FullName, fiSavedInfo2.FullName, 
                             ref bForceCreateInfo, true, !_bSkipRecentlyTested, true);
@@ -2407,7 +2438,7 @@ namespace SyncFolders
                         {
                             bOK = TestAndRepairSingleFile(strFilePath2, CreatePathOfChkFile(
                                 fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"),
-                                ref bForceCreateInfo);
+                                ref bForceCreateInfo, false);
                         }
 
                         if (bOK && bForceCreateInfo)
@@ -2422,8 +2453,8 @@ namespace SyncFolders
                         if (!bOK)
                         {
                             bOK = TestSingleFile(strFilePath1, CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"), ref bForceCreateInfo, true, true, true);
-                            if (!bOK && TestSingleFileHealthyOrCanRepair(strFilePath1, CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"), ref bForceCreateInfo))
-                                bOK = TestAndRepairSingleFile(strFilePath1, CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"), ref bForceCreateInfo);
+                            if (!bOK)
+                                bOK = TestAndRepairSingleFile(strFilePath1, CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"), ref bForceCreateInfo, true);
 
                             if (bOK && bForceCreateInfo)
                             {
@@ -2452,11 +2483,9 @@ namespace SyncFolders
 
                         if (!bOK && _bRepairFiles)
                         {
-                            if (TestSingleFileHealthyOrCanRepair(strFilePath1,
-                                CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo",
-                                fi1.Name, ".chk"), ref bForceCreateInfo))
+                            if (TestAndRepairSingleFile(strFilePath1, CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"), ref bForceCreateInfo, true))
                             {
-                                bOK = TestAndRepairSingleFile(strFilePath1, CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"), ref bForceCreateInfo);
+                                bOK = true;
                             }
 
                             if (bOK && bForceCreateInfo)
@@ -2470,8 +2499,8 @@ namespace SyncFolders
                             if (!bOK)
                             {
                                 bOK = TestSingleFile(strFilePath2, CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"), ref bForceCreateInfo, true, true, true);
-                                if (!bOK && TestSingleFileHealthyOrCanRepair(strFilePath2, CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"), ref bForceCreateInfo))
-                                    bOK = TestAndRepairSingleFile(strFilePath2, CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"), ref bForceCreateInfo);
+                                if (!bOK)
+                                    bOK = TestAndRepairSingleFile(strFilePath2, CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"), ref bForceCreateInfo, true);
 
                                 if (bOK && bForceCreateInfo)
                                 {
@@ -2655,7 +2684,7 @@ namespace SyncFolders
                             fi1.FullName, ", trying to automatically repair");
                         if (_bTestFiles && _bRepairFiles)
                             TestAndRepairSingleFile(fi1.FullName, 
-                                fiSavedInfo1.FullName, ref bForceCreateInfo);
+                                fiSavedInfo1.FullName, ref bForceCreateInfo, false);
                         if (bInTheEndOK)
                             bInTheEndOK = CopyRepairSingleFile(strFilePath2, 
                                 fi1.FullName, fiSavedInfo1.FullName, 
@@ -2826,22 +2855,19 @@ namespace SyncFolders
                     if (!_bTestFiles || !_bRepairFiles)
                     {
                         WriteLog(0, "Running without repair option, "
-                        + "so couldn't decide, if the file can be restored ", 
-                        fi1.FullName, ", ", fi2.FullName);
+                        + "so couldn't decide, if the file ",  
+                        fi1.FullName, " can be restored using ", fi2.FullName);
                         // first failed,  still need to test the second
                         if (_bTestFiles)
                         {
-                            TestSingleFile(strFilePath2, 
-                                CreatePathOfChkFile(fi2.DirectoryName, 
-                                "RestoreInfo", fi2.Name, ".chk"), ref bForceCreateInfo2, true
-                              , !_bSkipRecentlyTested, true);
+                            TestSingleFileHealthyOrCanRepair(strFilePath2, fiSavedInfo2.FullName, ref bForceCreateInfo2);
                         }
                         return;
                     }
 
                     // first try to copy the first/needed file, if it can be restored
                     if (TestSingleFileHealthyOrCanRepair(strFilePath1, fiSavedInfo1.FullName, ref bForceCreateInfo1) &&
-                        TestAndRepairSingleFile(strFilePath1, fiSavedInfo1.FullName, ref bForceCreateInfo1))
+                        TestAndRepairSingleFile(strFilePath1, fiSavedInfo1.FullName, ref bForceCreateInfo1, true))
                     {
                         if (bForceCreateInfo1)
                         {
@@ -2861,9 +2887,7 @@ namespace SyncFolders
                     if (!bCopied1To2)
                     {
                         // well, then try the second, older file. Let's see if it is OK, or can be restored in place
-                        if ((TestSingleFile(strFilePath2, fiSavedInfo2.FullName, ref bForceCreateInfo2, true, true, true) ||
-                                (TestSingleFileHealthyOrCanRepair(strFilePath2, fiSavedInfo2.FullName, ref bForceCreateInfo2) &&
-                                 TestAndRepairSingleFile(strFilePath2, fiSavedInfo2.FullName, ref bForceCreateInfo2)))
+                        if (TestAndRepairSingleFile(strFilePath2, fiSavedInfo2.FullName, ref bForceCreateInfo2, true)
                              && fi2.LastWriteTime.Year>1975)
                         {
                             WriteLog(0, "Warning: Encountered I/O error while copying ", 
@@ -2877,7 +2901,7 @@ namespace SyncFolders
                                 ". Other file has errors as well: ", strFilePath2, 
                                 ", or is a product of last chance restore, trying to automatically repair ", 
                                 strFilePath1);
-                            TestAndRepairSingleFile(fi1.FullName, fiSavedInfo1.FullName, ref bForceCreateInfo1);
+                            TestAndRepairSingleFile(fi1.FullName, fiSavedInfo1.FullName, ref bForceCreateInfo1, false);
                             bForceCreateInfo2 = false;
 
                             CopyRepairSingleFile(strFilePath2, fi1.FullName, fiSavedInfo1.FullName, 
@@ -2922,7 +2946,7 @@ namespace SyncFolders
                 if (!_bTestFiles || !_bRepairFiles)
                 {
                     WriteLog(0, "Running without repair option, so couldn't decide, " +
-                    "if the file can be restored ", fi1.FullName, ", ", fi2.FullName);
+                    "if the file ", fi1.FullName, " can be restored using ", fi2.FullName);
                     return;
                 }
 
@@ -3287,8 +3311,8 @@ namespace SyncFolders
             }
             catch (System.IO.IOException ex)
             {
-                WriteLog(1, "I/O Error while processing file: \"", 
-                    finfo.FullName, "\": " + ex.Message);
+                WriteLog(0, "Warning: I/O Error while copying file: \"", 
+                    finfo.FullName, "\" to \"", strTargetPath, "\": " + ex.Message);
                 return false;
             }
 
@@ -3704,6 +3728,8 @@ namespace SyncFolders
                                     throw;
                             }
 
+                            bAllBlocksOK = false;
+
                             WriteLog(1, "I/O Error reading file: \"", 
                                 finfo.FullName, "\", offset ", 
                                 index * b.Length, ": " + ex.Message);
@@ -3809,7 +3835,8 @@ namespace SyncFolders
         bool TestAndRepairSingleFile(
             string strPathFile, 
             string strPathSavedInfoFile, 
-            ref bool bForceCreateInfo
+            ref bool bForceCreateInfo,
+            bool bOnlyIfCompletelyRecoverable
             )
         {
             System.IO.FileInfo finfo = new System.IO.FileInfo(strPathFile);
@@ -3866,8 +3893,9 @@ namespace SyncFolders
                         "\": it was created for another version of the file");
 
                 using (System.IO.FileStream s = m_iFileOpenAndCopyAbstraction.Open(
-                    finfo.FullName, System.IO.FileMode.Open, 
-                    System.IO.FileAccess.ReadWrite, System.IO.FileShare.Read))
+                    finfo.FullName, System.IO.FileMode.Open,
+                    bOnlyIfCompletelyRecoverable ? System.IO.FileAccess.Read : System.IO.FileAccess.ReadWrite,
+                    System.IO.FileShare.Read))
                 {
                     Block b = Block.GetBlock();
                     for (long index = 0; ; index++)
@@ -3884,16 +3912,27 @@ namespace SyncFolders
                             for (int i = b.Length - 1; i >= 0; --i)
                                 b[i] = 0;
 
-                            WriteLog(0, "Error while reading file ", finfo.FullName, 
-                                " position ", index * b.Length, ": ", ex.Message, 
-                                ". Block will be filled with a dummy");
-                            s.Seek(index * b.Length, System.IO.SeekOrigin.Begin);
-                            int lengthToWrite = 
-                                (int)(finfo.Length - index * b.Length > b.Length ? 
-                                    b.Length : 
+                            int lengthToWrite =
+                                (int)(finfo.Length - index * b.Length > b.Length ?
+                                    b.Length :
                                     finfo.Length - index * b.Length);
-                            if (lengthToWrite>0)
-                                b.WriteTo(s, lengthToWrite);
+
+                            if (bOnlyIfCompletelyRecoverable)
+                            {
+                                // we can't recover, so put only messages, don't write to file
+                                WriteLog(1, "I/O error reading file ", finfo.FullName,
+                                    " position ", index * b.Length, ": ", ex.Message);
+                                s.Seek(index * b.Length + lengthToWrite, System.IO.SeekOrigin.Begin);
+                            }
+                            else
+                            {
+                                WriteLog(0, "Error while reading file ", finfo.FullName,
+                                    " position ", index * b.Length, ": ", ex.Message,
+                                    ". Block will be filled with a dummy");
+                                s.Seek(index * b.Length, System.IO.SeekOrigin.Begin);
+                                if (lengthToWrite > 0)
+                                    b.WriteTo(s, lengthToWrite);
+                            }
                             bAllBlocksOk = false;
                         }
                     }
@@ -4007,69 +4046,91 @@ namespace SyncFolders
                 List<RestoreInfo> rinfos = si.EndRestore(
                     out nonRestoredSize, fiSavedInfo.FullName, this);
                 if (nonRestoredSize > 0)
-                    bForceCreateInfo = true;
-
-                using (System.IO.FileStream s =
-                    m_iFileOpenAndCopyAbstraction.OpenWrite(finfo.FullName))
                 {
-                    foreach (RestoreInfo ri in rinfos)
+                    bForceCreateInfo = true;
+                }
+
+                if (nonRestoredSize == 0 || !bOnlyIfCompletelyRecoverable)
+                {
+                    using (System.IO.FileStream s =
+                        m_iFileOpenAndCopyAbstraction.OpenWrite(finfo.FullName))
                     {
-                        if (ri.NotRecoverableArea)
+                        foreach (RestoreInfo ri in rinfos)
                         {
-                            if (readableButNotAccepted.ContainsKey(ri.Position / ri.Data.Length))
-                                WriteLog(1, "Keeping readable but not recoverable block at offset ", 
-                                    ri.Position, ", checksum indicates the block is wrong");
+                            if (ri.NotRecoverableArea)
+                            {
+                                if (readableButNotAccepted.ContainsKey(ri.Position / ri.Data.Length))
+                                    WriteLog(1, "Keeping readable but not recoverable block at offset ",
+                                        ri.Position, ", checksum indicates the block is wrong");
+                                else
+                                {
+                                    s.Seek(ri.Position, System.IO.SeekOrigin.Begin);
+                                    WriteLog(1, "Filling not recoverable block at offset ",
+                                        ri.Position, " with a dummy block");
+                                    int lengthToWrite = (int)(si.Length - ri.Position >= ri.Data.Length ?
+                                        ri.Data.Length :
+                                        si.Length - ri.Position);
+                                    if (lengthToWrite > 0)
+                                        ri.Data.WriteTo(s, lengthToWrite);
+                                }
+                                bForceCreateInfo = true;
+                            }
                             else
                             {
                                 s.Seek(ri.Position, System.IO.SeekOrigin.Begin);
-                                WriteLog(1, "Filling not recoverable block at offset ", 
-                                    ri.Position, " with a dummy block");
-                                int lengthToWrite = (int)(si.Length - ri.Position >= ri.Data.Length ? 
-                                    ri.Data.Length : 
+                                WriteLog(1, "Recovering block at offset ",
+                                    ri.Position, " of the file ", finfo.FullName);
+                                int lengthToWrite = (int)(si.Length - ri.Position >= ri.Data.Length ?
+                                    ri.Data.Length :
                                     si.Length - ri.Position);
                                 if (lengthToWrite > 0)
-                                    ri.Data.WriteTo(s,lengthToWrite);
+                                    ri.Data.WriteTo(s, lengthToWrite);
                             }
-                            bForceCreateInfo = true;
                         }
-                        else
-                        {
-                            s.Seek(ri.Position, System.IO.SeekOrigin.Begin);
-                            WriteLog(1, "Recovering block at offset ", 
-                                ri.Position, " of the file ", finfo.FullName);
-                            int lengthToWrite = (int)(si.Length - ri.Position >= ri.Data.Length ? 
-                                ri.Data.Length : 
-                                si.Length - ri.Position);
-                            if (lengthToWrite > 0)
-                                ri.Data.WriteTo(s, lengthToWrite);
-                        }
+
+                        s.Close();
+                    }
+                }
+
+                if (bOnlyIfCompletelyRecoverable && nonRestoredSize != 0)
+                {
+                    if (rinfos.Count > 1)
+                        WriteLog(0, "There are ", rinfos.Count,
+                            " bad blocks in the file ", finfo.FullName,
+                            ", non-restorable parts: ", nonRestoredSize, " bytes, file can't be used as backup");
+                    else
+                        if (rinfos.Count > 0)
+                            WriteLog(0, "There is one bad block in the file ", finfo.FullName,
+                                " and it can't be restored: ", nonRestoredSize, " bytes, file can't be used as backup");
+
+                    finfo.LastWriteTimeUtc = prevLastWriteTime;
+                }
+                else
+                {
+                    if (rinfos.Count > 1)
+                        WriteLog(0, "There were ", rinfos.Count,
+                            " bad blocks in the file ", finfo.FullName,
+                            ", not restored parts: ", nonRestoredSize, " bytes");
+                    else
+                        if (rinfos.Count > 0)
+                            WriteLog(0, "There was one bad block in the file ", finfo.FullName,
+                                ", not restored parts: ", nonRestoredSize, " bytes");
+
+                    if (nonRestoredSize == 0 && rinfos.Count == 0)
+                    {
+                        CreateOrUpdateFileChecked(strPathSavedInfoFile);
                     }
 
-                    s.Close();
+                    if (nonRestoredSize > 0)
+                    {
+                        int countErrors = (int)(nonRestoredSize / (Block.GetBlock().Length));
+                        finfo.LastWriteTime = new DateTime(1975, 9, 24 - countErrors / 60 / 24, 23 -
+                            (countErrors / 60) % 24, 59 - countErrors % 60, 0);
+                        bForceCreateInfo = true;
+                    }
+                    else
+                        finfo.LastWriteTimeUtc = prevLastWriteTime;
                 }
-
-                if (rinfos.Count > 1)
-                    WriteLog(0, "There were ", rinfos.Count, 
-                        " bad blocks in the file ", finfo.FullName, 
-                        ", not restored parts: ", nonRestoredSize, " bytes");
-                else
-                    if (rinfos.Count > 0)
-                    WriteLog(0, "There was one bad block in the file ", finfo.FullName, 
-                        ", not restored parts: ", nonRestoredSize, " bytes");
-
-                if (nonRestoredSize == 0 && rinfos.Count == 0)
-                {
-                    CreateOrUpdateFileChecked(strPathSavedInfoFile);
-                }
-
-                if (nonRestoredSize > 0)
-                {
-                    int countErrors = (int)(nonRestoredSize / (Block.GetBlock().Length));
-                    finfo.LastWriteTime = new DateTime(1975, 9, 24 - countErrors / 60 / 24, 23 - 
-                        (countErrors / 60) % 24, 59 - countErrors % 60, 0);
-                    bForceCreateInfo = true;
-                } else
-                    finfo.LastWriteTimeUtc = prevLastWriteTime;
 
                 return nonRestoredSize == 0;
             }
@@ -4780,9 +4841,9 @@ namespace SyncFolders
             if (string.Equals(strPathTargetFile, strPathFile, 
                 StringComparison.InvariantCultureIgnoreCase))
             {
-                if (_bRepairFiles)
+                if (_bTestFiles && _bRepairFiles)
                     return TestAndRepairSingleFile(strPathFile, strPathSavedInfoFile, 
-                        ref bForceCreateInfo);
+                        ref bForceCreateInfo, false);
                 else
                 {
                     if (_bTestFiles)
@@ -5694,7 +5755,8 @@ namespace SyncFolders
                 System.DateTime now = utc.ToLocalTime();
                 lock (_logFile)
                 {
-                    _logFile.Write("{0}UT\t{1}\t", utc, now);
+                    _logFile.Write("{0}UT\t{1}\tT{2}\t", utc, now,
+                        System.Threading.Thread.CurrentThread.ManagedThreadId);
 
                     while (nIndent-- > 0)
                     {
