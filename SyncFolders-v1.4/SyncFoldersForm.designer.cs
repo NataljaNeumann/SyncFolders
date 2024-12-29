@@ -91,9 +91,9 @@ namespace SyncFolders
             // 
             // textBoxFirstFolder
             // 
+            resources.ApplyResources(this.textBoxFirstFolder, "textBoxFirstFolder");
             this.textBoxFirstFolder.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.textBoxFirstFolder.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystemDirectories;
-            resources.ApplyResources(this.textBoxFirstFolder, "textBoxFirstFolder");
             this.textBoxFirstFolder.Name = "textBoxFirstFolder";
             this.textBoxFirstFolder.TextChanged += new System.EventHandler(this.textBoxFirstFolder_TextChanged);
             // 
@@ -111,9 +111,9 @@ namespace SyncFolders
             // 
             // textBoxSecondFolder
             // 
+            resources.ApplyResources(this.textBoxSecondFolder, "textBoxSecondFolder");
             this.textBoxSecondFolder.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.textBoxSecondFolder.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystemDirectories;
-            resources.ApplyResources(this.textBoxSecondFolder, "textBoxSecondFolder");
             this.textBoxSecondFolder.Name = "textBoxSecondFolder";
             this.textBoxSecondFolder.TextChanged += new System.EventHandler(this.textBoxSecondFolder_TextChanged);
             // 
