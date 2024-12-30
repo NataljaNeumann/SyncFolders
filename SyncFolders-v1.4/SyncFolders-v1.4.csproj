@@ -295,6 +295,9 @@
     <EmbeddedResource Include="Resources.de.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources.he.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="SyncFoldersForm.ar.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>

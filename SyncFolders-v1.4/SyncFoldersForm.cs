@@ -6148,10 +6148,10 @@ namespace SyncFolders
                 System.DateTime now = utc.ToLocalTime();
                 lock (_logFile)
                 {
-                    _logFile.Write("{0}UT\t{1}\tT{2}\t", utc, now,
+                    _logFile.Write("{0}\t{1}\t={2}=\t", utc.ToString("yyyy-MM-dd hh:mm:ss.fff"), now.ToString("f"),
                         System.Threading.Thread.CurrentThread.ManagedThreadId);
 
-                    if (bOnlyToFile)
+                    if (bOnlyToFile && !Resources.RightToLeft.Equals("yes"))
                         nIndent+=5;
 
                     while (nIndent-- > 0)
@@ -6223,7 +6223,9 @@ namespace SyncFolders
                 System.DateTime now = utc.ToLocalTime();
                 lock (_logFile)
                 {
-                    _logFile.Write("{0}UT\t{1}\tT{2}\t", utc, now,
+                    if (Resources.RightToLeft.Equals("yes"))
+                        _logFile.Write((char)0x200F);
+                    _logFile.Write("{0}\t{1}\t={2}=\t", utc.ToString("yyyy-MM-dd hh:mm:ss.fff"), now.ToString("f"),
                         System.Threading.Thread.CurrentThread.ManagedThreadId);
 
                     while (nIndent-- > 0)
@@ -6235,6 +6237,9 @@ namespace SyncFolders
                     string s = string.Format(strFormat, aParams);
                     _log.Append(s);
                     _logFile.Write(s);
+
+                    if (Resources.RightToLeft.Equals("yes"))
+                        _logFile.Write((char)0x200E);
 
                     _log.Append(Environment.NewLine);
                     _logFile.Write(Environment.NewLine);

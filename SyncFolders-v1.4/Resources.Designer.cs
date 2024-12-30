@@ -457,6 +457,15 @@ namespace SyncFolders {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die no ähnelt.
+        /// </summary>
+        internal static string RightToLeft {
+            get {
+                return ResourceManager.GetString("RightToLeft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Running without repair option, so couldn&apos;t decide, if the file &quot;{0}&quot; can be restored using &quot;{1}&quot; ähnelt.
         /// </summary>
         internal static string RunningWithoutRepairOptionUndecided {
