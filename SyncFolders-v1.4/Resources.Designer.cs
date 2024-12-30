@@ -232,11 +232,29 @@ namespace SyncFolders {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die (file has a different date or length) ähnelt.
+        /// </summary>
+        internal static string FileHasDifferentTime {
+            get {
+                return ResourceManager.GetString("FileHasDifferentTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Warning: file has zero length, indicating a failed copy operation in the past: {0} ähnelt.
         /// </summary>
         internal static string FileHasZeroLength {
             get {
                 return ResourceManager.GetString("FileHasZeroLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die (file was healthy or repaired) ähnelt.
+        /// </summary>
+        internal static string FileHealthyOrRepaired {
+            get {
+                return ResourceManager.GetString("FileHealthyOrRepaired", resourceCulture);
             }
         }
         
@@ -250,7 +268,7 @@ namespace SyncFolders {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die 2 ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die (file was healthy) ähnelt.
         /// </summary>
         internal static string FileWasHealthy {
             get {
@@ -259,7 +277,7 @@ namespace SyncFolders {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die (file was new) ähnelt.
         /// </summary>
         internal static string FileWasNew {
             get {
@@ -268,7 +286,7 @@ namespace SyncFolders {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die (file was newer or bigger) ähnelt.
         /// </summary>
         internal static string FileWasNewer {
             get {

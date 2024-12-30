@@ -174,20 +174,26 @@
   <data name="FileCopied" xml:space="preserve">
     <value>Copied "{0}" to "{1}", {2}</value>
   </data>
+  <data name="FileHasDifferentTime" xml:space="preserve">
+    <value>(file has a different date or length)</value>
+  </data>
   <data name="FileHasZeroLength" xml:space="preserve">
     <value>Warning: file has zero length, indicating a failed copy operation in the past: {0}</value>
+  </data>
+  <data name="FileHealthyOrRepaired" xml:space="preserve">
+    <value>(file was healthy or repaired)</value>
   </data>
   <data name="FilesHaveZeroLength" xml:space="preserve">
     <value>Warning: both files have zero length, indicating a failed copy operation in the past: "{0}" | "{1}"</value>
   </data>
   <data name="FileWasHealthy" xml:space="preserve">
-    <value>2</value>
+    <value>(file was healthy)</value>
   </data>
   <data name="FileWasNew" xml:space="preserve">
-    <value />
+    <value>(file was new)</value>
   </data>
   <data name="FileWasNewer" xml:space="preserve">
-    <value />
+    <value>(file was newer or bigger)</value>
   </data>
   <data name="FillingNotRecoverableAtOffsetOfCopyWithDummy" xml:space="preserve">
     <value>Filling not recoverable block at offset {0} of copied file "{1}" with a dummy</value>

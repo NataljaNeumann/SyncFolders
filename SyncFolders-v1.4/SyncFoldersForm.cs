@@ -951,7 +951,8 @@ namespace SyncFolders
         void CopyFileSafely(
             System.IO.FileInfo fi, 
             string strTargetPath, 
-            string strReason)
+            string strReasonEn,
+            string strReasonTranslated)
         {
             string strTargetPath2 = strTargetPath + ".tmp";
             try
@@ -964,8 +965,8 @@ namespace SyncFolders
 
                 System.IO.FileInfo fi2tmp = new System.IO.FileInfo(strTargetPath2);
                 fi2tmp.MoveTo(strTargetPath);
-                WriteLogFormatted(0, Resources.FileCopied, fi.FullName, strTargetPath, strReason);
-                WriteLog(true, 0, "Copied ", fi.FullName, " to ", strTargetPath, " ", strReason);
+                WriteLogFormatted(0, Resources.FileCopied, fi.FullName, strTargetPath, strReasonTranslated);
+                WriteLog(true, 0, "Copied ", fi.FullName, " to ", strTargetPath, " ", strReasonEn);
             } catch
             {
                 try
@@ -2006,7 +2007,8 @@ namespace SyncFolders
                     return;
 
                 CopyRepairSingleFile(fi2.FullName, fi1.FullName, fiSavedInfo1.FullName, 
-                    ref bForceCreatInfo, ref bForceCreatInfo2, "(file was new)", false, false);
+                    ref bForceCreatInfo, ref bForceCreatInfo2, "(file was new)", 
+                    Resources.FileWasNew, false, false);
             }
             finally
             {
@@ -2103,7 +2105,8 @@ namespace SyncFolders
                     if (_cancelClicked)
                         return;
 
-                    CopyFileSafely(fi1, strFilePath2, "(file newer or bigger)");
+                    CopyFileSafely(fi1, strFilePath2, "(file newer or bigger)",
+                        Resources.FileWasNewer);
                     //m_iFileOpenAndCopyAbstraction.CopyTo(fi1,strFilePath2, true);
                 }
                 finally
@@ -2445,7 +2448,8 @@ namespace SyncFolders
             )
         {
             ProcessFilePair_Bidirectionally_BothExist_FirstNewer(strFilePath1, strFilePath2, fi1, fi2, 
-                _syncMode?"(file was newer or bigger)":"(file has a different date or length)");
+                _syncMode?"(file was newer or bigger)":"(file has a different date or length)",
+                _syncMode ? Resources.FileWasNewer : Resources.FileHasDifferentTime);
         }
 
         //===================================================================================================
@@ -2525,7 +2529,8 @@ namespace SyncFolders
                             {
                                 if (fi1.LastWriteTime.Year > 1975)
                                     CopyFileSafely(fi1, strFilePath2,
-                                        "(file was healthy, or repaired)");
+                                        "(file was healthy, or repaired)",
+                                        Resources.FileHealthyOrRepaired);
                                 else
                                 {
                                     WriteLogFormatted(0, Resources.CouldntUseOutdatedFileForRestoringOther,
@@ -2574,7 +2579,10 @@ namespace SyncFolders
                                 if (bOK)
                                 {
                                     if (fi2.LastWriteTime.Year > 1975)
-                                        CopyFileSafely(fi2, strFilePath1, "(file was healthy, or repaired)");
+                                    {
+                                        CopyFileSafely(fi2, strFilePath1, "(file was healthy, or repaired)",
+                                            Resources.FileHealthyOrRepaired);
+                                    }
                                     else
                                     {
                                         WriteLogFormatted(0, Resources.CouldntUseOutdatedFileForRestoringOther,
@@ -2721,11 +2729,13 @@ namespace SyncFolders
                 {
                     if (!CreateSavedInfoAndCopy(
                         fi1.FullName, fiSavedInfo1.FullName, 
-                        fi2.FullName, "(file was new)"))
+                        fi2.FullName, "(file was new)",
+                        Resources.FileWasNew))
                     {
                         CopyRepairSingleFile(strFilePath2, strFilePath1, 
                             fiSavedInfo1.FullName, ref bForceCreateInfo,
-                            ref bForceCreateInfo2, "(file was new)", false, false);
+                            ref bForceCreateInfo2, "(file was new)",
+                            Resources.FileWasNew, false, false);
                         CreateSavedInfo(strFilePath2, 
                             CreatePathOfChkFile(fi2.DirectoryName, 
                             "RestoreInfo", fi2.Name, ".chk"));
@@ -2744,9 +2754,9 @@ namespace SyncFolders
                         if (_bTestFiles)
                             CopyRepairSingleFile(strFilePath2, fi1.FullName, 
                                 fiSavedInfo1.FullName, ref bForceCreateInfo, ref bForceCreateInfo2, 
-                                "(file was new)", true, _bRepairFiles);
+                                "(file was new)", Resources.FileWasNew, true, _bRepairFiles);
                         else
-                            CopyFileSafely(fi1, strFilePath2, "(file was new)");
+                            CopyFileSafely(fi1, strFilePath2, "(file was new)", Resources.FileWasNew);
                     }
                     catch (Exception)
                     {
@@ -2761,7 +2771,7 @@ namespace SyncFolders
                             bInTheEndOK = CopyRepairSingleFile(strFilePath2, 
                                 fi1.FullName, fiSavedInfo1.FullName, 
                                 ref bForceCreateInfo, ref bForceCreateInfo2, 
-                                "(file was new)", false, _bTestFiles && _bRepairFiles);
+                                "(file was new)", Resources.FileWasNew, false, _bTestFiles && _bRepairFiles);
                     }
                 }
 
@@ -2842,7 +2852,8 @@ namespace SyncFolders
             // bidirectionally path
             if ((!FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) && (fi1.LastWriteTimeUtc > fi2.LastWriteTimeUtc)) || 
                 (FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) && fi1.Length > fi2.Length))
-                ProcessFilePair_Bidirectionally_BothExist_FirstNewer(strFilePath1, strFilePath2, fi1, fi2, "(file newer or bigger)");
+                ProcessFilePair_Bidirectionally_BothExist_FirstNewer(strFilePath1, strFilePath2, fi1, fi2, 
+                    "(file newer or bigger)", Resources.FileWasNewer);
             else
             {
                 // bidirectionally path
@@ -2868,8 +2879,9 @@ namespace SyncFolders
             string strFilePath1, 
             string strFilePath2, 
             System.IO.FileInfo fi1, 
-            System.IO.FileInfo fi2, 
-            string strReason)
+            System.IO.FileInfo fi2,
+            string strReasonEn,
+            string strReasonTranslated)
         {
             System.IO.FileInfo fiSavedInfo1 = 
                 new System.IO.FileInfo(CreatePathOfChkFile(
@@ -2897,7 +2909,8 @@ namespace SyncFolders
                         bForceCreateInfo1))
                 {
                     bCopied1To2 = CreateSavedInfoAndCopy(
-                        fi1.FullName, fiSavedInfo1.FullName, fi2.FullName, strReason);
+                        fi1.FullName, fiSavedInfo1.FullName, fi2.FullName, 
+                        strReasonEn, strReasonTranslated);
                     fiSavedInfo1 = new System.IO.FileInfo(
                         CreatePathOfChkFile(fi1.DirectoryName, 
                         "RestoreInfo", fi1.Name, ".chk"));
@@ -2912,9 +2925,9 @@ namespace SyncFolders
                         if (_bTestFiles)
                             CopyRepairSingleFile(strFilePath2, fi1.FullName, fiSavedInfo1.FullName, 
                                 ref bForceCreateInfo1, ref bForceCreateInfo2, 
-                                "(file was new)", true, _bRepairFiles);
+                                "(file was new)", Resources.FileWasNew, true, _bRepairFiles);
                         else
-                            CopyFileSafely(fi1, strFilePath2, strReason);
+                            CopyFileSafely(fi1, strFilePath2, strReasonEn, strReasonTranslated);
                     }
                     catch (Exception)
                     {
@@ -2946,14 +2959,14 @@ namespace SyncFolders
                         if (bForceCreateInfo1)
                         {
                             bCopied1To2 = CreateSavedInfoAndCopy(
-                                fi1.FullName, fiSavedInfo1.FullName, fi2.FullName, strReason);
+                                fi1.FullName, fiSavedInfo1.FullName, fi2.FullName, strReasonEn, strReasonTranslated);
                             fiSavedInfo1 = new System.IO.FileInfo(
                                 CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
                             bForceCreateInfo1 = false;
                         }
                         else
                         {
-                            CopyFileSafely(fi1, strFilePath2, strReason);
+                            CopyFileSafely(fi1, strFilePath2, strReasonEn, strReasonTranslated);
                             bCopied1To2 = true;
                         }
                     }
@@ -2983,7 +2996,7 @@ namespace SyncFolders
                             bForceCreateInfo2 = false;
 
                             CopyRepairSingleFile(strFilePath2, fi1.FullName, fiSavedInfo1.FullName, 
-                                ref bForceCreateInfo1, ref bForceCreateInfo2, strReason, false, true);
+                                ref bForceCreateInfo1, ref bForceCreateInfo2, strReasonEn, strReasonTranslated, false, true);
                             bCopied1To2 = true;
                         }
                     }
@@ -3041,7 +3054,8 @@ namespace SyncFolders
                         bForceCreateInfo2))
                 {
                     bCopied2To1 = CreateSavedInfoAndCopy(
-                        fi2.FullName, fiSavedInfo2.FullName, strFilePath1, "(file was healthy)");
+                        fi2.FullName, fiSavedInfo2.FullName, strFilePath1, 
+                        "(file was healthy)", Resources.FileWasHealthy);
                     fiSavedInfo2 = new System.IO.FileInfo(
                         CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
 
@@ -3062,7 +3076,8 @@ namespace SyncFolders
                     try
                     {
                         CopyRepairSingleFile(strFilePath1, strFilePath2, fiSavedInfo2.FullName,
-                            ref bForceCreateInfo2, ref bForceCreateInfo1, "(file was healthy)", true, true);
+                            ref bForceCreateInfo2, ref bForceCreateInfo1, 
+                            "(file was healthy)", Resources.FileWasHealthy, true, true);
                     }
                     catch (Exception)
                     {
@@ -3124,7 +3139,8 @@ namespace SyncFolders
             )
         {
             ProcessFilePair_Bidirectionally_BothExist_FirstNewer(
-                strFilePath2, strFilePath1, fi2, fi1, "(file was newer or bigger)");
+                strFilePath2, strFilePath1, fi2, fi1, 
+                "(file was newer or bigger)", Resources.FileWasNewer);
         }
 
         //===================================================================================================
@@ -3320,8 +3336,9 @@ namespace SyncFolders
         bool CreateSavedInfoAndCopy(
             string strPathFile, 
             string strPathSavedInfoFile, 
-            string strTargetPath, 
-            string strReason)
+            string strTargetPath,
+            string strReasonEn,
+            string strReasonTranslated)
         {
             string pathFileCopy = strTargetPath + ".tmp";
 
@@ -3374,8 +3391,8 @@ namespace SyncFolders
                             fi2tmp.MoveTo(strTargetPath);
 
                             WriteLogFormatted(0, Resources.CopiedFromToReason,
-                                strPathFile, strTargetPath, strReason);
-                            WriteLog(true, 0, "Copied ", strPathFile, " to ", strTargetPath, " ", strReason);
+                                strPathFile, strTargetPath, strReasonTranslated);
+                            WriteLog(true, 0, "Copied ", strPathFile, " to ", strTargetPath, " ", strReasonEn);
                         }
                     } catch
                     {
@@ -5072,8 +5089,9 @@ namespace SyncFolders
             string strPathFile, 
             string strPathSavedInfoFile, 
             ref bool bForceCreateInfo, 
-            ref bool bForceCreateInfoTarget, 
-            string strReason, 
+            ref bool bForceCreateInfoTarget,
+            string strReasonEn,
+            string strReasonTranslated, 
             bool bFailOnNonRecoverable, 
             bool bApplyRepairsToSrc)
         {
@@ -5225,16 +5243,16 @@ namespace SyncFolders
                         if (!bAllBlocksOk)
                         {
                             WriteLogFormatted(0, Resources.WarningCopiedToWithErrors,
-                                strPathFile, strPathTargetFile, strReason);
+                                strPathFile, strPathTargetFile, strReasonTranslated);
                             WriteLog(true, 0, "Warning: copied ", strPathFile, " to ",
-                                strPathTargetFile, " ", strReason, " with errors");
+                                strPathTargetFile, " ", strReasonEn, " with errors");
                         }
                         else
                         {
                             WriteLogFormatted(0, Resources.CopiedFromToReason,
-                                strPathFile, strPathTargetFile, strReason);
+                                strPathFile, strPathTargetFile, strReasonTranslated);
                             WriteLog(true, 0, "Copied ", strPathFile, " to ",
-                                strPathTargetFile, " ", strReason);
+                                strPathTargetFile, " ", strReasonEn);
                         }
 
                     } catch
@@ -5546,16 +5564,16 @@ namespace SyncFolders
                 if (nonRestoredSize != 0)
                 {
                     WriteLogFormatted(0, Resources.WarningCopiedToWithErrors,
-                        strPathFile, strPathTargetFile, strReason);
+                        strPathFile, strPathTargetFile, strReasonTranslated);
                     WriteLog(true, 0, "Warning: copied ", strPathFile, " to ",
-                        strPathTargetFile, " ", strReason, " with errors");
+                        strPathTargetFile, " ", strReasonEn, " with errors");
                 }
                 else
                 {
                     WriteLogFormatted(0, Resources.CopiedFromToReason,
-                        strPathFile, strPathTargetFile, strReason);
+                        strPathFile, strPathTargetFile, strReasonTranslated);
                     WriteLog(true, 0, "Copied ", strPathFile, " to ",
-                        strPathTargetFile, " ", strReason);
+                        strPathTargetFile, " ", strReasonEn);
                 }
 
                 //finfo2.LastWriteTimeUtc = prevLastWriteTime;
