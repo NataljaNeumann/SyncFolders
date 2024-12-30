@@ -36,9 +36,30 @@ namespace SyncFolders
         /// <summary>
         /// Writes a log message, consisting of one or more parts
         /// </summary>
+        /// <param name="bOnlyToFile">Indicates that this message shall be written only to file,
+        /// and shall not be shown in the GUI</param>
         /// <param name="nIndent">Intent of currrent message</param>
         /// <param name="aParts">Parts of current message</param>
         //===================================================================================================
-        void WriteLog(int nIndent, params object[] aParts);
+        void WriteLog(
+            bool bOnlyToFile, 
+            int nIndent, 
+            params object[] aParts
+            );
+
+        //===================================================================================================
+        /// <summary>
+        /// Writes a log message in a formatted manner
+        /// </summary>
+        /// <param name="nIndent">The nIndent of the new message</param>
+        /// <param name="strFormat">Format for the string</param>
+        /// <param name="aParams">Parameters for string format</param>
+        //===================================================================================================
+        void WriteLogFormatted(
+            int nIndent,
+            string strFormat,
+            params object[] aParams
+            );
+
     }
 }

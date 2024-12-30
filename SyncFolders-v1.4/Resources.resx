@@ -46,7 +46,7 @@
     
     mimetype: application/x-microsoft.net.object.binary.base64
     value   : The object must be serialized with 
-            : System.Serialization.Formatters.Binary.BinaryFormatter
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
     
     mimetype: application/x-microsoft.net.object.soap.base64
@@ -60,6 +60,7 @@
             : and then encoded with base64 encoding.
     -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
@@ -68,9 +69,10 @@
               <xsd:sequence>
                 <xsd:element name="value" type="xsd:string" minOccurs="0" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="name" use="required" type="xsd:string" />
               <xsd:attribute name="type" type="xsd:string" />
               <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
@@ -85,9 +87,10 @@
                 <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
                 <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
               <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
               <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
@@ -114,4 +117,205 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BlockOfAtPositionCanBeRestoredFromNoWriteFirst" xml:space="preserve">
+    <value>Block of "{0}" at position {1} can be restored from "{2}" but it is not possible to write to the first folder</value>
+  </data>
+  <data name="BlockOfAtPositionNotRecoverableFillDumy" xml:space="preserve">
+    <value>Block of "{0}" position {1} is not recoverable and will be filled with a dummy</value>
+  </data>
+  <data name="BlockOfAtPositionWillBeCopiedFromNoMatterChecksum" xml:space="preserve">
+    <value>Block of "{0}" position {1} will be copied from "{2}" despite the fact that checksum indicates the block is wrong</value>
+  </data>
+  <data name="BlockOfAtPositionWillBeRestoredFrom" xml:space="preserve">
+    <value>Block of "{0}" at position {1} will be restored from same position of "{2}"</value>
+  </data>
+  <data name="BlocksOfAndAtPositionNonRecoverableFillDummy" xml:space="preserve">
+    <value>Blocks of "{0}" and "{1}" at position {2} are not recoverable and will be filled with a dummy block</value>
+  </data>
+  <data name="ChecksumOfBlockAtOffsetNotOK" xml:space="preserve">
+    <value>{0}: checksum of block at offset {1} not OK</value>
+  </data>
+  <data name="CopiedFromToReason" xml:space="preserve">
+    <value>Copied "{0}" to "{1}", {2}</value>
+  </data>
+  <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
+    <value>Warning: couldn't use outdated file "{0}" with year 1975 or earlier, signaling this was a last chance restore, for restoring "{1}"</value>
+  </data>
+  <data name="DefaultCulture" xml:space="preserve">
+    <value>yes</value>
+  </data>
+  <data name="DeletedFileNotPresentIn" xml:space="preserve">
+    <value>Deleted file "{0}" that is not present in "{1}" anymore</value>
+  </data>
+  <data name="DeletedFolder" xml:space="preserve">
+    <value>Deleted folder {0} including contents, because there is no {1} anymore</value>
+  </data>
+  <data name="EncounteredErrorOlderOk" xml:space="preserve">
+    <value>Warning: Encountered I/O error while copying "{0}". The older file "{1}" seems to be OK</value>
+  </data>
+  <data name="EncounteredErrorOtherBadToo" xml:space="preserve">
+    <value>Warning: Encountered I/O error while copying "{0}". Other file "{1}" has errors as well, or is a product of last chance restore. Trying to automatically repair "{0}"</value>
+  </data>
+  <data name="EncounteredErrorWhileCopyingTryingToRepair" xml:space="preserve">
+    <value>Warning: Encountered error while copying "{0}" trying to automatically repair</value>
+  </data>
+  <data name="ErrorDeleting" xml:space="preserve">
+    <value>Error while deleting "{0}": {1}</value>
+  </data>
+  <data name="ErrorProcessinngFilePair" xml:space="preserve">
+    <value>Error while processing file pair "{0}" | "{1}": {2}</value>
+  </data>
+  <data name="ErrorReadingPositionWillFillWithDummy" xml:space="preserve">
+    <value>Error while reading file "{0}", position {1}: {2}". Block will be filled with a dummy</value>
+  </data>
+  <data name="ErrorWhileTestingFile" xml:space="preserve">
+    <value>Error while testing file "{0}"</value>
+  </data>
+  <data name="FileCopied" xml:space="preserve">
+    <value>Copied "{0}" to "{1}", {2}</value>
+  </data>
+  <data name="FileHasZeroLength" xml:space="preserve">
+    <value>Warning: file has zero length, indicating a failed copy operation in the past: {0}</value>
+  </data>
+  <data name="FilesHaveZeroLength" xml:space="preserve">
+    <value>Warning: both files have zero length, indicating a failed copy operation in the past: "{0}" | "{1}"</value>
+  </data>
+  <data name="FileWasHealthy" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="FileWasNew" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FileWasNewer" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FillingNotRecoverableAtOffsetOfCopyWithDummy" xml:space="preserve">
+    <value>Filling not recoverable block at offset {0} of copied file "{1}" with a dummy</value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetWithDummy" xml:space="preserve">
+    <value>Filling not recoverable block at offset {0} with a dummy block</value>
+  </data>
+  <data name="FirstFileHasBadBlocks" xml:space="preserve">
+    <value>Warning: First file "{0}" has bad blocks, overwriting file "{1}" has been skipped, so the it remains as backup</value>
+  </data>
+  <data name="FoundFileForSync" xml:space="preserve">
+    <value>Found one file for possible synchronisation</value>
+  </data>
+  <data name="FoundFilesForSync" xml:space="preserve">
+    <value>Found {0} files for possible synchronisation</value>
+  </data>
+  <data name="InternalErrorCouldntRestoreAny" xml:space="preserve">
+    <value>Internal error: Couldn't restore any of the copies of the file "{0}" | "{1}"</value>
+  </data>
+  <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
+    <value>I/O Error during repair copy to file: "{0}": {1}</value>
+  </data>
+  <data name="IOErrorReadingFile" xml:space="preserve">
+    <value>I/O Error reading file "{0}": {1}</value>
+  </data>
+  <data name="IOErrorReadingFileOffset" xml:space="preserve">
+    <value>I/O Error reading file: "{0}", offset {1}: {2}</value>
+  </data>
+  <data name="IOErrorWhileReadingPositionFillDummyWhileCopy" xml:space="preserve">
+    <value>I/O Error while reading file "{0}" position {1}: {2}. Block will be replaced with a dummy during copy.</value>
+  </data>
+  <data name="IOErrorWritingFile" xml:space="preserve">
+    <value>I/O Error writing file "{0}": {1}</value>
+  </data>
+  <data name="KeepingReadableButNotRecoverableBlockAtOffset" xml:space="preserve">
+    <value>Keeping readable but not recoverable block at offset {0}, checksum indicates the block is wrong</value>
+  </data>
+  <data name="KeepingReadableNonRecovBBlockAtAlsoInCopy" xml:space="preserve">
+    <value>Keeping readable but not recoverable block at offset {0} of original file "{1}" also in copy "{2}", checksum indicates the block is wrong</value>
+  </data>
+  <data name="OperationCanceled" xml:space="preserve">
+    <value>Operation canceled</value>
+  </data>
+  <data name="OperationFinished" xml:space="preserve">
+    <value>Operation finished</value>
+  </data>
+  <data name="OutOfBadBlocksNotRestoredInCopyBytes" xml:space="preserve">
+    <value>Out of {0} bad blocks in the original file not restored parts in the copy "{1}": {2} bytes.</value>
+  </data>
+  <data name="RecoveringBlockAtOfCopiedFile" xml:space="preserve">
+    <value>Recovering block at position {0} of copied destination file "{1}"</value>
+  </data>
+  <data name="RecoveringBlockAtOffsetOfFile" xml:space="preserve">
+    <value>Recovering block at offset {0} of the file "{1}"</value>
+  </data>
+  <data name="RunningWithoutRepairOptionUndecided" xml:space="preserve">
+    <value>Running without repair option, so couldn't decide, if the file "{0}" can be restored using "{1}"</value>
+  </data>
+  <data name="SavedInfoFileCantBeUsedForTesting" xml:space="preserve">
+    <value>Saved info file "{0}" can't be used for testing file "{1}": it was created for another version of the file</value>
+  </data>
+  <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
+    <value>Saved info file "{0}" has been damaged and needs to be recreated from "{1}"</value>
+  </data>
+  <data name="SecondFolderNoDelete" xml:space="preserve">
+    <value>Error: The second folder contains file "{0}", the selected folder seem to be wrong for delete option. Skipping processing of the folder and subfolders</value>
+  </data>
+  <data name="SkippingFilePairDontDelete" xml:space="preserve">
+    <value>Skipping file pair "{0}" | "{1}". Special file prevents usage of delete option at wrong root folder.</value>
+  </data>
+  <data name="TheFileCantBeModifiedMissingRepairApplyToCopy" xml:space="preserve">
+    <value>The file can't be modified because of missing repair option, the restore process will be applied to copy.</value>
+  </data>
+  <data name="ThereAreBadBlocksInFileNonRestorableParts" xml:space="preserve">
+    <value>There are {0} bad blocks in the file "{1}", non-restorable parts: {2} bytes.</value>
+  </data>
+  <data name="ThereAreBadBlocksInNonRestorableMayRetryLater" xml:space="preserve">
+    <value>There are {0} bad blocks in the file "{1}", non-restorable parts: {2} bytes. Can't proceed there because of non-recoverable, may retry later.</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableCantBeBackup" xml:space="preserve">
+    <value>There are {0} bad blocks in the file "{1}", non-restorable parts: {2} bytes, file can't be used as backup</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableOnlyTested" xml:space="preserve">
+    <value>There are {0} bad blocks in the file "{1}" non-restorable parts: {2} bytes. File remains unchanged, it was only tested</value>
+  </data>
+  <data name="ThereIsBadBlockInFileNonRestorableParts" xml:space="preserve">
+    <value>There is one bad block in the file "{0}", non-restorable parts: {1} bytes.</value>
+  </data>
+  <data name="ThereIsBadBlockNonRestorableCantBeBackup" xml:space="preserve">
+    <value>There is one bad block in the file "{0}" and it can't be restored: {1} bytes, file can't be used as backup</value>
+  </data>
+  <data name="ThereIsOneBadBlockNonRestorableOnlyTested" xml:space="preserve">
+    <value>There is one bad block in the file "{0}", non-restorable parts: {1} bytes, file remains unchanged, it was only tested</value>
+  </data>
+  <data name="ThereRemainBadBlocksInBecauseReadOnly" xml:space="preserve">
+    <value>There remain {0} bad blocks in "{1}", because it can't be modified</value>
+  </data>
+  <data name="ThereWasBadBlockInFileNotRestoredParts" xml:space="preserve">
+    <value>There was one bad block in the file "{0}", not restored parts: {1} bytes</value>
+  </data>
+  <data name="ThereWasBadBlockNotRestoredInCopyBytes" xml:space="preserve">
+    <value>There was one bad block in the original file, not restored parts in the copy "{0}": {1} bytes.</value>
+  </data>
+  <data name="ThereWereBadBlocksInFileNotRestoredParts" xml:space="preserve">
+    <value>There were {0} bad blocks in the file "{1}", not restored parts: {2} bytes</value>
+  </data>
+  <data name="ThisIsASimulatedIOErrorAtPosition" xml:space="preserve">
+    <value>This is a simulated I/O error at position {0}</value>
+  </data>
+  <data name="WarningChecksumOffsetPrimarySavedInfoIgnored" xml:space="preserve">
+    <value>Warning: checksum of block at offsset {0} doesn't match available in primary blocks of saved info "{1}", primary saved info for the block will be ignored</value>
+  </data>
+  <data name="WarningChecksumOffsetSecondarySavedInfoIgnored" xml:space="preserve">
+    <value>Warning: checksum of block at offset {0} doesn't match available in secondary blocks of saved info "{1}", secondary saved info for the block will be ignored</value>
+  </data>
+  <data name="WarningCopiedToWithErrors" xml:space="preserve">
+    <value>Warning: copied "{0}" to "{1}" {2} with errors</value>
+  </data>
+  <data name="WarningIOErrorWhileCopyingToReason" xml:space="preserve">
+    <value>Warning: I/O Error while copying file "{0}" to "{1}": {2}</value>
+  </data>
+  <data name="WarningSeveralBlocksDontMatchInSIWillBeIgnored" xml:space="preserve">
+    <value>Warning: several blocks don't match in saved info "{0}", saved info will be ignored completely</value>
+  </data>
+  <data name="WarningWhileCreating" xml:space="preserve">
+    <value>Warning: {0} while creating "{1}"</value>
+  </data>
+  <data name="WarningWhileDiscoveringIfNeedsToBeRechecked" xml:space="preserve">
+    <value>Warning: {0}, while discovering, if "{1}" needs to be rechecked.</value>
+  </data>
 </root>

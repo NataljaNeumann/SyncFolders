@@ -353,8 +353,9 @@ namespace SyncFolders
                         if (m_aListOfReadErrors[i] + 4095 >= lCurrentPos &&
                             m_aListOfReadErrors[i] < lCurrentPos + nCount)
                         {
-                            throw new IOException("This is a simulated I/O error at position " + 
-                                m_aListOfReadErrors[i]);
+                            throw new IOException(
+                                string.Format(Resources.ThisIsASimulatedIOErrorAtPosition,
+                                   m_aListOfReadErrors[i]));
                         }
                     }
                 }
@@ -378,8 +379,9 @@ namespace SyncFolders
                         if (m_aListOfReadErrors[i] + 4095 >= lCurrentPos &&
                             m_aListOfReadErrors[i] <= lCurrentPos)
                         {
-                            throw new IOException("This is a simulated I/O error at position " + 
-                                m_aListOfReadErrors[i]);
+                            throw new IOException(
+                                string.Format(Resources.ThisIsASimulatedIOErrorAtPosition,
+                                m_aListOfReadErrors[i]));
                         }
                     }
                 }

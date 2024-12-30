@@ -964,7 +964,8 @@ namespace SyncFolders
 
                 System.IO.FileInfo fi2tmp = new System.IO.FileInfo(strTargetPath2);
                 fi2tmp.MoveTo(strTargetPath);
-                WriteLog(0, "Copied ", fi.FullName, " to ", strTargetPath, " ", strReason);                
+                WriteLogFormatted(0, Resources.FileCopied, fi.FullName, strTargetPath, strReason);
+                WriteLog(true, 0, "Copied ", fi.FullName, " to ", strTargetPath, " ", strReason);
             } catch
             {
                 try
@@ -998,17 +999,23 @@ namespace SyncFolders
             }
             catch (Exception ex)
             {
-                WriteLog(0, ex.Message);
+                WriteLog(false, 0, ex.Message);
                 bException = true;
             }
 
             if (!bException)
             {
                 if (_filePairs.Count != 1)
-                    WriteLog(0, "Found ", _filePairs.Count, " files for possible synchronisation");
+                {
+                    WriteLogFormatted(0, Resources.FoundFilesForSync, _filePairs.Count);
+                    WriteLog(true, 0, "Found ", _filePairs.Count, " files for possible synchronisation");
+                }
                 else
                     if (_filePairs.Count == 1)
-                        WriteLog(0, "Found 1 file for possible synchronisation");
+                    {
+                        WriteLogFormatted(0, Resources.FoundFileForSync);
+                        WriteLog(true, 0, "Found 1 file for possible synchronisation");
+                    }
 
                 if (InvokeRequired)
                 {
@@ -1118,9 +1125,15 @@ namespace SyncFolders
                     RemoveOldFilesAndDirs(_folder1, _folder2);
 
                 if (_cancelClicked)
-                    WriteLog(0, "Operation canceled");
+                {
+                    WriteLogFormatted(0, Resources.OperationCanceled);
+                    WriteLog(true, 0, "Operation canceled");
+                }
                 else
-                    WriteLog(0, "Operation finished");
+                {
+                    WriteLogFormatted(0, Resources.OperationFinished);
+                    WriteLog(true, 0, "Operation finished");
+                }
             };
 
 #if !DEBUG
@@ -1301,8 +1314,9 @@ namespace SyncFolders
 
                 if (fiDontDelete.Exists)
                 {
-                    WriteLog(0, "Error: The second folder contains file \"SyncFolders-Dont-Delete.txt\","+
-                        " the selected folder seem to be wrong for delete option. "+
+                    WriteLogFormatted(0, Resources.SecondFolderNoDelete, fiDontDelete.Name);
+                    WriteLog(true, 0, "Error: The second folder contains file \"", fiDontDelete.Name, "\"," +
+                        " the selected folder seem to be wrong for delete option. " +
                         "Skipping processing of the folder and subfolders");
                     return;
                 }
@@ -1428,7 +1442,9 @@ namespace SyncFolders
                 if (_bFirstToSecond && _bDeleteInSecond)
                 {
                     di2.Delete(true);
-                    WriteLog(0, "Deleted folder ", di2.FullName, 
+                    WriteLogFormatted(0, Resources.DeletedFolder, 
+                        di2.FullName, strFolderPath1);
+                    WriteLog(true, 0, "Deleted folder ", di2.FullName, 
                         " including contents, because there is no ", 
                         strFolderPath1, " anymore");
                     return;
@@ -1473,12 +1489,14 @@ namespace SyncFolders
                         {
                             try
                             {
-                                WriteLog(0, "Error while deleting ", 
+                                WriteLogFormatted(0, Resources.ErrorDeleting,
+                                    System.IO.Path.Combine(di3.FullName, fi.Name), oEx.Message);
+                                WriteLog(true, 0, "Error while deleting ", 
                                     System.IO.Path.Combine(di3.FullName,fi.Name), ": ", oEx.Message);
                             }
                             catch (Exception oEx2)
                             {
-                                WriteLog(0, "Error in RemoveOldFilesAndDirs: ", oEx2.Message); 
+                                WriteLog(false, 0, "Error in RemoveOldFilesAndDirs: ", oEx2.Message); 
                             }
                         }
                     }
@@ -1520,15 +1538,18 @@ namespace SyncFolders
                     {
                         try
                         {
-                            WriteLog(0, "Error while deleting ", 
+                            WriteLogFormatted(0, Resources.ErrorDeleting,
+                                System.IO.Path.Combine(di3.FullName, fi.Name),
+                                oEx.Message);
+                            WriteLog(true, 0, "Error while deleting ", 
                                 System.IO.Path.Combine(di3.FullName, fi.Name), 
                                 ": ", oEx.Message);
                         }
                         catch (Exception oEx2)
                         {
-                            WriteLog(0, "Error while deleting files in ", 
+                            WriteLog(false, 0, "Error while deleting files in ", 
                                 di3.FullName, ": ", oEx.Message);
-                            WriteLog(1, "Error while writing log: ", oEx2.Message);
+                            WriteLog(false, 1, "Error while writing log: ", oEx2.Message);
                         }
                     }
                 }
@@ -1676,12 +1697,18 @@ namespace SyncFolders
             {
                 // report only if it is unexpected
                 if (!_cancelClicked)
-                    WriteLog(0, "Error while processing file pair \"", 
+                {
+                    WriteLogFormatted(0, Resources.ErrorProcessinngFilePair,
+                        pathPair.Key, pathPair.Value, oEx.Message);
+                    WriteLog(true, 0, "Error while processing file pair \"",
                         pathPair.Key, "\" | \"", pathPair.Value, "\": ", oEx.Message);
+                }
             }
             catch (Exception oEx2)
             {
-                WriteLog(0, "Error while processing file pair \"", 
+                WriteLogFormatted(0, Resources.ErrorProcessinngFilePair,
+                        pathPair.Key, pathPair.Value, oEx2.Message);
+                WriteLog(true, 0, "Error while processing file pair \"", 
                     pathPair.Key, "\" | \"", pathPair.Value, "\": ", oEx2.Message);
             }
             finally
@@ -1781,7 +1808,9 @@ namespace SyncFolders
                 fi2.Name.Equals("SyncFolders-Don't-Delete.txt", 
                     StringComparison.InvariantCultureIgnoreCase))
             {
-                WriteLog(0, "Skipping file pair ", fi1.FullName, 
+                WriteLogFormatted(0, Resources.SkippingFilePairDontDelete,
+                    fi1.FullName, fi2.FullName);
+                WriteLog(true, 0, "Skipping file pair ", fi1.FullName, 
                     ", ", fi2.FullName, 
                     ". Special file prevents usage of delete option at wrong root folder.");
                 return;
@@ -1839,13 +1868,21 @@ namespace SyncFolders
                 if (CheckIfZeroLengthIsInteresting(strFilePath2))
                 {
                     if (strFilePath1.Equals(strFilePath2, StringComparison.CurrentCultureIgnoreCase))
-                        WriteLog(0, "Warning: file has zero length, "+
+                    {
+                        WriteLogFormatted(0, Resources.FileHasZeroLength,
+                            strFilePath1);
+                        WriteLog(true, 0, "Warning: file has zero length, " +
                             "indicating a failed copy operation in the past: ",
                             strFilePath1);
+                    }
                     else
-                        WriteLog(0, "Warning: both files have zero length, "+
-                            "indicating a failed copy operation in the past: ", 
+                    {
+                        WriteLogFormatted(0, Resources.FilesHaveZeroLength,
+                            strFilePath1, strFilePath2);
+                        WriteLog(true, 0, "Warning: both files have zero length, " +
+                            "indicating a failed copy operation in the past: ",
                             strFilePath1, ", ", strFilePath2);
+                    }
                 }
             }
             else
@@ -1891,14 +1928,19 @@ namespace SyncFolders
                 if (fiSavedInfo2.Exists)
                     m_iFileOpenAndCopyAbstraction.Delete(fiSavedInfo2);
                 m_iFileOpenAndCopyAbstraction.Delete(fi2);
-                WriteLog(0, "Deleted file ", fi2.FullName, 
+                WriteLogFormatted(0, Resources.DeletedFileNotPresentIn,
+                    fi2.FullName,
+                    fi1.Directory.FullName);
+                WriteLog(true, 0, "Deleted file ", fi2.FullName, 
                     " that is not present in ", fi1.Directory.FullName, " anymore");
             }
             else
             {
                 if (fi2.Length == 0 && CheckIfZeroLengthIsInteresting(strFilePath2))
                 {
-                    WriteLog(0, "Warning: file has zero length, "+
+                    WriteLogFormatted(0, Resources.FileHasZeroLength,
+                            strFilePath2);
+                    WriteLog(true, 0, "Warning: file has zero length, "+
                         "indicating a failed copy operation in the past: ", strFilePath2);
                 }
 
@@ -1941,7 +1983,9 @@ namespace SyncFolders
         {
             if (fi1.Length == 0 && CheckIfZeroLengthIsInteresting(strFilePath1))
             {
-                WriteLog(0, "Warning: file has zero length, "+
+                WriteLogFormatted(0, Resources.FileHasZeroLength,
+                            strFilePath1);
+                WriteLog(true, 0, "Warning: file has zero length, "+
                     "indicating a failed copy operation in the past: ", strFilePath1);
             }
 
@@ -2046,7 +2090,7 @@ namespace SyncFolders
             bool bForceCreateInfo = false;
 
             // if the first file is ok
-            if (TestSingleFile(strFilePath1, fiSavedInfo1.FullName, 
+            if (TestSingleFile(strFilePath1, fiSavedInfo1.FullName,
                 ref bForceCreateInfo, _bTestFiles, true, false))
             {
                 if (_cancelClicked)
@@ -2088,9 +2132,13 @@ namespace SyncFolders
                 }
             }
             else
-                WriteLog(0, "Warning: First file ", strFilePath1, 
-                    " has bad blocks, overwriting file ", strFilePath2, 
+            {
+                WriteLogFormatted(0, Resources.FirstFileHasBadBlocks,
+                    strFilePath1, strFilePath2);
+                WriteLog(true,0, "Warning: First file ", strFilePath1,
+                    " has bad blocks, overwriting file ", strFilePath2,
                     " has been skipped, so the it remains as backup");
+            }
         }
 
         //===================================================================================================
@@ -2234,11 +2282,19 @@ namespace SyncFolders
                 if (CheckIfZeroLengthIsInteresting(strFilePath2))
                 {
                     if (strFilePath1.Equals(strFilePath2, StringComparison.CurrentCultureIgnoreCase))
-                        WriteLog(0, "Warning: file has zero length, "+
+                    {
+                        WriteLogFormatted(0, Resources.FileHasZeroLength,
+                            strFilePath1);
+                        WriteLog(true, 0, "Warning: file has zero length, " +
                             "indicating a failed copy operation in the past: ", strFilePath1);
+                    }
                     else
-                        WriteLog(0, "Warning: both files have zero length, "+
+                    {
+                        WriteLogFormatted(0, Resources.FilesHaveZeroLength,
+                               strFilePath1, strFilePath2);
+                        WriteLog(true, 0, "Warning: both files have zero length, " +
                             "indicating a failed copy operation in the past: ", strFilePath1, ", ", strFilePath2);
+                    }
                 }
             }
             else
@@ -2283,14 +2339,17 @@ namespace SyncFolders
                 if (fiSavedInfo2.Exists)
                     m_iFileOpenAndCopyAbstraction.Delete(fiSavedInfo2);
                 m_iFileOpenAndCopyAbstraction.Delete(fi2);
-                WriteLog(0, "Deleted file ", fi2.FullName, 
+                WriteLogFormatted(0, Resources.DeletedFileNotPresentIn,
+                    fi2.FullName, fi1.Directory.FullName);
+                WriteLog(true, 0, "Deleted file ", fi2.FullName, 
                     " that is not present in ", fi1.Directory.FullName, " anymore");
             }
             else
             {
                 if (fi2.Length == 0 && CheckIfZeroLengthIsInteresting(strFilePath2))
                 {
-                    WriteLog(0, "Warning: file has zero length, "+
+                    WriteLogFormatted(0, Resources.FileHasZeroLength, strFilePath2);
+                    WriteLog(true, 0, "Warning: file has zero length, "+
                         "indicating a failed copy operation in the past: ", strFilePath2);
                 }
 
@@ -2464,13 +2523,17 @@ namespace SyncFolders
 
                             if (bOK)
                             {
-                                if (fi1.LastWriteTime.Year>1975)
-                                    CopyFileSafely(fi1, strFilePath2, 
+                                if (fi1.LastWriteTime.Year > 1975)
+                                    CopyFileSafely(fi1, strFilePath2,
                                         "(file was healthy, or repaired)");
                                 else
-                                    WriteLog(0, "Warning: couldn't use outdated file ", 
-                                        strFilePath1," with year 1975 or earlier for restoring ",
+                                {
+                                    WriteLogFormatted(0, Resources.CouldntUseOutdatedFileForRestoringOther,
+                                        strFilePath1, strFilePath2);
+                                    WriteLog(true, 0, "Warning: couldn't use outdated file ",
+                                        strFilePath1, " with year 1975 or earlier for restoring ",
                                         strFilePath2, ", signaling this was a last chance restore");
+                                }
                             }
                         }
                     }
@@ -2513,9 +2576,13 @@ namespace SyncFolders
                                     if (fi2.LastWriteTime.Year > 1975)
                                         CopyFileSafely(fi2, strFilePath1, "(file was healthy, or repaired)");
                                     else
-                                        WriteLog(0, "Warning: couldn't use outdated file ", strFilePath2, 
+                                    {
+                                        WriteLogFormatted(0, Resources.CouldntUseOutdatedFileForRestoringOther,
+                                            strFilePath2, strFilePath1);
+                                        WriteLog(true, 0, "Warning: couldn't use outdated file ", strFilePath2,
                                             " with year 1975 or earlier for restoring ",
                                             strFilePath1, ", signaling this was a last chance restore");
+                                    }
                                 }
                             }
                         }
@@ -2582,12 +2649,14 @@ namespace SyncFolders
                     if (strFilePath1.Equals(strFilePath2,
                         StringComparison.CurrentCultureIgnoreCase))
                     {
-                        WriteLog(0, "Warning: file has zero length, " +
+                        WriteLogFormatted(0, Resources.FileHasZeroLength, strFilePath1);
+                        WriteLog(true, 0, "Warning: file has zero length, " +
                             "indicating a failed copy operation in the past: ", strFilePath1);
                     }
                     else
                     {
-                        WriteLog(0, "Warning: both files have zero length, " +
+                        WriteLogFormatted(0, Resources.FilesHaveZeroLength, strFilePath1, strFilePath2);
+                        WriteLog(true, 0, "Warning: both files have zero length, " +
                             "indicating a failed copy operation in the past: ", strFilePath1, ", ", strFilePath2);
                     }
                 }
@@ -2626,7 +2695,8 @@ namespace SyncFolders
         {
             if (fi1.Length == 0 && CheckIfZeroLengthIsInteresting(strFilePath1))
             {
-                WriteLog(0, "Warning: file has zero length, "+
+                WriteLogFormatted(0, Resources.FileHasZeroLength, strFilePath1);
+                WriteLog(true, 0, "Warning: file has zero length, " + 
                     "indicating a failed copy operation in the past: ", strFilePath1);
             }
 
@@ -2680,7 +2750,9 @@ namespace SyncFolders
                     }
                     catch (Exception)
                     {
-                        WriteLog(0, "Warning: Encountered error while copying ", 
+                        WriteLogFormatted(0, Resources.EncounteredErrorWhileCopyingTryingToRepair,
+                            fi1.FullName);
+                        WriteLog(true, 0, "Warning: Encountered error while copying ", 
                             fi1.FullName, ", trying to automatically repair");
                         if (_bTestFiles && _bRepairFiles)
                             TestAndRepairSingleFile(fi1.FullName, 
@@ -2854,7 +2926,9 @@ namespace SyncFolders
                 {
                     if (!_bTestFiles || !_bRepairFiles)
                     {
-                        WriteLog(0, "Running without repair option, "
+                        WriteLogFormatted(0, Resources.RunningWithoutRepairOptionUndecided,
+                            fi1.FullName, fi2.FullName);
+                        WriteLog(true, 0, "Running without repair option, "
                         + "so couldn't decide, if the file ",  
                         fi1.FullName, " can be restored using ", fi2.FullName);
                         // first failed,  still need to test the second
@@ -2890,14 +2964,18 @@ namespace SyncFolders
                         if (TestAndRepairSingleFile(strFilePath2, fiSavedInfo2.FullName, ref bForceCreateInfo2, true)
                              && fi2.LastWriteTime.Year>1975)
                         {
-                            WriteLog(0, "Warning: Encountered I/O error while copying ", 
+                            WriteLogFormatted(0, Resources.EncounteredErrorOlderOk,
+                                fi1.FullName, strFilePath2);
+                            WriteLog(true, 0, "Warning: Encountered I/O error while copying ", 
                                 fi1.FullName, ". The older file ", strFilePath2, " seems to be OK");
                             bCopied1To2 = false;
                             bCopy2To1 = true;
                         }
                         else
                         {
-                            WriteLog(0, "Warning: Encountered I/O error while copying ", fi1.FullName, 
+                            WriteLogFormatted(0, Resources.EncounteredErrorOtherBadToo,
+                                fi1.FullName, strFilePath2);
+                            WriteLog(true, 0, "Warning: Encountered I/O error while copying ", fi1.FullName, 
                                 ". Other file has errors as well: ", strFilePath2, 
                                 ", or is a product of last chance restore, trying to automatically repair ", 
                                 strFilePath1);
@@ -2945,7 +3023,9 @@ namespace SyncFolders
 
                 if (!_bTestFiles || !_bRepairFiles)
                 {
-                    WriteLog(0, "Running without repair option, so couldn't decide, " +
+                    WriteLogFormatted(0, Resources.RunningWithoutRepairOptionUndecided,
+                        fi1.FullName, fi2.FullName);
+                    WriteLog(true, 0, "Running without repair option, so couldn't decide, " +
                     "if the file ", fi1.FullName, " can be restored using ", fi2.FullName);
                     return;
                 }
@@ -2970,7 +3050,9 @@ namespace SyncFolders
                     else
                     {
                         // should actually never happen, since we go there only if file 2 could be restored above
-                        WriteLog(0, "Internal error: Couldn't "+
+                        WriteLogFormatted(0, Resources.InternalErrorCouldntRestoreAny,
+                            fi1.FullName, fi2.FullName);
+                        WriteLog(true, 0, "Internal error: Couldn't "+
                             "restore any of the copies of the file ", fi1.FullName, ", ", fi2.FullName);
                         return;
                     }
@@ -2985,7 +3067,10 @@ namespace SyncFolders
                     catch (Exception)
                     {
                         // should actually never happen, since we go there only if file 2 could be restored above
-                        WriteLog(0, "Internal error: Couldn't "+
+                        WriteLogFormatted(0, Resources.InternalErrorCouldntRestoreAny,
+                            fi1.FullName, fi2.FullName);
+
+                        WriteLog(true, 0, "Internal error: Couldn't "+
                         "restore any of the copies of the file ", fi1.FullName, ", ", fi2.FullName);
                         return;
                     }
@@ -3288,7 +3373,9 @@ namespace SyncFolders
 
                             fi2tmp.MoveTo(strTargetPath);
 
-                            WriteLog(0, "Copied ", strPathFile, " to ", strTargetPath, " ", strReason);
+                            WriteLogFormatted(0, Resources.CopiedFromToReason,
+                                strPathFile, strTargetPath, strReason);
+                            WriteLog(true, 0, "Copied ", strPathFile, " to ", strTargetPath, " ", strReason);
                         }
                     } catch
                     {
@@ -3311,7 +3398,9 @@ namespace SyncFolders
             }
             catch (System.IO.IOException ex)
             {
-                WriteLog(0, "Warning: I/O Error while copying file: \"", 
+                WriteLogFormatted(0, Resources.WarningIOErrorWhileCopyingToReason,
+                    finfo.FullName, strTargetPath, ex.Message);
+                WriteLog(true, 0, "Warning: I/O Error while copying file: \"", 
                     finfo.FullName, "\" to \"", strTargetPath, "\": " + ex.Message);
                 return false;
             }
@@ -3342,7 +3431,8 @@ namespace SyncFolders
             }
             catch (System.IO.IOException ex)
             {
-                WriteLog(0, "I/O Error writing file: \"", strPathSavedInfoFile, "\": " + ex.Message);
+                WriteLogFormatted(0, Resources.IOErrorWritingFile, strPathSavedInfoFile, ex.Message);
+                WriteLog(true, 0, "I/O Error writing file: \"", strPathSavedInfoFile, "\": " + ex.Message);
                 return false;
             }
 
@@ -3401,7 +3491,9 @@ namespace SyncFolders
             }
             catch (System.IO.IOException ex)
             {
-                WriteLog(0, "I/O Error reading file: \"", 
+                WriteLogFormatted(0, Resources.IOErrorReadingFile,
+                    finfo.FullName, ex.Message);
+                WriteLog(true, 0, "I/O Error reading file: \"", 
                     finfo.FullName, "\": " + ex.Message);
                 return false;
             }
@@ -3441,7 +3533,9 @@ namespace SyncFolders
 
             } catch (System.IO.IOException ex)
             {
-                WriteLog(0, "I/O Error writing file: \"", 
+                WriteLogFormatted(0, Resources.IOErrorWritingFile,
+                    strPathSavedChkInfoFile, ex.Message);
+                WriteLog(true, 0, "I/O Error writing file: \"", 
                     strPathSavedChkInfoFile, "\": " + ex.Message);
                 return false;
             }
@@ -3537,7 +3631,9 @@ namespace SyncFolders
             }
             catch (Exception ex)
             {
-                WriteLog(1, "Warning: ", ex.Message, 
+                WriteLogFormatted(1, Resources.WarningWhileDiscoveringIfNeedsToBeRechecked,
+                    ex.Message, pathFile);
+                WriteLog(true, 1, "Warning: ", ex.Message, 
                     " while discovering, if ", pathFile, 
                     " needs to be rechecked.");
             }
@@ -3571,7 +3667,9 @@ namespace SyncFolders
                     }
                     catch (System.IO.IOException ex)
                     {
-                        WriteLog(0, "I/O Error reading file: \"", 
+                        WriteLogFormatted(0, Resources.IOErrorReadingFile,
+                            strPathSavedInfoFile, ex.Message);
+                        WriteLog(true, 0, "I/O Error reading file: \"", 
                             strPathSavedInfoFile, "\": " + ex.Message);
                         bSaveInfoUnreadable = true;
                         bForceCreateInfo = true;
@@ -3589,9 +3687,13 @@ namespace SyncFolders
                 bForceCreateInfo = true;
                 if (!bSaveInfoUnreadable)
                     if (bNeedsMessageAboutOldSavedInfo)
-                        WriteLog(0, "RestoreInfo file \"", strPathSavedInfoFile, 
-                            "\" can't be used for testing file \"", pathFile, 
+                    {
+                        WriteLogFormatted(0, Resources.SavedInfoFileCantBeUsedForTesting,
+                            strPathSavedInfoFile, pathFile);
+                        WriteLog(true, 0, "Saved info file \"", strPathSavedInfoFile,
+                            "\" can't be used for testing file \"", pathFile,
                             "\": it was created for another version of the file");
+                    }
 
                 Block b = Block.GetBlock();
                 try
@@ -3629,7 +3731,9 @@ namespace SyncFolders
                             }
                             catch (System.IO.IOException ex)
                             {
-                                WriteLog(0, "I/O Error reading file: \"",
+                                WriteLogFormatted(0, Resources.IOErrorReadingFileOffset,
+                                    finfo.FullName, index * b.Length, ex.Message);
+                                WriteLog(true, 0, "I/O Error reading file: \"",
                                     finfo.FullName, "\", offset ", 
                                     index * b.Length, ": " + ex.Message);
                                 s.Seek((index + 1) * b.Length, 
@@ -3682,7 +3786,12 @@ namespace SyncFolders
                                     if (bFailASAPwoMessage)
                                         return false;
 
-                                    WriteLog(1, finfo.FullName, 
+                                    WriteLogFormatted(1,
+                                        Resources.ChecksumOfBlockAtOffsetNotOK,
+                                        finfo.FullName,
+                                        index * b.Length);
+
+                                    WriteLog(true, 1, finfo.FullName, 
                                         ": checksum of block at offset ", 
                                         index * b.Length, " not OK");
                                     bAllBlocksOK = false;
@@ -3701,7 +3810,12 @@ namespace SyncFolders
                                         if (bFailASAPwoMessage)
                                             return false;
 
-                                        WriteLog(1, finfo.FullName, 
+                                        WriteLogFormatted(1,
+                                            Resources.ChecksumOfBlockAtOffsetNotOK,
+                                            finfo.FullName,
+                                            index * b.Length);
+
+                                        WriteLog(true, 1, finfo.FullName, 
                                             ": checksum of block at offset ", 
                                             index * b.Length, " not OK");
                                         bAllBlocksOK = false;
@@ -3730,7 +3844,9 @@ namespace SyncFolders
 
                             bAllBlocksOK = false;
 
-                            WriteLog(1, "I/O Error reading file: \"", 
+                            WriteLogFormatted(1, Resources.IOErrorReadingFileOffset,
+                                finfo.FullName, ex.Message);
+                            WriteLog(true, 1, "I/O Error reading file: \"", 
                                 finfo.FullName, "\", offset ", 
                                 index * b.Length, ": " + ex.Message);
                             s.Seek((index + 1) * b.Length, 
@@ -3741,14 +3857,22 @@ namespace SyncFolders
 
                     List<RestoreInfo> ri = si.EndRestore(out nonRestoredSize, fiSavedInfo.FullName, this);
                     if (ri.Count > 1)
-                        WriteLog(0, "There are ", ri.Count, " bad blocks in the file ", 
-                            finfo.FullName, ", non-restorable parts: ", nonRestoredSize, 
+                    {
+                        WriteLogFormatted(0, Resources.ThereAreBadBlocksNonRestorableOnlyTested,
+                            ri.Count, finfo.FullName, nonRestoredSize);
+                        WriteLog(true, 0, "There are ", ri.Count, " bad blocks in the file ",
+                            finfo.FullName, ", non-restorable parts: ", nonRestoredSize,
                             " bytes, file remains unchanged, it was only tested");
+                    }
                     else
                         if (ri.Count > 0)
-                        WriteLog(0, "There is one bad block in the file ", finfo.FullName, 
-                            ", non-restorable parts: ", nonRestoredSize, 
-                            " bytes, file remains unchanged, it was only tested");
+                        {
+                            WriteLogFormatted(0, Resources.ThereIsOneBadBlockNonRestorableOnlyTested,
+                                finfo.FullName, nonRestoredSize);
+                            WriteLog(true, 0, "There is one bad block in the file ", finfo.FullName,
+                                ", non-restorable parts: ", nonRestoredSize,
+                                " bytes, file remains unchanged, it was only tested");
+                        }
 
                     s.Close();
                 };
@@ -3760,9 +3884,13 @@ namespace SyncFolders
                     if (!si.VerifyIntegrityAfterRestoreTest())
                     {
                         if (bNeedsMessageAboutOldSavedInfo)
-                            WriteLog(0, "RestoreInfo file \"", strPathSavedInfoFile, 
-                                "\" has been damaged and needs to be recreated from \"", 
-                                pathFile,"\"");
+                        {
+                            WriteLogFormatted(0, Resources.SavedInfoHasBeenDamagedNeedsRecreation,
+                                strPathSavedInfoFile, pathFile);
+                            WriteLog(true, 0, "Saved info file \"", strPathSavedInfoFile,
+                                "\" has been damaged and needs to be recreated from \"",
+                                pathFile, "\"");
+                        }
                         bForceCreateInfo = true;
                     }
                 }
@@ -3779,7 +3907,9 @@ namespace SyncFolders
             }
             catch (System.IO.IOException ex)
             {
-                WriteLog(0, "I/O Error reading file: \"", 
+                WriteLogFormatted(0, Resources.IOErrorReadingFile,
+                    finfo.FullName, ex.Message);
+                WriteLog(true, 0, "I/O Error reading file: \"", 
                     finfo.FullName, "\": " + ex.Message);
                 return false;
             }
@@ -3817,7 +3947,9 @@ namespace SyncFolders
             }
             catch (Exception ex)
             {
-                WriteLog(1, "Warning: ", ex.Message, 
+                WriteLogFormatted(1, Resources.WarningWhileCreating,
+                    ex.Message, strPath);
+                WriteLog(true, 1, "Warning: ", ex.Message, 
                     " while creating ", strPath);
             }
         }
@@ -3872,7 +4004,9 @@ namespace SyncFolders
                     }
                     catch (System.IO.IOException ex)
                     {
-                        WriteLog(0, "I/O Error reading file: \"", 
+                        WriteLogFormatted(0, Resources.IOErrorReadingFile,
+                            strPathSavedInfoFile, ex.Message);
+                        WriteLog(true, 0, "I/O Error reading file: \"", 
                             strPathSavedInfoFile, "\": " + ex.Message);
                         bNotReadableSi = true;
                     }
@@ -3888,9 +4022,13 @@ namespace SyncFolders
                     bForceCreateInfo = true;
 
                 if (!bNotReadableSi)
-                    WriteLog(0, "RestoreInfo file \"", strPathSavedInfoFile, 
-                        "\" can't be used for testing file \"", strPathFile, 
+                {
+                    WriteLogFormatted(0, Resources.SavedInfoFileCantBeUsedForTesting,
+                        strPathSavedInfoFile, strPathFile);
+                    WriteLog(true, 0, "Saved info file \"", strPathSavedInfoFile,
+                        "\" can't be used for testing file \"", strPathFile,
                         "\": it was created for another version of the file");
+                }
 
                 using (System.IO.FileStream s = m_iFileOpenAndCopyAbstraction.Open(
                     finfo.FullName, System.IO.FileMode.Open,
@@ -3920,13 +4058,17 @@ namespace SyncFolders
                             if (bOnlyIfCompletelyRecoverable)
                             {
                                 // we can't recover, so put only messages, don't write to file
-                                WriteLog(1, "I/O error reading file ", finfo.FullName,
+                                WriteLogFormatted(1, Resources.IOErrorReadingFileOffset,
+                                    finfo.FullName, index * b.Length, ex.Message);
+                                WriteLog(true, 1, "I/O error reading file ", finfo.FullName,
                                     " position ", index * b.Length, ": ", ex.Message);
                                 s.Seek(index * b.Length + lengthToWrite, System.IO.SeekOrigin.Begin);
                             }
                             else
                             {
-                                WriteLog(0, "Error while reading file ", finfo.FullName,
+                                WriteLogFormatted(0, Resources.ErrorReadingPositionWillFillWithDummy,
+                                    finfo.FullName, index * b.Length, ex.Message);
+                                WriteLog(true, 0, "Error while reading file ", finfo.FullName,
                                     " position ", index * b.Length, ": ", ex.Message,
                                     ". Block will be filled with a dummy");
                                 s.Seek(index * b.Length, System.IO.SeekOrigin.Begin);
@@ -3975,7 +4117,9 @@ namespace SyncFolders
                                 if (!bBlockOk)
                                 {
                                     bAllBlocksOK = false;
-                                    WriteLog(1,finfo.FullName, 
+                                    WriteLogFormatted(1, Resources.ChecksumOfBlockAtOffsetNotOK,
+                                        finfo.FullName, index * b.Length);
+                                    WriteLog(true, 1,finfo.FullName, 
                                         ": checksum of block at offset ", 
                                         index * b.Length, " not OK");
                                     readableButNotAccepted[index] = true;
@@ -3987,7 +4131,10 @@ namespace SyncFolders
                                 if (!bBlockOk)
                                 {
                                     bAllBlocksOK = false;
-                                    WriteLog(1,finfo.FullName, 
+                                    WriteLogFormatted(1,
+                                        Resources.ChecksumOfBlockAtOffsetNotOK,
+                                        finfo.FullName, index * b.Length);
+                                    WriteLog(true, 1, finfo.FullName, 
                                         ": checksum of block at offset ", 
                                         index * b.Length, " not OK");
                                     readableButNotAccepted[index] = true;
@@ -4002,7 +4149,9 @@ namespace SyncFolders
                         catch (System.IO.IOException ex)
                         {
                             bAllBlocksOK = false;
-                            WriteLog(1,"I/O Error reading file: \"", 
+                            WriteLogFormatted(1, Resources.IOErrorReadingFileOffset,
+                                finfo.FullName, index * b.Length, ex.Message);
+                            WriteLog(true, 1,"I/O Error reading file: \"", 
                                 finfo.FullName, "\", offset ", 
                                 index * b.Length, ": " + ex.Message);
                             s.Seek((index + 1) * b.Length, 
@@ -4022,7 +4171,10 @@ namespace SyncFolders
                     // match the file itself, or if they have been corrupted somehow
                     if (!si.VerifyIntegrityAfterRestoreTest())
                     {
-                        WriteLog(0, "RestoreInfo file \"", strPathSavedInfoFile, 
+                        WriteLogFormatted(0,
+                            Resources.SavedInfoHasBeenDamagedNeedsRecreation,
+                            strPathSavedInfoFile, strPathFile);
+                        WriteLog(true, 0, "Saved info file \"", strPathSavedInfoFile, 
                             "\" has been damaged and needs to be recreated from \"", 
                             strPathFile, "\"");
                         bForceCreateInfo = true;
@@ -4035,7 +4187,9 @@ namespace SyncFolders
             }
             catch (System.IO.IOException ex)
             {
-                WriteLog(0,"I/O Error reading file: \"", 
+                WriteLogFormatted(0, Resources.IOErrorReadingFile,
+                    finfo.FullName, ex.Message);
+                WriteLog(true, 0, "I/O Error reading file: \"", 
                     finfo.FullName, "\": " + ex.Message);
                 return false;
             }
@@ -4060,12 +4214,19 @@ namespace SyncFolders
                             if (ri.NotRecoverableArea)
                             {
                                 if (readableButNotAccepted.ContainsKey(ri.Position / ri.Data.Length))
-                                    WriteLog(1, "Keeping readable but not recoverable block at offset ",
+                                {
+                                    WriteLogFormatted(1,
+                                        Resources.KeepingReadableButNotRecoverableBlockAtOffset,
+                                        ri.Position);
+                                    WriteLog(true, 1, "Keeping readable but not recoverable block at offset ",
                                         ri.Position, ", checksum indicates the block is wrong");
+                                }
                                 else
                                 {
                                     s.Seek(ri.Position, System.IO.SeekOrigin.Begin);
-                                    WriteLog(1, "Filling not recoverable block at offset ",
+                                    WriteLogFormatted(1, Resources.FillingNotRecoverableAtOffsetWithDummy,
+                                        ri.Position);
+                                    WriteLog(true, 1, "Filling not recoverable block at offset ",
                                         ri.Position, " with a dummy block");
                                     int lengthToWrite = (int)(si.Length - ri.Position >= ri.Data.Length ?
                                         ri.Data.Length :
@@ -4078,7 +4239,9 @@ namespace SyncFolders
                             else
                             {
                                 s.Seek(ri.Position, System.IO.SeekOrigin.Begin);
-                                WriteLog(1, "Recovering block at offset ",
+                                WriteLogFormatted(1, Resources.RecoveringBlockAtOffsetOfFile,
+                                    ri.Position, finfo.FullName);
+                                WriteLog(true, 1, "Recovering block at offset ",
                                     ri.Position, " of the file ", finfo.FullName);
                                 int lengthToWrite = (int)(si.Length - ri.Position >= ri.Data.Length ?
                                     ri.Data.Length :
@@ -4095,26 +4258,42 @@ namespace SyncFolders
                 if (bOnlyIfCompletelyRecoverable && nonRestoredSize != 0)
                 {
                     if (rinfos.Count > 1)
-                        WriteLog(0, "There are ", rinfos.Count,
+                    {
+                        WriteLogFormatted(0, Resources.ThereAreBadBlocksNonRestorableCantBeBackup,
+                            rinfos.Count, finfo.FullName, nonRestoredSize);
+                        WriteLog(true, 0, "There are ", rinfos.Count,
                             " bad blocks in the file ", finfo.FullName,
                             ", non-restorable parts: ", nonRestoredSize, " bytes, file can't be used as backup");
+                    }
                     else
                         if (rinfos.Count > 0)
-                            WriteLog(0, "There is one bad block in the file ", finfo.FullName,
+                        {
+                            WriteLogFormatted(0, Resources.ThereIsBadBlockNonRestorableCantBeBackup,
+                                finfo.FullName, nonRestoredSize);
+                            WriteLog(true, 0, "There is one bad block in the file ", finfo.FullName,
                                 " and it can't be restored: ", nonRestoredSize, " bytes, file can't be used as backup");
+                        }
 
                     finfo.LastWriteTimeUtc = prevLastWriteTime;
                 }
                 else
                 {
                     if (rinfos.Count > 1)
-                        WriteLog(0, "There were ", rinfos.Count,
+                    {
+                        WriteLogFormatted(0, Resources.ThereWereBadBlocksInFileNotRestoredParts,
+                            rinfos.Count, finfo.FullName, nonRestoredSize);
+                        WriteLog(true, 0, "There were ", rinfos.Count,
                             " bad blocks in the file ", finfo.FullName,
                             ", not restored parts: ", nonRestoredSize, " bytes");
+                    }
                     else
                         if (rinfos.Count > 0)
-                            WriteLog(0, "There was one bad block in the file ", finfo.FullName,
+                        {
+                            WriteLogFormatted(0, Resources.ThereWasBadBlockInFileNotRestoredParts,
+                                finfo.FullName, nonRestoredSize);
+                            WriteLog(true, 0, "There was one bad block in the file ", finfo.FullName,
                                 ", not restored parts: ", nonRestoredSize, " bytes");
+                        }
 
                     if (nonRestoredSize == 0 && rinfos.Count == 0)
                     {
@@ -4136,7 +4315,9 @@ namespace SyncFolders
             }
             catch (System.IO.IOException ex)
             {
-                WriteLog(0, "I/O Error writing file: \"", finfo.FullName, "\": " + ex.Message);
+                WriteLogFormatted(0, Resources.IOErrorWritingFile,
+                    finfo.FullName, ex.Message);
+                WriteLog(true, 0, "I/O Error writing file: \"", finfo.FullName, "\": " + ex.Message);
                 finfo.LastWriteTimeUtc = prevLastWriteTime;
                 return false;
             }
@@ -4307,13 +4488,17 @@ namespace SyncFolders
 
                                 if (!b1Ok)
                                 {
-                                    WriteLog(2, strPathFile1, ": checksum of block at offset ", 
+                                    WriteLogFormatted(2, Resources.ChecksumOfBlockAtOffsetNotOK,
+                                        strPathFile1, index * b1.Length);
+                                    WriteLog(true, 2, strPathFile1, ": checksum of block at offset ", 
                                         index * b1.Length, " not OK");
                                 }
                             }
                             catch (System.IO.IOException ex)
                             {
-                                WriteLog(2, "I/O exception while reading file \"", 
+                                WriteLogFormatted(2, Resources.IOErrorReadingFile,
+                                    strPathFile1, ex.Message);
+                                WriteLog(true, 2, "I/O exception while reading file \"", 
                                     strPathFile1, "\": ", ex.Message);
                                 s1.Seek((index + 1) * b1.Length, 
                                     System.IO.SeekOrigin.Begin);
@@ -4347,13 +4532,17 @@ namespace SyncFolders
 
                                 if (!b2Ok)
                                 {
-                                    WriteLog(2, strPathFile2, ": checksum of block at offset ", 
+                                    WriteLogFormatted(2, Resources.ChecksumOfBlockAtOffsetNotOK,
+                                        strPathFile2, index * b2.Length);
+                                    WriteLog(true, 2, strPathFile2, ": checksum of block at offset ", 
                                         index * b2.Length, " not OK");
                                 }
                             }
                             catch (System.IO.IOException ex)
                             {
-                                WriteLog(2, "I/O exception while reading file \"", 
+                                WriteLogFormatted(2, Resources.IOErrorReadingFile,
+                                    strPathFile2, ex.Message);
+                                WriteLog(true, 2, "I/O exception while reading file \"", 
                                     strPathFile2, "\": ", ex.Message);
                                 s2.Seek((index + 1) * b2.Length, 
                                     System.IO.SeekOrigin.Begin);
@@ -4363,7 +4552,9 @@ namespace SyncFolders
                             {
                                 if (si2.AnalyzeForTestOrRestore(b1, index))
                                 {
-                                    WriteLog(1, "Block of ", fi2.FullName, 
+                                    WriteLogFormatted(1, Resources.BlockOfAtPositionWillBeRestoredFrom,
+                                        fi2.FullName, index * b1.Length, fi1.FullName);
+                                    WriteLog(true, 1, "Block of ", fi2.FullName, 
                                         " position ", index * b1.Length, 
                                         " will be restored from ", fi1.FullName);
                                     restore2.Add(new RestoreInfo(index * b1.Length, b1, false));
@@ -4374,7 +4565,9 @@ namespace SyncFolders
                             {
                                 if (si1.AnalyzeForTestOrRestore(b2, index))
                                 {
-                                    WriteLog(1, "Block of ", fi1.FullName, 
+                                    WriteLogFormatted(1, Resources.BlockOfAtPositionWillBeRestoredFrom,
+                                        fi1.FullName, index * b1.Length, fi2.FullName);
+                                    WriteLog(true, 1, "Block of ", fi1.FullName, 
                                         " position ", index * b1.Length, 
                                         " will be restored from ", fi2.FullName);
                                     restore1.Add(new RestoreInfo(index * b1.Length, b2, false));
@@ -4386,7 +4579,9 @@ namespace SyncFolders
                                 {
                                     if (si1.AnalyzeForTestOrRestore(b2, index))
                                     {
-                                        WriteLog(1, "Block of ", fi1.FullName, 
+                                        WriteLogFormatted(1, Resources.BlockOfAtPositionWillBeRestoredFrom,
+                                            fi1.FullName, index * b1.Length, fi2.FullName);
+                                        WriteLog(true, 1, "Block of ", fi1.FullName, 
                                             " position ", index * b1.Length, 
                                             " will be restored from ", fi2.FullName);
                                         restore1.Add(new RestoreInfo(index * b1.Length, b2, false));
@@ -4397,7 +4592,9 @@ namespace SyncFolders
                                 {
                                     if (si2.AnalyzeForTestOrRestore(b1, index))
                                     {
-                                        WriteLog(1, "Block of ", fi2.FullName, 
+                                        WriteLogFormatted(1, Resources.BlockOfAtPositionWillBeRestoredFrom,
+                                            fi2.FullName, index * b1.Length, fi1.FullName);
+                                        WriteLog(true, 1, "Block of ", fi2.FullName, 
                                             " position ", index * b1.Length, 
                                             " will be restored from ", fi1.FullName);
                                         restore2.Add(new RestoreInfo(index * b1.Length, b1, false));
@@ -4465,7 +4662,9 @@ namespace SyncFolders
                                 if (ri2.Position == ri1.Position)
                                     if (ri2.NotRecoverableArea && !ri1.NotRecoverableArea)
                                     {
-                                        WriteLog(1, "Block of ", fi2.FullName, 
+                                        WriteLogFormatted(1, Resources.BlockOfAtPositionWillBeRestoredFrom,
+                                            fi2.FullName, ri2.Position, fi1.FullName);
+                                        WriteLog(true, 1, "Block of ", fi2.FullName, 
                                             " position ", ri2.Position, 
                                             " will be restored from ", fi1.FullName);
                                         ri2.Data = ri1.Data;
@@ -4473,13 +4672,15 @@ namespace SyncFolders
                                     }
                                     else
                                         if (ri1.NotRecoverableArea && !ri2.NotRecoverableArea)
-                                    {
-                                        WriteLog(1, "Block of ", fi1.FullName, 
-                                            " position ", ri1.Position, 
-                                            " will be restored from ", fi2.FullName);
-                                        ri1.Data = ri2.Data;
-                                        ri1.NotRecoverableArea = false;
-                                    }
+                                        {
+                                            WriteLogFormatted(1, Resources.BlockOfAtPositionWillBeRestoredFrom,
+                                                fi1.FullName, ri1.Position, fi2.FullName);
+                                            WriteLog(true, 1, "Block of ", fi1.FullName, 
+                                                " position ", ri1.Position, 
+                                                " will be restored from ", fi2.FullName);
+                                            ri1.Data = ri2.Data;
+                                            ri1.NotRecoverableArea = false;
+                                        }
                             }
                         }
 
@@ -4492,7 +4693,9 @@ namespace SyncFolders
                                 ;// bForceCreateInfoBecauseDamaged = true;
                             else
                             {
-                                WriteLog(1, "Recovering block of ", fi1.FullName, 
+                                WriteLogFormatted(1, Resources.RecoveringBlockAtOffsetOfFile,
+                                    ri1.Position, fi1.FullName);
+                                WriteLog(true, 1, "Recovering block of ", fi1.FullName, 
                                     " at position ", ri1.Position);
                                 s1.Seek(ri1.Position, System.IO.SeekOrigin.Begin);
 
@@ -4514,7 +4717,9 @@ namespace SyncFolders
                                 ; // bForceCreateInfoBecauseDamaged = true;
                             else
                             {
-                                WriteLog(1, "Recovering block of ", fi2.FullName, 
+                                WriteLogFormatted(1, Resources.RecoveringBlockAtOffsetOfFile,
+                                    ri2.Position, fi2.FullName);
+                                WriteLog(true, 1, "Recovering block of ", fi2.FullName, 
                                     " at position ", ri2.Position);
                                 s2.Seek(ri2.Position, System.IO.SeekOrigin.Begin);
 
@@ -4538,7 +4743,9 @@ namespace SyncFolders
                                 readableBlocks2.ContainsKey(ri1.Position/ri1.Data.Length) && 
                                 !readableBlocks1.ContainsKey(ri1.Position/ri1.Data.Length) )
                             {
-                                WriteLog(1, "Block of ", fi1.FullName, " position ", 
+                                WriteLogFormatted(1, Resources.BlockOfAtPositionWillBeCopiedFromNoMatterChecksum,
+                                    fi1.FullName, ri1.Position, fi2.FullName);
+                                WriteLog(true, 1, "Block of ", fi1.FullName, " position ", 
                                     ri1.Position, " will be copied from ", 
                                     fi2.FullName, " even if checksum indicates the block is wrong");
 
@@ -4561,7 +4768,9 @@ namespace SyncFolders
                                 !readableBlocks2.ContainsKey(ri2.Position / ri2.Data.Length) )
  
                             {
-                                WriteLog(1, "Block of ", fi2.FullName, " position ", 
+                                WriteLogFormatted(1, Resources.BlockOfAtPositionWillBeCopiedFromNoMatterChecksum,
+                                    fi2.FullName, ri2.Position, fi1.FullName);
+                                WriteLog(true, 1, "Block of ", fi2.FullName, " position ", 
                                     ri2.Position, " will be copied from ", fi1.FullName, 
                                     " even if checksum indicates the block is wrong");
 
@@ -4582,7 +4791,9 @@ namespace SyncFolders
                             if (ri1.NotRecoverableArea && !equalBlocks.ContainsKey(ri1.Position / ri1.Data.Length) &&
                                 !readableBlocks1.ContainsKey(ri1.Position / ri1.Data.Length))
                             {
-                                WriteLog(1, "Block of ", fi1.FullName, " position ", 
+                                WriteLogFormatted(1, Resources.BlockOfAtPositionNotRecoverableFillDumy,
+                                    fi1.FullName, ri1.Position);
+                                WriteLog(true, 1, "Block of ", fi1.FullName, " position ", 
                                     ri1.Position, " is not recoverable and will be filled with a dummy");
 
                                 s1.Seek(ri1.Position, System.IO.SeekOrigin.Begin);
@@ -4602,7 +4813,9 @@ namespace SyncFolders
                                 !equalBlocks.ContainsKey(ri2.Position / ri2.Data.Length) &&
                                 !readableBlocks2.ContainsKey(ri2.Position / ri2.Data.Length))
                             {
-                                WriteLog(1, "Block of ", fi2.FullName,
+                                WriteLogFormatted(1, Resources.BlockOfAtPositionNotRecoverableFillDumy,
+                                    fi2.FullName, ri2.Position);
+                                WriteLog(true, 1, "Block of ", fi2.FullName,
                                     " position ", ri2.Position, 
                                     " is not recoverable and will be filled with a dummy");
 
@@ -4624,14 +4837,23 @@ namespace SyncFolders
                     s1.Close();
                 }
 
-                if (restore1.Count>0)
-                    WriteLog(0, "There were ", restore1.Count, 
-                        " bad blocks in ", fi1.FullName, 
+                if (restore1.Count > 0)
+                {
+                    WriteLogFormatted(0, Resources.ThereWereBadBlocksInFileNotRestoredParts,
+                        restore1.Count, fi1.FullName, notRestoredSize1);
+                    WriteLog(true, 0, "There were ", restore1.Count,
+                        " bad blocks in ", fi1.FullName,
                         " not restored bytes: ", notRestoredSize1);
-                if (restore2.Count>0)
-                    WriteLog(0, "There were ", restore2.Count, 
-                        " bad blocks in ", fi2.FullName, 
+                }
+                if (restore2.Count > 0)
+                {
+                    WriteLogFormatted(0, Resources.ThereWereBadBlocksInFileNotRestoredParts,
+                        restore2.Count, fi2.FullName, notRestoredSize2);
+
+                    WriteLog(true, 0, "There were ", restore2.Count,
+                        " bad blocks in ", fi2.FullName,
                         " not restored bytes: ", notRestoredSize2);
+                }
 
                 fi1.LastWriteTimeUtc = prevLastWriteTime;
                 fi2.LastWriteTimeUtc = prevLastWriteTime;
@@ -4682,7 +4904,9 @@ namespace SyncFolders
                             }
                             catch (System.IO.IOException ex)
                             {
-                                WriteLog(2, "I/O exception while reading file \"", 
+                                WriteLogFormatted(2, Resources.IOErrorWritingFile,
+                                    strPathFile1, ex.Message);
+                                WriteLog(true, 2, "I/O exception while reading file \"", 
                                     strPathFile1, "\": ", ex.Message);
                                 s1.Seek((index + 1) * b1.Length, 
                                     System.IO.SeekOrigin.Begin);
@@ -4700,7 +4924,9 @@ namespace SyncFolders
                             }
                             catch (System.IO.IOException ex)
                             {
-                                WriteLog(2, "I/O exception while reading file \"", 
+                                WriteLogFormatted(2, Resources.IOErrorReadingFile,
+                                    strPathFile2, ex.Message);
+                                WriteLog(true, 2, "I/O exception while reading file \"", 
                                     strPathFile2, "\": ", ex.Message);
                                 s2.Seek((index + 1) * b2.Length, 
                                     System.IO.SeekOrigin.Begin);
@@ -4708,24 +4934,30 @@ namespace SyncFolders
 
                             if (b1Present && !b2Present)
                             {
-                                WriteLog(1, "Block of ", fi2.FullName, 
+                                WriteLogFormatted(1, Resources.BlockOfAtPositionWillBeRestoredFrom,
+                                    fi2.FullName, index * b1.Length, fi1.FullName);
+                                WriteLog(true, 1, "Block of ", fi2.FullName, 
                                     " position ", index * b1.Length, 
                                     " will be restored from ", fi1.FullName);
                                 restore2.Add(new RestoreInfo(index * b1.Length, b1, false));
                             }
                             else
-                                if (b2Present && !b1Present)
+                            if (b2Present && !b1Present)
                             {
-                                WriteLog(1, "Block of ", fi1.FullName, 
+                                WriteLogFormatted(1, Resources.BlockOfAtPositionWillBeRestoredFrom,
+                                    fi1.FullName, index * b1.Length, fi2.FullName);
+                                WriteLog(true, 1, "Block of ", fi1.FullName, 
                                     " position ", index * b1.Length, 
                                     " will be restored from ", fi2.FullName);
                                 restore1.Add(new RestoreInfo(index * b2.Length, b2, false));
                             }
                             else
-                                if (!b1Present && !b2Present)
+                            if (!b1Present && !b2Present)
                             {
                                 Block b = Block.GetBlock();
-                                WriteLog(1, "Blocks of ", fi1.FullName, 
+                                WriteLogFormatted(1, Resources.BlocksOfAndAtPositionNonRecoverableFillDummy,
+                                    fi1.FullName, fi2.FullName, index * b1.Length);
+                                WriteLog(true, 1, "Blocks of ", fi1.FullName, 
                                     " and ", fi2.FullName, " at position ", 
                                     index * b1.Length, 
                                     " are not recoverable and will be filled with a dummy block");
@@ -4768,10 +5000,14 @@ namespace SyncFolders
                 };
                 fi1.LastWriteTimeUtc = prevLastWriteTime;
 
-                if (badBlocks1>0)
-                    WriteLog(0, "There were ", badBlocks1, 
-                        " bad blocks in ", fi1.FullName, 
+                if (badBlocks1 > 0)
+                {
+                    WriteLogFormatted(0, Resources.ThereWereBadBlocksInFileNotRestoredParts,
+                        badBlocks1, fi1.FullName, notRestoredSize1);
+                    WriteLog(true, 0, "There were ", badBlocks1,
+                        " bad blocks in ", fi1.FullName,
                         " not restored bytes: ", notRestoredSize1);
+                }
 
 
                 using (System.IO.Stream s2 = m_iFileOpenAndCopyAbstraction.Open(
@@ -4790,10 +5026,14 @@ namespace SyncFolders
                     };
                 }
                 fi2.LastWriteTimeUtc = prevLastWriteTime;
-                if (badBlocks2>0)
-                    WriteLog(0, "There were ", badBlocks2, 
-                        " bad blocks in ", fi2.FullName, 
+                if (badBlocks2 > 0)
+                {
+                    WriteLogFormatted(0, Resources.ThereWereBadBlocksInFileNotRestoredParts,
+                        badBlocks2, fi2.FullName, notRestoredSize2);
+                    WriteLog(true, 0, "There were ", badBlocks2,
+                        " bad blocks in ", fi2.FullName,
                         " not restored bytes: ", notRestoredSize2);
+                }
 
                 if (notRestoredSize1 == 0 && restore1.Count==0)
                 {
@@ -4855,9 +5095,11 @@ namespace SyncFolders
                         }
                         else
                         {
-                            WriteLog(1, "Error while testing file ", strPathFile);
+                            string strMessage = string.Format(Resources.ErrorWhileTestingFile, strPathFile);
+                            WriteLog(false, 1, strMessage);
+                            WriteLog(true, 1, "Error while testing file ", strPathFile);
                             if (bFailOnNonRecoverable)
-                                throw new Exception("Error while testing file " + strPathFile);
+                                throw new Exception(strMessage);
                             return false;
                         }
                     }
@@ -4888,7 +5130,9 @@ namespace SyncFolders
                 }
                 catch (System.IO.IOException ex)
                 {
-                    WriteLog(0, "I/O Error reading file: \"", 
+                    WriteLogFormatted(0, Resources.IOErrorReadingFile,
+                        strPathSavedInfoFile, ex.Message);
+                    WriteLog(true, 0, "I/O Error reading file: \"", 
                         strPathSavedInfoFile, "\": " + ex.Message);
                     bNotReadableSi = true;
                 }
@@ -4901,9 +5145,13 @@ namespace SyncFolders
                 bForceCreateInfo = true;
 
                 if (!bNotReadableSi)
-                    WriteLog(0, "RestoreInfo file \"", strPathSavedInfoFile, 
-                        "\" can't be used for restoring file \"", 
+                {
+                    WriteLogFormatted(0, Resources.SavedInfoFileCantBeUsedForTesting,
+                        strPathSavedInfoFile, strPathFile);
+                    WriteLog(true, 0, "RestoreInfo file \"", strPathSavedInfoFile,
+                        "\" can't be used for restoring file \"",
                         strPathFile, "\": it was created for another version of the file");
+                }
 
                 using (System.IO.FileStream s = m_iFileOpenAndCopyAbstraction.Open(
                     finfo.FullName, System.IO.FileMode.Open, 
@@ -4932,7 +5180,9 @@ namespace SyncFolders
                                     if (bFailOnNonRecoverable)
                                         throw;
 
-                                    WriteLog(1, "I/O Error while reading file ", 
+                                    WriteLogFormatted(1, Resources.IOErrorWhileReadingPositionFillDummyWhileCopy,
+                                        finfo.FullName, index * b.Length, ex.Message);
+                                    WriteLog(true, 1, "I/O Error while reading file ", 
                                         finfo.FullName, " position ", index * b.Length, ": ", 
                                         ex.Message, ". Block will be replaced with a dummy during copy.");
                                     int lengthToWrite = (int)(finfo.Length - index * b.Length > b.Length ? 
@@ -4973,11 +5223,19 @@ namespace SyncFolders
                         fi2tmp.MoveTo(strPathTargetFile);
 
                         if (!bAllBlocksOk)
-                            WriteLog(0, "Warning: copied ", strPathFile, " to ", 
+                        {
+                            WriteLogFormatted(0, Resources.WarningCopiedToWithErrors,
+                                strPathFile, strPathTargetFile, strReason);
+                            WriteLog(true, 0, "Warning: copied ", strPathFile, " to ",
                                 strPathTargetFile, " ", strReason, " with errors");
+                        }
                         else
-                            WriteLog(0, "Copied ", strPathFile, " to ", 
+                        {
+                            WriteLogFormatted(0, Resources.CopiedFromToReason,
+                                strPathFile, strPathTargetFile, strReason);
+                            WriteLog(true, 0, "Copied ", strPathFile, " to ",
                                 strPathTargetFile, " ", strReason);
+                        }
 
                     } catch
                     {
@@ -5012,7 +5270,9 @@ namespace SyncFolders
                                 if (!bBlockOk)
                                 {
                                     bAllBlocksOK = false;
-                                    WriteLog(2, finfo.FullName, 
+                                    WriteLogFormatted(2, Resources.ChecksumOfBlockAtOffsetNotOK,
+                                        finfo.FullName, index * b.Length);
+                                    WriteLog(true, 2, finfo.FullName, 
                                         ": checksum of block at offset ", 
                                         index * b.Length, " not OK");
                                     readableButNotAccepted[index] = true;
@@ -5030,7 +5290,9 @@ namespace SyncFolders
                                     if (!bBlockOk)
                                     {
                                         bAllBlocksOK = false;
-                                        WriteLog(2, finfo.FullName, 
+                                        WriteLogFormatted(2, Resources.ChecksumOfBlockAtOffsetNotOK,
+                                            finfo.FullName, index * b.Length);
+                                        WriteLog(true, 2, finfo.FullName, 
                                             ": checksum of block at offset ", 
                                             index * b.Length, " not OK");
                                         readableButNotAccepted[index] = true;
@@ -5042,7 +5304,9 @@ namespace SyncFolders
                         catch (System.IO.IOException ex)
                         {
                             bAllBlocksOK = false;
-                            WriteLog(2, "I/O Error reading file: \"", 
+                            WriteLogFormatted(2, Resources.IOErrorReadingFileOffset,
+                                finfo.FullName, index * b.Length, ex.Message);
+                            WriteLog(true, 2, "I/O Error reading file: \"", 
                                 finfo.FullName, "\", offset ", 
                                 index * b.Length, ": " + ex.Message);
                             s.Seek((index + 1) * b.Length, 
@@ -5065,7 +5329,9 @@ namespace SyncFolders
                     // the file itself, or if they have been corrupted somehow
                     if (!si.VerifyIntegrityAfterRestoreTest())
                     {
-                        WriteLog(0, "RestoreInfo file \"", 
+                        WriteLogFormatted(0, Resources.SavedInfoHasBeenDamagedNeedsRecreation,
+                            strPathSavedInfoFile, strPathFile);
+                        WriteLog(true, 0, "Saved info file \"", 
                             strPathSavedInfoFile, 
                             "\" has been damaged and needs to be recreated from \"", 
                             strPathFile, "\"");
@@ -5075,7 +5341,9 @@ namespace SyncFolders
             }
             catch (System.IO.IOException ex)
             {
-                WriteLog(0, "I/O Error reading file: \"", 
+                WriteLogFormatted(0, Resources.IOErrorReadingFile,
+                    finfo.FullName, ex.Message);
+                WriteLog(true, 0, "I/O Error reading file: \"", 
                     finfo.FullName, "\": " + ex.Message);
 
                 if (bFailOnNonRecoverable)
@@ -5095,7 +5363,9 @@ namespace SyncFolders
                 {
                     if (bFailOnNonRecoverable)
                     {
-                        WriteLog(1, "There are ", rinfos.Count, 
+                        WriteLogFormatted(1, Resources.ThereAreBadBlocksInNonRestorableMayRetryLater,
+                            rinfos.Count, finfo.FullName, nonRestoredSize);
+                        WriteLog(true, 1, "There are ", rinfos.Count, 
                             " bad blocks in the file ", finfo.FullName,
                             ", non-restorable parts: ", nonRestoredSize, 
                             " bytes. Can't proceed there because of non-recoverable, may retry later.");
@@ -5106,19 +5376,33 @@ namespace SyncFolders
                 }
 
                 if (rinfos.Count > 1)
-                    WriteLog(1, "There are ", rinfos.Count, 
-                        " bad blocks in the file ", finfo.FullName, 
-                        ", non-restorable parts: ", nonRestoredSize, " bytes. "+ 
-                        (bApplyRepairsToSrc?"":
-                            "The file can't be modified because of missing repair option, "+
+                {
+                    WriteLogFormatted(1,
+                        Resources.ThereAreBadBlocksInFileNonRestorableParts +
+                            (bApplyRepairsToSrc ? "" :
+                             Resources.TheFileCantBeModifiedMissingRepairApplyToCopy),
+                        rinfos.Count, finfo.FullName, nonRestoredSize);
+                    WriteLog(true, 1, "There are ", rinfos.Count,
+                        " bad blocks in the file ", finfo.FullName,
+                        ", non-restorable parts: ", nonRestoredSize, " bytes. " +
+                        (bApplyRepairsToSrc ? "" :
+                            "The file can't be modified because of missing repair option, " +
                             "the restore process will be applied to copy."));
+                }
                 else
                     if (rinfos.Count > 0)
-                        WriteLog(1, "There is one bad block in the file ", finfo.FullName, 
-                            ", non-restorable parts: ", nonRestoredSize, " bytes. " + 
-                            (bApplyRepairsToSrc ? "" : 
-                            "The file can't be modified because of missing repair option, "+
-                            "the restore process will be applied to copy."));
+                    {
+                        WriteLogFormatted(1,
+                           Resources.ThereIsBadBlockInFileNonRestorableParts +
+                               (bApplyRepairsToSrc ? "" :
+                               Resources.TheFileCantBeModifiedMissingRepairApplyToCopy),
+                           finfo.FullName, nonRestoredSize);
+                        WriteLog(true, 1, "There is one bad block in the file ", finfo.FullName,
+                           ", non-restorable parts: ", nonRestoredSize, " bytes. " +
+                           (bApplyRepairsToSrc ? "" :
+                               "The file can't be modified because of missing repair option, " +
+                               "the restore process will be applied to copy."));
+                    }
 
                 //bool bNonRecoverablePresent = false;
                 try
@@ -5148,8 +5432,10 @@ namespace SyncFolders
                                         {
                                             if (readableButNotAccepted.ContainsKey(ri.Position / blockSize))
                                             {
-                                                WriteLog(1, "Keeping readable but not recoverable block at offset ", 
-                                                    ri.Position, ", of original file ", finfo.FullName, 
+                                                WriteLogFormatted(1, Resources.KeepingReadableNonRecovBBlockAtAlsoInCopy,
+                                                    ri.Position, finfo.FullName, strPathTargetFile);
+                                                WriteLog(true, 1, "Keeping readable but not recoverable block at offset ", 
+                                                    ri.Position, " of original file ", finfo.FullName, 
                                                     " also in copy ", strPathTargetFile, 
                                                     ", checksum indicates the block is wrong");
                                             }
@@ -5157,7 +5443,10 @@ namespace SyncFolders
                                             {
                                                 s2.Seek(ri.Position + ri.Data.Length, System.IO.SeekOrigin.Begin);
 
-                                                WriteLog(1, "Filling not recoverable block at offset ", 
+                                                WriteLogFormatted(1, Resources.FillingNotRecoverableAtOffsetOfCopyWithDummy,
+                                                    ri.Position, strPathTargetFile);
+
+                                                WriteLog(true, 1, "Filling not recoverable block at offset ", 
                                                     ri.Position, " of copied file ", strPathTargetFile, " with a dummy");
 
                                                 //bNonRecoverablePresent = true;
@@ -5171,7 +5460,9 @@ namespace SyncFolders
                                         }
                                         else
                                         {
-                                            WriteLog(1, "Recovering block at offset ", 
+                                            WriteLogFormatted(1, Resources.RecoveringBlockAtOfCopiedFile,
+                                                ri.Position, strPathTargetFile);
+                                            WriteLog(true, 1, "Recovering block at offset ", 
                                                 ri.Position, " of copied file ", strPathTargetFile);
                                             int lengthToWrite = (int)(si.Length - ri.Position >= ri.Data.Length ? 
                                                 ri.Data.Length : 
@@ -5181,7 +5472,9 @@ namespace SyncFolders
 
                                             if (bApplyRepairsToSrc)
                                             {
-                                                WriteLog(1, "Recovering block at offset ",
+                                                WriteLogFormatted(1, Resources.RecoveringBlockAtOffsetOfFile,
+                                                    ri.Position, finfo.FullName);
+                                                WriteLog(true, 1, "Recovering block at offset ",
                                                     ri.Position, " of file ", finfo.FullName);
                                                 s2.Seek(ri.Position, System.IO.SeekOrigin.Begin);
                                                 if (lengthToWrite > 0)
@@ -5223,14 +5516,22 @@ namespace SyncFolders
 
                 System.IO.FileInfo finfo2 = new System.IO.FileInfo(strPathTargetFile);
                 if (rinfos.Count > 1)
-                    WriteLog(1, "Out of ", rinfos.Count, 
-                        " bad blocks in the original file not restored parts in the copy ", 
+                {
+                    WriteLogFormatted(1, Resources.OutOfBadBlocksNotRestoredInCopyBytes,
+                        rinfos.Count, finfo2.FullName, nonRestoredSize);
+                    WriteLog(true, 1, "Out of ", rinfos.Count,
+                        " bad blocks in the original file not restored parts in the copy ",
                         finfo2.FullName, ": ", nonRestoredSize, " bytes.");
+                }
                 else
                     if (rinfos.Count > 0)
-                    WriteLog(1, "There was one bad block in the original file, " +
-                        "not restored parts in the copy ", finfo2.FullName, ": ", 
-                        nonRestoredSize, " bytes.");
+                    {
+                        WriteLogFormatted(1, Resources.ThereWasBadBlockNotRestoredInCopyBytes,
+                            finfo2.FullName, nonRestoredSize);
+                        WriteLog(true, 1, "There was one bad block in the original file, " +
+                            "not restored parts in the copy ", finfo2.FullName, ": ",
+                            nonRestoredSize, " bytes.");
+                    }
 
                 if (nonRestoredSize > 0)
                 {
@@ -5243,11 +5544,19 @@ namespace SyncFolders
                     finfo2.LastWriteTimeUtc = dtmOriginalTime;
 
                 if (nonRestoredSize != 0)
-                    WriteLog(0, "Warning: copied ", strPathFile, " to ", 
+                {
+                    WriteLogFormatted(0, Resources.WarningCopiedToWithErrors,
+                        strPathFile, strPathTargetFile, strReason);
+                    WriteLog(true, 0, "Warning: copied ", strPathFile, " to ",
                         strPathTargetFile, " ", strReason, " with errors");
+                }
                 else
-                    WriteLog(0, "Copied ", strPathFile, " to ",
+                {
+                    WriteLogFormatted(0, Resources.CopiedFromToReason,
+                        strPathFile, strPathTargetFile, strReason);
+                    WriteLog(true, 0, "Copied ", strPathFile, " to ",
                         strPathTargetFile, " ", strReason);
+                }
 
                 //finfo2.LastWriteTimeUtc = prevLastWriteTime;
 
@@ -5255,7 +5564,9 @@ namespace SyncFolders
             }
             catch (System.IO.IOException ex)
             {
-                WriteLog(0, "I/O Error during repair copy to file: \"", 
+                WriteLogFormatted(0, Resources.IOErrorDuringRepairCopyOf,
+                    strPathTargetFile, ex.Message);
+                WriteLog(true, 0, "I/O Error during repair copy to file: \"", 
                     strPathTargetFile, "\": " + ex.Message);
                 return false;
             }
@@ -5390,7 +5701,9 @@ namespace SyncFolders
                             }
                             catch (System.IO.IOException ex)
                             {
-                                WriteLog(2, "I/O exception while reading file \"", strPathFile1, "\": ", ex.Message);
+                                WriteLogFormatted(2, Resources.IOErrorReadingFile,
+                                    strPathFile1, ex.Message);
+                                WriteLog(true, 2, "I/O error while reading file \"", strPathFile1, "\": ", ex.Message);
                                 s1.Seek((index + 1) * b1.Length, System.IO.SeekOrigin.Begin);
                             }
 
@@ -5413,7 +5726,9 @@ namespace SyncFolders
                             }
                             catch (System.IO.IOException ex)
                             {
-                                WriteLog(2, "I/O exception while reading file \"", 
+                                WriteLogFormatted(2, Resources.IOErrorReadingFile,
+                                    strPathFile2, ex.Message);
+                                WriteLog(true, 2, "I/O error while reading file \"", 
                                     strPathFile2, "\": ", ex.Message);
                                 s2.Seek((index + 1) * b2.Length, System.IO.SeekOrigin.Begin);
                             }
@@ -5422,7 +5737,9 @@ namespace SyncFolders
                             {
                                 if (si2.AnalyzeForTestOrRestore(b1, index))
                                 {
-                                    WriteLog(1, "Block of ", fi2.FullName, " position ", 
+                                    WriteLogFormatted(1, Resources.BlockOfAtPositionWillBeRestoredFrom,
+                                        fi2.FullName, index * b1.Length, fi1.FullName);
+                                    WriteLog(true, 1, "Block of ", fi2.FullName, " position ", 
                                         index * b1.Length, " will be restored from ", fi1.FullName);
                                     restore2.Add(new RestoreInfo(index * b1.Length, b1, false));
                                 }
@@ -5433,7 +5750,9 @@ namespace SyncFolders
                                 if (si1.AnalyzeForTestOrRestore(b2, index))
                                 {
                                     restore1.Add(new RestoreInfo(index * b1.Length, b2, false));
-                                    WriteLog(1, "Block of ", fi1.FullName, " position ", index * 
+                                    WriteLogFormatted(1, Resources.BlockOfAtPositionWillBeRestoredFrom,
+                                        fi1.FullName, index * b1.Length, fi2.FullName);
+                                    WriteLog(true, 1, "Block of ", fi1.FullName, " position ", index * 
                                         b1.Length, " could be restored from ", fi2.FullName, 
                                         " but it is not possible to write to the first folder");
                                 }
@@ -5444,8 +5763,12 @@ namespace SyncFolders
                                 {
                                     if (si1.AnalyzeForTestOrRestore(b2, index))
                                     {
-                                        WriteLog(1, "Block of ", fi1.FullName, " position ", 
-                                            index * b1.Length, " could be restored from ", fi2.FullName, 
+                                        WriteLogFormatted(1,
+                                            Resources.BlockOfAtPositionCanBeRestoredFromNoWriteFirst,
+                                            fi1.FullName, index * b1.Length, fi2.FullName);
+
+                                        WriteLog(true, 1, "Block of ", fi1.FullName, " at position ", 
+                                            index * b1.Length, " can be restored from ", fi2.FullName, 
                                             " but it is not possible to write to the first folder");
                                         restore1.Add(new RestoreInfo(index * b1.Length, b2, false));
                                     }
@@ -5455,7 +5778,9 @@ namespace SyncFolders
                                 {
                                     if (si2.AnalyzeForTestOrRestore(b1, index))
                                     {
-                                        WriteLog(1, "Block of ", fi2.FullName, " position ", 
+                                        WriteLogFormatted(1, Resources.BlockOfAtPositionWillBeRestoredFrom,
+                                            fi2.FullName, index * b1.Length, fi1.FullName);
+                                        WriteLog(true, 1, "Block of ", fi2.FullName, " at position ", 
                                             index * b1.Length, " will be restored from ", fi1.FullName);
                                         restore2.Add(new RestoreInfo(index * b1.Length, b1, false));
                                     }
@@ -5525,7 +5850,11 @@ namespace SyncFolders
                                     ri2.NotRecoverableArea && 
                                     !ri1.NotRecoverableArea)
                                 {
-                                    WriteLog(1, "Block of ", fi2.FullName, 
+                                    WriteLogFormatted(1,
+                                        Resources.BlockOfAtPositionWillBeRestoredFrom,
+                                        fi2.FullName, ri2.Position, fi1.FullName);
+
+                                    WriteLog(true, 1, "Block of ", fi2.FullName, 
                                         " position ", ri2.Position, 
                                         " will be restored from ", fi1.FullName);
                                     ri2.Data = ri1.Data;
@@ -5542,7 +5871,9 @@ namespace SyncFolders
                                 ; // bForceCreateInfoBecauseDamaged = true;
                             else
                             {
-                                WriteLog(1, "Recovering block of ", 
+                                WriteLogFormatted(1, Resources.RecoveringBlockAtOffsetOfFile,
+                                    ri2.Position, fi2.FullName);
+                                WriteLog(true, 1, "Recovering block of ", 
                                     fi2.FullName, " at position ", ri2.Position);
                                 s1.Seek(ri2.Position, System.IO.SeekOrigin.Begin);
 
@@ -5566,7 +5897,10 @@ namespace SyncFolders
                                 readableBlocks1.ContainsKey(ri2.Position / ri2.Data.Length) &&
                                 !readableBlocks2.ContainsKey(ri2.Position / ri2.Data.Length))
                             {
-                                WriteLog(1, "Block of ", fi2.FullName, " position ", 
+                                WriteLogFormatted(1,
+                                    Resources.BlockOfAtPositionWillBeCopiedFromNoMatterChecksum,
+                                    fi2.FullName, ri2.Position, fi1.FullName);
+                                WriteLog(true, 1, "Block of ", fi2.FullName, " at position ", 
                                     ri2.Position, " will be copied from ", 
                                     fi1.FullName, " even if checksum indicates the block is wrong");
                                 s1.Seek(ri2.Position, System.IO.SeekOrigin.Begin);
@@ -5587,7 +5921,9 @@ namespace SyncFolders
                                 !equalBlocks.ContainsKey(ri2.Position / ri2.Data.Length) &&
                                 !readableBlocks2.ContainsKey(ri2.Position / ri2.Data.Length))
                             {
-                                WriteLog(1, "Block of ", fi2.FullName, " position ", 
+                                WriteLogFormatted(1, Resources.BlockOfAtPositionNotRecoverableFillDumy,
+                                    fi2.FullName, ri2.Position);
+                                WriteLog(true, 1, "Block of ", fi2.FullName, " position ", 
                                     ri2.Position, " is not recoverable and will be filled with a dummy");
 
                                 s2.Seek(ri2.Position, System.IO.SeekOrigin.Begin);
@@ -5606,14 +5942,25 @@ namespace SyncFolders
                     s1.Close();
                 }
 
-                if (restore2.Count>0)
-                    WriteLog(0, "There were ", restore2.Count, 
-                        " bad blocks in ", fi2.FullName, 
+                if (restore2.Count > 0)
+                {
+                    WriteLogFormatted(0,
+                        Resources.ThereWereBadBlocksInFileNotRestoredParts,
+                        restore2.Count, fi2.FullName, notRestoredSize2);
+
+                    WriteLog(true, 0, "There were ", restore2.Count,
+                        " bad blocks in ", fi2.FullName,
                         " not restored bytes: ", notRestoredSize2);
-                if (restore1.Count>0)
-                    WriteLog(0, "There remain ", restore1.Count, 
-                        " bad blocks in ", fi1.FullName, 
+                }
+                if (restore1.Count > 0)
+                {
+                    WriteLogFormatted(0,
+                        Resources.ThereRemainBadBlocksInBecauseReadOnly,
+                        restore1.Count, fi1.FullName);
+                    WriteLog(true, 0, "There remain ", restore1.Count,
+                        " bad blocks in ", fi1.FullName,
                         ", because it can't be modified ");
+                }
                 fi2.LastWriteTimeUtc = prevLastWriteTime;
 
             }
@@ -5651,7 +5998,9 @@ namespace SyncFolders
                             catch (System.IO.IOException ex)
                             {
                                 ++badBlocks1;
-                                WriteLog(2, "I/O exception while reading file \"", 
+                                WriteLogFormatted(2, Resources.IOErrorReadingFile,
+                                    strPathFile1, ex.Message, ex.Message);
+                                WriteLog(true, 2, "I/O error while reading file \"", 
                                     strPathFile1, "\": ", ex.Message);
                                 s1.Seek((index + 1) * b1.Length, 
                                     System.IO.SeekOrigin.Begin);
@@ -5668,7 +6017,10 @@ namespace SyncFolders
                             catch (System.IO.IOException ex)
                             {
                                 ++badBlocks2;
-                                WriteLog(2, "I/O exception while reading file \"", 
+                                WriteLogFormatted(2, Resources.IOErrorReadingFile,
+                                    strPathFile2, ex.Message);
+
+                                WriteLog(true, 2, "I/O error while reading file \"", 
                                     strPathFile2, "\": ", ex.Message);
                                 s2.Seek((index + 1) * b2.Length, 
                                     System.IO.SeekOrigin.Begin);
@@ -5676,14 +6028,18 @@ namespace SyncFolders
 
                             if (b1Present && !b2Present)
                             {
-                                WriteLog(1, "Block of ", fi2.FullName, " position ", 
+                                WriteLogFormatted(1, Resources.BlockOfAtPositionWillBeRestoredFrom,
+                                    fi2.FullName, index * b1.Length, fi1.FullName);
+                                WriteLog(true, 1, "Block of ", fi2.FullName, " position ", 
                                     index * b1.Length, " will be restored from ", fi1.FullName);
                                 restore2.Add(new RestoreInfo(index * b1.Length, b1, false));
                             }
                             else
-                                if (!b1Present && !b2Present)
+                            if (!b1Present && !b2Present)
                             {
-                                WriteLog(1, "Block of ", fi2.FullName, " at position ", 
+                                WriteLogFormatted(1, Resources.BlockOfAtPositionNotRecoverableFillDumy,
+                                    fi2.FullName, index * b1.Length);
+                                WriteLog(true, 1, "Block of ", fi2.FullName, " at position ", 
                                     index * b1.Length, " is not recoverable and will be filled with a dummy block");
                                 restore2.Add(new RestoreInfo(index * b1.Length, b1, true));
                             }
@@ -5721,12 +6077,22 @@ namespace SyncFolders
                     };
                 }
 
-                if (badBlocks2>0)
-                    WriteLog(0, "There were ", badBlocks2, " bad blocks in ", 
+                if (badBlocks2 > 0)
+                {
+                    WriteLogFormatted(0,
+                        Resources.ThereWereBadBlocksInFileNotRestoredParts,
+                        badBlocks2, fi2.FullName, notRestoredSize2);
+                    WriteLog(true, 0, "There were ", badBlocks2, " bad blocks in ",
                         fi2.FullName, " not restored bytes: ", notRestoredSize2);
-                if (badBlocks1>0)
-                    WriteLog(0, "There remain ", badBlocks1, " bad blocks in ", 
+                }
+                if (badBlocks1 > 0)
+                {
+                    WriteLogFormatted(0,
+                        Resources.ThereRemainBadBlocksInBecauseReadOnly,
+                        badBlocks1, fi1.FullName);
+                    WriteLog(true, 0, "There remain ", badBlocks1, " bad blocks in ",
                         fi1.FullName, ", because it can't be modified ");
+                }
 
                 fi2.LastWriteTimeUtc = prevLastWriteTime;
 
@@ -5741,14 +6107,98 @@ namespace SyncFolders
         /// <summary>
         /// Writes a log message
         /// </summary>
+        /// <param name="bOnlyToFile">Indicates that there is already a message in user language
+        /// and we need to write this only to log file for later debugging/bug reports</param>
         /// <param name="nIndent">The nIndent of the new message</param>
         /// <param name="aParts">Message aParts</param>
         //===================================================================================================
         public void WriteLog(
+            bool bOnlyToFile,
             int nIndent, 
             params object [] aParts
             )
         {
+            if (_logFile != null)
+            {
+                if (bOnlyToFile &&
+                    (Resources.DefaultCulture.Equals("yes")))
+                {
+                    // don't write same twice to the log file
+                    return;
+                }
+                System.DateTime utc = System.DateTime.UtcNow;
+                System.DateTime now = utc.ToLocalTime();
+                lock (_logFile)
+                {
+                    _logFile.Write("{0}UT\t{1}\tT{2}\t", utc, now,
+                        System.Threading.Thread.CurrentThread.ManagedThreadId);
+
+                    if (bOnlyToFile)
+                        nIndent+=5;
+
+                    while (nIndent-- > 0)
+                    {
+                        _logFile.Write("\t");
+                        if (!bOnlyToFile) 
+                            _log.Append("        ");
+                    }
+
+                    foreach (object part in aParts)
+                    {
+                        string s = part.ToString().Replace(Environment.NewLine,"");
+                        if (!bOnlyToFile)
+                            _log.Append(s);
+                        _logFile.Write(s);
+                    }
+
+
+                    if (!bOnlyToFile)
+                        _log.Append(Environment.NewLine);
+                    _logFile.Write(Environment.NewLine);
+                    _logFile.Flush();
+                }
+            }
+            else
+            {
+                if (!bOnlyToFile)
+                {
+                    lock (_log)
+                    {
+                        while (nIndent-- > 0)
+                        {
+                            _log.Append("        ");
+                        }
+
+                        foreach (object part in aParts)
+                        {
+                            _log.Append(part.ToString());
+                        }
+
+                        _log.Append("\r\n");
+                    }
+                }
+            }
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// Writes a log message in a formatted manner
+        /// </summary>
+        /// <param name="nIndent">The nIndent of the new message</param>
+        /// <param name="strFormat">Format for the string</param>
+        /// <param name="aParams">Parameters for string format</param>
+        //===================================================================================================
+        public void WriteLogFormatted(
+            int nIndent,
+            string strFormat,
+            params object[] aParams
+            )
+        {
+            String resourceValue = SyncFolders.Resources.FileCopied;
+            /*System.Reflection.Assembly assembly = this.GetType().Assembly;
+            System.Resources.ResourceManager resourceManager = new System.Resources.ResourceManager("Resources.Strings", assembly);
+            string myString = resourceManager.GetString("FileCopied");
+            */
             if (_logFile != null)
             {
                 System.DateTime utc = System.DateTime.UtcNow;
@@ -5764,12 +6214,9 @@ namespace SyncFolders
                         _log.Append("        ");
                     }
 
-                    foreach (object part in aParts)
-                    {
-                        string s = part.ToString().Replace(Environment.NewLine,"");
-                        _log.Append(s);
-                        _logFile.Write(s);
-                    }
+                    string s = string.Format(strFormat, aParams);
+                    _log.Append(s);
+                    _logFile.Write(s);
 
                     _log.Append(Environment.NewLine);
                     _logFile.Write(Environment.NewLine);
@@ -5785,15 +6232,14 @@ namespace SyncFolders
                         _log.Append("        ");
                     }
 
-                    foreach (object part in aParts)
-                    {
-                        _log.Append(part.ToString());
-                    }
+                    string s = string.Format(strFormat, aParams);
+                    _log.Append(s);
 
                     _log.Append("\r\n");
                 }
             }
         }
+
 
         private void labelProgress_Click(object sender, EventArgs e)
         {

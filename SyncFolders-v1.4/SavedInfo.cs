@@ -729,7 +729,10 @@ namespace SyncFolders
 
                     if (!bOtherSeemOk)
                     {
-                        iLogWriter.WriteLog(1, "Warning: several blocks don't match in saved info ",
+                        iLogWriter.WriteLogFormatted(1,
+                            Resources.WarningSeveralBlocksDontMatchInSIWillBeIgnored,
+                            strCurrentFile);
+                        iLogWriter.WriteLog(true, 1, "Warning: several blocks don't match in saved info ",
                             strCurrentFile, ", saved info will be ignored completely");
                         break;
                     }
@@ -835,7 +838,9 @@ namespace SyncFolders
                             }
                             else
                             {
-                                iLogWriter.WriteLog(1, "Warning: checksum of block at offsset ",
+                                iLogWriter.WriteLogFormatted(1, Resources.WarningChecksumOffsetPrimarySavedInfoIgnored,
+                                    blockToRestore * oTestBlock.Length, strCurrentFile);
+                                iLogWriter.WriteLog(true, 1, "Warning: checksum of block at offsset ",
                                     blockToRestore * oTestBlock.Length,
                                     " doesn't match available in primary blocks of restoreinfo ", strCurrentFile, 
                                     ", primary restoreinfo for the block will be ignored");
@@ -906,7 +911,11 @@ namespace SyncFolders
                             }
                             else
                             {
-                                iLogWriter.WriteLog(1, "Warning: checksum of block at offset ", 
+                                iLogWriter.WriteLogFormatted(1, 
+                                    Resources.WarningChecksumOffsetSecondarySavedInfoIgnored,
+                                    blockToRestore * oTestBlock.Length,
+                                    strCurrentFile);
+                                iLogWriter.WriteLog(true, 1, "Warning: checksum of block at offset ", 
                                     blockToRestore * oTestBlock.Length, 
                                     " doesn't match available in secondary blocks of restoreinfo ", 
                                     strCurrentFile, 
