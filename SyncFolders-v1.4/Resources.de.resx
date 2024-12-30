@@ -1,0 +1,321 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BlockOfAtPositionWillBeCopiedFromNoMatterChecksum" xml:space="preserve">
+    <value>Block von „{0}“ Position {1} wird von „{2}“ kopiert, obwohl die Prüfsumme anzeigt, dass der Block falsch ist</value>
+  </data>
+  <data name="BlockOfAtPositionWillBeRestoredFrom" xml:space="preserve">
+    <value>Block von „{0}“ an Position {1} wird von derselben Position von „{2}“ wiederhergestellt</value>
+  </data>
+  <data name="BlocksOfAndAtPositionNonRecoverableFillDummy" xml:space="preserve">
+    <value>Die Blöcke von „{0}“ und „{1}“ an Position {2} können nicht wiederhergestellt werden und werden mit einem Dummy-Block gefüllt</value>
+  </data>
+  <data name="ChecksumOfBlockAtOffsetNotOK" xml:space="preserve">
+    <value>{0}: Prüfsumme des Blocks an der Position {1} nicht in Ordnung</value>
+  </data>
+  <data name="CopiedFromToReason" xml:space="preserve">
+    <value>Kopiervorgang „{0}“ nach „{1}“  {2}</value>
+  </data>
+  <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
+    <value>Warnung: Die veraltete Datei „{0}“ mit dem Jahr 1975 oder früher konnte nicht verwendet werden. Dies weist darauf hin, dass es sich um eine letzte Chance zur Wiederherstellung von „{1}“ handelte.</value>
+  </data>
+  <data name="DefaultCulture" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="DeletedFileNotPresentIn" xml:space="preserve">
+    <value>Datei „{0}“ gelöscht, die in „{1}“ nicht mehr vorhanden ist</value>
+  </data>
+  <data name="DeletedFolder" xml:space="preserve">
+    <value>Ordner „{0}“ inklusive Inhalt gelöscht, da kein „{1}“ mehr vorhanden ist</value>
+  </data>
+  <data name="EncounteredErrorOlderOk" xml:space="preserve">
+    <value>Warnung: Beim Kopieren von „{0}“ ist ein E/A-Fehler aufgetreten. Die ältere Datei „{1}“ scheint in Ordnung zu sein</value>
+  </data>
+  <data name="EncounteredErrorOtherBadToo" xml:space="preserve">
+    <value>Warnung: Beim Kopieren von „{0}“ ist ein E/A-Fehler aufgetreten. Andere Datei „{1}“ weist ebenfalls Fehler auf oder ist ein Produkt der Last-Chance-Wiederherstellung. Es wird versucht, „{0}“ automatisch zu reparieren.</value>
+  </data>
+  <data name="EncounteredErrorWhileCopyingTryingToRepair" xml:space="preserve">
+    <value>Warnung: Beim Kopieren von „{0}“ ist beim Versuch einer automatischen Reparatur ein Fehler aufgetreten</value>
+  </data>
+  <data name="ErrorDeleting" xml:space="preserve">
+    <value>Fehler beim Löschen von „{0}“: {1}</value>
+  </data>
+  <data name="ErrorProcessinngFilePair" xml:space="preserve">
+    <value>Fehler beim Verarbeiten des Dateipaars „{0}“ | „{1}“: {2}</value>
+  </data>
+  <data name="ErrorReadingPositionWillFillWithDummy" xml:space="preserve">
+    <value>Fehler beim Lesen der Datei „{0}“, Position {1}: {2}. Block wird mit einem Dummy gefüllt</value>
+  </data>
+  <data name="ErrorWhileTestingFile" xml:space="preserve">
+    <value>Fehler beim Testen der Datei „{0}“</value>
+  </data>
+  <data name="FileCopied" xml:space="preserve">
+    <value>Kopiervorgang „{0}“ nach „{1}“, {2}</value>
+  </data>
+  <data name="FileHasDifferentTime" xml:space="preserve">
+    <value>(Datei hat ein anderes Datum oder eine andere Länge)</value>
+  </data>
+  <data name="FileHasZeroLength" xml:space="preserve">
+    <value>Warnung: Die Datei hat die Länge Null, was auf einen fehlgeschlagenen Kopiervorgang in der Vergangenheit hinweist: „{0}“</value>
+  </data>
+  <data name="FileHealthyOrRepaired" xml:space="preserve">
+    <value>(Datei war fehlerfrei oder repariert)</value>
+  </data>
+  <data name="FilesHaveZeroLength" xml:space="preserve">
+    <value>Warnung: Beide Dateien haben die Länge Null, was auf einen fehlgeschlagenen Kopiervorgang in der Vergangenheit hinweist: „{0}“ | „{1}“ </value>
+  </data>
+  <data name="FileWasHealthy" xml:space="preserve">
+    <value>(Datei war fehlerfrei)</value>
+  </data>
+  <data name="FileWasNew" xml:space="preserve">
+    <value>(Datei war neu)</value>
+  </data>
+  <data name="FileWasNewer" xml:space="preserve">
+    <value>(Datei war neuer oder größer)</value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetOfCopyWithDummy" xml:space="preserve">
+    <value>Der nicht wiederherstellbare Block an der Position {0} der kopierten Datei „{1}“ wird mit einem Dummy gefüllt</value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetWithDummy" xml:space="preserve">
+    <value>Der nicht wiederherstellbare Block an der Position {0} wird mit einem Dummy-Block gefüllt</value>
+  </data>
+  <data name="FirstFileHasBadBlocks" xml:space="preserve">
+    <value>Warnung: Die erste Datei „{0}“ weist fehlerhafte Blöcke auf. Das Überschreiben der Datei „{1}“ wurde übersprungen, sodass sie als Backup verbleibt</value>
+  </data>
+  <data name="FoundFileForSync" xml:space="preserve">
+    <value>Eine Datei für eine mögliche Synchronisierung gefunden</value>
+  </data>
+  <data name="FoundFilesForSync" xml:space="preserve">
+    <value>{0} Dateien für eine mögliche Synchronisierung gefunden</value>
+  </data>
+  <data name="InternalErrorCouldntRestoreAny" xml:space="preserve">
+    <value>Interner Fehler: Es konnte keine Kopie der Dateien „{0}“ | „{1}“ wiederhergestellt werden </value>
+  </data>
+  <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
+    <value>E/A-Fehler beim Reparieren der Kopie in Datei: „{0}“: {1}</value>
+  </data>
+  <data name="IOErrorReadingFile" xml:space="preserve">
+    <value>E/A-Fehler beim Lesen der Datei „{0}“: {1}</value>
+  </data>
+  <data name="IOErrorReadingFileOffset" xml:space="preserve">
+    <value>E/A-Fehler beim Lesen der Datei: „{0}“, Position {1}: {2}</value>
+  </data>
+  <data name="IOErrorWhileReadingPositionFillDummyWhileCopy" xml:space="preserve">
+    <value>E/A-Fehler beim Lesen der Datei „{0}“, Position {1}: {2}. Der Block wird beim Kopieren durch einen Dummy ersetzt.</value>
+  </data>
+  <data name="IOErrorWritingFile" xml:space="preserve">
+    <value>E/A-Fehler beim Schreiben der Datei „{0}“: {1}</value>
+  </data>
+  <data name="KeepingReadableButNotRecoverableBlockAtOffset" xml:space="preserve">
+    <value>Der lesbare, aber nicht wiederherstellbare Block an der Position {0} bleibt. Die Prüfsumme zeigt an, dass der Block falsch ist</value>
+  </data>
+  <data name="KeepingReadableNonRecovBBlockAtAlsoInCopy" xml:space="preserve">
+    <value>Der lesbare, aber nicht wiederherstellbare Block an der Position {0} der Originaldatei „{1}“ bleibt auch in der Kopie „{2}“. Die Prüfsumme zeigt an, dass der Block falsch ist</value>
+  </data>
+  <data name="OperationCanceled" xml:space="preserve">
+    <value>Vorgang abgebrochen</value>
+  </data>
+  <data name="OperationFinished" xml:space="preserve">
+    <value>Vorgang beendet</value>
+  </data>
+  <data name="OutOfBadBlocksNotRestoredInCopyBytes" xml:space="preserve">
+    <value>Von {0} fehlerhaften Blöcken in der Originaldatei wurden {2} Bytes in der Kopie „{1}“ nicht wiederhergestellt.</value>
+  </data>
+  <data name="RecoveringBlockAtOfCopiedFile" xml:space="preserve">
+    <value>Block an Position {0} der kopierten Zieldatei „{1}“ wird wiederhergestellt</value>
+  </data>
+  <data name="RecoveringBlockAtOffsetOfFile" xml:space="preserve">
+    <value>Block an der Position {0} der Datei „{1}“ wird wiederhergestellt.</value>
+  </data>
+  <data name="RunningWithoutRepairOptionUndecided" xml:space="preserve">
+    <value>Läuft ohne Reparaturoption und konnte daher nicht entscheiden, ob die Datei „{0}“ mit „{1}“ wiederhergestellt werden kann.</value>
+  </data>
+  <data name="SavedInfoFileCantBeUsedForTesting" xml:space="preserve">
+    <value>Die gespeicherte Infodatei „{0}“ kann nicht zum Testen der Datei „{1}“ verwendet werden: Sie wurde für eine andere Version der Datei erstellt</value>
+  </data>
+  <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
+    <value>Die gespeicherte Infodatei „{0}“ wurde beschädigt und muss aus „{1}“ neu erstellt werden.</value>
+  </data>
+  <data name="SecondFolderNoDelete" xml:space="preserve">
+    <value>Fehler: Der zweite Ordner enthält die Datei „{0}“. Der ausgewählte Ordner scheint für die Löschoption falsch zu sein. Überspringen der Verarbeitung des Ordners und der Unterordner</value>
+  </data>
+  <data name="SkippingFilePairDontDelete" xml:space="preserve">
+    <value>Dateipaar „{0}“ | „{1}“ wird übersprungen. Eine spezielle Datei verhindert die Verwendung der Löschoption im falschen Stammordner. </value>
+  </data>
+  <data name="TheFileCantBeModifiedMissingRepairApplyToCopy" xml:space="preserve">
+    <value>Die Datei kann aufgrund der fehlenden Reparaturoption nicht geändert werden. Der Wiederherstellungsprozess wird auf die Kopie angewendet.</value>
+  </data>
+  <data name="ThereAreBadBlocksInFileNonRestorableParts" xml:space="preserve">
+    <value>Es gibt {0} fehlerhafte Blöcke in der Datei „{1}“, nicht wiederherstellbare Teile: {2} Bytes.</value>
+  </data>
+  <data name="ThereAreBadBlocksInNonRestorableMayRetryLater" xml:space="preserve">
+    <value>Es gibt {0} fehlerhafte Blöcke in der Datei „{1}“, nicht wiederherstellbare Teile: {2} Bytes. Der Vorgang kann aufgrund einer nicht wiederherstellbaren Ursache nicht fortgesetzt werden. Versuchen Sie es möglicherweise später noch einmal.</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableCantBeBackup" xml:space="preserve">
+    <value>Es gibt {0} fehlerhafte Blöcke in der Datei „{1}“, nicht wiederherstellbare Teile: {2} Bytes, Datei kann nicht als Backup verwendet werden</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableOnlyTested" xml:space="preserve">
+    <value>Es gibt {0} fehlerhafte Blöcke in der Datei „{1}“, nicht wiederherstellbare Teile: {2} Bytes. Datei bleibt unverändert, sie wurde nur getestet</value>
+  </data>
+  <data name="ThereIsBadBlockInFileNonRestorableParts" xml:space="preserve">
+    <value>Es gibt einen fehlerhaften Block in der Datei „{0}“, nicht wiederherstellbare Teile: {1} Bytes.</value>
+  </data>
+  <data name="ThereIsBadBlockNonRestorableCantBeBackup" xml:space="preserve">
+    <value>Es gibt einen fehlerhaften Block in der Datei „{0}“, der nicht wiederhergestellt werden kann: {1} Bytes, Datei kann nicht als Sicherung verwendet werden </value>
+  </data>
+  <data name="ThereIsOneBadBlockNonRestorableOnlyTested" xml:space="preserve">
+    <value>Es gibt einen fehlerhaften Block in der Datei „{0}“, nicht wiederherstellbare Teile: {1} Bytes, die Datei bleibt unverändert, sie wurde nur getestet</value>
+  </data>
+  <data name="ThereRemainBadBlocksInBecauseReadOnly" xml:space="preserve">
+    <value>Es verbleiben {0} fehlerhafte Blöcke in „{1}“, da es nicht geändert werden kann</value>
+  </data>
+  <data name="ThereWasBadBlockInFileNotRestoredParts" xml:space="preserve">
+    <value>Es gab einen fehlerhaften Block in der Datei „{0}“, nicht wiederhergestellte Teile: {1} Bytes</value>
+  </data>
+  <data name="ThereWasBadBlockNotRestoredInCopyBytes" xml:space="preserve">
+    <value>Es gab einen fehlerhaften Block in der Originaldatei, nicht wiederhergestellte Teile in der Kopie „{0}“: {1} Bytes.</value>
+  </data>
+  <data name="ThereWereBadBlocksInFileNotRestoredParts" xml:space="preserve">
+    <value>Es gab {0} fehlerhafte Blöcke in der Datei „{1}“, nicht wiederhergestellte Teile: {2} Bytes</value>
+  </data>
+  <data name="ThisIsASimulatedIOErrorAtPosition" xml:space="preserve">
+    <value>Dies ist ein simulierter E/A-Fehler an Position {0}</value>
+  </data>
+  <data name="WarningChecksumOffsetPrimarySavedInfoIgnored" xml:space="preserve">
+    <value>Warnung: Die Prüfsumme des Blocks an der Position {0} stimmt nicht mit den verfügbaren primären Blöcken der gespeicherten Informationen „{1}“ überein. Die primär gespeicherten Informationen für den Block werden ignoriert</value>
+  </data>
+  <data name="WarningChecksumOffsetSecondarySavedInfoIgnored" xml:space="preserve">
+    <value>Warnung: Die Prüfsumme des Blocks an der Position {0} stimmt nicht mit den verfügbaren sekundären Blöcken der gespeicherten Informationen „{1}“ überein. Sekundär gespeicherte Informationen für den Block werden ignoriert</value>
+  </data>
+  <data name="WarningCopiedToWithErrors" xml:space="preserve">
+    <value>Warnung: „{0}“ wurde mit Fehlern nach „{1}“ kopiert {2} </value>
+  </data>
+  <data name="WarningIOErrorWhileCopyingToReason" xml:space="preserve">
+    <value>Warnung: E/A-Fehler beim Kopieren der Datei „{0}“ nach „{1}“: {2}</value>
+  </data>
+  <data name="WarningSeveralBlocksDontMatchInSIWillBeIgnored" xml:space="preserve">
+    <value>Warnung: Mehrere Blöcke stimmen nicht mit den gespeicherten Informationen „{0}“ überein. Die gespeicherten Informationen werden vollständig ignoriert</value>
+  </data>
+  <data name="WarningWhileCreating" xml:space="preserve">
+    <value>Warnung: {0} beim Erstellen von „{1}“</value>
+  </data>
+  <data name="WarningWhileDiscoveringIfNeedsToBeRechecked" xml:space="preserve">
+    <value>Warnung: {0} beim Ermitteln, ob „{1}“ erneut überprüft werden muss. </value>
+  </data>
+</root>
