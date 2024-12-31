@@ -307,6 +307,9 @@
     <EmbeddedResource Include="Resources.ru.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources.sa.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources.zh-CHS.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>

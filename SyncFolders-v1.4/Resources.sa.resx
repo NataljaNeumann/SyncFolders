@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BlockOfAtPositionWillBeCopiedFromNoMatterChecksum" xml:space="preserve">
+    <value>{1} स्थाने "{0}" सञ्चिकायाः ​​खण्डः "{2}" तः प्रतिलिपितः भवति यद्यपि चेकसमः खण्डः अशुद्धः इति सूचयति</value>
+  </data>
+  <data name="BlockOfAtPositionWillBeRestoredFrom" xml:space="preserve">
+    <value>{1} स्थाने "{0}" सञ्चिकायाः ​​खण्डः "{2}" सञ्चिकायाः ​​समानस्थानात् पुनः स्थापितः भवति ।</value>
+  </data>
+  <data name="BlocksOfAndAtPositionNonRecoverableFillDummy" xml:space="preserve">
+    <value>{2} स्थाने "{0}" तथा "{1}" इति सञ्चिकानां खण्डाः पुनः स्थापयितुं न शक्यन्ते, ते च नकलीखण्डेन पूरिताः भवन्ति</value>
+  </data>
+  <data name="ChecksumOfBlockAtOffsetNotOK" xml:space="preserve">
+    <value>{0}: {1} स्थाने खण्डस्य चेकसमः ठीकः नास्ति</value>
+  </data>
+  <data name="CopiedFromToReason" xml:space="preserve">
+    <value>प्रतिलिपिकरणप्रक्रिया: “{0}” तः “{1}” यावत् सम्पन्नम् {2}</value>
+  </data>
+  <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
+    <value>चेतावनी: १९७५ वर्षस्य अथवा पूर्ववर्ती "{0}" सञ्चिकायाः ​​उपयोगः कर्तुं न शक्यते स्म । एतेन ज्ञायते यत् एषः "{1}" सञ्चिकां पुनः प्राप्तुं अन्तिमः अवसरः आसीत् ।</value>
+  </data>
+  <data name="DefaultCulture" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="DeletedFileNotPresentIn" xml:space="preserve">
+    <value>“{0}” इति सञ्चिकां विलोपितवती या “{1}” इत्यत्र नास्ति ।</value>
+  </data>
+  <data name="DeletedFolder" xml:space="preserve">
+    <value>“{1}” इत्यस्य अस्तित्वं नास्ति इति कारणेन सामग्रीं विलोपितं सहितं “{0}” इति पुटम्</value>
+  </data>
+  <data name="EncounteredErrorOlderOk" xml:space="preserve">
+    <value>चेतावनी: "{0}" सञ्चिकायाः ​​प्रतिलिपिं कुर्वन् I/O त्रुटिः अभवत् । प्राचीनसञ्चिका “{1}” सुष्ठु दृश्यते</value>
+  </data>
+  <data name="EncounteredErrorOtherBadToo" xml:space="preserve">
+    <value>चेतावनी: "{0}" सञ्चिकायाः ​​प्रतिलिपिं कुर्वन् I/O त्रुटिः अभवत् । अन्यस्य सञ्चिकायाः ​​“{1}” इत्यस्य अपि दोषाः सन्ति अथवा अन्तिमसंभावनापुनर्प्राप्तेः उत्पादः अस्ति । “{0}” स्वयमेव मरम्मतं कर्तुं प्रयत्नः ।</value>
+  </data>
+  <data name="EncounteredErrorWhileCopyingTryingToRepair" xml:space="preserve">
+    <value>चेतावनी: "{0}" सञ्चिकायाः ​​प्रतिलिपिं कुर्वन् स्वचालितमरम्मतं कर्तुं प्रयतमाने त्रुटिः अभवत् ।</value>
+  </data>
+  <data name="ErrorDeleting" xml:space="preserve">
+    <value>"{0}" सञ्चिकां विलोपने त्रुटिः: {1}</value>
+  </data>
+  <data name="ErrorProcessinngFilePair" xml:space="preserve">
+    <value>सञ्चिकायुग्मसंसाधने त्रुटिः "{0}" | “{1}”: {2} इति ।</value>
+  </data>
+  <data name="ErrorReadingPositionWillFillWithDummy" xml:space="preserve">
+    <value>{1} स्थाने “{0}” सञ्चिकायाः ​​पठने त्रुटिः: {2}. खण्डः एकेन डमीना पूरितः अस्ति</value>
+  </data>
+  <data name="ErrorWhileTestingFile" xml:space="preserve">
+    <value>"{0}" सञ्चिकायाः ​​परीक्षणे त्रुटिः ।</value>
+  </data>
+  <data name="FileCopied" xml:space="preserve">
+    <value>प्रतिलिपिकरणप्रक्रिया: “{0}” तः “{1}” यावत् सम्पन्नम् {2}</value>
+  </data>
+  <data name="FileHasDifferentTime" xml:space="preserve">
+    <value>(सञ्चिकायाः ​​भिन्ना तिथिः दीर्घता वा भवति)</value>
+  </data>
+  <data name="FileHasZeroLength" xml:space="preserve">
+    <value>चेतावनी: सञ्चिका शून्यदीर्घता अस्ति, पूर्वं विफलं प्रतिलिपिक्रियाम् सूचयति: "{0}"</value>
+  </data>
+  <data name="FileHealthyOrRepaired" xml:space="preserve">
+    <value>(सञ्चिका त्रुटिरहितं वा मरम्मतं वा आसीत्)</value>
+  </data>
+  <data name="FilesHaveZeroLength" xml:space="preserve">
+    <value>चेतावनी: उभयसञ्चिका शून्यदीर्घता अस्ति, पूर्वं विफलं प्रतिलिपिक्रियाम् सूचयति: "{0}" | "{1}" इति ।</value>
+  </data>
+  <data name="FileWasHealthy" xml:space="preserve">
+    <value>(सञ्चिका त्रुटिरहितः आसीत्)</value>
+  </data>
+  <data name="FileWasNew" xml:space="preserve">
+    <value>(सञ्चिका नूतना आसीत्)</value>
+  </data>
+  <data name="FileWasNewer" xml:space="preserve">
+    <value>(सञ्चिका नवीनतरं बृहत्तरं वा आसीत्)</value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetOfCopyWithDummy" xml:space="preserve">
+    <value>प्रतिलिपिकृतस्य सञ्चिकायाः ​​"{1}" इत्यस्य {0} स्थाने अपुनर्प्राप्तः खण्डः डमी इत्यनेन पूरितः अस्ति</value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetWithDummy" xml:space="preserve">
+    <value>{0} स्थाने अपुनर्प्राप्तः खण्डः डमी खण्डेन पूरितः भवति</value>
+  </data>
+  <data name="FirstFileHasBadBlocks" xml:space="preserve">
+    <value>चेतावनी: प्रथमसञ्चिकायां "{0}" दुष्टखण्डाः सन्ति । "{1}" सञ्चिकायाः ​​अधिलेखनं त्यक्त्वा, तत् बैकअपरूपेण त्यक्त्वा</value>
+  </data>
+  <data name="FoundFileForSync" xml:space="preserve">
+    <value>सम्भाव्यसमन्वयनार्थं सञ्चिकां प्राप्तवती</value>
+  </data>
+  <data name="FoundFilesForSync" xml:space="preserve">
+    <value>सम्भाव्यसमन्वयनार्थं {0} सञ्चिकाः प्राप्ताः</value>
+  </data>
+  <data name="InternalErrorCouldntRestoreAny" xml:space="preserve">
+    <value>आन्तरिकदोषः: सञ्चिकानां प्रतिलिपिं कर्तुं न शक्तवती “{0}” | "{1}" पुनः स्थापयितुं शक्यते</value>
+  </data>
+  <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
+    <value>सञ्चिकायां प्रतिलिपिं मरम्मतं कुर्वन् I/O त्रुटिः: "{0}": {1}</value>
+  </data>
+  <data name="IOErrorReadingFile" xml:space="preserve">
+    <value>“{0}” सञ्चिकां पठन् I/O त्रुटिः: {1}</value>
+  </data>
+  <data name="IOErrorReadingFileOffset" xml:space="preserve">
+    <value>I/O त्रुटिः पठने सञ्चिका: “{0}” स्थाने {1}: {2}</value>
+  </data>
+  <data name="IOErrorWhileReadingPositionFillDummyWhileCopy" xml:space="preserve">
+    <value>{1}: {2} स्थाने "{0}" सञ्चिकां पठन् I/O त्रुटिः । प्रतिलिपिकृते खण्डस्य स्थाने डमी भवति ।</value>
+  </data>
+  <data name="IOErrorWritingFile" xml:space="preserve">
+    <value>“{0}” सञ्चिकालेखने I/O त्रुटिः: {1}</value>
+  </data>
+  <data name="KeepingReadableButNotRecoverableBlockAtOffset" xml:space="preserve">
+    <value>{0} स्थाने पठनीयः किन्तु अपुनर्प्राप्तः खण्डः तिष्ठति । चेकसमः खण्डः अशुद्धः इति सूचयति</value>
+  </data>
+  <data name="KeepingReadableNonRecovBBlockAtAlsoInCopy" xml:space="preserve">
+    <value>मूलसञ्चिकायाः ​​"{1}" इत्यस्य {0} स्थाने पठनीयः किन्तु अपुनर्प्राप्तः खण्डः अपि "{2}" प्रतिलिप्यां तिष्ठति । चेकसमः खण्डः अशुद्धः इति सूचयति</value>
+  </data>
+  <data name="LogFileName" xml:space="preserve">
+    <value>निर्देशिकाः लॉग्स् समन्वययन्तु संस्कृतम्</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>प्रतिलिपिप्रक्रियायाः प्रतिवेदनम्</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>नहि</value>
+  </data>
+  <data name="OperationCanceled" xml:space="preserve">
+    <value>प्रक्रिया निरस्त</value>
+  </data>
+  <data name="OperationFinished" xml:space="preserve">
+    <value>प्रक्रिया समाप्तवती</value>
+  </data>
+  <data name="OutOfBadBlocksNotRestoredInCopyBytes" xml:space="preserve">
+    <value>मूलसञ्चिकायां {0} दुष्टखण्डानां मध्ये "{1}" प्रतिलिप्यां {2} बाइट् पुनः न प्राप्ताः ।</value>
+  </data>
+  <data name="ProcessNo" xml:space="preserve">
+    <value>न</value>
+  </data>
+  <data name="RecoveringBlockAtOfCopiedFile" xml:space="preserve">
+    <value>प्रतिलिपिकृतस्य लक्ष्यसञ्चिकायाः ​​“{1}” इत्यस्य {0} स्थाने अवरोधः पुनः स्थापितः भवति</value>
+  </data>
+  <data name="RecoveringBlockAtOffsetOfFile" xml:space="preserve">
+    <value>"{1}" सञ्चिकायाः ​​{0} स्थाने अवरोधः पुनः स्थापितः भवति ।</value>
+  </data>
+  <data name="RightToLeft" xml:space="preserve">
+    <value>no</value>
+  </data>
+  <data name="RunningWithoutRepairOptionUndecided" xml:space="preserve">
+    <value>समन्वयनं मरम्मतविकल्पं विना चाल्यते अतः "{0}" सञ्चिका "{1}" इत्यनेन पुनः स्थापयितुं शक्यते वा इति निर्णयं कर्तुं न शक्तवान् ।</value>
+  </data>
+  <data name="SavedInfoFileCantBeUsedForTesting" xml:space="preserve">
+    <value>रक्षिता सूचनासञ्चिका "{0}" "{1}" सञ्चिकायाः ​​परीक्षणार्थं उपयोक्तुं न शक्यते: सा सञ्चिकायाः ​​भिन्नसंस्करणाय निर्मितवती</value>
+  </data>
+  <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
+    <value>रक्षिता सूचनासञ्चिका “{0}” दूषिता आसीत्, “{1}” तः पुनः निर्मातव्या ।</value>
+  </data>
+  <data name="SecondFolderNoDelete" xml:space="preserve">
+    <value>त्रुटिः: द्वितीयपुटे "{0}" इति सञ्चिका अस्ति । चयनितं पुटं delete विकल्पस्य कृते अशुद्धं दृश्यते । पुटस्य उपपुटस्य च संसाधनं त्यजन्तु</value>
+  </data>
+  <data name="SkippingFilePairDontDelete" xml:space="preserve">
+    <value>सञ्चिकायुग्मं “{0}” | “{1}” इति लङ्घितम् । विशेषसञ्चिका गलतमूलपुटे delete विकल्पस्य उपयोगं निवारयति ।</value>
+  </data>
+  <data name="TheFileCantBeModifiedMissingRepairApplyToCopy" xml:space="preserve">
+    <value>मरम्मतविकल्पस्य अभावात् सञ्चिकायां परिवर्तनं कर्तुं न शक्यते । पुनर्प्राप्तिप्रक्रिया प्रतिलिपिं प्रति प्रयुक्ता भवति ।</value>
+  </data>
+  <data name="ThereAreBadBlocksInFileNonRestorableParts" xml:space="preserve">
+    <value>"{1}" सञ्चिकायां {0} दुष्टखण्डाः सन्ति, अपुनर्प्राप्ताः भागाः: {2} बाइट् ।</value>
+  </data>
+  <data name="ThereAreBadBlocksInNonRestorableMayRetryLater" xml:space="preserve">
+    <value>"{1}" सञ्चिकायां {0} दुष्टखण्डाः सन्ति, अपुनर्प्राप्ताः भागाः: {2} बाइट् । अपुनर्प्राप्त्यर्थं प्रक्रिया निरन्तरं कर्तुं न शक्नोति।  पश्चात् पुनः प्रयासः भवितुं शक्नोति।</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableCantBeBackup" xml:space="preserve">
+    <value>"{1}" सञ्चिकायां {0} दुष्टखण्डाः सन्ति, पुनः प्राप्तुं शक्याः भागाः: {2} बाइट्, सञ्चिकायाः ​​उपयोगः बैकअपरूपेण कर्तुं न शक्यते</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableOnlyTested" xml:space="preserve">
+    <value>"{1}" सञ्चिकायां {0} दुष्टखण्डाः सन्ति, अपुनर्प्राप्ताः भागाः: {2} बाइट् । सञ्चिका अपरिवर्तिता एव तिष्ठति, केवलं परीक्षिता एव"{1}" सञ्चिकायां {0} दुष्टखण्डाः सन्ति, अपुनर्प्राप्ताः भागाः: {2} बाइट् । सञ्चिका अपरिवर्तिता एव तिष्ठति, केवलं परीक्षिता एव</value>
+  </data>
+  <data name="ThereIsBadBlockInFileNonRestorableParts" xml:space="preserve">
+    <value>"{0}" सञ्चिकायां दुष्टः खण्डः अस्ति, अपुनर्प्राप्ताः भागाः: {1} बाइट् ।</value>
+  </data>
+  <data name="ThereIsBadBlockNonRestorableCantBeBackup" xml:space="preserve">
+    <value>"{0}" सञ्चिकायां दुष्टः खण्डः अस्ति यः पुनः स्थापयितुं न शक्यते: {1} बाइट्, सञ्चिकायाः ​​उपयोगः बैकअपरूपेण कर्तुं न शक्यते</value>
+  </data>
+  <data name="ThereIsOneBadBlockNonRestorableOnlyTested" xml:space="preserve">
+    <value>"{0}" सञ्चिकायां दुष्टः खण्डः अस्ति, अपुनर्प्राप्तियोग्याः भागाः: {1} बाइट्, सञ्चिका अपरिवर्तिता एव तिष्ठति, केवलं परीक्षिता आसीत्</value>
+  </data>
+  <data name="ThereRemainBadBlocksInBecauseReadOnly" xml:space="preserve">
+    <value>{0} दुष्टखण्डाः "{1}" मध्ये एव तिष्ठन्ति यतः सञ्चिकायाः ​​परिवर्तनं कर्तुं न शक्यते</value>
+  </data>
+  <data name="ThereWasBadBlockInFileNotRestoredParts" xml:space="preserve">
+    <value>"{0}" सञ्चिकायां दुष्टः खण्डः आसीत्, अपुनर्प्राप्ताः भागाः: {1} बाइट्</value>
+  </data>
+  <data name="ThereWasBadBlockNotRestoredInCopyBytes" xml:space="preserve">
+    <value>मूलसञ्चिकायां दुष्टः खण्डः आसीत्, प्रतिलिप्यां "{0}" अपुनर्प्राप्ताः भागाः: {1} बाइट् ।</value>
+  </data>
+  <data name="ThereWereBadBlocksInFileNotRestoredParts" xml:space="preserve">
+    <value>"{1}" सञ्चिकायां {0} दुष्टखण्डाः आसन्, अपुनर्प्राप्ताः भागाः: {2} बाइट्</value>
+  </data>
+  <data name="ThisIsASimulatedIOErrorAtPosition" xml:space="preserve">
+    <value>एषा {0} स्थाने अनुकरणीयः I/O त्रुटिः अस्ति ।</value>
+  </data>
+  <data name="WarningChecksumOffsetPrimarySavedInfoIgnored" xml:space="preserve">
+    <value>चेतावनी: {0} स्थाने खण्डस्य चेकसमः “{1}” संगृहीतसूचनायाः उपलब्धप्राथमिकखण्डैः सह न मेलति । खण्डस्य प्राथमिकसंगृहीतसूचना उपेक्षिता भवति</value>
+  </data>
+  <data name="WarningChecksumOffsetSecondarySavedInfoIgnored" xml:space="preserve">
+    <value>चेतावनी: {0} स्थाने खण्डस्य चेकसमः संगृहीतसूचनायाः "{1}" उपलब्धानां गौणखण्डैः सह न मेलति । खण्डस्य कृते गौणसंगृहीतसूचना उपेक्षिता भवति</value>
+  </data>
+  <data name="WarningCopiedToWithErrors" xml:space="preserve">
+    <value>चेतावनी: “{0}” त्रुटिभिः सह “{1}” इति प्रतिलिपिकृतम् {2} ।चेतावनी: “{0}” त्रुटिभिः सह “{1}” इति प्रतिलिपिकृतम् {2} ।</value>
+  </data>
+  <data name="WarningIOErrorWhileCopyingToReason" xml:space="preserve">
+    <value>चेतावनी: "{0}" सञ्चिकायाः ​​"{1}" मध्ये प्रतिलिपिं कुर्वन् I/O त्रुटिः: {2}</value>
+  </data>
+  <data name="WarningSeveralBlocksDontMatchInSIWillBeIgnored" xml:space="preserve">
+    <value>चेतावनी: बहुविधाः खण्डाः संगृहीतसूचना "{0}" इत्यनेन सह न मेलन्ति । संगृहीतसूचना पूर्णतया उपेक्षिता भवति</value>
+  </data>
+  <data name="WarningWhileCreating" xml:space="preserve">
+    <value>चेतावनी: {0} सञ्चिका "{1}" निर्मायन्ते सति।</value>
+  </data>
+  <data name="WarningWhileDiscoveringIfNeedsToBeRechecked" xml:space="preserve">
+    <value>चेतावनी: {0} "{1}" इत्यस्य पुनः परीक्षणस्य आवश्यकता अस्ति वा इति निर्धारयन् ।</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>आम्‌।</value>
+  </data>
+</root>
