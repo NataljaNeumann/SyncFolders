@@ -133,7 +133,7 @@
     <value>Kopiervorgang „{0}“ nach „{1}“  {2}</value>
   </data>
   <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
-    <value>Warnung: Die veraltete Datei „{0}“ mit dem Jahr 1975 oder früher konnte nicht verwendet werden. Dies weist darauf hin, dass es sich um eine letzte Chance zur Wiederherstellung der Datei „{1}“ handelte.</value>
+    <value>Warnung: Die Datei „{0}“ mit dem Jahr 1975 oder früher konnte nicht verwendet werden. Dies weist darauf hin, dass es sich um eine letzte Chance zur Wiederherstellung der Datei „{1}“ handelte.</value>
   </data>
   <data name="DefaultCulture" xml:space="preserve">
     <value>No</value>
@@ -283,7 +283,7 @@
     <value>Es gibt einen fehlerhaften Block in der Datei „{0}“, nicht wiederherstellbare Teile: {1} Bytes, die Datei bleibt unverändert, sie wurde nur getestet</value>
   </data>
   <data name="ThereRemainBadBlocksInBecauseReadOnly" xml:space="preserve">
-    <value>Es verbleiben {0} fehlerhafte Blöcke in „{1}“, da es nicht geändert werden kann</value>
+    <value>Es verbleiben {0} fehlerhafte Blöcke in „{1}“, da die Datei nicht geändert werden kann</value>
   </data>
   <data name="ThereWasBadBlockInFileNotRestoredParts" xml:space="preserve">
     <value>Es gab einen fehlerhaften Block in der Datei „{0}“, nicht wiederhergestellte Teile: {1} Bytes</value>
