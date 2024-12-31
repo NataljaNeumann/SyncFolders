@@ -265,7 +265,7 @@
     <value>Es gibt {0} fehlerhafte Blöcke in der Datei „{1}“, nicht wiederherstellbare Teile: {2} Bytes.</value>
   </data>
   <data name="ThereAreBadBlocksInNonRestorableMayRetryLater" xml:space="preserve">
-    <value>Es gibt {0} fehlerhafte Blöcke in der Datei „{1}“, nicht wiederherstellbare Teile: {2} Bytes. Der Vorgang kann aufgrund einer nicht wiederherstellbaren Ursache nicht fortgesetzt werden. Versuchen Sie es möglicherweise später noch einmal.</value>
+    <value>Es gibt {0} fehlerhafte Blöcke in der Datei „{1}“, nicht wiederherstellbare Teile: {2} Bytes. Der Vorgang kann aufgrund der Nichtwiederherstellbarkeit nicht fortgesetzt werden.  Es wird möglicherweise später noch einmal versucht.</value>
   </data>
   <data name="ThereAreBadBlocksNonRestorableCantBeBackup" xml:space="preserve">
     <value>Es gibt {0} fehlerhafte Blöcke in der Datei „{1}“, nicht wiederherstellbare Teile: {2} Bytes, Datei kann nicht als Backup verwendet werden</value>
