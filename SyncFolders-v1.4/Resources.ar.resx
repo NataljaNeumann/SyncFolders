@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BlockOfAtPositionWillBeCopiedFromNoMatterChecksum" xml:space="preserve">
+    <value>تم نسخ الكتلة من "{0}" الموضع {1} من "{2}" على الرغم من أن المجموع الاختباري يشير إلى أن الكتلة غير صحيحة</value>
+  </data>
+  <data name="BlockOfAtPositionWillBeRestoredFrom" xml:space="preserve">
+    <value>تتم استعادة كتلة "{0}" في الموضع {1} من نفس موضع "{2}".</value>
+  </data>
+  <data name="BlocksOfAndAtPositionNonRecoverableFillDummy" xml:space="preserve">
+    <value>لا يمكن استعادة الكتل "{0}" و"{1}" في الموضع {2} ويتم ملؤها بكتلة وهمية</value>
+  </data>
+  <data name="ChecksumOfBlockAtOffsetNotOK" xml:space="preserve">
+    <value>{0}: المجموع الاختباري للكتلة في الموضع {1} غير موافق</value>
+  </data>
+  <data name="CopiedFromToReason" xml:space="preserve">
+    <value>انسخ العملية "{0}" إلى "{1}" {2}</value>
+  </data>
+  <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
+    <value>تحذير: الملف القديم "{0}" الذي يرجع تاريخه إلى عام 1975 أو ما قبله لا يمكن استخدامه. يشير هذا إلى أن هذه كانت الفرصة الأخيرة لاستعادة "{1}".</value>
+  </data>
+  <data name="DefaultCulture" xml:space="preserve">
+    <value>no</value>
+  </data>
+  <data name="DeletedFileNotPresentIn" xml:space="preserve">
+    <value>تم حذف الملف "{0}" الذي لم يعد موجودًا في "{1}".</value>
+  </data>
+  <data name="DeletedFolder" xml:space="preserve">
+    <value>تم حذف المجلد "{0}" بما في ذلك المحتويات لأن "{1}" لم يعد موجودًا</value>
+  </data>
+  <data name="EncounteredErrorOlderOk" xml:space="preserve">
+    <value>تحذير: حدث خطأ في الإدخال/الإخراج أثناء نسخ "{0}". يبدو أن الملف الأقدم "{1}" جيد</value>
+  </data>
+  <data name="EncounteredErrorOtherBadToo" xml:space="preserve">
+    <value>تحذير: حدث خطأ في الإدخال/الإخراج أثناء نسخ "{0}". يحتوي الملف الآخر "{1}" أيضًا على أخطاء أو أنه نتيجة لاسترداد الفرصة الأخيرة. محاولة إصلاح "{0}" تلقائيًا.</value>
+  </data>
+  <data name="EncounteredErrorWhileCopyingTryingToRepair" xml:space="preserve">
+    <value>تحذير: حدث خطأ أثناء محاولة الإصلاح التلقائي أثناء نسخ "{0}". </value>
+  </data>
+  <data name="ErrorDeleting" xml:space="preserve">
+    <value>خطأ في حذف "{0}": {1}</value>
+  </data>
+  <data name="ErrorProcessinngFilePair" xml:space="preserve">
+    <value>حدث خطأ أثناء معالجة زوج الملفات "{0}" | "{1}": {2}</value>
+  </data>
+  <data name="ErrorReadingPositionWillFillWithDummy" xml:space="preserve">
+    <value>خطأ في قراءة الملف "{0}"، الموضع {1}: {2}. الكتلة مليئة دمية</value>
+  </data>
+  <data name="ErrorWhileTestingFile" xml:space="preserve">
+    <value>خطأ في اختبار الملف "{0}"</value>
+  </data>
+  <data name="FileCopied" xml:space="preserve">
+    <value>نسخ "{0}" إلى "{1}"، {2}</value>
+  </data>
+  <data name="FileHasDifferentTime" xml:space="preserve">
+    <value>(الملف له تاريخ أو طول مختلف)</value>
+  </data>
+  <data name="FileHasZeroLength" xml:space="preserve">
+    <value>تحذير: طول الملف صفر، مما يشير إلى فشل عملية النسخ في الماضي: "{0}"</value>
+  </data>
+  <data name="FileHealthyOrRepaired" xml:space="preserve">
+    <value>(كان الملف خاليًا من الأخطاء أو تم إصلاحه)</value>
+  </data>
+  <data name="FilesHaveZeroLength" xml:space="preserve">
+    <value>تحذير: طول كلا الملفين صفر، مما يشير إلى فشل عملية النسخ في الماضي: "{0}" | "{1}" </value>
+  </data>
+  <data name="FileWasHealthy" xml:space="preserve">
+    <value>(الملف خالي من الأخطاء)</value>
+  </data>
+  <data name="FileWasNew" xml:space="preserve">
+    <value>(الملف كان جديدا)</value>
+  </data>
+  <data name="FileWasNewer" xml:space="preserve">
+    <value>(كان الملف أحدث أو أكبر) </value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetOfCopyWithDummy" xml:space="preserve">
+    <value>الكتلة غير القابلة للاسترداد في الموضع {0} من الملف المنسوخ "{1}" مليئة بنسخة وهمية</value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetWithDummy" xml:space="preserve">
+    <value>الكتلة غير القابلة للاسترداد في الموضع {0} مملوءة بكتلة وهمية</value>
+  </data>
+  <data name="FirstFileHasBadBlocks" xml:space="preserve">
+    <value>تحذير: يحتوي الملف الأول "{0}" على كتل تالفة. تم تخطي ملف الكتابة فوق "{1}"، وتركه كنسخة احتياطية</value>
+  </data>
+  <data name="FoundFileForSync" xml:space="preserve">
+    <value>تم العثور على ملف للمزامنة المحتملة</value>
+  </data>
+  <data name="FoundFilesForSync" xml:space="preserve">
+    <value>تم العثور على {0} ملفًا للمزامنة المحتملة</value>
+  </data>
+  <data name="InternalErrorCouldntRestoreAny" xml:space="preserve">
+    <value>خطأ داخلي: تعذر نسخ الملفات "{0}" | يمكن استعادة "{1}". </value>
+  </data>
+  <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
+    <value>خطأ إدخال/إخراج أثناء إصلاح النسخة إلى الملف: "{0}": {1}</value>
+  </data>
+  <data name="IOErrorReadingFile" xml:space="preserve">
+    <value>خطأ في الإدخال/الإخراج في قراءة الملف "{0}": {1}</value>
+  </data>
+  <data name="IOErrorReadingFileOffset" xml:space="preserve">
+    <value>خطأ في قراءة الملف في الإدخال/الإخراج: "{0}"، الموضع {1}: {2}</value>
+  </data>
+  <data name="IOErrorWhileReadingPositionFillDummyWhileCopy" xml:space="preserve">
+    <value>خطأ في الإدخال/الإخراج في قراءة الملف "{0}"، الموقع {1}: {2}. يتم استبدال الكتلة بدمية عند نسخها.</value>
+  </data>
+  <data name="IOErrorWritingFile" xml:space="preserve">
+    <value>خطأ في الإدخال/الإخراج في كتابة الملف "{0}": {1} </value>
+  </data>
+  <data name="KeepingReadableButNotRecoverableBlockAtOffset" xml:space="preserve">
+    <value>تبقى الكتلة القابلة للقراءة ولكن غير القابلة للاسترداد في الموضع {0}. يشير المجموع الاختباري إلى أن الكتلة غير صحيحة</value>
+  </data>
+  <data name="KeepingReadableNonRecovBBlockAtAlsoInCopy" xml:space="preserve">
+    <value>الكتلة القابلة للقراءة ولكن غير القابلة للاسترداد في الموضع {0} من الملف الأصلي "{1}" تظل أيضًا في النسخة "{2}". يشير المجموع الاختباري إلى أن الكتلة غير صحيحة</value>
+  </data>
+  <data name="LogFileName" xml:space="preserve">
+    <value>سجل مزامنة الدلائل الألمانية</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>تقرير عن عملية النسخ</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>لا</value>
+  </data>
+  <data name="OperationCanceled" xml:space="preserve">
+    <value>تم إحباط العملية</value>
+  </data>
+  <data name="OperationFinished" xml:space="preserve">
+    <value>انتهت العملية</value>
+  </data>
+  <data name="OutOfBadBlocksNotRestoredInCopyBytes" xml:space="preserve">
+    <value>من بين {0} كتل تالفة في الملف الأصلي، لم يتم استرداد {2} بايت في النسخة "{1}".</value>
+  </data>
+  <data name="ProcessNo" xml:space="preserve">
+    <value>№ </value>
+  </data>
+  <data name="RecoveringBlockAtOfCopiedFile" xml:space="preserve">
+    <value>تتم استعادة الحظر في الموضع {0} للملف الهدف المنسوخ "{1}".</value>
+  </data>
+  <data name="RecoveringBlockAtOffsetOfFile" xml:space="preserve">
+    <value>تمت استعادة الحظر في الموضع {0} للملف "{1}".</value>
+  </data>
+  <data name="RightToLeft" xml:space="preserve">
+    <value>yes</value>
+  </data>
+  <data name="RunningWithoutRepairOptionUndecided" xml:space="preserve">
+    <value>التشغيل بدون خيار الإصلاح، لذلك لا يمكن تحديد ما إذا كان يمكن استعادة الملف "{0}" باستخدام "{1}".</value>
+  </data>
+  <data name="SavedInfoFileCantBeUsedForTesting" xml:space="preserve">
+    <value>لا يمكن استخدام ملف المعلومات المحفوظ "{0}" لاختبار الملف "{1}": تم إنشاؤه لإصدار مختلف من الملف</value>
+  </data>
+  <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
+    <value>ملف المعلومات المحفوظ "{0}" تالف ويجب إعادة إنشائه من "{1}".</value>
+  </data>
+  <data name="SecondFolderNoDelete" xml:space="preserve">
+    <value>خطأ: يحتوي المجلد الثاني على الملف "{0}". يبدو أن المجلد المحدد غير صحيح بالنسبة لخيار الحذف. تخطي معالجة المجلد والمجلدات الفرعية</value>
+  </data>
+  <data name="SkippingFilePairDontDelete" xml:space="preserve">
+    <value>زوج الملفات "{0}" | تم تخطي "{1}". يمنع ملف خاص استخدام خيار الحذف في المجلد الجذر الخاطئ. </value>
+  </data>
+  <data name="TheFileCantBeModifiedMissingRepairApplyToCopy" xml:space="preserve">
+    <value>لا يمكن تعديل الملف بسبب عدم وجود خيار الإصلاح. يتم تطبيق عملية الاسترداد على النسخة.</value>
+  </data>
+  <data name="ThereAreBadBlocksInFileNonRestorableParts" xml:space="preserve">
+    <value>يوجد {0} كتل تالفة في الملف "{1}"، الأجزاء غير القابلة للاسترداد: {2} بايت. </value>
+  </data>
+  <data name="ThereAreBadBlocksInNonRestorableMayRetryLater" xml:space="preserve">
+    <value>يوجد {0} كتل تالفة في الملف "{1}"، الأجزاء غير القابلة للاسترداد: {2} بايت. لا يمكن أن تستمر العملية لسبب غير قابل للإصلاح. ربما حاول مرة أخرى لاحقا.</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableCantBeBackup" xml:space="preserve">
+    <value>هناك {0} كتل تالفة في الملف "{1}"، أجزاء غير قابلة للاسترداد: {2} بايت، لا يمكن استخدام الملف كنسخة احتياطية</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableOnlyTested" xml:space="preserve">
+    <value>يوجد {0} كتل تالفة في الملف "{1}"، الأجزاء غير القابلة للاسترداد: {2} بايت. يبقى الملف دون تغيير، لقد تم اختباره للتو</value>
+  </data>
+  <data name="ThereIsBadBlockInFileNonRestorableParts" xml:space="preserve">
+    <value>يوجد كتلة تالفة في الملف "{0}"، الأجزاء غير القابلة للاسترداد: {1} بايت.</value>
+  </data>
+  <data name="ThereIsBadBlockNonRestorableCantBeBackup" xml:space="preserve">
+    <value>يوجد كتلة تالفة في الملف "{0}" لا يمكن استعادتها: {1} بايت، لا يمكن استخدام الملف كنسخة احتياطية </value>
+  </data>
+  <data name="ThereIsOneBadBlockNonRestorableOnlyTested" xml:space="preserve">
+    <value>يوجد كتلة تالفة في الملف "{0}"، الأجزاء غير القابلة للاسترداد: {1} بايت، يظل الملف بدون تغيير، لقد تم اختباره للتو</value>
+  </data>
+  <data name="ThereRemainBadBlocksInBecauseReadOnly" xml:space="preserve">
+    <value>{0} تبقى الكتل السيئة في "{1}" لأنه لا يمكن تغييرها</value>
+  </data>
+  <data name="ThereWasBadBlockInFileNotRestoredParts" xml:space="preserve">
+    <value>كان هناك كتلة تالفة في الملف "{0}"، الأجزاء غير المستردة: {1} بايت</value>
+  </data>
+  <data name="ThereWasBadBlockNotRestoredInCopyBytes" xml:space="preserve">
+    <value>كان هناك كتلة تالفة في الملف الأصلي، وأجزاء لم يتم استردادها في النسخة "{0}": {1} بايت.</value>
+  </data>
+  <data name="ThereWereBadBlocksInFileNotRestoredParts" xml:space="preserve">
+    <value>هناك {0} كتل تالفة في الملف "{1}"، الأجزاء غير المستردة: {2} بايت </value>
+  </data>
+  <data name="ThisIsASimulatedIOErrorAtPosition" xml:space="preserve">
+    <value>هذا خطأ محاكاة للإدخال/الإخراج في الموقع {0}</value>
+  </data>
+  <data name="WarningChecksumOffsetPrimarySavedInfoIgnored" xml:space="preserve">
+    <value>تحذير: المجموع الاختباري للكتل في الموضع {0} لا يتطابق مع الكتل الأساسية المتاحة للمعلومات المخزنة "{1}". يتم تجاهل المعلومات المخزنة الأساسية للكتلة</value>
+  </data>
+  <data name="WarningChecksumOffsetSecondarySavedInfoIgnored" xml:space="preserve">
+    <value>تحذير: المجموع الاختباري للكتل في الموضع {0} لا يتطابق مع الكتل الثانوية المتاحة للمعلومات المخزنة "{1}". يتم تجاهل المعلومات المخزنة الثانوية للكتلة</value>
+  </data>
+  <data name="WarningCopiedToWithErrors" xml:space="preserve">
+    <value>تحذير: تم نسخ "{0}" إلى "{1}" مع وجود أخطاء {2} </value>
+  </data>
+  <data name="WarningIOErrorWhileCopyingToReason" xml:space="preserve">
+    <value>تحذير: حدث خطأ في الإدخال/الإخراج أثناء نسخ الملف "{0}" إلى "{1}": {2}</value>
+  </data>
+  <data name="WarningSeveralBlocksDontMatchInSIWillBeIgnored" xml:space="preserve">
+    <value>تحذير: لا تتطابق الكتل المتعددة مع المعلومات المخزنة "{0}". يتم تجاهل المعلومات المخزنة بالكامل</value>
+  </data>
+  <data name="WarningWhileCreating" xml:space="preserve">
+    <value>تحذير: {0} أثناء إنشاء "{1}"</value>
+  </data>
+  <data name="WarningWhileDiscoveringIfNeedsToBeRechecked" xml:space="preserve">
+    <value>تحذير: {0} أثناء تحديد ما إذا كان "{1}" يحتاج إلى إعادة فحص. </value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>نعم </value>
+  </data>
+</root>
