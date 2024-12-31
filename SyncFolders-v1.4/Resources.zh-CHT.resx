@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BlockOfAtPositionWillBeCopiedFromNoMatterChecksum" xml:space="preserve">
+    <value>位置 {1} 處的檔案「{0}」區塊是從「{2}」複製的，即使校驗並表示該區塊不正確</value>
+  </data>
+  <data name="BlockOfAtPositionWillBeRestoredFrom" xml:space="preserve">
+    <value>檔案「{0}」的位置 {1} 處的區塊從檔案「{2}」的相同位置還原。</value>
+  </data>
+  <data name="BlocksOfAndAtPositionNonRecoverableFillDummy" xml:space="preserve">
+    <value>位置 {2} 處的檔案「{0}」和「{1}」區塊無法恢復，並以虛擬區塊填充</value>
+  </data>
+  <data name="ChecksumOfBlockAtOffsetNotOK" xml:space="preserve">
+    <value>{0}：位置 {1} 處的區塊的校驗和不正確</value>
+  </data>
+  <data name="CopiedFromToReason" xml:space="preserve">
+    <value>將行程「{0}」複製到「{1}」{2}</value>
+  </data>
+  <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
+    <value>警告：無法使用 1975 年或更早版本的過時檔案「{0}」。這表明這是恢復檔案「{1}」的最後機會。</value>
+  </data>
+  <data name="DefaultCulture" xml:space="preserve">
+    <value>no</value>
+  </data>
+  <data name="DeletedFileNotPresentIn" xml:space="preserve">
+    <value>已刪除的檔案「{0}」不再存在於「{1}」中。</value>
+  </data>
+  <data name="DeletedFolder" xml:space="preserve">
+    <value>資料夾「{0}」包含已刪除的內容，因為「{1}」不再存在</value>
+  </data>
+  <data name="EncounteredErrorOlderOk" xml:space="preserve">
+    <value>警告：複製檔案「{0}」時發生 I/O 錯誤。舊文件“{1}”似乎沒問題</value>
+  </data>
+  <data name="EncounteredErrorOtherBadToo" xml:space="preserve">
+    <value>警告：複製檔案「{0}」時發生 I/O 錯誤。其他檔案「{1}」也有錯誤或是最後一次復原的產物。正在嘗試自動修復「{0}」。</value>
+  </data>
+  <data name="EncounteredErrorWhileCopyingTryingToRepair" xml:space="preserve">
+    <value>警告：複製檔案“{0}”時嘗試執行自動修復時發生錯誤。</value>
+  </data>
+  <data name="ErrorDeleting" xml:space="preserve">
+    <value>刪除檔案「{0}」時發生錯誤：{1} </value>
+  </data>
+  <data name="ErrorProcessinngFilePair" xml:space="preserve">
+    <value>處理文件對「{0}」時發生錯誤 | 「{1}」：{2}</value>
+  </data>
+  <data name="ErrorReadingPositionWillFillWithDummy" xml:space="preserve">
+    <value>讀取位置 {1} 處的檔案「{0}」時發生錯誤：{2}。方塊中充滿了假人</value>
+  </data>
+  <data name="ErrorWhileTestingFile" xml:space="preserve">
+    <value>測試檔案「{0}”時出錯</value>
+  </data>
+  <data name="FileCopied" xml:space="preserve">
+    <value>正在將「{0}」複製到「{1}」，{2}</value>
+  </data>
+  <data name="FileHasDifferentTime" xml:space="preserve">
+    <value>（文件具有不同的日期或長度）</value>
+  </data>
+  <data name="FileHasZeroLength" xml:space="preserve">
+    <value>警告：檔案長度為零，表示過去的複製操作失敗：「{0}」</value>
+  </data>
+  <data name="FileHealthyOrRepaired" xml:space="preserve">
+    <value>（檔案無錯誤或已修復）</value>
+  </data>
+  <data name="FilesHaveZeroLength" xml:space="preserve">
+    <value>警告：兩個檔案的長度都為零，表示過去的複製操作失敗：「{0}」|「{1}」 </value>
+  </data>
+  <data name="FileWasHealthy" xml:space="preserve">
+    <value>（文件沒有錯誤）</value>
+  </data>
+  <data name="FileWasNew" xml:space="preserve">
+    <value>（文件是新的）</value>
+  </data>
+  <data name="FileWasNewer" xml:space="preserve">
+    <value>（文件更新或更大） </value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetOfCopyWithDummy" xml:space="preserve">
+    <value>複製檔案「{1}」的位置 {0} 處的不可恢復區塊已填入虛擬區塊</value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetWithDummy" xml:space="preserve">
+    <value>位置 {0} 處的不可恢復區塊已被虛擬區塊填充</value>
+  </data>
+  <data name="FirstFileHasBadBlocks" xml:space="preserve">
+    <value>警告：第一個檔案「{0}」有壞塊。已跳過覆蓋檔案「{1}」，將其保留為備份</value>
+  </data>
+  <data name="FoundFileForSync" xml:space="preserve">
+    <value>找到一個可能同步的文件</value>
+  </data>
+  <data name="FoundFilesForSync" xml:space="preserve">
+    <value>找到 {0} 個可以同步的文件</value>
+  </data>
+  <data name="InternalErrorCouldntRestoreAny" xml:space="preserve">
+    <value>內部錯誤：無法複製檔案「{0}」 | 「{1}」可以恢復 </value>
+  </data>
+  <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
+    <value>修正複製到檔案時發生 I/O 錯誤：「{0}」：{1}</value>
+  </data>
+  <data name="IOErrorReadingFile" xml:space="preserve">
+    <value>讀取檔案「{0}」時出現 I/O 錯誤：{1}</value>
+  </data>
+  <data name="IOErrorReadingFileOffset" xml:space="preserve">
+    <value>讀取檔案「{0}」時發生 I/O 錯誤：位置 {1}：{2}</value>
+  </data>
+  <data name="IOErrorWhileReadingPositionFillDummyWhileCopy" xml:space="preserve">
+    <value>讀取位置 {1} 處的檔案「{0}」時出現 I/O 錯誤：{2}。複製時該區塊將被虛擬區塊取代。 </value>
+  </data>
+  <data name="IOErrorWritingFile" xml:space="preserve">
+    <value>寫入檔案「{0}」時出現 I/O 錯誤：{1}</value>
+  </data>
+  <data name="KeepingReadableButNotRecoverableBlockAtOffset" xml:space="preserve">
+    <value>位置 {0} 處的可讀但不可恢復的區塊仍然存在。校驗和表示該區塊不正確</value>
+  </data>
+  <data name="KeepingReadableNonRecovBBlockAtAlsoInCopy" xml:space="preserve">
+    <value>原始檔案「{1}」位置{0}處的可讀但不可恢復的區塊也保留在副本「{2}」中。校驗和表示該區塊不正確</value>
+  </data>
+  <data name="LogFileName" xml:space="preserve">
+    <value>目錄同步日誌德語</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>影印過程報告</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>不</value>
+  </data>
+  <data name="OperationCanceled" xml:space="preserve">
+    <value>行程中止</value>
+  </data>
+  <data name="OperationFinished" xml:space="preserve">
+    <value>流程結束</value>
+  </data>
+  <data name="OutOfBadBlocksNotRestoredInCopyBytes" xml:space="preserve">
+    <value>在原始檔案中的 {0} 個壞區塊中，副本「{1}」中未還原 {2} 個位元組。</value>
+  </data>
+  <data name="ProcessNo" xml:space="preserve">
+    <value>○ </value>
+  </data>
+  <data name="RecoveringBlockAtOfCopiedFile" xml:space="preserve">
+    <value>複製的目標檔案「{1}」的位置{0}處的區塊已恢復</value>
+  </data>
+  <data name="RecoveringBlockAtOffsetOfFile" xml:space="preserve">
+    <value>檔案「{1}」位置{0}處的區塊已恢復。</value>
+  </data>
+  <data name="RightToLeft" xml:space="preserve">
+    <value>no</value>
+  </data>
+  <data name="RunningWithoutRepairOptionUndecided" xml:space="preserve">
+    <value>同步正在運行，但沒有修復選項，因此無法確定是否可以使用「{1}」恢復檔案「{0}」。</value>
+  </data>
+  <data name="SavedInfoFileCantBeUsedForTesting" xml:space="preserve">
+    <value>儲存的資訊檔案「{0}」無法用於測試檔案「{1}」：它是為該檔案的不同版本所建立的</value>
+  </data>
+  <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
+    <value>儲存的資訊檔案「{0}」已損壞，需要從「{1}」重新建立。</value>
+  </data>
+  <data name="SecondFolderNoDelete" xml:space="preserve">
+    <value>錯誤：第二個資料夾包含檔案「{0}”。所選資料夾對於刪除選項似乎不正確。跳過處理資料夾和子資料夾</value>
+  </data>
+  <data name="SkippingFilePairDontDelete" xml:space="preserve">
+    <value>文件對「{0}」 | 「{1}」被跳過。特殊檔案可防止在錯誤的根資料夾中使用刪除選項。 </value>
+  </data>
+  <data name="TheFileCantBeModifiedMissingRepairApplyToCopy" xml:space="preserve">
+    <value>由於缺少修復選項，無法修改該檔案。恢復過程應用於副本。</value>
+  </data>
+  <data name="ThereAreBadBlocksInFileNonRestorableParts" xml:space="preserve">
+    <value>檔案「{1}」中有 {0} 個壞塊，不可恢復部分：{2} 個位元組。 </value>
+  </data>
+  <data name="ThereAreBadBlocksInNonRestorableMayRetryLater" xml:space="preserve">
+    <value>檔案「{1}」中有 {0} 個壞塊，不可恢復部分：{2} 個位元組。由於不可恢復的原因，該過程無法繼續。也許稍後再試一次。</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableCantBeBackup" xml:space="preserve">
+    <value>檔案「{1}」中有 {0} 個壞塊，不可恢復部分：{2} 位元組，檔案無法用作備份</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableOnlyTested" xml:space="preserve">
+    <value>檔案「{1}」中有 {0} 個壞塊，不可恢復部分：{2} 個位元組。文件保持不變，剛剛測試過</value>
+  </data>
+  <data name="ThereIsBadBlockInFileNonRestorableParts" xml:space="preserve">
+    <value>檔案「{0}」中存在壞塊，不可恢復部分：{1} 位元組。</value>
+  </data>
+  <data name="ThereIsBadBlockNonRestorableCantBeBackup" xml:space="preserve">
+    <value>檔案「{0}」中存在無法復原的壞區塊：{1} 位元組，檔案無法用作備份 </value>
+  </data>
+  <data name="ThereIsOneBadBlockNonRestorableOnlyTested" xml:space="preserve">
+    <value>檔案「{0}」中有壞塊，不可恢復部分：{1} 位元組，檔案不變，剛剛測試過</value>
+  </data>
+  <data name="ThereRemainBadBlocksInBecauseReadOnly" xml:space="preserve">
+    <value>{0} 個壞塊保留在「{1}」中，因為它無法更改</value>
+  </data>
+  <data name="ThereWasBadBlockInFileNotRestoredParts" xml:space="preserve">
+    <value>檔案「{0}」中存在壞塊，未恢復部分：{1} 位元組</value>
+  </data>
+  <data name="ThereWasBadBlockNotRestoredInCopyBytes" xml:space="preserve">
+    <value>原始檔案中存在壞區塊，副本「{0}」中存在未復原的部分：{1} 位元組。 </value>
+  </data>
+  <data name="ThereWereBadBlocksInFileNotRestoredParts" xml:space="preserve">
+    <value>檔案「{1}」中有 {0} 個壞塊，未恢復的部分：{2} 個位元組</value>
+  </data>
+  <data name="ThisIsASimulatedIOErrorAtPosition" xml:space="preserve">
+    <value>這是位置 {0} 處的模擬 I/O 錯誤</value>
+  </data>
+  <data name="WarningChecksumOffsetPrimarySavedInfoIgnored" xml:space="preserve">
+    <value>警告：位置 {0} 處的區塊的校驗和與儲存資訊「{1}」的可用主區塊不符。該區塊的主要儲存資訊被忽略</value>
+  </data>
+  <data name="WarningChecksumOffsetSecondarySavedInfoIgnored" xml:space="preserve">
+    <value>警告：位置 {0} 處的區塊的校驗和與儲存資訊「{1}」的可用輔助區塊不符。該區塊的輔助儲存資訊被忽略 </value>
+  </data>
+  <data name="WarningCopiedToWithErrors" xml:space="preserve">
+    <value>警告：「{0}」已複製到「{1}」，但出現錯誤 {2} </value>
+  </data>
+  <data name="WarningIOErrorWhileCopyingToReason" xml:space="preserve">
+    <value>警告：將檔案「{0}」複製到「{1}」時發生 I/O 錯誤：{2}</value>
+  </data>
+  <data name="WarningSeveralBlocksDontMatchInSIWillBeIgnored" xml:space="preserve">
+    <value>警告：多個區塊與儲存的資訊「{0}」不符。儲存的資訊被完全忽略</value>
+  </data>
+  <data name="WarningWhileCreating" xml:space="preserve">
+    <value>警告：建立檔案「{1}」時{0}</value>
+  </data>
+  <data name="WarningWhileDiscoveringIfNeedsToBeRechecked" xml:space="preserve">
+    <value>警告：{0}，同時確定是否需要重新檢查「{1}」。 </value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>是的 </value>
+  </data>
+</root>
