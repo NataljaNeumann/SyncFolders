@@ -412,6 +412,24 @@ namespace SyncFolders {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Sync Folders Log English ähnelt.
+        /// </summary>
+        internal static string LogFileName {
+            get {
+                return ResourceManager.GetString("LogFileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die no ähnelt.
+        /// </summary>
+        internal static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Operation canceled ähnelt.
         /// </summary>
         internal static string OperationCanceled {
@@ -687,6 +705,15 @@ namespace SyncFolders {
         internal static string WarningWhileDiscoveringIfNeedsToBeRechecked {
             get {
                 return ResourceManager.GetString("WarningWhileDiscoveringIfNeedsToBeRechecked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die yes ähnelt.
+        /// </summary>
+        internal static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }

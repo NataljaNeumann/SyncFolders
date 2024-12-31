@@ -55,7 +55,7 @@ namespace SyncFolders
         /// <param name="strFormat">Format for the string</param>
         /// <param name="aParams">Parameters for string format</param>
         //===================================================================================================
-        void WriteLogFormatted(
+        void WriteLogFormattedLocalized(
             int nIndent,
             string strFormat,
             params object[] aParams

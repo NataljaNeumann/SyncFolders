@@ -324,7 +324,16 @@
   <data name="WarningWhileDiscoveringIfNeedsToBeRechecked" xml:space="preserve">
     <value>Warning: {0}, while discovering, if "{1}" needs to be rechecked.</value>
   </data>
+  <data name="LogFileName" xml:space="preserve">
+    <value>Sync Folders Log English</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>no</value>
+  </data>
   <data name="RightToLeft" xml:space="preserve">
     <value>no</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>yes</value>
   </data>
 </root>

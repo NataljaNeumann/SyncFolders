@@ -729,7 +729,7 @@ namespace SyncFolders
 
                     if (!bOtherSeemOk)
                     {
-                        iLogWriter.WriteLogFormatted(1,
+                        iLogWriter.WriteLogFormattedLocalized(1,
                             Resources.WarningSeveralBlocksDontMatchInSIWillBeIgnored,
                             strCurrentFile);
                         iLogWriter.WriteLog(true, 1, "Warning: several blocks don't match in saved info ",
@@ -838,7 +838,7 @@ namespace SyncFolders
                             }
                             else
                             {
-                                iLogWriter.WriteLogFormatted(1, Resources.WarningChecksumOffsetPrimarySavedInfoIgnored,
+                                iLogWriter.WriteLogFormattedLocalized(1, Resources.WarningChecksumOffsetPrimarySavedInfoIgnored,
                                     blockToRestore * oTestBlock.Length, strCurrentFile);
                                 iLogWriter.WriteLog(true, 1, "Warning: checksum of block at offsset ",
                                     blockToRestore * oTestBlock.Length,
@@ -911,7 +911,7 @@ namespace SyncFolders
                             }
                             else
                             {
-                                iLogWriter.WriteLogFormatted(1, 
+                                iLogWriter.WriteLogFormattedLocalized(1, 
                                     Resources.WarningChecksumOffsetSecondarySavedInfoIgnored,
                                     blockToRestore * oTestBlock.Length,
                                     strCurrentFile);

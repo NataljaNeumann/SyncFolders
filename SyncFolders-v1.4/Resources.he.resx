@@ -321,4 +321,13 @@
   <data name="WarningWhileDiscoveringIfNeedsToBeRechecked" xml:space="preserve">
     <value>אזהרה: {0} בעת קביעה אם יש לבדוק שוב את "{1}". </value>
   </data>
+  <data name="LogFileName" xml:space="preserve">
+    <value>ספריות סנכרון יומן עברית</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>לֹא</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>כֵּן</value>
+  </data>
 </root>

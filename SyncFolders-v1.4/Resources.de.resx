@@ -321,4 +321,13 @@
   <data name="RightToLeft" xml:space="preserve">
     <value>no</value>
   </data>
+  <data name="LogFileName" xml:space="preserve">
+    <value>Verzeichnisse Synchronisieren Log Detusch</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>nein</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>ja</value>
+  </data>
 </root>
