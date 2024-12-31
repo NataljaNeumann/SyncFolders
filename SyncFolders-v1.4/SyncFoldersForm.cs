@@ -297,7 +297,7 @@ namespace SyncFolders
 
  
             _logFile.WriteLine("     First2Second: " + (_bFirstToSecond ? "yes" : "no"));
-            _logFileLocalized.WriteLine(checkBoxFirstToSecond.Text + ":" + (_bFirstToSecond ? Resources.Yes : Resources.No));
+            _logFileLocalized.WriteLine(checkBoxFirstToSecond.Text + ": " + (_bFirstToSecond ? Resources.Yes : Resources.No));
             if (_bFirstToSecond)
             {
                 _logFile.WriteLine("         SyncMode: " + (_syncMode ? "yes" : "no"));
@@ -341,6 +341,9 @@ namespace SyncFolders
             _logFileLocalized.Write("###################################################");
             _logFileLocalized.Write("###################################################");
             _logFileLocalized.WriteLine("###################################################");
+
+            _logFile.WriteLine(System.DateTime.UtcNow.ToString("yyyy-MM-dd hh:mm:ss.fff") + "UT\tThread\tMessage from thread");
+            _logFileLocalized.WriteLine(System.DateTime.UtcNow.ToString("F") + "\t" + Resources.ProcessNo + "\t" + Resources.Message);
 
             _logFile.Flush();
             _logFileLocalized.Flush();
@@ -6202,7 +6205,7 @@ namespace SyncFolders
                         if (Resources.RightToLeft.Equals("yes"))
                             _logFileLocalized.Write((char)0x200E);
 
-                        _logFileLocalized.Write("{0}\t={1}=\t", now.ToString("f"),
+                        _logFileLocalized.Write("{0}\t={1}=\t", now.ToString("F"),
                             System.Threading.Thread.CurrentThread.ManagedThreadId);
                     }
 

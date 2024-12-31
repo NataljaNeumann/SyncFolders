@@ -324,8 +324,14 @@
   <data name="LogFileName" xml:space="preserve">
     <value>Verzeichnisse Synchronisieren Log Detusch</value>
   </data>
+  <data name="Message" xml:space="preserve">
+    <value>Meldung vom Kopiervorgang</value>
+  </data>
   <data name="No" xml:space="preserve">
     <value>nein</value>
+  </data>
+  <data name="ProcessNo" xml:space="preserve">
+    <value>№</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>ja</value>

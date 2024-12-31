@@ -324,8 +324,14 @@
   <data name="LogFileName" xml:space="preserve">
     <value>ספריות סנכרון יומן עברית</value>
   </data>
+  <data name="Message" xml:space="preserve">
+    <value>דיווח על תהליך ההעתקה</value>
+  </data>
   <data name="No" xml:space="preserve">
     <value>לֹא</value>
+  </data>
+  <data name="ProcessNo" xml:space="preserve">
+    <value>מספר תהליך</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>כֵּן</value>

@@ -327,8 +327,14 @@
   <data name="LogFileName" xml:space="preserve">
     <value>Sync Folders Log English</value>
   </data>
+  <data name="Message" xml:space="preserve">
+    <value>Message from copy process</value>
+  </data>
   <data name="No" xml:space="preserve">
     <value>no</value>
+  </data>
+  <data name="ProcessNo" xml:space="preserve">
+    <value>№</value>
   </data>
   <data name="RightToLeft" xml:space="preserve">
     <value>no</value>

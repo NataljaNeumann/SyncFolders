@@ -421,6 +421,15 @@ namespace SyncFolders {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Message from copy process ähnelt.
+        /// </summary>
+        internal static string Message {
+            get {
+                return ResourceManager.GetString("Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die no ähnelt.
         /// </summary>
         internal static string No {
@@ -453,6 +462,15 @@ namespace SyncFolders {
         internal static string OutOfBadBlocksNotRestoredInCopyBytes {
             get {
                 return ResourceManager.GetString("OutOfBadBlocksNotRestoredInCopyBytes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die № ähnelt.
+        /// </summary>
+        internal static string ProcessNo {
+            get {
+                return ResourceManager.GetString("ProcessNo", resourceCulture);
             }
         }
         
