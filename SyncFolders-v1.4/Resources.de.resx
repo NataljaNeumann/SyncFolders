@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BlockOfAtPositionWillBeCopiedFromNoMatterChecksum" xml:space="preserve">
-    <value>Block von „{0}“ Position {1} wird von „{2}“ kopiert, obwohl die Prüfsumme anzeigt, dass der Block falsch ist</value>
+    <value>Block der Datei „{0}“ an Position {1} wird aus „{2}“ kopiert, obwohl die Prüfsumme anzeigt, dass der Block falsch ist</value>
   </data>
   <data name="BlockOfAtPositionWillBeRestoredFrom" xml:space="preserve">
-    <value>Block von „{0}“ an Position {1} wird von derselben Position von „{2}“ wiederhergestellt</value>
+    <value>Block der Datei „{0}“ an Position {1} wird von derselben Position der Datei „{2}“ wiederhergestellt</value>
   </data>
   <data name="BlocksOfAndAtPositionNonRecoverableFillDummy" xml:space="preserve">
-    <value>Die Blöcke von „{0}“ und „{1}“ an Position {2} können nicht wiederhergestellt werden und werden mit einem Dummy-Block gefüllt</value>
+    <value>Die Blöcke der Dateien „{0}“ und „{1}“ an Position {2} können nicht wiederhergestellt werden und werden mit einem Dummy-Block gefüllt</value>
   </data>
   <data name="ChecksumOfBlockAtOffsetNotOK" xml:space="preserve">
     <value>{0}: Prüfsumme des Blocks an der Position {1} nicht in Ordnung</value>
@@ -133,7 +133,7 @@
     <value>Kopiervorgang „{0}“ nach „{1}“  {2}</value>
   </data>
   <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
-    <value>Warnung: Die veraltete Datei „{0}“ mit dem Jahr 1975 oder früher konnte nicht verwendet werden. Dies weist darauf hin, dass es sich um eine letzte Chance zur Wiederherstellung von „{1}“ handelte.</value>
+    <value>Warnung: Die veraltete Datei „{0}“ mit dem Jahr 1975 oder früher konnte nicht verwendet werden. Dies weist darauf hin, dass es sich um eine letzte Chance zur Wiederherstellung der Datei „{1}“ handelte.</value>
   </data>
   <data name="DefaultCulture" xml:space="preserve">
     <value>No</value>
@@ -145,22 +145,22 @@
     <value>Ordner „{0}“ inklusive Inhalt gelöscht, da kein „{1}“ mehr vorhanden ist</value>
   </data>
   <data name="EncounteredErrorOlderOk" xml:space="preserve">
-    <value>Warnung: Beim Kopieren von „{0}“ ist ein E/A-Fehler aufgetreten. Die ältere Datei „{1}“ scheint in Ordnung zu sein</value>
+    <value>Warnung: Beim Kopieren der Datei „{0}“ ist ein E/A-Fehler aufgetreten. Die ältere Datei „{1}“ scheint in Ordnung zu sein</value>
   </data>
   <data name="EncounteredErrorOtherBadToo" xml:space="preserve">
-    <value>Warnung: Beim Kopieren von „{0}“ ist ein E/A-Fehler aufgetreten. Andere Datei „{1}“ weist ebenfalls Fehler auf oder ist ein Produkt der Last-Chance-Wiederherstellung. Es wird versucht, „{0}“ automatisch zu reparieren.</value>
+    <value>Warnung: Beim Kopieren der Datei „{0}“ ist ein E/A-Fehler aufgetreten. Andere Datei „{1}“ weist ebenfalls Fehler auf oder ist ein Produkt der Last-Chance-Wiederherstellung. Es wird versucht, „{0}“ automatisch zu reparieren.</value>
   </data>
   <data name="EncounteredErrorWhileCopyingTryingToRepair" xml:space="preserve">
-    <value>Warnung: Beim Kopieren von „{0}“ ist beim Versuch einer automatischen Reparatur ein Fehler aufgetreten</value>
+    <value>Warnung: Beim Kopieren der Datei „{0}“ ist beim Versuch einer automatischen Reparatur ein Fehler aufgetreten</value>
   </data>
   <data name="ErrorDeleting" xml:space="preserve">
-    <value>Fehler beim Löschen von „{0}“: {1}</value>
+    <value>Fehler beim Löschen der Datei „{0}“: {1}</value>
   </data>
   <data name="ErrorProcessinngFilePair" xml:space="preserve">
     <value>Fehler beim Verarbeiten des Dateipaars „{0}“ | „{1}“: {2}</value>
   </data>
   <data name="ErrorReadingPositionWillFillWithDummy" xml:space="preserve">
-    <value>Fehler beim Lesen der Datei „{0}“, Position {1}: {2}. Block wird mit einem Dummy gefüllt</value>
+    <value>Fehler beim Lesen der Datei „{0}“ an Position {1}: {2}. Block wird mit einem Dummy gefüllt</value>
   </data>
   <data name="ErrorWhileTestingFile" xml:space="preserve">
     <value>Fehler beim Testen der Datei „{0}“</value>
@@ -214,10 +214,10 @@
     <value>E/A-Fehler beim Lesen der Datei „{0}“: {1}</value>
   </data>
   <data name="IOErrorReadingFileOffset" xml:space="preserve">
-    <value>E/A-Fehler beim Lesen der Datei: „{0}“, Position {1}: {2}</value>
+    <value>E/A-Fehler beim Lesen der Datei: „{0}“ an Position {1}: {2}</value>
   </data>
   <data name="IOErrorWhileReadingPositionFillDummyWhileCopy" xml:space="preserve">
-    <value>E/A-Fehler beim Lesen der Datei „{0}“, Position {1}: {2}. Der Block wird beim Kopieren durch einen Dummy ersetzt.</value>
+    <value>E/A-Fehler beim Lesen der Datei „{0}“ an Position {1}: {2}. Der Block wird beim Kopieren durch einen Dummy ersetzt.</value>
   </data>
   <data name="IOErrorWritingFile" xml:space="preserve">
     <value>E/A-Fehler beim Schreiben der Datei „{0}“: {1}</value>
@@ -244,7 +244,7 @@
     <value>Block an der Position {0} der Datei „{1}“ wird wiederhergestellt.</value>
   </data>
   <data name="RunningWithoutRepairOptionUndecided" xml:space="preserve">
-    <value>Läuft ohne Reparaturoption und konnte daher nicht entscheiden, ob die Datei „{0}“ mit „{1}“ wiederhergestellt werden kann.</value>
+    <value>Synchronisierung läuft ohne Reparaturoption und konnte daher nicht entscheiden, ob die Datei „{0}“ mit „{1}“ wiederhergestellt werden kann.</value>
   </data>
   <data name="SavedInfoFileCantBeUsedForTesting" xml:space="preserve">
     <value>Die gespeicherte Infodatei „{0}“ kann nicht zum Testen der Datei „{1}“ verwendet werden: Sie wurde für eine andere Version der Datei erstellt</value>
@@ -313,7 +313,7 @@
     <value>Warnung: Mehrere Blöcke stimmen nicht mit den gespeicherten Informationen „{0}“ überein. Die gespeicherten Informationen werden vollständig ignoriert</value>
   </data>
   <data name="WarningWhileCreating" xml:space="preserve">
-    <value>Warnung: {0} beim Erstellen von „{1}“</value>
+    <value>Warnung: {0} beim Erstellen der Datei „{1}“</value>
   </data>
   <data name="WarningWhileDiscoveringIfNeedsToBeRechecked" xml:space="preserve">
     <value>Warnung: {0} beim Ermitteln, ob „{1}“ erneut überprüft werden muss. </value>
