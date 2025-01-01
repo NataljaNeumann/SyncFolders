@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BlockOfAtPositionWillBeCopiedFromNoMatterChecksum" xml:space="preserve">
-    <value>Block der Datei „{0}“ an Position {1} wird aus „{2}“ kopiert, obwohl die Prüfsumme anzeigt, dass der Block falsch ist</value>
+    <value>Block der Datei „{0}“ an Position {1} wird aus „{2}“ kopiert, auch wenn die Prüfsumme anzeigt, dass der Block falsch ist</value>
   </data>
   <data name="BlockOfAtPositionWillBeRestoredFrom" xml:space="preserve">
     <value>Block der Datei „{0}“ an Position {1} wird von derselben Position der Datei „{2}“ wiederhergestellt</value>
