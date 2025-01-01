@@ -322,6 +322,9 @@
     <EmbeddedResource Include="Resources.ko.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources.nl.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources.pt.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -374,6 +377,10 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SyncFoldersForm.ko.resx">
+      <DependentUpon>SyncFoldersForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SyncFoldersForm.nl.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>

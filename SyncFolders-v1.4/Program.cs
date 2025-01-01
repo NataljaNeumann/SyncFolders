@@ -57,8 +57,10 @@ namespace SyncFolders
         public static void SetCultureForThread(Thread oThread)
         {
 #if DEBUG
-            oThread.CurrentCulture = new CultureInfo("ar-SA");
-            oThread.CurrentUICulture = new CultureInfo("ar-SA");
+            /*
+            oThread.CurrentCulture = new CultureInfo("nl-NL");
+            oThread.CurrentUICulture = new CultureInfo("nl-NL");
+             * */
 #endif
         }
     }
