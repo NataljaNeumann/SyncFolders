@@ -217,7 +217,7 @@
     <value>I/O त्रुटिः पठने सञ्चिका: “{0}” स्थाने {1}: {2}</value>
   </data>
   <data name="IOErrorWhileReadingPositionFillDummyWhileCopy" xml:space="preserve">
-    <value>{1}: {2} स्थाने "{0}" सञ्चिकां पठन् I/O त्रुटिः । प्रतिलिपिकृते खण्डस्य स्थाने डमी भवति ।</value>
+    <value>{1} स्थाने "{0}" सञ्चिकां पठन् I/O त्रुटिः: {2}. प्रतिलिपिकृते खण्डस्य स्थाने डमी भवति ।</value>
   </data>
   <data name="IOErrorWritingFile" xml:space="preserve">
     <value>“{0}” सञ्चिकालेखने I/O त्रुटिः: {1}</value>
