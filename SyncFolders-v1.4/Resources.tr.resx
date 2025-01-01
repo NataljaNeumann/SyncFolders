@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BlockOfAtPositionWillBeCopiedFromNoMatterChecksum" xml:space="preserve">
+    <value>Sağlama toplamı bloğun yanlış olduğunu gösterse bile, {1} konumundaki “{0}” dosyası bloğu “{2}” dosyasından kopyalanır</value>
+  </data>
+  <data name="BlockOfAtPositionWillBeRestoredFrom" xml:space="preserve">
+    <value>{1} konumundaki “{0}” dosyası bloğu, “{2}” dosyasının aynı konumundan geri yüklendi.</value>
+  </data>
+  <data name="BlocksOfAndAtPositionNonRecoverableFillDummy" xml:space="preserve">
+    <value>{2} konumundaki “{0}” ve “{1}” dosyalarının blokları geri yüklenemez ve boş bir blokla doldurulur</value>
+  </data>
+  <data name="ChecksumOfBlockAtOffsetNotOK" xml:space="preserve">
+    <value>{0}: {1} konumundaki bloğun sağlama toplamı tamam değil</value>
+  </data>
+  <data name="CopiedFromToReason" xml:space="preserve">
+    <value>Kopyalama işlemi tamamlandı: “{0}”'dan “{1}”'ye {2}</value>
+  </data>
+  <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
+    <value>Uyarı: 1975 veya daha eski bir yıla ait “{0}” dosyası kullanılamadı. Bu, “{1}” dosyasını kurtarmak için bunun son şans olduğunu gösterir.</value>
+  </data>
+  <data name="DefaultCulture" xml:space="preserve">
+    <value>no</value>
+  </data>
+  <data name="DeletedFileNotPresentIn" xml:space="preserve">
+    <value>Artık “{1}” içinde bulunmayan “{0}” dosyası silindi.</value>
+  </data>
+  <data name="DeletedFolder" xml:space="preserve">
+    <value>“{1}” artık mevcut olmadığından silinen içerikleri içeren “{0}” klasörü </value>
+  </data>
+  <data name="EncounteredErrorOlderOk" xml:space="preserve">
+    <value>Uyarı: “{0}” dosyası kopyalanırken bir G/Ç hatası oluştu. Eski dosya “{1}” iyi görünüyor</value>
+  </data>
+  <data name="EncounteredErrorOtherBadToo" xml:space="preserve">
+    <value>Uyarı: “{0}” dosyası kopyalanırken bir G/Ç hatası oluştu. Diğer “{1}” dosyasında da hatalar var veya son şans kurtarmanın bir ürünü. “{0}” otomatik olarak onarılmaya çalışılıyor.</value>
+  </data>
+  <data name="EncounteredErrorWhileCopyingTryingToRepair" xml:space="preserve">
+    <value>Uyarı: “{0}” dosyası kopyalanırken otomatik onarım gerçekleştirilmeye çalışılırken bir hata oluştu.</value>
+  </data>
+  <data name="ErrorDeleting" xml:space="preserve">
+    <value>“{0}” dosyası silinirken hata oluştu: {1}</value>
+  </data>
+  <data name="ErrorProcessinngFilePair" xml:space="preserve">
+    <value>“{0}” | “{1}” dosya çifti işlenirken hata oluştu: {2}</value>
+  </data>
+  <data name="ErrorReadingPositionWillFillWithDummy" xml:space="preserve">
+    <value>{1} konumundaki “{0}” dosyası okunurken hata oluştu: {2}. Blok bir kukla ile doldurulur</value>
+  </data>
+  <data name="ErrorWhileTestingFile" xml:space="preserve">
+    <value>“{0}” dosyası test edilirken hata oluştu</value>
+  </data>
+  <data name="FileCopied" xml:space="preserve">
+    <value>Kopyalama işlemi tamamlandı: “{0}”'dan “{1}”'ye {2}</value>
+  </data>
+  <data name="FileHasDifferentTime" xml:space="preserve">
+    <value>(Dosyanın tarihi veya uzunluğu farklı)</value>
+  </data>
+  <data name="FileHasZeroLength" xml:space="preserve">
+    <value>Uyarı: Dosyanın uzunluğu sıfır olup, geçmişte başarısız bir kopyalama işlemi yapıldığını gösterir: “{0}”</value>
+  </data>
+  <data name="FileHealthyOrRepaired" xml:space="preserve">
+    <value>(Dosya hatasızdı veya onarıldı) </value>
+  </data>
+  <data name="FilesHaveZeroLength" xml:space="preserve">
+    <value>Uyarı: “{0}” dosyası kopyalanırken bir G/Ç hatası oluştu. Eski dosya “{1}” iyi görünüyor</value>
+  </data>
+  <data name="FileWasHealthy" xml:space="preserve">
+    <value>Uyarı: “{0}” dosyası kopyalanırken bir G/Ç hatası oluştu. Diğer “{1}” dosyasında da hatalar var veya son şans kurtarmanın bir ürünü. “{0}” otomatik olarak onarılmaya çalışılıyor.</value>
+  </data>
+  <data name="FileWasNew" xml:space="preserve">
+    <value>Uyarı: “{0}” dosyası kopyalanırken otomatik onarım gerçekleştirilmeye çalışılırken bir hata oluştu.</value>
+  </data>
+  <data name="FileWasNewer" xml:space="preserve">
+    <value>“{0}” dosyası silinirken hata oluştu: {1}</value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetOfCopyWithDummy" xml:space="preserve">
+    <value>“{0}” | “{1}” dosya çifti işlenirken hata oluştu: {2}</value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetWithDummy" xml:space="preserve">
+    <value>{1} konumundaki “{0}” dosyası okunurken hata oluştu: {2}. Blok bir kukla ile doldurulur</value>
+  </data>
+  <data name="FirstFileHasBadBlocks" xml:space="preserve">
+    <value>“{0}” dosyası test edilirken hata oluştu</value>
+  </data>
+  <data name="FoundFileForSync" xml:space="preserve">
+    <value>“{0}”, “{1}” öğesine kopyalanıyor, {2}</value>
+  </data>
+  <data name="FoundFilesForSync" xml:space="preserve">
+    <value>Olası senkronizasyon için {0} dosya bulundu</value>
+  </data>
+  <data name="InternalErrorCouldntRestoreAny" xml:space="preserve">
+    <value>Dahili hata: “{0}” | “{1}” dosyalarının bir kopyası geri yüklenemedi </value>
+  </data>
+  <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
+    <value>Dosyaya kopya onarılırken G/Ç hatası: “{0}”: {1} </value>
+  </data>
+  <data name="IOErrorReadingFile" xml:space="preserve">
+    <value>“{0}” dosyası okunurken G/Ç hatası: {1}</value>
+  </data>
+  <data name="IOErrorReadingFileOffset" xml:space="preserve">
+    <value>Dosya okunurken G/Ç hatası: {1} konumunda “{0}”: {2}</value>
+  </data>
+  <data name="IOErrorWhileReadingPositionFillDummyWhileCopy" xml:space="preserve">
+    <value>{1} konumundaki “{0}” dosyası okunurken G/Ç hatası: {2}. Blok kopyalandığında bir kukla ile değiştirilir.</value>
+  </data>
+  <data name="IOErrorWritingFile" xml:space="preserve">
+    <value>“{0}” dosyası yazılırken G/Ç hatası: {1}</value>
+  </data>
+  <data name="KeepingReadableButNotRecoverableBlockAtOffset" xml:space="preserve">
+    <value>{0} konumundaki okunabilir ancak kurtarılamayan blok kalır. Sağlama toplamı bloğun yanlış olduğunu gösterir</value>
+  </data>
+  <data name="KeepingReadableNonRecovBBlockAtAlsoInCopy" xml:space="preserve">
+    <value>“{1}” orijinal dosyasının {0} konumundaki okunabilir ancak kurtarılamayan blok da “{2}” kopyasında kalır. Sağlama toplamı bloğun yanlış olduğunu gösterir</value>
+  </data>
+  <data name="LogFileName" xml:space="preserve">
+    <value>Dizin senkronizasyon protokolü Türkçe</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Kopyalama işleminin raporu</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>HAYIR</value>
+  </data>
+  <data name="OperationCanceled" xml:space="preserve">
+    <value>İşlem iptal edildi</value>
+  </data>
+  <data name="OperationFinished" xml:space="preserve">
+    <value>Süreç sona erdi </value>
+  </data>
+  <data name="OutOfBadBlocksNotRestoredInCopyBytes" xml:space="preserve">
+    <value>Orijinal dosyadaki {0} bozuk bloktan, “{1}” kopyasında {2} bayt kurtarılamadı.</value>
+  </data>
+  <data name="ProcessNo" xml:space="preserve">
+    <value>№</value>
+  </data>
+  <data name="RecoveringBlockAtOfCopiedFile" xml:space="preserve">
+    <value>Kopyalanan “{1}” hedef dosyasının {0} konumundaki blok geri yüklendi</value>
+  </data>
+  <data name="RecoveringBlockAtOffsetOfFile" xml:space="preserve">
+    <value>“{1}” dosyasının {0} konumundaki blok geri yüklendi.</value>
+  </data>
+  <data name="RightToLeft" xml:space="preserve">
+    <value>no</value>
+  </data>
+  <data name="RunningWithoutRepairOptionUndecided" xml:space="preserve">
+    <value>Senkronizasyon, onarım seçeneği olmadan çalışıyor ve bu nedenle “{0}” dosyasının “{1}” ile geri yüklenip yüklenemeyeceğine karar veremiyor.</value>
+  </data>
+  <data name="SavedInfoFileCantBeUsedForTesting" xml:space="preserve">
+    <value>Kaydedilen “{0}” bilgi dosyası “{1}” dosyasını test etmek için kullanılamaz: dosyanın farklı bir sürümü için oluşturulmuştur</value>
+  </data>
+  <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
+    <value>Kaydedilen “{0}” bilgi dosyası bozulmuş ve “{1}” dosyasından yeniden oluşturulması gerekiyor.</value>
+  </data>
+  <data name="SecondFolderNoDelete" xml:space="preserve">
+    <value>Hata: İkinci klasör “{0}” dosyasını içeriyor. Seçilen klasör, silme seçeneği için yanlış görünüyor. Klasörü ve alt klasörleri işlemeyi atla</value>
+  </data>
+  <data name="SkippingFilePairDontDelete" xml:space="preserve">
+    <value>Dosya çifti “{0}” | “{1}” atlandı. Özel bir dosya, silme seçeneğinin yanlış kök klasörde kullanılmasını engeller. </value>
+  </data>
+  <data name="TheFileCantBeModifiedMissingRepairApplyToCopy" xml:space="preserve">
+    <value>Onarım seçeneği olmadığından dosya değiştirilemiyor. Kopyaya kurtarma işlemi uygulanır.</value>
+  </data>
+  <data name="ThereAreBadBlocksInFileNonRestorableParts" xml:space="preserve">
+    <value>“{1}” dosyasında {0} bozuk blok var, kurtarılamayan kısımlar: {2} bayt.</value>
+  </data>
+  <data name="ThereAreBadBlocksInNonRestorableMayRetryLater" xml:space="preserve">
+    <value>“{1}” dosyasında {0} bozuk blok var, kurtarılamayan kısımlar: {2} bayt. Kurtarılamadığı için süreç devam edemiyor.  Daha sonra tekrar denenebilir.</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableCantBeBackup" xml:space="preserve">
+    <value>“{1}” dosyasında {0} hatalı blok var, kurtarılamayan parçalar: {2} bayt, dosya yedek olarak kullanılamaz</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableOnlyTested" xml:space="preserve">
+    <value>“{1}” dosyasında {0} hatalı blok var, kurtarılamayan kısımlar: {2} bayt. Dosya değişmeden kaldı, sadece test edildi</value>
+  </data>
+  <data name="ThereIsBadBlockInFileNonRestorableParts" xml:space="preserve">
+    <value>“{0}” dosyasında bozuk bir blok var, kurtarılamayan kısımlar: {1} bayt.</value>
+  </data>
+  <data name="ThereIsBadBlockNonRestorableCantBeBackup" xml:space="preserve">
+    <value>“{0}” dosyasında geri yüklenemeyen hatalı bir blok var: {1} bayt, dosya yedek olarak kullanılamaz </value>
+  </data>
+  <data name="ThereIsOneBadBlockNonRestorableOnlyTested" xml:space="preserve">
+    <value>“{0}” dosyasında bozuk bir blok var, kurtarılamayan parçalar: {1} bayt, dosya değişmeden kaldı, yeni test edildi</value>
+  </data>
+  <data name="ThereRemainBadBlocksInBecauseReadOnly" xml:space="preserve">
+    <value>Dosya değiştirilemediği için {0} hatalı blok “{1}” içinde kalıyor</value>
+  </data>
+  <data name="ThereWasBadBlockInFileNotRestoredParts" xml:space="preserve">
+    <value>“{0}” dosyasında bozuk bir blok vardı, kurtarılmayan kısımlar: {1} bayt </value>
+  </data>
+  <data name="ThereWasBadBlockNotRestoredInCopyBytes" xml:space="preserve">
+    <value>Orijinal dosyada hatalı bir blok vardı, “{0}” kopyasında kurtarılmamış kısımlar vardı: {1} bayt.</value>
+  </data>
+  <data name="ThereWereBadBlocksInFileNotRestoredParts" xml:space="preserve">
+    <value>“{1}” dosyasında {0} hatalı blok vardı, kurtarılmayan kısımlar: {2} bayt</value>
+  </data>
+  <data name="ThisIsASimulatedIOErrorAtPosition" xml:space="preserve">
+    <value>Bu, {0} konumunda simüle edilmiş bir G/Ç hatasıdır</value>
+  </data>
+  <data name="WarningChecksumOffsetPrimarySavedInfoIgnored" xml:space="preserve">
+    <value>Uyarı: {0} konumundaki bloğun sağlama toplamı, depolanan bilgilerin mevcut birincil blokları “{1}” ile eşleşmiyor. Blok için birincil saklanan bilgiler göz ardı edilir</value>
+  </data>
+  <data name="WarningChecksumOffsetSecondarySavedInfoIgnored" xml:space="preserve">
+    <value>Uyarı: {0} konumundaki bloğun sağlama toplamı, depolanan “{1}” bilgisinin mevcut ikincil bloklarıyla eşleşmiyor. Blok için ikincil depolanan bilgiler göz ardı edilir</value>
+  </data>
+  <data name="WarningCopiedToWithErrors" xml:space="preserve">
+    <value>Uyarı: “{0}”, {2} hatalarıyla “{1}” dizinine kopyalandı </value>
+  </data>
+  <data name="WarningIOErrorWhileCopyingToReason" xml:space="preserve">
+    <value>Uyarı: “{0}” dosyasını “{1}” dosyasına kopyalarken G/Ç hatası: {2}</value>
+  </data>
+  <data name="WarningSeveralBlocksDontMatchInSIWillBeIgnored" xml:space="preserve">
+    <value>Uyarı: Birden fazla blok, depolanan “{0}” bilgileriyle eşleşmiyor. Saklanan bilgiler tamamen göz ardı edilir</value>
+  </data>
+  <data name="WarningWhileCreating" xml:space="preserve">
+    <value>Uyarı: “{1}” dosyasını oluştururken {0}</value>
+  </data>
+  <data name="WarningWhileDiscoveringIfNeedsToBeRechecked" xml:space="preserve">
+    <value>Uyarı: “{1}”nin yeniden kontrol edilmesi gerekip gerekmediğini belirlerken {0}. </value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Evet </value>
+  </data>
+</root>
