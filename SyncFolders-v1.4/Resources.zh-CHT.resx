@@ -130,7 +130,7 @@
     <value>{0}：位置 {1} 處的區塊的校驗和不正確</value>
   </data>
   <data name="CopiedFromToReason" xml:space="preserve">
-    <value>將行程「{0}」複製到「{1}」{2}</value>
+    <value>正在將「{0}」複製到「{1}」 {2}</value>
   </data>
   <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
     <value>警告：無法使用 1975 年或更早版本的過時檔案「{0}」。這表明這是恢復檔案「{1}」的最後機會。</value>
@@ -166,7 +166,7 @@
     <value>測試檔案「{0}”時出錯</value>
   </data>
   <data name="FileCopied" xml:space="preserve">
-    <value>正在將「{0}」複製到「{1}」，{2}</value>
+    <value>正在將「{0}」複製到「{1}」 {2}</value>
   </data>
   <data name="FileHasDifferentTime" xml:space="preserve">
     <value>（文件具有不同的日期或長度）</value>

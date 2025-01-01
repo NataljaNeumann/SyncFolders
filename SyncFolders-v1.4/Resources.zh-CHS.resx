@@ -130,7 +130,7 @@
     <value>{0}：位置 {1} 处的块的校验和不正确</value>
   </data>
   <data name="CopiedFromToReason" xml:space="preserve">
-    <value>将进程“{0}”复制到“{1}”{2}</value>
+    <value>正在将“{0}”复制到“{1}” {2}</value>
   </data>
   <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
     <value>警告：无法使用 1975 年或更早版本的过时文件“{0}”。这表明这是恢复文件“{1}”的最后机会。 </value>
@@ -166,7 +166,7 @@
     <value>测试文件“{0}”时出错</value>
   </data>
   <data name="FileCopied" xml:space="preserve">
-    <value>正在将“{0}”复制到“{1}”，{2} </value>
+    <value>正在将“{0}”复制到“{1}” {2} </value>
   </data>
   <data name="FileHasDifferentTime" xml:space="preserve">
     <value>（文件具有不同的日期或长度）</value>

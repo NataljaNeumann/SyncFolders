@@ -130,7 +130,7 @@
     <value>{0}: {1} 위치에 있는 블록의 체크섬이 양호하지 않습니다.</value>
   </data>
   <data name="CopiedFromToReason" xml:space="preserve">
-    <value>프로세스 "{0}"을(를) "{1}" {2}에 복사</value>
+    <value>“{0}”을 “{1}”에 복사 중  {2}</value>
   </data>
   <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
     <value>경고: 1975년 이전의 파일 "{0}"을(를) 사용할 수 없습니다. 이는 이번이 "{1}" 파일을 복구할 수 있는 마지막 기회임을 나타냅니다. </value>
@@ -166,7 +166,7 @@
     <value>파일 "{0}" 테스트 중 오류 발생</value>
   </data>
   <data name="FileCopied" xml:space="preserve">
-    <value>“{0}”을 “{1}”에 복사 중, {2}</value>
+    <value>“{0}”을 “{1}”에 복사 중  {2}</value>
   </data>
   <data name="FileHasDifferentTime" xml:space="preserve">
     <value>(파일의 날짜나 길이가 다릅니다)</value>

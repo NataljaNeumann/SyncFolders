@@ -151,7 +151,7 @@
     <value>{0}: Checksum do bloco na posição {1} não está OK</value>
   </data>
   <data name="EncounteredErrorWhileCopyingTryingToRepair" xml:space="preserve">
-    <value>Copie o processo “{0}” para “{1}” {2}</value>
+    <value>Copiando “{0}” para “{1}”  {2}</value>
   </data>
   <data name="ErrorDeleting" xml:space="preserve">
     <value>Atenção: O arquivo "{0}" com ano de 1975 ou anterior não pôde ser utilizado. Isso indica que esta foi a última chance de recuperar o arquivo "{1}". </value>
@@ -166,7 +166,7 @@
     <value>Erro ao testar o arquivo "{0}"</value>
   </data>
   <data name="FileCopied" xml:space="preserve">
-    <value>Copiando “{0}” para “{1}”, {2}</value>
+    <value>Copiando “{0}” para “{1}”  {2}</value>
   </data>
   <data name="FileHasDifferentTime" xml:space="preserve">
     <value>(O arquivo tem uma data ou duração diferente)</value>

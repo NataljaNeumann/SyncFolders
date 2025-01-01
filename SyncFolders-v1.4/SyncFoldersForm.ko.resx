@@ -173,8 +173,11 @@
   <data name="buttonSelectSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
     <value>48, 35</value>
   </data>
+  <data name="checkBoxCreateRestoreInfo.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left</value>
+  </data>
   <data name="checkBoxCreateRestoreInfo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 252</value>
+    <value>22, 227</value>
   </data>
   <data name="checkBoxCreateRestoreInfo.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 5, 4, 5</value>
@@ -185,8 +188,11 @@
   <data name="checkBoxCreateRestoreInfo.Text" xml:space="preserve">
     <value>누락된 경우 단일 블록 복원을 위한 일부 정보 저장</value>
   </data>
+  <data name="checkBoxTestAllFiles.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left</value>
+  </data>
   <data name="checkBoxTestAllFiles.Location" type="System.Drawing.Point, System.Drawing">
-    <value>213, 280</value>
+    <value>213, 256</value>
   </data>
   <data name="checkBoxTestAllFiles.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 5, 4, 5</value>
@@ -197,8 +203,11 @@
   <data name="checkBoxTestAllFiles.Text" xml:space="preserve">
     <value>모든 파일의 가독성 테스트</value>
   </data>
+  <data name="checkBoxRepairBlockFailures.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left</value>
+  </data>
   <data name="checkBoxRepairBlockFailures.Location" type="System.Drawing.Point, System.Drawing">
-    <value>42, 322</value>
+    <value>42, 285</value>
   </data>
   <data name="checkBoxRepairBlockFailures.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 5, 4, 5</value>
@@ -213,7 +222,7 @@
     <value>Bottom, Right</value>
   </data>
   <data name="buttonSync.Location" type="System.Drawing.Point, System.Drawing">
-    <value>427, 424</value>
+    <value>427, 386</value>
   </data>
   <data name="buttonSync.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 5, 4, 5</value>
@@ -225,7 +234,7 @@
     <value>동조</value>
   </data>
   <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>547, 424</value>
+    <value>547, 386</value>
   </data>
   <data name="buttonCancel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 5, 4, 5</value>
@@ -237,7 +246,7 @@
     <value>작업 취소</value>
   </data>
   <data name="progressBar1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>27, 424</value>
+    <value>27, 386</value>
   </data>
   <data name="progressBar1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 5, 4, 5</value>
@@ -246,7 +255,7 @@
     <value>514, 35</value>
   </data>
   <data name="buttonSelfTest.Location" type="System.Drawing.Point, System.Drawing">
-    <value>546, 141</value>
+    <value>546, 135</value>
   </data>
   <data name="buttonSelfTest.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 5, 4, 5</value>
@@ -258,7 +267,7 @@
     <value>자가 테스트</value>
   </data>
   <data name="checkBoxPreferCopies.Location" type="System.Drawing.Point, System.Drawing">
-    <value>71, 355</value>
+    <value>71, 315</value>
   </data>
   <data name="checkBoxPreferCopies.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 5, 4, 5</value>
@@ -270,7 +279,7 @@
     <value>수리 중 충돌이 발생할 경우 실제 복사본을 선호함(권장하지 않음)</value>
   </data>
   <data name="labelProgress.Location" type="System.Drawing.Point, System.Drawing">
-    <value>24, 351</value>
+    <value>24, 313</value>
   </data>
   <data name="labelProgress.Size" type="System.Drawing.Size, System.Drawing">
     <value>636, 66</value>
@@ -288,7 +297,7 @@
     <value>단방향으로 1번째 폴더에서 2번째 폴더로</value>
   </data>
   <data name="checkBoxFirstReadonly.Location" type="System.Drawing.Point, System.Drawing">
-    <value>42, 179</value>
+    <value>42, 173</value>
   </data>
   <data name="checkBoxFirstReadonly.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 4, 3, 4</value>
@@ -300,7 +309,7 @@
     <value>첫 번째 폴더는 변경할 수 없습니다(예: CD).</value>
   </data>
   <data name="checkBoxDeleteFilesInSecond.Location" type="System.Drawing.Point, System.Drawing">
-    <value>42, 213</value>
+    <value>42, 201</value>
   </data>
   <data name="checkBoxDeleteFilesInSecond.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 4, 3, 4</value>
@@ -312,7 +321,7 @@
     <value>더 이상 첫 번째 폴더에 없는 두 번째 폴더의 파일 삭제</value>
   </data>
   <data name="linkLabelAbout.Location" type="System.Drawing.Point, System.Drawing">
-    <value>29, 431</value>
+    <value>29, 393</value>
   </data>
   <data name="linkLabelAbout.Size" type="System.Drawing.Size, System.Drawing">
     <value>113, 20</value>
@@ -321,7 +330,7 @@
     <value>"동기화 폴더" 정보</value>
   </data>
   <data name="linkLabelLicence.Location" type="System.Drawing.Point, System.Drawing">
-    <value>216, 431</value>
+    <value>216, 393</value>
   </data>
   <data name="linkLabelLicence.Size" type="System.Drawing.Size, System.Drawing">
     <value>99, 20</value>
@@ -329,8 +338,11 @@
   <data name="linkLabelLicence.Text" xml:space="preserve">
     <value>특허 (GPL v2)</value>
   </data>
+  <data name="checkBoxSkipRecentlyTested.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left</value>
+  </data>
   <data name="checkBoxSkipRecentlyTested.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 280</value>
+    <value>23, 255</value>
   </data>
   <data name="checkBoxSkipRecentlyTested.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 4, 3, 4</value>
@@ -366,7 +378,7 @@
     <value>동기화 모드</value>
   </data>
   <data name="checkBoxIgnoreTime.Location" type="System.Drawing.Point, System.Drawing">
-    <value>332, 179</value>
+    <value>332, 173</value>
   </data>
   <data name="checkBoxIgnoreTime.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 4, 3, 4</value>
@@ -381,7 +393,7 @@
     <value>9, 20</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>677, 482</value>
+    <value>677, 444</value>
   </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt</value>

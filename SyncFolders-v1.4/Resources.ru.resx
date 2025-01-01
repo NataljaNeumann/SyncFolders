@@ -130,7 +130,7 @@
     <value>{0}: контрольная сумма блока в позиции {1} не в порядке.</value>
   </data>
   <data name="CopiedFromToReason" xml:space="preserve">
-    <value>Скопируйте процесс «{0}» в «{1}» {2}</value>
+    <value>Копирование «{0}» в «{1}» {2}</value>
   </data>
   <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
     <value>Предупреждение. Устаревший файл «{0}» 1975 года выпуска или ранее использовать невозможно. Это означает, что это был последний шанс восстановить «{1}».</value>
@@ -166,7 +166,7 @@
     <value>Ошибка тестирования файла «{0}»</value>
   </data>
   <data name="FileCopied" xml:space="preserve">
-    <value>Копирование «{0}» в «{1}», {2}</value>
+    <value>Копирование «{0}» в «{1}»  {2}</value>
   </data>
   <data name="FileHasDifferentTime" xml:space="preserve">
     <value>(Файл имеет другую дату или длину)</value>

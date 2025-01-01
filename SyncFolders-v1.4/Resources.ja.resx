@@ -229,7 +229,7 @@
     <value>元のファイル 「{1}」 の位置 {0} にある読み取り可能だが回復できないブロックは、コピー 「{2}」 にも残ります。チェックサムはブロックが正しくないことを示しています</value>
   </data>
   <data name="LogFileName" xml:space="preserve">
-    <value>(ファイルが新しいか、サイズが大きかった)</value>
+    <value>ディレクトリ同期ログ 日本語</value>
   </data>
   <data name="Message" xml:space="preserve">
     <value>コピー作業のレポート</value>

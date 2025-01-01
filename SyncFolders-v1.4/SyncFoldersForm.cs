@@ -333,6 +333,13 @@ namespace SyncFolders
             _logFileLocalized.WriteLine(labelFolder1.Text + (labelFolder1.Text.Contains(":")?" ":": ") + _folder1);
             _logFile.WriteLine("         Folder 2: " + _folder2);
             _logFileLocalized.WriteLine(labelSecondFolder.Text + (labelSecondFolder.Text.Contains(":") ? " " : ": ") + _folder2);
+
+            // end of the path can be in wrong direction, so set it again for the separator
+            if (Resources.RightToLeft.Equals("yes"))
+                _logFileLocalized.Write((char)0x200F);
+            else
+                _logFileLocalized.Write((char)0x200E);
+
             _logFile.Write("###################################################");
             _logFile.Write("###################################################");
             _logFile.Write("###################################################");
@@ -343,12 +350,13 @@ namespace SyncFolders
             _logFileLocalized.WriteLine("###################################################");
 
             _logFile.WriteLine(System.DateTime.UtcNow.ToString("yyyy-MM-dd hh:mm:ss.fff") + "UT\tThread\tMessage from thread");
-            _logFileLocalized.WriteLine(System.DateTime.UtcNow.ToString("F") + "\t" + Resources.ProcessNo + "\t" + Resources.Message);
+            _logFileLocalized.WriteLine(System.DateTime.Now.ToString("F") + "\t" + Resources.ProcessNo + "\t" + Resources.Message);
 
             _logFile.Flush();
             _logFileLocalized.Flush();
             _bWorking = true;
             System.Threading.Thread worker = new System.Threading.Thread(SyncWorker);
+            Program.SetCultureForThread(worker);
             worker.Priority = System.Threading.ThreadPriority.BelowNormal;
             worker.Start();
         }
@@ -1113,6 +1121,7 @@ namespace SyncFolders
                         }
 
                         System.Threading.Thread worker = new System.Threading.Thread(FilePairWorker);
+                        Program.SetCultureForThread(worker);
                         worker.Priority = System.Threading.ThreadPriority.Lowest;
                         worker.Start(pathPair);
 
@@ -6287,7 +6296,7 @@ namespace SyncFolders
                 System.DateTime now = utc.ToLocalTime();
                 lock (_log)
                 {
-                    _logFileLocalized.Write("{0}\t={1}=\t", now.ToString("f"),
+                    _logFileLocalized.Write("{0}\t={1}=\t", now.ToString("F"),
                         System.Threading.Thread.CurrentThread.ManagedThreadId);
 
                     while (nIndent-- > 0)

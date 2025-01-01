@@ -166,7 +166,7 @@
     <value>خطأ في اختبار الملف "{0}"</value>
   </data>
   <data name="FileCopied" xml:space="preserve">
-    <value>نسخ "{0}" إلى "{1}"، {2}</value>
+    <value>انسخ العملية "{0}" إلى "{1}" {2}</value>
   </data>
   <data name="FileHasDifferentTime" xml:space="preserve">
     <value>(الملف له تاريخ أو طول مختلف)</value>
@@ -229,7 +229,7 @@
     <value>الكتلة القابلة للقراءة ولكن غير القابلة للاسترداد في الموضع {0} من الملف الأصلي "{1}" تظل أيضًا في النسخة "{2}". يشير المجموع الاختباري إلى أن الكتلة غير صحيحة</value>
   </data>
   <data name="LogFileName" xml:space="preserve">
-    <value>سجل مزامنة الدلائل الألمانية</value>
+    <value>تاريخ تزامن الدلائل باللغة العربية</value>
   </data>
   <data name="Message" xml:space="preserve">
     <value>تقرير عن عملية النسخ</value>

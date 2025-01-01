@@ -130,7 +130,7 @@
     <value>{0}: סכום הבדיקה של הבלוק במיקום {1} אינו תקין</value>
   </data>
   <data name="CopiedFromToReason" xml:space="preserve">
-    <value>העתק את התהליך "{0}" אל "{1}" {2}</value>
+    <value>מעתיק את "{0}" אל "{1}"  {2}</value>
   </data>
   <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
     <value>אזהרה: לא ניתן היה להשתמש בקובץ המיושן "{0}" עם שנת 1975 או קודם לכן. זה מציין שזו הייתה הזדמנות אחרונה לשחזר את "{1}".</value>
@@ -166,7 +166,7 @@
     <value>שגיאה בבדיקת הקובץ "{0}"</value>
   </data>
   <data name="FileCopied" xml:space="preserve">
-    <value>מעתיק את "{0}" אל "{1}", {2}</value>
+    <value>מעתיק את "{0}" אל "{1}"  {2}</value>
   </data>
   <data name="FileHasDifferentTime" xml:space="preserve">
     <value>(לקובץ יש תאריך או אורך שונה) </value>
@@ -322,7 +322,7 @@
     <value>אזהרה: {0} בעת קביעה אם יש לבדוק שוב את "{1}". </value>
   </data>
   <data name="LogFileName" xml:space="preserve">
-    <value>ספריות סנכרון יומן עברית</value>
+    <value>פרוטוקול סנכרון בעברית</value>
   </data>
   <data name="Message" xml:space="preserve">
     <value>דיווח על תהליך ההעתקה</value>

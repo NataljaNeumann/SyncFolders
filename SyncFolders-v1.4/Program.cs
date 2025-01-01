@@ -22,6 +22,8 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Threading;
+using System.Globalization;
 
 namespace SyncFolders
 {
@@ -34,15 +36,30 @@ namespace SyncFolders
     {
         //===================================================================================================
         /// <summary>
-        /// Der Haupteinstiegspunkt für die Anwendung.
+        /// The main entry point for the application
         /// </summary>
         //===================================================================================================
         [STAThread]
         static void Main()
         {
+            SetCultureForThread(Thread.CurrentThread);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new FormSyncFolders());
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// This method can be used for manual settinng of culture for the application and worker threads.
+        /// </summary>
+        /// <param name="oThread">The thread for setting culture</param>
+        //===================================================================================================
+        public static void SetCultureForThread(Thread oThread)
+        {
+#if DEBUG
+            oThread.CurrentCulture = new CultureInfo("ar-SA");
+            oThread.CurrentUICulture = new CultureInfo("ar-SA");
+#endif
         }
     }
 }
