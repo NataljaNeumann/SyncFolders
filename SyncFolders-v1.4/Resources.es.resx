@@ -130,7 +130,7 @@
     <value>{0}: La suma de comprobación del bloque en la posición {1} no es correcta</value>
   </data>
   <data name="CopiedFromToReason" xml:space="preserve">
-    <value>Copiar el proceso “{0}” a “{1}” {2}</value>
+    <value>Copiando “{0}” a “{1}” {2}</value>
   </data>
   <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
     <value>Advertencia: No se pudo utilizar el archivo "{0}" con el año 1975 o anterior. Esto indica que esta fue la última oportunidad para recuperar el archivo "{1}".</value>
@@ -166,7 +166,7 @@
     <value>Error al probar el archivo "{0}"</value>
   </data>
   <data name="FileCopied" xml:space="preserve">
-    <value>Copiando “{0}” a “{1}”, {2}</value>
+    <value>Copiando “{0}” a “{1}” {2}</value>
   </data>
   <data name="FileHasDifferentTime" xml:space="preserve">
     <value>(El archivo tiene una fecha o longitud diferente)</value>
