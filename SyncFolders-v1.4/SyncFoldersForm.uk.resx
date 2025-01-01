@@ -119,203 +119,188 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="labelFolder1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>102, 16</value>
+    <value>96, 16</value>
   </data>
   <data name="labelFolder1.Text" xml:space="preserve">
-    <value>Первая папка:</value>
+    <value>Перша папка:</value>
   </data>
   <data name="textBoxFirstFolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>632, 22</value>
+    <value>589, 22</value>
   </data>
   <data name="buttonSelectFirstFolder.Location" type="System.Drawing.Point, System.Drawing">
-    <value>667, 33</value>
+    <value>624, 33</value>
+  </data>
+  <data name="labelSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
+    <value>92, 16</value>
   </data>
   <data name="labelSecondFolder.Text" xml:space="preserve">
-    <value>Вторая папка:</value>
+    <value>Друга папка:</value>
   </data>
   <data name="textBoxSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>632, 22</value>
+    <value>589, 22</value>
   </data>
   <data name="buttonSelectSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
-    <value>668, 89</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="checkBoxCreateRestoreInfo.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left</value>
+    <value>625, 89</value>
   </data>
   <data name="checkBoxCreateRestoreInfo.Location" type="System.Drawing.Point, System.Drawing">
     <value>20, 244</value>
   </data>
   <data name="checkBoxCreateRestoreInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>577, 20</value>
+    <value>568, 20</value>
   </data>
   <data name="checkBoxCreateRestoreInfo.Text" xml:space="preserve">
-    <value>Сохранение информации для восстановления отдельных блоков, если отсутствует.</value>
-  </data>
-  <data name="checkBoxTestAllFiles.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left</value>
+    <value>Збереження деякої інформації для відновлення окремих блоків, якщо вона відсутня</value>
   </data>
   <data name="checkBoxTestAllFiles.Location" type="System.Drawing.Point, System.Drawing">
     <value>20, 272</value>
   </data>
   <data name="checkBoxTestAllFiles.Size" type="System.Drawing.Size, System.Drawing">
-    <value>259, 20</value>
+    <value>269, 20</value>
   </data>
   <data name="checkBoxTestAllFiles.Text" xml:space="preserve">
-    <value>Проверка читаемости всех файлов</value>
-  </data>
-  <data name="checkBoxRepairBlockFailures.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left</value>
+    <value>Перевірка читабельності всіх файлів</value>
   </data>
   <data name="checkBoxRepairBlockFailures.Location" type="System.Drawing.Point, System.Drawing">
     <value>37, 300</value>
   </data>
   <data name="checkBoxRepairBlockFailures.Size" type="System.Drawing.Size, System.Drawing">
-    <value>270, 20</value>
+    <value>251, 20</value>
   </data>
   <data name="checkBoxRepairBlockFailures.Text" xml:space="preserve">
-    <value>Устранение сбоев отдельных блоков</value>
+    <value>Усунення поломок окремих блоків</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="buttonSync.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
   <data name="buttonSync.Location" type="System.Drawing.Point, System.Drawing">
-    <value>453, 402</value>
+    <value>422, 398</value>
   </data>
   <data name="buttonSync.Size" type="System.Drawing.Size, System.Drawing">
-    <value>147, 28</value>
+    <value>134, 28</value>
   </data>
   <data name="buttonSync.Text" xml:space="preserve">
-    <value>Синхронизировать</value>
+    <value>Синхронізувати</value>
   </data>
   <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>609, 402</value>
-  </data>
-  <data name="buttonCancel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>96, 28</value>
+    <value>564, 398</value>
   </data>
   <data name="buttonCancel.Text" xml:space="preserve">
-    <value>Отменить</value>
+    <value>Скасувати</value>
   </data>
   <data name="progressBar1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>24, 402</value>
+    <value>20, 398</value>
   </data>
   <data name="progressBar1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>576, 28</value>
+    <value>536, 28</value>
   </data>
   <data name="buttonSelfTest.Location" type="System.Drawing.Point, System.Drawing">
-    <value>609, 132</value>
+    <value>581, 132</value>
   </data>
   <data name="buttonSelfTest.Size" type="System.Drawing.Size, System.Drawing">
-    <value>102, 28</value>
+    <value>87, 28</value>
   </data>
   <data name="buttonSelfTest.Text" xml:space="preserve">
-    <value>Проверка</value>
+    <value>Перевірка</value>
   </data>
   <data name="checkBoxPreferCopies.Location" type="System.Drawing.Point, System.Drawing">
-    <value>57, 325</value>
+    <value>53, 329</value>
   </data>
   <data name="checkBoxPreferCopies.Size" type="System.Drawing.Size, System.Drawing">
-    <value>655, 20</value>
+    <value>615, 20</value>
   </data>
   <data name="checkBoxPreferCopies.Text" xml:space="preserve">
-    <value>Предпочтение физическим копиям в случае конфликтов во время ремонта (не рекомендуется)</value>
+    <value>Надання переваги фізичним копіям у разі конфліктів під час ремонту (не рекомендовано)</value>
   </data>
   <data name="labelProgress.Location" type="System.Drawing.Point, System.Drawing">
-    <value>21, 344</value>
+    <value>21, 324</value>
   </data>
   <data name="labelProgress.Size" type="System.Drawing.Size, System.Drawing">
-    <value>684, 53</value>
+    <value>643, 53</value>
   </data>
   <data name="checkBoxFirstToSecond.Size" type="System.Drawing.Size, System.Drawing">
-    <value>303, 20</value>
+    <value>253, 20</value>
   </data>
   <data name="checkBoxFirstToSecond.Text" xml:space="preserve">
-    <value>В одном направлении, из 1-й папки во 2-ю.</value>
+    <value>Однонаправлено, з 1-ї папки до 2-ї </value>
   </data>
   <data name="checkBoxFirstReadonly.Size" type="System.Drawing.Size, System.Drawing">
-    <value>337, 20</value>
+    <value>315, 20</value>
   </data>
   <data name="checkBoxFirstReadonly.Text" xml:space="preserve">
-    <value>Первую папку нельзя изменить (например, CD)</value>
+    <value>Перша папка не змінюється (наприклад, CD)</value>
   </data>
   <data name="checkBoxDeleteFilesInSecond.Size" type="System.Drawing.Size, System.Drawing">
-    <value>497, 20</value>
+    <value>461, 20</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="checkBoxDeleteFilesInSecond.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
   </data>
   <data name="checkBoxDeleteFilesInSecond.Text" xml:space="preserve">
-    <value>Удаление файлов во второй папке, которых больше нет в первой папке</value>
+    <value>Видалення файлів у другій папці, яких більше немає в першій папці</value>
   </data>
   <data name="linkLabelAbout.Location" type="System.Drawing.Point, System.Drawing">
-    <value>34, 409</value>
+    <value>22, 404</value>
   </data>
   <data name="linkLabelAbout.Size" type="System.Drawing.Size, System.Drawing">
-    <value>202, 16</value>
+    <value>194, 16</value>
   </data>
   <data name="linkLabelAbout.Text" xml:space="preserve">
-    <value>О «Синхронизировать папки»</value>
+    <value>Про "Синхронізувати папки"</value>
   </data>
   <data name="linkLabelLicence.Location" type="System.Drawing.Point, System.Drawing">
-    <value>265, 409</value>
+    <value>257, 404</value>
   </data>
   <data name="linkLabelLicence.Size" type="System.Drawing.Size, System.Drawing">
-    <value>126, 16</value>
+    <value>116, 16</value>
   </data>
   <data name="linkLabelLicence.Text" xml:space="preserve">
-    <value>Лицензия (GPL v2)</value>
-  </data>
-  <data name="checkBoxSkipRecentlyTested.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left</value>
+    <value>Ліцензія (GPL v2)</value>
   </data>
   <data name="checkBoxSkipRecentlyTested.Location" type="System.Drawing.Point, System.Drawing">
-    <value>286, 272</value>
+    <value>296, 272</value>
   </data>
   <data name="checkBoxSkipRecentlyTested.Size" type="System.Drawing.Size, System.Drawing">
-    <value>251, 20</value>
+    <value>272, 20</value>
   </data>
   <data name="checkBoxSkipRecentlyTested.Text" xml:space="preserve">
-    <value>если они не проверялись недавно</value>
+    <value>якщо не перевірялася останнім часом</value>
   </data>
   <data name="checkBoxParallel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>460, 137</value>
+    <value>439, 137</value>
   </data>
   <data name="checkBoxParallel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>116, 20</value>
+    <value>108, 20</value>
   </data>
   <data name="checkBoxParallel.Text" xml:space="preserve">
-    <value>Параллельно</value>
+    <value>Паралельно</value>
   </data>
   <data name="checkBoxSyncMode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>325, 137</value>
+    <value>279, 137</value>
   </data>
   <data name="checkBoxSyncMode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>129, 20</value>
+    <value>159, 20</value>
   </data>
   <data name="checkBoxSyncMode.Text" xml:space="preserve">
-    <value>Синхронизация</value>
+    <value>Режим синхронізації</value>
   </data>
   <data name="checkBoxIgnoreTime.Location" type="System.Drawing.Point, System.Drawing">
     <value>37, 217</value>
   </data>
   <data name="checkBoxIgnoreTime.Size" type="System.Drawing.Size, System.Drawing">
-    <value>553, 20</value>
+    <value>454, 20</value>
   </data>
   <data name="checkBoxIgnoreTime.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
   </data>
   <data name="checkBoxIgnoreTime.Text" xml:space="preserve">
-    <value>Игнорировать разницу во времени между файлом и сохраненной информацией</value>
+    <value>Ігнорування різниці в часі між файлом і збереженою інформацією</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>724, 450</value>
-  </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+    <value>681, 445</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Синхронизировать папки v1.4</value>
+    <value>Синхронізувати папки v1.4</value>
   </data>
 </root>
