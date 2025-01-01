@@ -166,7 +166,7 @@
     <value>4</value>
   </data>
   <data name="checkBoxFirstToSecond.Size" type="System.Drawing.Size, System.Drawing">
-    <value>257, 20</value>
+    <value>202, 20</value>
   </data>
   <data name="labelFolder1.Location" type="System.Drawing.Point, System.Drawing">
     <value>17, 16</value>
@@ -229,7 +229,7 @@
     <value>16</value>
   </data>
   <data name="checkBoxFirstReadonly.Text" xml:space="preserve">
-    <value>First folder is not changeable</value>
+    <value>First folder is not changeable (e.g. CD)</value>
   </data>
   <data name="textBoxSecondFolder.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -247,7 +247,7 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>462, 367</value>
+    <value>515, 367</value>
   </data>
   <data name="&gt;&gt;checkBoxCreateRestoreInfo.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -257,9 +257,6 @@
   </data>
   <data name="&gt;&gt;labelProgress.Parent" xml:space="preserve">
     <value>$this</value>
-  </data>
-  <data name="&gt;&gt;checkBoxParallel.ZOrder" xml:space="preserve">
-    <value>2</value>
   </data>
   <data name="progressBar1.TabIndex" type="System.Int32, mscorlib">
     <value>23</value>
@@ -271,13 +268,13 @@
     <value>Parallel</value>
   </data>
   <data name="checkBoxIgnoreTime.Location" type="System.Drawing.Point, System.Drawing">
-    <value>242, 164</value>
+    <value>296, 164</value>
   </data>
   <data name="checkBoxRepairBlockFailures.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
   <data name="buttonSelfTest.Location" type="System.Drawing.Point, System.Drawing">
-    <value>466, 132</value>
+    <value>519, 132</value>
   </data>
   <data name="checkBoxFirstReadonly.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -295,7 +292,7 @@
     <value>$this</value>
   </data>
   <data name="checkBoxFirstToSecond.Text" xml:space="preserve">
-    <value>Unidirictionally from 1st to 2nd (e.g. CD)</value>
+    <value>Unidirictionally from 1st to 2nd</value>
   </data>
   <data name="labelProgress.Location" type="System.Drawing.Point, System.Drawing">
     <value>21, 293</value>
@@ -358,7 +355,7 @@
     <value>False</value>
   </data>
   <data name="checkBoxFirstReadonly.Size" type="System.Drawing.Size, System.Drawing">
-    <value>198, 20</value>
+    <value>253, 20</value>
   </data>
   <data name="checkBoxRepairBlockFailures.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -397,10 +394,10 @@
     <value>$this</value>
   </data>
   <data name="textBoxFirstFolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>487, 22</value>
+    <value>540, 22</value>
   </data>
   <data name="buttonSelectFirstFolder.Location" type="System.Drawing.Point, System.Drawing">
-    <value>522, 33</value>
+    <value>575, 33</value>
   </data>
   <data name="checkBoxRepairBlockFailures.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -430,7 +427,7 @@
     <value>Top, Left, Right</value>
   </data>
   <data name="progressBar1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>434, 28</value>
+    <value>487, 28</value>
   </data>
   <data name="linkLabelLicence.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -526,7 +523,7 @@
     <value>188, 373</value>
   </data>
   <data name="labelProgress.Size" type="System.Drawing.Size, System.Drawing">
-    <value>541, 53</value>
+    <value>594, 53</value>
   </data>
   <data name="labelFolder1.Text" xml:space="preserve">
     <value>First Folder:</value>
@@ -544,7 +541,7 @@
     <value>False</value>
   </data>
   <data name="buttonSelectSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
-    <value>523, 89</value>
+    <value>576, 89</value>
   </data>
   <data name="checkBoxCreateRestoreInfo.Location" type="System.Drawing.Point, System.Drawing">
     <value>20, 213</value>
@@ -568,7 +565,7 @@
     <value>78, 16</value>
   </data>
   <data name="buttonSync.Location" type="System.Drawing.Point, System.Drawing">
-    <value>354, 367</value>
+    <value>407, 367</value>
   </data>
   <data name="buttonSelfTest.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -700,7 +697,7 @@
     <value>True</value>
   </data>
   <data name="checkBoxSyncMode.Text" xml:space="preserve">
-    <value>SyncMode</value>
+    <value>Sync Mode</value>
   </data>
   <data name="labelSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
     <value>17, 72</value>
@@ -718,7 +715,7 @@
     <value>4, 4, 4, 4</value>
   </data>
   <data name="checkBoxParallel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>381, 137</value>
+    <value>384, 137</value>
   </data>
   <data name="&gt;&gt;checkBoxSyncMode.ZOrder" xml:space="preserve">
     <value>1</value>
@@ -778,7 +775,7 @@
     <value>folderBrowserDialogFolder1</value>
   </data>
   <data name="checkBoxSyncMode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>283, 137</value>
+    <value>263, 137</value>
   </data>
   <data name="&gt;&gt;labelSecondFolder.Parent" xml:space="preserve">
     <value>$this</value>
@@ -811,7 +808,7 @@
     <value>4, 4, 4, 4</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>579, 414</value>
+    <value>632, 414</value>
   </data>
   <data name="&gt;&gt;checkBoxRepairBlockFailures.Name" xml:space="preserve">
     <value>checkBoxRepairBlockFailures</value>
@@ -824,6 +821,9 @@
   </data>
   <data name="checkBoxIgnoreTime.Text" xml:space="preserve">
     <value>Ignore Time Difference betwen File and Checksum</value>
+  </data>
+  <data name="checkBoxSyncMode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>95, 20</value>
   </data>
   <data name="&gt;&gt;linkLabelLicence.Name" xml:space="preserve">
     <value>linkLabelLicence</value>
@@ -861,8 +861,8 @@
   <data name="&gt;&gt;buttonSync.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="checkBoxSyncMode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>92, 20</value>
+  <data name="&gt;&gt;checkBoxParallel.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="&gt;&gt;linkLabelAbout.Parent" xml:space="preserve">
     <value>$this</value>
@@ -886,7 +886,7 @@
     <value>3</value>
   </data>
   <data name="textBoxSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>487, 22</value>
+    <value>540, 22</value>
   </data>
   <data name="&gt;&gt;folderBrowserDialogFolder2.Type" xml:space="preserve">
     <value>System.Windows.Forms.FolderBrowserDialog, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
