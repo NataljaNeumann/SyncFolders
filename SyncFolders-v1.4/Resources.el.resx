@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BlockOfAtPositionWillBeCopiedFromNoMatterChecksum" xml:space="preserve">
+    <value>Το μπλοκ του αρχείου "{0}" στη θέση {1} αντιγράφεται από το "{2}" ακόμα κι αν το άθροισμα ελέγχου δείχνει ότι το μπλοκ είναι λάθος</value>
+  </data>
+  <data name="BlockOfAtPositionWillBeRestoredFrom" xml:space="preserve">
+    <value>Το μπλοκ αρχείου "{0}" στη θέση {1} επαναφέρεται από την ίδια θέση του αρχείου "{2}".</value>
+  </data>
+  <data name="BlocksOfAndAtPositionNonRecoverableFillDummy" xml:space="preserve">
+    <value>Τα μπλοκ των αρχείων "{0}" και "{1}" στη θέση {2} δεν μπορούν να αποκατασταθούν και γεμίζονται με ένα εικονικό μπλοκ</value>
+  </data>
+  <data name="ChecksumOfBlockAtOffsetNotOK" xml:space="preserve">
+    <value>{0}: Το άθροισμα ελέγχου του μπλοκ στη θέση {1} δεν είναι εντάξει</value>
+  </data>
+  <data name="CopiedFromToReason" xml:space="preserve">
+    <value>Αντιγραφή της διαδικασίας "{0}" στο "{1}" {2}</value>
+  </data>
+  <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
+    <value>Προειδοποίηση: Δεν ήταν δυνατή η χρήση του αρχείου "{0}" με έτος 1975 ή παλαιότερο. Αυτό υποδηλώνει ότι αυτή ήταν η τελευταία ευκαιρία για ανάκτηση του αρχείου "{1}".</value>
+  </data>
+  <data name="DefaultCulture" xml:space="preserve">
+    <value>no</value>
+  </data>
+  <data name="DeletedFileNotPresentIn" xml:space="preserve">
+    <value>Διαγράφηκε το αρχείο "{0}" που δεν υπάρχει πλέον στο "{1}". </value>
+  </data>
+  <data name="DeletedFolder" xml:space="preserve">
+    <value>Ο φάκελος "{0}" συμπεριλαμβανομένων των περιεχομένων διαγράφηκε επειδή το "{1}" δεν υπάρχει πλέον</value>
+  </data>
+  <data name="EncounteredErrorOlderOk" xml:space="preserve">
+    <value>Προειδοποίηση: Παρουσιάστηκε σφάλμα I/O κατά την αντιγραφή του αρχείου "{0}". Το παλαιότερο αρχείο "{1}" φαίνεται να είναι εντάξει</value>
+  </data>
+  <data name="EncounteredErrorOtherBadToo" xml:space="preserve">
+    <value>Προειδοποίηση: Παρουσιάστηκε σφάλμα I/O κατά την αντιγραφή του αρχείου "{0}". Άλλο αρχείο "{1}" έχει επίσης σφάλματα ή είναι προϊόν ανάκτησης τελευταίας ευκαιρίας. Προσπάθεια αυτόματης επιδιόρθωσης του "{0}".</value>
+  </data>
+  <data name="EncounteredErrorWhileCopyingTryingToRepair" xml:space="preserve">
+    <value>Προειδοποίηση: Παρουσιάστηκε σφάλμα κατά την προσπάθεια αυτόματης επιδιόρθωσης κατά την αντιγραφή του αρχείου "{0}".</value>
+  </data>
+  <data name="ErrorDeleting" xml:space="preserve">
+    <value>Σφάλμα κατά τη διαγραφή του αρχείου "{0}": {1}</value>
+  </data>
+  <data name="ErrorProcessinngFilePair" xml:space="preserve">
+    <value>Σφάλμα κατά την επεξεργασία του ζεύγους αρχείων "{0}" | "{1}": {2}</value>
+  </data>
+  <data name="ErrorReadingPositionWillFillWithDummy" xml:space="preserve">
+    <value>Σφάλμα κατά την ανάγνωση του αρχείου "{0}" στη θέση {1}: {2}. Το μπλοκ είναι γεμάτο με ένα ομοίωμα</value>
+  </data>
+  <data name="ErrorWhileTestingFile" xml:space="preserve">
+    <value>Σφάλμα κατά τη δοκιμή του αρχείου "{0}"</value>
+  </data>
+  <data name="FileCopied" xml:space="preserve">
+    <value>Αντιγραφή της διαδικασίας "{0}" στο "{1}" {2}</value>
+  </data>
+  <data name="FileHasDifferentTime" xml:space="preserve">
+    <value>(Το αρχείο έχει διαφορετική ημερομηνία ή διάρκεια)</value>
+  </data>
+  <data name="FileHasZeroLength" xml:space="preserve">
+    <value>Προειδοποίηση: Το αρχείο έχει μηδενικό μήκος, υποδεικνύοντας μια αποτυχημένη λειτουργία αντιγραφής στο παρελθόν: "{0}" </value>
+  </data>
+  <data name="FileHealthyOrRepaired" xml:space="preserve">
+    <value>(Το αρχείο ήταν χωρίς σφάλματα ή επιδιορθώθηκε)</value>
+  </data>
+  <data name="FilesHaveZeroLength" xml:space="preserve">
+    <value>Προειδοποίηση: Και τα δύο αρχεία έχουν μηδενικό μήκος, υποδεικνύοντας μια αποτυχημένη λειτουργία αντιγραφής στο παρελθόν: "{0}" | "{1}" </value>
+  </data>
+  <data name="FileWasHealthy" xml:space="preserve">
+    <value>(Το αρχείο ήταν χωρίς σφάλματα)</value>
+  </data>
+  <data name="FileWasNew" xml:space="preserve">
+    <value>(το αρχείο ήταν νέο)</value>
+  </data>
+  <data name="FileWasNewer" xml:space="preserve">
+    <value>(Το αρχείο ήταν νεότερο ή μεγαλύτερο)</value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetOfCopyWithDummy" xml:space="preserve">
+    <value>Το μη ανακτήσιμο μπλοκ στη θέση {0} του αντιγραμμένου αρχείου "{1}" είναι γεμάτο με ένα ομοίωμα</value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetWithDummy" xml:space="preserve">
+    <value>Το μη ανακτήσιμο μπλοκ στη θέση {0} είναι γεμάτο με ένα εικονικό μπλοκ</value>
+  </data>
+  <data name="FirstFileHasBadBlocks" xml:space="preserve">
+    <value>Προειδοποίηση: Το πρώτο αρχείο "{0}" έχει κακά μπλοκ. Η αντικατάσταση του αρχείου "{1}" παραλείφθηκε, αφήνοντάς το ως αντίγραφο ασφαλείας</value>
+  </data>
+  <data name="FoundFileForSync" xml:space="preserve">
+    <value>Βρέθηκε ένα αρχείο για πιθανό συγχρονισμό</value>
+  </data>
+  <data name="FoundFilesForSync" xml:space="preserve">
+    <value>Βρέθηκαν {0} αρχεία για πιθανό συγχρονισμό</value>
+  </data>
+  <data name="InternalErrorCouldntRestoreAny" xml:space="preserve">
+    <value>Εσωτερικό σφάλμα: Δεν ήταν δυνατή η αντιγραφή των αρχείων "{0}" | Το "{1}" μπορεί να αποκατασταθεί </value>
+  </data>
+  <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
+    <value>Σφάλμα εισόδου/εξόδου κατά την επιδιόρθωση του αντιγράφου στο αρχείο: "{0}": {1}</value>
+  </data>
+  <data name="IOErrorReadingFile" xml:space="preserve">
+    <value>Σφάλμα εισόδου/εξόδου κατά την ανάγνωση του αρχείου "{0}": {1} </value>
+  </data>
+  <data name="IOErrorReadingFileOffset" xml:space="preserve">
+    <value>Σφάλμα I/O κατά την ανάγνωση του αρχείου: "{0}" στη θέση {1}: {2}</value>
+  </data>
+  <data name="IOErrorWhileReadingPositionFillDummyWhileCopy" xml:space="preserve">
+    <value>Σφάλμα εισόδου/εξόδου κατά την ανάγνωση του αρχείου "{0}" στην τοποθεσία {1}: {2}. Το μπλοκ αντικαθίσταται από ένα ομοίωμα κατά την αντιγραφή.</value>
+  </data>
+  <data name="IOErrorWritingFile" xml:space="preserve">
+    <value>Σφάλμα εισόδου/εξόδου κατά την εγγραφή του αρχείου "{0}": {1}</value>
+  </data>
+  <data name="KeepingReadableButNotRecoverableBlockAtOffset" xml:space="preserve">
+    <value>Το αναγνώσιμο αλλά μη ανακτήσιμο μπλοκ στη θέση {0} παραμένει. Το άθροισμα ελέγχου υποδεικνύει ότι το μπλοκ δεν είναι σωστό</value>
+  </data>
+  <data name="KeepingReadableNonRecovBBlockAtAlsoInCopy" xml:space="preserve">
+    <value>Το αναγνώσιμο αλλά μη ανακτήσιμο μπλοκ στη θέση {0} του αρχικού αρχείου "{1}" παραμένει επίσης στο αντίγραφο "{2}". Το άθροισμα ελέγχου υποδεικνύει ότι το μπλοκ δεν είναι σωστό</value>
+  </data>
+  <data name="LogFileName" xml:space="preserve">
+    <value>Κατάλογοι Συγχρονισμός Καταγραφής Ελληνικά</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Αναφορά της διαδικασίας αντιγραφής</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Όχι</value>
+  </data>
+  <data name="OperationCanceled" xml:space="preserve">
+    <value>Η διαδικασία ματαιώθηκε</value>
+  </data>
+  <data name="OperationFinished" xml:space="preserve">
+    <value>Η διαδικασία ολοκληρώθηκε</value>
+  </data>
+  <data name="OutOfBadBlocksNotRestoredInCopyBytes" xml:space="preserve">
+    <value>Από {0} ακατάλληλα μπλοκ στο αρχικό αρχείο, {2} byte δεν ανακτήθηκαν στο αντίγραφο "{1}".</value>
+  </data>
+  <data name="ProcessNo" xml:space="preserve">
+    <value>№</value>
+  </data>
+  <data name="RecoveringBlockAtOfCopiedFile" xml:space="preserve">
+    <value>Ο αποκλεισμός στη θέση {0} του αντιγραμμένου αρχείου στόχου "{1}" αποκαθίσταται</value>
+  </data>
+  <data name="RecoveringBlockAtOffsetOfFile" xml:space="preserve">
+    <value>Αποκαταστάθηκε ο αποκλεισμός στη θέση {0} του αρχείου "{1}". </value>
+  </data>
+  <data name="RightToLeft" xml:space="preserve">
+    <value>no</value>
+  </data>
+  <data name="RunningWithoutRepairOptionUndecided" xml:space="preserve">
+    <value>Ο συγχρονισμός εκτελείται χωρίς επιλογή επιδιόρθωσης και επομένως δεν ήταν δυνατό να αποφασίσει εάν το αρχείο "{0}" μπορεί να επαναφερθεί με το "{1}".</value>
+  </data>
+  <data name="SavedInfoFileCantBeUsedForTesting" xml:space="preserve">
+    <value>Το αποθηκευμένο αρχείο πληροφοριών "{0}" δεν μπορεί να χρησιμοποιηθεί για τη δοκιμή του αρχείου "{1}": δημιουργήθηκε για διαφορετική έκδοση του αρχείου</value>
+  </data>
+  <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
+    <value>Το αποθηκευμένο αρχείο πληροφοριών "{0}" ήταν κατεστραμμένο και πρέπει να δημιουργηθεί εκ νέου από το "{1}".</value>
+  </data>
+  <data name="SecondFolderNoDelete" xml:space="preserve">
+    <value>Σφάλμα: Ο δεύτερος φάκελος περιέχει το αρχείο "{0}". Ο επιλεγμένος φάκελος φαίνεται να είναι λανθασμένος για την επιλογή διαγραφής. Παράλειψη επεξεργασίας του φακέλου και των υποφακέλων</value>
+  </data>
+  <data name="SkippingFilePairDontDelete" xml:space="preserve">
+    <value>Ζεύγος αρχείων "{0}" | Το "{1}" παραλείπεται. Ένα ειδικό αρχείο αποτρέπει τη χρήση της επιλογής διαγραφής σε λάθος ριζικό φάκελο. </value>
+  </data>
+  <data name="TheFileCantBeModifiedMissingRepairApplyToCopy" xml:space="preserve">
+    <value>Το αρχείο δεν μπορεί να τροποποιηθεί λόγω έλλειψης επιλογής επιδιόρθωσης. Η διαδικασία ανάκτησης εφαρμόζεται στο αντίγραφο.</value>
+  </data>
+  <data name="ThereAreBadBlocksInFileNonRestorableParts" xml:space="preserve">
+    <value>Υπάρχουν {0} εσφαλμένα μπλοκ στο αρχείο "{1}", μη ανακτήσιμα τμήματα: {2} byte.</value>
+  </data>
+  <data name="ThereAreBadBlocksInNonRestorableMayRetryLater" xml:space="preserve">
+    <value>Υπάρχουν {0} εσφαλμένα μπλοκ στο αρχείο "{1}", μη ανακτήσιμα τμήματα: {2} byte. Η διαδικασία δεν μπορεί να συνεχιστεί λόγω μη ανάκτησης.  Μπορεί να δοκιμαστεί ξανά αργότερα.</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableCantBeBackup" xml:space="preserve">
+    <value>Υπάρχουν {0} εσφαλμένα μπλοκ στο αρχείο "{1}", μη ανακτήσιμα μέρη: {2} byte, το αρχείο δεν μπορεί να χρησιμοποιηθεί ως αντίγραφο ασφαλείας</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableOnlyTested" xml:space="preserve">
+    <value>Υπάρχουν {0} εσφαλμένα μπλοκ στο αρχείο "{1}", μη ανακτήσιμα τμήματα: {2} byte. Το αρχείο παραμένει αμετάβλητο, μόλις δοκιμάστηκε </value>
+  </data>
+  <data name="ThereIsBadBlockInFileNonRestorableParts" xml:space="preserve">
+    <value>Υπάρχει ένα κακό μπλοκ στο αρχείο "{0}", μη ανακτήσιμα μέρη: {1} byte.</value>
+  </data>
+  <data name="ThereIsBadBlockNonRestorableCantBeBackup" xml:space="preserve">
+    <value>Υπάρχει ένα κακό μπλοκ στο αρχείο "{0}" που δεν μπορεί να αποκατασταθεί: {1} byte, το αρχείο δεν μπορεί να χρησιμοποιηθεί ως αντίγραφο ασφαλείας </value>
+  </data>
+  <data name="ThereIsOneBadBlockNonRestorableOnlyTested" xml:space="preserve">
+    <value>Υπάρχει ένα κακό μπλοκ στο αρχείο "{0}", μη ανακτήσιμα μέρη: {1} byte, το αρχείο παραμένει αμετάβλητο, μόλις δοκιμάστηκε</value>
+  </data>
+  <data name="ThereRemainBadBlocksInBecauseReadOnly" xml:space="preserve">
+    <value>{0} εσφαλμένα μπλοκ παραμένουν στο "{1}" επειδή δεν είναι δυνατή η τροποποίηση του αρχείου</value>
+  </data>
+  <data name="ThereWasBadBlockInFileNotRestoredParts" xml:space="preserve">
+    <value>Υπήρχε κακός αποκλεισμός στο αρχείο "{0}", μη ανακτημένα τμήματα: {1} byte</value>
+  </data>
+  <data name="ThereWasBadBlockNotRestoredInCopyBytes" xml:space="preserve">
+    <value>Υπήρχε ένα κακό μπλοκ στο αρχικό αρχείο, μη ανακτημένα τμήματα στο αντίγραφο "{0}": {1} byte.</value>
+  </data>
+  <data name="ThereWereBadBlocksInFileNotRestoredParts" xml:space="preserve">
+    <value>Υπήρχαν {0} λανθασμένα μπλοκ στο αρχείο "{1}", τμήματα που δεν ανακτήθηκαν: {2} byte</value>
+  </data>
+  <data name="ThisIsASimulatedIOErrorAtPosition" xml:space="preserve">
+    <value>Αυτό είναι ένα προσομοιωμένο σφάλμα εισόδου/εξόδου στην τοποθεσία {0} </value>
+  </data>
+  <data name="WarningChecksumOffsetPrimarySavedInfoIgnored" xml:space="preserve">
+    <value>Προειδοποίηση: Το άθροισμα ελέγχου του μπλοκ στη θέση {0} δεν ταιριάζει με τα διαθέσιμα κύρια μπλοκ αποθηκευμένων πληροφοριών "{1}". Οι κύριες αποθηκευμένες πληροφορίες για το μπλοκ αγνοούνται</value>
+  </data>
+  <data name="WarningChecksumOffsetSecondarySavedInfoIgnored" xml:space="preserve">
+    <value>Προειδοποίηση: Το άθροισμα ελέγχου του μπλοκ στη θέση {0} δεν ταιριάζει με τα διαθέσιμα δευτερεύοντα μπλοκ αποθηκευμένων πληροφοριών "{1}". Οι δευτερεύουσες αποθηκευμένες πληροφορίες για το μπλοκ αγνοούνται</value>
+  </data>
+  <data name="WarningCopiedToWithErrors" xml:space="preserve">
+    <value>Προειδοποίηση: Το "{0}" αντιγράφηκε στο "{1}" με σφάλματα {2} </value>
+  </data>
+  <data name="WarningIOErrorWhileCopyingToReason" xml:space="preserve">
+    <value>Προειδοποίηση: Σφάλμα εισόδου/εξόδου κατά την αντιγραφή του αρχείου "{0}" στο "{1}": {2}</value>
+  </data>
+  <data name="WarningSeveralBlocksDontMatchInSIWillBeIgnored" xml:space="preserve">
+    <value>Προειδοποίηση: Πολλά μπλοκ δεν ταιριάζουν με τις αποθηκευμένες πληροφορίες "{0}". Οι αποθηκευμένες πληροφορίες αγνοούνται εντελώς</value>
+  </data>
+  <data name="WarningWhileCreating" xml:space="preserve">
+    <value>Προειδοποίηση: {0} κατά τη δημιουργία του αρχείου "{1}"</value>
+  </data>
+  <data name="WarningWhileDiscoveringIfNeedsToBeRechecked" xml:space="preserve">
+    <value>Προειδοποίηση: {0} ενώ προσδιορίζεται εάν το "{1}" πρέπει να ελεγχθεί ξανά. </value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Ναί </value>
+  </data>
+</root>
