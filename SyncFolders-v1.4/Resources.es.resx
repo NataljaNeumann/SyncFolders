@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BlockOfAtPositionWillBeCopiedFromNoMatterChecksum" xml:space="preserve">
+    <value>El bloque del archivo "{0}" en la posición {1} se copia de "{2}" incluso si la suma de verificación muestra que el bloque es incorrecto</value>
+  </data>
+  <data name="BlockOfAtPositionWillBeRestoredFrom" xml:space="preserve">
+    <value>El bloque del archivo "{0}" en la posición {1} se restaura desde la misma posición del archivo "{2}".</value>
+  </data>
+  <data name="BlocksOfAndAtPositionNonRecoverableFillDummy" xml:space="preserve">
+    <value>Los bloques de archivos "{0}" y "{1}" en la posición {2} no se pueden restaurar y se rellenan con un bloque ficticio</value>
+  </data>
+  <data name="ChecksumOfBlockAtOffsetNotOK" xml:space="preserve">
+    <value>{0}: La suma de comprobación del bloque en la posición {1} no es correcta</value>
+  </data>
+  <data name="CopiedFromToReason" xml:space="preserve">
+    <value>Copiar el proceso “{0}” a “{1}” {2}</value>
+  </data>
+  <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
+    <value>Advertencia: No se pudo utilizar el archivo "{0}" con el año 1975 o anterior. Esto indica que esta fue la última oportunidad para recuperar el archivo "{1}".</value>
+  </data>
+  <data name="DefaultCulture" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="DeletedFileNotPresentIn" xml:space="preserve">
+    <value>Archivo eliminado “{0}” que ya no existe en “{1}”.</value>
+  </data>
+  <data name="DeletedFolder" xml:space="preserve">
+    <value>Carpeta "{0}", incluido el contenido eliminado porque "{1}" ya no existe</value>
+  </data>
+  <data name="EncounteredErrorOlderOk" xml:space="preserve">
+    <value>Advertencia: Se produjo un error de E/S al copiar el archivo "{0}". El archivo antiguo “{1}” parece estar bien</value>
+  </data>
+  <data name="EncounteredErrorOtherBadToo" xml:space="preserve">
+    <value>Advertencia: Se produjo un error de E/S al copiar el archivo "{0}". Otro archivo “{1}” también tiene errores o es producto de una recuperación de última oportunidad. Intentando reparar “{0}” automáticamente.</value>
+  </data>
+  <data name="EncounteredErrorWhileCopyingTryingToRepair" xml:space="preserve">
+    <value>Advertencia: Se produjo un error al intentar realizar una reparación automática al copiar el archivo "{0}".</value>
+  </data>
+  <data name="ErrorDeleting" xml:space="preserve">
+    <value>Error al eliminar el archivo "{0}": {1} </value>
+  </data>
+  <data name="ErrorProcessinngFilePair" xml:space="preserve">
+    <value>Error al procesar el par de archivos "{0}" | “{1}”: {2}</value>
+  </data>
+  <data name="ErrorReadingPositionWillFillWithDummy" xml:space="preserve">
+    <value>Error al leer el archivo "{0}" en la posición {1}: {2}. El bloque está lleno de un muñeco.</value>
+  </data>
+  <data name="ErrorWhileTestingFile" xml:space="preserve">
+    <value>Error al probar el archivo "{0}"</value>
+  </data>
+  <data name="FileCopied" xml:space="preserve">
+    <value>Copiando “{0}” a “{1}”, {2}</value>
+  </data>
+  <data name="FileHasDifferentTime" xml:space="preserve">
+    <value>(El archivo tiene una fecha o longitud diferente)</value>
+  </data>
+  <data name="FileHasZeroLength" xml:space="preserve">
+    <value>Advertencia: el archivo tiene una longitud cero, lo que indica una operación de copia fallida en el pasado: "{0}"</value>
+  </data>
+  <data name="FileHealthyOrRepaired" xml:space="preserve">
+    <value>(El archivo estaba libre de errores o fue reparado)</value>
+  </data>
+  <data name="FilesHaveZeroLength" xml:space="preserve">
+    <value>Advertencia: Ambos archivos tienen longitud cero, lo que indica una operación de copia fallida en el pasado: "{0}" | "{1}" </value>
+  </data>
+  <data name="FileWasHealthy" xml:space="preserve">
+    <value>(El archivo no tenía errores)</value>
+  </data>
+  <data name="FileWasNew" xml:space="preserve">
+    <value>(el archivo era nuevo)</value>
+  </data>
+  <data name="FileWasNewer" xml:space="preserve">
+    <value>(El archivo era más nuevo o más grande)</value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetOfCopyWithDummy" xml:space="preserve">
+    <value>El bloque irrecuperable en la posición {0} del archivo copiado "{1}" se llena con un archivo ficticio </value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetWithDummy" xml:space="preserve">
+    <value>El bloque irrecuperable en la posición {0} se llena con un bloque ficticio</value>
+  </data>
+  <data name="FirstFileHasBadBlocks" xml:space="preserve">
+    <value>Advertencia: el primer archivo "{0}" tiene bloques defectuosos. Se omitió la sobrescritura del archivo "{1}", dejándolo como copia de seguridad.</value>
+  </data>
+  <data name="FoundFileForSync" xml:space="preserve">
+    <value>Encontré un archivo para una posible sincronización.</value>
+  </data>
+  <data name="FoundFilesForSync" xml:space="preserve">
+    <value>{0} archivos encontrados para posible sincronización</value>
+  </data>
+  <data name="InternalErrorCouldntRestoreAny" xml:space="preserve">
+    <value>Error interno: No se pudieron copiar los archivos “{0}” | "{1}" se puede restaurar </value>
+  </data>
+  <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
+    <value>Error de E/S al reparar la copia en el archivo: "{0}": {1}</value>
+  </data>
+  <data name="IOErrorReadingFile" xml:space="preserve">
+    <value>Error de E/S al leer el archivo “{0}”: {1}</value>
+  </data>
+  <data name="IOErrorReadingFileOffset" xml:space="preserve">
+    <value>Error de E/S al leer el archivo: “{0}” en la posición {1}: {2}</value>
+  </data>
+  <data name="IOErrorWhileReadingPositionFillDummyWhileCopy" xml:space="preserve">
+    <value>Error de E/S al leer el archivo "{0}" en la ubicación {1}: {2}. El bloque se reemplaza por un modelo ficticio cuando se copia.</value>
+  </data>
+  <data name="IOErrorWritingFile" xml:space="preserve">
+    <value>Error de E/S al escribir el archivo “{0}”: {1}</value>
+  </data>
+  <data name="KeepingReadableButNotRecoverableBlockAtOffset" xml:space="preserve">
+    <value>El bloque legible pero irrecuperable en la posición {0} permanece. La suma de comprobación indica que el bloque es incorrecto.</value>
+  </data>
+  <data name="KeepingReadableNonRecovBBlockAtAlsoInCopy" xml:space="preserve">
+    <value>El bloque legible pero irrecuperable en la posición {0} del archivo original "{1}" también permanece en la copia "{2}". La suma de comprobación indica que el bloque es incorrecto.</value>
+  </data>
+  <data name="LogFileName" xml:space="preserve">
+    <value>Registro de sincronización de directorios en español</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Informe del proceso de copia.</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No </value>
+  </data>
+  <data name="OperationCanceled" xml:space="preserve">
+    <value>Proceso abortado</value>
+  </data>
+  <data name="OperationFinished" xml:space="preserve">
+    <value>Proceso finalizado</value>
+  </data>
+  <data name="OutOfBadBlocksNotRestoredInCopyBytes" xml:space="preserve">
+    <value>De {0} bloques defectuosos en el archivo original, no se recuperaron {2} bytes en la copia "{1}".</value>
+  </data>
+  <data name="ProcessNo" xml:space="preserve">
+    <value>№</value>
+  </data>
+  <data name="RecoveringBlockAtOfCopiedFile" xml:space="preserve">
+    <value>Se restaura el bloque en la posición {0} del archivo de destino copiado "{1}"</value>
+  </data>
+  <data name="RecoveringBlockAtOffsetOfFile" xml:space="preserve">
+    <value>Se restaura el bloque en la posición {0} del archivo "{1}".</value>
+  </data>
+  <data name="RightToLeft" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="RunningWithoutRepairOptionUndecided" xml:space="preserve">
+    <value>La sincronización se está ejecutando sin una opción de reparación y, por lo tanto, no se pudo decidir si el archivo "{0}" se puede restaurar con "{1}".</value>
+  </data>
+  <data name="SavedInfoFileCantBeUsedForTesting" xml:space="preserve">
+    <value>El archivo de información guardado "{0}" no se puede utilizar para probar el archivo "{1}": se creó para una versión diferente del archivo</value>
+  </data>
+  <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
+    <value>El archivo de información guardado "{0}" estaba dañado y es necesario volver a crearlo a partir de "{1}".</value>
+  </data>
+  <data name="SecondFolderNoDelete" xml:space="preserve">
+    <value>Error: la segunda carpeta contiene el archivo "{0}". La carpeta seleccionada parece ser incorrecta para la opción de eliminación. Saltar el procesamiento de la carpeta y subcarpetas</value>
+  </data>
+  <data name="SkippingFilePairDontDelete" xml:space="preserve">
+    <value>Par de archivos “{0}” | Se omite “{1}”. Un archivo especial impide utilizar la opción de eliminación en la carpeta raíz incorrecta. </value>
+  </data>
+  <data name="TheFileCantBeModifiedMissingRepairApplyToCopy" xml:space="preserve">
+    <value>El archivo no se puede modificar debido a la falta de una opción de reparación. El proceso de recuperación se aplica a la copia.</value>
+  </data>
+  <data name="ThereAreBadBlocksInFileNonRestorableParts" xml:space="preserve">
+    <value>Hay {0} bloques defectuosos en el archivo "{1}", partes irrecuperables: {2} bytes.</value>
+  </data>
+  <data name="ThereAreBadBlocksInNonRestorableMayRetryLater" xml:space="preserve">
+    <value>Hay {0} bloques defectuosos en el archivo "{1}", partes irrecuperables: {2} bytes. El proceso no puede continuar por irrecuperabilidad.  Es posible que se vuelva a intentar más tarde. </value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableCantBeBackup" xml:space="preserve">
+    <value>Hay {0} bloques defectuosos en el archivo "{1}", partes irrecuperables: {2} bytes, el archivo no se puede utilizar como copia de seguridad</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableOnlyTested" xml:space="preserve">
+    <value>Hay {0} bloques defectuosos en el archivo "{1}", partes irrecuperables: {2} bytes. El archivo permanece sin cambios, acaba de ser probado.</value>
+  </data>
+  <data name="ThereIsBadBlockInFileNonRestorableParts" xml:space="preserve">
+    <value>Hay un bloque defectuoso en el archivo "{0}", partes irrecuperables: {1} bytes.</value>
+  </data>
+  <data name="ThereIsBadBlockNonRestorableCantBeBackup" xml:space="preserve">
+    <value>Hay un bloque defectuoso en el archivo "{0}" que no se puede restaurar: {1} bytes, el archivo no se puede utilizar como copia de seguridad </value>
+  </data>
+  <data name="ThereIsOneBadBlockNonRestorableOnlyTested" xml:space="preserve">
+    <value>Hay un bloque defectuoso en el archivo "{0}", partes irrecuperables: {1} bytes, el archivo permanece sin cambios, recién se probó</value>
+  </data>
+  <data name="ThereRemainBadBlocksInBecauseReadOnly" xml:space="preserve">
+    <value>{0} bloques defectuosos permanecen en "{1}" porque el archivo no se puede modificar</value>
+  </data>
+  <data name="ThereWasBadBlockInFileNotRestoredParts" xml:space="preserve">
+    <value>Hubo un bloque defectuoso en el archivo "{0}", partes no recuperadas: {1} bytes</value>
+  </data>
+  <data name="ThereWasBadBlockNotRestoredInCopyBytes" xml:space="preserve">
+    <value>Hubo un bloque defectuoso en el archivo original, partes no recuperadas en la copia "{0}": {1} bytes. </value>
+  </data>
+  <data name="ThereWereBadBlocksInFileNotRestoredParts" xml:space="preserve">
+    <value>Hubo {0} bloques defectuosos en el archivo "{1}", partes no recuperadas: {2} bytes</value>
+  </data>
+  <data name="ThisIsASimulatedIOErrorAtPosition" xml:space="preserve">
+    <value>Este es un error de E/S simulado en la ubicación {0}</value>
+  </data>
+  <data name="WarningChecksumOffsetPrimarySavedInfoIgnored" xml:space="preserve">
+    <value>Advertencia: La suma de comprobación del bloque en la posición {0} no coincide con los bloques primarios disponibles de información almacenada "{1}". La información principal almacenada para el bloque se ignora.</value>
+  </data>
+  <data name="WarningChecksumOffsetSecondarySavedInfoIgnored" xml:space="preserve">
+    <value>Advertencia: La suma de comprobación del bloque en la posición {0} no coincide con los bloques secundarios disponibles de información almacenada "{1}". La información secundaria almacenada para el bloque se ignora</value>
+  </data>
+  <data name="WarningCopiedToWithErrors" xml:space="preserve">
+    <value>Advertencia: "{0}" se copió en "{1}" con errores {2} </value>
+  </data>
+  <data name="WarningIOErrorWhileCopyingToReason" xml:space="preserve">
+    <value>Advertencia: Error de E/S al copiar el archivo "{0}" a "{1}": {2}</value>
+  </data>
+  <data name="WarningSeveralBlocksDontMatchInSIWillBeIgnored" xml:space="preserve">
+    <value>Advertencia: Varios bloques no coinciden con la información almacenada "{0}". La información almacenada se ignora por completo.</value>
+  </data>
+  <data name="WarningWhileCreating" xml:space="preserve">
+    <value>Advertencia: {0} al crear el archivo "{1}"</value>
+  </data>
+  <data name="WarningWhileDiscoveringIfNeedsToBeRechecked" xml:space="preserve">
+    <value>Advertencia: {0} al determinar si es necesario volver a verificar "{1}". </value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Sí </value>
+  </data>
+</root>
