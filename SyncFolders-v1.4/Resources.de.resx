@@ -228,6 +228,15 @@
   <data name="KeepingReadableNonRecovBBlockAtAlsoInCopy" xml:space="preserve">
     <value>Der lesbare, aber nicht wiederherstellbare Block an der Position {0} der Originaldatei „{1}“ bleibt auch in der Kopie „{2}“. Die Prüfsumme zeigt an, dass der Block falsch ist</value>
   </data>
+  <data name="LogFileName" xml:space="preserve">
+    <value>Verzeichnisse Synchronisieren Log Deutsch</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Meldung vom Kopiervorgang</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>nein</value>
+  </data>
   <data name="OperationCanceled" xml:space="preserve">
     <value>Vorgang abgebrochen</value>
   </data>
@@ -237,11 +246,17 @@
   <data name="OutOfBadBlocksNotRestoredInCopyBytes" xml:space="preserve">
     <value>Von {0} fehlerhaften Blöcken in der Originaldatei wurden {2} Bytes in der Kopie „{1}“ nicht wiederhergestellt.</value>
   </data>
+  <data name="ProcessNo" xml:space="preserve">
+    <value>№</value>
+  </data>
   <data name="RecoveringBlockAtOfCopiedFile" xml:space="preserve">
     <value>Block an Position {0} der kopierten Zieldatei „{1}“ wird wiederhergestellt</value>
   </data>
   <data name="RecoveringBlockAtOffsetOfFile" xml:space="preserve">
     <value>Block an der Position {0} der Datei „{1}“ wird wiederhergestellt.</value>
+  </data>
+  <data name="RightToLeft" xml:space="preserve">
+    <value>no</value>
   </data>
   <data name="RunningWithoutRepairOptionUndecided" xml:space="preserve">
     <value>Synchronisierung läuft ohne Reparaturoption und konnte daher nicht entscheiden, ob die Datei „{0}“ mit „{1}“ wiederhergestellt werden kann.</value>
@@ -317,21 +332,6 @@
   </data>
   <data name="WarningWhileDiscoveringIfNeedsToBeRechecked" xml:space="preserve">
     <value>Warnung: {0} beim Ermitteln, ob „{1}“ erneut überprüft werden muss. </value>
-  </data>
-  <data name="RightToLeft" xml:space="preserve">
-    <value>no</value>
-  </data>
-  <data name="LogFileName" xml:space="preserve">
-    <value>Verzeichnisse Synchronisieren Log Deutsch</value>
-  </data>
-  <data name="Message" xml:space="preserve">
-    <value>Meldung vom Kopiervorgang</value>
-  </data>
-  <data name="No" xml:space="preserve">
-    <value>nein</value>
-  </data>
-  <data name="ProcessNo" xml:space="preserve">
-    <value>№</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>ja</value>
