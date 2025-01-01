@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BlockOfAtPositionWillBeCopiedFromNoMatterChecksum" xml:space="preserve">
-    <value>Blok van bestand "{0}" op positie {1} wordt gekopieerd van "{2}", zelfs als uit de controlesom blijkt dat het blok onjuist is</value>
+    <value>Blok van bestand “{0}” op positie {1} wordt gekopieerd van “{2}”, zelfs als uit de controlesom blijkt dat het blok onjuist is</value>
   </data>
   <data name="BlockOfAtPositionWillBeRestoredFrom" xml:space="preserve">
-    <value>Blok van bestand "{0}" op positie {1} wordt hersteld vanaf dezelfde positie van bestand "{2}".</value>
+    <value>Blok van bestand “{0}” op positie {1} wordt hersteld vanaf dezelfde positie van bestand “{2}”.</value>
   </data>
   <data name="BlocksOfAndAtPositionNonRecoverableFillDummy" xml:space="preserve">
-    <value>De blokken met bestanden "{0}" en "{1}" op positie {2} kunnen niet worden hersteld en zijn gevuld met een dummyblok</value>
+    <value>De blokken met bestanden “{0}” en “{1}” op positie {2} kunnen niet worden hersteld en zijn gevuld met een dummyblok</value>
   </data>
   <data name="ChecksumOfBlockAtOffsetNotOK" xml:space="preserve">
     <value>{0}: Controlesom van het blok op positie {1} is niet OK</value>
@@ -133,7 +133,7 @@
     <value>Kopiëren voltooid: {0} naar {1} {2}</value>
   </data>
   <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
-    <value>Waarschuwing: bestand '{0}' met jaartal 1975 of eerder kan niet worden gebruikt. Dit geeft aan dat dit een laatste kans was om bestand "{1}" te herstellen.</value>
+    <value>Waarschuwing: bestand '{0}' met jaartal 1975 of eerder kan niet worden gebruikt. Dit geeft aan dat dit een laatste kans was om bestand “{1}” te herstellen.</value>
   </data>
   <data name="DefaultCulture" xml:space="preserve">
     <value>no</value>
@@ -145,19 +145,19 @@
     <value>Map “{0}” inclusief inhoud verwijderd omdat “{1}” niet meer bestaat</value>
   </data>
   <data name="EncounteredErrorOlderOk" xml:space="preserve">
-    <value>Waarschuwing: er is een I/O-fout opgetreden tijdens het kopiëren van bestand "{0}". Het oudere bestand “{1}” lijkt in orde te zijn</value>
+    <value>Waarschuwing: er is een I/O-fout opgetreden tijdens het kopiëren van bestand “{0}”. Het oudere bestand “{1}” lijkt in orde te zijn</value>
   </data>
   <data name="EncounteredErrorOtherBadToo" xml:space="preserve">
-    <value>Waarschuwing: er is een I/O-fout opgetreden tijdens het kopiëren van bestand "{0}". Ander bestand “{1}” bevat ook fouten of is een product van herstel op de laatste kans. Er wordt geprobeerd '{0}' automatisch te repareren.</value>
+    <value>Waarschuwing: er is een I/O-fout opgetreden tijdens het kopiëren van bestand “{0}”. Ander bestand “{1}” bevat ook fouten of is een product van herstel op de laatste kans. Er wordt geprobeerd '{0}' automatisch te repareren.</value>
   </data>
   <data name="EncounteredErrorWhileCopyingTryingToRepair" xml:space="preserve">
-    <value>Waarschuwing: er is een fout opgetreden tijdens een poging om een ​​automatische reparatie uit te voeren tijdens het kopiëren van bestand "{0}". </value>
+    <value>Waarschuwing: er is een fout opgetreden tijdens een poging om een ​​automatische reparatie uit te voeren tijdens het kopiëren van bestand “{0}”. </value>
   </data>
   <data name="ErrorDeleting" xml:space="preserve">
     <value>Fout bij verwijderen van bestand '{0}': {1}</value>
   </data>
   <data name="ErrorProcessinngFilePair" xml:space="preserve">
-    <value>Fout bij verwerken bestandspaar "{0}" | “{1}”: {2}</value>
+    <value>Fout bij verwerken bestandspaar “{0}” | “{1}”: {2}</value>
   </data>
   <data name="ErrorReadingPositionWillFillWithDummy" xml:space="preserve">
     <value>Fout bij lezen van bestand '{0}' op positie {1}: {2}. Blok is gevuld met een dummy</value>
@@ -172,13 +172,13 @@
     <value>(Bestand heeft een andere datum of lengte)</value>
   </data>
   <data name="FileHasZeroLength" xml:space="preserve">
-    <value>Waarschuwing: het bestand heeft een lengte van nul, wat aangeeft dat er in het verleden een mislukte kopieerbewerking is uitgevoerd: "{0}"</value>
+    <value>Waarschuwing: het bestand heeft een lengte van nul, wat aangeeft dat er in het verleden een mislukte kopieerbewerking is uitgevoerd: “{0}”</value>
   </data>
   <data name="FileHealthyOrRepaired" xml:space="preserve">
     <value>(Bestand was foutloos of gerepareerd)</value>
   </data>
   <data name="FilesHaveZeroLength" xml:space="preserve">
-    <value>Waarschuwing: beide bestanden hebben een lengte van nul, wat aangeeft dat er in het verleden een mislukte kopieerbewerking is uitgevoerd: "{0}" | "{1}" </value>
+    <value>Waarschuwing: beide bestanden hebben een lengte van nul, wat aangeeft dat er in het verleden een mislukte kopieerbewerking is uitgevoerd: “{0}” | “{1}” </value>
   </data>
   <data name="FileWasHealthy" xml:space="preserve">
     <value>(Bestand was foutloos)</value>
@@ -190,13 +190,13 @@
     <value>(Bestand was nieuwer of groter) </value>
   </data>
   <data name="FillingNotRecoverableAtOffsetOfCopyWithDummy" xml:space="preserve">
-    <value>Het onherstelbare blok op positie {0} van het gekopieerde bestand "{1}" is gevuld met een dummy</value>
+    <value>Het onherstelbare blok op positie {0} van het gekopieerde bestand “{1}” is gevuld met een dummy</value>
   </data>
   <data name="FillingNotRecoverableAtOffsetWithDummy" xml:space="preserve">
     <value>Het onherstelbare blok op positie {0} is gevuld met een dummyblok</value>
   </data>
   <data name="FirstFileHasBadBlocks" xml:space="preserve">
-    <value>Waarschuwing: het eerste bestand "{0}" bevat slechte blokken. Het overschrijven van bestand "{1}" is overgeslagen en heeft het als back-up achtergelaten</value>
+    <value>Waarschuwing: het eerste bestand “{0}” bevat slechte blokken. Het overschrijven van bestand “{1}” is overgeslagen en heeft het als back-up achtergelaten</value>
   </data>
   <data name="FoundFileForSync" xml:space="preserve">
     <value>Een bestand gevonden voor mogelijke synchronisatie</value>
@@ -205,10 +205,10 @@
     <value>{0} bestanden gevonden voor mogelijke synchronisatie</value>
   </data>
   <data name="InternalErrorCouldntRestoreAny" xml:space="preserve">
-    <value>Interne fout: Kan bestanden “{0}” niet kopiëren | "{1}" kan worden hersteld </value>
+    <value>Interne fout: een kopie van de bestanden "{0}" | "{1}" kon niet worden hersteld</value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>I/O-fout tijdens het repareren van kopiëren naar bestand: "{0}": {1}</value>
+    <value>I/O-fout tijdens het repareren van kopiëren naar bestand: “{0}”: {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>I/O-fout bij het lezen van bestand ‘{0}’: {1}</value>
@@ -226,7 +226,7 @@
     <value>Het leesbare maar onherstelbare blok op positie {0} blijft bestaan. De controlesom geeft aan dat het blok onjuist is</value>
   </data>
   <data name="KeepingReadableNonRecovBBlockAtAlsoInCopy" xml:space="preserve">
-    <value>Het leesbare maar onherstelbare blok op positie {0} van het originele bestand "{1}" blijft ook in de kopie "{2}". De controlesom geeft aan dat het blok onjuist is</value>
+    <value>Het leesbare maar onherstelbare blok op positie {0} van het originele bestand “{1}” blijft ook in de kopie “{2}”. De controlesom geeft aan dat het blok onjuist is</value>
   </data>
   <data name="LogFileName" xml:space="preserve">
     <value>Mapsynchronisatie log Nederlands</value>
@@ -244,7 +244,7 @@
     <value>Proces beëindigd</value>
   </data>
   <data name="OutOfBadBlocksNotRestoredInCopyBytes" xml:space="preserve">
-    <value>Van {0} slechte blokken in het originele bestand zijn {2} bytes niet hersteld in de kopie "{1}".</value>
+    <value>Van {0} slechte blokken in het originele bestand zijn {2} bytes niet hersteld in de kopie “{1}”.</value>
   </data>
   <data name="ProcessNo" xml:space="preserve">
     <value>№</value>
@@ -253,22 +253,22 @@
     <value>Blok op positie {0} van het gekopieerde doelbestand “{1}” is hersteld</value>
   </data>
   <data name="RecoveringBlockAtOffsetOfFile" xml:space="preserve">
-    <value>Blok op positie {0} van bestand "{1}" is hersteld.</value>
+    <value>Blok op positie {0} van bestand “{1}” is hersteld.</value>
   </data>
   <data name="RightToLeft" xml:space="preserve">
     <value>no</value>
   </data>
   <data name="RunningWithoutRepairOptionUndecided" xml:space="preserve">
-    <value>De synchronisatie wordt uitgevoerd zonder een reparatieoptie en kan daarom niet beslissen of het bestand "{0}" kan worden hersteld met "{1}".</value>
+    <value>De synchronisatie wordt uitgevoerd zonder een reparatieoptie en kan daarom niet beslissen of het bestand “{0}” kan worden hersteld met “{1}”.</value>
   </data>
   <data name="SavedInfoFileCantBeUsedForTesting" xml:space="preserve">
-    <value>Het opgeslagen infobestand "{0}" kan niet worden gebruikt om het bestand "{1}" te testen: het is gemaakt voor een andere versie van het bestand</value>
+    <value>Het opgeslagen infobestand “{0}” kan niet worden gebruikt om het bestand “{1}” te testen: het is gemaakt voor een andere versie van het bestand</value>
   </data>
   <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
     <value>Het opgeslagen informatiebestand “{0}” is beschadigd en moet opnieuw worden gemaakt vanaf “{1}”.</value>
   </data>
   <data name="SecondFolderNoDelete" xml:space="preserve">
-    <value>Fout: de tweede map bevat het bestand "{0}". Het lijkt erop dat de geselecteerde map niet geschikt is voor de verwijderoptie. Sla het verwerken van de map en submappen over</value>
+    <value>Fout: de tweede map bevat het bestand “{0}”. Het lijkt erop dat de geselecteerde map niet geschikt is voor de verwijderoptie. Sla het verwerken van de map en submappen over</value>
   </data>
   <data name="SkippingFilePairDontDelete" xml:space="preserve">
     <value>Bestandspaar “{0}” | “{1}” wordt overgeslagen. Een speciaal bestand verhindert het gebruik van de verwijderoptie in de verkeerde hoofdmap. </value>
@@ -277,37 +277,37 @@
     <value>Het bestand kan niet worden gewijzigd vanwege het ontbreken van een reparatieoptie. Het herstelproces wordt op de kopie toegepast.</value>
   </data>
   <data name="ThereAreBadBlocksInFileNonRestorableParts" xml:space="preserve">
-    <value>Er zijn {0} slechte blokken in bestand "{1}", onherstelbare delen: {2} bytes. </value>
+    <value>Er zijn {0} slechte blokken in bestand “{1}”, onherstelbare delen: {2} bytes. </value>
   </data>
   <data name="ThereAreBadBlocksInNonRestorableMayRetryLater" xml:space="preserve">
-    <value>Er zijn {0} slechte blokken in bestand "{1}", onherstelbare delen: {2} bytes. Het proces kan niet doorgaan vanwege onherstelbaarheid.  Het kan later opnieuw worden geprobeerd.</value>
+    <value>Er zijn {0} slechte blokken in bestand “{1}”, onherstelbare delen: {2} bytes. Het proces kan niet doorgaan vanwege onherstelbaarheid.  Het kan later opnieuw worden geprobeerd.</value>
   </data>
   <data name="ThereAreBadBlocksNonRestorableCantBeBackup" xml:space="preserve">
-    <value>Er zijn {0} slechte blokken in bestand "{1}", onherstelbare delen: {2} bytes, bestand kan niet als back-up worden gebruikt</value>
+    <value>Er zijn {0} slechte blokken in bestand “{1}”, onherstelbare delen: {2} bytes, bestand kan niet als back-up worden gebruikt</value>
   </data>
   <data name="ThereAreBadBlocksNonRestorableOnlyTested" xml:space="preserve">
-    <value>Er zijn {0} slechte blokken in bestand "{1}", onherstelbare delen: {2} bytes. Bestand blijft ongewijzigd, het is zojuist getest</value>
+    <value>Er zijn {0} slechte blokken in bestand “{1}”, onherstelbare delen: {2} bytes. Bestand blijft ongewijzigd, het is zojuist getest</value>
   </data>
   <data name="ThereIsBadBlockInFileNonRestorableParts" xml:space="preserve">
-    <value>Er is een slecht blok in bestand "{0}", onherstelbare delen: {1} bytes.</value>
+    <value>Er is een slecht blok in bestand “{0}”, onherstelbare delen: {1} bytes.</value>
   </data>
   <data name="ThereIsBadBlockNonRestorableCantBeBackup" xml:space="preserve">
-    <value>Er is een slecht blok in bestand "{0}" dat niet kan worden hersteld: {1} bytes, bestand kan niet worden gebruikt als back-up </value>
+    <value>Er is een slecht blok in bestand “{0}” dat niet kan worden hersteld: {1} bytes, bestand kan niet worden gebruikt als back-up </value>
   </data>
   <data name="ThereIsOneBadBlockNonRestorableOnlyTested" xml:space="preserve">
-    <value>Er zit een slecht blok in het bestand "{0}", onherstelbare delen: {1} bytes, het bestand blijft ongewijzigd, het is zojuist getest</value>
+    <value>Er zit een slecht blok in het bestand “{0}”, onherstelbare delen: {1} bytes, het bestand blijft ongewijzigd, het is zojuist getest</value>
   </data>
   <data name="ThereRemainBadBlocksInBecauseReadOnly" xml:space="preserve">
-    <value>{0} slechte blokken blijven in "{1}" omdat het bestand niet kan worden gewijzigd </value>
+    <value>{0} slechte blokken blijven in “{1}” omdat het bestand niet kan worden gewijzigd </value>
   </data>
   <data name="ThereWasBadBlockInFileNotRestoredParts" xml:space="preserve">
-    <value>Er was een slecht blok in bestand "{0}", niet-herstelde delen: {1} bytes</value>
+    <value>Er was een slecht blok in bestand “{0}”, niet-herstelde delen: {1} bytes</value>
   </data>
   <data name="ThereWasBadBlockNotRestoredInCopyBytes" xml:space="preserve">
-    <value>Er zat een slecht blok in het originele bestand, niet-herstelde delen in de kopie "{0}": {1} bytes.</value>
+    <value>Er zat een slecht blok in het originele bestand, niet-herstelde delen in de kopie “{0}”: {1} bytes.</value>
   </data>
   <data name="ThereWereBadBlocksInFileNotRestoredParts" xml:space="preserve">
-    <value>Er waren {0} slechte blokken in bestand "{1}", niet-herstelde delen: {2} bytes</value>
+    <value>Er waren {0} slechte blokken in bestand “{1}”, niet-herstelde delen: {2} bytes</value>
   </data>
   <data name="ThisIsASimulatedIOErrorAtPosition" xml:space="preserve">
     <value>Dit is een gesimuleerde I/O-fout op locatie {0}</value>
@@ -316,22 +316,22 @@
     <value>Waarschuwing: de controlesom van het blok op positie {0} komt niet overeen met de beschikbare primaire blokken met opgeslagen informatie “{1}”. De primair opgeslagen informatie voor het blok wordt genegeerd</value>
   </data>
   <data name="WarningChecksumOffsetSecondarySavedInfoIgnored" xml:space="preserve">
-    <value>Waarschuwing: de controlesom van het blok op positie {0} komt niet overeen met de beschikbare secundaire blokken met opgeslagen informatie "{1}". Secundair opgeslagen informatie voor het blok wordt genegeerd</value>
+    <value>Waarschuwing: de controlesom van het blok op positie {0} komt niet overeen met de beschikbare secundaire blokken met opgeslagen informatie “{1}”. Secundair opgeslagen informatie voor het blok wordt genegeerd</value>
   </data>
   <data name="WarningCopiedToWithErrors" xml:space="preserve">
     <value>Waarschuwing: '{0}' is gekopieerd naar '{1}' met fouten {2} </value>
   </data>
   <data name="WarningIOErrorWhileCopyingToReason" xml:space="preserve">
-    <value>Waarschuwing: I/O-fout tijdens het kopiëren van bestand "{0}" naar "{1}": {2}</value>
+    <value>Waarschuwing: I/O-fout tijdens het kopiëren van bestand “{0}” naar “{1}”: {2}</value>
   </data>
   <data name="WarningSeveralBlocksDontMatchInSIWillBeIgnored" xml:space="preserve">
-    <value>Waarschuwing: meerdere blokken komen niet overeen met opgeslagen informatie "{0}". De opgeslagen informatie wordt volledig genegeerd</value>
+    <value>Waarschuwing: meerdere blokken komen niet overeen met opgeslagen informatie “{0}”. De opgeslagen informatie wordt volledig genegeerd</value>
   </data>
   <data name="WarningWhileCreating" xml:space="preserve">
     <value>Waarschuwing: {0} tijdens het maken van bestand '{1}'</value>
   </data>
   <data name="WarningWhileDiscoveringIfNeedsToBeRechecked" xml:space="preserve">
-    <value>Waarschuwing: {0} tijdens het bepalen of "{1}" opnieuw moet worden gecontroleerd. </value>
+    <value>Waarschuwing: {0} tijdens het bepalen of “{1}” opnieuw moet worden gecontroleerd. </value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Ja </value>
