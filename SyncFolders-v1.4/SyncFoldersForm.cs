@@ -84,7 +84,7 @@ namespace SyncFolders
             buttonSelfTest.Visible = true;
             //checkBoxParallel.Visible = true;
 #else
-            textBoxSecondFolder.Text = Application.StartupPath;
+            textBoxSecondFolder.Text = System.IO.Directory.GetParent(Application.StartupPath).FullName;
 #endif
         }
 
