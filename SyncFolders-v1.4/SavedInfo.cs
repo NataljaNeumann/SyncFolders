@@ -630,11 +630,12 @@ namespace SyncFolders
             {
                 // m_aBlocks[(int)(lBlockIndex % m_aBlocks.Count)] = 
                 // m_aBlocks[(int)(lBlockIndex % m_aBlocks.Count)] ^ oBlockOfOriginalFile;
-                m_aBlocks[(int)(index % m_aBlocks.Count)].DoXor(oBlock);
+                if (m_aBlocks[(int)(index % m_aBlocks.Count)] != null)
+                    m_aBlocks[(int)(index % m_aBlocks.Count)].DoXor(oBlock);
 
                 // if there is a second row of blocks, then perform also 
                 // preparation of oOtherSaveInfo blocks;
-                if (m_aOtherBlocks.Count > 0)
+                if (m_aOtherBlocks.Count > 0 && m_aOtherBlocks[(int)(index % m_aOtherBlocks.Count)]!=null)
                     // m_aOtherBlocks[(int)(lBlockIndex % m_aOtherBlocks.Count)] = 
                     // m_aOtherBlocks[(int)(lBlockIndex % m_aOtherBlocks.Count)] ^ oBlockOfOriginalFile;
                     m_aOtherBlocks[(int)(index % m_aOtherBlocks.Count)].DoXor(oBlock);
@@ -719,12 +720,15 @@ namespace SyncFolders
                     if (!aUsedIndexesInFirstRow.Contains(i))
                     {
                         Block oBlock = m_aBlocks[i];
-                        for (int j = oBlock.Length - 1; j >= 0; --j)
-                            if (oBlock[j] != 0)
-                            {
-                                bOtherSeemOk = false;
-                                break;
-                            }
+                        if (oBlock != null)
+                        {
+                            for (int j = oBlock.Length - 1; j >= 0; --j)
+                                if (oBlock[j] != 0)
+                                {
+                                    bOtherSeemOk = false;
+                                    break;
+                                }
+                        }
                     }
 
                     if (!bOtherSeemOk)
@@ -983,6 +987,31 @@ namespace SyncFolders
                 }
             }
             return true;
+        }
+
+
+        //===================================================================================================
+        /// <summary>
+        /// Verifies the structure, if all blocks are there, or maybe there were some read errors and
+        /// saved info needs to be rebuilt
+        /// </summary>
+        /// <returns>true iff the saved info needs to be rebuilt</returns>
+        //===================================================================================================
+        public bool NeedsRebuild()
+        {
+            for (int i = m_aBlocks.Count - 1; i >= 0; --i)            
+            {
+                if (m_aBlocks[i] == null)
+                    return true;
+            }
+
+            for (int i = m_aOtherBlocks.Count - 1; i >= 0; --i)
+            {
+                if (m_aOtherBlocks[i] == null)
+                    return true;
+            }
+
+            return false;
         }
 
         //===================================================================================================

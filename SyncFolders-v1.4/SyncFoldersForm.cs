@@ -676,6 +676,7 @@ namespace SyncFolders
 
             //*
 
+            //---------------------------------
             using (System.IO.StreamWriter w =
                 new System.IO.StreamWriter(System.IO.Path.Combine(
                     textBoxFirstFolder.Text, "copy1-2.txt")))
@@ -684,6 +685,7 @@ namespace SyncFolders
                 w.Close();
             }
 
+            //---------------------------------
             using (System.IO.StreamWriter w =
                 new System.IO.StreamWriter(System.IO.Path.Combine(
                     textBoxSecondFolder.Text, "copy2-1.txt")))
@@ -693,6 +695,7 @@ namespace SyncFolders
             }
 
 
+            //---------------------------------
             Block b = Block.GetBlock();
             using (System.IO.FileStream s =
                 System.IO.File.Create((System.IO.Path.Combine(
@@ -724,6 +727,7 @@ namespace SyncFolders
                     di4.FullName, "restore1.txt.chk")));
             fi3.LastWriteTimeUtc = fi2.LastWriteTimeUtc;
 
+            //---------------------------------
             using (System.IO.FileStream s =
                 System.IO.File.Create((System.IO.Path.Combine(
                     textBoxFirstFolder.Text, "restore2.txt"))))
@@ -751,6 +755,7 @@ namespace SyncFolders
                 di4.FullName, "restore2.txt.chk"));
             fi3.LastWriteTimeUtc = fi2.LastWriteTimeUtc;
 
+            //---------------------------------
             using (System.IO.FileStream s =
                 System.IO.File.Create(System.IO.Path.Combine(
                     textBoxFirstFolder.Text, "restore3.txt")))
@@ -809,6 +814,7 @@ namespace SyncFolders
             fi3.LastWriteTimeUtc = fi2.LastWriteTimeUtc;
 
 
+            //---------------------------------
             System.IO.File.Copy(System.IO.Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory, "Coolpix_2010-08-01_23-57-56.JPG"),
                 System.IO.Path.Combine(textBoxFirstFolder.Text, "TestPicture1.jpg"));
@@ -828,6 +834,7 @@ namespace SyncFolders
             System.IO.File.SetLastWriteTimeUtc(System.IO.Path.Combine(
                 textBoxFirstFolder.Text, "TestPicture1.jpg"), dtmOld);
 
+            //---------------------------------
             System.IO.File.Copy(System.IO.Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory, "Coolpix_2010-08-01_23-57-56.JPG"),
                 System.IO.Path.Combine(textBoxFirstFolder.Text, "TestPicture2.jpg"));
@@ -866,6 +873,7 @@ namespace SyncFolders
                 System.IO.Path.Combine(textBoxSecondFolder.Text,
                 "TestPicture2.jpg"), dtmOld);
 
+            //---------------------------------
             // non-restorable test
             string strPathOfTestFile1 = CreateSelfTestFile(textBoxFirstFolder.Text, 
                 "NonRestorableBecauseNoSaveInfo.dat", 2, false, 
@@ -874,6 +882,7 @@ namespace SyncFolders
             // add simulated read errors for this file
             oSimulatedReadErrors[strPathOfTestFile1] = new List<long>(new long[] { 0 });
 
+            //---------------------------------
             // auto-repair test
             string strPathOfTestFile2 = CreateSelfTestFile(textBoxFirstFolder.Text,
                 "AutoRepairFromSavedInfo.dat", 2, true,
@@ -882,6 +891,7 @@ namespace SyncFolders
             // add simulated read errors for this file
             oSimulatedReadErrors[strPathOfTestFile2] = new List<long>(new long[] { 4096 });
 
+            //---------------------------------
             // restore older healthy from backup
             string strPathOfTestFile3 = CreateSelfTestFile(textBoxFirstFolder.Text,
                 "RestoreOldFromBackup.dat", 2, false,
@@ -893,9 +903,10 @@ namespace SyncFolders
             strPathOfTestFile3 = CreateSelfTestFile(textBoxSecondFolder.Text,
                 "RestoreOldFromBackup.dat", 2, false,
                 dtmTimeForFile.AddDays(-1), dtmTimeForFile.AddDays(-1));
-            
 
-            // restore older healthy from backup
+
+            //---------------------------------
+            // restore older repairable from backup
             string strPathOfTestFile4 = CreateSelfTestFile(textBoxFirstFolder.Text,
                 "RestoreOldFromBackupWithRepairingBackup.dat", 2, false,
                 dtmTimeForFile, dtmTimeForFile);
@@ -908,6 +919,49 @@ namespace SyncFolders
                 dtmTimeForFile.AddDays(-1), dtmTimeForFile.AddDays(-1));
 
             oSimulatedReadErrors[strPathOfTestFile4] = new List<long>(new long[] { 4096 });
+            
+
+            //---------------------------------
+            // restore file with one block failure in data file and one block failure in .chk
+            string strPathOfTestFile5 = CreateSelfTestFile(textBoxFirstFolder.Text,
+                "RestoreUncorrelatedChkFailure.dat", 5, true,
+                dtmTimeForFile, dtmTimeForFile);
+
+            // add simulated read errors for this file
+            oSimulatedReadErrors[strPathOfTestFile5] = new List<long>(new long[] { 0 });
+            oSimulatedReadErrors[strPathOfTestFile5.Replace
+                ("RestoreUncorrelatedChkFailure.dat","RestoreInfo\\RestoreUncorrelatedChkFailure.dat.chk")] = new List<long>(new long[] { 8192 });
+
+            
+
+            //---------------------------------
+            // recreate .chk file
+            string strPathOfTestFile6 = CreateSelfTestFile(textBoxFirstFolder.Text,
+                "RecreeateChkFile.dat", 5, true,
+                dtmTimeForFile, dtmTimeForFile);
+
+            // add simulated read errors for the chk file
+            oSimulatedReadErrors[strPathOfTestFile6.Replace
+                ("RecreeateChkFile.dat", "RestoreInfo\\RecreeateChkFile.dat.chk")] = new List<long>(new long[] { 8192 });
+
+
+            //---------------------------------
+            // recreate two .chk files
+            string strPathOfTestFile7 = CreateSelfTestFile(textBoxFirstFolder.Text,
+                "Recreeate2ChkFiles.dat", 5, true,
+                dtmTimeForFile, dtmTimeForFile);
+
+            // add simulated read errors for the chk files
+            oSimulatedReadErrors[strPathOfTestFile7.Replace
+                ("Recreeate2ChkFiles.dat", "RestoreInfo\\Recreeate2ChkFiles.dat.chk")] = new List<long>(new long[] { 8192 });
+
+            strPathOfTestFile7 = CreateSelfTestFile(textBoxSecondFolder.Text,
+                            "Recreeate2ChkFiles.dat", 5, true,
+                            dtmTimeForFile, dtmTimeForFile);
+
+            // add simulated read errors for the chk files
+            oSimulatedReadErrors[strPathOfTestFile7.Replace
+                ("Recreeate2ChkFiles.dat", "RestoreInfo\\Recreeate2ChkFiles.dat.chk")] = new List<long>(new long[] { 8192 });
 
             // replace default abstraction with error simulation
             m_iFileOpenAndCopyAbstraction = new FileOpenAndCopyWithSimulatedErrors(oSimulatedReadErrors);
@@ -5529,7 +5583,7 @@ namespace SyncFolders
                                                 if (lengthToWrite > 0)
                                                     ri.Data.WriteTo(s, lengthToWrite);
                                             }
-                                            bForceCreateInfo = true;
+                                            bForceCreateInfoTarget = true;
                                         }
                                         else
                                         {
@@ -5563,6 +5617,8 @@ namespace SyncFolders
 
                                 if (!bBlockWritten)
                                 {
+                                    // there we land in case we didn't overwrite the block with restore info,
+                                    // so read from source and write to destination
                                     Block b = Block.GetBlock();
                                     int lengthToWrite = b.ReadFrom(s2);
                                     b.WriteTo(s, lengthToWrite);
@@ -5586,6 +5642,14 @@ namespace SyncFolders
                     m_iFileOpenAndCopyAbstraction.Delete(strPathTargetFile);
                 finfoTmp.MoveTo(strPathTargetFile);
 
+                if (si.NeedsRebuild())
+                {
+                    if ((!_bFirstToSecond || !_bFirstReadOnly) && rinfos.Count==0)
+                        bForceCreateInfo = true;
+
+                    bForceCreateInfoTarget = true;
+                }
+ 
 
                 System.IO.FileInfo finfo2 = new System.IO.FileInfo(strPathTargetFile);
                 if (rinfos.Count > 1)
