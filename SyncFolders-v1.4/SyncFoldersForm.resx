@@ -204,6 +204,9 @@
   <data name="buttonSelectFirstFolder.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
+  <data name="buttonCancel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
   <data name="&gt;&gt;checkBoxPreferCopies.Name" xml:space="preserve">
     <value>checkBoxPreferCopies</value>
   </data>
@@ -257,9 +260,6 @@
   </data>
   <data name="&gt;&gt;labelProgress.Parent" xml:space="preserve">
     <value>$this</value>
-  </data>
-  <data name="&gt;&gt;checkBoxParallel.ZOrder" xml:space="preserve">
-    <value>2</value>
   </data>
   <data name="progressBar1.TabIndex" type="System.Int32, mscorlib">
     <value>23</value>
@@ -336,8 +336,8 @@
   <data name="&gt;&gt;labelProgress.ZOrder" xml:space="preserve">
     <value>9</value>
   </data>
-  <data name="labelSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 72</value>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>8, 16</value>
   </data>
   <data name="&gt;&gt;labelSecondFolder.ZOrder" xml:space="preserve">
     <value>20</value>
@@ -501,9 +501,6 @@
   <data name="&gt;&gt;folderBrowserDialogFolder2.Name" xml:space="preserve">
     <value>folderBrowserDialogFolder2</value>
   </data>
-  <data name="labelProgress.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
   <data name="&gt;&gt;progressBar1.ZOrder" xml:space="preserve">
     <value>12</value>
   </data>
@@ -594,9 +591,6 @@
   <data name="labelSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 16</value>
   </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>8, 16</value>
-  </data>
   <data name="&gt;&gt;timerUpdateFileDescription.Name" xml:space="preserve">
     <value>timerUpdateFileDescription</value>
   </data>
@@ -627,8 +621,8 @@
   <data name="&gt;&gt;textBoxSecondFolder.Name" xml:space="preserve">
     <value>textBoxSecondFolder</value>
   </data>
-  <data name="buttonCancel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
+  <data name="labelProgress.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="checkBoxDeleteFilesInSecond.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -708,8 +702,8 @@
   <data name="checkBoxSyncMode.Text" xml:space="preserve">
     <value>Sync mode</value>
   </data>
-  <data name="labelProgress.Text" xml:space="preserve">
-    <value>...</value>
+  <data name="labelSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
+    <value>17, 72</value>
   </data>
   <data name="&gt;&gt;buttonSelectSecondFolder.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -786,6 +780,9 @@
   <data name="buttonSelectSecondFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
   </data>
+  <data name="labelProgress.Text" xml:space="preserve">
+    <value>...</value>
+  </data>
   <data name="checkBoxIgnoreTime.Size" type="System.Drawing.Size, System.Drawing">
     <value>319, 20</value>
   </data>
@@ -825,6 +822,9 @@
   <data name="checkBoxIgnoreTime.Text" xml:space="preserve">
     <value>Ignore time difference between file and checksum</value>
   </data>
+  <data name="checkBoxSyncMode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>95, 20</value>
+  </data>
   <data name="buttonSync.Location" type="System.Drawing.Point, System.Drawing">
     <value>407, 370</value>
   </data>
@@ -861,8 +861,8 @@
   <data name="&gt;&gt;buttonSync.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="checkBoxSyncMode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>95, 20</value>
+  <data name="&gt;&gt;checkBoxParallel.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="&gt;&gt;linkLabelAbout.Parent" xml:space="preserve">
     <value>$this</value>
