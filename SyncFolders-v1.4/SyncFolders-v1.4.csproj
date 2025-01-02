@@ -9,7 +9,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SyncFolders</RootNamespace>
-    <AssemblyName>SyncFolders-v1.4</AssemblyName>
+    <AssemblyName>SyncFolders-v1.4.2</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <StartupObject>
