@@ -117,476 +117,107 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="folderBrowserDialogFolder1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="folderBrowserDialogFolder2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>221, 17</value>
+  </metadata>
   <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buttonSync.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;buttonSelectSecondFolder.Name" xml:space="preserve">
-    <value>buttonSelectSecondFolder</value>
-  </data>
-  <data name="&gt;&gt;checkBoxTestAllFiles.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="buttonSync.TabIndex" type="System.Int32, mscorlib">
-    <value>21</value>
-  </data>
-  <data name="&gt;&gt;checkBoxCreateRestoreInfo.ZOrder" xml:space="preserve">
-    <value>17</value>
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="checkBoxPreferCopies.Location" type="System.Drawing.Point, System.Drawing">
-    <value>57, 304</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buttonSelectSecondFolder.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="&gt;&gt;checkBoxFirstReadonly.Name" xml:space="preserve">
-    <value>checkBoxFirstReadonly</value>
-  </data>
-  <data name="progressBar1.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="checkBoxTestAllFiles.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="checkBoxFirstReadonly.Location" type="System.Drawing.Point, System.Drawing">
-    <value>37, 164</value>
-  </data>
-  <data name="&gt;&gt;checkBoxIgnoreTime.Name" xml:space="preserve">
-    <value>checkBoxIgnoreTime</value>
-  </data>
-  <data name="checkBoxSkipRecentlyTested.Location" type="System.Drawing.Point, System.Drawing">
-    <value>195, 241</value>
-  </data>
-  <data name="&gt;&gt;textBoxFirstFolder.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;linkLabelLicence.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="checkBoxFirstToSecond.Size" type="System.Drawing.Size, System.Drawing">
-    <value>202, 20</value>
-  </data>
-  <data name="labelFolder1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 16</value>
-  </data>
-  <data name="progressBar1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
-  </data>
-  <data name="progressBar1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 367</value>
-  </data>
-  <data name="linkLabelLicence.Text" xml:space="preserve">
-    <value>Licence (GPL v2)</value>
-  </data>
-  <data name="&gt;&gt;checkBoxSkipRecentlyTested.Name" xml:space="preserve">
-    <value>checkBoxSkipRecentlyTested</value>
-  </data>
-  <data name="checkBoxFirstToSecond.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="checkBoxCreateRestoreInfo.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="checkBoxTestAllFiles.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="buttonCancel.TabIndex" type="System.Int32, mscorlib">
-    <value>22</value>
-  </data>
-  <data name="&gt;&gt;checkBoxPreferCopies.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="buttonSelectFirstFolder.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="buttonSelectFirstFolder.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="buttonCancel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="&gt;&gt;checkBoxPreferCopies.Name" xml:space="preserve">
-    <value>checkBoxPreferCopies</value>
-  </data>
-  <data name="&gt;&gt;progressBar1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="linkLabelAbout.TabIndex" type="System.Int32, mscorlib">
-    <value>19</value>
-  </data>
-  <data name="textBoxFirstFolder.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 36</value>
-  </data>
-  <data name="&gt;&gt;buttonSync.ZOrder" xml:space="preserve">
-    <value>14</value>
-  </data>
-  <data name="linkLabelLicence.TabIndex" type="System.Int32, mscorlib">
-    <value>20</value>
-  </data>
-  <data name="checkBoxRepairBlockFailures.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
-  </data>
-  <data name="checkBoxFirstReadonly.Text" xml:space="preserve">
-    <value>First folder is not changeable (e.g. CD)</value>
-  </data>
-  <data name="textBoxSecondFolder.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="checkBoxDeleteFilesInSecond.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
-  </data>
-  <data name="checkBoxFirstReadonly.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="&gt;&gt;labelFolder1.ZOrder" xml:space="preserve">
-    <value>23</value>
-  </data>
-  <data name="&gt;&gt;buttonSelfTest.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>515, 367</value>
-  </data>
-  <data name="&gt;&gt;checkBoxCreateRestoreInfo.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="checkBoxTestAllFiles.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="&gt;&gt;labelProgress.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="progressBar1.TabIndex" type="System.Int32, mscorlib">
-    <value>23</value>
-  </data>
-  <data name="&gt;&gt;checkBoxCreateRestoreInfo.Name" xml:space="preserve">
-    <value>checkBoxCreateRestoreInfo</value>
-  </data>
-  <data name="checkBoxParallel.Text" xml:space="preserve">
-    <value>Parallel</value>
-  </data>
-  <data name="checkBoxIgnoreTime.Location" type="System.Drawing.Point, System.Drawing">
-    <value>296, 164</value>
-  </data>
-  <data name="checkBoxRepairBlockFailures.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="buttonSelfTest.Location" type="System.Drawing.Point, System.Drawing">
-    <value>519, 132</value>
-  </data>
-  <data name="checkBoxFirstReadonly.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="buttonSelectFirstFolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>44, 28</value>
-  </data>
-  <data name="checkBoxTestAllFiles.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 241</value>
-  </data>
-  <data name="labelFolder1.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;buttonSelectSecondFolder.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="checkBoxFirstToSecond.Text" xml:space="preserve">
-    <value>Unidirictionally from 1st to 2nd</value>
-  </data>
-  <data name="labelProgress.Location" type="System.Drawing.Point, System.Drawing">
-    <value>21, 293</value>
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>FormSyncFolders</value>
-  </data>
-  <data name="linkLabelLicence.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="checkBoxSyncMode.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="buttonSync.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 28</value>
-  </data>
-  <data name="checkBoxFirstToSecond.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;labelSecondFolder.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxTestAllFiles.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="buttonSelectSecondFolder.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;buttonSelectFirstFolder.ZOrder" xml:space="preserve">
-    <value>21</value>
-  </data>
   <data name="labelFolder1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Sync Folders v1.4</value>
-  </data>
-  <data name="buttonCancel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 28</value>
-  </data>
-  <data name="&gt;&gt;textBoxSecondFolder.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelProgress.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>8, 16</value>
-  </data>
-  <data name="&gt;&gt;labelSecondFolder.ZOrder" xml:space="preserve">
-    <value>20</value>
-  </data>
-  <data name="linkLabelLicence.Size" type="System.Drawing.Size, System.Drawing">
-    <value>109, 16</value>
-  </data>
-  <data name="buttonCancel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="checkBoxSyncMode.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="checkBoxFirstReadonly.Size" type="System.Drawing.Size, System.Drawing">
-    <value>253, 20</value>
-  </data>
-  <data name="checkBoxRepairBlockFailures.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;progressBar1.Name" xml:space="preserve">
-    <value>progressBar1</value>
-  </data>
-  <data name="&gt;&gt;checkBoxDeleteFilesInSecond.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="checkBoxPreferCopies.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="textBoxSecondFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="checkBoxParallel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;checkBoxIgnoreTime.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;timerUpdateFileDescription.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonSelectFirstFolder.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="checkBoxCreateRestoreInfo.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;checkBoxParallel.Name" xml:space="preserve">
-    <value>checkBoxParallel</value>
-  </data>
-  <data name="&gt;&gt;linkLabelLicence.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="textBoxFirstFolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>540, 22</value>
-  </data>
-  <data name="buttonSelectFirstFolder.Location" type="System.Drawing.Point, System.Drawing">
-    <value>575, 33</value>
-  </data>
-  <data name="checkBoxRepairBlockFailures.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;textBoxFirstFolder.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelFolder1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;buttonCancel.ZOrder" xml:space="preserve">
-    <value>13</value>
-  </data>
-  <data name="checkBoxRepairBlockFailures.Location" type="System.Drawing.Point, System.Drawing">
-    <value>37, 269</value>
-  </data>
-  <data name="&gt;&gt;buttonSelectFirstFolder.Name" xml:space="preserve">
-    <value>buttonSelectFirstFolder</value>
-  </data>
-  <data name="buttonSelfTest.Text" xml:space="preserve">
-    <value>SelfTest</value>
-  </data>
-  <data name="&gt;&gt;checkBoxIgnoreTime.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="textBoxFirstFolder.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="progressBar1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>487, 28</value>
-  </data>
-  <data name="linkLabelLicence.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxSyncMode.Text" xml:space="preserve">
-    <value>Sync Mode</value>
-  </data>
-  <data name="&gt;&gt;buttonSelfTest.ZOrder" xml:space="preserve">
-    <value>11</value>
-  </data>
-  <data name="checkBoxTestAllFiles.Text" xml:space="preserve">
-    <value>Test readability of all files</value>
-  </data>
-  <data name="buttonSync.Text" xml:space="preserve">
-    <value>Sync</value>
-  </data>
-  <data name="&gt;&gt;checkBoxFirstToSecond.Name" xml:space="preserve">
-    <value>checkBoxFirstToSecond</value>
-  </data>
-  <data name="checkBoxPreferCopies.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="&gt;&gt;labelSecondFolder.Name" xml:space="preserve">
-    <value>labelSecondFolder</value>
-  </data>
-  <data name="&gt;&gt;checkBoxParallel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxFirstFolder.Name" xml:space="preserve">
-    <value>textBoxFirstFolder</value>
-  </data>
-  <data name="&gt;&gt;checkBoxRepairBlockFailures.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="checkBoxCreateRestoreInfo.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="linkLabelAbout.Text" xml:space="preserve">
-    <value>About Sync Folders</value>
-  </data>
-  <data name="&gt;&gt;textBoxSecondFolder.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;checkBoxFirstToSecond.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="&gt;&gt;checkBoxDeleteFilesInSecond.Name" xml:space="preserve">
-    <value>checkBoxDeleteFilesInSecond</value>
-  </data>
-  <data name="&gt;&gt;checkBoxCreateRestoreInfo.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="checkBoxTestAllFiles.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="&gt;&gt;linkLabelAbout.Name" xml:space="preserve">
-    <value>linkLabelAbout</value>
-  </data>
-  <data name="checkBoxIgnoreTime.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
-  </data>
-  <data name="&gt;&gt;checkBoxTestAllFiles.ZOrder" xml:space="preserve">
-    <value>16</value>
-  </data>
-  <data name="&gt;&gt;checkBoxSyncMode.Name" xml:space="preserve">
-    <value>checkBoxSyncMode</value>
-  </data>
-  <data name="&gt;&gt;buttonSelfTest.Name" xml:space="preserve">
-    <value>buttonSelfTest</value>
-  </data>
-  <data name="checkBoxSkipRecentlyTested.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="&gt;&gt;folderBrowserDialogFolder2.Name" xml:space="preserve">
-    <value>folderBrowserDialogFolder2</value>
-  </data>
-  <data name="&gt;&gt;progressBar1.ZOrder" xml:space="preserve">
-    <value>12</value>
-  </data>
-  <data name="&gt;&gt;labelFolder1.Name" xml:space="preserve">
-    <value>labelFolder1</value>
-  </data>
-  <data name="buttonSync.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="checkBoxCreateRestoreInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>336, 20</value>
-  </data>
-  <data name="checkBoxDeleteFilesInSecond.Size" type="System.Drawing.Size, System.Drawing">
-    <value>321, 20</value>
-  </data>
-  <data name="labelSecondFolder.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="linkLabelLicence.Location" type="System.Drawing.Point, System.Drawing">
-    <value>188, 373</value>
-  </data>
-  <data name="labelProgress.Size" type="System.Drawing.Size, System.Drawing">
-    <value>594, 53</value>
-  </data>
-  <data name="labelFolder1.Text" xml:space="preserve">
-    <value>First Folder:</value>
-  </data>
-  <data name="checkBoxTestAllFiles.Size" type="System.Drawing.Size, System.Drawing">
-    <value>178, 20</value>
-  </data>
-  <data name="checkBoxPreferCopies.Size" type="System.Drawing.Size, System.Drawing">
-    <value>469, 20</value>
-  </data>
-  <data name="&gt;&gt;linkLabelAbout.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="checkBoxIgnoreTime.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="buttonSelectSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
-    <value>576, 89</value>
-  </data>
-  <data name="checkBoxCreateRestoreInfo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 213</value>
-  </data>
-  <data name="&gt;&gt;checkBoxParallel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;checkBoxDeleteFilesInSecond.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;linkLabelLicence.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="labelFolder1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>17, 16</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="labelFolder1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
-  </data>
-  <data name="progressBar1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
   </data>
   <data name="labelFolder1.Size" type="System.Drawing.Size, System.Drawing">
     <value>78, 16</value>
   </data>
-  <data name="buttonSync.Location" type="System.Drawing.Point, System.Drawing">
-    <value>407, 367</value>
+  <data name="labelFolder1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
-  <data name="buttonSelfTest.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="labelFolder1.Text" xml:space="preserve">
+    <value>First Folder:</value>
+  </data>
+  <data name="&gt;&gt;labelFolder1.Name" xml:space="preserve">
+    <value>labelFolder1</value>
+  </data>
+  <data name="&gt;&gt;labelFolder1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelFolder1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;labelFolder1.ZOrder" xml:space="preserve">
+    <value>23</value>
+  </data>
+  <data name="textBoxFirstFolder.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="textBoxFirstFolder.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 36</value>
+  </data>
+  <data name="textBoxFirstFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
+  </data>
+  <data name="textBoxFirstFolder.Size" type="System.Drawing.Size, System.Drawing">
+    <value>540, 22</value>
+  </data>
+  <data name="textBoxFirstFolder.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;textBoxFirstFolder.Name" xml:space="preserve">
+    <value>textBoxFirstFolder</value>
+  </data>
+  <data name="&gt;&gt;textBoxFirstFolder.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxFirstFolder.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;textBoxFirstFolder.ZOrder" xml:space="preserve">
+    <value>22</value>
+  </data>
+  <data name="buttonSelectFirstFolder.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
-  <data name="checkBoxDeleteFilesInSecond.AutoSize" type="System.Boolean, mscorlib">
+  <data name="buttonSelectFirstFolder.Location" type="System.Drawing.Point, System.Drawing">
+    <value>575, 33</value>
+  </data>
+  <data name="buttonSelectFirstFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
+  </data>
+  <data name="buttonSelectFirstFolder.Size" type="System.Drawing.Size, System.Drawing">
+    <value>44, 28</value>
+  </data>
+  <data name="buttonSelectFirstFolder.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="buttonSelectFirstFolder.Text" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="&gt;&gt;buttonSelectFirstFolder.Name" xml:space="preserve">
+    <value>buttonSelectFirstFolder</value>
+  </data>
+  <data name="&gt;&gt;buttonSelectFirstFolder.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonSelectFirstFolder.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;buttonSelectFirstFolder.ZOrder" xml:space="preserve">
+    <value>21</value>
+  </data>
+  <data name="labelSecondFolder.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="checkBoxSkipRecentlyTested.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
-  </data>
-  <data name="checkBoxDeleteFilesInSecond.Text" xml:space="preserve">
-    <value>Delete files in 2nd folder that aren't in first anymore</value>
-  </data>
-  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 9.75pt</value>
-  </data>
-  <data name="checkBoxPreferCopies.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="labelSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
+    <value>17, 72</value>
   </data>
   <data name="labelSecondFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
@@ -594,313 +225,682 @@
   <data name="labelSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 16</value>
   </data>
-  <data name="&gt;&gt;timerUpdateFileDescription.Name" xml:space="preserve">
-    <value>timerUpdateFileDescription</value>
-  </data>
-  <data name="buttonSelfTest.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 28</value>
-  </data>
-  <data name="&gt;&gt;buttonCancel.Name" xml:space="preserve">
-    <value>buttonCancel</value>
-  </data>
-  <data name="&gt;&gt;checkBoxSkipRecentlyTested.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="buttonSelectFirstFolder.Text" xml:space="preserve">
-    <value>...</value>
-  </data>
-  <data name="&gt;&gt;checkBoxSkipRecentlyTested.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="textBoxFirstFolder.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="buttonSelfTest.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="labelProgress.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
-  </data>
-  <data name="&gt;&gt;textBoxSecondFolder.Name" xml:space="preserve">
-    <value>textBoxSecondFolder</value>
-  </data>
-  <data name="labelProgress.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="checkBoxDeleteFilesInSecond.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="checkBoxRepairBlockFailures.Size" type="System.Drawing.Size, System.Drawing">
-    <value>189, 20</value>
-  </data>
-  <data name="checkBoxSkipRecentlyTested.Text" xml:space="preserve">
-    <value>if not tested recently</value>
-  </data>
-  <data name="checkBoxPreferCopies.TabIndex" type="System.Int32, mscorlib">
-    <value>17</value>
-  </data>
-  <data name="&gt;&gt;labelProgress.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="buttonSelectFirstFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="&gt;&gt;checkBoxSyncMode.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelProgress.Name" xml:space="preserve">
-    <value>labelProgress</value>
-  </data>
-  <data name="labelProgress.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
-  </data>
-  <data name="&gt;&gt;buttonSelectSecondFolder.ZOrder" xml:space="preserve">
-    <value>18</value>
-  </data>
-  <data name="linkLabelAbout.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 373</value>
-  </data>
-  <data name="&gt;&gt;buttonCancel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;checkBoxFirstReadonly.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxSkipRecentlyTested.ZOrder" xml:space="preserve">
+  <data name="labelSecondFolder.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
-  </data>
-  <data name="&gt;&gt;checkBoxSyncMode.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;checkBoxDeleteFilesInSecond.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="buttonSelectSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>43, 28</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonSync.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="checkBoxSkipRecentlyTested.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="textBoxSecondFolder.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="buttonSelectSecondFolder.Text" xml:space="preserve">
-    <value>...</value>
-  </data>
-  <data name="linkLabelAbout.Size" type="System.Drawing.Size, System.Drawing">
-    <value>125, 16</value>
-  </data>
-  <data name="textBoxSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 92</value>
-  </data>
-  <data name="checkBoxSkipRecentlyTested.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;checkBoxParallel.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="labelSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 72</value>
-  </data>
-  <data name="&gt;&gt;buttonSelectSecondFolder.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="checkBoxFirstReadonly.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;checkBoxFirstReadonly.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="textBoxFirstFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="checkBoxParallel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>384, 137</value>
-  </data>
-  <data name="&gt;&gt;checkBoxSyncMode.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;checkBoxFirstToSecond.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;labelFolder1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="checkBoxParallel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>73, 20</value>
-  </data>
-  <data name="&gt;&gt;linkLabelAbout.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="labelProgress.Text" xml:space="preserve">
-    <value>...</value>
-  </data>
-  <data name="checkBoxRepairBlockFailures.Text" xml:space="preserve">
-    <value>Repair single block failures</value>
-  </data>
-  <data name="buttonSelectSecondFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
   </data>
   <data name="labelSecondFolder.Text" xml:space="preserve">
     <value>Second Folder:</value>
   </data>
-  <data name="checkBoxSkipRecentlyTested.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 20</value>
+  <data name="&gt;&gt;labelSecondFolder.Name" xml:space="preserve">
+    <value>labelSecondFolder</value>
   </data>
-  <data name="&gt;&gt;buttonSelectFirstFolder.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxFirstReadonly.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="checkBoxPreferCopies.Text" xml:space="preserve">
-    <value>Prefer physical copies in case of conflicts during repair (not recommended)</value>
-  </data>
-  <data name="checkBoxParallel.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="linkLabelAbout.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxCreateRestoreInfo.Text" xml:space="preserve">
-    <value>Save some info for restoring single blocks, if missing</value>
-  </data>
-  <data name="&gt;&gt;buttonSync.Name" xml:space="preserve">
-    <value>buttonSync</value>
-  </data>
-  <data name="&gt;&gt;checkBoxPreferCopies.ZOrder" xml:space="preserve">
-    <value>10</value>
-  </data>
-  <data name="&gt;&gt;folderBrowserDialogFolder1.Name" xml:space="preserve">
-    <value>folderBrowserDialogFolder1</value>
-  </data>
-  <data name="checkBoxSyncMode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>263, 137</value>
+  <data name="&gt;&gt;labelSecondFolder.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;labelSecondFolder.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="checkBoxIgnoreTime.Size" type="System.Drawing.Size, System.Drawing">
-    <value>326, 20</value>
+  <data name="&gt;&gt;labelSecondFolder.ZOrder" xml:space="preserve">
+    <value>20</value>
   </data>
-  <data name="buttonSelfTest.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
+  <data name="textBoxSecondFolder.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
   </data>
-  <data name="&gt;&gt;checkBoxRepairBlockFailures.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="textBoxSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 92</value>
   </data>
-  <data name="linkLabelAbout.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="checkBoxFirstToSecond.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 137</value>
-  </data>
-  <data name="checkBoxIgnoreTime.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="labelProgress.TabIndex" type="System.Int32, mscorlib">
-    <value>18</value>
-  </data>
-  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="textBoxSecondFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
   </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>632, 414</value>
+  <data name="textBoxSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
+    <value>540, 22</value>
   </data>
-  <data name="&gt;&gt;checkBoxRepairBlockFailures.Name" xml:space="preserve">
-    <value>checkBoxRepairBlockFailures</value>
+  <data name="textBoxSecondFolder.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
   </data>
-  <data name="&gt;&gt;checkBoxPreferCopies.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="&gt;&gt;textBoxSecondFolder.Name" xml:space="preserve">
+    <value>textBoxSecondFolder</value>
   </data>
-  <data name="checkBoxDeleteFilesInSecond.Location" type="System.Drawing.Point, System.Drawing">
-    <value>37, 191</value>
+  <data name="&gt;&gt;textBoxSecondFolder.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="checkBoxIgnoreTime.Text" xml:space="preserve">
-    <value>Ignore Time Difference betwen File and Checksum</value>
-  </data>
-  <data name="&gt;&gt;linkLabelLicence.Name" xml:space="preserve">
-    <value>linkLabelLicence</value>
-  </data>
-  <data name="buttonSelfTest.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="&gt;&gt;progressBar1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ProgressBar, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxFirstToSecond.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;folderBrowserDialogFolder1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.FolderBrowserDialog, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="checkBoxSyncMode.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxCreateRestoreInfo.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="buttonCancel.Text" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="checkBoxRepairBlockFailures.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="&gt;&gt;buttonSelfTest.Parent" xml:space="preserve">
+  <data name="&gt;&gt;textBoxSecondFolder.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
   <data name="&gt;&gt;textBoxSecondFolder.ZOrder" xml:space="preserve">
     <value>19</value>
   </data>
-  <data name="&gt;&gt;buttonSync.Type" xml:space="preserve">
+  <data name="buttonSelectSecondFolder.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="buttonSelectSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
+    <value>576, 89</value>
+  </data>
+  <data name="buttonSelectSecondFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
+  </data>
+  <data name="buttonSelectSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
+    <value>43, 28</value>
+  </data>
+  <data name="buttonSelectSecondFolder.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="buttonSelectSecondFolder.Text" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="&gt;&gt;buttonSelectSecondFolder.Name" xml:space="preserve">
+    <value>buttonSelectSecondFolder</value>
+  </data>
+  <data name="&gt;&gt;buttonSelectSecondFolder.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="checkBoxSyncMode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>95, 20</value>
-  </data>
-  <data name="&gt;&gt;linkLabelAbout.Parent" xml:space="preserve">
+  <data name="&gt;&gt;buttonSelectSecondFolder.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;textBoxFirstFolder.ZOrder" xml:space="preserve">
-    <value>22</value>
+  <data name="&gt;&gt;buttonSelectSecondFolder.ZOrder" xml:space="preserve">
+    <value>18</value>
   </data>
-  <data name="&gt;&gt;checkBoxIgnoreTime.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="checkBoxCreateRestoreInfo.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="checkBoxCreateRestoreInfo.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxCreateRestoreInfo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 216</value>
+  </data>
+  <data name="checkBoxCreateRestoreInfo.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
+  </data>
+  <data name="checkBoxCreateRestoreInfo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>336, 20</value>
+  </data>
+  <data name="checkBoxCreateRestoreInfo.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="checkBoxCreateRestoreInfo.Text" xml:space="preserve">
+    <value>Save some info for restoring single blocks, if missing</value>
+  </data>
+  <data name="&gt;&gt;checkBoxCreateRestoreInfo.Name" xml:space="preserve">
+    <value>checkBoxCreateRestoreInfo</value>
+  </data>
+  <data name="&gt;&gt;checkBoxCreateRestoreInfo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxCreateRestoreInfo.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;checkBoxCreateRestoreInfo.ZOrder" xml:space="preserve">
+    <value>17</value>
+  </data>
+  <data name="checkBoxTestAllFiles.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="checkBoxTestAllFiles.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxTestAllFiles.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 244</value>
+  </data>
+  <data name="checkBoxTestAllFiles.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
+  </data>
+  <data name="checkBoxTestAllFiles.Size" type="System.Drawing.Size, System.Drawing">
+    <value>178, 20</value>
+  </data>
+  <data name="checkBoxTestAllFiles.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="checkBoxTestAllFiles.Text" xml:space="preserve">
+    <value>Test readability of all files</value>
   </data>
   <data name="&gt;&gt;checkBoxTestAllFiles.Name" xml:space="preserve">
     <value>checkBoxTestAllFiles</value>
   </data>
+  <data name="&gt;&gt;checkBoxTestAllFiles.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxTestAllFiles.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;checkBoxTestAllFiles.ZOrder" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="checkBoxRepairBlockFailures.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="checkBoxRepairBlockFailures.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxRepairBlockFailures.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="checkBoxRepairBlockFailures.Location" type="System.Drawing.Point, System.Drawing">
+    <value>37, 272</value>
+  </data>
+  <data name="checkBoxRepairBlockFailures.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
+  </data>
+  <data name="checkBoxRepairBlockFailures.Size" type="System.Drawing.Size, System.Drawing">
+    <value>189, 20</value>
+  </data>
+  <data name="checkBoxRepairBlockFailures.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="checkBoxRepairBlockFailures.Text" xml:space="preserve">
+    <value>Repair single block failures</value>
+  </data>
+  <data name="&gt;&gt;checkBoxRepairBlockFailures.Name" xml:space="preserve">
+    <value>checkBoxRepairBlockFailures</value>
+  </data>
+  <data name="&gt;&gt;checkBoxRepairBlockFailures.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxRepairBlockFailures.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
   <data name="&gt;&gt;checkBoxRepairBlockFailures.ZOrder" xml:space="preserve">
     <value>15</value>
+  </data>
+  <data name="buttonSync.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="buttonSync.Location" type="System.Drawing.Point, System.Drawing">
+    <value>407, 370</value>
+  </data>
+  <data name="buttonSync.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
+  </data>
+  <data name="buttonSync.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 28</value>
+  </data>
+  <data name="buttonSync.TabIndex" type="System.Int32, mscorlib">
+    <value>21</value>
+  </data>
+  <data name="buttonSync.Text" xml:space="preserve">
+    <value>Sync</value>
+  </data>
+  <data name="&gt;&gt;buttonSync.Name" xml:space="preserve">
+    <value>buttonSync</value>
+  </data>
+  <data name="&gt;&gt;buttonSync.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonSync.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;buttonSync.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="buttonCancel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>515, 370</value>
+  </data>
+  <data name="buttonCancel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
+  </data>
+  <data name="buttonCancel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 28</value>
+  </data>
+  <data name="buttonCancel.TabIndex" type="System.Int32, mscorlib">
+    <value>22</value>
+  </data>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="&gt;&gt;buttonCancel.Name" xml:space="preserve">
+    <value>buttonCancel</value>
   </data>
   <data name="&gt;&gt;buttonCancel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="labelSecondFolder.TabIndex" type="System.Int32, mscorlib">
+  <data name="&gt;&gt;buttonCancel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;buttonCancel.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="progressBar1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="progressBar1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 370</value>
+  </data>
+  <data name="progressBar1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
+  </data>
+  <data name="progressBar1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>487, 28</value>
+  </data>
+  <data name="progressBar1.TabIndex" type="System.Int32, mscorlib">
+    <value>23</value>
+  </data>
+  <data name="progressBar1.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;progressBar1.Name" xml:space="preserve">
+    <value>progressBar1</value>
+  </data>
+  <data name="&gt;&gt;progressBar1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ProgressBar, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;progressBar1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;progressBar1.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="buttonSelfTest.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="buttonSelfTest.Location" type="System.Drawing.Point, System.Drawing">
+    <value>519, 132</value>
+  </data>
+  <data name="buttonSelfTest.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
+  </data>
+  <data name="buttonSelfTest.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 28</value>
+  </data>
+  <data name="buttonSelfTest.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="buttonSelfTest.Text" xml:space="preserve">
+    <value>SelfTest</value>
+  </data>
+  <data name="buttonSelfTest.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;buttonSelfTest.Name" xml:space="preserve">
+    <value>buttonSelfTest</value>
+  </data>
+  <data name="&gt;&gt;buttonSelfTest.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonSelfTest.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;buttonSelfTest.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="checkBoxPreferCopies.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxPreferCopies.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="checkBoxPreferCopies.Location" type="System.Drawing.Point, System.Drawing">
+    <value>57, 304</value>
+  </data>
+  <data name="checkBoxPreferCopies.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
+  </data>
+  <data name="checkBoxPreferCopies.Size" type="System.Drawing.Size, System.Drawing">
+    <value>469, 20</value>
+  </data>
+  <data name="checkBoxPreferCopies.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="checkBoxPreferCopies.Text" xml:space="preserve">
+    <value>Prefer physical copies in case of conflicts during repair (not recommended)</value>
+  </data>
+  <data name="&gt;&gt;checkBoxPreferCopies.Name" xml:space="preserve">
+    <value>checkBoxPreferCopies</value>
+  </data>
+  <data name="&gt;&gt;checkBoxPreferCopies.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxPreferCopies.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;checkBoxPreferCopies.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="labelProgress.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="labelProgress.Location" type="System.Drawing.Point, System.Drawing">
+    <value>21, 296</value>
+  </data>
+  <data name="labelProgress.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="labelProgress.Size" type="System.Drawing.Size, System.Drawing">
+    <value>594, 53</value>
+  </data>
+  <data name="labelProgress.TabIndex" type="System.Int32, mscorlib">
+    <value>18</value>
+  </data>
+  <data name="labelProgress.Text" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="labelProgress.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;labelProgress.Name" xml:space="preserve">
+    <value>labelProgress</value>
+  </data>
+  <data name="&gt;&gt;labelProgress.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelProgress.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;labelProgress.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="checkBoxFirstToSecond.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxFirstToSecond.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 137</value>
+  </data>
+  <data name="checkBoxFirstToSecond.Size" type="System.Drawing.Size, System.Drawing">
+    <value>202, 20</value>
+  </data>
+  <data name="checkBoxFirstToSecond.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="checkBoxFirstToSecond.Text" xml:space="preserve">
+    <value>Unidirictionally from 1st to 2nd</value>
+  </data>
+  <data name="&gt;&gt;checkBoxFirstToSecond.Name" xml:space="preserve">
+    <value>checkBoxFirstToSecond</value>
+  </data>
+  <data name="&gt;&gt;checkBoxFirstToSecond.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxFirstToSecond.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;checkBoxFirstToSecond.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="checkBoxFirstReadonly.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxFirstReadonly.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="checkBoxFirstReadonly.Location" type="System.Drawing.Point, System.Drawing">
+    <value>37, 164</value>
+  </data>
+  <data name="checkBoxFirstReadonly.Size" type="System.Drawing.Size, System.Drawing">
+    <value>253, 20</value>
+  </data>
+  <data name="checkBoxFirstReadonly.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="checkBoxFirstReadonly.Text" xml:space="preserve">
+    <value>First folder is not changeable (e.g. CD)</value>
+  </data>
+  <data name="&gt;&gt;checkBoxFirstReadonly.Name" xml:space="preserve">
+    <value>checkBoxFirstReadonly</value>
+  </data>
+  <data name="&gt;&gt;checkBoxFirstReadonly.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxFirstReadonly.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;checkBoxFirstReadonly.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="checkBoxDeleteFilesInSecond.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxDeleteFilesInSecond.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="checkBoxDeleteFilesInSecond.Location" type="System.Drawing.Point, System.Drawing">
+    <value>37, 191</value>
+  </data>
+  <data name="checkBoxDeleteFilesInSecond.Size" type="System.Drawing.Size, System.Drawing">
+    <value>321, 20</value>
+  </data>
+  <data name="checkBoxDeleteFilesInSecond.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="checkBoxDeleteFilesInSecond.Text" xml:space="preserve">
+    <value>Delete files in 2nd folder that aren't in first anymore</value>
+  </data>
+  <data name="&gt;&gt;checkBoxDeleteFilesInSecond.Name" xml:space="preserve">
+    <value>checkBoxDeleteFilesInSecond</value>
+  </data>
+  <data name="&gt;&gt;checkBoxDeleteFilesInSecond.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxDeleteFilesInSecond.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;checkBoxDeleteFilesInSecond.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="linkLabelAbout.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="linkLabelAbout.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="linkLabelAbout.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 376</value>
+  </data>
+  <data name="linkLabelAbout.Size" type="System.Drawing.Size, System.Drawing">
+    <value>125, 16</value>
+  </data>
+  <data name="linkLabelAbout.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <data name="linkLabelAbout.Text" xml:space="preserve">
+    <value>About Sync Folders</value>
+  </data>
+  <data name="&gt;&gt;linkLabelAbout.Name" xml:space="preserve">
+    <value>linkLabelAbout</value>
+  </data>
+  <data name="&gt;&gt;linkLabelAbout.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;linkLabelAbout.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;linkLabelAbout.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="linkLabelLicence.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="linkLabelLicence.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="linkLabelLicence.Location" type="System.Drawing.Point, System.Drawing">
+    <value>188, 376</value>
+  </data>
+  <data name="linkLabelLicence.Size" type="System.Drawing.Size, System.Drawing">
+    <value>109, 16</value>
+  </data>
+  <data name="linkLabelLicence.TabIndex" type="System.Int32, mscorlib">
+    <value>20</value>
+  </data>
+  <data name="linkLabelLicence.Text" xml:space="preserve">
+    <value>Licence (GPL v2)</value>
+  </data>
+  <data name="&gt;&gt;linkLabelLicence.Name" xml:space="preserve">
+    <value>linkLabelLicence</value>
+  </data>
+  <data name="&gt;&gt;linkLabelLicence.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;linkLabelLicence.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;linkLabelLicence.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="checkBoxSkipRecentlyTested.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="checkBoxSkipRecentlyTested.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxSkipRecentlyTested.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="checkBoxSkipRecentlyTested.Location" type="System.Drawing.Point, System.Drawing">
+    <value>195, 244</value>
+  </data>
+  <data name="checkBoxSkipRecentlyTested.Size" type="System.Drawing.Size, System.Drawing">
+    <value>144, 20</value>
+  </data>
+  <data name="checkBoxSkipRecentlyTested.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="checkBoxSkipRecentlyTested.Text" xml:space="preserve">
+    <value>if not tested recently</value>
+  </data>
+  <data name="&gt;&gt;checkBoxSkipRecentlyTested.Name" xml:space="preserve">
+    <value>checkBoxSkipRecentlyTested</value>
+  </data>
+  <data name="&gt;&gt;checkBoxSkipRecentlyTested.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxSkipRecentlyTested.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;checkBoxSkipRecentlyTested.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="textBoxSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>540, 22</value>
+  <data name="checkBoxParallel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxParallel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>384, 137</value>
+  </data>
+  <data name="checkBoxParallel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>73, 20</value>
+  </data>
+  <data name="checkBoxParallel.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="checkBoxParallel.Text" xml:space="preserve">
+    <value>Parallel</value>
+  </data>
+  <data name="&gt;&gt;checkBoxParallel.Name" xml:space="preserve">
+    <value>checkBoxParallel</value>
+  </data>
+  <data name="&gt;&gt;checkBoxParallel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxParallel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;checkBoxParallel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="checkBoxSyncMode.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxSyncMode.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="checkBoxSyncMode.Location" type="System.Drawing.Point, System.Drawing">
+    <value>263, 137</value>
+  </data>
+  <data name="checkBoxSyncMode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>95, 20</value>
+  </data>
+  <data name="checkBoxSyncMode.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="checkBoxSyncMode.Text" xml:space="preserve">
+    <value>Sync mode</value>
+  </data>
+  <data name="&gt;&gt;checkBoxSyncMode.Name" xml:space="preserve">
+    <value>checkBoxSyncMode</value>
+  </data>
+  <data name="&gt;&gt;checkBoxSyncMode.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxSyncMode.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;checkBoxSyncMode.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <metadata name="timerUpdateFileDescription.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>425, 17</value>
+  </metadata>
+  <data name="checkBoxIgnoreTime.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxIgnoreTime.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="checkBoxIgnoreTime.Location" type="System.Drawing.Point, System.Drawing">
+    <value>296, 164</value>
+  </data>
+  <data name="checkBoxIgnoreTime.Size" type="System.Drawing.Size, System.Drawing">
+    <value>319, 20</value>
+  </data>
+  <data name="checkBoxIgnoreTime.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="checkBoxIgnoreTime.Text" xml:space="preserve">
+    <value>Ignore time difference between file and checksum</value>
+  </data>
+  <data name="&gt;&gt;checkBoxIgnoreTime.Name" xml:space="preserve">
+    <value>checkBoxIgnoreTime</value>
+  </data>
+  <data name="&gt;&gt;checkBoxIgnoreTime.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxIgnoreTime.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;checkBoxIgnoreTime.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>8, 16</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>632, 417</value>
+  </data>
+  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt</value>
+  </data>
+  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Sync Folders v1.4</value>
+  </data>
+  <data name="&gt;&gt;folderBrowserDialogFolder1.Name" xml:space="preserve">
+    <value>folderBrowserDialogFolder1</value>
+  </data>
+  <data name="&gt;&gt;folderBrowserDialogFolder1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.FolderBrowserDialog, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;folderBrowserDialogFolder2.Name" xml:space="preserve">
+    <value>folderBrowserDialogFolder2</value>
   </data>
   <data name="&gt;&gt;folderBrowserDialogFolder2.Type" xml:space="preserve">
     <value>System.Windows.Forms.FolderBrowserDialog, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <metadata name="folderBrowserDialogFolder2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>221, 17</value>
-  </metadata>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="folderBrowserDialogFolder1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <metadata name="timerUpdateFileDescription.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>425, 17</value>
-  </metadata>
+  <data name="&gt;&gt;timerUpdateFileDescription.Name" xml:space="preserve">
+    <value>timerUpdateFileDescription</value>
+  </data>
+  <data name="&gt;&gt;timerUpdateFileDescription.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>FormSyncFolders</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>
