@@ -261,9 +261,6 @@
   <data name="&gt;&gt;labelProgress.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;checkBoxParallel.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
   <data name="progressBar1.TabIndex" type="System.Int32, mscorlib">
     <value>23</value>
   </data>
@@ -431,6 +428,9 @@
   </data>
   <data name="linkLabelLicence.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="checkBoxSyncMode.Text" xml:space="preserve">
+    <value>Sync mode</value>
   </data>
   <data name="&gt;&gt;buttonSelfTest.ZOrder" xml:space="preserve">
     <value>11</value>
@@ -702,8 +702,8 @@
   <data name="checkBoxSkipRecentlyTested.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="checkBoxSyncMode.Text" xml:space="preserve">
-    <value>Sync mode</value>
+  <data name="&gt;&gt;checkBoxParallel.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="labelSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
     <value>17, 72</value>
