@@ -508,6 +508,10 @@
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="SyncFoldersForm.th.resx">
+      <DependentUpon>SyncFoldersForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="SyncFoldersForm.tr.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
