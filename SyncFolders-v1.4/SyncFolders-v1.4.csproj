@@ -359,6 +359,10 @@
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="SyncFoldersForm.cs.resx">
+      <DependentUpon>SyncFoldersForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="SyncFoldersForm.da.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -527,4 +531,26 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <PropertyGroup>
+    <PostBuildEvent>if "$(ConfigurationName)" == "Release" (
+  if NOT EXIST "$(TargetDir)ZZ_SOURCE_CODE_ZZ" (
+    mkdir  "$(TargetDir)ZZ_SOURCE_CODE_ZZ"
+    mkdir  "$(TargetDir)ZZ_SOURCE_CODE_ZZ\$(ProjectName)"
+  )
+  copy /Y "$(SolutionDir)*.sln" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\"
+  copy /Y "$(SolutionDir)LICENSE.TXT" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\"
+  copy /Y "$(SolutionDir)LICENSE.TXT" "$(TargetDir)"
+  copy /Y "$(SolutionDir)README.md" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\"
+  copy /Y "$(SolutionDir)README.md" "$(TargetDir)README.txt"
+  copy /Y "$(SolutionDir)README.md" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\"
+  copy /Y "$(ProjectDir)*.csproj" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\$(ProjectName)\"
+  copy /Y "$(SolutionDir).gitignore" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\"
+  copy /Y "$(ProjectDir)*.cs" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\$(ProjectName)\"
+  copy /Y "$(ProjectDir)*.resx" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\$(ProjectName)\"
+  copy /Y "$(ProjectDir)*.settings" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\$(ProjectName)\"
+  cd /D "$(TargetDir)"
+  del /Q "*.pdb"
+  tar.exe -a -c -f ..\$(ProjectName).zip *.*
+)</PostBuildEvent>
+  </PropertyGroup>
 </Project>
