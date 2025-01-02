@@ -118,133 +118,139 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="checkBoxIgnoreTime.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="labelFolder1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="checkBoxIgnoreTime.Location" type="System.Drawing.Point, System.Drawing">
-    <value>33, 210</value>
+  <data name="labelFolder1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>13, 9</value>
   </data>
-  <data name="checkBoxIgnoreTime.Size" type="System.Drawing.Size, System.Drawing">
-    <value>504, 20</value>
+  <data name="labelFolder1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>95, 16</value>
+  </data>
+  <data name="labelFolder1.Text" xml:space="preserve">
+    <value>Бірінші қалта:</value>
+  </data>
+  <data name="textBoxFirstFolder.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 29</value>
+  </data>
+  <data name="textBoxFirstFolder.Size" type="System.Drawing.Size, System.Drawing">
+    <value>733, 22</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="checkBoxIgnoreTime.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
+  <data name="textBoxFirstFolder.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
-  <data name="checkBoxIgnoreTime.Text" xml:space="preserve">
-    <value>Файл мен сақталған ақпарат арасындағы уақыт айырмашылығын елемеу</value>
-  </data>
-  <data name="checkBoxSyncMode.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="buttonSelectFirstFolder.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="checkBoxSyncMode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>325, 130</value>
+  <data name="buttonSelectFirstFolder.Location" type="System.Drawing.Point, System.Drawing">
+    <value>757, 26</value>
   </data>
-  <data name="checkBoxSyncMode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>154, 20</value>
-  </data>
-  <data name="checkBoxSyncMode.Text" xml:space="preserve">
-    <value>Синхрондау режимі</value>
-  </data>
-  <data name="checkBoxParallel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="labelSecondFolder.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="checkBoxParallel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>485, 130</value>
+  <data name="labelSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
+    <value>13, 65</value>
   </data>
-  <data name="checkBoxParallel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 20</value>
+  <data name="labelSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
+    <value>93, 16</value>
   </data>
-  <data name="checkBoxParallel.Text" xml:space="preserve">
-    <value>Параллельді түрде</value>
+  <data name="labelSecondFolder.Text" xml:space="preserve">
+    <value>Екінші қалта:</value>
   </data>
-  <data name="checkBoxSkipRecentlyTested.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="textBoxSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 85</value>
+  </data>
+  <data name="textBoxSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
+    <value>733, 22</value>
+  </data>
+  <data name="buttonSelectSecondFolder.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="checkBoxSkipRecentlyTested.Location" type="System.Drawing.Point, System.Drawing">
-    <value>251, 267</value>
+  <data name="buttonSelectSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
+    <value>758, 82</value>
   </data>
-  <data name="checkBoxSkipRecentlyTested.Size" type="System.Drawing.Size, System.Drawing">
-    <value>334, 20</value>
-  </data>
-  <data name="checkBoxSkipRecentlyTested.Text" xml:space="preserve">
-    <value>барлық файлдардың оқылу мүмкіндігін тексеру</value>
-  </data>
-  <data name="linkLabelLicence.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="checkBoxCreateRestoreInfo.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="linkLabelLicence.Location" type="System.Drawing.Point, System.Drawing">
-    <value>288, 399</value>
+  <data name="checkBoxCreateRestoreInfo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 239</value>
   </data>
-  <data name="linkLabelLicence.Size" type="System.Drawing.Size, System.Drawing">
-    <value>126, 16</value>
+  <data name="checkBoxCreateRestoreInfo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>568, 20</value>
   </data>
-  <data name="linkLabelLicence.Text" xml:space="preserve">
-    <value>Лицензия (GPL v2)</value>
+  <data name="checkBoxCreateRestoreInfo.Text" xml:space="preserve">
+    <value>Жеке блоктарды қалпына келтіру үшін кейбір ақпаратты сақтау, егер ол жоқ болса</value>
   </data>
-  <data name="linkLabelAbout.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="checkBoxTestAllFiles.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="linkLabelAbout.Location" type="System.Drawing.Point, System.Drawing">
-    <value>18, 399</value>
+  <data name="checkBoxTestAllFiles.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 267</value>
   </data>
-  <data name="linkLabelAbout.Size" type="System.Drawing.Size, System.Drawing">
-    <value>234, 16</value>
+  <data name="checkBoxTestAllFiles.Size" type="System.Drawing.Size, System.Drawing">
+    <value>228, 20</value>
   </data>
-  <data name="linkLabelAbout.Text" xml:space="preserve">
-    <value>«Қалталарды синхрондау» туралы</value>
+  <data name="checkBoxTestAllFiles.Text" xml:space="preserve">
+    <value>Жақында тексерілмеген болса</value>
   </data>
-  <data name="checkBoxDeleteFilesInSecond.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="checkBoxRepairBlockFailures.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="checkBoxDeleteFilesInSecond.Location" type="System.Drawing.Point, System.Drawing">
-    <value>33, 184</value>
+  <data name="checkBoxRepairBlockFailures.Location" type="System.Drawing.Point, System.Drawing">
+    <value>33, 295</value>
   </data>
-  <data name="checkBoxDeleteFilesInSecond.Size" type="System.Drawing.Size, System.Drawing">
-    <value>376, 20</value>
+  <data name="checkBoxRepairBlockFailures.Size" type="System.Drawing.Size, System.Drawing">
+    <value>231, 20</value>
   </data>
-  <data name="checkBoxDeleteFilesInSecond.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
+  <data name="checkBoxRepairBlockFailures.Text" xml:space="preserve">
+    <value>Бір блоктың ақауларын жөндеу</value>
   </data>
-  <data name="checkBoxDeleteFilesInSecond.Text" xml:space="preserve">
-    <value>Бірінші қалтада жоқ екінші қалтадағы файлдарды жою</value>
+  <data name="buttonSync.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
   </data>
-  <data name="checkBoxFirstReadonly.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="buttonSync.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="checkBoxFirstReadonly.Location" type="System.Drawing.Point, System.Drawing">
-    <value>33, 157</value>
+  <data name="buttonSync.Location" type="System.Drawing.Point, System.Drawing">
+    <value>582, 393</value>
   </data>
-  <data name="checkBoxFirstReadonly.Size" type="System.Drawing.Size, System.Drawing">
-    <value>351, 20</value>
+  <data name="buttonSync.Text" xml:space="preserve">
+    <value>Синхрондаңыз</value>
   </data>
-  <data name="checkBoxFirstReadonly.Text" xml:space="preserve">
-    <value>Бірінші қалтаны өзгерту мүмкін емес (мысалы, CD)</value>
-  </data>
-  <data name="checkBoxFirstToSecond.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="buttonCancel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="checkBoxFirstToSecond.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 130</value>
+  <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>690, 393</value>
   </data>
-  <data name="checkBoxFirstToSecond.Size" type="System.Drawing.Size, System.Drawing">
-    <value>287, 20</value>
+  <data name="buttonCancel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>107, 28</value>
   </data>
-  <data name="checkBoxFirstToSecond.Text" xml:space="preserve">
-    <value>Бір бағытты, бірінші қалтадан екіншісіне </value>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>Бас тарту</value>
   </data>
-  <data name="labelProgress.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="progressBar1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="labelProgress.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 319</value>
+  <data name="progressBar1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 393</value>
   </data>
-  <data name="labelProgress.Size" type="System.Drawing.Size, System.Drawing">
-    <value>780, 53</value>
+  <data name="progressBar1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>666, 28</value>
   </data>
-  <data name="labelProgress.TabIndex" type="System.Int32, mscorlib">
-    <value>17</value>
+  <data name="buttonSelfTest.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="buttonSelfTest.Location" type="System.Drawing.Point, System.Drawing">
+    <value>661, 125</value>
+  </data>
+  <data name="buttonSelfTest.Size" type="System.Drawing.Size, System.Drawing">
+    <value>140, 28</value>
+  </data>
+  <data name="buttonSelfTest.Text" xml:space="preserve">
+    <value>Өзін-өзі тексеру</value>
   </data>
   <data name="checkBoxPreferCopies.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -261,137 +267,131 @@
   <data name="checkBoxPreferCopies.Text" xml:space="preserve">
     <value>Жөндеу кезінде қайшылықтар туындаған жағдайда физикалық көшірмелерге артықшылық беру (ұсынылмайды)</value>
   </data>
-  <data name="buttonSelfTest.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="labelProgress.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="buttonSelfTest.Location" type="System.Drawing.Point, System.Drawing">
-    <value>661, 125</value>
+  <data name="labelProgress.Location" type="System.Drawing.Point, System.Drawing">
+    <value>17, 319</value>
   </data>
-  <data name="buttonSelfTest.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 28</value>
+  <data name="labelProgress.Size" type="System.Drawing.Size, System.Drawing">
+    <value>780, 53</value>
   </data>
-  <data name="buttonSelfTest.Text" xml:space="preserve">
-    <value>Өзін-өзі тексеру</value>
+  <data name="labelProgress.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
   </data>
-  <data name="progressBar1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="checkBoxFirstToSecond.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="progressBar1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 393</value>
+  <data name="checkBoxFirstToSecond.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 130</value>
   </data>
-  <data name="progressBar1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>666, 28</value>
+  <data name="checkBoxFirstToSecond.Size" type="System.Drawing.Size, System.Drawing">
+    <value>287, 20</value>
   </data>
-  <data name="buttonCancel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="checkBoxFirstToSecond.Text" xml:space="preserve">
+    <value>Бір бағытты, бірінші қалтадан екіншісіне </value>
+  </data>
+  <data name="checkBoxFirstReadonly.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>690, 393</value>
+  <data name="checkBoxFirstReadonly.Location" type="System.Drawing.Point, System.Drawing">
+    <value>33, 157</value>
   </data>
-  <data name="buttonCancel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>107, 28</value>
+  <data name="checkBoxFirstReadonly.Size" type="System.Drawing.Size, System.Drawing">
+    <value>351, 20</value>
   </data>
-  <data name="buttonCancel.Text" xml:space="preserve">
-    <value>Бас тарту</value>
+  <data name="checkBoxFirstReadonly.Text" xml:space="preserve">
+    <value>Бірінші қалтаны өзгерту мүмкін емес (мысалы, CD)</value>
   </data>
-  <data name="buttonSync.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="buttonSync.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="checkBoxDeleteFilesInSecond.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="buttonSync.Location" type="System.Drawing.Point, System.Drawing">
-    <value>582, 393</value>
+  <data name="checkBoxDeleteFilesInSecond.Location" type="System.Drawing.Point, System.Drawing">
+    <value>33, 184</value>
   </data>
-  <data name="buttonSync.Text" xml:space="preserve">
-    <value>Синхрондаңыз</value>
+  <data name="checkBoxDeleteFilesInSecond.Size" type="System.Drawing.Size, System.Drawing">
+    <value>376, 20</value>
   </data>
-  <data name="checkBoxRepairBlockFailures.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="checkBoxDeleteFilesInSecond.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="checkBoxDeleteFilesInSecond.Text" xml:space="preserve">
+    <value>Бірінші қалтада жоқ екінші қалтадағы файлдарды жою</value>
+  </data>
+  <data name="linkLabelAbout.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="checkBoxRepairBlockFailures.Location" type="System.Drawing.Point, System.Drawing">
-    <value>33, 295</value>
+  <data name="linkLabelAbout.Location" type="System.Drawing.Point, System.Drawing">
+    <value>18, 399</value>
   </data>
-  <data name="checkBoxRepairBlockFailures.Size" type="System.Drawing.Size, System.Drawing">
-    <value>231, 20</value>
+  <data name="linkLabelAbout.Size" type="System.Drawing.Size, System.Drawing">
+    <value>234, 16</value>
   </data>
-  <data name="checkBoxRepairBlockFailures.Text" xml:space="preserve">
-    <value>Бір блоктың ақауларын жөндеу</value>
+  <data name="linkLabelAbout.Text" xml:space="preserve">
+    <value>«Қалталарды синхрондау» туралы</value>
   </data>
-  <data name="checkBoxTestAllFiles.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="linkLabelLicence.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="checkBoxTestAllFiles.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 267</value>
+  <data name="linkLabelLicence.Location" type="System.Drawing.Point, System.Drawing">
+    <value>288, 399</value>
   </data>
-  <data name="checkBoxTestAllFiles.Size" type="System.Drawing.Size, System.Drawing">
-    <value>228, 20</value>
+  <data name="linkLabelLicence.Size" type="System.Drawing.Size, System.Drawing">
+    <value>126, 16</value>
   </data>
-  <data name="checkBoxTestAllFiles.Text" xml:space="preserve">
-    <value>Жақында тексерілмеген болса</value>
+  <data name="linkLabelLicence.Text" xml:space="preserve">
+    <value>Лицензия (GPL v2)</value>
   </data>
-  <data name="checkBoxCreateRestoreInfo.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="checkBoxSkipRecentlyTested.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="checkBoxCreateRestoreInfo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 239</value>
+  <data name="checkBoxSkipRecentlyTested.Location" type="System.Drawing.Point, System.Drawing">
+    <value>251, 267</value>
   </data>
-  <data name="checkBoxCreateRestoreInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>568, 20</value>
+  <data name="checkBoxSkipRecentlyTested.Size" type="System.Drawing.Size, System.Drawing">
+    <value>334, 20</value>
   </data>
-  <data name="checkBoxCreateRestoreInfo.Text" xml:space="preserve">
-    <value>Жеке блоктарды қалпына келтіру үшін кейбір ақпаратты сақтау, егер ол жоқ болса</value>
+  <data name="checkBoxSkipRecentlyTested.Text" xml:space="preserve">
+    <value>барлық файлдардың оқылу мүмкіндігін тексеру</value>
   </data>
-  <data name="buttonSelectSecondFolder.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="checkBoxParallel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="buttonSelectSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
-    <value>758, 82</value>
+  <data name="checkBoxParallel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>485, 130</value>
   </data>
-  <data name="textBoxSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 85</value>
+  <data name="checkBoxParallel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 20</value>
   </data>
-  <data name="textBoxSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>733, 22</value>
+  <data name="checkBoxParallel.Text" xml:space="preserve">
+    <value>Параллельді түрде</value>
   </data>
-  <data name="labelSecondFolder.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="checkBoxSyncMode.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="labelSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 65</value>
+  <data name="checkBoxSyncMode.Location" type="System.Drawing.Point, System.Drawing">
+    <value>325, 130</value>
   </data>
-  <data name="labelSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>93, 16</value>
+  <data name="checkBoxSyncMode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>154, 20</value>
   </data>
-  <data name="labelSecondFolder.Text" xml:space="preserve">
-    <value>Екінші қалта:</value>
+  <data name="checkBoxSyncMode.Text" xml:space="preserve">
+    <value>Синхрондау режимі</value>
   </data>
-  <data name="buttonSelectFirstFolder.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="checkBoxIgnoreTime.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="buttonSelectFirstFolder.Location" type="System.Drawing.Point, System.Drawing">
-    <value>757, 26</value>
+  <data name="checkBoxIgnoreTime.Location" type="System.Drawing.Point, System.Drawing">
+    <value>33, 210</value>
   </data>
-  <data name="textBoxFirstFolder.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 29</value>
+  <data name="checkBoxIgnoreTime.Size" type="System.Drawing.Size, System.Drawing">
+    <value>504, 20</value>
   </data>
-  <data name="textBoxFirstFolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>733, 22</value>
+  <data name="checkBoxIgnoreTime.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
   </data>
-  <data name="textBoxFirstFolder.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="labelFolder1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="labelFolder1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 9</value>
-  </data>
-  <data name="labelFolder1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>95, 16</value>
-  </data>
-  <data name="labelFolder1.Text" xml:space="preserve">
-    <value>Бірінші қалта:</value>
+  <data name="checkBoxIgnoreTime.Text" xml:space="preserve">
+    <value>Файл мен сақталған ақпарат арасындағы уақыт айырмашылығын елемеу</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>810, 438</value>
