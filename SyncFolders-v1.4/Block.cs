@@ -204,6 +204,34 @@ namespace SyncFolders
             return s.Read(_data, 0, _data.Length);
         }
 
+
+        //===================================================================================================
+        /// <summary>
+        /// Reads first part of a block from given stream
+        /// </summary>
+        /// <param name="s">Stream to read from</param>
+        /// <<param name="nCount">Number of bytes to read</param>
+        /// <returns>The number of bytes read</returns>
+        //===================================================================================================
+        public int ReadFirstPartFrom(System.IO.Stream s, int nCount)
+        {
+            return s.Read(_data, 0, nCount);
+        }
+
+
+        //===================================================================================================
+        /// <summary>
+        /// Reads first part of a block from given stream
+        /// </summary>
+        /// <param name="s">Stream to read from</param>
+        /// <<param name="nCount">Number of bytes to read</param>
+        /// <returns>The number of bytes read</returns>
+        //===================================================================================================
+        public int ReadLastPartFrom(System.IO.Stream s, int nCount)
+        {
+            return s.Read(_data, _data.Length-nCount, nCount);
+        }
+
         //===================================================================================================
         /// <summary>
         /// Writes the block to stream
@@ -213,6 +241,32 @@ namespace SyncFolders
         public void WriteTo(System.IO.Stream s)
         {
             s.Write(_data, 0, _data.Length);
+        }
+
+
+        //===================================================================================================
+        /// <summary>
+        /// Writes first part of the block to stream
+        /// </summary>
+        /// <param name="s">Stream to write to</param>
+        /// <param name="nCount">Number of bytes to write</param>
+        //===================================================================================================
+        public void WriteFirstPartTo(System.IO.Stream s, int nCount)
+        {
+            s.Write(_data, 0, nCount);
+        }
+
+
+        //===================================================================================================
+        /// <summary>
+        /// Writes last part of the block to stream
+        /// </summary>
+        /// <param name="s">Stream to write to</param>
+        /// <param name="nCount">Number of bytes to write</param>
+        //===================================================================================================
+        public void WriteLastPartTo(System.IO.Stream s, int nCount)
+        {
+            s.Write(_data, _data.Length-nCount, nCount);
         }
 
         //===================================================================================================
