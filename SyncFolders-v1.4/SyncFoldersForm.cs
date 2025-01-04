@@ -2906,10 +2906,26 @@ namespace SyncFolders
                                 "RestoreInfo", fi2.Name, ".chk"));
                         else
                             if (fiSavedInfo1.Exists)
-                                m_iFileOpenAndCopyAbstraction.CopyTo(
-                                    fiSavedInfo1, CreatePathOfChkFile(
-                                    fi2.DirectoryName, "RestoreInfo", 
-                                    fi2.Name, ".chk"), true);
+                            {
+                                try
+                                {
+                                    m_iFileOpenAndCopyAbstraction.CopyTo(
+                                        fiSavedInfo1, CreatePathOfChkFile(
+                                        fi2.DirectoryName, "RestoreInfo",
+                                        fi2.Name, ".chk"), true);
+                                }
+                                catch (System.IO.IOException)
+                                {
+                                    CreateSavedInfo(strFilePath1,
+                                        CreatePathOfChkFile(
+                                        fi1.DirectoryName, "RestoreInfo",
+                                        fi1.Name, ".chk"));
+                                    CreateSavedInfo(strFilePath2,
+                                        CreatePathOfChkFile(
+                                        fi2.DirectoryName, "RestoreInfo",
+                                        fi2.Name, ".chk"));
+                                }
+                            }
                     }
                 }
             }
