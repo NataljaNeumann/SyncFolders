@@ -151,7 +151,7 @@
     <value>Warnung: Beim Kopieren der Datei „{0}“ ist ein E/A-Fehler aufgetreten. Andere Datei „{1}“ weist ebenfalls Fehler auf oder ist ein Produkt der Last-Chance-Wiederherstellung. Es wird versucht, „{0}“ automatisch zu reparieren.</value>
   </data>
   <data name="EncounteredErrorWhileCopyingTryingToRepair" xml:space="preserve">
-    <value>Warnung: Beim Kopieren der Datei „{0}“ ist beim Versuch einer automatischen Reparatur ein Fehler aufgetreten</value>
+    <value>Warnung: Beim Kopieren der Datei „{0}“ ist ein Fehler aufgetreten. Ich versuche, den Fehler zu beheben.</value>
   </data>
   <data name="ErrorDeleting" xml:space="preserve">
     <value>Fehler beim Löschen der Datei „{0}“: {1}</value>

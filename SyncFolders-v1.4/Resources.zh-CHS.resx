@@ -151,7 +151,7 @@
     <value>警告：复制文件“{0}”时发生 I/O 错误。其他文件“{1}”也有错误或者是最后一次恢复的产物。正在尝试自动修复“{0}”。</value>
   </data>
   <data name="EncounteredErrorWhileCopyingTryingToRepair" xml:space="preserve">
-    <value>警告：复制文件“{0}”时尝试执行自动修复时发生错误。</value>
+    <value>警告：复制文件“{0}”时发生错误。我正在尝试修复该错误。</value>
   </data>
   <data name="ErrorDeleting" xml:space="preserve">
     <value>删除文件“{0}”时出错：{1}</value>

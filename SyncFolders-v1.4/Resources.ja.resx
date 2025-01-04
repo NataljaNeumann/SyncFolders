@@ -151,7 +151,7 @@
     <value>警告: ファイル 「{0}」 のコピー中に I/O エラーが発生しました。他のファイル 「{1}」 にもエラーがあるか、最後の手段でリカバリした結果です。 「{0}」を自動的に修復しようとしています。</value>
   </data>
   <data name="EncounteredErrorWhileCopyingTryingToRepair" xml:space="preserve">
-    <value>警告: ファイル 「{0}」 のコピー中に自動修復を実行しようとしたときにエラーが発生しました。</value>
+    <value>警告: ファイル  「{0}」 のコピー中にエラーが発生しました。エラーを修正しようとしています。</value>
   </data>
   <data name="ErrorDeleting" xml:space="preserve">
     <value>ファイル「{0}」の削除エラー: {1}</value>

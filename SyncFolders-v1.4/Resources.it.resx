@@ -151,7 +151,7 @@
     <value>Avviso: si è verificato un errore I/O durante la copia del file “{0}”. Anche un altro file “{1}” presenta errori o è il prodotto di un recupero dell'ultima possibilità. Tentativo di riparare “{0}” automaticamente.</value>
   </data>
   <data name="EncounteredErrorWhileCopyingTryingToRepair" xml:space="preserve">
-    <value>Avviso: si è verificato un errore durante il tentativo di eseguire una riparazione automatica durante la copia del file “{0}”.</value>
+    <value>Avviso: si è verificato un errore durante la copia del file "{0}". Sto cercando di correggere l'errore.</value>
   </data>
   <data name="ErrorDeleting" xml:space="preserve">
     <value>Errore durante l'eliminazione del file “{0}”: {1} </value>

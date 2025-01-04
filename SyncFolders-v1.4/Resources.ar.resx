@@ -151,7 +151,7 @@
     <value>تحذير: حدث خطأ في الإدخال/الإخراج أثناء نسخ "{0}". يحتوي الملف الآخر "{1}" أيضًا على أخطاء أو أنه نتيجة لاسترداد الفرصة الأخيرة. محاولة إصلاح "{0}" تلقائيًا.</value>
   </data>
   <data name="EncounteredErrorWhileCopyingTryingToRepair" xml:space="preserve">
-    <value>تحذير: حدث خطأ أثناء محاولة الإصلاح التلقائي أثناء نسخ "{0}". </value>
+    <value>تحذير: حدث خطأ أثناء نسخ الملف "{0}". أحاول إصلاح الخطأ.</value>
   </data>
   <data name="ErrorDeleting" xml:space="preserve">
     <value>خطأ في حذف "{0}": {1}</value>

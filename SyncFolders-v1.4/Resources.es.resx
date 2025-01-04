@@ -151,7 +151,7 @@
     <value>Advertencia: Se produjo un error de E/S al copiar el archivo "{0}". Otro archivo “{1}” también tiene errores o es producto de una recuperación de última oportunidad. Intentando reparar “{0}” automáticamente.</value>
   </data>
   <data name="EncounteredErrorWhileCopyingTryingToRepair" xml:space="preserve">
-    <value>Advertencia: Se produjo un error al intentar realizar una reparación automática al copiar el archivo "{0}".</value>
+    <value>Advertencia: Se produjo un error al copiar el archivo "{0}". Estoy intentando corregir el error.</value>
   </data>
   <data name="ErrorDeleting" xml:space="preserve">
     <value>Error al eliminar el archivo "{0}": {1} </value>

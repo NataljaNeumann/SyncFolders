@@ -151,7 +151,7 @@
     <value>경고: "{0}" 파일을 복사하는 동안 I/O 오류가 발생했습니다. 다른 파일 “{1}”에도 오류가 있거나 최종 복구의 결과입니다. “{0}”을(를) 자동으로 복구하려고 합니다.</value>
   </data>
   <data name="EncounteredErrorWhileCopyingTryingToRepair" xml:space="preserve">
-    <value>경고: "{0}" 파일을 복사하는 동안 자동 복구를 수행하는 동안 오류가 발생했습니다.</value>
+    <value>경고: "{0}" 파일을 복사하는 동안 오류가 발생했습니다. 오류를 수정하도록 노력하겠습니다.</value>
   </data>
   <data name="ErrorDeleting" xml:space="preserve">
     <value>"{0}" 파일 삭제 오류: {1}</value>

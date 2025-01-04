@@ -151,7 +151,7 @@
     <value>Avertissement : Une erreur d'E/S s'est produite lors de la copie du fichier «{0}». L'autre fichier «{1}» contient également des erreurs ou est le produit d'une récupération de dernière chance. Tentative de réparation automatique de «{0}».</value>
   </data>
   <data name="EncounteredErrorWhileCopyingTryingToRepair" xml:space="preserve">
-    <value>Avertissement : Une erreur s'est produite lors de la tentative d'exécution d'une réparation automatique lors de la copie du fichier «{0}». </value>
+    <value>Avertissement : Une erreur s'est produite lors de la copie du fichier «{0}». J'essaie de corriger l'erreur. </value>
   </data>
   <data name="ErrorDeleting" xml:space="preserve">
     <value>Erreur lors de la suppression du fichier «{0}» : {1}</value>

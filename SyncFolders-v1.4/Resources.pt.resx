@@ -139,22 +139,22 @@
     <value>No</value>
   </data>
   <data name="DeletedFileNotPresentIn" xml:space="preserve">
-    <value>O bloco de arquivo "{0}" na posição {1} é copiado de "{2}" mesmo que a soma de verificação mostre que o bloco está incorreto</value>
+    <value>Arquivo “{0}” excluído que não existe mais em “{1}”.</value>
   </data>
   <data name="DeletedFolder" xml:space="preserve">
-    <value>O bloco do arquivo "{0}" na posição {1} é restaurado da mesma posição do arquivo "{2}".</value>
+    <value>Pasta “{0}” incluindo conteúdo excluído porque “{1}” não existe mais</value>
   </data>
   <data name="EncounteredErrorOlderOk" xml:space="preserve">
-    <value>Os blocos de arquivos "{0}" e "{1}" na posição {2} não podem ser restaurados e são preenchidos com um bloco fictício</value>
+    <value>Aviso: Ocorreu um erro de E/S ao copiar o arquivo "{0}". O arquivo mais antigo “{1}” parece estar correto</value>
   </data>
   <data name="EncounteredErrorOtherBadToo" xml:space="preserve">
-    <value>{0}: Checksum do bloco na posição {1} não está OK</value>
+    <value>Aviso: Ocorreu um erro de E/S ao copiar o arquivo "{0}". Outro arquivo “{1}” também contém erros ou é produto de recuperação de última chance. Tentando reparar “{0}” automaticamente.</value>
   </data>
   <data name="EncounteredErrorWhileCopyingTryingToRepair" xml:space="preserve">
-    <value>Copiando “{0}” para “{1}”  {2}</value>
+    <value>Aviso: Ocorreu um erro ao copiar o arquivo "{0}". Vou tentar corrigir o erro.</value>
   </data>
   <data name="ErrorDeleting" xml:space="preserve">
-    <value>Atenção: O arquivo "{0}" com ano de 1975 ou anterior não pôde ser utilizado. Isso indica que esta foi a última chance de recuperar o arquivo "{1}". </value>
+    <value>Erro ao excluir o arquivo "{0}": {1}</value>
   </data>
   <data name="ErrorProcessinngFilePair" xml:space="preserve">
     <value>Erro ao processar o par de arquivos "{0}" | “{1}”: {2}</value>

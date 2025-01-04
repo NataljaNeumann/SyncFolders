@@ -151,7 +151,7 @@
     <value>Waarschuwing: er is een I/O-fout opgetreden tijdens het kopiëren van bestand “{0}”. Ander bestand “{1}” bevat ook fouten of is een product van herstel op de laatste kans. Er wordt geprobeerd '{0}' automatisch te repareren.</value>
   </data>
   <data name="EncounteredErrorWhileCopyingTryingToRepair" xml:space="preserve">
-    <value>Waarschuwing: er is een fout opgetreden tijdens een poging om een ​​automatische reparatie uit te voeren tijdens het kopiëren van bestand “{0}”. </value>
+    <value>Waarschuwing: er is een fout opgetreden tijdens het kopiëren van bestand "{0}". Ik zal proberen de fout te herstellen</value>
   </data>
   <data name="ErrorDeleting" xml:space="preserve">
     <value>Fout bij verwijderen van bestand '{0}': {1}</value>

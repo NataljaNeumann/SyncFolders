@@ -151,7 +151,7 @@
     <value>Uyarı: “{0}” dosyası kopyalanırken bir G/Ç hatası oluştu. Diğer “{1}” dosyasında da hatalar var veya son şans kurtarmanın bir ürünü. “{0}” otomatik olarak onarılmaya çalışılıyor.</value>
   </data>
   <data name="EncounteredErrorWhileCopyingTryingToRepair" xml:space="preserve">
-    <value>Uyarı: “{0}” dosyası kopyalanırken otomatik onarım gerçekleştirilmeye çalışılırken bir hata oluştu.</value>
+    <value>Uyarı: “{0}” dosyası kopyalanırken bir hata oluştu. Hatayı düzeltmeye çalışıyorum.</value>
   </data>
   <data name="ErrorDeleting" xml:space="preserve">
     <value>“{0}” dosyası silinirken hata oluştu: {1}</value>

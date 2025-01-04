@@ -151,7 +151,7 @@
     <value>אזהרה: אירעה שגיאת קלט/פלט בעת העתקת "{0}". קובץ אחר "{1}" מכיל גם שגיאות או שהוא תוצר של שחזור בהזדמנות אחרונה. ניסיון לתקן את "{0}" באופן אוטומטי.</value>
   </data>
   <data name="EncounteredErrorWhileCopyingTryingToRepair" xml:space="preserve">
-    <value>אזהרה: אירעה שגיאה בעת ניסיון תיקון אוטומטי בעת העתקת "{0}".</value>
+    <value>אזהרה: אירעה שגיאה בעת העתקת הקובץ "{0}". אני מנסה לתקן את השגיאה.</value>
   </data>
   <data name="ErrorDeleting" xml:space="preserve">
     <value>שגיאה במחיקת "{0}": {1}</value>
