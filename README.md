@@ -26,3 +26,5 @@ All of this is done automatically, so your personal family photos and videos are
 
 A log is shown after completion of the operation and also saved in Documents folder for later reference.
 
+There is no need of an installation. You can extract the archive into a subfolder of the drive that contains
+photos and run it from there. Windows will prompt you to install .NET-Framework, that is all you need.
