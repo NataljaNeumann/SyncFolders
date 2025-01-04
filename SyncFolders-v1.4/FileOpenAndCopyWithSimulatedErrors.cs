@@ -103,7 +103,11 @@ namespace SyncFolders
                     // we simulate a complete range of 4096 bytes from each position
                     if (lErrorPosition + 4095 >= lStartPosition && lErrorPosition < lEndPosition)
                     {
-                        throw new IOException("This is a simulated I/O error for testing");
+                        throw new IOException(
+                            string.Format(Resources.ThisIsASimulatedIOErrorAtPosition,
+                               lErrorPosition));
+
+                        //throw new IOException("This is a simulated I/O error for testing");
                     }
                 }
             }
