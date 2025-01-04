@@ -123,15 +123,16 @@
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>SyncFolders v1.4
-זכויות יוצרים 
-(C) 2024-2025 NataljaNeumann@gmx.de
+זכויות יוצרים © 2024-2025 
+NataljaNeumann@gmx.de
 
 תוכנית זו היא תוכנה חופשית; אתה יכול להפיץ אותו מחדש ו/או לשנות אותו תחת תנאי הרישיון הציבורי הכללי של GNU כפי שפורסמו על ידי קרן התוכנה החופשית; או גרסה 2 של הרישיון, או (לפי בחירתך) כל גרסה מאוחרת יותר.
 
 תוכנית זו מופצת בתקווה שהיא תהיה שימושית, אך ללא כל אחריות; אפילו ללא האחריות המשתמעת של סחירות או התאמה למטרה מסוימת.  ראה את הרישיון הציבורי הכללי של GNU לפרטים נוספים.
 
 היית צריך לקבל עותק של הרישיון הציבורי הכללי של GNU יחד עם תוכנית זו; אם לא, כתוב 
-Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+Free Software Foundation, Inc., 51 Franklin Street
+Fifth Floor, Boston, MA  02110-1301, USA
 </value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">

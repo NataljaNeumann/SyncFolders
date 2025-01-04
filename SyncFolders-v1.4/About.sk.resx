@@ -119,23 +119,20 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>609, 264</value>
+    <value>493, 255</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>SyncFolders v1.4
 Copyright (C) 2024-2025 NataljaNeumann@gmx.de
 
-Dieses Programm ist freie Software; Sie können es weiterverbreiten und/oder es gemäß den Bedingungen der GNU General Public License, wie von der Free Software Foundation veröffentlicht, zu ändern; entweder Version 2 der Lizenz oder (nach Ihrer Wahl) eine spätere Version.
+Tento program je slobodný softvér; môžete ho redistribuovať a/alebo upravovať podľa podmienok GNU General Public License, ako ju publikovala Free Software Foundation; buď verzia 2 licencie, alebo (podľa vášho výberu) akákoľvek novšia verzia.
 
-Dieses Programm wird in der Hoffnung verbreitet, dass es nützlich ist, jedoch OHNE JEGLICHE GARANTIE; ohne die stillschweigende Garantie der MARKTGÄNGIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.  Weitere Einzelheiten finden Sie in der GNU General Public License.
+Tento program je distribuovaný v nádeji, že bude užitočný, ale BEZ AKEJKOĽVEK ZÁRUKY; dokonca bez implicitnej záruky PREDAJNOSTI alebo VHODNOSTI NA KONKRÉTNY ÚČEL.  Viac podrobností nájdete v GNU General Public License.
 
-Sie sollten zusammen mit diesem Programm eine Kopie der GNU General Public License erhalten haben; Wenn nicht, schreiben Sie an die Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+Spolu s týmto programom by ste mali dostať kópiu GNU General Public License; ak nie, napíšte na Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 </value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>636, 282</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Über „Ordner synchronisieren“</value>
+    <value>517, 273</value>
   </data>
 </root>

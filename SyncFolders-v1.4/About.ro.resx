@@ -117,25 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>609, 264</value>
-  </data>
   <data name="label1.Text" xml:space="preserve">
     <value>SyncFolders v1.4
 Copyright (C) 2024-2025 NataljaNeumann@gmx.de
 
-Dieses Programm ist freie Software; Sie können es weiterverbreiten und/oder es gemäß den Bedingungen der GNU General Public License, wie von der Free Software Foundation veröffentlicht, zu ändern; entweder Version 2 der Lizenz oder (nach Ihrer Wahl) eine spätere Version.
+Acest program este software gratuit; îl puteți redistribui și/sau modifica în conformitate cu termenii GNU General Public License publicat de Free Software Foundation; fie versiunea 2 a Licenței, fie (la alegerea dvs.) orice versiune ulterioară.
 
-Dieses Programm wird in der Hoffnung verbreitet, dass es nützlich ist, jedoch OHNE JEGLICHE GARANTIE; ohne die stillschweigende Garantie der MARKTGÄNGIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.  Weitere Einzelheiten finden Sie in der GNU General Public License.
+Acest program este distribuit în speranța că va fi util, dar FĂRĂ NICIO GARANȚIE; fără nici măcar garanția implicită de VANTABILITATE sau ADECVARE PENTRU UN ANUMIT SCOP.  Consultați Licența publică generală GNU pentru mai multe detalii.
 
-Sie sollten zusammen mit diesem Programm eine Kopie der GNU General Public License erhalten haben; Wenn nicht, schreiben Sie an die Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+Ar fi trebuit să primiți o copie a Licenței publice generale GNU împreună cu acest program; dacă nu, scrieți la Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 </value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>636, 282</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Über „Ordner synchronisieren“</value>
   </data>
 </root>

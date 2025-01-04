@@ -118,24 +118,34 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="label1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 12pt</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="label1.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
+    <value>Yes</value>
+  </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>609, 264</value>
+    <value>544, 315</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>SyncFolders v1.4
-Copyright (C) 2024-2025 NataljaNeumann@gmx.de
+حق چاپحق © 2024-2025 
+NataljaNeumann@gmx.de
 
-Dieses Programm ist freie Software; Sie können es weiterverbreiten und/oder es gemäß den Bedingungen der GNU General Public License, wie von der Free Software Foundation veröffentlicht, zu ändern; entweder Version 2 der Lizenz oder (nach Ihrer Wahl) eine spätere Version.
+این برنامه نرم افزار رایگان است. شما می توانید آن را مجدداً توزیع کنید و/یا آن را تحت شرایط مجوز عمومی عمومی GNU که توسط Free Software Foundation منتشر شده است، تغییر دهید. یا نسخه 2 مجوز، یا (به انتخاب شما) هر نسخه بعدی.
 
-Dieses Programm wird in der Hoffnung verbreitet, dass es nützlich ist, jedoch OHNE JEGLICHE GARANTIE; ohne die stillschweigende Garantie der MARKTGÄNGIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.  Weitere Einzelheiten finden Sie in der GNU General Public License.
+این برنامه به این امید که مفید باشد، اما بدون ضمانت توزیع شده است. حتی بدون ضمانت ضمنی تجارت یا تناسب برای یک هدف خاص.  برای جزئیات بیشتر به مجوز عمومی عمومی GNU مراجعه کنید.
 
-Sie sollten zusammen mit diesem Programm eine Kopie der GNU General Public License erhalten haben; Wenn nicht, schreiben Sie an die Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+شما باید یک کپی از مجوز عمومی عمومی GNU را همراه با این برنامه دریافت کرده باشید. اگر نه، به  Free Software Foundation, Inc., 51 Franklin Street
+ Fifth Floor, Boston, MA  02110-1301, USA
 </value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>636, 282</value>
+    <value>568, 333</value>
   </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Über „Ordner synchronisieren“</value>
+  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="$this.RightToLeftLayout" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
 </root>

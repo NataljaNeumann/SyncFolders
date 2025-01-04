@@ -118,24 +118,47 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 11</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="label1.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
+    <value>Yes</value>
+  </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>609, 264</value>
+    <value>555, 312</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>SyncFolders v1.4
-Copyright (C) 2024-2025 NataljaNeumann@gmx.de
+کاپی رائٹ © 2024-2025
+NataljaNeumann@gmx.de
 
-Dieses Programm ist freie Software; Sie können es weiterverbreiten und/oder es gemäß den Bedingungen der GNU General Public License, wie von der Free Software Foundation veröffentlicht, zu ändern; entweder Version 2 der Lizenz oder (nach Ihrer Wahl) eine spätere Version.
+ایہ پروگرام مفت سافٹ ویئر اے; تسی اینوں دوبارہ ونڈ سکدے او تے/یا اینوں GNU جنرل پبلک لائسنس دیاں شرطاں دے تحت تبدیل کر سکدے او جیویں کہ Free Software Foundation ولوں شائع کیتا گیا اے; یا تے لائسنس دا ورژن 2، یا (تہاڈے اختیار تے) کوئی وی بعد دا ورژن۔
 
-Dieses Programm wird in der Hoffnung verbreitet, dass es nützlich ist, jedoch OHNE JEGLICHE GARANTIE; ohne die stillschweigende Garantie der MARKTGÄNGIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.  Weitere Einzelheiten finden Sie in der GNU General Public License.
+ایہ پروگرام اس امید نال تقسیم کیتا جاندا اے کہ ایہ مفید ہووے گا، لیکن بغیر کسی وارنٹی دے؛ کسے خاص مقصد لئی تجارت یا فٹنس دی ضمنی وارنٹی دے بغیر وی۔  ہور ویرویاں لئی GNU جنرل پبلک لائسنس ویکھو۔
 
-Sie sollten zusammen mit diesem Programm eine Kopie der GNU General Public License erhalten haben; Wenn nicht, schreiben Sie an die Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+تہانوں ایس پروگرام دے نال GNU جنرل پبلک لائسنس دی کاپی ملنی چائیدی سی؛ جے نئیں، تے 
+Free Software Foundation, Inc., 51 Franklin Street
+Fifth Floor, Boston, MA  02110-1301, USA
 </value>
   </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>636, 282</value>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>9, 20</value>
   </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Über „Ordner synchronisieren“</value>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>582, 335</value>
+  </data>
+  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 12pt</value>
+  </data>
+  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="$this.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
+    <value>Yes</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="$this.RightToLeftLayout" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
 </root>

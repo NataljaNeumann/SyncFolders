@@ -119,23 +119,20 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>609, 264</value>
+    <value>493, 282</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>SyncFolders v1.4
-Copyright (C) 2024-2025 NataljaNeumann@gmx.de
+საავტორო უფლება © 2024-2025 NataljaNeumann@gmx.de
 
-Dieses Programm ist freie Software; Sie können es weiterverbreiten und/oder es gemäß den Bedingungen der GNU General Public License, wie von der Free Software Foundation veröffentlicht, zu ändern; entweder Version 2 der Lizenz oder (nach Ihrer Wahl) eine spätere Version.
+ეს პროგრამა არის უფასო პროგრამული უზრუნველყოფა; შეგიძლიათ ხელახლა გაავრცელოთ და/ან შეცვალოთ იგი Free Software Foundation-ის მიერ გამოქვეყნებული GNU ზოგადი საჯარო ლიცენზიის პირობებით; ლიცენზიის 2 ვერსია, ან (თქვენი სურვილით) ნებისმიერი უფრო გვიანდელი ვერსია.
 
-Dieses Programm wird in der Hoffnung verbreitet, dass es nützlich ist, jedoch OHNE JEGLICHE GARANTIE; ohne die stillschweigende Garantie der MARKTGÄNGIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.  Weitere Einzelheiten finden Sie in der GNU General Public License.
+ეს პროგრამა ვრცელდება იმ იმედით, რომ ის სასარგებლო იქნება, მაგრამ ყოველგვარი გარანტიის გარეშე; ვაჭრობის ან კონკრეტული მიზნისთვის ვარგისიანობის ნაგულისხმევი გარანტიის გარეშეც კი.  დამატებითი ინფორმაციისთვის იხილეთ GNU ზოგადი საჯარო ლიცენზია.
 
-Sie sollten zusammen mit diesem Programm eine Kopie der GNU General Public License erhalten haben; Wenn nicht, schreiben Sie an die Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ამ პროგრამასთან ერთად უნდა გქონოდათ GNU ზოგადი საჯარო ლიცენზიის ასლი; თუ არა, დაწერეთ  Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 </value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>636, 282</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Über „Ordner synchronisieren“</value>
+    <value>517, 300</value>
   </data>
 </root>

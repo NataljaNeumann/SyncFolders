@@ -117,25 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>609, 264</value>
-  </data>
   <data name="label1.Text" xml:space="preserve">
     <value>SyncFolders v1.4
-Copyright (C) 2024-2025 NataljaNeumann@gmx.de
+Bản quyền © 2024-2025 NataljaNeumann@gmx.de
 
-Dieses Programm ist freie Software; Sie können es weiterverbreiten und/oder es gemäß den Bedingungen der GNU General Public License, wie von der Free Software Foundation veröffentlicht, zu ändern; entweder Version 2 der Lizenz oder (nach Ihrer Wahl) eine spätere Version.
+Chương trình này là phần mềm miễn phí; bạn có thể phân phối lại và/hoặc sửa đổi nó theo các điều khoản của GNU Giấy phép Công cộng Chung do Free Software Foundation xuất bản; phiên bản 2 của Giấy phép hoặc (tùy theo lựa chọn của bạn) bất kỳ phiên bản nào mới hơn.
 
-Dieses Programm wird in der Hoffnung verbreitet, dass es nützlich ist, jedoch OHNE JEGLICHE GARANTIE; ohne die stillschweigende Garantie der MARKTGÄNGIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.  Weitere Einzelheiten finden Sie in der GNU General Public License.
+Chương trình này được phân phối với hy vọng rằng nó sẽ hữu ích, nhưng KHÔNG CÓ BẤT KỲ ĐẢM BẢO NÀO; thậm chí không có sự bảo đảm ngụ ý về KHẢ NĂNG BÁN hoặc SỰ PHÙ HỢP CHO MỘT MỤC ĐÍCH CỤ THỂ.  Xem Giấy phép Công cộng GNU để biết thêm chi tiết.
 
-Sie sollten zusammen mit diesem Programm eine Kopie der GNU General Public License erhalten haben; Wenn nicht, schreiben Sie an die Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+Bạn hẳn đã nhận được một bản sao Giấy phép Công cộng GNU cùng với chương trình này; nếu không, hãy viết thư cho  Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 </value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>636, 282</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Über „Ordner synchronisieren“</value>
   </data>
 </root>

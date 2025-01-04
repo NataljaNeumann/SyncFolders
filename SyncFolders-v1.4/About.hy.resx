@@ -118,24 +118,30 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 10</value>
+  </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>609, 264</value>
+    <value>588, 305</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>SyncFolders v1.4
-Copyright (C) 2024-2025 NataljaNeumann@gmx.de
+Հեղինակային իրավունք (C) 2024-2025 թ NataljaNeumann@gmx.de
 
-Dieses Programm ist freie Software; Sie können es weiterverbreiten und/oder es gemäß den Bedingungen der GNU General Public License, wie von der Free Software Foundation veröffentlicht, zu ändern; entweder Version 2 der Lizenz oder (nach Ihrer Wahl) eine spätere Version.
+Այս ծրագիրը անվճար ծրագիր է; Դուք կարող եք վերաբաշխել այն և/կամ փոփոխել այն GNU Ընդհանուր հանրային լիցենզիայի պայմաններով, ինչպես հրապարակվել է Free Software Foudation կողմից։ Լիցենզիայի կամ 2-րդ տարբերակը, կամ (ձեր ընտրությամբ) ցանկացած ավելի ուշ տարբերակ:
 
-Dieses Programm wird in der Hoffnung verbreitet, dass es nützlich ist, jedoch OHNE JEGLICHE GARANTIE; ohne die stillschweigende Garantie der MARKTGÄNGIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.  Weitere Einzelheiten finden Sie in der GNU General Public License.
+Այս ծրագիրը տարածվում է այն հույսով, որ այն օգտակար կլինի, բայց ԱՌԱՆՑ ԵՐԱՇԽԻՔԻ; առանց նույնիսկ ենթադրյալ վաճառականության կամ ՀԱՏՈՒԿ ՆՊԱՏԱԿԻ ՀԱՄԱՐ ՊԱՏԱՍԽԱՆՈՒԹՅԱՆ երաշխիքի:  Լրացուցիչ մանրամասների համար տե՛ս GNU Ընդհանուր հանրային լիցենզիան:
 
-Sie sollten zusammen mit diesem Programm eine Kopie der GNU General Public License erhalten haben; Wenn nicht, schreiben Sie an die Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+Այս ծրագրի հետ միասին դուք պետք է ստանայիք GNU Ընդհանուր հանրային լիցենզիայի պատճենը. եթե ոչ, գրեք Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 </value>
   </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>636, 282</value>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>9, 18</value>
   </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Über „Ordner synchronisieren“</value>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>615, 325</value>
+  </data>
+  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 11.25pt</value>
   </data>
 </root>
