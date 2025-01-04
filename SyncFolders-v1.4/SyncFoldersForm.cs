@@ -6401,6 +6401,11 @@ namespace SyncFolders
 
         }
 
+        private void checkBoxSkipRecentlyTested_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
 
     }
 }

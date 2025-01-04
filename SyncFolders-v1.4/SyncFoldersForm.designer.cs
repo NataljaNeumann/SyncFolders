@@ -312,6 +312,7 @@ namespace SyncFolders
             this.checkBoxSkipRecentlyTested.Font = null;
             this.checkBoxSkipRecentlyTested.Name = "checkBoxSkipRecentlyTested";
             this.checkBoxSkipRecentlyTested.UseVisualStyleBackColor = true;
+            this.checkBoxSkipRecentlyTested.CheckedChanged += new System.EventHandler(this.checkBoxSkipRecentlyTested_CheckedChanged);
             // 
             // checkBoxParallel
             // 
