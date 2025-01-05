@@ -235,13 +235,15 @@ namespace SyncFolders
             }
         }
 
+
+
         //===================================================================================================
         /// <summary>
-        /// Reads information about an original file from stream, containg saved info
+        /// Reads information about an original file from stream, containg saved info in version 0
         /// </summary>
         /// <param name="oInputStream">The stream to read from</param>
         //===================================================================================================
-        public void ReadFrom(
+        private void ReadFrom_v0(
             System.IO.Stream oInputStream
             )
         {
@@ -250,13 +252,6 @@ namespace SyncFolders
             m_aOtherBlocks.Clear();
             m_aChecksums.Clear();
 
-
-            // read in the minimum version
-            if (oInputStream.ReadByte() != 0)
-            {
-                // not supported version
-                return;
-            }
 
             oMetadataChecksum.AddByte(0);
 
@@ -363,61 +358,528 @@ namespace SyncFolders
                 };
             };
 
-            // read the number of checksums of original file.
-            // this should be exactly the same as the nuber of blocks in original file
-            int nChecksumCount = 0;
-            for (int i = 7; i >= 0; --i)
+            try
             {
-                int b = oInputStream.ReadByte(); if (b == -1) return;
-                oMetadataChecksum.AddByte(b);
-                nChecksumCount = nChecksumCount * 256 + b;
-            };
-
-            // read the checksums
-            for (int i = 0; i < nChecksumCount; ++i)
-            {
-                byte[] checksum = new byte[3];
-                if (oInputStream.Read(checksum, 0, checksum.Length) < checksum.Length)
-                    return;
-
-                oMetadataChecksum.AddByte(checksum[0]);
-                oMetadataChecksum.AddByte(checksum[1]);
-                oMetadataChecksum.AddByte(checksum[2]);
-
-                m_aChecksums.Add(checksum);
-            }
-
-            // read the final checksum over metadata from stream
-            CheckSumCalculator checksumInFile = new CheckSumCalculator();
-            if (oInputStream.Read(checksumInFile.Checksum, 0, checksumInFile.Checksum.Length) < 
-                checksumInFile.Checksum.Length)
-            {
-                // saved checksums are not reliable, so clear them and trust the 
-                // CRC checksums of the drive
-                m_aChecksums.Clear();
-                return;
-            }
-
-            // compare calculated checksum to the one, read from stream
-            for (int i = 0; i < checksumInFile.Checksum.Length; ++i)
-            {
-                if (checksumInFile.Checksum[i] != oMetadataChecksum.Checksum[i])
+                // read the number of checksums of original file.
+                // this should be exactly the same as the nuber of blocks in original file
+                int nChecksumCount = 0;
+                for (int i = 7; i >= 0; --i)
                 {
-                    // if they differ then checksums in the file are not reliable
+                    int b = oInputStream.ReadByte(); if (b == -1) return;
+                    oMetadataChecksum.AddByte(b);
+                    nChecksumCount = nChecksumCount * 256 + b;
+                };
+
+                // read the checksums
+                for (int i = 0; i < nChecksumCount; ++i)
+                {
+                    byte[] checksum = new byte[3];
+                    if (oInputStream.Read(checksum, 0, checksum.Length) < checksum.Length)
+                        return;
+
+                    oMetadataChecksum.AddByte(checksum[0]);
+                    oMetadataChecksum.AddByte(checksum[1]);
+                    oMetadataChecksum.AddByte(checksum[2]);
+
+                    m_aChecksums.Add(checksum);
+                }
+
+                // read the final checksum over metadata from stream
+                CheckSumCalculator checksumInFile = new CheckSumCalculator();
+                if (oInputStream.Read(checksumInFile.Checksum, 0, checksumInFile.Checksum.Length) < 
+                    checksumInFile.Checksum.Length)
+                {
+                    // saved checksums are not reliable, so clear them and trust the 
+                    // CRC checksums of the drive
                     m_aChecksums.Clear();
                     return;
                 }
+
+                // compare calculated checksum to the one, read from stream
+                for (int i = 0; i < checksumInFile.Checksum.Length; ++i)
+                {
+                    if (checksumInFile.Checksum[i] != oMetadataChecksum.Checksum[i])
+                    {
+                        // if they differ then checksums in the file are not reliable
+                        m_aChecksums.Clear();
+                        return;
+                    }
+                }
+            }
+            catch (System.IO.IOException)
+            {
+                // error while reading checksums? clear checksums
+                m_aChecksums.Clear();
             }
 
         }
 
         //===================================================================================================
         /// <summary>
-        /// Saves calculated information about the original file to stream
+        /// Reads information about an original file from stream, containg saved info
+        /// </summary>
+        /// <param name="oInputStream">The stream to read from</param>
+        //===================================================================================================
+        public void ReadFrom(
+            System.IO.Stream oInputStream
+            )
+        {
+            Block oBlockForLength = Block.GetBlock();
+
+            bool bVersion0 = false;
+            int byFromStream = -1;
+
+            // read the number of blocks in each row
+            long lTotalRows = 0;
+            long lBlocksInFirstRow = 0;
+            long lBlocksInSecondRow = 0;
+            long lTotalSkippedBlocks = 0;
+            int nChecksumCount = 0;
+
+            m_aBlocks.Clear();
+            m_aOtherBlocks.Clear();
+            m_aChecksums.Clear();
+
+            try
+            {
+                // read in the minimum version
+                byFromStream = oInputStream.ReadByte();
+
+                if (byFromStream == -1)
+                {
+                    // end of stream
+                    return;
+                }
+
+                if (byFromStream == 0)
+                {
+                    // version 0
+                    bVersion0 = true;
+                    oInputStream.Seek(0, System.IO.SeekOrigin.Begin);
+                    ReadFrom_v0(oInputStream);
+                    return;
+                }
+
+                // read file identification
+                if (byFromStream != 'S')
+                    return;
+
+                // totally 28 chars
+                if ((byFromStream = oInputStream.ReadByte()) != 'y') return;
+                if ((byFromStream = oInputStream.ReadByte()) != 'n') return;
+                if ((byFromStream = oInputStream.ReadByte()) != 'c') return;
+                if ((byFromStream = oInputStream.ReadByte()) != 'F') return;
+                if ((byFromStream = oInputStream.ReadByte()) != 'o') return;
+                if ((byFromStream = oInputStream.ReadByte()) != 'l') return;
+                if ((byFromStream = oInputStream.ReadByte()) != 'd') return;
+                if ((byFromStream = oInputStream.ReadByte()) != 'e') return;
+                if ((byFromStream = oInputStream.ReadByte()) != 'r') return;
+                if ((byFromStream = oInputStream.ReadByte()) != 's') return;
+                if ((byFromStream = oInputStream.ReadByte()) != ' ') return;
+                if ((byFromStream = oInputStream.ReadByte()) != 'S') return;
+                if ((byFromStream = oInputStream.ReadByte()) != 'a') return;
+                if ((byFromStream = oInputStream.ReadByte()) != 'v') return;
+                if ((byFromStream = oInputStream.ReadByte()) != 'e') return;
+                if ((byFromStream = oInputStream.ReadByte()) != 'd') return;
+                if ((byFromStream = oInputStream.ReadByte()) != ' ') return;
+                if ((byFromStream = oInputStream.ReadByte()) != 'I') return;
+                if ((byFromStream = oInputStream.ReadByte()) != 'n') return;
+                if ((byFromStream = oInputStream.ReadByte()) != 'f') return;
+                if ((byFromStream = oInputStream.ReadByte()) != 'o') return;
+                if ((byFromStream = oInputStream.ReadByte()) != ' ') return;
+                if ((byFromStream = oInputStream.ReadByte()) != 'v') return;
+                if ((byFromStream = oInputStream.ReadByte()) != '2') return;
+                if ((byFromStream = oInputStream.ReadByte()) != '.') return;
+                // skip minor version
+                byFromStream = oInputStream.ReadByte();
+                // EOF mark
+                if ((byFromStream = oInputStream.ReadByte()) != 0x1A) return;
+
+                // read in the time
+                long ticks = 0;
+                for (int i = 7; i >= 0; --i)
+                {
+                    int b = oInputStream.ReadByte(); if (b == -1) return;
+                    ticks = ticks * 256 + b;
+                };
+                m_dtmFileTimestampUtc = new DateTime(ticks);
+
+                // read in the original file length
+                m_lFileLength = 0;
+                for (int i = 7; i >= 0; --i)
+                {
+                    int b = oInputStream.ReadByte(); if (b == -1) return;
+                    m_lFileLength = m_lFileLength * 256 + b;
+                };
+
+                // read the number of checksums of original file.
+                // this should be exactly the same as the nuber of blocks in original file
+                nChecksumCount = 0;
+                for (int i = 7; i >= 0; --i)
+                {
+                    int b = oInputStream.ReadByte(); if (b == -1) return;
+                    nChecksumCount = nChecksumCount * 256 + b;
+                };
+
+                // read in the number of blocks in each row
+                lTotalRows = 0;
+                lBlocksInFirstRow = 0;
+                lBlocksInSecondRow = 0;
+
+                for (int i = 7; i >= 0; --i)
+                {
+                    int b = oInputStream.ReadByte(); if (b == -1) return;
+                    lTotalRows = lTotalRows * 256 + b;
+                };
+
+                if (lTotalRows > 0)
+                {
+                    for (int i = 7; i >= 0; --i)
+                    {
+                        int b = oInputStream.ReadByte(); if (b == -1) return;
+                        lBlocksInFirstRow = lBlocksInFirstRow * 256 + b;
+                    };
+                }
+
+                if (lTotalRows > 1)
+                {
+                    for (int i = 7; i >= 0; --i)
+                    {
+                        int b = oInputStream.ReadByte(); if (b == -1) return;
+                        lBlocksInSecondRow = lBlocksInSecondRow * 256 + b;
+                    };
+                }
+
+                // in the future we can implement more rows of blocks, but for now
+                // we need to skip them
+                lTotalSkippedBlocks = 0;
+                if (lTotalRows > 2)
+                {
+                    for (int skip = 2; skip <= lTotalRows; ++skip)
+                    {
+                        long lBlocksInSkippedRow = 0;
+                        for (int i = 7; i >= 0; --i)
+                        {
+                            int b = oInputStream.ReadByte(); if (b == -1) return;
+                            lBlocksInSkippedRow = lBlocksInSkippedRow * 256 + b;
+                        };
+                        lTotalSkippedBlocks += lBlocksInFirstRow;
+                    }
+                }
+
+            }
+            catch (Exception)
+            {
+                // if the exception comes from the innner call, then re-throw
+                if (bVersion0)
+                    throw;
+
+                // in other case try to read the metadata from the end of the file
+                oInputStream.Seek(-28 - 32 - 8, System.IO.SeekOrigin.End);
+
+
+                if ((byFromStream = oInputStream.ReadByte()) != 'S') return;
+                if ((byFromStream = oInputStream.ReadByte()) != 'y') return;
+                if ((byFromStream = oInputStream.ReadByte()) != 'n') return;
+                if ((byFromStream = oInputStream.ReadByte()) != 'c') return;
+                if ((byFromStream = oInputStream.ReadByte()) != 'F') return;
+                if ((byFromStream = oInputStream.ReadByte()) != 'o') return;
+                if ((byFromStream = oInputStream.ReadByte()) != 'l') return;
+                if ((byFromStream = oInputStream.ReadByte()) != 'd') return;
+                if ((byFromStream = oInputStream.ReadByte()) != 'e') return;
+                if ((byFromStream = oInputStream.ReadByte()) != 'r') return;
+                if ((byFromStream = oInputStream.ReadByte()) != 's') return;
+                if ((byFromStream = oInputStream.ReadByte()) != ' ') return;
+                if ((byFromStream = oInputStream.ReadByte()) != 'S') return;
+                if ((byFromStream = oInputStream.ReadByte()) != 'a') return;
+                if ((byFromStream = oInputStream.ReadByte()) != 'v') return;
+                if ((byFromStream = oInputStream.ReadByte()) != 'e') return;
+                if ((byFromStream = oInputStream.ReadByte()) != 'd') return;
+                if ((byFromStream = oInputStream.ReadByte()) != ' ') return;
+                if ((byFromStream = oInputStream.ReadByte()) != 'I') return;
+                if ((byFromStream = oInputStream.ReadByte()) != 'n') return;
+                if ((byFromStream = oInputStream.ReadByte()) != 'f') return;
+                if ((byFromStream = oInputStream.ReadByte()) != 'o') return;
+                if ((byFromStream = oInputStream.ReadByte()) != ' ') return;
+                if ((byFromStream = oInputStream.ReadByte()) != 'v') return;
+                if ((byFromStream = oInputStream.ReadByte()) != '2') return;
+                if ((byFromStream = oInputStream.ReadByte()) != '.') return;
+                // skip minor version
+                byFromStream = oInputStream.ReadByte();
+                // EOF mark
+                if ((byFromStream = oInputStream.ReadByte()) != 0x1A) return;
+
+                // read the time
+                long ticks = 0;
+                for (int i = 7; i >= 0; --i)
+                {
+                    int b = oInputStream.ReadByte(); if (b == -1) return;
+                    ticks = ticks * 256 + b;
+                };
+                m_dtmFileTimestampUtc = new DateTime(ticks);
+
+                // read the original file length
+                m_lFileLength = 0;
+                for (int i = 7; i >= 0; --i)
+                {
+                    int b = oInputStream.ReadByte(); if (b == -1) return;
+                    m_lFileLength = m_lFileLength * 256 + b;
+                };
+
+
+                // read the number of checksums of original file.
+                // this should be exactly the same as the nuber of blocks in original file
+                nChecksumCount = 0;
+                for (int i = 7; i >= 0; --i)
+                {
+                    int b = oInputStream.ReadByte(); if (b == -1) return;
+                    nChecksumCount = nChecksumCount * 256 + b;
+                };
+
+
+                // read in the number of blocks in each row
+                lTotalRows = 0;
+                lBlocksInFirstRow = 0;
+                lBlocksInSecondRow = 0;
+
+                for (int i = 7; i >= 0; --i)
+                {
+                    int b = oInputStream.ReadByte(); if (b == -1) return;
+                    lTotalRows = lTotalRows * 256 + b;
+                };
+
+                // apart from blocks there can be other data
+                // we need to verify that everything matches
+                long lTotalOtherDataLengthForVerification = 0;
+                for (int i = 7; i >= 0; --i)
+                {
+                    int b = oInputStream.ReadByte(); if (b == -1) return;
+                    lTotalOtherDataLengthForVerification =
+                        lTotalOtherDataLengthForVerification * 256 + b;
+                };
+
+                // at the end of the file the row lengths are right before the
+                // signature, not after it
+                oInputStream.Seek(-28 - 32 - 8 - lTotalRows * 8, System.IO.SeekOrigin.End);
+
+                if (lTotalRows > 0)
+                {
+                    for (int i = 7; i >= 0; --i)
+                    {
+                        int b = oInputStream.ReadByte(); if (b == -1) return;
+                        lBlocksInFirstRow = lBlocksInFirstRow * 256 + b;
+                    };
+                }
+
+                if (lTotalRows > 1)
+                {
+                    for (int i = 7; i >= 0; --i)
+                    {
+                        int b = oInputStream.ReadByte(); if (b == -1) return;
+                        lBlocksInSecondRow = lBlocksInSecondRow * 256 + b;
+                    };
+                }
+
+                // in the future we can implement more rows of blocks, but for now
+                // we need to skip them
+                lTotalSkippedBlocks = 0;
+                if (lTotalRows > 2)
+                {
+                    for (int skip = 2; skip <= lTotalRows; ++skip)
+                    {
+                        long lBlocksInSkippedRow = 0;
+                        for (int i = 7; i >= 0; --i)
+                        {
+                            int b = oInputStream.ReadByte(); if (b == -1) return;
+                            lBlocksInSkippedRow = lBlocksInSkippedRow * 256 + b;
+                        };
+                        lTotalSkippedBlocks += lBlocksInFirstRow;
+                    }
+                }
+
+
+                if (oInputStream.Length !=
+                    // other data
+                    lTotalOtherDataLengthForVerification +
+                    // length of the length of other data
+                    8 +
+                    // blocks
+                    (lTotalSkippedBlocks + lBlocksInFirstRow + lBlocksInSecondRow) * oBlockForLength.Length +
+                    // signature of the file twice, once in the beginning, once at the end
+                    28 * 2 +
+                    // common metadata twice
+                    32 * 2 +
+                    // the lengths of block rows in the beginning and end of the file
+                    8 * lTotalRows * 2 +
+                    // checksums once
+                    3 * nChecksumCount +
+                    // checksum of checksums once
+                    31)
+                {
+                    // if the total length doesn't match then something is wrong
+                    return;
+                }
+
+                // add the first null block, because we couldn't read it in the beginning
+                m_aBlocks.Add(null);
+                // seek the position of sencond block, after first seemeingly failed
+                oInputStream.Seek(oBlockForLength.Length, System.IO.SeekOrigin.Begin);
+            }
+
+
+            // read blocks of the first row
+            while (m_aBlocks.Count < lBlocksInFirstRow)
+            {
+                Block oBlock = null;
+
+                oBlock = Block.GetBlock();
+
+                try
+                {
+                    // we read only a part of the first block,
+                    // so all other  blocks are aligned to physical blocks.
+                    // The end of the first block is somewhere after last block
+                    if (m_aBlocks.Count == 0)
+                    {
+                        if (oBlock.ReadFirstPartFrom(oInputStream,
+                            (int)(oBlock.Length - 28 - 32 - lTotalRows * 8)) !=
+                                  oBlock.Length - 28 - 32 - lTotalRows * 8)
+                        {
+                            m_aBlocks.Clear();
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        if (oBlock.ReadFrom(oInputStream) != oBlock.Length)
+                        {
+                            m_aBlocks.Clear();
+                            return;
+                        }
+                    }
+
+                    m_aBlocks.Add(oBlock);
+                }
+                catch (System.IO.IOException)
+                {
+                    // we don't expect the restore file to be perfect
+                    // add a null block for failed reads
+                    m_aBlocks.Add(null);
+                    // seek the next block
+                    oInputStream.Seek(oBlock.Length * (m_aBlocks.Count),
+                        System.IO.SeekOrigin.Begin);
+                }
+            };
+
+            // read blocks of second row
+            for (long i = lBlocksInSecondRow - 1; i >= 0; --i)
+            {
+                Block oBlock = Block.GetBlock();
+
+                try
+                {
+                    if (oBlock.ReadFrom(oInputStream) != oBlock.Length)
+                    {
+                        // clear both lists if the file has been tampered with
+                        m_aBlocks.Clear();
+                        m_aOtherBlocks.Clear();
+                        return;
+                    }
+
+                    m_aOtherBlocks.Add(oBlock);
+                }
+                catch (System.IO.IOException)
+                {
+                    // we don't expect the restore file to be perfect
+                    // add a null block for failed reads
+                    m_aOtherBlocks.Add(null);
+                    // seek the next block
+                    oInputStream.Seek(oBlock.Length * (lBlocksInSecondRow - i + lBlocksInFirstRow),
+                        System.IO.SeekOrigin.Begin);
+                };
+            };
+
+            // read the end of first block
+            if (m_aBlocks.Count > 0 && m_aBlocks[0] != null)
+            {
+                try
+                {
+                    if (m_aBlocks[0].ReadLastPartFrom(oInputStream,
+                        (int)(28 + 32 + lTotalRows * 8)) !=
+                              28 + 32 + lTotalRows * 8)
+                    {
+                        m_aBlocks.Clear();
+                        m_aOtherBlocks.Clear();
+                    }
+                }
+                catch (System.IO.IOException)
+                {
+                    m_aBlocks[0] = null;
+                }
+            };
+
+            // seek position after all rows of blocks
+            oInputStream.Seek(28 + 32 + lTotalRows * 8 +
+                (lBlocksInFirstRow + lBlocksInSecondRow + lTotalSkippedBlocks) * oBlockForLength.Length,
+                System.IO.SeekOrigin.Begin);
+
+
+            try
+            {
+                CheckSumCalculator oChecksumOfChecksums = new CheckSumCalculator();
+
+                // read the checksums
+                for (int i = 0; i < nChecksumCount; ++i)
+                {
+                    byte[] checksum = new byte[3];
+                    if (oInputStream.Read(checksum, 0, checksum.Length) < checksum.Length)
+                        return;
+
+                    oChecksumOfChecksums.AddByte(checksum[0]);
+                    oChecksumOfChecksums.AddByte(checksum[1]);
+                    oChecksumOfChecksums.AddByte(checksum[2]);
+
+                    m_aChecksums.Add(checksum);
+                }
+
+                // read the final checksum over metadata from stream
+                CheckSumCalculator checksumInFile = new CheckSumCalculator();
+                if (oInputStream.Read(checksumInFile.Checksum, 0, checksumInFile.Checksum.Length) <
+                    checksumInFile.Checksum.Length)
+                {
+                    // saved checksums are not reliable, so clear them and trust the 
+                    // CRC checksums of the drive
+                    m_aChecksums.Clear();
+                    return;
+                }
+
+                // compare calculated checksum to the one, read from stream
+                for (int i = 0; i < checksumInFile.Checksum.Length; ++i)
+                {
+                    if (checksumInFile.Checksum[i] != oChecksumOfChecksums.Checksum[i])
+                    {
+                        // if they differ then checksums in the file are not reliable
+                        m_aChecksums.Clear();
+                        return;
+                    }
+                }
+            }
+            catch (System.IO.IOException)
+            {
+                // error while reading checksums? clear checksums
+                m_aChecksums.Clear();
+            }
+
+            Block.ReleaseBlock(oBlockForLength);
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// Saves calculated information about the original file to stream, in version 0
         /// </summary>
         /// <param name="oOutputStream">The stream to save to</param>
         //===================================================================================================
-        public void SaveTo(
+        public void SaveTo_v0(
             System.IO.Stream oOutputStream
             )
         {
@@ -501,6 +963,244 @@ namespace SyncFolders
 
             // save the checksum of metadata, so we know if checksums are reliable
             oOutputStream.Write(oMetadataChecksum.Checksum, 0, oMetadataChecksum.Checksum.Length);
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// Saves calculated information about the original file to stream
+        /// </summary>
+        /// <param name="oOutputStream">The stream to save to</param>
+        //===================================================================================================
+        public void SaveTo(
+            System.IO.Stream oOutputStream
+            )
+        {
+            // signature
+            oOutputStream.WriteByte((byte)'S');
+            oOutputStream.WriteByte((byte)'y');
+            oOutputStream.WriteByte((byte)'n');
+            oOutputStream.WriteByte((byte)'c');
+            oOutputStream.WriteByte((byte)'F');
+            oOutputStream.WriteByte((byte)'o');
+            oOutputStream.WriteByte((byte)'l');
+            oOutputStream.WriteByte((byte)'d');
+            oOutputStream.WriteByte((byte)'e');
+            oOutputStream.WriteByte((byte)'r');
+            oOutputStream.WriteByte((byte)'s');
+            oOutputStream.WriteByte((byte)' ');
+            oOutputStream.WriteByte((byte)'S');
+            oOutputStream.WriteByte((byte)'a');
+            oOutputStream.WriteByte((byte)'v');
+            oOutputStream.WriteByte((byte)'e');
+            oOutputStream.WriteByte((byte)'d');
+            oOutputStream.WriteByte((byte)' ');
+            oOutputStream.WriteByte((byte)'I');
+            oOutputStream.WriteByte((byte)'n');
+            oOutputStream.WriteByte((byte)'f');
+            oOutputStream.WriteByte((byte)'o');
+            oOutputStream.WriteByte((byte)' ');
+            oOutputStream.WriteByte((byte)'v');
+            oOutputStream.WriteByte((byte)'2');
+            oOutputStream.WriteByte((byte)'.');
+            oOutputStream.WriteByte((byte)'0');
+            oOutputStream.WriteByte(0x1A);
+
+            // save the timestamp of the original file
+            ulong ulToWriteBytewise = (ulong)(m_dtmFileTimestampUtc.Ticks);
+            for (int i = 7; i >= 0; --i)
+            {
+                byte b = (byte)(ulToWriteBytewise >> 56);
+                ulToWriteBytewise = ulToWriteBytewise * 256;
+                oOutputStream.WriteByte(b);
+            };
+
+            // save the length of the original file
+            ulToWriteBytewise = (ulong)m_lFileLength;
+            for (int i = 7; i >= 0; --i)
+            {
+                byte b = (byte)(ulToWriteBytewise >> 56);
+                ulToWriteBytewise = ulToWriteBytewise * 256;
+                oOutputStream.WriteByte(b);
+            };
+
+            // save the number of checksums (shall be same as number
+            // of blocks in original file
+            ulToWriteBytewise = (ulong)m_aChecksums.Count;
+            for (int i = 7; i >= 0; --i)
+            {
+                byte b = (byte)(ulToWriteBytewise >> 56);
+                ulToWriteBytewise = ulToWriteBytewise * 256;
+                oOutputStream.WriteByte(b);
+            };
+
+            // save the number of rows
+            int nTotalRows = m_aOtherBlocks.Count > 0 ? 2 : 1;
+            ulToWriteBytewise = m_aOtherBlocks.Count > 0 ? 2ul : 1ul;
+            for (int i = 7; i >= 0; --i)
+            {
+                byte b = (byte)(ulToWriteBytewise >> 56);
+                ulToWriteBytewise = ulToWriteBytewise * 256;
+                oOutputStream.WriteByte(b);
+            };
+
+            // save the number of blocks in first row
+            ulToWriteBytewise = (ulong)m_aBlocks.Count;
+            for (int i = 7; i >= 0; --i)
+            {
+                byte b = (byte)(ulToWriteBytewise >> 56);
+                ulToWriteBytewise = ulToWriteBytewise * 256;
+                oOutputStream.WriteByte(b);
+            };
+
+            if (m_aOtherBlocks.Count > 0)
+            {
+                // save the number of blocks in second row
+                ulToWriteBytewise = (ulong)m_aOtherBlocks.Count;
+                for (int i = 7; i >= 0; --i)
+                {
+                    byte b = (byte)(ulToWriteBytewise >> 56);
+                    ulToWriteBytewise = ulToWriteBytewise * 256;
+                    oOutputStream.WriteByte(b);
+                };
+            }
+
+            // save the blocks in first row, first block only partly, so
+            // all other blocks are correctly alligned at physical blocks
+            m_aBlocks[0].WriteFirstPartTo(oOutputStream, m_aBlocks[0].Length-28-32-nTotalRows*8);
+            for (int i = 1; i < m_aBlocks.Count; ++i)
+                m_aBlocks[i].WriteTo(oOutputStream);
+
+
+            if (m_aOtherBlocks.Count > 0)
+            {
+                // save the blocks in second row
+                for (int i = 0; i < m_aOtherBlocks.Count; ++i)
+                    m_aOtherBlocks[i].WriteTo(oOutputStream);
+            }
+
+            // after all blocks have been written at correct block offsets
+            // write the rest of the first block. So the first block is split
+            // for putting all other blocks at physical block boundaries
+            m_aBlocks[0].WriteLastPartTo(oOutputStream, 28 + 32 + nTotalRows * 8);
+
+            CheckSumCalculator oChecksumOfChecksums = new CheckSumCalculator();
+
+            // save the checksums of blocks of original file
+            for (int i = 0; i < m_aChecksums.Count; ++i)
+            {
+                oOutputStream.Write(m_aChecksums[i], 0, m_aChecksums[i].Length);
+                oChecksumOfChecksums.AddByte(m_aChecksums[i][0]);
+                oChecksumOfChecksums.AddByte(m_aChecksums[i][1]);
+                oChecksumOfChecksums.AddByte(m_aChecksums[i][2]);
+            }
+
+            // save the checksum of metadata, so we know if checksums are reliable
+            oOutputStream.Write(oChecksumOfChecksums.Checksum, 0, oChecksumOfChecksums.Checksum.Length);
+
+            // =======================================================================
+            // at the end of the file we put a second copy of the most important
+            // metadata, so if the first block of saved info is damaged this doesn't
+            // lead to a total loss of the saved info
+            // =======================================================================
+
+            // since the signature needs to be at pre-defined position we write
+            // the variable parts before it: 1) save the number of blocks in first row
+            ulToWriteBytewise = (ulong)m_aBlocks.Count;
+            for (int i = 7; i >= 0; --i)
+            {
+                byte b = (byte)(ulToWriteBytewise >> 56);
+                ulToWriteBytewise = ulToWriteBytewise * 256;
+                oOutputStream.WriteByte(b);
+            };
+
+            if (m_aOtherBlocks.Count > 0)
+            {
+                // 2) save the number of blocks in second row
+                ulToWriteBytewise = (ulong)m_aOtherBlocks.Count;
+                for (int i = 7; i >= 0; --i)
+                {
+                    byte b = (byte)(ulToWriteBytewise >> 56);
+                    ulToWriteBytewise = ulToWriteBytewise * 256;
+                    oOutputStream.WriteByte(b);
+                };
+            }
+
+            // signature (second time, at the end)
+            oOutputStream.WriteByte((byte)'S');
+            oOutputStream.WriteByte((byte)'y');
+            oOutputStream.WriteByte((byte)'n');
+            oOutputStream.WriteByte((byte)'c');
+            oOutputStream.WriteByte((byte)'F');
+            oOutputStream.WriteByte((byte)'o');
+            oOutputStream.WriteByte((byte)'l');
+            oOutputStream.WriteByte((byte)'d');
+            oOutputStream.WriteByte((byte)'e');
+            oOutputStream.WriteByte((byte)'r');
+            oOutputStream.WriteByte((byte)'s');
+            oOutputStream.WriteByte((byte)' ');
+            oOutputStream.WriteByte((byte)'S');
+            oOutputStream.WriteByte((byte)'a');
+            oOutputStream.WriteByte((byte)'v');
+            oOutputStream.WriteByte((byte)'e');
+            oOutputStream.WriteByte((byte)'d');
+            oOutputStream.WriteByte((byte)' ');
+            oOutputStream.WriteByte((byte)'I');
+            oOutputStream.WriteByte((byte)'n');
+            oOutputStream.WriteByte((byte)'f');
+            oOutputStream.WriteByte((byte)'o');
+            oOutputStream.WriteByte((byte)' ');
+            oOutputStream.WriteByte((byte)'v');
+            oOutputStream.WriteByte((byte)'2');
+            oOutputStream.WriteByte((byte)'.');
+            oOutputStream.WriteByte((byte)'0');
+            oOutputStream.WriteByte(0x1A);
+
+            // save the timestamp of the original file
+            ulToWriteBytewise = (ulong)(m_dtmFileTimestampUtc.Ticks);
+            for (int i = 7; i >= 0; --i)
+            {
+                byte b = (byte)(ulToWriteBytewise >> 56);
+                ulToWriteBytewise = ulToWriteBytewise * 256;
+                oOutputStream.WriteByte(b);
+            };
+
+            // save the length of the original file
+            ulToWriteBytewise = (ulong)m_lFileLength;
+            for (int i = 7; i >= 0; --i)
+            {
+                byte b = (byte)(ulToWriteBytewise >> 56);
+                ulToWriteBytewise = ulToWriteBytewise * 256;
+                oOutputStream.WriteByte(b);
+            };
+
+            // save the number of checksums (shall be same as number
+            // of blocks in original file
+            ulToWriteBytewise = (ulong)m_aChecksums.Count;
+            for (int i = 7; i >= 0; --i)
+            {
+                byte b = (byte)(ulToWriteBytewise >> 56);
+                ulToWriteBytewise = ulToWriteBytewise * 256;
+                oOutputStream.WriteByte(b);
+            };
+
+            // save the number of rows
+            ulToWriteBytewise = m_aOtherBlocks.Count > 0 ? 2ul : 1ul;
+            for (int i = 7; i >= 0; --i)
+            {
+                byte b = (byte)(ulToWriteBytewise >> 56);
+                ulToWriteBytewise = ulToWriteBytewise * 256;
+                oOutputStream.WriteByte(b);
+            };
+
+            // write 0 since there is no additional data in the file at the moment.
+            ulToWriteBytewise = 0ul;
+            for (int i = 7; i >= 0; --i)
+            {
+                byte b = (byte)(ulToWriteBytewise >> 56);
+                ulToWriteBytewise = ulToWriteBytewise * 256;
+                oOutputStream.WriteByte(b);
+            };
+
         }
 
         //===================================================================================================
@@ -590,7 +1290,7 @@ namespace SyncFolders
                 m_aBlocks[(int)(index % m_aBlocks.Count)].DoXor(oBlock);
 
                 // if there is a second row of blocks, then perform also
-                // preparation of oOtherSaveInfo blocks;
+                // preparation of other blocks;
                 if (m_aOtherBlocks.Count > 0)
                     //m_aOtherBlocks[(int)(lBlockIndex % m_aOtherBlocks.Count)] 
                     //   = m_aOtherBlocks[(int)(lBlockIndex % m_aOtherBlocks.Count)] ^ oBlockOfOriginalFile;
@@ -634,7 +1334,7 @@ namespace SyncFolders
                     m_aBlocks[(int)(index % m_aBlocks.Count)].DoXor(oBlock);
 
                 // if there is a second row of blocks, then perform also 
-                // preparation of oOtherSaveInfo blocks;
+                // preparation of other blocks;
                 if (m_aOtherBlocks.Count > 0 && m_aOtherBlocks[(int)(index % m_aOtherBlocks.Count)]!=null)
                     // m_aOtherBlocks[(int)(lBlockIndex % m_aOtherBlocks.Count)] = 
                     // m_aOtherBlocks[(int)(lBlockIndex % m_aOtherBlocks.Count)] ^ oBlockOfOriginalFile;
@@ -712,7 +1412,7 @@ namespace SyncFolders
                 }
 
                 // check integrity of remaining blocks
-                // if there is doubt that oOtherSaveInfo blocks are valid then don't use 
+                // if there is doubt that other blocks are valid then don't use 
                 // the checksum blocks
                 bool bOtherSeemOk = true;
                 for (int i = m_aBlocks.Count - 1; i >= 0; --i)
