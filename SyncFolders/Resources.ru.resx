@@ -190,10 +190,10 @@
     <value>(Файл был новее или больше) </value>
   </data>
   <data name="FillingNotRecoverableAtOffsetOfCopyWithDummy" xml:space="preserve">
-    <value>Невосстанавливаемый блок в позиции {0} скопированного файла «{1}» заполнен пустым</value>
+    <value>Невосстанавливаемый блок в местоположении {0} скопированного файла «{1}» заполнен пустым</value>
   </data>
   <data name="FillingNotRecoverableAtOffsetWithDummy" xml:space="preserve">
-    <value>Невосстанавливаемый блок в позиции {0} заполнен фиктивным блоком.</value>
+    <value>Невосстанавливаемый блок в местоположении {0} заполнен фиктивным блоком.</value>
   </data>
   <data name="FirstFileHasBadBlocks" xml:space="preserve">
     <value>Внимание: первый файл «{0}» содержит сбойные блоки. Перезапись файла «{1}» была пропущена, он остался в качестве резервной копии.</value>
