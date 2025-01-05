@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="label1.Text" xml:space="preserve">
-    <value>SyncFolders v1.4
+    <value>SyncFolders v1.5
 Tekijänoikeus (C) 2024-2025 NataljaNeumann@gmx.de
 
 Tämä ohjelma on ilmainen ohjelmisto; voit jakaa sen uudelleen ja/tai muokata sitä Free Software Foundationin julkaiseman GNU General Public License -lisenssin ehtojen mukaisesti; joko lisenssin versio 2 tai (valinnan mukaan) mikä tahansa myöhempi versio.

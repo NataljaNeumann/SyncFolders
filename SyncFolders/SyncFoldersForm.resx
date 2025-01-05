@@ -328,7 +328,7 @@
     <value>True</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Sync Folders v1.4</value>
+    <value>Sync Folders v1.5</value>
   </data>
   <data name="buttonCancel.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 28</value>
