@@ -1,6 +1,6 @@
-SyncFolders-v1.4/obj/**
-SyncFolders-v1.4/bin/*.zip
-SyncFolders-v1.4/bin/Release/**
-SyncFolders-v1.4/bin/Debug/**
-!SyncFolders-v1.4/bin/Coolpix_2010-08-01_23-57-56.JPG
+SyncFolders/obj/**
+SyncFolders/bin/*.zip
+SyncFolders/bin/Release/**
+SyncFolders/bin/Debug/**
+!SyncFolders/bin/Coolpix_2010-08-01_23-57-56.JPG
 *.suo
