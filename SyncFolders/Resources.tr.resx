@@ -133,7 +133,7 @@
     <value>Kopyalama işlemi tamamlandı: “{0}”'dan “{1}”'ye {2}</value>
   </data>
   <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
-    <value>Uyarı: 1975 veya daha eski bir yıla ait “{0}” dosyası kullanılamadı. Bu, “{1}” dosyasını kurtarmak için bunun son şans olduğunu gösterir.</value>
+    <value>Uyarı: 1975 yılı veya daha eski bir tarihe sahip “{0}” dosyası, “{1}” dosyasını geri yüklemek için kullanılamaz. Bu tür veriler bunun “{0}” dosyasını kurtarmak için son şans olduğunu gösteriyor.</value>
   </data>
   <data name="DefaultCulture" xml:space="preserve">
     <value>no</value>

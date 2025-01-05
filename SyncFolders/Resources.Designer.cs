@@ -124,7 +124,7 @@ namespace SyncFolders {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Warning: couldn&apos;t use outdated file &quot;{0}&quot; with year 1975 or earlier, signaling this was a last chance restore, for restoring &quot;{1}&quot; ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Warning: File &quot;{0}&quot; with year 1975 or earlier could not be used to restore file &quot;{1}&quot;. Such an old date indicates that it was the last chance to recover the file “{0}”. ähnelt.
         /// </summary>
         internal static string CouldntUseOutdatedFileForRestoringOther {
             get {

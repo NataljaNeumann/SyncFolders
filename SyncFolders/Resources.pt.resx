@@ -133,7 +133,7 @@
     <value>Copie o processo “{0}” para “{1}” {2}</value>
   </data>
   <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
-    <value>Atenção: O arquivo "{0}" com ano de 1975 ou anterior não pôde ser utilizado. Isso indica que esta foi a última chance de recuperar o arquivo "{1}". </value>
+    <value>Aviso: O arquivo "{0}" com ano de 1975 ou anterior não pôde ser usado para restaurar o arquivo "{1}". Tais dados indicam que esta foi uma última chance de recuperar o arquivo “{0}”.Aviso: O arquivo "{0}" com ano de 1975 ou anterior não pôde ser usado para restaurar o arquivo "{1}". Tais dados indicam que esta foi uma última chance de recuperar o arquivo “{0}”.</value>
   </data>
   <data name="DefaultCulture" xml:space="preserve">
     <value>No</value>

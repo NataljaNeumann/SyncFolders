@@ -133,7 +133,7 @@
     <value>מעתיק את "{0}" אל "{1}"  {2}</value>
   </data>
   <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
-    <value>אזהרה: לא ניתן היה להשתמש בקובץ המיושן "{0}" עם שנת 1975 או קודם לכן. זה מציין שזו הייתה הזדמנות אחרונה לשחזר את "{1}".</value>
+    <value>אזהרה: לא ניתן היה להשתמש בקובץ "{0}" עם שנת 1975 או קודם לכן לשחזור הקובץ "{1}". תאריך ישן כזה מציין שזו הייתה ההזדמנות האחרונה לשחזר את הקובץ "{0}".</value>
   </data>
   <data name="DefaultCulture" xml:space="preserve">
     <value>no</value>

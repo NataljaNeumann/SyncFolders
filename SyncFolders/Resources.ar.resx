@@ -133,7 +133,7 @@
     <value>انسخ العملية "{0}" إلى "{1}" {2}</value>
   </data>
   <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
-    <value>تحذير: الملف القديم "{0}" الذي يرجع تاريخه إلى عام 1975 أو ما قبله لا يمكن استخدامه. يشير هذا إلى أن هذه كانت الفرصة الأخيرة لاستعادة "{1}".</value>
+    <value>تحذير: لا يمكن استخدام الملف "{0}" الذي يرجع تاريخه إلى عام 1975 أو ما قبله لاستعادة الملف "{1}". يشير هذا التاريخ القديم إلى أنها كانت الفرصة الأخيرة لاستعادة الملف "{0}".</value>
   </data>
   <data name="DefaultCulture" xml:space="preserve">
     <value>no</value>

@@ -133,7 +133,7 @@
     <value>Kopiervorgang „{0}“ nach „{1}“  {2}</value>
   </data>
   <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
-    <value>Warnung: Die Datei „{0}“ mit dem Jahr 1975 oder früher konnte nicht verwendet werden. Dies weist darauf hin, dass es sich um eine letzte Chance zur Wiederherstellung der Datei „{1}“ handelte.</value>
+    <value>Warnung: Die Datei „{0}“ mit dem Jahr 1975 oder früher konnte nicht verwendet werden für Wiederherstellung der Datei „{1}“. Solch ein altes  Datum weist darauf hin, dass es die letzte Chance zur Wiederherstellung der Datei „{0}“ war.</value>
   </data>
   <data name="DefaultCulture" xml:space="preserve">
     <value>No</value>

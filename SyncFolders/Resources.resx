@@ -139,7 +139,7 @@
     <value>Copied "{0}" to "{1}", {2}</value>
   </data>
   <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
-    <value>Warning: couldn't use outdated file "{0}" with year 1975 or earlier, signaling this was a last chance restore, for restoring "{1}"</value>
+    <value>Warning: File "{0}" with year 1975 or earlier could not be used to restore file "{1}". Such an old date indicates that it was the last chance to recover the file “{0}”.</value>
   </data>
   <data name="DefaultCulture" xml:space="preserve">
     <value>yes</value>

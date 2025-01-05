@@ -133,7 +133,7 @@
     <value>Kopiëren voltooid: {0} naar {1} {2}</value>
   </data>
   <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
-    <value>Waarschuwing: bestand '{0}' met jaartal 1975 of eerder kan niet worden gebruikt. Dit geeft aan dat dit een laatste kans was om bestand “{1}” te herstellen.</value>
+    <value>Waarschuwing: bestand “{0}” met jaartal 1975 of eerder kan niet worden gebruikt om bestand “{1}” te herstellen. Dergelijke gegevens geven aan dat dit een laatste kans was om het bestand “{0}” te herstellen.</value>
   </data>
   <data name="DefaultCulture" xml:space="preserve">
     <value>no</value>

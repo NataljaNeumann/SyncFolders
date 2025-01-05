@@ -133,7 +133,7 @@
     <value>“{0}”을 “{1}”에 복사 중  {2}</value>
   </data>
   <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
-    <value>경고: 1975년 이전의 파일 "{0}"을(를) 사용할 수 없습니다. 이는 이번이 "{1}" 파일을 복구할 수 있는 마지막 기회임을 나타냅니다. </value>
+    <value>경고: 1975년 이전의 파일 "{0}"을(를) 사용하여 "{1}" 파일을 복원할 수 없습니다. 이러한 오래된 날짜는 "{0}" 파일을 복원할 수 있는 마지막 기회였음을 나타냅니다.</value>
   </data>
   <data name="DefaultCulture" xml:space="preserve">
     <value>No</value>

@@ -133,7 +133,8 @@
     <value>コピープロセスが完了しました:「{0}」から「{1}」{2}</value>
   </data>
   <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
-    <value>警告: 1975 年以前のファイル 「{0}」 は使用できませんでした。これは、これがファイル 「{1}」 を回復する最後のチャンスであることを示します。</value>
+    <value>警告: 1975 年以前のファイル "{0}" は、ファイル "{1}" の復元に使用できませんでした。
+このような古い日付は、ファイル「{0}」を回復する最後の機会であったことを示しています。</value>
   </data>
   <data name="DefaultCulture" xml:space="preserve">
     <value>no</value>

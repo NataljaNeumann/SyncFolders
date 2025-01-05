@@ -133,7 +133,8 @@
     <value>Processo di copia completato: da “{0}” a “{1}” {2}</value>
   </data>
   <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
-    <value>Avvertimento: non è stato possibile utilizzare il file “{0}” con anno 1975 o precedente. Ciò indica che questa era l'ultima possibilità di recuperare il file “{1}”.</value>
+    <value>Avvertenza: il file "{0}" con anno 1975 o precedente non può essere utilizzato per ripristinare il file "{1}".
+Una data così vecchia indica che era l'ultima possibilità di recuperare il file “{0}”.</value>
   </data>
   <data name="DefaultCulture" xml:space="preserve">
     <value>NO</value>

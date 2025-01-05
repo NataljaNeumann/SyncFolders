@@ -118,22 +118,22 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BlockOfAtPositionWillBeCopiedFromNoMatterChecksum" xml:space="preserve">
-    <value>Блок «{0}» в позиции {1} копируется из «{2}», хотя контрольная сумма указывает на то, что блок неверен.</value>
+    <value>Блок «{0}» в местоположении {1} копируется из «{2}», несмотря на то, что контрольная сумма указывает на то, что блок неверен.</value>
   </data>
   <data name="BlockOfAtPositionWillBeRestoredFrom" xml:space="preserve">
-    <value>Блок «{0}» в позиции {1} восстанавливается из той же позиции файла «{2}».</value>
+    <value>Блок «{0}» в местоположении {1} восстанавливается из той же позиции файла «{2}».</value>
   </data>
   <data name="BlocksOfAndAtPositionNonRecoverableFillDummy" xml:space="preserve">
-    <value>Блоки «{0}» и «{1}» в позиции {2} не могут быть восстановлены и заполнены фиктивным блоком.</value>
+    <value>Блоки «{0}» и «{1}» в местоположении {2} не могут быть восстановлены и поэтому заполнены фиктивным блоком.</value>
   </data>
   <data name="ChecksumOfBlockAtOffsetNotOK" xml:space="preserve">
-    <value>{0}: контрольная сумма блока в позиции {1} не в порядке.</value>
+    <value>{0}: контрольная сумма блока в местоположении {1} не в порядке.</value>
   </data>
   <data name="CopiedFromToReason" xml:space="preserve">
     <value>Копирование «{0}» в «{1}» {2}</value>
   </data>
   <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
-    <value>Предупреждение. Устаревший файл «{0}» 1975 года выпуска или ранее использовать невозможно. Это означает, что это был последний шанс восстановить «{1}».</value>
+    <value>Предупреждение. Файл «{0}» 1975 года или ранее нельзя использовать для восстановления файла «{1}». Такие данные указывают на то, что это был последний шанс восстановить файл «{0}».</value>
   </data>
   <data name="DefaultCulture" xml:space="preserve">
     <value>No</value>
@@ -160,7 +160,7 @@
     <value>Ошибка обработки пары файлов «{0}» | «{1}»: {2}</value>
   </data>
   <data name="ErrorReadingPositionWillFillWithDummy" xml:space="preserve">
-    <value>Ошибка чтения файла «{0}» в позиции {1}: {2}. Блок заполнен манекеном</value>
+    <value>Ошибка чтения файла «{0}» в позиции {1}: {2}. Блок заполнен пустышкой</value>
   </data>
   <data name="ErrorWhileTestingFile" xml:space="preserve">
     <value>Ошибка тестирования файла «{0}»</value>
@@ -178,7 +178,7 @@
     <value>(Файл не содержал ошибок или был восстановлен)</value>
   </data>
   <data name="FilesHaveZeroLength" xml:space="preserve">
-    <value>Предупреждение. Оба файла имеют нулевую длину, что указывает на неудачную операцию копирования в прошлом: «{0}» | «{1}»</value>
+    <value>Предупреждение: Оба файла имеют нулевую длину, что указывает на неудачную операцию копирования в прошлом: «{0}» | «{1}»</value>
   </data>
   <data name="FileWasHealthy" xml:space="preserve">
     <value>(Файл был без ошибок)</value>
@@ -199,22 +199,22 @@
     <value>Внимание: первый файл «{0}» содержит сбойные блоки. Перезапись файла «{1}» была пропущена, он остался в качестве резервной копии.</value>
   </data>
   <data name="FoundFileForSync" xml:space="preserve">
-    <value>Нашел файл для возможной синхронизации</value>
+    <value>Обнаружен один файл для возможной синхронизации</value>
   </data>
   <data name="FoundFilesForSync" xml:space="preserve">
     <value>Обнаружено {0} файлов для возможной синхронизации.</value>
   </data>
   <data name="InternalErrorCouldntRestoreAny" xml:space="preserve">
-    <value>Внутренняя ошибка: не удалось скопировать файлы «{0}» | «{1}» можно восстановить </value>
+    <value>Внутренняя ошибка: не удалось ни скопировать ни восстановить ни одного из файлов «{0}» | «{1}»</value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
     <value>Ошибка ввода-вывода при восстановлении копии в файл: «{0}»: {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
-    <value>Ошибка чтения файла ввода-вывода «{0}»: {1}</value>
+    <value>Ошибка ввода-вывода при чтении файла  «{0}»: {1}</value>
   </data>
   <data name="IOErrorReadingFileOffset" xml:space="preserve">
-    <value>Файл ошибки чтения ввода-вывода: «{0}» в позиции {1}: {2}</value>
+    <value>Ошибка  ввода-вывода при чтении файла: «{0}» в местоположении {1}: {2}</value>
   </data>
   <data name="IOErrorWhileReadingPositionFillDummyWhileCopy" xml:space="preserve">
     <value>Ошибка ввода-вывода при чтении файла «{0}» в местоположении {1}: {2}. При копировании блок заменяется фиктивным.</value>
@@ -223,10 +223,10 @@
     <value>Ошибка ввода-вывода при записи файла «{0}»: {1} </value>
   </data>
   <data name="KeepingReadableButNotRecoverableBlockAtOffset" xml:space="preserve">
-    <value>Читаемый, но невосстанавливаемый блок в позиции {0} остается. Контрольная сумма указывает на то, что блок неверен.</value>
+    <value>Читаемый, но невосстанавливаемый блок в местоположении {0} остается. Контрольная сумма указывает на то, что блок неверен.</value>
   </data>
   <data name="KeepingReadableNonRecovBBlockAtAlsoInCopy" xml:space="preserve">
-    <value>Читаемый, но невосстанавливаемый блок в позиции {0} исходного файла «{1}» также остается в копии «{2}». Контрольная сумма указывает на то, что блок неверен.</value>
+    <value>Читаемый, но невосстанавливаемый блок в местоположении {0} исходного файла «{1}» также остается в копии «{2}». Контрольная сумма указывает на то, что блок неверен.</value>
   </data>
   <data name="LogFileName" xml:space="preserve">
     <value>Журнал синхронизации каталогов на русском языке</value>
@@ -241,7 +241,7 @@
     <value>Процесс прерван</value>
   </data>
   <data name="OperationFinished" xml:space="preserve">
-    <value>Процесс завершен</value>
+    <value>Процесс завершён</value>
   </data>
   <data name="OutOfBadBlocksNotRestoredInCopyBytes" xml:space="preserve">
     <value>Из {0} плохих блоков в исходном файле {2} байт не удалось восстановить в копии «{1}».</value>
@@ -250,10 +250,10 @@
     <value>№</value>
   </data>
   <data name="RecoveringBlockAtOfCopiedFile" xml:space="preserve">
-    <value>Блок в позиции {0} скопированного целевого файла «{1}» восстановлен.</value>
+    <value>Блок в местоположении {0} скопированного целевого файла «{1}» восстановлен.</value>
   </data>
   <data name="RecoveringBlockAtOffsetOfFile" xml:space="preserve">
-    <value>Блок в позиции {0} файла «{1}» восстановлен. </value>
+    <value>Блок в местоположении {0} файла «{1}» восстановлен. </value>
   </data>
   <data name="RightToLeft" xml:space="preserve">
     <value>no</value>
@@ -268,7 +268,7 @@
     <value>Сохраненный информационный файл «{0}» поврежден, и его необходимо воссоздать из «{1}».</value>
   </data>
   <data name="SecondFolderNoDelete" xml:space="preserve">
-    <value>Ошибка: вторая папка содержит файл «{0}». Выбранная папка не подходит для опции удаления. Пропустить обработку папки и подпапок</value>
+    <value>Ошибка: вторая папка содержит файл «{0}». Выбранная папка не подходит для опции удаления. Обработка папки и подпапок пропускается</value>
   </data>
   <data name="SkippingFilePairDontDelete" xml:space="preserve">
     <value>Пара файлов «{0}» | «{1}» пропускается. Специальный файл предотвращает использование опции удаления в неправильной корневой папке. </value>
@@ -280,7 +280,7 @@
     <value>В файле «{1}» поврежденных блоков: {0}, невосстановимые части: {2} байт.</value>
   </data>
   <data name="ThereAreBadBlocksInNonRestorableMayRetryLater" xml:space="preserve">
-    <value>В файле «{1}» поврежденных блоков: {0}, невосстановимые части: {2} байт. Процесс не может продолжаться по неустранимой причине. Возможно, повторите попытку позже.</value>
+    <value>В файле «{1}» поврежденных блоков: {0}, невосстановимые части: {2} байт. Процесс не может продолжаться по неустранимой причине. Возможно, попытка будет повторена позже.</value>
   </data>
   <data name="ThereAreBadBlocksNonRestorableCantBeBackup" xml:space="preserve">
     <value>В файле «{1}» поврежденных блоков: {0}, невосстановимые части: {2} байт, файл нельзя использовать в качестве резервной копии. </value>
@@ -313,13 +313,13 @@
     <value>Это смоделированная ошибка ввода-вывода в местоположении {0}.</value>
   </data>
   <data name="WarningChecksumOffsetPrimarySavedInfoIgnored" xml:space="preserve">
-    <value>Внимание: контрольная сумма блока в позиции {0} не соответствует доступным первичным блокам хранимой информации «{1}». Основная сохраненная информация для блока игнорируется.</value>
+    <value>Внимание: контрольная сумма блока в местоположении {0} не соответствует доступным первичным блокам хранимой информации «{1}». Основная сохраненная информация для блока игнорируется.</value>
   </data>
   <data name="WarningChecksumOffsetSecondarySavedInfoIgnored" xml:space="preserve">
-    <value>Внимание: контрольная сумма блока в позиции {0} не соответствует доступным вторичным блокам хранимой информации «{1}». Вторичная сохраненная информация для блока игнорируется.</value>
+    <value>Внимание: контрольная сумма блока в местоположении {0} не соответствует доступным вторичным блокам хранимой информации «{1}». Вторичная сохраненная информация для блока игнорируется.</value>
   </data>
   <data name="WarningCopiedToWithErrors" xml:space="preserve">
-    <value>Внимание: «{0}» было скопировано в «{1}» с ошибками {2}. </value>
+    <value>Внимание: «{0}» был скопирован в «{1}» с ошибками {2}</value>
   </data>
   <data name="WarningIOErrorWhileCopyingToReason" xml:space="preserve">
     <value>Предупреждение: ошибка ввода-вывода при копировании файла «{0}» в «{1}»: {2}</value>

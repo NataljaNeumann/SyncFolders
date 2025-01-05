@@ -133,7 +133,7 @@
     <value>正在将“{0}”复制到“{1}” {2}</value>
   </data>
   <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
-    <value>警告：无法使用 1975 年或更早版本的过时文件“{0}”。这表明这是恢复文件“{1}”的最后机会。 </value>
+    <value>警告：1975 年或更早的文件“{0}”无法用于恢复文件“{1}”。这些数据表明这是恢复文件“{0}”的最后机会。</value>
   </data>
   <data name="DefaultCulture" xml:space="preserve">
     <value>No</value>

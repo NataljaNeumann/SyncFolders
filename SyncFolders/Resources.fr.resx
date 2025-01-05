@@ -133,7 +133,7 @@
     <value>Copie de «{0}» dans «{1}» {2}</value>
   </data>
   <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
-    <value>Avertissement : Le fichier «{0}» avec l'année 1975 ou antérieure n'a pas pu être utilisé. Cela indique qu'il s'agissait d'une dernière chance de récupérer le fichier «{1}».</value>
+    <value>Avertissement : Le fichier «{0}» portant l'année 1975 ou antérieure n'a pas pu être utilisé pour restaurer le fichier «{1}». Une date aussi ancienne indique que c'était la dernière chance de récupérer le fichier «{0}».</value>
   </data>
   <data name="DefaultCulture" xml:space="preserve">
     <value>No</value>
