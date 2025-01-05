@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual C# Express 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyncFolders-v1.4", "SyncFolders\SyncFolders-v1.4.csproj", "{00C2B883-F432-49EE-A6E7-33BAB19C0706}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyncFolders", "SyncFolders\SyncFolders.csproj", "{00C2B883-F432-49EE-A6E7-33BAB19C0706}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
