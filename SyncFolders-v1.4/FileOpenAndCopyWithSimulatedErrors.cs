@@ -190,7 +190,8 @@ namespace SyncFolders
                         return File.Open(strPath, eMode);
                     default:
                         return new FileStreamWithErrors(strPath,
-                            eMode, FileAccess.ReadWrite, FileShare.Read, m_oSimulatedReadErrors[strPathUpper]);
+                            eMode, FileAccess.ReadWrite, FileShare.Read, 
+                            m_oSimulatedReadErrors[strPathUpper]);
                 }
             }
             else
@@ -294,7 +295,8 @@ namespace SyncFolders
             if (m_oSimulatedReadErrors.ContainsKey(strPathUpper))
             {
                 return new FileStreamWithErrors(strPath,
-                    FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read, m_oSimulatedReadErrors[strPathUpper]);
+                    FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read, 
+                    m_oSimulatedReadErrors[strPathUpper]);
             }
             else
             {
