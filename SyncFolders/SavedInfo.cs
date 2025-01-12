@@ -455,7 +455,7 @@ namespace SyncFolders
                 {
                     // version 0
                     bVersion0 = true;
-                    oInputStream.Seek(0, System.IO.SeekOrigin.Begin);
+                    //oInputStream.Seek(0, System.IO.SeekOrigin.Begin);
                     ReadFrom_v0(oInputStream);
                     return;
                 }
