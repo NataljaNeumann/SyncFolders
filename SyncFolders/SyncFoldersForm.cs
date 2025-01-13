@@ -1029,6 +1029,24 @@ namespace SyncFolders
                 ("NonRestorableWithOldSavedInfoBecauseOfFailureAtPos0.dat",
                 "RestoreInfo\\NonRestorableWithOldSavedInfoBecauseOfFailureAtPos0.dat.chk")] = new List<long>(new long[] { 0 });
 
+            //---------------------------------
+            // This file has restorable old saved info
+            // this file is non-restorable with old saved info, because saved info has a read failure at position 0
+            string strPathOfTestFile9 = CreateSelfTestFile(textBoxFirstFolder.Text,
+                "RestorableSavedInfoVersion0.dat", 5, false,
+                dtmTimeForFile, dtmTimeForFile);
+
+            // add simulated read error for the data file
+            oSimulatedReadErrors[strPathOfTestFile9] = new List<long>(new long[] { 4096 });
+
+            // create saved info version 0
+            CreateSavedInfo(strPathOfTestFile9,
+                    strPathOfTestFile9.Replace
+                ("RestorableSavedInfoVersion0.dat",
+                "RestoreInfo\\RestorableSavedInfoVersion0.dat.chk"),
+                0);
+           
+
             // replace default abstraction with error simulation
             m_iFileOpenAndCopyAbstraction = new FileOpenAndCopyWithSimulatedErrors(oSimulatedReadErrors);
 
@@ -3668,6 +3686,25 @@ namespace SyncFolders
             string strPathSavedChkInfoFile
             )
         {
+            return CreateSavedInfo(strPathFile, strPathSavedChkInfoFile, 1);
+        }
+
+
+        //===================================================================================================
+        /// <summary>
+        /// This method reads a file and creates saved info for it.
+        /// </summary>
+        /// <param name="strPathFile">Path of the original file</param>
+        /// <param name="strPathSavedChkInfoFile">The target path for .CHK file</param>
+        /// <param name="nVersion">The version to save supported values: 0, 1</param>
+        /// <returns>true iff the operation succeeded</returns>
+        //===================================================================================================
+        bool CreateSavedInfo(
+            string strPathFile,
+            string strPathSavedChkInfoFile,
+            int nVersion
+            )
+        {
             System.IO.FileInfo finfo = new System.IO.FileInfo(strPathFile);
             SavedInfo si = new SavedInfo(finfo.Length, finfo.LastWriteTimeUtc, false);
             try
@@ -3739,7 +3776,14 @@ namespace SyncFolders
                 using (System.IO.FileStream s = System.IO.File.Create(strPathSavedChkInfoFile, 
                     1024*1024))
                 {
-                    si.SaveTo(s);
+                    if (nVersion == 0)
+                    {
+                        si.SaveTo_v0(s);
+                    }
+                    else
+                    {
+                        si.SaveTo(s);
+                    }
                     s.Close();
                 }
 
