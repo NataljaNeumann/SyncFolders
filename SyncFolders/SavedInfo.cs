@@ -138,9 +138,29 @@ namespace SyncFolders
             if (nMaxBlocks < 1024 * 64 / oTestBlock.Length)
                 nMaxBlocks = 1024 * 64 / oTestBlock.Length;
 
-            // no more blocks than in original file, if the file is small
-            if (nMaxBlocks > (lFileLength + oTestBlock.Length - 1) / oTestBlock.Length)
-                nMaxBlocks = (int)((lFileLength + oTestBlock.Length - 1) / oTestBlock.Length);
+            // no more blocks than half original file, if the file is small
+            if (nMaxBlocks > (lFileLength + oTestBlock.Length - 1) / oTestBlock.Length / 2)
+            {
+                // small release files don't need more than one block
+                if (Program.CreateRelease && lFileLength < 1024 * 1024)
+                {
+                    nMaxBlocks = 1;
+                }
+                else
+                {
+                    // standard: half the size of the original file for small files
+                    nMaxBlocks = Math.Max(1, (int)((lFileLength + oTestBlock.Length - 1) / oTestBlock.Length / 2));
+                }
+            }
+
+            // if we create release and have the source_code.tar there then improve security
+            if (Program.CreateRelease && lFileLength > 1024 * 1024)
+                bForceOtherBlocks = true;
+
+
+            // if file empty then no blocks
+            if (lFileLength == 0)
+                nMaxBlocks = 0;
 
             // fill first row of the blocks
             for (int i = nMaxBlocks - 1; i >= 0; --i)

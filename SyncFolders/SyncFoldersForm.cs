@@ -82,6 +82,14 @@ namespace SyncFolders
         {
             InitializeComponent();
 
+            if (Program.CreateRelease)
+            {
+                textBoxFirstFolder.Text = textBoxSecondFolder.Text = Application.StartupPath;
+                checkBoxFirstToSecond.Checked = false;
+                buttonSync_Click(this, EventArgs.Empty);
+                return;
+            }
+
             // try to create a file in the location of exe file
             string strTempFileName = Application.StartupPath + "test.tmp";
             bool bProgramFiles = strTempFileName.StartsWith("C:\\progra", StringComparison.InvariantCultureIgnoreCase);
@@ -1044,7 +1052,7 @@ namespace SyncFolders
                     strPathOfTestFile9.Replace
                 ("RestorableSavedInfoVersion0.dat",
                 "RestoreInfo\\RestorableSavedInfoVersion0.dat.chk"),
-                0);
+                0, false);
            
 
             // replace default abstraction with error simulation
@@ -1373,10 +1381,18 @@ namespace SyncFolders
                     buttonCancel.Enabled = true;
                     timerUpdateFileDescription.Stop();
 
-                    using (LogDisplayingForm form = new LogDisplayingForm())
+
+                    if (Program.CreateRelease)
                     {
-                        form.textBoxLog.Text = _log.ToString();
-                        form.ShowDialog(this);
+                        Close();
+                    }
+                    else
+                    {
+                        using (LogDisplayingForm form = new LogDisplayingForm())
+                        {
+                            form.textBoxLog.Text = _log.ToString();
+                            form.ShowDialog(this);
+                        }
                     }
 
                     GC.Collect();
@@ -1412,12 +1428,18 @@ namespace SyncFolders
                 timerUpdateFileDescription.Stop();
 
 
-                using (LogDisplayingForm form = new LogDisplayingForm())
+                if (Program.CreateRelease)
                 {
-                    form.textBoxLog.Text = _log.ToString();
-                    form.ShowDialog(this);
+                    Close();
                 }
-
+                else
+                {
+                    using (LogDisplayingForm form = new LogDisplayingForm())
+                    {
+                        form.textBoxLog.Text = _log.ToString();
+                        form.ShowDialog(this);
+                    }
+                }
 
                 GC.Collect();
             }
@@ -3686,7 +3708,7 @@ namespace SyncFolders
             string strPathSavedChkInfoFile
             )
         {
-            return CreateSavedInfo(strPathFile, strPathSavedChkInfoFile, 1);
+            return CreateSavedInfo(strPathFile, strPathSavedChkInfoFile, 1, false);
         }
 
 
@@ -3696,17 +3718,37 @@ namespace SyncFolders
         /// </summary>
         /// <param name="strPathFile">Path of the original file</param>
         /// <param name="strPathSavedChkInfoFile">The target path for .CHK file</param>
-        /// <param name="nVersion">The version to save supported values: 0, 1</param>
+        /// <param name="bForceSecondBlocks">Indicates that a second row of blocks must be created</param>
         /// <returns>true iff the operation succeeded</returns>
         //===================================================================================================
         bool CreateSavedInfo(
             string strPathFile,
             string strPathSavedChkInfoFile,
-            int nVersion
+            bool bForceSecondBlocks
+            )
+        {
+            return CreateSavedInfo(strPathFile, strPathSavedChkInfoFile, 1, bForceSecondBlocks);
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// This method reads a file and creates saved info for it.
+        /// </summary>
+        /// <param name="strPathFile">Path of the original file</param>
+        /// <param name="strPathSavedChkInfoFile">The target path for .CHK file</param>
+        /// <param name="nVersion">The version to save supported values: 0, 1</param>
+        /// <param name="bForceSecondBlocks">Indicates that a second row of blocks must be created</param>
+        /// <returns>true iff the operation succeeded</returns>
+        //===================================================================================================
+        bool CreateSavedInfo(
+            string strPathFile,
+            string strPathSavedChkInfoFile,
+            int nVersion,
+            bool bForceSecondBlocks
             )
         {
             System.IO.FileInfo finfo = new System.IO.FileInfo(strPathFile);
-            SavedInfo si = new SavedInfo(finfo.Length, finfo.LastWriteTimeUtc, false);
+            SavedInfo si = new SavedInfo(finfo.Length, finfo.LastWriteTimeUtc, bForceSecondBlocks);
             try
             {
                 using (System.IO.BufferedStream s =
@@ -4187,6 +4229,10 @@ namespace SyncFolders
             string strPathSavedInfoFile
             )
         {
+            // no need in ".chked" files, if we are creating a release
+            if (Program.CreateRelease)
+                return;
+
             string strPath = strPathSavedInfoFile + "ed";
 
             try

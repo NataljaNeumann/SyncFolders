@@ -34,6 +34,8 @@ namespace SyncFolders
     //*******************************************************************************************************
     static class Program
     {
+        public static readonly bool CreateRelease = System.Environment.CommandLine.EndsWith("-CreateRelease");
+
         //===================================================================================================
         /// <summary>
         /// The main entry point for the application

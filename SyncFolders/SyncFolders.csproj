@@ -738,6 +738,7 @@
   del /F /S /Q ZZ_SOURCE_CODE_ZZ
   rmdir /S /Q ZZ_SOURCE_CODE_ZZ
   del /Q "*.pdb"
+  "$(TargetPath)" -CreateRelease
   tar.exe -a -c -f ..\$(ProjectName).zip *.*
 )</PostBuildEvent>
   </PropertyGroup>
