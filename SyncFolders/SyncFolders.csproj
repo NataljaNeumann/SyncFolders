@@ -732,7 +732,12 @@
   copy /Y "$(ProjectDir)*.cs" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\$(ProjectName)\"
   copy /Y "$(ProjectDir)*.resx" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\$(ProjectName)\"
   copy /Y "$(ProjectDir)*.settings" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\$(ProjectName)\"
+  cd /D "$(TargetDir)ZZ_SOURCE_CODE_ZZ"
+  tar.exe -a -c -f ..\SourceCode.zip *.*
+  rmdir /S /Q SyncFolders
   cd /D "$(TargetDir)"
+  del /F /S /Q ZZ_SOURCE_CODE_ZZ
+  rmdir /S /Q ZZ_SOURCE_CODE_ZZ
   del /Q "*.pdb"
   tar.exe -a -c -f ..\$(ProjectName).zip *.*
 )</PostBuildEvent>
