@@ -698,6 +698,7 @@ namespace SyncFolders
              EventArgs oEventArgs
              )
         {
+
             // replace file abstraction layer with default, as long as we create all the files
             m_iFileOpenAndCopyAbstraction = new FileOpenAndCopyDirectly();
             // but collect simulated errors for later exchange of the file layer

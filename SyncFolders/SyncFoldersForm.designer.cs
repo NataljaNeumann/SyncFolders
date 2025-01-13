@@ -290,7 +290,6 @@ namespace SyncFolders
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.Name = "FormSyncFolders";
-            this.ShowIcon = false;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormSyncFolders_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();

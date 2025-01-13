@@ -68,7 +68,6 @@ namespace SyncFolders
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AboutForm";
-            this.ShowIcon = false;
             this.ResumeLayout(false);
 
         }

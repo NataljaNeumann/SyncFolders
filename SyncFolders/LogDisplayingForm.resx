@@ -125,20 +125,27 @@
   <data name="textBoxLog.Location" type="System.Drawing.Point, System.Drawing">
     <value>1, 0</value>
   </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="textBoxLog.MaxLength" type="System.Int32, mscorlib">
+    <value>1000000</value>
+  </data>
+  <data name="textBoxLog.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
   <data name="textBoxLog.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
     <value>Both</value>
   </data>
   <data name="textBoxLog.Size" type="System.Drawing.Size, System.Drawing">
     <value>1270, 459</value>
   </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>8, 16</value>
+  <data name="textBoxLog.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>1272, 460</value>
+  <data name="textBoxLog.WordWrap" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>LogDisplayingForm</value>
+  <data name="&gt;&gt;textBoxLog.Name" xml:space="preserve">
+    <value>textBoxLog</value>
   </data>
   <data name="&gt;&gt;textBoxLog.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -146,38 +153,54 @@
   <data name="&gt;&gt;textBoxLog.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="textBoxLog.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;textBoxLog.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Log</value>
-  </data>
-  <data name="textBoxLog.Multiline" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="textBoxLog.MaxLength" type="System.Int32, mscorlib">
-    <value>1000000</value>
-  </data>
-  <data name="textBoxLog.WordWrap" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 9.75pt</value>
-  </data>
-  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="&gt;&gt;textBoxLog.Name" xml:space="preserve">
-    <value>textBoxLog</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>8, 16</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>1272, 460</value>
+  </data>
+  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt</value>
+  </data>
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAQEACAAEAAQAwBAAAFgAAACgAAABAAAAAgAAAAAEAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAgV5UAAAAAAP//////////////////////////////////////////////////////////9///////
+        ///j/////////8H/9X//////wP/gP/////8Af+B//////4A/4D//////wB/gf//////gD+A///////AH
+        4H//////+APgP//////8AeA///////4A4D///////wBgf+qqqqqqgCA/wAAAAAAAAH/AAAAAAAAAP8AA
+        AAAAAAB/4AAAAAAAAD/AAAAAAAAAP+iIiIiIgCA///////8AYH///////gDgP//////8AeB////+//gD
+        4D/d//x/8Afgf+D/+D/gD+A/wH/gH8Af4D/g/+AfgD/gP8B/wB8Af+B/4P+Af4D/4D/AfgB/wf/wf8D+
+        Af/j////wHwB//f////g+Af//////8BgB///////4OAP///////AQAAAAAAAf+AAAAAAAAA/wAAAAAAA
+        AH/AAAAAAAAAP8AAAAAAAAB/4IAAAAAAAD/AQBd3V3dXf+DgD///////wHAH///////g+AP//////8B8
+        Af//////wP4A///////AfwB//////+D/gD//////wH/AH//////g/+A//////8B/8D/////////4////
+        //////z/////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////3/////////+P/////////wf/1f//////A/+A//////wB/
+        4H//////gD/gP//////AH+B//////+AP4D//////8Afgf//////4A+A///////wB4D///////gDgP///
+        ////AGB/6qqqqqqAID/AAAAAAAAAf8AAAAAAAAA/wAAAAAAAAH/gAAAAAAAAP8AAAAAAAAA/6IiIiIiA
+        ID///////wBgf//////+AOA///////wB4H////7/+APgP93//H/wB+B/4P/4P+AP4D/Af+AfwB/gP+D/
+        4B+AP+A/wH/AHwB/4H/g/4B/gP/gP8B+AH/B//B/wP4B/+P////AfAH/9////+D4B///////wGAH////
+        ///g4A///////8BAAAAAAAB/4AAAAAAAAD/AAAAAAAAAf8AAAAAAAAA/wAAAAAAAAH/ggAAAAAAAP8BA
+        F3dXd1d/4OAP///////AcAf//////+D4A///////wHwB///////A/gD//////8B/AH//////4P+AP///
+        ///Af8Af/////+D/4D//////wH/wP/////////j//////////P//////////////////////////////
+        //////////////////8=
+</value>
+  </data>
+  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Log</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>LogDisplayingForm</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

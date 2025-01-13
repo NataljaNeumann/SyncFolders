@@ -32,6 +32,7 @@
     <ApplicationVersion>1.4.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <ApplicationIcon>SyncFolders.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,12 +44,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>full</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -730,6 +732,7 @@
   copy /Y "$(ProjectDir)*.csproj" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\$(ProjectName)\"
   copy /Y "$(SolutionDir).gitignore" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\"
   copy /Y "$(ProjectDir)*.cs" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\$(ProjectName)\"
+  copy /Y "$(ProjectDir)*.ico" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\$(ProjectName)\"
   copy /Y "$(ProjectDir)*.resx" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\$(ProjectName)\"
   copy /Y "$(ProjectDir)*.settings" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\$(ProjectName)\"
   cd /D "$(TargetDir)ZZ_SOURCE_CODE_ZZ"
@@ -742,4 +745,8 @@
   tar.exe -a -c -f ..\$(ProjectName).zip *.*
 )</PostBuildEvent>
   </PropertyGroup>
+  <ItemGroup>
+    <Content Include="SyncFolders.ico" />
+    <Content Include="SyncFoldersSmall.ico" />
+  </ItemGroup>
 </Project>
