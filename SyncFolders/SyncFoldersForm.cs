@@ -54,6 +54,7 @@ namespace SyncFolders
         bool _bDeleteInSecond;
         bool _bSkipRecentlyTested = true;
         bool _bIgnoreTimeDifferences;
+        bool m_bForwardFocusToSecondFolder;
 
         Random _randomizeChecked = new Random(DateTime.Now.Millisecond + 1000 
             * (DateTime.Now.Second + 60 * (DateTime.Now.Minute + 60 
@@ -80,12 +81,63 @@ namespace SyncFolders
         public FormSyncFolders()
         {
             InitializeComponent();
+
+            // try to create a file in the location of exe file
+            string strTempFileName = Application.StartupPath + "test.tmp";
+            bool bProgramFiles = strTempFileName.StartsWith("C:\\progra", StringComparison.InvariantCultureIgnoreCase);
+            bool bFolderWritable = false;
+            if (!bProgramFiles)
+            {
+                try
+                {
+                    using (System.IO.FileStream s = System.IO.File.Create(strTempFileName))
+                    {
+                        s.Close();
+                    }
+
+                    bFolderWritable = true;
+
+                    System.IO.File.Delete(strTempFileName);
+                }
+                catch
+                {
+                    // ignore
+                }
+            }
 #if DEBUG
             buttonSelfTest.Visible = true;
             //checkBoxParallel.Visible = true;
 #else
-            textBoxSecondFolder.Text = System.IO.Directory.GetParent(Application.StartupPath).FullName;
+            if (!bProgramFiles)
+            {
+                if (bFolderWritable)
+                    textBoxSecondFolder.Text = System.IO.Directory.GetParent(Application.StartupPath).FullName;
+                else
+                {
+                    textBoxFirstFolder.Text = System.IO.Directory.GetParent(Application.StartupPath).FullName;
+                    checkBoxFirstToSecond.Checked = true;
+                    checkBoxFirstReadonly.Checked = true;
+                    checkBoxParallel.Checked = false;
+                    m_bForwardFocusToSecondFolder = true;
+                }
+            }
 #endif
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// This is executed when first folder text box gets focus
+        /// </summary>
+        /// <param name="sender">Sender object</param>
+        /// <param name="e">Event args</param>
+        //===================================================================================================
+        private void textBoxFirstFolder_Enter(object sender, EventArgs e)
+        {
+            if (m_bForwardFocusToSecondFolder)
+            {
+                m_bForwardFocusToSecondFolder = false;
+                textBoxSecondFolder.Focus();
+            }
         }
 
         //===================================================================================================
@@ -6448,18 +6500,6 @@ namespace SyncFolders
                 }
             }
         }
-
-
-        private void labelProgress_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBoxSkipRecentlyTested_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
 
     }
 }
