@@ -82,167 +82,259 @@ namespace SyncFolders
             // 
             // folderBrowserDialogFolder1
             // 
+            resources.ApplyResources(this.folderBrowserDialogFolder1, "folderBrowserDialogFolder1");
             this.folderBrowserDialogFolder1.HelpRequest += new System.EventHandler(this.folderBrowserDialog1_HelpRequest);
+            // 
+            // folderBrowserDialogFolder2
+            // 
+            resources.ApplyResources(this.folderBrowserDialogFolder2, "folderBrowserDialogFolder2");
             // 
             // labelFolder1
             // 
+            this.labelFolder1.AccessibleDescription = null;
+            this.labelFolder1.AccessibleName = null;
             resources.ApplyResources(this.labelFolder1, "labelFolder1");
+            this.labelFolder1.Font = null;
             this.labelFolder1.Name = "labelFolder1";
             // 
             // textBoxFirstFolder
             // 
+            this.textBoxFirstFolder.AccessibleDescription = null;
+            this.textBoxFirstFolder.AccessibleName = null;
             resources.ApplyResources(this.textBoxFirstFolder, "textBoxFirstFolder");
             this.textBoxFirstFolder.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.textBoxFirstFolder.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystemDirectories;
+            this.textBoxFirstFolder.BackgroundImage = null;
+            this.textBoxFirstFolder.Font = null;
             this.textBoxFirstFolder.Name = "textBoxFirstFolder";
             this.textBoxFirstFolder.TextChanged += new System.EventHandler(this.textBoxFirstFolder_TextChanged);
             this.textBoxFirstFolder.Enter += new System.EventHandler(this.textBoxFirstFolder_Enter);
             // 
             // buttonSelectFirstFolder
             // 
+            this.buttonSelectFirstFolder.AccessibleDescription = null;
+            this.buttonSelectFirstFolder.AccessibleName = null;
             resources.ApplyResources(this.buttonSelectFirstFolder, "buttonSelectFirstFolder");
+            this.buttonSelectFirstFolder.BackgroundImage = null;
+            this.buttonSelectFirstFolder.Font = null;
             this.buttonSelectFirstFolder.Name = "buttonSelectFirstFolder";
             this.buttonSelectFirstFolder.UseVisualStyleBackColor = true;
             this.buttonSelectFirstFolder.Click += new System.EventHandler(this.buttonSelectFirstFolder_Click);
             // 
             // labelSecondFolder
             // 
+            this.labelSecondFolder.AccessibleDescription = null;
+            this.labelSecondFolder.AccessibleName = null;
             resources.ApplyResources(this.labelSecondFolder, "labelSecondFolder");
+            this.labelSecondFolder.Font = null;
             this.labelSecondFolder.Name = "labelSecondFolder";
             // 
             // textBoxSecondFolder
             // 
+            this.textBoxSecondFolder.AccessibleDescription = null;
+            this.textBoxSecondFolder.AccessibleName = null;
             resources.ApplyResources(this.textBoxSecondFolder, "textBoxSecondFolder");
             this.textBoxSecondFolder.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.textBoxSecondFolder.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystemDirectories;
+            this.textBoxSecondFolder.BackgroundImage = null;
+            this.textBoxSecondFolder.Font = null;
             this.textBoxSecondFolder.Name = "textBoxSecondFolder";
             this.textBoxSecondFolder.TextChanged += new System.EventHandler(this.textBoxSecondFolder_TextChanged);
             // 
             // buttonSelectSecondFolder
             // 
+            this.buttonSelectSecondFolder.AccessibleDescription = null;
+            this.buttonSelectSecondFolder.AccessibleName = null;
             resources.ApplyResources(this.buttonSelectSecondFolder, "buttonSelectSecondFolder");
+            this.buttonSelectSecondFolder.BackgroundImage = null;
+            this.buttonSelectSecondFolder.Font = null;
             this.buttonSelectSecondFolder.Name = "buttonSelectSecondFolder";
             this.buttonSelectSecondFolder.UseVisualStyleBackColor = true;
             this.buttonSelectSecondFolder.Click += new System.EventHandler(this.buttonSelectSecondFolder_Click);
             // 
             // checkBoxCreateRestoreInfo
             // 
+            this.checkBoxCreateRestoreInfo.AccessibleDescription = null;
+            this.checkBoxCreateRestoreInfo.AccessibleName = null;
             resources.ApplyResources(this.checkBoxCreateRestoreInfo, "checkBoxCreateRestoreInfo");
+            this.checkBoxCreateRestoreInfo.BackgroundImage = null;
             this.checkBoxCreateRestoreInfo.Checked = true;
             this.checkBoxCreateRestoreInfo.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxCreateRestoreInfo.Font = null;
             this.checkBoxCreateRestoreInfo.Name = "checkBoxCreateRestoreInfo";
             this.checkBoxCreateRestoreInfo.UseVisualStyleBackColor = true;
             // 
             // checkBoxTestAllFiles
             // 
+            this.checkBoxTestAllFiles.AccessibleDescription = null;
+            this.checkBoxTestAllFiles.AccessibleName = null;
             resources.ApplyResources(this.checkBoxTestAllFiles, "checkBoxTestAllFiles");
+            this.checkBoxTestAllFiles.BackgroundImage = null;
+            this.checkBoxTestAllFiles.Font = null;
             this.checkBoxTestAllFiles.Name = "checkBoxTestAllFiles";
             this.checkBoxTestAllFiles.UseVisualStyleBackColor = true;
             this.checkBoxTestAllFiles.CheckedChanged += new System.EventHandler(this.checkBoxTestAllFiles_CheckedChanged);
             // 
             // checkBoxRepairBlockFailures
             // 
+            this.checkBoxRepairBlockFailures.AccessibleDescription = null;
+            this.checkBoxRepairBlockFailures.AccessibleName = null;
             resources.ApplyResources(this.checkBoxRepairBlockFailures, "checkBoxRepairBlockFailures");
+            this.checkBoxRepairBlockFailures.BackgroundImage = null;
             this.checkBoxRepairBlockFailures.Checked = true;
             this.checkBoxRepairBlockFailures.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxRepairBlockFailures.Font = null;
             this.checkBoxRepairBlockFailures.Name = "checkBoxRepairBlockFailures";
             this.checkBoxRepairBlockFailures.UseVisualStyleBackColor = true;
             this.checkBoxRepairBlockFailures.CheckedChanged += new System.EventHandler(this.checkBoxRepairBlockFailures_CheckedChanged);
             // 
             // buttonSync
             // 
+            this.buttonSync.AccessibleDescription = null;
+            this.buttonSync.AccessibleName = null;
             resources.ApplyResources(this.buttonSync, "buttonSync");
+            this.buttonSync.BackgroundImage = null;
+            this.buttonSync.Font = null;
             this.buttonSync.Name = "buttonSync";
             this.buttonSync.UseVisualStyleBackColor = true;
             this.buttonSync.Click += new System.EventHandler(this.buttonSync_Click);
             // 
             // buttonCancel
             // 
+            this.buttonCancel.AccessibleDescription = null;
+            this.buttonCancel.AccessibleName = null;
             resources.ApplyResources(this.buttonCancel, "buttonCancel");
+            this.buttonCancel.BackgroundImage = null;
+            this.buttonCancel.Font = null;
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // progressBar1
             // 
+            this.progressBar1.AccessibleDescription = null;
+            this.progressBar1.AccessibleName = null;
             resources.ApplyResources(this.progressBar1, "progressBar1");
+            this.progressBar1.BackgroundImage = null;
+            this.progressBar1.Font = null;
             this.progressBar1.Name = "progressBar1";
             // 
             // buttonSelfTest
             // 
+            this.buttonSelfTest.AccessibleDescription = null;
+            this.buttonSelfTest.AccessibleName = null;
             resources.ApplyResources(this.buttonSelfTest, "buttonSelfTest");
+            this.buttonSelfTest.BackgroundImage = null;
+            this.buttonSelfTest.Font = null;
             this.buttonSelfTest.Name = "buttonSelfTest";
             this.buttonSelfTest.UseVisualStyleBackColor = true;
             this.buttonSelfTest.Click += new System.EventHandler(this.buttonSelfTest_Click);
             // 
             // checkBoxPreferCopies
             // 
+            this.checkBoxPreferCopies.AccessibleDescription = null;
+            this.checkBoxPreferCopies.AccessibleName = null;
             resources.ApplyResources(this.checkBoxPreferCopies, "checkBoxPreferCopies");
+            this.checkBoxPreferCopies.BackgroundImage = null;
+            this.checkBoxPreferCopies.Font = null;
             this.checkBoxPreferCopies.Name = "checkBoxPreferCopies";
             this.checkBoxPreferCopies.UseVisualStyleBackColor = true;
             // 
             // labelProgress
             // 
+            this.labelProgress.AccessibleDescription = null;
+            this.labelProgress.AccessibleName = null;
             resources.ApplyResources(this.labelProgress, "labelProgress");
             this.labelProgress.AutoEllipsis = true;
+            this.labelProgress.Font = null;
             this.labelProgress.Name = "labelProgress";
             // 
             // checkBoxFirstToSecond
             // 
+            this.checkBoxFirstToSecond.AccessibleDescription = null;
+            this.checkBoxFirstToSecond.AccessibleName = null;
             resources.ApplyResources(this.checkBoxFirstToSecond, "checkBoxFirstToSecond");
+            this.checkBoxFirstToSecond.BackgroundImage = null;
+            this.checkBoxFirstToSecond.Font = null;
             this.checkBoxFirstToSecond.Name = "checkBoxFirstToSecond";
             this.checkBoxFirstToSecond.UseVisualStyleBackColor = true;
             this.checkBoxFirstToSecond.CheckedChanged += new System.EventHandler(this.checkBoxFirstToSecond_CheckedChanged);
             // 
             // checkBoxFirstReadonly
             // 
+            this.checkBoxFirstReadonly.AccessibleDescription = null;
+            this.checkBoxFirstReadonly.AccessibleName = null;
             resources.ApplyResources(this.checkBoxFirstReadonly, "checkBoxFirstReadonly");
+            this.checkBoxFirstReadonly.BackgroundImage = null;
+            this.checkBoxFirstReadonly.Font = null;
             this.checkBoxFirstReadonly.Name = "checkBoxFirstReadonly";
             this.checkBoxFirstReadonly.UseVisualStyleBackColor = true;
             this.checkBoxFirstReadonly.CheckedChanged += new System.EventHandler(this.checkBoxFirstReadonly_CheckedChanged);
             // 
             // checkBoxDeleteFilesInSecond
             // 
+            this.checkBoxDeleteFilesInSecond.AccessibleDescription = null;
+            this.checkBoxDeleteFilesInSecond.AccessibleName = null;
             resources.ApplyResources(this.checkBoxDeleteFilesInSecond, "checkBoxDeleteFilesInSecond");
+            this.checkBoxDeleteFilesInSecond.BackgroundImage = null;
+            this.checkBoxDeleteFilesInSecond.Font = null;
             this.checkBoxDeleteFilesInSecond.Name = "checkBoxDeleteFilesInSecond";
             this.checkBoxDeleteFilesInSecond.UseVisualStyleBackColor = true;
             // 
             // linkLabelAbout
             // 
+            this.linkLabelAbout.AccessibleDescription = null;
+            this.linkLabelAbout.AccessibleName = null;
             resources.ApplyResources(this.linkLabelAbout, "linkLabelAbout");
+            this.linkLabelAbout.Font = null;
             this.linkLabelAbout.Name = "linkLabelAbout";
             this.linkLabelAbout.TabStop = true;
             this.linkLabelAbout.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelAbout_LinkClicked);
             // 
             // linkLabelLicence
             // 
+            this.linkLabelLicence.AccessibleDescription = null;
+            this.linkLabelLicence.AccessibleName = null;
             resources.ApplyResources(this.linkLabelLicence, "linkLabelLicence");
+            this.linkLabelLicence.Font = null;
             this.linkLabelLicence.Name = "linkLabelLicence";
             this.linkLabelLicence.TabStop = true;
             this.linkLabelLicence.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelLicence_LinkClicked);
             // 
             // checkBoxSkipRecentlyTested
             // 
+            this.checkBoxSkipRecentlyTested.AccessibleDescription = null;
+            this.checkBoxSkipRecentlyTested.AccessibleName = null;
             resources.ApplyResources(this.checkBoxSkipRecentlyTested, "checkBoxSkipRecentlyTested");
+            this.checkBoxSkipRecentlyTested.BackgroundImage = null;
             this.checkBoxSkipRecentlyTested.Checked = true;
             this.checkBoxSkipRecentlyTested.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxSkipRecentlyTested.Font = null;
             this.checkBoxSkipRecentlyTested.Name = "checkBoxSkipRecentlyTested";
             this.checkBoxSkipRecentlyTested.UseVisualStyleBackColor = true;
             // 
             // checkBoxParallel
             // 
+            this.checkBoxParallel.AccessibleDescription = null;
+            this.checkBoxParallel.AccessibleName = null;
             resources.ApplyResources(this.checkBoxParallel, "checkBoxParallel");
+            this.checkBoxParallel.BackgroundImage = null;
             this.checkBoxParallel.Checked = true;
             this.checkBoxParallel.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxParallel.Font = null;
             this.checkBoxParallel.Name = "checkBoxParallel";
             this.checkBoxParallel.UseVisualStyleBackColor = true;
             this.checkBoxParallel.CheckedChanged += new System.EventHandler(this.checkBoxParallel_CheckedChanged);
             // 
             // checkBoxSyncMode
             // 
+            this.checkBoxSyncMode.AccessibleDescription = null;
+            this.checkBoxSyncMode.AccessibleName = null;
             resources.ApplyResources(this.checkBoxSyncMode, "checkBoxSyncMode");
+            this.checkBoxSyncMode.BackgroundImage = null;
             this.checkBoxSyncMode.Checked = true;
             this.checkBoxSyncMode.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxSyncMode.Font = null;
             this.checkBoxSyncMode.Name = "checkBoxSyncMode";
             this.checkBoxSyncMode.UseVisualStyleBackColor = true;
             this.checkBoxSyncMode.CheckedChanged += new System.EventHandler(this.checkBoxSyncMode_CheckedChanged);
@@ -254,15 +346,22 @@ namespace SyncFolders
             // 
             // checkBoxIgnoreTime
             // 
+            this.checkBoxIgnoreTime.AccessibleDescription = null;
+            this.checkBoxIgnoreTime.AccessibleName = null;
             resources.ApplyResources(this.checkBoxIgnoreTime, "checkBoxIgnoreTime");
+            this.checkBoxIgnoreTime.BackgroundImage = null;
+            this.checkBoxIgnoreTime.Font = null;
             this.checkBoxIgnoreTime.Name = "checkBoxIgnoreTime";
             this.checkBoxIgnoreTime.UseVisualStyleBackColor = true;
             this.checkBoxIgnoreTime.CheckedChanged += new System.EventHandler(this.checkBoxIgnoreTime_CheckedChanged);
             // 
             // FormSyncFolders
             // 
+            this.AccessibleDescription = null;
+            this.AccessibleName = null;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = null;
             this.Controls.Add(this.checkBoxIgnoreTime);
             this.Controls.Add(this.checkBoxSyncMode);
             this.Controls.Add(this.checkBoxParallel);
