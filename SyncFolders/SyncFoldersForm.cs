@@ -82,6 +82,37 @@ namespace SyncFolders
         {
             InitializeComponent();
 
+            try
+            {
+                string strDesktopIni = System.IO.Path.Combine(Application.StartupPath, "desktop.ini");
+
+                if (System.IO.File.Exists(strDesktopIni))
+                {
+                    System.IO.FileAttributes attr = System.IO.File.GetAttributes(strDesktopIni);
+
+                    System.IO.File.SetAttributes(strDesktopIni,
+                        System.IO.FileAttributes.Hidden | System.IO.FileAttributes.System |
+                        attr
+                        );
+                }
+
+                strDesktopIni = System.IO.Path.Combine(Application.StartupPath, "SyncFolders.ico");
+
+                if (System.IO.File.Exists(strDesktopIni))
+                {
+                    System.IO.FileAttributes attr = System.IO.File.GetAttributes(strDesktopIni);
+
+                    System.IO.File.SetAttributes(strDesktopIni,
+                        System.IO.FileAttributes.Hidden | attr
+                        );
+                }
+            }
+            catch
+            {
+                // ignore
+            }
+
+
             if (Program.CreateRelease)
             {
                 textBoxFirstFolder.Text = textBoxSecondFolder.Text = Application.StartupPath;

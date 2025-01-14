@@ -2,6 +2,7 @@ SyncFolders/obj/**
 SyncFolders/bin/*.zip
 SyncFolders/bin/Release/**
 SyncFolders/bin/Debug/**
+SyncFolders/bin/RestoreInfo/**
 *.user
 !SyncFolders/bin/Coolpix_2010-08-01_23-57-56.JPG
 *.suo

@@ -1,0 +1,6 @@
+[.ShellClassInfo]
+IconResource=SyncFolders.ico,0
+[ViewState]
+Mode=
+Vid=
+FolderType=Generic
