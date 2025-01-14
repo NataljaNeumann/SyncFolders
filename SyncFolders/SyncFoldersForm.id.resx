@@ -219,10 +219,10 @@
     <value>Searah, dari folder pertama ke folder kedua</value>
   </data>
   <data name="checkBoxFirstReadonly.Size" type="System.Drawing.Size, System.Drawing">
-    <value>320, 20</value>
+    <value>308, 20</value>
   </data>
   <data name="checkBoxFirstReadonly.Text" xml:space="preserve">
-    <value>Folder pertama tidak dapat diubah (misalnya CD)</value>
+    <value>Map pertama tidak dapat diubah (misalnya CD)</value>
   </data>
   <data name="checkBoxDeleteFilesInSecond.Size" type="System.Drawing.Size, System.Drawing">
     <value>431, 20</value>
