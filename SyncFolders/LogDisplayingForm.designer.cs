@@ -55,14 +55,21 @@ namespace SyncFolders
             // 
             // textBoxLog
             // 
+            this.textBoxLog.AccessibleDescription = null;
+            this.textBoxLog.AccessibleName = null;
             resources.ApplyResources(this.textBoxLog, "textBoxLog");
+            this.textBoxLog.BackgroundImage = null;
+            this.textBoxLog.Font = null;
             this.textBoxLog.Name = "textBoxLog";
             this.textBoxLog.ReadOnly = true;
             // 
             // LogDisplayingForm
             // 
+            this.AccessibleDescription = null;
+            this.AccessibleName = null;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = null;
             this.Controls.Add(this.textBoxLog);
             this.Name = "LogDisplayingForm";
             this.VisibleChanged += new System.EventHandler(this.LogDisplayingForm_VisibleChanged);
