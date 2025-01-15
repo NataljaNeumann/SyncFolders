@@ -237,6 +237,81 @@ namespace SyncFolders
                     // ignore
                 }
             }
+
+            // decide, if we need to init with parent folder
+            int nFoundLocalizationSubdirs = 0;
+            try
+            {
+                Dictionary<string, bool> oLocalizationSubdirs = new Dictionary<string, bool>();
+                oLocalizationSubdirs["tr"] = true;
+                oLocalizationSubdirs["uk"] = true;
+                oLocalizationSubdirs["uz"] = true;
+                oLocalizationSubdirs["vi"] = true;
+                oLocalizationSubdirs["zh-CHS"] = true;
+                oLocalizationSubdirs["zh-CHT"] = true;
+                oLocalizationSubdirs["af"] = true;
+                oLocalizationSubdirs["ar"] = true;
+                oLocalizationSubdirs["az"] = true;
+                oLocalizationSubdirs["be-BY"] = true;
+                oLocalizationSubdirs["bg"] = true;
+                oLocalizationSubdirs["bs-Latn-BA"] = true;
+                oLocalizationSubdirs["ca"] = true;
+                oLocalizationSubdirs["cs"] = true;
+                oLocalizationSubdirs["da"] = true;
+                oLocalizationSubdirs["de"] = true;
+                oLocalizationSubdirs["el"] = true;
+                oLocalizationSubdirs["es"] = true;
+                oLocalizationSubdirs["et"] = true;
+                oLocalizationSubdirs["fa"] = true;
+                oLocalizationSubdirs["fi"] = true;
+                oLocalizationSubdirs["fr"] = true;
+                oLocalizationSubdirs["he"] = true;
+                oLocalizationSubdirs["hi"] = true;
+                oLocalizationSubdirs["hu"] = true;
+                oLocalizationSubdirs["hy"] = true;
+                oLocalizationSubdirs["id"] = true;
+                oLocalizationSubdirs["id-ID"] = true;
+                oLocalizationSubdirs["is"] = true;
+                oLocalizationSubdirs["it"] = true;
+                oLocalizationSubdirs["ja"] = true;
+                oLocalizationSubdirs["ka"] = true;
+                oLocalizationSubdirs["kk"] = true;
+                oLocalizationSubdirs["km-KH"] = true;
+                oLocalizationSubdirs["ko"] = true;
+                oLocalizationSubdirs["ky-KG"] = true;
+                oLocalizationSubdirs["la-001"] = true;
+                oLocalizationSubdirs["lt"] = true;
+                oLocalizationSubdirs["lv"] = true;
+                oLocalizationSubdirs["ms"] = true;
+                oLocalizationSubdirs["nl"] = true;
+                oLocalizationSubdirs["no"] = true;
+                oLocalizationSubdirs["pa-Arab-PK"] = true;
+                oLocalizationSubdirs["pa-IN"] = true;
+                oLocalizationSubdirs["pl"] = true;
+                oLocalizationSubdirs["ps-AF"] = true;
+                oLocalizationSubdirs["pt"] = true;
+                oLocalizationSubdirs["RestoreInfo"] = true;
+                oLocalizationSubdirs["ro"] = true;
+                oLocalizationSubdirs["ru"] = true;
+                oLocalizationSubdirs["sa"] = true;
+                oLocalizationSubdirs["sk"] = true;
+                oLocalizationSubdirs["sl"] = true;
+                oLocalizationSubdirs["sr"] = true;
+                oLocalizationSubdirs["sv"] = true;
+                oLocalizationSubdirs["tg-Cyrl-TJ"] = true;
+                oLocalizationSubdirs["th"] = true;
+
+                foreach (string strSubdir in System.IO.Directory.GetDirectories(Application.StartupPath))
+                {
+                    if (oLocalizationSubdirs.ContainsKey(strSubdir.Substring(strSubdir.LastIndexOf('\\') + 1)))
+                        ++nFoundLocalizationSubdirs;
+                }
+            }
+            catch
+            {
+                // ignore
+            }
+
 #if DEBUG
             buttonSelfTest.Visible = true;
             //checkBoxParallel.Visible = true;
@@ -244,10 +319,19 @@ namespace SyncFolders
             if (!bProgramFiles)
             {
                 if (bFolderWritable)
-                    m_tbxSecondFolder.Text = System.IO.Directory.GetParent(Application.StartupPath).FullName;
+                {
+                    m_tbxSecondFolder.Text = 
+                        nFoundLocalizationSubdirs>2?
+                            System.IO.Directory.GetParent(Application.StartupPath).FullName:
+                            Application.StartupPath;
+                }
                 else
                 {
-                    m_tbxFirstFolder.Text = System.IO.Directory.GetParent(Application.StartupPath).FullName;
+                    m_tbxFirstFolder.Text = 
+                        nFoundLocalizationSubdirs>2?
+                            System.IO.Directory.GetParent(Application.StartupPath).FullName:
+                            Application.StartupPath;
+
                     m_cbFirstToSecond.Checked = true;
                     m_cbFirstReadonly.Checked = true;
                     m_cbParallel.Checked = false;
