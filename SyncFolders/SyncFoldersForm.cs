@@ -1208,7 +1208,7 @@ namespace SyncFolders
             //---------------------------------
             // recreate .chk file
             string strPathOfTestFile6 = CreateSelfTestFile(m_tbxFirstFolder.Text,
-                "RecreeateChkFile.dat", 5, true,
+                "RecreeateChkFile.dat", 10, true,
                 dtmTimeForFile, dtmTimeForFile);
 
             // add simulated read errors for the chk file
@@ -1219,7 +1219,7 @@ namespace SyncFolders
             //---------------------------------
             // recreate two .chk files
             string strPathOfTestFile7 = CreateSelfTestFile(m_tbxFirstFolder.Text,
-                "Recreeate2ChkFiles.dat", 5, true,
+                "Recreeate2ChkFiles.dat", 10, true,
                 dtmTimeForFile, dtmTimeForFile);
 
             // add simulated read errors for the chk files
@@ -1227,7 +1227,7 @@ namespace SyncFolders
                 ("Recreeate2ChkFiles.dat", "RestoreInfo\\Recreeate2ChkFiles.dat.chk")] = new List<long>(new long[] { 8192 });
 
             strPathOfTestFile7 = CreateSelfTestFile(m_tbxSecondFolder.Text,
-                            "Recreeate2ChkFiles.dat", 5, true,
+                            "Recreeate2ChkFiles.dat", 10, true,
                             dtmTimeForFile, dtmTimeForFile);
 
             // add simulated read errors for the chk files
@@ -1237,6 +1237,7 @@ namespace SyncFolders
             
             //---------------------------------
             // this file is non-restorable with old saved info, because saved info has a read failure at position 0
+            // it is restorable with new saved info
             string strPathOfTestFile8 = CreateSelfTestFile(m_tbxFirstFolder.Text,
                 "NonRestorableWithOldSavedInfoBecauseOfFailureAtPos0.dat", 5, true,
                 dtmTimeForFile, dtmTimeForFile);
@@ -1252,7 +1253,7 @@ namespace SyncFolders
             // This file has restorable old saved info
             // this file is non-restorable with old saved info, because saved info has a read failure at position 0
             string strPathOfTestFile9 = CreateSelfTestFile(m_tbxFirstFolder.Text,
-                "RestorableSavedInfoVersion0.dat", 5, false,
+                "RestorableSavedInfoVersion0.dat", 10, false,
                 dtmTimeForFile, dtmTimeForFile);
 
             // add simulated read error for the data file
@@ -3518,7 +3519,7 @@ namespace SyncFolders
                     {
                         CopyRepairSingleFile(strFilePath1, strFilePath2, fiSavedInfo2.FullName,
                             ref bForceCreateInfo2, ref bForceCreateInfo1, 
-                            "(file was healthy)", Resources.FileWasHealthy, true, true);
+                            "(file was healthy or repaired)", Resources.FileHealthyOrRepaired, true, true);
                     }
                     catch (Exception)
                     {
