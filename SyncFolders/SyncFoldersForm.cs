@@ -31,7 +31,7 @@ namespace SyncFolders
 {
     //*******************************************************************************************************
     /// <summary>
-    /// This is the main form of the application. It also implements the logic of checking the files
+    /// This is the main oForm of the application. It also implements the logic of checking the files
     /// and decisions, how to proceed with them
     /// </summary>
     //*******************************************************************************************************
@@ -39,38 +39,132 @@ namespace SyncFolders
         Form, 
         ILogWriter
     {
-        bool _cancelClicked;
-        string _folder1;
-        string _folder2;
-        bool _bCreateInfo;
-        bool _bTestFiles;
-        bool _bRepairFiles;
-        bool _bPreferPhysicalCopies;
-        bool _bWorking;
+        //===================================================================================================
+        // Static variables
+        //===================================================================================================
+        static int s_nMaxParallelCopies =
+            Math.Max(System.Environment.ProcessorCount * 5 / 8, 2);
+        static int s_nMaxParallelThreads =
+            System.Environment.ProcessorCount * 3 / 2;
 
-        bool _bFirstToSecond;
-        bool _bFirstReadOnly;
-        bool _syncMode;
-        bool _bDeleteInSecond;
-        bool _bSkipRecentlyTested = true;
-        bool _bIgnoreTimeDifferences;
+        //===================================================================================================
+        // Member variables
+        //===================================================================================================
+        /// <summary>
+        /// True iff the synchronization process is running
+        /// </summary>
+        bool m_bWorking;
+        /// <summary>
+        /// Indicates that user cliecked the cancel button
+        /// </summary>
+        bool m_bCancelClicked;
+        /// <summary>
+        /// First folder from GUI textbox
+        /// </summary>
+        string m_strFolder1;
+        /// <summary>
+        /// Second folder from GUI textbox
+        /// </summary>
+        string m_strFolder2;
+        /// <summary>
+        /// Create saved info from GUI checkbox
+        /// </summary>
+        bool m_bCreateInfo;
+        /// <summary>
+        /// Test readability of all files from GUI checkbox
+        /// </summary>
+        bool m_bTestFiles;
+        /// <summary>
+        /// Repair single block failures from GUI checkbox
+        /// </summary>
+        bool m_bRepairFiles;
+        /// <summary>
+        /// Prefer physical copies in case of error, from GUI checkbox
+        /// </summary>
+        bool m_bPreferPhysicalCopies;
+        /// <summary>
+        /// Unidirectionally, from first to second, from GUI checkbox
+        /// </summary>
+        bool m_bFirstToSecond;
+        /// <summary>
+        /// First folder can't be written to, e.g CD. From GUI checkbox
+        /// </summary>
+        bool m_bFirstReadOnly;
+        /// <summary>
+        /// Sync mode from GUI checkbox. Makes only sence, if first to second checked, too
+        /// </summary>
+        bool m_bFirstToSecondSyncMode;
+        /// <summary>
+        /// Delete files in second that aren't present in first.
+        /// Makes only sence, if first to second checked, too.
+        /// </summary>
+        bool m_bFirstToSecondDeleteInSecond;
+        /// <summary>
+        /// Skip test of recently tested files.
+        /// Makes only sence, if test files has been checked, too.
+        /// </summary>
+        bool m_bTestFilesSkipRecentlyTested = true;
+        /// <summary>
+        /// Ignore time difference between file and checksum.
+        /// May be useful in case there are problems with times in filesystem.
+        /// </summary>
+        bool m_bIgnoreTimeDifferencesBetweenDataAndSaveInfo;
+        /// <summary>
+        /// If the application starts from a CD then we fill the first directory and forward
+        /// focus to second directory textbox
+        /// </summary>
         bool m_bForwardFocusToSecondFolder;
 
-        Random _randomizeChecked = new Random(DateTime.Now.Millisecond + 1000 
+        /// <summary>
+        /// Found file pairs for possible synchronization
+        /// </summary>
+        List<KeyValuePair<string, string>> m_aFilePairs;
+        /// <summary>
+        /// This is used for randomization of recently tested files
+        /// </summary>
+        Random m_oRandomForRecentlyChecked = new Random(DateTime.Now.Millisecond + 1000 
             * (DateTime.Now.Second + 60 * (DateTime.Now.Minute + 60 
             * (DateTime.Now.Hour + 24 * DateTime.Now.DayOfYear))));
+        /// <summary>
+        /// This is the index of currently processed file (the last one)
+        /// </summary>
+        volatile int m_nCurrentFile;
+        /// <summary>
+        /// This is the path of currently processed file (the last one)
+        /// </summary>
+        volatile string m_strCurrentPath;
+        /// <summary>
+        /// This is sometimes used for chck file creation
+        /// </summary>
+        volatile int m_nDummyCounter;
+        /// <summary>
+        /// This is used for changing order of tests in different threads.
+        /// One tests first file first, the next tests the second file first,
+        /// so we reduce the competition on drives and use both drives more efficiently
+        /// </summary>
+        volatile bool m_bRandomOrder;
 
-        static int _maxParallelCopies = 
-            Math.Max(System.Environment.ProcessorCount * 5 / 8, 2);
-        static int _maxParallelThreads = 
-            System.Environment.ProcessorCount * 3/2;
-        System.Threading.Semaphore _copyFiles = 
-            new System.Threading.Semaphore(_maxParallelCopies, _maxParallelCopies);
-        System.Threading.Semaphore _parallelThreads = 
-            new System.Threading.Semaphore(_maxParallelThreads, _maxParallelThreads);
-        System.Threading.Semaphore _hugeReads = 
+
+
+        /// <summary>
+        /// Semaphore for copy file operations
+        /// </summary>
+        System.Threading.Semaphore m_oSemaphoreCopyFiles = 
+            new System.Threading.Semaphore(s_nMaxParallelCopies, s_nMaxParallelCopies);
+        /// <summary>
+        /// Semaphore for parallel threads
+        /// </summary>
+        System.Threading.Semaphore m_oSemaphoreParallelThreads = 
+            new System.Threading.Semaphore(s_nMaxParallelThreads, s_nMaxParallelThreads);
+        /// <summary>
+        /// Semaphore for huge reads
+        /// </summary>
+        System.Threading.Semaphore m_oSemaphoreHugeReads = 
             new System.Threading.Semaphore(1, 1);
 
+        /// <summary>
+        /// This is used to simulate read errors in self-test
+        /// </summary>
         IFileOpenAndCopyAbstraction m_iFileOpenAndCopyAbstraction = new FileOpenAndCopyDirectly();
 
         //===================================================================================================
@@ -115,8 +209,8 @@ namespace SyncFolders
 
             if (Program.CreateRelease)
             {
-                textBoxFirstFolder.Text = textBoxSecondFolder.Text = Application.StartupPath;
-                checkBoxFirstToSecond.Checked = false;
+                m_tbxFirstFolder.Text = m_tbxSecondFolder.Text = Application.StartupPath;
+                m_cbFirstToSecond.Checked = false;
                 buttonSync_Click(this, EventArgs.Empty);
                 return;
             }
@@ -150,13 +244,13 @@ namespace SyncFolders
             if (!bProgramFiles)
             {
                 if (bFolderWritable)
-                    textBoxSecondFolder.Text = System.IO.Directory.GetParent(Application.StartupPath).FullName;
+                    m_tbxSecondFolder.Text = System.IO.Directory.GetParent(Application.StartupPath).FullName;
                 else
                 {
-                    textBoxFirstFolder.Text = System.IO.Directory.GetParent(Application.StartupPath).FullName;
-                    checkBoxFirstToSecond.Checked = true;
-                    checkBoxFirstReadonly.Checked = true;
-                    checkBoxParallel.Checked = false;
+                    m_tbxFirstFolder.Text = System.IO.Directory.GetParent(Application.StartupPath).FullName;
+                    m_cbFirstToSecond.Checked = true;
+                    m_cbFirstReadonly.Checked = true;
+                    m_cbParallel.Checked = false;
                     m_bForwardFocusToSecondFolder = true;
                 }
             }
@@ -175,7 +269,7 @@ namespace SyncFolders
             if (m_bForwardFocusToSecondFolder)
             {
                 m_bForwardFocusToSecondFolder = false;
-                textBoxSecondFolder.Focus();
+                m_tbxSecondFolder.Focus();
             }
         }
 
@@ -234,10 +328,10 @@ namespace SyncFolders
             object oSender, 
             EventArgs oEventArgs)
         {
-            checkBoxRepairBlockFailures.Enabled = checkBoxTestAllFiles.Checked;
-            checkBoxPreferCopies.Enabled = checkBoxTestAllFiles.Checked && 
-                checkBoxRepairBlockFailures.Checked;
-            checkBoxSkipRecentlyTested.Enabled = checkBoxTestAllFiles.Checked;
+            m_cbRepairBlockFailures.Enabled = m_cbTestAllFiles.Checked;
+            m_cbPreferCopies.Enabled = m_cbTestAllFiles.Checked && 
+                m_cbRepairBlockFailures.Checked;
+            m_cbSkipRecentlyTested.Enabled = m_cbTestAllFiles.Checked;
         }
 
         //===================================================================================================
@@ -251,12 +345,12 @@ namespace SyncFolders
             object oSender, 
             EventArgs oEventArgs)
         {
-            if (!string.IsNullOrEmpty(textBoxFirstFolder.Text))
-                folderBrowserDialogFolder1.SelectedPath = textBoxFirstFolder.Text;
+            if (!string.IsNullOrEmpty(m_tbxFirstFolder.Text))
+                folderBrowserDialogFolder1.SelectedPath = m_tbxFirstFolder.Text;
 
             if (folderBrowserDialogFolder1.ShowDialog() == DialogResult.OK)
             {
-                textBoxFirstFolder.Text = folderBrowserDialogFolder1.SelectedPath;
+                m_tbxFirstFolder.Text = folderBrowserDialogFolder1.SelectedPath;
             }
         }
 
@@ -271,12 +365,12 @@ namespace SyncFolders
             object oSender, 
             EventArgs oEventArgs)
         {
-            if (!string.IsNullOrEmpty(textBoxSecondFolder.Text))
-                folderBrowserDialogFolder2.SelectedPath = textBoxSecondFolder.Text;
+            if (!string.IsNullOrEmpty(m_tbxSecondFolder.Text))
+                folderBrowserDialogFolder2.SelectedPath = m_tbxSecondFolder.Text;
 
             if (folderBrowserDialogFolder2.ShowDialog() == DialogResult.OK)
             {
-                textBoxSecondFolder.Text = folderBrowserDialogFolder2.SelectedPath;
+                m_tbxSecondFolder.Text = folderBrowserDialogFolder2.SelectedPath;
             }
         }
 
@@ -292,24 +386,24 @@ namespace SyncFolders
             EventArgs oEventArgs)
         {
 
-            _folder1 = textBoxFirstFolder.Text;
-            _folder2 = textBoxSecondFolder.Text;
-            _bCreateInfo = checkBoxCreateRestoreInfo.Checked;
-            _bTestFiles = checkBoxTestAllFiles.Checked;
-            _bRepairFiles = checkBoxRepairBlockFailures.Checked;
-            _bPreferPhysicalCopies = checkBoxPreferCopies.Checked;
-            _bFirstToSecond = checkBoxFirstToSecond.Checked;
-            _bFirstReadOnly = checkBoxFirstReadonly.Checked;
-            _bDeleteInSecond = checkBoxDeleteFilesInSecond.Checked;
-            _bSkipRecentlyTested = !_bTestFiles || checkBoxSkipRecentlyTested.Checked;
-            _bIgnoreTimeDifferences = checkBoxIgnoreTime.Checked;
-            _syncMode = checkBoxSyncMode.Checked;
+            m_strFolder1 = m_tbxFirstFolder.Text;
+            m_strFolder2 = m_tbxSecondFolder.Text;
+            m_bCreateInfo = m_cbCreateRestoreInfo.Checked;
+            m_bTestFiles = m_cbTestAllFiles.Checked;
+            m_bRepairFiles = m_cbRepairBlockFailures.Checked;
+            m_bPreferPhysicalCopies = m_cbPreferCopies.Checked;
+            m_bFirstToSecond = m_cbFirstToSecond.Checked;
+            m_bFirstReadOnly = m_cbFirstReadonly.Checked;
+            m_bFirstToSecondDeleteInSecond = m_cbDeleteFilesInSecond.Checked;
+            m_bTestFilesSkipRecentlyTested = !m_bTestFiles || m_cbSkipRecentlyTested.Checked;
+            m_bIgnoreTimeDifferencesBetweenDataAndSaveInfo = m_cbIgnoreTime.Checked;
+            m_bFirstToSecondSyncMode = m_cbSyncMode.Checked;
 
-            if (_bFirstToSecond && _bDeleteInSecond)
+            if (m_bFirstToSecond && m_bFirstToSecondDeleteInSecond)
             {
                 System.IO.FileInfo fiDontDelete = 
                     new System.IO.FileInfo(System.IO.Path.Combine(
-                        _folder2, "SyncFolders-Dont-Delete.txt"));
+                        m_strFolder2, "SyncFolders-Dont-Delete.txt"));
                 if (fiDontDelete.Exists)
                 {
                     System.Windows.Forms.MessageBox.Show(this, 
@@ -320,7 +414,7 @@ namespace SyncFolders
                 }
                 fiDontDelete = 
                     new System.IO.FileInfo(System.IO.Path.Combine(
-                        _folder2, "SyncFolders-Don't-Delete.txt"));
+                        m_strFolder2, "SyncFolders-Don't-Delete.txt"));
                 if (fiDontDelete.Exists)
                 {
                     System.Windows.Forms.MessageBox.Show(this, 
@@ -331,121 +425,123 @@ namespace SyncFolders
                 }
             }
 
-            buttonSync.Visible = false;
-            progressBar1.Minimum = 0;
-            progressBar1.Maximum = 100;
-            progressBar1.Value = 0;
-            progressBar1.Visible = true;
-            labelFolder1.Enabled = false;
-            labelSecondFolder.Enabled = false;
-            linkLabelAbout.Visible = false;
-            linkLabelLicence.Visible = false;
-            textBoxFirstFolder.Enabled = false;
-            textBoxSecondFolder.Enabled = false;
-            buttonSelectFirstFolder.Enabled = false;
-            buttonSelectSecondFolder.Enabled = false;
-            checkBoxCreateRestoreInfo.Enabled = false;
-            checkBoxTestAllFiles.Enabled = false;
-            checkBoxRepairBlockFailures.Enabled = false;
-            checkBoxPreferCopies.Visible = false;
-            checkBoxFirstToSecond.Enabled = false;
-            checkBoxFirstReadonly.Enabled = false;
-            checkBoxIgnoreTime.Enabled = false;
-            checkBoxDeleteFilesInSecond.Enabled = false;
-            checkBoxSkipRecentlyTested.Enabled = false;
-            checkBoxSyncMode.Enabled = false;
-            labelProgress.Visible = true;
-            checkBoxParallel.Enabled = false;
+            m_btnSync.Visible = false;
+            m_ctlProgressBar.Minimum = 0;
+            m_ctlProgressBar.Maximum = 100;
+            m_ctlProgressBar.Value = 0;
+            m_ctlProgressBar.Visible = true;
+            m_lblFolder1.Enabled = false;
+            m_lblSecondFolder.Enabled = false;
+            m_lblAbout.Visible = false;
+            m_lblLicence.Visible = false;
+            m_tbxFirstFolder.Enabled = false;
+            m_tbxSecondFolder.Enabled = false;
+            m_btnSelectFirstFolder.Enabled = false;
+            m_btnSelectSecondFolder.Enabled = false;
+            m_cbCreateRestoreInfo.Enabled = false;
+            m_cbTestAllFiles.Enabled = false;
+            m_cbRepairBlockFailures.Enabled = false;
+            m_cbPreferCopies.Visible = false;
+            m_cbFirstToSecond.Enabled = false;
+            m_cbFirstReadonly.Enabled = false;
+            m_cbIgnoreTime.Enabled = false;
+            m_cbDeleteFilesInSecond.Enabled = false;
+            m_cbSkipRecentlyTested.Enabled = false;
+            m_cbSyncMode.Enabled = false;
+            m_lblProgress.Visible = true;
+            m_cbParallel.Enabled = false;
 
-            _currentFile = 0;
-            _currentPath = null;
-            timerUpdateFileDescription.Start();
-
-
+            m_nCurrentFile = 0;
+            m_strCurrentPath = null;
+            m_oTimerUpdateFileDescription.Start();
 
 
-            _cancelClicked = false;
-            _log = new StringBuilder();
-            _logFile = new System.IO.StreamWriter(
+
+
+            m_bCancelClicked = false;
+            m_strLogToShow = new StringBuilder();
+            m_oLogFile = new System.IO.StreamWriter(
                 System.IO.Path.Combine(
                 System.Environment.GetFolderPath(
                 Environment.SpecialFolder.MyDocuments), 
                 "SyncFoldersLog.txt"), true, Encoding.UTF8);
-            _logFileLocalized = new System.IO.StreamWriter(
+            m_oLogFileLocalized = new System.IO.StreamWriter(
                 System.IO.Path.Combine(
                 System.Environment.GetFolderPath(
                 Environment.SpecialFolder.MyDocuments),
                 Resources.LogFileName+".txt"), true, Encoding.UTF8);
 
-            _logFile.WriteLine("\r\n\r\n\r\n\r\n");
-            _logFileLocalized.WriteLine("\r\n\r\n\r\n\r\n");
+            m_oLogFile.WriteLine("\r\n\r\n\r\n\r\n");
+            m_oLogFileLocalized.WriteLine("\r\n\r\n\r\n\r\n");
 
             // left to right or right to left
             if (Resources.RightToLeft.Equals("yes"))
-                _logFileLocalized.Write((char)0x200F);
+                m_oLogFileLocalized.Write((char)0x200F);
             else
-                _logFileLocalized.Write((char)0x200E);
+                m_oLogFileLocalized.Write((char)0x200E);
 
  
-            _logFile.WriteLine("     First2Second: " + (_bFirstToSecond ? "yes" : "no"));
-            _logFileLocalized.WriteLine(checkBoxFirstToSecond.Text + ": " + (_bFirstToSecond ? Resources.Yes : Resources.No));
-            if (_bFirstToSecond)
+            m_oLogFile.WriteLine("     First2Second: " + (m_bFirstToSecond ? "yes" : "no"));
+            m_oLogFileLocalized.WriteLine(m_cbFirstToSecond.Text + ": " + (m_bFirstToSecond ? Resources.Yes : Resources.No));
+            if (m_bFirstToSecond)
             {
-                _logFile.WriteLine("         SyncMode: " + (_syncMode ? "yes" : "no"));
-                _logFile.WriteLine("    FirstReadOnly: " + (_bFirstReadOnly ? "yes" : "no"));
-                _logFile.WriteLine("   DeleteInSecond: " + (_bDeleteInSecond ? "yes" : "no"));
+                m_oLogFile.WriteLine("         SyncMode: " + (m_bFirstToSecondSyncMode ? "yes" : "no"));
+                m_oLogFile.WriteLine("    FirstReadOnly: " + (m_bFirstReadOnly ? "yes" : "no"));
+                m_oLogFile.WriteLine("   DeleteInSecond: " + (m_bFirstToSecondDeleteInSecond ? "yes" : "no"));
 
-                _logFileLocalized.WriteLine(checkBoxFirstToSecond.Text + ":" + (_bFirstToSecond ? Resources.Yes : Resources.No));
-                _logFile.WriteLine(checkBoxSyncMode.Text + ": " + (_syncMode ? Resources.Yes : Resources.No));
-                _logFile.WriteLine(checkBoxFirstReadonly + ": " + (_bFirstReadOnly ? Resources.Yes : Resources.No));
-                _logFile.WriteLine(checkBoxDeleteFilesInSecond.Text + ": " + (_bDeleteInSecond ? Resources.Yes : Resources.No));
+                m_oLogFileLocalized.WriteLine(m_cbFirstToSecond.Text + ":" + (m_bFirstToSecond ? Resources.Yes : Resources.No));
+                m_oLogFile.WriteLine(m_cbSyncMode.Text + ": " + (m_bFirstToSecondSyncMode ? Resources.Yes : Resources.No));
+                m_oLogFile.WriteLine(m_cbFirstReadonly + ": " + (m_bFirstReadOnly ? Resources.Yes : Resources.No));
+                m_oLogFile.WriteLine(m_cbDeleteFilesInSecond.Text + ": " + (m_bFirstToSecondDeleteInSecond ? Resources.Yes : Resources.No));
 
             }
 
-            _logFile.WriteLine("CreateRestoreInfo: " + (_bCreateInfo ? "yes" : "no"));
-            _logFileLocalized.WriteLine(checkBoxCreateRestoreInfo.Text + ": " + (_bCreateInfo ? Resources.Yes : Resources.No));
+            m_oLogFile.WriteLine("CreateRestoreInfo: " + (m_bCreateInfo ? "yes" : "no"));
+            m_oLogFileLocalized.WriteLine(m_cbCreateRestoreInfo.Text + ": " + (m_bCreateInfo ? Resources.Yes : Resources.No));
 
-            _logFile.WriteLine("        TestFiles: " + 
-                (_bTestFiles ? (_bSkipRecentlyTested ? "if not tested recently": "yes" ): "no"));
-            _logFileLocalized.WriteLine(checkBoxTestAllFiles.Text + ": " +
-                (_bTestFiles ? (_bSkipRecentlyTested ? checkBoxSkipRecentlyTested.Text : Resources.Yes) : Resources.No));
+            m_oLogFile.WriteLine("        TestFiles: " + 
+                (m_bTestFiles ? (m_bTestFilesSkipRecentlyTested ? "if not tested recently": "yes" ): "no"));
+            m_oLogFileLocalized.WriteLine(m_cbTestAllFiles.Text + ": " +
+                (m_bTestFiles ? (m_bTestFilesSkipRecentlyTested ? m_cbSkipRecentlyTested.Text : Resources.Yes) : Resources.No));
 
-            if (_bTestFiles)
+            if (m_bTestFiles)
             {
-                _logFile.WriteLine("      RepairFiles: " + (_bRepairFiles ? "yes" : "no"));
-                _logFileLocalized.WriteLine(checkBoxRepairBlockFailures + ": " + (_bRepairFiles ? Resources.Yes : Resources.No));
-                if (_bRepairFiles)
+                m_oLogFile.WriteLine("      RepairFiles: " + (m_bRepairFiles ? "yes" : "no"));
+                m_oLogFileLocalized.WriteLine(m_cbRepairBlockFailures + ": " + (m_bRepairFiles ? Resources.Yes : Resources.No));
+                if (m_bRepairFiles)
                 {
-                    _logFile.WriteLine("     PreferCopies: " + (_bPreferPhysicalCopies ? "yes" : "no"));
-                    _logFile.WriteLine(checkBoxPreferCopies + ": " + (_bPreferPhysicalCopies ? Resources.Yes : Resources.No));
+                    m_oLogFile.WriteLine("     PreferCopies: " + (m_bPreferPhysicalCopies ? "yes" : "no"));
+                    m_oLogFile.WriteLine(m_cbPreferCopies + ": " + (m_bPreferPhysicalCopies ? Resources.Yes : Resources.No));
                 }
             }
-            _logFile.WriteLine("         Folder 1: " + _folder1);
-            _logFileLocalized.WriteLine(labelFolder1.Text + (labelFolder1.Text.Contains(":")?" ":": ") + _folder1);
-            _logFile.WriteLine("         Folder 2: " + _folder2);
-            _logFileLocalized.WriteLine(labelSecondFolder.Text + (labelSecondFolder.Text.Contains(":") ? " " : ": ") + _folder2);
+            m_oLogFile.WriteLine("         Folder 1: " + m_strFolder1);
+            m_oLogFileLocalized.WriteLine(m_lblFolder1.Text + (m_lblFolder1.Text.Contains(":")?" ":": ") + m_strFolder1);
+            m_oLogFile.WriteLine("         Folder 2: " + m_strFolder2);
+            m_oLogFileLocalized.WriteLine(m_lblSecondFolder.Text + (m_lblSecondFolder.Text.Contains(":") ? " " : ": ") + m_strFolder2);
 
             // end of the path can be in wrong direction, so set it again for the separator
             if (Resources.RightToLeft.Equals("yes"))
-                _logFileLocalized.Write((char)0x200F);
+                m_oLogFileLocalized.Write((char)0x200F);
             else
-                _logFileLocalized.Write((char)0x200E);
+                m_oLogFileLocalized.Write((char)0x200E);
 
-            _logFile.Write("###################################################");
-            _logFile.Write("###################################################");
-            _logFile.Write("###################################################");
-            _logFile.WriteLine("###################################################");
-            _logFileLocalized.Write("###################################################");
-            _logFileLocalized.Write("###################################################");
-            _logFileLocalized.Write("###################################################");
-            _logFileLocalized.WriteLine("###################################################");
+            m_oLogFile.Write("###################################################");
+            m_oLogFile.Write("###################################################");
+            m_oLogFile.Write("###################################################");
+            m_oLogFile.WriteLine("###################################################");
+            m_oLogFileLocalized.Write("###################################################");
+            m_oLogFileLocalized.Write("###################################################");
+            m_oLogFileLocalized.Write("###################################################");
+            m_oLogFileLocalized.WriteLine("###################################################");
 
-            _logFile.WriteLine(System.DateTime.UtcNow.ToString("yyyy-MM-dd hh:mm:ss.fff") + "UT\tThread\tMessage from thread");
-            _logFileLocalized.WriteLine(System.DateTime.Now.ToString("F") + "\t" + Resources.ProcessNo + "\t" + Resources.Message);
+            m_oLogFile.WriteLine(System.DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.fff") + "UT\tThread\tMessage from thread");
+            m_oLogFileLocalized.WriteLine(System.DateTime.Now.ToString("F") + "\t" + Resources.ProcessNo + "\t" + Resources.Message);
 
-            _logFile.Flush();
-            _logFileLocalized.Flush();
-            _bWorking = true;
+            m_oLogFile.Flush();
+            m_oLogFileLocalized.Flush();
+
+            m_bWorking = true;
+
             System.Threading.Thread worker = new System.Threading.Thread(SyncWorker);
             Program.SetCultureForThread(worker);
             worker.Priority = System.Threading.ThreadPriority.BelowNormal;
@@ -463,14 +559,14 @@ namespace SyncFolders
             object oSender,
             EventArgs oEventArgs)
         {
-            checkBoxPreferCopies.Enabled =
-                checkBoxTestAllFiles.Checked &&
-                checkBoxRepairBlockFailures.Checked;
-            checkBoxIgnoreTime.Enabled =
-                checkBoxFirstToSecond.Checked &&
-                !checkBoxSyncMode.Checked &&
-                checkBoxFirstReadonly.Checked &&
-                checkBoxRepairBlockFailures.Checked;
+            m_cbPreferCopies.Enabled =
+                m_cbTestAllFiles.Checked &&
+                m_cbRepairBlockFailures.Checked;
+            m_cbIgnoreTime.Enabled =
+                m_cbFirstToSecond.Checked &&
+                !m_cbSyncMode.Checked &&
+                m_cbFirstReadonly.Checked &&
+                m_cbRepairBlockFailures.Checked;
         }
 
         //===================================================================================================
@@ -484,9 +580,9 @@ namespace SyncFolders
             object oSender,
             EventArgs oEventArgs)
         {
-            buttonSync.Enabled =
-                !string.IsNullOrEmpty(textBoxFirstFolder.Text) &&
-                !string.IsNullOrEmpty(textBoxSecondFolder.Text);
+            m_btnSync.Enabled =
+                !string.IsNullOrEmpty(m_tbxFirstFolder.Text) &&
+                !string.IsNullOrEmpty(m_tbxSecondFolder.Text);
         }
 
         //===================================================================================================
@@ -500,9 +596,9 @@ namespace SyncFolders
             object oSender,
             EventArgs oEventArgs)
         {
-            buttonSync.Enabled =
-                !string.IsNullOrEmpty(textBoxFirstFolder.Text) &&
-                !string.IsNullOrEmpty(textBoxSecondFolder.Text);
+            m_btnSync.Enabled =
+                !string.IsNullOrEmpty(m_tbxFirstFolder.Text) &&
+                !string.IsNullOrEmpty(m_tbxSecondFolder.Text);
         }
 
         //===================================================================================================
@@ -517,17 +613,17 @@ namespace SyncFolders
             EventArgs oEventArgs
             )
         {
-            checkBoxDeleteFilesInSecond.Enabled =
-                checkBoxFirstToSecond.Checked;
-            checkBoxFirstReadonly.Enabled =
-                checkBoxFirstToSecond.Checked;
-            checkBoxSyncMode.Enabled =
-                checkBoxFirstToSecond.Checked;
-            checkBoxIgnoreTime.Enabled =
-                checkBoxFirstToSecond.Checked &&
-                !checkBoxSyncMode.Checked &&
-                checkBoxFirstReadonly.Checked &&
-                checkBoxRepairBlockFailures.Checked;
+            m_cbDeleteFilesInSecond.Enabled =
+                m_cbFirstToSecond.Checked;
+            m_cbFirstReadonly.Enabled =
+                m_cbFirstToSecond.Checked;
+            m_cbSyncMode.Enabled =
+                m_cbFirstToSecond.Checked;
+            m_cbIgnoreTime.Enabled =
+                m_cbFirstToSecond.Checked &&
+                !m_cbSyncMode.Checked &&
+                m_cbFirstReadonly.Checked &&
+                m_cbRepairBlockFailures.Checked;
         }
 
         //===================================================================================================
@@ -542,8 +638,8 @@ namespace SyncFolders
             LinkLabelLinkClickedEventArgs oEventArgs
             )
         {
-            using (AboutForm form = new AboutForm())
-                form.ShowDialog(this);
+            using (AboutForm oForm = new AboutForm())
+                oForm.ShowDialog(this);
         }
 
         //===================================================================================================
@@ -573,7 +669,7 @@ namespace SyncFolders
             object oSender,
             FormClosingEventArgs oEventArgs)
         {
-            if (_bWorking)
+            if (m_bWorking)
                 this.buttonCancel_Click(oSender, EventArgs.Empty);
         }
 
@@ -589,21 +685,21 @@ namespace SyncFolders
             EventArgs oEventArgs
             )
         {
-            if (checkBoxParallel.Checked)
+            if (m_cbParallel.Checked)
             {
-                _maxParallelCopies = Math.Max(System.Environment.ProcessorCount * 5 / 8, 2);
-                _maxParallelThreads = System.Environment.ProcessorCount * 3 / 2;
-                _copyFiles = new System.Threading.Semaphore(_maxParallelCopies, _maxParallelCopies);
-                _parallelThreads = new System.Threading.Semaphore(_maxParallelThreads, _maxParallelThreads);
-                _hugeReads = new System.Threading.Semaphore(1, 1);
+                s_nMaxParallelCopies = Math.Max(System.Environment.ProcessorCount * 5 / 8, 2);
+                s_nMaxParallelThreads = System.Environment.ProcessorCount * 3 / 2;
+                m_oSemaphoreCopyFiles = new System.Threading.Semaphore(s_nMaxParallelCopies, s_nMaxParallelCopies);
+                m_oSemaphoreParallelThreads = new System.Threading.Semaphore(s_nMaxParallelThreads, s_nMaxParallelThreads);
+                m_oSemaphoreHugeReads = new System.Threading.Semaphore(1, 1);
             }
             else
             {
-                _maxParallelCopies = 1;
-                _maxParallelThreads = 1;
-                _copyFiles = new System.Threading.Semaphore(_maxParallelCopies, _maxParallelCopies);
-                _parallelThreads = new System.Threading.Semaphore(_maxParallelThreads, _maxParallelThreads);
-                _hugeReads = new System.Threading.Semaphore(1, 1);
+                s_nMaxParallelCopies = 1;
+                s_nMaxParallelThreads = 1;
+                m_oSemaphoreCopyFiles = new System.Threading.Semaphore(s_nMaxParallelCopies, s_nMaxParallelCopies);
+                m_oSemaphoreParallelThreads = new System.Threading.Semaphore(s_nMaxParallelThreads, s_nMaxParallelThreads);
+                m_oSemaphoreHugeReads = new System.Threading.Semaphore(1, 1);
             }
         }
 
@@ -618,18 +714,16 @@ namespace SyncFolders
             object oSender,
             EventArgs oEventArgs)
         {
-            checkBoxIgnoreTime.Enabled =
-                checkBoxFirstToSecond.Checked &&
-                !checkBoxSyncMode.Checked &&
-                checkBoxFirstReadonly.Checked &&
-                checkBoxRepairBlockFailures.Checked;
+            m_cbIgnoreTime.Enabled =
+                m_cbFirstToSecond.Checked &&
+                !m_cbSyncMode.Checked &&
+                m_cbFirstReadonly.Checked &&
+                m_cbRepairBlockFailures.Checked;
 
-            if (checkBoxFirstReadonly.Checked)
-                checkBoxParallel.Checked = false;
+            if (m_cbFirstReadonly.Checked)
+                m_cbParallel.Checked = false;
         }
 
-        volatile int _currentFile;
-        volatile string _currentPath;
 
         //===================================================================================================
         /// <summary>
@@ -647,18 +741,18 @@ namespace SyncFolders
             {
                 Invoke(new EventHandler(delegate(object sender2, EventArgs args)
                 {
-                    if (_currentFile > 0)
-                        progressBar1.Value = _currentFile;
-                    if (_currentPath != null)
-                        labelProgress.Text = _currentPath;
+                    if (m_nCurrentFile > 0)
+                        m_ctlProgressBar.Value = m_nCurrentFile;
+                    if (m_strCurrentPath != null)
+                        m_lblProgress.Text = m_strCurrentPath;
                 }));
             }
             else
             {
-                if (_currentFile > 0)
-                    progressBar1.Value = _currentFile;
-                if (_currentPath != null)
-                    labelProgress.Text = _currentPath;
+                if (m_nCurrentFile > 0)
+                    m_ctlProgressBar.Value = m_nCurrentFile;
+                if (m_strCurrentPath != null)
+                    m_lblProgress.Text = m_strCurrentPath;
             }
         }
 
@@ -689,11 +783,11 @@ namespace SyncFolders
             EventArgs oEventArgs
             )
         {
-            checkBoxIgnoreTime.Enabled =
-                checkBoxFirstToSecond.Checked &&
-                !checkBoxSyncMode.Checked &&
-                checkBoxFirstReadonly.Checked &&
-                checkBoxRepairBlockFailures.Checked;
+            m_cbIgnoreTime.Enabled =
+                m_cbFirstToSecond.Checked &&
+                !m_cbSyncMode.Checked &&
+                m_cbFirstReadonly.Checked &&
+                m_cbRepairBlockFailures.Checked;
         }
 
         //===================================================================================================
@@ -707,10 +801,10 @@ namespace SyncFolders
             object oSender,
             EventArgs oEventArgs)
         {
-            if (_bWorking)
+            if (m_bWorking)
             {
                 buttonCancel.Enabled = false;
-                _cancelClicked = true;
+                m_bCancelClicked = true;
             }
             else
                 Close();
@@ -736,19 +830,19 @@ namespace SyncFolders
             Dictionary<string, List<long>> oSimulatedReadErrors = new Dictionary<string, List<long>>();
             DateTime dtmTimeForFile = DateTime.UtcNow;
 
-            if (string.IsNullOrEmpty(textBoxFirstFolder.Text))
-                textBoxFirstFolder.Text = Application.StartupPath + "\\TestFolder1";
+            if (string.IsNullOrEmpty(m_tbxFirstFolder.Text))
+                m_tbxFirstFolder.Text = Application.StartupPath + "\\TestFolder1";
 
-            if (string.IsNullOrEmpty(textBoxSecondFolder.Text))
-                textBoxSecondFolder.Text = Application.StartupPath + "\\TestFolder2";
+            if (string.IsNullOrEmpty(m_tbxSecondFolder.Text))
+                m_tbxSecondFolder.Text = Application.StartupPath + "\\TestFolder2";
 
             System.IO.DirectoryInfo di1 =
-                new System.IO.DirectoryInfo(textBoxFirstFolder.Text);
+                new System.IO.DirectoryInfo(m_tbxFirstFolder.Text);
             if (!di1.Exists)
                 di1.Create();
 
             System.IO.DirectoryInfo di2 =
-                new System.IO.DirectoryInfo(textBoxSecondFolder.Text);
+                new System.IO.DirectoryInfo(m_tbxSecondFolder.Text);
             if (!di2.Exists)
                 di2.Create();
 
@@ -771,7 +865,7 @@ namespace SyncFolders
             //---------------------------------
             using (System.IO.StreamWriter w =
                 new System.IO.StreamWriter(System.IO.Path.Combine(
-                    textBoxFirstFolder.Text, "copy1-2.txt")))
+                    m_tbxFirstFolder.Text, "copy1-2.txt")))
             {
                 w.WriteLine("Copy from 1 to 2");
                 w.Close();
@@ -780,7 +874,7 @@ namespace SyncFolders
             //---------------------------------
             using (System.IO.StreamWriter w =
                 new System.IO.StreamWriter(System.IO.Path.Combine(
-                    textBoxSecondFolder.Text, "copy2-1.txt")))
+                    m_tbxSecondFolder.Text, "copy2-1.txt")))
             {
                 w.WriteLine("Copy from 2 to 1");
                 w.Close();
@@ -791,7 +885,7 @@ namespace SyncFolders
             Block b = Block.GetBlock();
             using (System.IO.FileStream s =
                 System.IO.File.Create((System.IO.Path.Combine(
-                    textBoxFirstFolder.Text, "restore1.txt"))))
+                    m_tbxFirstFolder.Text, "restore1.txt"))))
             {
                 b[0] = 3;
                 b.WriteTo(s, 100);
@@ -799,10 +893,10 @@ namespace SyncFolders
             }
             System.IO.FileInfo fi2 =
                 new System.IO.FileInfo((System.IO.Path.Combine(
-                    textBoxFirstFolder.Text, "restore1.txt")));
+                    m_tbxFirstFolder.Text, "restore1.txt")));
             System.IO.DirectoryInfo di4 =
                 new System.IO.DirectoryInfo((System.IO.Path.Combine(
-                    textBoxFirstFolder.Text, "RestoreInfo")));
+                    m_tbxFirstFolder.Text, "RestoreInfo")));
             di4.Create();
             SavedInfo si = new SavedInfo(fi2.Length, fi2.LastWriteTimeUtc, false);
             using (System.IO.FileStream s =
@@ -822,7 +916,7 @@ namespace SyncFolders
             //---------------------------------
             using (System.IO.FileStream s =
                 System.IO.File.Create((System.IO.Path.Combine(
-                    textBoxFirstFolder.Text, "restore2.txt"))))
+                    m_tbxFirstFolder.Text, "restore2.txt"))))
             {
                 b[0] = 3;
                 b.WriteTo(s, b.Length);
@@ -830,7 +924,7 @@ namespace SyncFolders
                 s.Close();
             }
             fi2 = new System.IO.FileInfo((System.IO.Path.Combine(
-                textBoxFirstFolder.Text, "restore2.txt")));
+                m_tbxFirstFolder.Text, "restore2.txt")));
             si = new SavedInfo(fi2.Length, fi2.LastWriteTimeUtc, false);
             using (System.IO.FileStream s =
                 System.IO.File.Create((System.IO.Path.Combine(
@@ -850,11 +944,11 @@ namespace SyncFolders
             //---------------------------------
             using (System.IO.FileStream s =
                 System.IO.File.Create(System.IO.Path.Combine(
-                    textBoxFirstFolder.Text, "restore3.txt")))
+                    m_tbxFirstFolder.Text, "restore3.txt")))
             {
                 using (System.IO.FileStream s2 =
                     System.IO.File.Create(System.IO.Path.Combine(
-                        textBoxSecondFolder.Text, "restore3.txt")))
+                        m_tbxSecondFolder.Text, "restore3.txt")))
                 {
                     // first block of both files: equal, but the checksum will differ
                     b[0] = 3;
@@ -883,7 +977,7 @@ namespace SyncFolders
             }
 
             fi2 = new System.IO.FileInfo(System.IO.Path.Combine(
-                textBoxFirstFolder.Text, "restore3.txt"));
+                m_tbxFirstFolder.Text, "restore3.txt"));
             si = new SavedInfo(fi2.Length, fi2.LastWriteTimeUtc, false);
             using (System.IO.FileStream s =
                 System.IO.File.Create(System.IO.Path.Combine(
@@ -902,72 +996,72 @@ namespace SyncFolders
                 di4.FullName, "restore3.txt.chk"));
             fi3.LastWriteTimeUtc = fi2.LastWriteTimeUtc;
             fi3 = new System.IO.FileInfo(System.IO.Path.Combine(
-                textBoxSecondFolder.Text, "restore3.txt"));
+                m_tbxSecondFolder.Text, "restore3.txt"));
             fi3.LastWriteTimeUtc = fi2.LastWriteTimeUtc;
 
 
             //---------------------------------
             System.IO.File.Copy(System.IO.Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory, "Coolpix_2010-08-01_23-57-56.JPG"),
-                System.IO.Path.Combine(textBoxFirstFolder.Text, "TestPicture1.jpg"));
-            CreateSavedInfo(System.IO.Path.Combine(textBoxFirstFolder.Text, "TestPicture1.jpg"),
-                System.IO.Path.Combine(textBoxFirstFolder.Text, "RestoreInfo\\TestPicture1.jpg.chk"));
+                System.IO.Path.Combine(m_tbxFirstFolder.Text, "TestPicture1.jpg"));
+            CreateSavedInfo(System.IO.Path.Combine(m_tbxFirstFolder.Text, "TestPicture1.jpg"),
+                System.IO.Path.Combine(m_tbxFirstFolder.Text, "RestoreInfo\\TestPicture1.jpg.chk"));
             DateTime dtmOld = System.IO.File.GetLastWriteTimeUtc(
-                System.IO.Path.Combine(textBoxFirstFolder.Text, "TestPicture1.jpg"));
+                System.IO.Path.Combine(m_tbxFirstFolder.Text, "TestPicture1.jpg"));
             using (System.IO.FileStream s =
                 System.IO.File.OpenWrite(System.IO.Path.Combine(
-                    textBoxFirstFolder.Text, "TestPicture1.jpg")))
+                    m_tbxFirstFolder.Text, "TestPicture1.jpg")))
             {
                 s.Seek(163840, System.IO.SeekOrigin.Begin);
-                s.Write(b._data, 0, b.Length);
+                s.Write(b.m_aData, 0, b.Length);
                 s.Flush();
                 s.Close();
             }
             System.IO.File.SetLastWriteTimeUtc(System.IO.Path.Combine(
-                textBoxFirstFolder.Text, "TestPicture1.jpg"), dtmOld);
+                m_tbxFirstFolder.Text, "TestPicture1.jpg"), dtmOld);
 
             //---------------------------------
             System.IO.File.Copy(System.IO.Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory, "Coolpix_2010-08-01_23-57-56.JPG"),
-                System.IO.Path.Combine(textBoxFirstFolder.Text, "TestPicture2.jpg"));
+                System.IO.Path.Combine(m_tbxFirstFolder.Text, "TestPicture2.jpg"));
             System.IO.File.SetLastWriteTimeUtc(System.IO.Path.Combine(
-                textBoxFirstFolder.Text, "TestPicture2.jpg"), dtmOld);
-            CreateSavedInfo(System.IO.Path.Combine(textBoxFirstFolder.Text, "TestPicture2.jpg"),
-                System.IO.Path.Combine(textBoxFirstFolder.Text, "RestoreInfo\\TestPicture2.jpg.chk"));
+                m_tbxFirstFolder.Text, "TestPicture2.jpg"), dtmOld);
+            CreateSavedInfo(System.IO.Path.Combine(m_tbxFirstFolder.Text, "TestPicture2.jpg"),
+                System.IO.Path.Combine(m_tbxFirstFolder.Text, "RestoreInfo\\TestPicture2.jpg.chk"));
             System.IO.File.Copy(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
                 "Coolpix_2010-08-01_23-57-56.JPG"),
-                System.IO.Path.Combine(textBoxSecondFolder.Text, "TestPicture2.jpg"));
+                System.IO.Path.Combine(m_tbxSecondFolder.Text, "TestPicture2.jpg"));
             System.IO.File.SetLastWriteTimeUtc(System.IO.Path.Combine(
-                textBoxSecondFolder.Text, "TestPicture2.jpg"), dtmOld);
-            CreateSavedInfo(System.IO.Path.Combine(textBoxSecondFolder.Text, "TestPicture2.jpg"),
-                System.IO.Path.Combine(textBoxSecondFolder.Text, "RestoreInfo\\TestPicture2.jpg.chk"));
+                m_tbxSecondFolder.Text, "TestPicture2.jpg"), dtmOld);
+            CreateSavedInfo(System.IO.Path.Combine(m_tbxSecondFolder.Text, "TestPicture2.jpg"),
+                System.IO.Path.Combine(m_tbxSecondFolder.Text, "RestoreInfo\\TestPicture2.jpg.chk"));
             using (System.IO.FileStream s =
                 System.IO.File.OpenWrite(System.IO.Path.Combine(
-                textBoxFirstFolder.Text, "TestPicture2.jpg")))
+                m_tbxFirstFolder.Text, "TestPicture2.jpg")))
             {
                 s.Seek(81920 + 2048, System.IO.SeekOrigin.Begin);
-                s.Write(b._data, 0, b.Length);
+                s.Write(b.m_aData, 0, b.Length);
                 s.Flush();
                 s.Close();
             }
             System.IO.File.SetLastWriteTimeUtc(System.IO.Path.Combine(
-                textBoxFirstFolder.Text, "TestPicture2.jpg"), dtmOld);
+                m_tbxFirstFolder.Text, "TestPicture2.jpg"), dtmOld);
 
             using (System.IO.FileStream s =
                 System.IO.File.OpenWrite(System.IO.Path.Combine(
-                textBoxSecondFolder.Text, "TestPicture2.jpg")))
+                m_tbxSecondFolder.Text, "TestPicture2.jpg")))
             {
                 s.Seek(81920 + 4096 + 2048, System.IO.SeekOrigin.Begin);
-                s.Write(b._data, 0, b.Length);
+                s.Write(b.m_aData, 0, b.Length);
                 s.Close();
             }
             System.IO.File.SetLastWriteTimeUtc(
-                System.IO.Path.Combine(textBoxSecondFolder.Text,
+                System.IO.Path.Combine(m_tbxSecondFolder.Text,
                 "TestPicture2.jpg"), dtmOld);
 
             //---------------------------------
             // non-restorable test
-            string strPathOfTestFile1 = CreateSelfTestFile(textBoxFirstFolder.Text, 
+            string strPathOfTestFile1 = CreateSelfTestFile(m_tbxFirstFolder.Text, 
                 "NonRestorableBecauseNoSaveInfo.dat", 2, false, 
                 dtmTimeForFile, dtmTimeForFile);
 
@@ -976,7 +1070,7 @@ namespace SyncFolders
 
             //---------------------------------
             // auto-repair test
-            string strPathOfTestFile2 = CreateSelfTestFile(textBoxFirstFolder.Text,
+            string strPathOfTestFile2 = CreateSelfTestFile(m_tbxFirstFolder.Text,
                 "AutoRepairFromSavedInfo.dat", 2, true,
                 dtmTimeForFile, dtmTimeForFile);
 
@@ -985,28 +1079,28 @@ namespace SyncFolders
 
             //---------------------------------
             // restore older healthy from backup
-            string strPathOfTestFile3 = CreateSelfTestFile(textBoxFirstFolder.Text,
+            string strPathOfTestFile3 = CreateSelfTestFile(m_tbxFirstFolder.Text,
                 "RestoreOldFromBackup.dat", 2, false,
                 dtmTimeForFile, dtmTimeForFile);
 
             // add simulated read errors for this file
             oSimulatedReadErrors[strPathOfTestFile3] = new List<long>(new long[] { 4096 });
 
-            strPathOfTestFile3 = CreateSelfTestFile(textBoxSecondFolder.Text,
+            strPathOfTestFile3 = CreateSelfTestFile(m_tbxSecondFolder.Text,
                 "RestoreOldFromBackup.dat", 2, false,
                 dtmTimeForFile.AddDays(-1), dtmTimeForFile.AddDays(-1));
 
 
             //---------------------------------
             // restore older repairable from backup
-            string strPathOfTestFile4 = CreateSelfTestFile(textBoxFirstFolder.Text,
+            string strPathOfTestFile4 = CreateSelfTestFile(m_tbxFirstFolder.Text,
                 "RestoreOldFromBackupWithRepairingBackup.dat", 2, false,
                 dtmTimeForFile, dtmTimeForFile);
 
             // add simulated read errors for this file
             oSimulatedReadErrors[strPathOfTestFile4] = new List<long>(new long[] { 0 });
 
-            strPathOfTestFile4 = CreateSelfTestFile(textBoxSecondFolder.Text,
+            strPathOfTestFile4 = CreateSelfTestFile(m_tbxSecondFolder.Text,
                 "RestoreOldFromBackupWithRepairingBackup.dat", 2, true,
                 dtmTimeForFile.AddDays(-1), dtmTimeForFile.AddDays(-1));
 
@@ -1015,8 +1109,8 @@ namespace SyncFolders
 
             //---------------------------------
             // restore file with one block failure in data file and one block failure in .chk
-            string strPathOfTestFile5 = CreateSelfTestFile(textBoxFirstFolder.Text,
-                "RestoreUncorrelatedChkFailure.dat", 5, true,
+            string strPathOfTestFile5 = CreateSelfTestFile(m_tbxFirstFolder.Text,
+                "RestoreUncorrelatedChkFailure.dat", 10, true,
                 dtmTimeForFile, dtmTimeForFile);
 
             // add simulated read errors for this file
@@ -1028,7 +1122,7 @@ namespace SyncFolders
 
             //---------------------------------
             // recreate .chk file
-            string strPathOfTestFile6 = CreateSelfTestFile(textBoxFirstFolder.Text,
+            string strPathOfTestFile6 = CreateSelfTestFile(m_tbxFirstFolder.Text,
                 "RecreeateChkFile.dat", 5, true,
                 dtmTimeForFile, dtmTimeForFile);
 
@@ -1039,7 +1133,7 @@ namespace SyncFolders
 
             //---------------------------------
             // recreate two .chk files
-            string strPathOfTestFile7 = CreateSelfTestFile(textBoxFirstFolder.Text,
+            string strPathOfTestFile7 = CreateSelfTestFile(m_tbxFirstFolder.Text,
                 "Recreeate2ChkFiles.dat", 5, true,
                 dtmTimeForFile, dtmTimeForFile);
 
@@ -1047,7 +1141,7 @@ namespace SyncFolders
             oSimulatedReadErrors[strPathOfTestFile7.Replace
                 ("Recreeate2ChkFiles.dat", "RestoreInfo\\Recreeate2ChkFiles.dat.chk")] = new List<long>(new long[] { 8192 });
 
-            strPathOfTestFile7 = CreateSelfTestFile(textBoxSecondFolder.Text,
+            strPathOfTestFile7 = CreateSelfTestFile(m_tbxSecondFolder.Text,
                             "Recreeate2ChkFiles.dat", 5, true,
                             dtmTimeForFile, dtmTimeForFile);
 
@@ -1058,7 +1152,7 @@ namespace SyncFolders
             
             //---------------------------------
             // this file is non-restorable with old saved info, because saved info has a read failure at position 0
-            string strPathOfTestFile8 = CreateSelfTestFile(textBoxFirstFolder.Text,
+            string strPathOfTestFile8 = CreateSelfTestFile(m_tbxFirstFolder.Text,
                 "NonRestorableWithOldSavedInfoBecauseOfFailureAtPos0.dat", 5, true,
                 dtmTimeForFile, dtmTimeForFile);
 
@@ -1072,7 +1166,7 @@ namespace SyncFolders
             //---------------------------------
             // This file has restorable old saved info
             // this file is non-restorable with old saved info, because saved info has a read failure at position 0
-            string strPathOfTestFile9 = CreateSelfTestFile(textBoxFirstFolder.Text,
+            string strPathOfTestFile9 = CreateSelfTestFile(m_tbxFirstFolder.Text,
                 "RestorableSavedInfoVersion0.dat", 5, false,
                 dtmTimeForFile, dtmTimeForFile);
 
@@ -1214,7 +1308,6 @@ namespace SyncFolders
             }
         }
 
-        List<KeyValuePair<string, string>> _filePairs;
         //===================================================================================================
         /// <summary>
         /// This is the main method of the background sync thread
@@ -1223,11 +1316,11 @@ namespace SyncFolders
         void SyncWorker()
         {
             // first of all search file pairs for synching
-            _filePairs = new List<KeyValuePair<string, string>>();
+            m_aFilePairs = new List<KeyValuePair<string, string>>();
             bool bException = false;
             try
             {
-                FindFilePairs(_folder1, _folder2);
+                FindFilePairs(m_strFolder1, m_strFolder2);
             }
             catch (Exception ex)
             {
@@ -1237,13 +1330,13 @@ namespace SyncFolders
 
             if (!bException)
             {
-                if (_filePairs.Count != 1)
+                if (m_aFilePairs.Count != 1)
                 {
-                    WriteLogFormattedLocalized(0, Resources.FoundFilesForSync, _filePairs.Count);
-                    WriteLog(true, 0, "Found ", _filePairs.Count, " files for possible synchronisation");
+                    WriteLogFormattedLocalized(0, Resources.FoundFilesForSync, m_aFilePairs.Count);
+                    WriteLog(true, 0, "Found ", m_aFilePairs.Count, " files for possible synchronisation");
                 }
                 else
-                    if (_filePairs.Count == 1)
+                    if (m_aFilePairs.Count == 1)
                     {
                         WriteLogFormattedLocalized(0, Resources.FoundFileForSync);
                         WriteLog(true, 0, "Found 1 file for possible synchronisation");
@@ -1253,29 +1346,29 @@ namespace SyncFolders
                 {
                     Invoke(new EventHandler(delegate(object sender, EventArgs args)
                     {
-                        progressBar1.Minimum = 0;
-                        progressBar1.Maximum = _filePairs.Count;
-                        progressBar1.Value = 0;
+                        m_ctlProgressBar.Minimum = 0;
+                        m_ctlProgressBar.Maximum = m_aFilePairs.Count;
+                        m_ctlProgressBar.Value = 0;
                     }));
                 }
                 else
                 {
-                    progressBar1.Minimum = 0;
-                    progressBar1.Maximum = _filePairs.Count;
-                    progressBar1.Value = 0;
+                    m_ctlProgressBar.Minimum = 0;
+                    m_ctlProgressBar.Maximum = m_aFilePairs.Count;
+                    m_ctlProgressBar.Value = 0;
                 }
 
                 // if user still has not clicked cancel
-                if (!_cancelClicked)
+                if (!m_bCancelClicked)
                 {
                     int currentFile = 0;
 
 
                     // sort the list, so it is in a defined order
                     SortedDictionary<string, string> sorted = new SortedDictionary<string, string>();
-                    foreach (KeyValuePair<string, string> pathPair in _filePairs)
+                    foreach (KeyValuePair<string, string> pathPair in m_aFilePairs)
                     {
-                        if (!_bFirstToSecond)
+                        if (!m_bFirstToSecond)
                         {
                             if (string.Compare(pathPair.Key, pathPair.Value, 
                                 StringComparison.InvariantCultureIgnoreCase) < 0)
@@ -1292,11 +1385,11 @@ namespace SyncFolders
                     {
 
                         //*
-                        _parallelThreads.WaitOne();
+                        m_oSemaphoreParallelThreads.WaitOne();
 
-                        if (_cancelClicked)
+                        if (m_bCancelClicked)
                         {
-                            _parallelThreads.Release();
+                            m_oSemaphoreParallelThreads.Release();
                             break;
                         }
 
@@ -1319,8 +1412,8 @@ namespace SyncFolders
 
                         //*/
 
-                        _currentFile = currentFile;
-                        _currentPath = pathPair.Key;
+                        m_nCurrentFile = currentFile;
+                        m_strCurrentPath = pathPair.Key;
 
                         if ((++currentFile) % 10 == 0)
                         {
@@ -1328,36 +1421,36 @@ namespace SyncFolders
                             {
                                 Invoke(new EventHandler(delegate(object sender, EventArgs args)
                                 {
-                                    progressBar1.Value = currentFile;
-                                    labelProgress.Text = pathPair.Key;
+                                    m_ctlProgressBar.Value = currentFile;
+                                    m_lblProgress.Text = pathPair.Key;
                                 }));
                             }
                             else
                             {
-                                progressBar1.Value = currentFile;
-                                labelProgress.Text = pathPair.Key;
+                                m_ctlProgressBar.Value = currentFile;
+                                m_lblProgress.Text = pathPair.Key;
                             }
                         };
 
-                        if (_cancelClicked)
+                        if (m_bCancelClicked)
                             break;
                     }
                 }
 
 
                 // wait for all parallel threads to finnish
-                for (int i = 0; i < _maxParallelThreads; ++i)
-                    _parallelThreads.WaitOne();
+                for (int i = 0; i < s_nMaxParallelThreads; ++i)
+                    m_oSemaphoreParallelThreads.WaitOne();
 
                 // free the parallel threads back again
-                for (int i = 0; i < _maxParallelThreads; ++i)
-                    _parallelThreads.Release();
+                for (int i = 0; i < s_nMaxParallelThreads; ++i)
+                    m_oSemaphoreParallelThreads.Release();
 
 
-                if (!_cancelClicked)
-                    RemoveOldFilesAndDirs(_folder1, _folder2);
+                if (!m_bCancelClicked)
+                    RemoveOldFilesAndDirs(m_strFolder1, m_strFolder2);
 
-                if (_cancelClicked)
+                if (m_bCancelClicked)
                 {
                     WriteLogFormattedLocalized(0, Resources.OperationCanceled);
                     WriteLog(true, 0, "Operation canceled");
@@ -1375,43 +1468,43 @@ namespace SyncFolders
             m_iFileOpenAndCopyAbstraction = new FileOpenAndCopyDirectly();
 #endif
 
-            _logFile.Close();
-            _logFileLocalized.Close();
-            _logFile.Dispose();
-            _logFileLocalized.Dispose();
-            _logFile = null;
-            _logFileLocalized = null;
+            m_oLogFile.Close();
+            m_oLogFileLocalized.Close();
+            m_oLogFile.Dispose();
+            m_oLogFileLocalized.Dispose();
+            m_oLogFile = null;
+            m_oLogFileLocalized = null;
 
             if (InvokeRequired)
             {
                 Invoke(new EventHandler(delegate (object sender, EventArgs args)
                 {
-                    buttonSync.Visible = true;
-                    progressBar1.Visible = false;
-                    labelFolder1.Enabled = true;
-                    labelSecondFolder.Enabled = true;
-                    linkLabelAbout.Visible = true;
-                    linkLabelLicence.Visible = true;
-                    textBoxFirstFolder.Enabled = true;
-                    textBoxSecondFolder.Enabled = true;
-                    buttonSelectFirstFolder.Enabled = true;
-                    buttonSelectSecondFolder.Enabled = true;
-                    checkBoxCreateRestoreInfo.Enabled = true;
-                    checkBoxTestAllFiles.Enabled = true;
-                    checkBoxRepairBlockFailures.Enabled = checkBoxTestAllFiles.Checked;
-                    checkBoxPreferCopies.Visible = true;
-                    checkBoxFirstToSecond.Enabled = true;
-                    checkBoxIgnoreTime.Enabled = true;
-                    checkBoxFirstReadonly.Enabled = checkBoxFirstToSecond.Checked;
-                    checkBoxDeleteFilesInSecond.Enabled = checkBoxFirstToSecond.Checked;
-                    checkBoxSkipRecentlyTested.Enabled = checkBoxTestAllFiles.Checked;
-                    checkBoxSyncMode.Enabled = checkBoxFirstToSecond.Checked;
-                    labelProgress.Visible = false;
-                    checkBoxParallel.Enabled = true;
+                    m_btnSync.Visible = true;
+                    m_ctlProgressBar.Visible = false;
+                    m_lblFolder1.Enabled = true;
+                    m_lblSecondFolder.Enabled = true;
+                    m_lblAbout.Visible = true;
+                    m_lblLicence.Visible = true;
+                    m_tbxFirstFolder.Enabled = true;
+                    m_tbxSecondFolder.Enabled = true;
+                    m_btnSelectFirstFolder.Enabled = true;
+                    m_btnSelectSecondFolder.Enabled = true;
+                    m_cbCreateRestoreInfo.Enabled = true;
+                    m_cbTestAllFiles.Enabled = true;
+                    m_cbRepairBlockFailures.Enabled = m_cbTestAllFiles.Checked;
+                    m_cbPreferCopies.Visible = true;
+                    m_cbFirstToSecond.Enabled = true;
+                    m_cbIgnoreTime.Enabled = true;
+                    m_cbFirstReadonly.Enabled = m_cbFirstToSecond.Checked;
+                    m_cbDeleteFilesInSecond.Enabled = m_cbFirstToSecond.Checked;
+                    m_cbSkipRecentlyTested.Enabled = m_cbTestAllFiles.Checked;
+                    m_cbSyncMode.Enabled = m_cbFirstToSecond.Checked;
+                    m_lblProgress.Visible = false;
+                    m_cbParallel.Enabled = true;
 
-                    _bWorking = false;
+                    m_bWorking = false;
                     buttonCancel.Enabled = true;
-                    timerUpdateFileDescription.Stop();
+                    m_oTimerUpdateFileDescription.Stop();
 
 
                     if (Program.CreateRelease)
@@ -1422,7 +1515,7 @@ namespace SyncFolders
                     {
                         using (LogDisplayingForm form = new LogDisplayingForm())
                         {
-                            form.textBoxLog.Text = _log.ToString();
+                            form.textBoxLog.Text = m_strLogToShow.ToString();
                             form.ShowDialog(this);
                         }
                     }
@@ -1431,33 +1524,33 @@ namespace SyncFolders
                 }));
             } else
             {
-                buttonSync.Visible = true;
-                progressBar1.Visible = false;
-                labelFolder1.Enabled = true;
-                labelSecondFolder.Enabled = true;
-                linkLabelAbout.Visible = true;
-                linkLabelLicence.Visible = true;
-                textBoxFirstFolder.Enabled = true;
-                textBoxSecondFolder.Enabled = true;
-                buttonSelectFirstFolder.Enabled = true;
-                buttonSelectSecondFolder.Enabled = true;
-                checkBoxCreateRestoreInfo.Enabled = true;
-                checkBoxTestAllFiles.Enabled = true;
-                checkBoxRepairBlockFailures.Enabled = checkBoxTestAllFiles.Checked;
-                checkBoxPreferCopies.Visible = true;
-                checkBoxFirstToSecond.Enabled = true;
-                checkBoxIgnoreTime.Enabled = true;
-                checkBoxFirstReadonly.Enabled = checkBoxFirstToSecond.Checked;
-                checkBoxDeleteFilesInSecond.Enabled = checkBoxFirstToSecond.Checked;
-                checkBoxSkipRecentlyTested.Enabled = checkBoxTestAllFiles.Checked;
-                checkBoxSyncMode.Enabled = checkBoxFirstToSecond.Checked;
-                checkBoxParallel.Enabled = true;
+                m_btnSync.Visible = true;
+                m_ctlProgressBar.Visible = false;
+                m_lblFolder1.Enabled = true;
+                m_lblSecondFolder.Enabled = true;
+                m_lblAbout.Visible = true;
+                m_lblLicence.Visible = true;
+                m_tbxFirstFolder.Enabled = true;
+                m_tbxSecondFolder.Enabled = true;
+                m_btnSelectFirstFolder.Enabled = true;
+                m_btnSelectSecondFolder.Enabled = true;
+                m_cbCreateRestoreInfo.Enabled = true;
+                m_cbTestAllFiles.Enabled = true;
+                m_cbRepairBlockFailures.Enabled = m_cbTestAllFiles.Checked;
+                m_cbPreferCopies.Visible = true;
+                m_cbFirstToSecond.Enabled = true;
+                m_cbIgnoreTime.Enabled = true;
+                m_cbFirstReadonly.Enabled = m_cbFirstToSecond.Checked;
+                m_cbDeleteFilesInSecond.Enabled = m_cbFirstToSecond.Checked;
+                m_cbSkipRecentlyTested.Enabled = m_cbTestAllFiles.Checked;
+                m_cbSyncMode.Enabled = m_cbFirstToSecond.Checked;
+                m_cbParallel.Enabled = true;
 
-                labelProgress.Visible = false;
-                _bWorking = false;
+                m_lblProgress.Visible = false;
+                m_bWorking = false;
                 buttonCancel.Enabled = true;
 
-                timerUpdateFileDescription.Stop();
+                m_oTimerUpdateFileDescription.Stop();
 
 
                 if (Program.CreateRelease)
@@ -1468,7 +1561,7 @@ namespace SyncFolders
                 {
                     using (LogDisplayingForm form = new LogDisplayingForm())
                     {
-                        form.textBoxLog.Text = _log.ToString();
+                        form.textBoxLog.Text = m_strLogToShow.ToString();
                         form.ShowDialog(this);
                     }
                 }
@@ -1480,7 +1573,7 @@ namespace SyncFolders
         //===================================================================================================
         /// <summary>
         /// Searches directories for files and subdirectories. The collected file pairs are storedd to
-        /// _filePairs
+        /// m_aFilePairs
         /// </summary>
         /// <param name="strDirPath1">Path in subdir of first folder</param>
         /// <param name="strDirPath2">Path in subdir of second folder</param>
@@ -1512,7 +1605,7 @@ namespace SyncFolders
             } else
             if (di2.Exists && !di1.Exists)
             {
-                if (!_bFirstToSecond)
+                if (!m_bFirstToSecond)
                 {
                     di1.Create();
                     di1.Attributes = di2.Attributes;
@@ -1523,11 +1616,11 @@ namespace SyncFolders
             if (di1.Name.Equals("RestoreInfo", 
                 StringComparison.CurrentCultureIgnoreCase))
                 return;
-            if (_bCreateInfo)
+            if (m_bCreateInfo)
             {
                 System.IO.DirectoryInfo di3;
 
-                if (!_bFirstToSecond || !_bFirstReadOnly)
+                if (!m_bFirstToSecond || !m_bFirstReadOnly)
                 {
                     di3 = new System.IO.DirectoryInfo(
                         System.IO.Path.Combine(strDirPath1, "RestoreInfo"));
@@ -1552,14 +1645,14 @@ namespace SyncFolders
 
             }
 
-            if (_bFirstToSecond && _bDeleteInSecond)
+            if (m_bFirstToSecond && m_bFirstToSecondDeleteInSecond)
             {
                 System.IO.FileInfo fiDontDelete = 
                     new System.IO.FileInfo(System.IO.Path.Combine(
-                        _folder2, "SyncFolders-Dont-Delete.txt"));
+                        m_strFolder2, "SyncFolders-Dont-Delete.txt"));
                 if (!fiDontDelete.Exists)
                     fiDontDelete = new System.IO.FileInfo(System.IO.Path.Combine(
-                        _folder2, "SyncFolders-Don't-Delete.txt"));
+                        m_strFolder2, "SyncFolders-Don't-Delete.txt"));
 
                 if (fiDontDelete.Exists)
                 {
@@ -1574,7 +1667,7 @@ namespace SyncFolders
 
             // find files in both directories
             Dictionary<string, bool> oFileNames = new Dictionary<string, bool>();
-            if (di1.Exists || !_bFirstToSecond)
+            if (di1.Exists || !m_bFirstToSecond)
             {
                 foreach (System.IO.FileInfo fi1 in di1.GetFiles())
                 {
@@ -1595,7 +1688,7 @@ namespace SyncFolders
 
 
             foreach (string strFileName in oFileNames.Keys)
-                _filePairs.Add( new KeyValuePair<string,string>(
+                m_aFilePairs.Add( new KeyValuePair<string,string>(
                     System.IO.Path.Combine(strDirPath1, strFileName), 
                     System.IO.Path.Combine(strDirPath2, strFileName)));
 
@@ -1603,7 +1696,7 @@ namespace SyncFolders
             // find subdirectories in both directories
             Dictionary<string, bool> oDirNames = new Dictionary<string, bool>();
 
-            if (di1.Exists || !_bFirstToSecond)
+            if (di1.Exists || !m_bFirstToSecond)
             {
                 foreach (System.IO.DirectoryInfo sub1 in di1.GetDirectories())
                     oDirNames[sub1.Name] = false;
@@ -1621,7 +1714,7 @@ namespace SyncFolders
             {
                 FindFilePairs(System.IO.Path.Combine(strDirPath1, strSubDirName), 
                     System.IO.Path.Combine(strDirPath2, strSubDirName));
-                if (_cancelClicked)
+                if (m_bCancelClicked)
                     break;
             }
         }
@@ -1688,7 +1781,7 @@ namespace SyncFolders
             // and set its attributes
             if (di2.Exists && !di1.Exists)
             {
-                if (_bFirstToSecond && _bDeleteInSecond)
+                if (m_bFirstToSecond && m_bFirstToSecondDeleteInSecond)
                 {
                     di2.Delete(true);
                     WriteLogFormattedLocalized(0, Resources.DeletedFolder, 
@@ -1702,7 +1795,7 @@ namespace SyncFolders
 
             System.IO.DirectoryInfo di3;
             // consider contents of the first folder
-            if (!_bFirstToSecond || !_bFirstReadOnly)
+            if (!m_bFirstToSecond || !m_bFirstReadOnly)
             {
                 di3 = new System.IO.DirectoryInfo(
                     System.IO.Path.Combine(strFolderPath1, "RestoreInfo"));
@@ -1826,7 +1919,7 @@ namespace SyncFolders
             {
                 RemoveOldFilesAndDirs(System.IO.Path.Combine(strFolderPath1, strSubDirName), 
                     System.IO.Path.Combine(strFolderPath2, strSubDirName));
-                if (_cancelClicked)
+                if (m_bCancelClicked)
                     break;
             }
 
@@ -1945,7 +2038,7 @@ namespace SyncFolders
             catch (OperationCanceledException oEx)
             {
                 // report only if it is unexpected
-                if (!_cancelClicked)
+                if (!m_bCancelClicked)
                 {
                     WriteLogFormattedLocalized(0, Resources.ErrorProcessinngFilePair,
                         pathPair.Key, pathPair.Value, oEx.Message);
@@ -1962,11 +2055,10 @@ namespace SyncFolders
             }
             finally
             {
-                _parallelThreads.Release();
+                m_oSemaphoreParallelThreads.Release();
             }
         }
 
-        volatile int _dummy_counter;
 
         //===================================================================================================
         /// <summary>
@@ -1997,14 +2089,13 @@ namespace SyncFolders
                 {
                     str1 = System.IO.Path.Combine(
                         System.IO.Path.Combine(strOriginalDir, strSubDirForSavedInfo), 
-                        strFileName.Substring(0, 1) + ((++_dummy_counter).ToString()) + strNewExtension);
+                        strFileName.Substring(0, 1) + ((++m_nDummyCounter).ToString()) + strNewExtension);
                 }
             }
             return str1;
         }
 
 
-        static volatile bool _randomOrder;
 
         //===================================================================================================
         /// <summary>
@@ -2065,7 +2156,7 @@ namespace SyncFolders
                 return;
             }
 
-            if (_bFirstToSecond)
+            if (m_bFirstToSecond)
                 ProcessFilePair_FirstToSecond(strFilePath1, strFilePath2, fi1, fi2);
             else
                 ProcessFilePair_Bidirectionally(strFilePath1, strFilePath2, fi1, fi2);
@@ -2085,7 +2176,7 @@ namespace SyncFolders
             System.IO.FileInfo fi2
             )
         {
-            if (_bFirstReadOnly)
+            if (m_bFirstReadOnly)
                 ProcessFilePair_FirstToSecond_FirstReadonly(
                     strFilePath1, strFilePath2, fi1, fi2);            
             else
@@ -2169,7 +2260,7 @@ namespace SyncFolders
             System.IO.FileInfo fi2
             )
         {
-            if (_bDeleteInSecond)
+            if (m_bFirstToSecondDeleteInSecond)
             {
                 System.IO.FileInfo fiSavedInfo2 = 
                     new System.IO.FileInfo(CreatePathOfChkFile(
@@ -2193,19 +2284,19 @@ namespace SyncFolders
                         "indicating a failed copy operation in the past: ", strFilePath2);
                 }
 
-                if (_bTestFiles)
+                if (m_bTestFiles)
                 {
                     System.IO.FileInfo fiSavedInfo2 = 
                         new System.IO.FileInfo(CreatePathOfChkFile(
                             fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
                     bool bForceCreateInfo = false;
-                    if (_bRepairFiles)
+                    if (m_bRepairFiles)
                         TestAndRepairSingleFile(fi2.FullName, fiSavedInfo2.FullName, ref bForceCreateInfo, false);
                     else
                         TestSingleFile(fi2.FullName, fiSavedInfo2.FullName, 
-                            ref bForceCreateInfo, true, !_bSkipRecentlyTested, true);
+                            ref bForceCreateInfo, true, !m_bTestFilesSkipRecentlyTested, true);
 
-                    if (_bCreateInfo && (!fiSavedInfo2.Exists || bForceCreateInfo))
+                    if (m_bCreateInfo && (!fiSavedInfo2.Exists || bForceCreateInfo))
                     {
                         CreateSavedInfo(fi2.FullName, fiSavedInfo2.FullName);
                     }
@@ -2245,13 +2336,13 @@ namespace SyncFolders
 
             bool bForceCreatInfo = false;
             bool bForceCreatInfo2 = false;
-            if (_cancelClicked)
+            if (m_bCancelClicked)
                 return;
             try
             {
-                _copyFiles.WaitOne();
+                m_oSemaphoreCopyFiles.WaitOne();
 
-                if (_cancelClicked)
+                if (m_bCancelClicked)
                     return;
 
                 CopyRepairSingleFile(fi2.FullName, fi1.FullName, fiSavedInfo1.FullName, 
@@ -2260,16 +2351,16 @@ namespace SyncFolders
             }
             finally
             {
-                _copyFiles.Release();
+                m_oSemaphoreCopyFiles.Release();
             }
 
-            if (_bCreateInfo || fiSavedInfo1.Exists || fiSavedInfo2.Exists)
+            if (m_bCreateInfo || fiSavedInfo1.Exists || fiSavedInfo2.Exists)
             {
                 if (fiSavedInfo1.Exists && !bForceCreatInfo && !bForceCreatInfo2)
                 {
                     try
                     {
-                        _copyFiles.WaitOne();
+                        m_oSemaphoreCopyFiles.WaitOne();
 
                         //CopyFileSafely(fiSavedInfo1, fiSavedInfo2.FullName);
                         m_iFileOpenAndCopyAbstraction.CopyTo(fiSavedInfo1, fiSavedInfo2.FullName, true);
@@ -2279,7 +2370,7 @@ namespace SyncFolders
                     }
                     finally
                     {
-                        _copyFiles.Release();
+                        m_oSemaphoreCopyFiles.Release();
                     }
                 }
                 else
@@ -2304,7 +2395,7 @@ namespace SyncFolders
             System.IO.FileInfo fi2
             )
         {
-            if (!_syncMode ? (!FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) || (fi1.Length != fi2.Length)) :
+            if (!m_bFirstToSecondSyncMode ? (!FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) || (fi1.Length != fi2.Length)) :
                            ((!FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) && (fi1.LastWriteTimeUtc > fi2.LastWriteTimeUtc)) || (FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) && fi1.Length > fi2.Length))
                 )
                 ProcessFilePair_FirstToSecond_FirstReadonly_BothExist_NeedToCopy(
@@ -2341,16 +2432,16 @@ namespace SyncFolders
 
             // if the first file is ok
             if (TestSingleFile(strFilePath1, fiSavedInfo1.FullName,
-                ref bForceCreateInfo, _bTestFiles, true, false))
+                ref bForceCreateInfo, m_bTestFiles, true, false))
             {
-                if (_cancelClicked)
+                if (m_bCancelClicked)
                     return;
                 // then simply copy it
                 try
                 {
-                    _copyFiles.WaitOne();
+                    m_oSemaphoreCopyFiles.WaitOne();
 
-                    if (_cancelClicked)
+                    if (m_bCancelClicked)
                         return;
 
                     CopyFileSafely(fi1, strFilePath2, "(file newer or bigger)",
@@ -2359,10 +2450,10 @@ namespace SyncFolders
                 }
                 finally
                 {
-                    _copyFiles.Release();
+                    m_oSemaphoreCopyFiles.Release();
                 }
 
-                if (_bCreateInfo || fiSavedInfo2.Exists || fiSavedInfo1.Exists)
+                if (m_bCreateInfo || fiSavedInfo2.Exists || fiSavedInfo1.Exists)
                 {
                     if (bForceCreateInfo)
                         CreateSavedInfo(fi2.FullName, fiSavedInfo2.FullName);
@@ -2370,13 +2461,13 @@ namespace SyncFolders
                     {
                         try
                         {
-                            _copyFiles.WaitOne();
+                            m_oSemaphoreCopyFiles.WaitOne();
                             m_iFileOpenAndCopyAbstraction.CopyTo(fiSavedInfo1, CreatePathOfChkFile(
                                 fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"), true);
                         }
                         finally
                         {
-                            _copyFiles.Release();
+                            m_oSemaphoreCopyFiles.Release();
                         }
 
                     }
@@ -2427,12 +2518,12 @@ namespace SyncFolders
                 {
                     try
                     {
-                        _copyFiles.WaitOne();
+                        m_oSemaphoreCopyFiles.WaitOne();
                         m_iFileOpenAndCopyAbstraction.CopyTo(fiSavedInfo1, fiSavedInfo2.FullName, true);
                     }
                     finally
                     {
-                        _copyFiles.Release();
+                        m_oSemaphoreCopyFiles.Release();
                     }
 
                     fiSavedInfo2 = new System.IO.FileInfo(CreatePathOfChkFile(
@@ -2440,18 +2531,18 @@ namespace SyncFolders
                 }
 
                 bool bForceCreateInfoBecauseDamaged = false;
-                if (_bTestFiles)
-                    if (_bRepairFiles)
+                if (m_bTestFiles)
+                    if (m_bRepairFiles)
                         TestAndRepairSecondFile(fi1.FullName, fi2.FullName, 
                             fiSavedInfo1.FullName, fiSavedInfo2.FullName, 
                             ref bForceCreateInfoBecauseDamaged);
                     else
                         TestSingleFile(fi2.FullName, fiSavedInfo2.FullName, 
                             ref bForceCreateInfoBecauseDamaged, true, 
-                            !_bSkipRecentlyTested, true);
+                            !m_bTestFilesSkipRecentlyTested, true);
 
 
-                if (_bCreateInfo && 
+                if (m_bCreateInfo && 
                     (!fiSavedInfo2.Exists || 
                         fiSavedInfo2.LastWriteTimeUtc != fi2.LastWriteTimeUtc || 
                         bForceCreateInfoBecauseDamaged))
@@ -2472,36 +2563,36 @@ namespace SyncFolders
                 {
                     try
                     {
-                        _copyFiles.WaitOne();
+                        m_oSemaphoreCopyFiles.WaitOne();
                         m_iFileOpenAndCopyAbstraction.CopyTo(fiSavedInfo1, fiSavedInfo2.FullName, true);
                     }
                     finally
                     {
-                        _copyFiles.Release();
+                        m_oSemaphoreCopyFiles.Release();
                     }
                 }
             } else
             {
                 bool bForceCreateInfoBecauseDamaged = false;
                 bool bOK = true;
-                if (_bTestFiles)
+                if (m_bTestFiles)
                 {
                     // test first file
                     TestSingleFile(strFilePath1, CreatePathOfChkFile(
                         fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"), 
-                        ref bForceCreateInfoBecauseDamaged, true, !_bSkipRecentlyTested, true);
+                        ref bForceCreateInfoBecauseDamaged, true, !m_bTestFilesSkipRecentlyTested, true);
 
                     // test or repair second file, which is different from first
-                    if (_bRepairFiles)
+                    if (m_bRepairFiles)
                         TestAndRepairSingleFile(strFilePath2, CreatePathOfChkFile(
                             fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"), 
                             ref bForceCreateInfoBecauseDamaged, false);
                     else
                         bOK = TestSingleFile(strFilePath2, CreatePathOfChkFile(
                             fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"), 
-                            ref bForceCreateInfoBecauseDamaged, true, !_bSkipRecentlyTested, true);
+                            ref bForceCreateInfoBecauseDamaged, true, !m_bTestFilesSkipRecentlyTested, true);
 
-                    if (bOK && _bCreateInfo && 
+                    if (bOK && m_bCreateInfo && 
                         (!fiSavedInfo2.Exists || bForceCreateInfoBecauseDamaged))
                     {
                         CreateSavedInfo(fi2.FullName, fiSavedInfo2.FullName);
@@ -2583,7 +2674,7 @@ namespace SyncFolders
             System.IO.FileInfo fi2
             )
         {
-            if (_bDeleteInSecond)
+            if (m_bFirstToSecondDeleteInSecond)
             {
                 System.IO.FileInfo fiSavedInfo2 = 
                     new System.IO.FileInfo(CreatePathOfChkFile(
@@ -2605,7 +2696,7 @@ namespace SyncFolders
                         "indicating a failed copy operation in the past: ", strFilePath2);
                 }
 
-                if (_bTestFiles)
+                if (m_bTestFiles)
                 {
                     System.IO.FileInfo fiSavedInfo2 = 
                         new System.IO.FileInfo(CreatePathOfChkFile(
@@ -2613,14 +2704,14 @@ namespace SyncFolders
                     bool bForceCreateInfo = false;
                     bool bOK = true;
 
-                    if (_bRepairFiles)
+                    if (m_bRepairFiles)
                         TestAndRepairSingleFile(fi2.FullName, fiSavedInfo2.FullName, 
                             ref bForceCreateInfo, false);
                     else
                         bOK = TestSingleFile(fi2.FullName, fiSavedInfo2.FullName, 
-                            ref bForceCreateInfo, true, !_bSkipRecentlyTested, true);
+                            ref bForceCreateInfo, true, !m_bTestFilesSkipRecentlyTested, true);
 
-                    if (bOK && _bCreateInfo && 
+                    if (bOK && m_bCreateInfo && 
                         (!fiSavedInfo2.Exists || bForceCreateInfo))
                     {
                         CreateSavedInfo(fi2.FullName, fiSavedInfo2.FullName);
@@ -2667,7 +2758,7 @@ namespace SyncFolders
             )
         {
             // first to second, but first can be written to
-            if (!_syncMode ? (!FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) || (fi1.Length != fi2.Length)) :
+            if (!m_bFirstToSecondSyncMode ? (!FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) || (fi1.Length != fi2.Length)) :
                            ((!FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) && fi1.LastAccessTimeUtc > fi2.LastAccessTimeUtc) || (FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) && (fi1.Length != fi2.Length)))
                )
                 ProcessFilePair_FirstToSecond_FirstReadWrite_BothExist_NeedToCopy(
@@ -2697,8 +2788,8 @@ namespace SyncFolders
             )
         {
             ProcessFilePair_Bidirectionally_BothExist_FirstNewer(strFilePath1, strFilePath2, fi1, fi2, 
-                _syncMode?"(file was newer or bigger)":"(file has a different date or length)",
-                _syncMode ? Resources.FileWasNewer : Resources.FileHasDifferentTime);
+                m_bFirstToSecondSyncMode?"(file was newer or bigger)":"(file has a different date or length)",
+                m_bFirstToSecondSyncMode ? Resources.FileWasNewer : Resources.FileHasDifferentTime);
         }
 
         //===================================================================================================
@@ -2736,12 +2827,12 @@ namespace SyncFolders
             {
                 bool bForceCreateInfo = false;
                 bool bOK = true;
-                if (_bTestFiles)
+                if (m_bTestFiles)
                 {
                     bOK = TestSingleFile(strFilePath2, CreatePathOfChkFile(
                         fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"), 
-                        ref bForceCreateInfo, true, !_bSkipRecentlyTested, true);
-                    if (!bOK && _bRepairFiles)
+                        ref bForceCreateInfo, true, !m_bTestFilesSkipRecentlyTested, true);
+                    if (!bOK && m_bRepairFiles)
                     {
                         // first try to repair second file internally
                         if (TestSingleFileHealthyOrCanRepair(strFilePath2,
@@ -2798,7 +2889,7 @@ namespace SyncFolders
                             fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"), 
                             ref bForceCreateInfo, true, true, true);
 
-                        if (!bOK && _bRepairFiles)
+                        if (!bOK && m_bRepairFiles)
                         {
                             if (TestAndRepairSingleFile(strFilePath1, CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"), ref bForceCreateInfo, true))
                             {
@@ -2966,12 +3057,12 @@ namespace SyncFolders
 
             try
             {
-                _copyFiles.WaitOne();
+                m_oSemaphoreCopyFiles.WaitOne();
 
-                if (_cancelClicked)
+                if (m_bCancelClicked)
                     return;
 
-                if (_bCreateInfo && 
+                if (m_bCreateInfo && 
                     (!fiSavedInfo1.Exists || 
                         fiSavedInfo1.LastWriteTimeUtc != fi1.LastWriteTimeUtc || 
                         bForceCreateInfo))
@@ -3000,10 +3091,10 @@ namespace SyncFolders
                 {
                     try
                     {
-                        if (_bTestFiles)
+                        if (m_bTestFiles)
                             CopyRepairSingleFile(strFilePath2, fi1.FullName, 
                                 fiSavedInfo1.FullName, ref bForceCreateInfo, ref bForceCreateInfo2, 
-                                "(file was new)", Resources.FileWasNew, true, _bRepairFiles);
+                                "(file was new)", Resources.FileWasNew, true, m_bRepairFiles);
                         else
                             CopyFileSafely(fi1, strFilePath2, "(file was new)", Resources.FileWasNew);
                     }
@@ -3013,21 +3104,21 @@ namespace SyncFolders
                             fi1.FullName);
                         WriteLog(true, 0, "Warning: Encountered error while copying ", 
                             fi1.FullName, ", trying to automatically repair");
-                        if (_bTestFiles && _bRepairFiles)
+                        if (m_bTestFiles && m_bRepairFiles)
                             TestAndRepairSingleFile(fi1.FullName, 
                                 fiSavedInfo1.FullName, ref bForceCreateInfo, false);
                         if (bInTheEndOK)
                             bInTheEndOK = CopyRepairSingleFile(strFilePath2, 
                                 fi1.FullName, fiSavedInfo1.FullName, 
                                 ref bForceCreateInfo, ref bForceCreateInfo2, 
-                                "(file was new)", Resources.FileWasNew, false, _bTestFiles && _bRepairFiles);
+                                "(file was new)", Resources.FileWasNew, false, m_bTestFiles && m_bRepairFiles);
                     }
                 }
 
 
                 if (bInTheEndOK)
                 {
-                    if (_bCreateInfo || fiSavedInfo1.Exists)
+                    if (m_bCreateInfo || fiSavedInfo1.Exists)
                     {
                         if (!fiSavedInfo1.Exists || bForceCreateInfo || 
                             fiSavedInfo1.LastWriteTimeUtc != fi1.LastWriteTimeUtc)
@@ -3071,7 +3162,7 @@ namespace SyncFolders
             }
             finally
             {
-                _copyFiles.Release();
+                m_oSemaphoreCopyFiles.Release();
             }
         }
 
@@ -3163,12 +3254,12 @@ namespace SyncFolders
 
             try
             {
-                _copyFiles.WaitOne();
+                m_oSemaphoreCopyFiles.WaitOne();
 
-                if (_cancelClicked)
+                if (m_bCancelClicked)
                     return;
 
-                if (_bCreateInfo && 
+                if (m_bCreateInfo && 
                     (!fiSavedInfo1.Exists || 
                         fiSavedInfo1.LastWriteTimeUtc != fi1.LastWriteTimeUtc || 
                         bForceCreateInfo1))
@@ -3187,10 +3278,10 @@ namespace SyncFolders
                 {
                     try
                     {
-                        if (_bTestFiles)
+                        if (m_bTestFiles)
                             CopyRepairSingleFile(strFilePath2, fi1.FullName, fiSavedInfo1.FullName, 
                                 ref bForceCreateInfo1, ref bForceCreateInfo2, 
-                                "(file was new)", Resources.FileWasNew, true, _bRepairFiles);
+                                "(file was new)", Resources.FileWasNew, true, m_bRepairFiles);
                         else
                             CopyFileSafely(fi1, strFilePath2, strReasonEn, strReasonTranslated);
                     }
@@ -3202,7 +3293,7 @@ namespace SyncFolders
 
                 if (!bCopied1To2)
                 {
-                    if (!_bTestFiles || !_bRepairFiles)
+                    if (!m_bTestFiles || !m_bRepairFiles)
                     {
                         WriteLogFormattedLocalized(0, Resources.RunningWithoutRepairOptionUndecided,
                             fi1.FullName, fi2.FullName);
@@ -3210,7 +3301,7 @@ namespace SyncFolders
                         + "so couldn't decide, if the file ",  
                         fi1.FullName, " can be restored using ", fi2.FullName);
                         // first failed,  still need to test the second
-                        if (_bTestFiles)
+                        if (m_bTestFiles)
                         {
                             TestSingleFileHealthyOrCanRepair(strFilePath2, fiSavedInfo2.FullName, ref bForceCreateInfo2);
                         }
@@ -3269,7 +3360,7 @@ namespace SyncFolders
 
                 if (bCopied1To2)
                 {
-                    if ((_bCreateInfo && 
+                    if ((m_bCreateInfo && 
                         (!fiSavedInfo1.Exists || fiSavedInfo1.LastWriteTimeUtc != fi1.LastWriteTimeUtc)) || 
                         (fiSavedInfo1.Exists && bForceCreateInfo1))
                     {
@@ -3283,7 +3374,7 @@ namespace SyncFolders
                     {
                         if (bForceCreateInfo2)
                         {
-                            if (_bCreateInfo || fiSavedInfo2.Exists)
+                            if (m_bCreateInfo || fiSavedInfo2.Exists)
                                 CreateSavedInfo(strFilePath2, CreatePathOfChkFile(
                                     fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
                         }
@@ -3299,7 +3390,7 @@ namespace SyncFolders
                 if (!bCopy2To1)
                     return;
 
-                if (!_bTestFiles || !_bRepairFiles)
+                if (!m_bTestFiles || !m_bRepairFiles)
                 {
                     WriteLogFormattedLocalized(0, Resources.RunningWithoutRepairOptionUndecided,
                         fi1.FullName, fi2.FullName);
@@ -3313,7 +3404,7 @@ namespace SyncFolders
                     CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
                 bForceCreateInfo2 = false;
 
-                if (_bCreateInfo && 
+                if (m_bCreateInfo && 
                     (!fiSavedInfo2.Exists || 
                         fiSavedInfo2.LastWriteTimeUtc != fi2.LastWriteTimeUtc || 
                         bForceCreateInfo2))
@@ -3357,7 +3448,7 @@ namespace SyncFolders
                 }
 
 
-                if ((_bCreateInfo && 
+                if ((m_bCreateInfo && 
                     (!fiSavedInfo2.Exists || fiSavedInfo2.LastWriteTimeUtc!=fi2.LastWriteTimeUtc)) || 
                     (fiSavedInfo2.Exists && bForceCreateInfo2))
                 {
@@ -3371,7 +3462,7 @@ namespace SyncFolders
                 {
                     if (bForceCreateInfo1)
                     {
-                        if (_bCreateInfo || fiSavedInfo1.Exists)
+                        if (m_bCreateInfo || fiSavedInfo1.Exists)
                             CreateSavedInfo(strFilePath1, 
                                 CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
                     }
@@ -3382,7 +3473,7 @@ namespace SyncFolders
             }
             finally
             {
-                _copyFiles.Release();
+                m_oSemaphoreCopyFiles.Release();
             }
         }
 
@@ -3441,12 +3532,12 @@ namespace SyncFolders
             {
                 try
                 {
-                    _copyFiles.WaitOne();
+                    m_oSemaphoreCopyFiles.WaitOne();
                     m_iFileOpenAndCopyAbstraction.CopyTo(fiSavedInfo1, fiSavedInfo2.FullName, true);
                 }
                 finally
                 {
-                    _copyFiles.Release();
+                    m_oSemaphoreCopyFiles.Release();
                 }
 
                 fiSavedInfo2 = new System.IO.FileInfo(
@@ -3459,12 +3550,12 @@ namespace SyncFolders
                 {
                     try
                     {
-                        _copyFiles.WaitOne();
+                        m_oSemaphoreCopyFiles.WaitOne();
                         m_iFileOpenAndCopyAbstraction.CopyTo(fiSavedInfo2, fiSavedInfo1.FullName, true);
                     }
                     finally
                     {
-                        _copyFiles.Release();
+                        m_oSemaphoreCopyFiles.Release();
                     }
 
                     fiSavedInfo1 = new System.IO.FileInfo(
@@ -3475,30 +3566,30 @@ namespace SyncFolders
             bool bCreateInfo = false;
             bool bCreateInfo1 = false;
             bool bCreateInfo2 = false;
-            if (_bTestFiles)
+            if (m_bTestFiles)
             {
                 bool bFirstOrSecond;
                 lock (this)
                 {
-                    bFirstOrSecond = _randomOrder = !_randomOrder;
+                    bFirstOrSecond = m_bRandomOrder = !m_bRandomOrder;
                 }
 
-                if (_bRepairFiles)
+                if (m_bRepairFiles)
                 {
                     bool bTotalResultOk = true;
                     if (bFirstOrSecond)
                     {
-                        bTotalResultOk = TestSingleFile2(fi1.FullName, fiSavedInfo1.FullName, ref bCreateInfo1, true, !_bSkipRecentlyTested, true, true, false);
+                        bTotalResultOk = TestSingleFile2(fi1.FullName, fiSavedInfo1.FullName, ref bCreateInfo1, true, !m_bTestFilesSkipRecentlyTested, true, true, false);
                         if (!string.Equals(fi1.FullName, fi2.FullName, StringComparison.CurrentCultureIgnoreCase))
-                            bTotalResultOk = bTotalResultOk && TestSingleFile2(fi2.FullName, fiSavedInfo2.FullName, ref bCreateInfo2, true, !_bSkipRecentlyTested, true, true, false);
+                            bTotalResultOk = bTotalResultOk && TestSingleFile2(fi2.FullName, fiSavedInfo2.FullName, ref bCreateInfo2, true, !m_bTestFilesSkipRecentlyTested, true, true, false);
                         else
                             bCreateInfo2 = false;
                     }
                     else
                     {
-                        bTotalResultOk = TestSingleFile2(fi2.FullName, fiSavedInfo2.FullName, ref bCreateInfo2, true, !_bSkipRecentlyTested, true, true, false);
+                        bTotalResultOk = TestSingleFile2(fi2.FullName, fiSavedInfo2.FullName, ref bCreateInfo2, true, !m_bTestFilesSkipRecentlyTested, true, true, false);
                         if (!string.Equals(fi1.FullName, fi2.FullName, StringComparison.CurrentCultureIgnoreCase))
-                            bTotalResultOk = bTotalResultOk && TestSingleFile2(fi1.FullName, fiSavedInfo1.FullName, ref bCreateInfo1, true, !_bSkipRecentlyTested, true, true, false);
+                            bTotalResultOk = bTotalResultOk && TestSingleFile2(fi1.FullName, fiSavedInfo1.FullName, ref bCreateInfo1, true, !m_bTestFilesSkipRecentlyTested, true, true, false);
                         else
                         {
                             bCreateInfo1 = bCreateInfo2;
@@ -3517,17 +3608,17 @@ namespace SyncFolders
                 {
                     if (bFirstOrSecond)
                     {
-                        TestSingleFile2(fi1.FullName, fiSavedInfo1.FullName, ref bCreateInfo1, true, !_bSkipRecentlyTested, true, false, false);
+                        TestSingleFile2(fi1.FullName, fiSavedInfo1.FullName, ref bCreateInfo1, true, !m_bTestFilesSkipRecentlyTested, true, false, false);
                         if (!string.Equals(fi1.FullName, fi2.FullName, StringComparison.CurrentCultureIgnoreCase))
-                            TestSingleFile2(fi2.FullName, fiSavedInfo2.FullName, ref bCreateInfo2, true, !_bSkipRecentlyTested, true, false, false);
+                            TestSingleFile2(fi2.FullName, fiSavedInfo2.FullName, ref bCreateInfo2, true, !m_bTestFilesSkipRecentlyTested, true, false, false);
                         else
                             bCreateInfo2 = false;
                     }
                     else
                     {
-                        TestSingleFile2(fi2.FullName, fiSavedInfo2.FullName, ref bCreateInfo2, true, !_bSkipRecentlyTested, true, false, false);
+                        TestSingleFile2(fi2.FullName, fiSavedInfo2.FullName, ref bCreateInfo2, true, !m_bTestFilesSkipRecentlyTested, true, false, false);
                         if (!string.Equals(fi1.FullName, fi2.FullName, StringComparison.CurrentCultureIgnoreCase))
-                            TestSingleFile2(fi1.FullName, fiSavedInfo1.FullName, ref bCreateInfo1, true, !_bSkipRecentlyTested, true, false, false);
+                            TestSingleFile2(fi1.FullName, fiSavedInfo1.FullName, ref bCreateInfo1, true, !m_bTestFilesSkipRecentlyTested, true, false, false);
                         else
                             bCreateInfo1 = false;
                     }
@@ -3537,14 +3628,14 @@ namespace SyncFolders
                 }
             }
 
-            if (_bCreateInfo && (!fiSavedInfo1.Exists || fiSavedInfo1.LastWriteTimeUtc != fi1.LastWriteTimeUtc || bCreateInfo1))
+            if (m_bCreateInfo && (!fiSavedInfo1.Exists || fiSavedInfo1.LastWriteTimeUtc != fi1.LastWriteTimeUtc || bCreateInfo1))
             {
                 CreateSavedInfo(fi1.FullName, fiSavedInfo1.FullName);
                 if (fiSavedInfo1.FullName.Equals(fiSavedInfo2.FullName, StringComparison.InvariantCultureIgnoreCase))
                     fiSavedInfo2 = new System.IO.FileInfo(CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
             }
 
-            if (_bCreateInfo && (!fiSavedInfo2.Exists || fiSavedInfo2.LastWriteTimeUtc != fi2.LastWriteTimeUtc || bCreateInfo2))
+            if (m_bCreateInfo && (!fiSavedInfo2.Exists || fiSavedInfo2.LastWriteTimeUtc != fi2.LastWriteTimeUtc || bCreateInfo2))
             {
                 CreateSavedInfo(fi2.FullName, fiSavedInfo2.FullName);
             }
@@ -3563,12 +3654,12 @@ namespace SyncFolders
             {
                 try
                 {
-                    _copyFiles.WaitOne();
+                    m_oSemaphoreCopyFiles.WaitOne();
                     m_iFileOpenAndCopyAbstraction.CopyTo(fiSavedInfo1, fiSavedInfo2.FullName, true);
                 }
                 finally
                 {
-                    _copyFiles.Release();
+                    m_oSemaphoreCopyFiles.Release();
                 }
             }
             else
@@ -3578,12 +3669,12 @@ namespace SyncFolders
                 {
                     try
                     {
-                        _copyFiles.WaitOne();
+                        m_oSemaphoreCopyFiles.WaitOne();
                         m_iFileOpenAndCopyAbstraction.CopyTo(fiSavedInfo2, fiSavedInfo1.FullName, true);
                     }
                     finally
                     {
-                        _copyFiles.Release();
+                        m_oSemaphoreCopyFiles.Release();
                     }
                 }
         }
@@ -3808,7 +3899,7 @@ namespace SyncFolders
                             }
                             break;
                         }
-                        if (_cancelClicked)
+                        if (m_bCancelClicked)
                             throw new OperationCanceledException();
  
                     };
@@ -3959,7 +4050,7 @@ namespace SyncFolders
                         fichecked.LastWriteTimeUtc.CompareTo(finfo.LastWriteTimeUtc) > 0 &&
                         Math.Abs(DateTime.UtcNow.Year * 366 + DateTime.UtcNow.DayOfYear 
                             - fichecked.LastWriteTimeUtc.Year * 366 - fichecked.LastWriteTimeUtc.DayOfYear) 
-                        < 366 * 2.2 + 366 * 4.6 * _randomizeChecked.NextDouble())
+                        < 366 * 2.2 + 366 * 4.6 * m_oRandomForRecentlyChecked.NextDouble())
                     {
                         return true;
                     }
@@ -4160,7 +4251,7 @@ namespace SyncFolders
                                 break;
                             }
 
-                            if (_cancelClicked)
+                            if (m_bCancelClicked)
                                 throw new OperationCanceledException();
                         }
                         catch (System.IO.IOException ex)
@@ -4172,7 +4263,7 @@ namespace SyncFolders
                             {
                                 // we need to re-read saveinfo
                                 bSkipBufferedFile = true;
-                                if (!_cancelClicked)
+                                if (!m_bCancelClicked)
                                     goto repeat;
                                 else
                                     throw;
@@ -4487,7 +4578,7 @@ namespace SyncFolders
                                 break;
                             }
 
-                            if (_cancelClicked)
+                            if (m_bCancelClicked)
                                 throw new OperationCanceledException();
 
                         }
@@ -4968,7 +5059,7 @@ namespace SyncFolders
                             if (!s1Continue && !s2Continue)
                                 break;
 
-                            if (_cancelClicked)
+                            if (m_bCancelClicked)
                                 throw new OperationCanceledException();
 
                         }
@@ -5034,7 +5125,7 @@ namespace SyncFolders
                         foreach (RestoreInfo ri1 in restore1)
                         {
                             if (ri1.NotRecoverableArea || 
-                                (_bPreferPhysicalCopies && equalBlocks.ContainsKey(ri1.Position / ri1.Data.Length)))
+                                (m_bPreferPhysicalCopies && equalBlocks.ContainsKey(ri1.Position / ri1.Data.Length)))
                                 ;// bForceCreateInfoBecauseDamaged = true;
                             else
                             {
@@ -5058,7 +5149,7 @@ namespace SyncFolders
                         foreach (RestoreInfo ri2 in restore2)
                         {
                             if (ri2.NotRecoverableArea || 
-                                (_bPreferPhysicalCopies && equalBlocks.ContainsKey(ri2.Position / ri2.Data.Length)))
+                                (m_bPreferPhysicalCopies && equalBlocks.ContainsKey(ri2.Position / ri2.Data.Length)))
                                 ; // bForceCreateInfoBecauseDamaged = true;
                             else
                             {
@@ -5316,7 +5407,7 @@ namespace SyncFolders
                             if (!s1Continue && !s2Continue)
                                 break;
 
-                            if (_cancelClicked)
+                            if (m_bCancelClicked)
                                 throw new OperationCanceledException();
 
                         }
@@ -5427,12 +5518,12 @@ namespace SyncFolders
             if (string.Equals(strPathTargetFile, strPathFile, 
                 StringComparison.InvariantCultureIgnoreCase))
             {
-                if (_bTestFiles && _bRepairFiles)
+                if (m_bTestFiles && m_bRepairFiles)
                     return TestAndRepairSingleFile(strPathFile, strPathSavedInfoFile, 
                         ref bForceCreateInfo, false);
                 else
                 {
-                    if (_bTestFiles)
+                    if (m_bTestFiles)
                     {
                         if (TestSingleFile2(strPathFile, strPathSavedInfoFile, 
                             ref bForceCreateInfo, false, true, true, true, false))
@@ -5485,7 +5576,7 @@ namespace SyncFolders
             }
 
             if (bNotReadableSi || si.Length != finfo.Length || 
-                !(_bIgnoreTimeDifferences || FileTimesEqual(si.TimeStamp, finfo.LastWriteTimeUtc)))
+                !(m_bIgnoreTimeDifferencesBetweenDataAndSaveInfo || FileTimesEqual(si.TimeStamp, finfo.LastWriteTimeUtc)))
             {
                 bool bAllBlocksOk = true;
                 bForceCreateInfo = true;
@@ -5659,7 +5750,7 @@ namespace SyncFolders
                                 System.IO.SeekOrigin.Begin);
                         }
 
-                        if (_cancelClicked)
+                        if (m_bCancelClicked)
                             throw new OperationCanceledException();
 
                     };
@@ -5863,7 +5954,7 @@ namespace SyncFolders
 
                 if (si.NeedsRebuild())
                 {
-                    if ((!_bFirstToSecond || !_bFirstReadOnly) && rinfos.Count==0)
+                    if ((!m_bFirstToSecond || !m_bFirstReadOnly) && rinfos.Count==0)
                         bForceCreateInfo = true;
 
                     bForceCreateInfoTarget = true;
@@ -5948,7 +6039,7 @@ namespace SyncFolders
             )
         {
             // if we can skip repairs, then try to test first and repair only in case there are some errors.
-            if (_bSkipRecentlyTested)
+            if (m_bTestFilesSkipRecentlyTested)
                 if (TestSingleFile(strPathFile2, strPathSavedInfo2, ref bForceCreateInfo, false, false, true))
                     return;
 
@@ -5962,13 +6053,13 @@ namespace SyncFolders
 
             bool bSaveInfo1Present = false;
             if (fiSavedInfo1.Exists && 
-                (_bIgnoreTimeDifferences || fiSavedInfo1.LastWriteTimeUtc == fi1.LastWriteTimeUtc) )
+                (m_bIgnoreTimeDifferencesBetweenDataAndSaveInfo || fiSavedInfo1.LastWriteTimeUtc == fi1.LastWriteTimeUtc) )
             {
                 using (System.IO.Stream s = m_iFileOpenAndCopyAbstraction.OpenRead(fiSavedInfo1.FullName))
                 {
                     si1.ReadFrom(s);
                     bSaveInfo1Present = si1.Length == fi1.Length && 
-                        (_bIgnoreTimeDifferences || FileTimesEqual(si1.TimeStamp, fi1.LastWriteTimeUtc) );
+                        (m_bIgnoreTimeDifferencesBetweenDataAndSaveInfo || FileTimesEqual(si1.TimeStamp, fi1.LastWriteTimeUtc) );
                     if (!bSaveInfo1Present)
                     {
                         si1 = new SavedInfo();
@@ -5984,14 +6075,14 @@ namespace SyncFolders
             }
 
             if (fiSavedInfo2.Exists && 
-                (_bIgnoreTimeDifferences || fiSavedInfo2.LastWriteTimeUtc == fi2.LastWriteTimeUtc) )
+                (m_bIgnoreTimeDifferencesBetweenDataAndSaveInfo || fiSavedInfo2.LastWriteTimeUtc == fi2.LastWriteTimeUtc) )
             {
                 using (System.IO.Stream s = m_iFileOpenAndCopyAbstraction.OpenRead(fiSavedInfo2.FullName))
                 {
                     SavedInfo si3 = new SavedInfo();
                     si3.ReadFrom(s);
                     if (si3.Length == fi2.Length && 
-                        (_bIgnoreTimeDifferences || FileTimesEqual(si3.TimeStamp, fi2.LastWriteTimeUtc) ))
+                        (m_bIgnoreTimeDifferencesBetweenDataAndSaveInfo || FileTimesEqual(si3.TimeStamp, fi2.LastWriteTimeUtc) ))
                     {
                         si2 = si3;
                         if (!bSaveInfo1Present)
@@ -6173,7 +6264,7 @@ namespace SyncFolders
                             if (!s1Continue && !s2Continue)
                                 break;
 
-                            if (_cancelClicked)
+                            if (m_bCancelClicked)
                                 throw new OperationCanceledException();
 
                             Block.ReleaseBlock(b1);
@@ -6232,7 +6323,7 @@ namespace SyncFolders
                         foreach (RestoreInfo ri2 in restore2)
                         {
                             if (ri2.NotRecoverableArea || 
-                                (_bPreferPhysicalCopies && equalBlocks.ContainsKey(ri2.Position / ri2.Data.Length)))
+                                (m_bPreferPhysicalCopies && equalBlocks.ContainsKey(ri2.Position / ri2.Data.Length)))
                                 ; // bForceCreateInfoBecauseDamaged = true;
                             else
                             {
@@ -6413,7 +6504,7 @@ namespace SyncFolders
                             if (!s1Continue && !s2Continue)
                                 break;
 
-                            if (_cancelClicked)
+                            if (m_bCancelClicked)
                                 throw new OperationCanceledException();
 
                             Block.ReleaseBlock(b1);
@@ -6465,9 +6556,9 @@ namespace SyncFolders
         }
 
 
-        System.Text.StringBuilder _log;
-        System.IO.TextWriter _logFileLocalized;
-        System.IO.TextWriter _logFile;
+        System.Text.StringBuilder m_strLogToShow;
+        System.IO.TextWriter m_oLogFileLocalized;
+        System.IO.TextWriter m_oLogFile;
 
 
         //===================================================================================================
@@ -6485,7 +6576,7 @@ namespace SyncFolders
             params object [] aParts
             )
         {
-            if (_logFile != null)
+            if (m_oLogFile != null)
             {
                 if (bOnlyToNonlocalizedLog &&
                     (Resources.DefaultCulture.Equals("yes")))
@@ -6496,27 +6587,27 @@ namespace SyncFolders
 
                 System.DateTime utc = System.DateTime.UtcNow;
                 System.DateTime now = utc.ToLocalTime();
-                lock (_log)
+                lock (m_strLogToShow)
                 {
-                    _logFile.Write("{0}UT\t={1}=\t", utc.ToString("yyyy-MM-dd hh:mm:ss.fff"),
+                    m_oLogFile.Write("{0}UT\t={1}=\t", utc.ToString("yyyy-MM-dd hh:mm:ss.fff"),
                         System.Threading.Thread.CurrentThread.ManagedThreadId);
                     if (!bOnlyToNonlocalizedLog)
                     {
                         // switch back to LTR for this message in the localized log
                         if (Resources.RightToLeft.Equals("yes"))
-                            _logFileLocalized.Write((char)0x200E);
+                            m_oLogFileLocalized.Write((char)0x200E);
 
-                        _logFileLocalized.Write("{0}\t={1}=\t", now.ToString("F"),
+                        m_oLogFileLocalized.Write("{0}\t={1}=\t", now.ToString("F"),
                             System.Threading.Thread.CurrentThread.ManagedThreadId);
                     }
 
                     while (nIndent-- > 0)
                     {
-                        _logFile.Write("\t");
+                        m_oLogFile.Write("\t");
                         if (!bOnlyToNonlocalizedLog)
-                             _logFileLocalized.Write("\t");
+                             m_oLogFileLocalized.Write("\t");
                         if (!bOnlyToNonlocalizedLog) 
-                            _log.Append("        ");
+                            m_strLogToShow.Append("        ");
                     }
 
                     foreach (object part in aParts)
@@ -6524,45 +6615,45 @@ namespace SyncFolders
                         string s = part.ToString().Replace(Environment.NewLine,"");
                         if (!bOnlyToNonlocalizedLog)
                         {
-                            _log.Append(s);
-                            _logFileLocalized.Write(s);
+                            m_strLogToShow.Append(s);
+                            m_oLogFileLocalized.Write(s);
                         }
-                        _logFile.Write(s);
+                        m_oLogFile.Write(s);
                     }
 
 
                     if (!bOnlyToNonlocalizedLog)
                     {
-                        _log.Append(Environment.NewLine);
+                        m_strLogToShow.Append(Environment.NewLine);
 
                         // continue with rtl
                         if (Resources.RightToLeft.Equals("yes"))
-                            _logFileLocalized.Write((char)0x200F);
+                            m_oLogFileLocalized.Write((char)0x200F);
 
-                        _logFileLocalized.WriteLine();
-                        _logFileLocalized.Flush();
+                        m_oLogFileLocalized.WriteLine();
+                        m_oLogFileLocalized.Flush();
                     }
-                    _logFile.WriteLine();
-                    _logFile.Flush();
+                    m_oLogFile.WriteLine();
+                    m_oLogFile.Flush();
                 }
             }
             else
             {
                 if (!bOnlyToNonlocalizedLog)
                 {
-                    lock (_log)
+                    lock (m_strLogToShow)
                     {
                         while (nIndent-- > 0)
                         {
-                            _log.Append("        ");
+                            m_strLogToShow.Append("        ");
                         }
 
                         foreach (object part in aParts)
                         {
-                            _log.Append(part.ToString());
+                            m_strLogToShow.Append(part.ToString());
                         }
 
-                        _log.Append("\r\n");
+                        m_strLogToShow.Append("\r\n");
                     }
                 }
             }
@@ -6582,43 +6673,43 @@ namespace SyncFolders
             params object[] aParams
             )
         {
-            if (_logFileLocalized != null)
+            if (m_oLogFileLocalized != null)
             {
                 System.DateTime utc = System.DateTime.UtcNow;
                 System.DateTime now = utc.ToLocalTime();
-                lock (_log)
+                lock (m_strLogToShow)
                 {
-                    _logFileLocalized.Write("{0}\t={1}=\t", now.ToString("F"),
+                    m_oLogFileLocalized.Write("{0}\t={1}=\t", now.ToString("F"),
                         System.Threading.Thread.CurrentThread.ManagedThreadId);
 
                     while (nIndent-- > 0)
                     {
-                        _logFileLocalized.Write("\t");
-                        _log.Append("        ");
+                        m_oLogFileLocalized.Write("\t");
+                        m_strLogToShow.Append("        ");
                     }
 
                     string s = string.Format(strFormat, aParams);
-                    _log.Append(s);
-                    _logFileLocalized.Write(s);
+                    m_strLogToShow.Append(s);
+                    m_oLogFileLocalized.Write(s);
 
-                    _log.Append(Environment.NewLine);
-                    _logFileLocalized.Write(Environment.NewLine);
-                    _logFileLocalized.Flush();
+                    m_strLogToShow.Append(Environment.NewLine);
+                    m_oLogFileLocalized.Write(Environment.NewLine);
+                    m_oLogFileLocalized.Flush();
                 }
             }
             else
             {
-                lock (_log)
+                lock (m_strLogToShow)
                 {
                     while (nIndent-- > 0)
                     {
-                        _log.Append("        ");
+                        m_strLogToShow.Append("        ");
                     }
 
                     string s = string.Format(strFormat, aParams);
-                    _log.Append(s);
+                    m_strLogToShow.Append(s);
 
-                    _log.Append("\r\n");
+                    m_strLogToShow.Append("\r\n");
                 }
             }
         }

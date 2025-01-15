@@ -35,7 +35,7 @@ namespace SyncFolders
     {
         //===================================================================================================
         /// <summary>
-        /// Constructs the form object
+        /// Constructs the oForm object
         /// </summary>
         //===================================================================================================
         public LogDisplayingForm()
@@ -45,7 +45,7 @@ namespace SyncFolders
 
         //===================================================================================================
         /// <summary>
-        /// This is executed when visibility of the form changes
+        /// This is executed when visibility of the oForm changes
         /// </summary>
         /// <param name="oSender">Sender object</param>
         /// <param name="oEventArgs">Event args</param>

@@ -39,7 +39,7 @@ namespace SyncFolders
         }
 
 
-        static System.Collections.Generic.Queue<Block> _freeBlocks = new Queue<Block>();
+        static System.Collections.Generic.Queue<Block> m_oFreeBlocks = new Queue<Block>();
         //===================================================================================================
         /// <summary>
         /// Gets a new block, or from pool of released blocks
@@ -51,11 +51,11 @@ namespace SyncFolders
             // Fixme: I consider it to be unsafe to reuse blocks
             return new Block();
             /*
-            lock (_freeBlocks)
+            lock (m_oFreeBlocks)
             {
-                if (_freeBlocks.Count > 0)
+                if (m_oFreeBlocks.Count > 0)
                 {
-                    Block b = _freeBlocks.Peek();
+                    Block b = m_oFreeBlocks.Peek();
                     for (int i = b.Length - 1; i >= 0; --i)
                         b[i] = 0;
                     return b;
@@ -75,9 +75,9 @@ namespace SyncFolders
         public static void ReleaseBlock(Block b)
         {
             /*
-            lock (_freeBlocks)
+            lock (m_oFreeBlocks)
             {
-                _freeBlocks.Enqueue(b);
+                m_oFreeBlocks.Enqueue(b);
             }
             */
         }
@@ -86,7 +86,7 @@ namespace SyncFolders
         /// <summary>
         /// The data of the block
         /// </summary>
-        public byte[] _data = new byte[4096];
+        public byte[] m_aData = new byte[4096];
 
         //===================================================================================================
         /// <summary>
@@ -97,11 +97,11 @@ namespace SyncFolders
         {
             get
             {
-                return _data[i];
+                return m_aData[i];
             }
             set
             {
-                _data[i] = value;
+                m_aData[i] = value;
             }
         }
 
@@ -114,7 +114,7 @@ namespace SyncFolders
         {
             get
             {
-                return _data.Length;
+                return m_aData.Length;
             }
         }
 
@@ -129,8 +129,8 @@ namespace SyncFolders
         public static Block operator |(Block b1, Block b2)
         {
             Block rb = GetBlock();
-            for (int i = b1._data.Length - 1; i >= 0; --i)
-                rb._data[i] = (byte)(b1._data[i] | b2._data[i]);
+            for (int i = b1.m_aData.Length - 1; i >= 0; --i)
+                rb.m_aData[i] = (byte)(b1.m_aData[i] | b2.m_aData[i]);
             return rb;
         }
 
@@ -144,8 +144,8 @@ namespace SyncFolders
         public static Block operator ~(Block b1)
         {
             Block rb = GetBlock();
-            for (int i = b1._data.Length - 1; i >= 0; --i)
-                rb._data[i] = (byte)(~b1._data[i]);
+            for (int i = b1.m_aData.Length - 1; i >= 0; --i)
+                rb.m_aData[i] = (byte)(~b1.m_aData[i]);
             return rb;
         }
 
@@ -160,8 +160,8 @@ namespace SyncFolders
         public static Block operator &(Block b1, Block b2)
         {
             Block rb = GetBlock();
-            for (int i = b1._data.Length - 1; i >= 0; --i)
-                rb._data[i] = (byte)(b1._data[i] & b2._data[i]);
+            for (int i = b1.m_aData.Length - 1; i >= 0; --i)
+                rb.m_aData[i] = (byte)(b1.m_aData[i] & b2.m_aData[i]);
             return rb;
         }
 
@@ -176,8 +176,8 @@ namespace SyncFolders
         public static Block operator ^(Block b1, Block b2)
         {
             Block rb = GetBlock();
-            for (int i = b1._data.Length - 1; i >= 0; --i)
-                rb._data[i] = (byte)(b1._data[i] ^ b2._data[i]);
+            for (int i = b1.m_aData.Length - 1; i >= 0; --i)
+                rb.m_aData[i] = (byte)(b1.m_aData[i] ^ b2.m_aData[i]);
             return rb;
         }
 
@@ -188,8 +188,8 @@ namespace SyncFolders
         /// <param name="other">Other block</param>
         public void DoXor(Block other)
         {
-            for (int i = _data.Length - 1; i >= 0; --i)
-                _data[i] = (byte)(_data[i] ^ other._data[i]);
+            for (int i = m_aData.Length - 1; i >= 0; --i)
+                m_aData[i] = (byte)(m_aData[i] ^ other.m_aData[i]);
         }
 
         //===================================================================================================
@@ -201,7 +201,7 @@ namespace SyncFolders
         //===================================================================================================
         public int ReadFrom(System.IO.Stream s)
         {
-            return s.Read(_data, 0, _data.Length);
+            return s.Read(m_aData, 0, m_aData.Length);
         }
 
 
@@ -215,7 +215,7 @@ namespace SyncFolders
         //===================================================================================================
         public int ReadFirstPartFrom(System.IO.Stream s, int nCount)
         {
-            return s.Read(_data, 0, nCount);
+            return s.Read(m_aData, 0, nCount);
         }
 
 
@@ -229,7 +229,7 @@ namespace SyncFolders
         //===================================================================================================
         public int ReadLastPartFrom(System.IO.Stream s, int nCount)
         {
-            return s.Read(_data, _data.Length-nCount, nCount);
+            return s.Read(m_aData, m_aData.Length-nCount, nCount);
         }
 
         //===================================================================================================
@@ -240,7 +240,7 @@ namespace SyncFolders
         //===================================================================================================
         public void WriteTo(System.IO.Stream s)
         {
-            s.Write(_data, 0, _data.Length);
+            s.Write(m_aData, 0, m_aData.Length);
         }
 
 
@@ -253,7 +253,7 @@ namespace SyncFolders
         //===================================================================================================
         public void WriteFirstPartTo(System.IO.Stream s, int nCount)
         {
-            s.Write(_data, 0, nCount);
+            s.Write(m_aData, 0, nCount);
         }
 
 
@@ -266,7 +266,7 @@ namespace SyncFolders
         //===================================================================================================
         public void WriteLastPartTo(System.IO.Stream s, int nCount)
         {
-            s.Write(_data, _data.Length-nCount, nCount);
+            s.Write(m_aData, m_aData.Length-nCount, nCount);
         }
 
         //===================================================================================================
@@ -278,7 +278,7 @@ namespace SyncFolders
         //===================================================================================================
         public void WriteTo(System.IO.Stream s, int length)
         {
-            s.Write(_data, 0, length);
+            s.Write(m_aData, 0, length);
         }
 
         //===================================================================================================
@@ -294,11 +294,11 @@ namespace SyncFolders
                 return false;
 
             Block b = (Block)obj;
-            if (b._data.Length != _data.Length)
+            if (b.m_aData.Length != m_aData.Length)
                 return false;
 
-            for (int i = _data.Length - 1; i >= 0; --i)
-                if (_data[i] != b._data[i])
+            for (int i = m_aData.Length - 1; i >= 0; --i)
+                if (m_aData[i] != b.m_aData[i])
                     return false;
 
             return true;
@@ -313,9 +313,9 @@ namespace SyncFolders
         public override int GetHashCode()
         {
             int h = 0;
-            for (int i = _data.Length; i >= 0; --i)
+            for (int i = m_aData.Length; i >= 0; --i)
             {
-                h = ((h * 2) | (h < 0 ? 1 : 0)) ^ (_data[i]);
+                h = ((h * 2) | (h < 0 ? 1 : 0)) ^ (m_aData[i]);
             }
             return h;
         }
@@ -331,7 +331,7 @@ namespace SyncFolders
         //===================================================================================================
         public IEnumerator<byte> GetEnumerator()
         {
-            return ((IEnumerable<byte>)_data).GetEnumerator();
+            return ((IEnumerable<byte>)m_aData).GetEnumerator();
         }
 
         #endregion
@@ -346,7 +346,7 @@ namespace SyncFolders
         //===================================================================================================
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
-            return _data.GetEnumerator();
+            return m_aData.GetEnumerator();
         }
 
         #endregion

@@ -221,14 +221,32 @@ namespace SyncFolders
         //***************************************************************************************************
         private class CheckSumCalculator
         {
+            //===============================================================================================
+            // Member variables
+            //===============================================================================================
             /// <summary>
             /// The stored checksum
             /// </summary>
-            public byte[] Checksum = new byte[31];
+            public readonly byte[] m_aChecksum = new byte[31];
             /// <summary>
             /// Current position in Checksum
             /// </summary>
-            private int _pos;
+            private int m_nPos;
+
+            //===============================================================================================
+            // Pproperties
+            //===============================================================================================
+            /// <summary>
+            /// Gets the stored checksum
+            /// </summary>
+            public byte[] Checksum
+            {
+                get
+                {
+                    return m_aChecksum;
+                }
+            }
+
             //===============================================================================================
             /// <summary>
             /// Adds a byte to the checksum (XORs it somewhere)
@@ -237,9 +255,9 @@ namespace SyncFolders
             //===============================================================================================
             public void AddByte(byte b)
             {
-                Checksum[_pos++] ^= b;
-                if (_pos >= Checksum.Length)
-                    _pos = 0;
+                m_aChecksum[m_nPos++] ^= b;
+                if (m_nPos >= m_aChecksum.Length)
+                    m_nPos = 0;
             }
             //===============================================================================================
             /// <summary>
@@ -249,9 +267,9 @@ namespace SyncFolders
             //===============================================================================================
             public void AddByte(int b)
             {
-                Checksum[_pos++] ^= (byte)b;
-                if (_pos >= Checksum.Length)
-                    _pos = 0;
+                m_aChecksum[m_nPos++] ^= (byte)b;
+                if (m_nPos >= m_aChecksum.Length)
+                    m_nPos = 0;
             }
         }
 
@@ -1305,16 +1323,14 @@ namespace SyncFolders
             // then simply add the block as OK
             if (m_aChecksums.Count <= index)
             {
-                //m_aBlocks[(int)(lBlockIndex % m_aBlocks.Count)] = 
-                //   m_aBlocks[(int)(lBlockIndex % m_aBlocks.Count)] ^ oBlockOfOriginalFile;
-                m_aBlocks[(int)(index % m_aBlocks.Count)].DoXor(oBlock);
+                if (m_aBlocks[(int)(index % m_aBlocks.Count)]!=null)
+                    m_aBlocks[(int)(index % m_aBlocks.Count)].DoXor(oBlock);
 
                 // if there is a second row of blocks, then perform also
                 // preparation of other blocks;
                 if (m_aOtherBlocks.Count > 0)
-                    //m_aOtherBlocks[(int)(lBlockIndex % m_aOtherBlocks.Count)] 
-                    //   = m_aOtherBlocks[(int)(lBlockIndex % m_aOtherBlocks.Count)] ^ oBlockOfOriginalFile;
-                    m_aOtherBlocks[(int)(index % m_aOtherBlocks.Count)].DoXor(oBlock);
+                    if (m_aOtherBlocks[(int)(index % m_aOtherBlocks.Count)]!=null)
+                        m_aOtherBlocks[(int)(index % m_aOtherBlocks.Count)].DoXor(oBlock);
 
                 // analyze which blocks have been skipped
                 while (++m_lCurrentlyRestoredBlock < index)
@@ -1326,18 +1342,18 @@ namespace SyncFolders
             }
 
             // calc a checksum for verification of the block
-            byte[] checksum = new byte[3];
+            byte[] aChecksum = new byte[3];
             int currentIndex = 0;
             foreach (byte by in oBlock)
             {
-                checksum[currentIndex++] ^= by;
-                if (currentIndex >= checksum.Length)
+                aChecksum[currentIndex++] ^= by;
+                if (currentIndex >= aChecksum.Length)
                     currentIndex = 0;
             }
 
             bool bChecksumOk = true;
-            for (int i = checksum.Length - 1; i >= 0; --i)
-                if (checksum[i] != m_aChecksums[(int)index][i])
+            for (int i = aChecksum.Length - 1; i >= 0; --i)
+                if (aChecksum[i] != m_aChecksums[(int)index][i])
                     bChecksumOk = false;
 
             if (!bChecksumOk)
@@ -1348,16 +1364,12 @@ namespace SyncFolders
             }
             else
             {
-                // m_aBlocks[(int)(lBlockIndex % m_aBlocks.Count)] = 
-                // m_aBlocks[(int)(lBlockIndex % m_aBlocks.Count)] ^ oBlockOfOriginalFile;
                 if (m_aBlocks[(int)(index % m_aBlocks.Count)] != null)
                     m_aBlocks[(int)(index % m_aBlocks.Count)].DoXor(oBlock);
 
                 // if there is a second row of blocks, then perform also 
                 // preparation of other blocks;
                 if (m_aOtherBlocks.Count > 0 && m_aOtherBlocks[(int)(index % m_aOtherBlocks.Count)]!=null)
-                    // m_aOtherBlocks[(int)(lBlockIndex % m_aOtherBlocks.Count)] = 
-                    // m_aOtherBlocks[(int)(lBlockIndex % m_aOtherBlocks.Count)] ^ oBlockOfOriginalFile;
                     m_aOtherBlocks[(int)(index % m_aOtherBlocks.Count)].DoXor(oBlock);
 
                 // analyze which blocks have been skipped
