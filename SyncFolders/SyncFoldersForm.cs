@@ -609,14 +609,15 @@ namespace SyncFolders
             else
                 m_oLogFileLocalized.Write((char)0x200E);
 
-            m_oLogFile.Write("###################################################");
-            m_oLogFile.Write("###################################################");
-            m_oLogFile.Write("###################################################");
-            m_oLogFile.WriteLine("###################################################");
-            m_oLogFileLocalized.Write("###################################################");
-            m_oLogFileLocalized.Write("###################################################");
-            m_oLogFileLocalized.Write("###################################################");
-            m_oLogFileLocalized.WriteLine("###################################################");
+            string strQuarterOfASeparator = "###################################################";
+            m_oLogFile.Write(strQuarterOfASeparator);
+            m_oLogFile.Write(strQuarterOfASeparator);
+            m_oLogFile.Write(strQuarterOfASeparator);
+            m_oLogFile.WriteLine(strQuarterOfASeparator);
+            m_oLogFileLocalized.Write(strQuarterOfASeparator);
+            m_oLogFileLocalized.Write(strQuarterOfASeparator);
+            m_oLogFileLocalized.Write(strQuarterOfASeparator);
+            m_oLogFileLocalized.WriteLine(strQuarterOfASeparator);
 
             m_oLogFile.WriteLine(System.DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.fff") + "UT\tThread\tMessage from thread");
             m_oLogFileLocalized.WriteLine(System.DateTime.Now.ToString("F") + "\t" + Resources.ProcessNo + "\t" + Resources.Message);
@@ -6673,7 +6674,7 @@ namespace SyncFolders
                 System.DateTime now = utc.ToLocalTime();
                 lock (m_strLogToShow)
                 {
-                    m_oLogFile.Write("{0}UT\t={1}=\t", utc.ToString("yyyy-MM-dd hh:mm:ss.fff"),
+                    m_oLogFile.Write("{0}UT\t={1}=\t", utc.ToString("yyyy-MM-dd HH:mm:ss.fff"),
                         System.Threading.Thread.CurrentThread.ManagedThreadId);
                     if (!bOnlyToNonlocalizedLog)
                     {
