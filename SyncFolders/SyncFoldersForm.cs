@@ -134,10 +134,6 @@ namespace SyncFolders
         /// </summary>
         volatile string m_strCurrentPath;
         /// <summary>
-        /// This is sometimes used for chck file creation
-        /// </summary>
-        volatile int m_nDummyCounter;
-        /// <summary>
         /// This is used for changing order of tests in different threads.
         /// One tests first file first, the next tests the second file first,
         /// so we reduce the competition on drives and use both drives more efficiently
@@ -2173,9 +2169,10 @@ namespace SyncFolders
                     strFileName.Substring(0, 1) + strFileName.GetHashCode().ToString() + strNewExtension);
                 if (str1.Length >= 258)
                 {
+                    // still too big? then try a smaller version, consisting of three chars
                     str1 = System.IO.Path.Combine(
-                        System.IO.Path.Combine(strOriginalDir, strSubDirForSavedInfo), 
-                        strFileName.Substring(0, 1) + ((++m_nDummyCounter).ToString()) + strNewExtension);
+                        System.IO.Path.Combine(strOriginalDir, strSubDirForSavedInfo),
+                        strFileName.Substring(0, 1) + ((strFileName.GetHashCode()%100).ToString()) + strNewExtension);
                 }
             }
             return str1;
