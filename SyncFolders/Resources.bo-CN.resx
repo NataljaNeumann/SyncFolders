@@ -1,0 +1,342 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BlockOfAtPositionWillBeCopiedFromNoMatterChecksum" xml:space="preserve">
+    <value>ཡིག་ཆའི་སྡེབ་ཚན་“{0}”གནས་ཡུལ་{1}ལ་ཡོད་པའི་སྡེབ་ཚན་དེ་“{2}”ནས་འདྲ་བཤུས་བྱས་ཡོད།</value>
+  </data>
+  <data name="BlockOfAtPositionWillBeRestoredFrom" xml:space="preserve">
+    <value>ཡིག་ཆ་“{0}” ཡི་བཀག་སྡོམ་དེ་གནས་ཡུལ་{1} ཡིག་ཆ་“{2}”ཡི་གནས་ཡུལ་གཅིག་པ་ནས་སླར་གསོ་བྱས།</value>
+  </data>
+  <data name="BlocksOfAndAtPositionNonRecoverableFillDummy" xml:space="preserve">
+    <value>གནས་ {2} ལ་ཡོད་པའི་ཡིག་ཆ་ “{0}” དང་ “{1}” གྱི་སྡེབ་ཚན་སླར་གསོ་བྱེད་མི་ཐུབ་པས་སྡེབ་ཚན་སྟོང་པ་ཞིག་གིས་བཀང་རྒྱུ་རེད།</value>
+  </data>
+  <data name="ChecksumOfBlockAtOffsetNotOK" xml:space="preserve">
+    <value>{0}: གནས་ཡུལ་{1}ལ་ཡོད་པའི་སྡེབ་ཚན་གྱི་ཞིབ་བཤེར་བསྡོམས་འབོར་འགྲིག་གི་མེད།</value>
+  </data>
+  <data name="CopiedFromToReason" xml:space="preserve">
+    <value>འདྲ་བཤུས་ཚར་འདུག: “{0}” ནས་ “{1}” {2}</value>
+  </data>
+  <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
+    <value>ཉེན་བརྡ། ཡིག་ཆ་ “{0}” ༡༩༧༥ ཡང་ན་དེ་སྔོན་གྱི་ཡིག་ཆ་ “{1}” སླར་གསོ་བྱེད་པར་བེད་སྤྱོད་གཏོང་མི་ཐུབ། དེ་ལྟ་བུའི་ཚེས་གྲངས་རྙིང་པ་དེས་ཡིག་ཆ་ “{0}” སླར་གསོ་བྱེད་པའི་གོ་སྐབས་མཐའ་མ་དེ་ཡིན་པ་སྟོན་གྱི་ཡོད།</value>
+  </data>
+  <data name="DefaultCulture" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="DeletedFileNotPresentIn" xml:space="preserve">
+    <value>“{1}” ནང་མེད་པའི་ཡིག་ཆ་ “{0}” བསུབས་ཡོད།</value>
+  </data>
+  <data name="DeletedFolder" xml:space="preserve">
+    <value>སྣོད་ཐོ “{0}” ནང་དོན་བསུབས་འདུག རྒྱུ་མཚན་ནི་ “{1}” ད་ལྟ་མེད་པ་རེད།</value>
+  </data>
+  <data name="Digits" xml:space="preserve">
+    <value>Tibet</value>
+  </data>
+  <data name="EncounteredErrorOlderOk" xml:space="preserve">
+    <value>ཉེན་བརྡ་། ཡིག་ཆ་ “{0}” འདྲ་བཤུས་བྱེད་སྐབས་སྒུལ་ཆས་ཡང་ན་བརྡ་འཕྲིན་ནོར་འཁྲུལ་བྱུང་ཡོད། ཡིག་ཆ་རྙིང་པ་“{1}”དེ་འགྲིག་གི་རེད།</value>
+  </data>
+  <data name="EncounteredErrorOtherBadToo" xml:space="preserve">
+    <value>ཉེན་བརྡ་། ཡིག་ཆ་ “{0}” འདྲ་བཤུས་བྱེད་སྐབས་སྒུལ་ཆས་ཡང་ན་བརྡ་འཕྲིན་ནོར་འཁྲུལ་བྱུང་ཡོད། ཡིག་ཆ་གཞན་ “{1}” ལ་ཡང་ནོར་འཁྲུལ་ཡོད་པའམ་ཡང་ན་མཐའ་མའི་བསྐྱར་གསོའི་ཐོན་རྫས་ཡིན། “{0}”རང་འགུལ་གྱིས་བཟོ་བཅོས་བྱེད་པར་འབད་བརྩོན་བྱེད་བཞིན་ཡོད།</value>
+  </data>
+  <data name="EncounteredErrorWhileCopyingTryingToRepair" xml:space="preserve">
+    <value>ཉེན་བརྡ། ཡིག་ཆ་“{0}”འདྲ་བཤུས་བྱེད་སྐབས་ནོར་འཁྲུལ་བྱུང་ཡོད། ངས་ནོར་འཁྲུལ་དེ་སེལ་ཐབས་བྱེད་ཀྱི་ཡོད།</value>
+  </data>
+  <data name="ErrorDeleting" xml:space="preserve">
+    <value>ཡིག་ཆ་ “{0}”: {1} བསུབས་པའི་ནོར་འཁྲུལ་བྱུང་།</value>
+  </data>
+  <data name="ErrorProcessinngFilePair" xml:space="preserve">
+    <value>ཡིག་ཆ་ཆ་གཅིག་ “{0}” དང་ “{1}”: {2} ལས་སྣོན་བྱེད་སྐབས་ནོར་འཁྲུལ་བྱུང་ཡོད།</value>
+  </data>
+  <data name="ErrorReadingPositionWillFillWithDummy" xml:space="preserve">
+    <value>ཡིག་ཆ་“{0}” གནས་ཡུལ་{1}: {2} ལ་ཀློག་སྐབས་ནོར་འཁྲུལ་བྱུང་ཡོད། བཀག་སྡོམ་ཀླད་ཀོར་གྱིས་བཀང་ཡོད།</value>
+  </data>
+  <data name="ErrorWhileTestingFile" xml:space="preserve">
+    <value>ནོར་འཁྲུལ་ཚོད་ལྟ་ཡིག་ཆ་ “{0}”</value>
+  </data>
+  <data name="FileCopied" xml:space="preserve">
+    <value>འདྲ་བཤུས་ཚར་འདུག: “{0}” ནས་ “{1}” {2}</value>
+  </data>
+  <data name="FileHasDifferentTime" xml:space="preserve">
+    <value>(ཡིག་ཆ་ལ་ཚེས་གྲངས་དང་རིང་ཚད་མི་འདྲ་བ་ཡོད།)</value>
+  </data>
+  <data name="FileHasZeroLength" xml:space="preserve">
+    <value>དྲན་སྐུལ། ཡིག་ཆ་དེའི་རིང་ཚད་ཀླད་ཀོར་ཡིན་པས་འདས་ཟིན་པའི་འདྲ་བཤུས་བཀོལ་སྤྱོད་འཐུས་ཤོར་བྱུང་བ་མཚོན། “{0}”</value>
+  </data>
+  <data name="FileHealthyOrRepaired" xml:space="preserve">
+    <value>(ཡིག་ཆ་དེ་ནོར་འཁྲུལ་མེད་པའམ་ཡང་ན་བཟོ་བཅོས་བྱས་ཟིན།)</value>
+  </data>
+  <data name="FilesHaveZeroLength" xml:space="preserve">
+    <value>དྲན་སྐུལ། ཡིག་ཆ་གཉིས་ཀའི་རིང་ཚད་ཀླད་ཀོར་ཡིན་པས་འདས་ཟིན་པའི་འདྲ་བཤུས་བཀོལ་སྤྱོད་འཐུས་ཤོར་བྱུང་བ་མཚོན། “{0}” དང་ “{1}” </value>
+  </data>
+  <data name="FileWasHealthy" xml:space="preserve">
+    <value>(ཡིག་ཆ་དེ་ནོར་འཁྲུལ་མེད་པ་རེད།)</value>
+  </data>
+  <data name="FileWasNew" xml:space="preserve">
+    <value>(ཡིག་ཆ་དེ་གསར་པ་རེད།)</value>
+  </data>
+  <data name="FileWasNewer" xml:space="preserve">
+    <value>(ཡིག་ཆ་དེ་གསར་པའམ་ཆེ་བ་རེད།)</value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetOfCopyWithDummy" xml:space="preserve">
+    <value>འདྲ་བཤུས་བྱས་པའི་ཡིག་ཆ་ “{1}” ཡི་གནས་ {0} ལ་སླར་གསོ་བྱེད་མི་ཐུབ་པའི་སྡེབ་ཚན་དེ་ཀླད་ཀོར་གྱིས་བཀང་ཡོད།</value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetWithDummy" xml:space="preserve">
+    <value>གནས་ {0} ལ་སླར་གསོ་བྱེད་མི་ཐུབ་པའི་སྡེབ་ཚན་དེ་ཀླད་ཀོར་གྱིས་བཀང་ཡོད།</value>
+  </data>
+  <data name="FirstFileHasBadBlocks" xml:space="preserve">
+    <value>དྲན་སྐུལ། ཡིག་ཆ་དང་པོ “{0}” ལ་འགོག་རྐྱེན་ངན་པ་ཡོད། ཚབ་བྲིས་ཡིག་ཆ་ “{1}” མཆོངས་འདུག དེ་རྒྱབ་ལྗོངས་སུ་བཞག་ཡོད།</value>
+  </data>
+  <data name="FoundFileForSync" xml:space="preserve">
+    <value>བསྡུར་བའི་ཆེད་དུ་འབྱུང་སྲིད་པའི་ཡིག་ཆ་ཞིག་རྙེད་སོང་།</value>
+  </data>
+  <data name="FoundFilesForSync" xml:space="preserve">
+    <value>བསྡུར་བའི་ཆེད་དུ་འབྱུང་སྲིད་པའི་ཡིག་ཆ་ {0} རྙེད་སོང་།</value>
+  </data>
+  <data name="InternalErrorCouldntRestoreAny" xml:space="preserve">
+    <value>ནང་ཁུལ་གྱི་ནོར་འཁྲུལ། ཡིག་ཆའི་འདྲ་བཤུས་ཤིག་ “{0}” དང་ “{1}” གཉིས་ཀ་སླར་གསོ་བྱེད་མི་ཐུབ། </value>
+  </data>
+  <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
+    <value>ཡིག་ཆ་“{0}”ནང་གི་འདྲ་བཤུས་བཟོ་བཅོས་བྱེད་བཞིན་པའི་སྒུལ་གཏོང་ཡང་ན་སྨྱན་སྦྱོར་གྱི་ནོར་འཁྲུལ། {1}</value>
+  </data>
+  <data name="IOErrorReadingFile" xml:space="preserve">
+    <value>སྒུལ་གཏོང་ཡང་ན་སྨྱན་སྦྱོར་གྱི་ནོར་འཁྲུལ་ཡིག་ཆ་ཀློག་པའི་ཡིག་ཆ་ “{0}”: {1}</value>
+  </data>
+  <data name="IOErrorReadingFileOffset" xml:space="preserve">
+    <value>ལ་ཡོད་པའི་ཡིག་ཆ་ “{0}” ནང་སྒུལ་གཏོང་ཡང་ན་བརྡ་འཕྲིན་ནོར་འཁྲུལ།གནས་ཡུལ་{1}: {2}</value>
+  </data>
+  <data name="IOErrorWhileReadingPositionFillDummyWhileCopy" xml:space="preserve">
+    <value>གནས་ཡུལ་{1} ལ་ཡིག་ཆ་ “{0}” ཀློག་སྐབས་སྒུལ་ཆས་ཡང་ན་བརྡ་འཕྲིན་ནོར་འཁྲུལ་བྱུང་ཡོ {2} ད། བཀག་སྡོམ་དེ་འདྲ་བཤུས་བྱེད་སྐབས་བཀག་སྡོམ་སྟོང་པ་ཞིག་གིས་ཚབ་བྱེད་ཀྱི་ཡོད།</value>
+  </data>
+  <data name="IOErrorWritingFile" xml:space="preserve">
+    <value>ཡིག་ཆ་“{0}”ནང་སྒུལ་གཏོང་ཡང་ན་སྨྱན་སྦྱོར་གྱི་ནོར་འཁྲུལ། {1}</value>
+  </data>
+  <data name="KeepingReadableButNotRecoverableBlockAtOffset" xml:space="preserve">
+    <value>གནས་ {0} ལ་ཡོད་པའི་ཀློག་ཐུབ་ཀྱང་སླར་གསོ་བྱེད་མི་ཐུབ་པའི་བཀག་སྡོམ་དེ་ལྷག་ཡོད། ཞིབ་བཤེར་གྲངས་འབོར་གྱིས་སྡེབ་ཚན་དེ་ནོར་འཁྲུལ་ཅན་ཡིན་པ་མཚོན་གྱི་ཡོད།</value>
+  </data>
+  <data name="KeepingReadableNonRecovBBlockAtAlsoInCopy" xml:space="preserve">
+    <value>ཡིག་ཆ་ཐོག་མ་ “{1}” ཡི་གནས་ཡུལ་ {0} ནང་ཡོད་པའི་ཀློག་ཐུབ་ཀྱང་སླར་གསོ་བྱེད་མི་ཐུབ་པའི་བཀག་སྡོམ་དེ་ཡང་འདྲ་བཤུས་ “{2}” ནང་དུ་ལྷག་ཡོད། ཞིབ་བཤེར་གྲངས་འབོར་གྱིས་སྡེབ་ཚན་དེ་ནོར་འཁྲུལ་ཅན་ཡིན་པ་མཚོན་གྱི་ཡོད།</value>
+  </data>
+  <data name="LogFileName" xml:space="preserve">
+    <value>བོད་ཡིག་ཐོག་ཡིག་ཆ་མཉམ་སྒྲིག་ཟིན་ཐོ་ཡིག་ཆ།</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>བཤུ་བཤུས་བརྒྱུད་རིམ་གྱི་སྙན་ཞུ།</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>མིན</value>
+  </data>
+  <data name="OperationCanceled" xml:space="preserve">
+    <value>བྱ་རིམ་མཚམས་འཇོག་བྱས།</value>
+  </data>
+  <data name="OperationFinished" xml:space="preserve">
+    <value>བྱ་རིམ་མཇུག་རྫོགས།</value>
+  </data>
+  <data name="OutOfBadBlocksNotRestoredInCopyBytes" xml:space="preserve">
+    <value>ཡིག་ཆ་ངོ་མའི་ནང་དུ་ཡོད་པའི་ {0} བཀག་སྡོམ་ངན་པ་ནང་ནས་ {2} བཱའིཊི་འདྲ་བཤུས་ “{1}” ནང་དུ་སླར་གསོ་བྱེད་ཐུབ་ཀྱི་མེད།</value>
+  </data>
+  <data name="ProcessNo" xml:space="preserve">
+    <value>ཨང་གྲངས</value>
+  </data>
+  <data name="RecoveringBlockAtOfCopiedFile" xml:space="preserve">
+    <value>འདྲ་བཤུས་བྱས་པའི་དམིགས་འབེན་ཡིག་ཆ་“{1}”ཡི་གནས་ཡུལ་{0}ལ་ཡོད་པའི་བཀག་སྡོམ་སླར་གསོ་བྱས།</value>
+  </data>
+  <data name="RecoveringBlockAtOffsetOfFile" xml:space="preserve">
+    <value>ཡིག་ཆ་ “{1}” ཡི་གནས་ཡུལ་ {0} ལ་ཡོད་པའི་བཀག་སྡོམ་དེ་སླར་གསོ་བྱས།</value>
+  </data>
+  <data name="RightToLeft" xml:space="preserve">
+    <value>no</value>
+  </data>
+  <data name="RunningWithoutRepairOptionUndecided" xml:space="preserve">
+    <value>མཉམ་སྒྲིག་འདི་བཟོ་བཅོས་གདམ་ཁ་མེད་པར་གཡོག་བཞིན་ཡོད་སྟབས་ཡིག་ཆ་“{0}”དེ་“{1}”བཀོལ་ནས་སླར་གསོ་བྱེད་ཐུབ་མིན་ཐག་གཅོད་བྱེད་ཐུབ་ཀྱི་མེད།</value>
+  </data>
+  <data name="SavedInfoFileCantBeUsedForTesting" xml:space="preserve">
+    <value>གསོག་འཇོག་བྱས་པའི་བརྡ་དོན་ཡིག་ཆ་ “{0}” དེ་ཡིག་ཆ་ “{1}” བརྟག་དཔྱད་བྱེད་པར་བེད་སྤྱོད་གཏོང་མི་ཐུབ། དེ་ཡིག་ཆ་ “{0}” ཡི་ཐོན་རིམ་གཞན་ཞིག་གི་ཆེད་དུ་བཟོས་ཡོད།</value>
+  </data>
+  <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
+    <value>གསོག་འཇོག་བྱས་པའི་ཆ་འཕྲིན་ཡིག་ཆ་ “{0}” དེ་ཉམས་ཆག་ཤོར་བས་ “{1}” ནས་བསྐྱར་བཟོ་བྱེད་དགོས།</value>
+  </data>
+  <data name="SecondFolderNoDelete" xml:space="preserve">
+    <value>ནོར་འཁྲུལ། སྣོད་ཐོ་གཉིས་པ་དེའི་ནང་ཡིག་ཆ་ “{0}” ཡོད། བདམས་པའི་སྣོད་ཐོ་དེ་སུབ་པའི་གདམ་ཁའི་ཆེད་དུ་ནོར་འཁྲུལ་ཅན་དུ་སྣང་། སྣོད་ཐོ་དང་ཡན་ལག་སྣོད་ཐོ་ལས་སྣོན་བྱེད་པ་བརྒལ་ཡོད།</value>
+  </data>
+  <data name="SkippingFilePairDontDelete" xml:space="preserve">
+    <value>ཡིག་ཆ་ཆ་གཅིག་ “{0}” དང་ “{1}” བརྒལ་ཡོད། དམིགས་བསལ་གྱི་ཡིག་ཆ་ཞིག་གིས་རྩ་བའི་སྣོད་ཐོ་ནོར་འཁྲུལ་ཅན་ནང་བསུབས་པའི་གདམ་ཁ་བཀོལ་སྤྱོད་བྱེད་པར་བཀག་འགོག་བྱེད། </value>
+  </data>
+  <data name="TheFileCantBeModifiedMissingRepairApplyToCopy" xml:space="preserve">
+    <value>བཟོ་བཅོས་གདམ་ག་མེད་པའི་རྐྱེན་གྱིས་ཡིག་ཆ་དེ་བཟོ་བཅོས་བྱེད་མི་ཐུབ། སླར་གསོའི་བྱ་རིམ་དེ་འདྲ་བཤུས་ལ་འཇུག་དགོས།</value>
+  </data>
+  <data name="ThereAreBadBlocksInFileNonRestorableParts" xml:space="preserve">
+    <value>ཡིག་ཆ་“{1}”ནང་དུ་ {0} བཀག་སྡོམ་ངན་པ་ཡོད། སླར་གསོ་བྱེད་མི་ཐུབ་པའི་ཆ་ཤས་: {2} བཱའིཊི།</value>
+  </data>
+  <data name="ThereAreBadBlocksInNonRestorableMayRetryLater" xml:space="preserve">
+    <value>ཡིག་ཆ་“{1}”ནང་དུ་ {0} བཀག་སྡོམ་ངན་པ་ཡོད། སླར་གསོ་བྱེད་མི་ཐུབ་པའི་ཆ་ཤས་: {2} བཱའིཊི། བསྐྱར་གསོ་བྱེད་མི་ཐུབ་པའི་རྐྱེན་གྱིས་བྱ་རིམ་དེ་མུ་མཐུད་དུ་སྤེལ་མི་ཐུབ།  རྗེས་སུ་ཡང་བསྐྱར་ཚོད་ལྟ་བྱེད་སྲིད།</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableCantBeBackup" xml:space="preserve">
+    <value>ཡིག་ཆ་“{1}”ནང་དུ་ {0} བཀག་སྡོམ་ངན་པ་ཡོད། སླར་གསོ་བྱེད་མི་ཐུབ་པའི་ཆ་ཤས་: {2} བཱའིཊི། ཡིག་ཆ་དེ་རྒྱབ་རྟེན་དུ་བེད་སྤྱོད་གཏོང་མི་ཐུབ།</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableOnlyTested" xml:space="preserve">
+    <value>ཡིག་ཆ་“{1}”ནང་དུ་ {0} བཀག་སྡོམ་ངན་པ་ཡོད། སླར་གསོ་བྱེད་མི་ཐུབ་པའི་ཆ་ཤས་: {2} བཱའིཊི། ཡིག་ཆ་དེ་འགྱུར་བ་མེད་པར་ལུས་འདུག དེ་ད་ལྟ་ཚོད་ལྟ་བྱས་ཟིན།</value>
+  </data>
+  <data name="ThereIsBadBlockInFileNonRestorableParts" xml:space="preserve">
+    <value>ཡིག་ཆ་“{0}”ནང་དུ་བཀག་སྡོམ་ངན་པ་ཞིག་ཡོད། སླར་གསོ་བྱེད་མི་ཐུབ་པའི་ཆ་ཤས་: {1} བཱའིཊི།</value>
+  </data>
+  <data name="ThereIsBadBlockNonRestorableCantBeBackup" xml:space="preserve">
+    <value>ཡིག་ཆ་ “{0}” ནང་དུ་བཀག་སྡོམ་ངན་པ་ཞིག་ཡོད་པ་དེ་སླར་གསོ་བྱེད་མི་ཐུབ། {1} བཱའིཊི། ཡིག་ཆ་དེ་རྒྱབ་རྟེན་དུ་བེད་སྤྱོད་གཏོང་མི་ཐུབ།</value>
+  </data>
+  <data name="ThereIsOneBadBlockNonRestorableOnlyTested" xml:space="preserve">
+    <value>ཡིག་ཆ་“{0}”ནང་དུ་བཀག་སྡོམ་ངན་པ་ཞིག་ཡོད། སླར་གསོ་བྱེད་མི་ཐུབ་པའི་ཆ་ཤས་: {1} བཱའིཊི། ཡིག་ཆ་དེ་འགྱུར་བ་མེད་པར་ལུས་འདུག དེ་ཚོད་ལྟ་བྱས་པ་རེད།</value>
+  </data>
+  <data name="ThereRemainBadBlocksInBecauseReadOnly" xml:space="preserve">
+    <value>{0} བཀག་སྡོམ་ངན་པ་ “{1}” ནང་ལྷག་ཡོད། རྒྱུ་མཚན་ནི་ཡིག་ཆ་དེ་བསྒྱུར་བཅོས་བྱེད་མི་ཐུབ།</value>
+  </data>
+  <data name="ThereWasBadBlockInFileNotRestoredParts" xml:space="preserve">
+    <value>ཡིག་ཆ་“{0}”ནང་དུ་བཀག་སྡོམ་ངན་པ་ཞིག་བྱུང་འདུག སླར་གསོ་མ་ཐུབ་པའི་ཆ་ཤས། {1} བཱའིཊ།</value>
+  </data>
+  <data name="ThereWasBadBlockNotRestoredInCopyBytes" xml:space="preserve">
+    <value>ཡིག་ཆ་ངོ་མའི་ནང་དུ་བཀག་སྡོམ་ངན་པ་ཞིག་བྱུང་བ་དང་། འདྲ་བཤུས་“{0}”: {1} བཱའིཊི་ནང་དུ་སླར་གསོ་མ་བྱས་པའི་ཆ་ཤས་ཤིག་ཡོད།</value>
+  </data>
+  <data name="ThereWereBadBlocksInFileNotRestoredParts" xml:space="preserve">
+    <value>ཡིག་ཆ་“{1}”ནང་དུ་ {0} བཀག་སྡོམ་ངན་པ་ཡོད། སླར་གསོ་མ་བྱས་པའི་ཆ་ཤས། {2} བཱའིཊ།</value>
+  </data>
+  <data name="ThisIsASimulatedIOErrorAtPosition" xml:space="preserve">
+    <value>འདི་ནི་གནས་ {0} ལ་ལག་སྲེག་ནོར་འཁྲུལ་ཞིག་རེད།</value>
+  </data>
+  <data name="WarningChecksumOffsetPrimarySavedInfoIgnored" xml:space="preserve">
+    <value>ཉེན་བརྡ། གནས་རིམ་ {0} ལ་ཡོད་པའི་བཀག་སྡོམ་གྱི་བརྟག་དཔྱད་བསྡོམས་འབོར་དེ་གསོག་འཇོག་བྱས་པའི་བརྡ་འཕྲིན་ “{1}” ཡི་བཀག་སྡོམ་གཙོ་བོ་དང་མཐུན་མི་ཐུབ། བཀག་སྡོམ་གྱི་གཙོ་བོའི་གསོག་འཇོག་བྱས་པའི་ཆ་འཕྲིན་སྣང་མེད་དུ་བཏང་ཡོད།</value>
+  </data>
+  <data name="WarningChecksumOffsetSecondarySavedInfoIgnored" xml:space="preserve">
+    <value>ཉེན་བརྡ། གནས་རིམ་ {0} ལ་ཡོད་པའི་བཀག་སྡོམ་གྱི་བརྟག་དཔྱད་བསྡོམས་འབོར་དེ་གསོག་འཇོག་བྱས་པའི་བརྡ་དོན་ “{1}” ཡི་བཀག་སྡོམ་གཉིས་པ་དང་མཐུན་མི་ཐུབ། སྡེབ་ཚན་གྱི་ཆེད་དུ་ཉར་ཚགས་བྱས་པའི་ཆ་འཕྲིན་གཉིས་པ་རྩིས་མེད་དུ་བཏང་ཡོད།</value>
+  </data>
+  <data name="WarningCopiedToWithErrors" xml:space="preserve">
+    <value>ཉེན་བརྡ། “{0}” ནོར་འཁྲུལ་ {2} དང་མཉམ་དུ་ “{1}” ལ་འདྲ་བཤུས་བྱས། </value>
+  </data>
+  <data name="WarningIOErrorWhileCopyingToReason" xml:space="preserve">
+    <value>ཉེན་བརྡ་། ཡིག་ཆ་ “{0}” ནས་ “{1}” ལ་འདྲ་བཤུས་བྱེད་སྐབས་སྒུལ་ཆས་ཡང་ན་སྨྱན་སྦྱོར་གྱི་ནོར་འཁྲུལ་བྱུང་འདུག: {2}</value>
+  </data>
+  <data name="WarningSeveralBlocksDontMatchInSIWillBeIgnored" xml:space="preserve">
+    <value>ཉེན་བརྡ། བཀག་སྡོམ་སྣ་ཚོགས་གསོག་འཇོག་བྱས་པའི་ཆ་འཕྲིན་“{0}”དང་མཐུན་མི་ཐུབ། ཉར་ཚགས་བྱས་པའི་ཆ་འཕྲིན་ཡོངས་སུ་སྣང་མེད་དུ་བཏང་བ།</value>
+  </data>
+  <data name="WarningWhileCreating" xml:space="preserve">
+    <value>ཉེན་བརྡ། {0} ཡིག་ཆ་ “{1}” གསར་བཟོ་བྱེད་སྐབས།</value>
+  </data>
+  <data name="WarningWhileDiscoveringIfNeedsToBeRechecked" xml:space="preserve">
+    <value>ཉེན་བརྡ། {0} ཡིག་ཆ་ “{1}” བསྐྱར་དུ་ཞིབ་བཤེར་བྱེད་དགོས་མིན་གཏན་འབེབས་བྱེད་སྐབས།</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>ཡིན</value>
+  </data>
+</root>

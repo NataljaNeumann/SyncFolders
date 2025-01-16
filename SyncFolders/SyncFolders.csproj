@@ -330,6 +330,10 @@
       <DependentUpon>LogDisplayingForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="LogDisplayingForm.bo-CN.resx">
+      <DependentUpon>LogDisplayingForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="LogDisplayingForm.cs.resx">
       <DependentUpon>LogDisplayingForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -439,6 +443,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources.ar.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources.bo-CN.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources.de.resx">
