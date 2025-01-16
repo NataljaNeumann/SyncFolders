@@ -59,7 +59,6 @@ namespace SyncFolders
             this.textBoxLog.AccessibleName = null;
             resources.ApplyResources(this.textBoxLog, "textBoxLog");
             this.textBoxLog.BackgroundImage = null;
-            this.textBoxLog.Font = null;
             this.textBoxLog.Name = "textBoxLog";
             this.textBoxLog.ReadOnly = true;
             // 
