@@ -128,7 +128,7 @@
   <data name="m_lblFolder1.Size" type="System.Drawing.Size, System.Drawing">
     <value>96, 37</value>
   </data>
-  <data name="m_lblFolder1.Text" xml:space="preserve">
+  <data name="labelFolder1.Text" xml:space="preserve">
     <value>སྣོད་ཐོ་དང་པོ།:</value>
   </data>
   <data name="m_tbxFirstFolder.Font" type="System.Drawing.Font, System.Drawing">
@@ -164,7 +164,7 @@
   <data name="m_lblSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
     <value>92, 37</value>
   </data>
-  <data name="m_lblSecondFolder.Text" xml:space="preserve">
+  <data name="labelSecondFolder.Text" xml:space="preserve">
     <value>སྣོད་ཐོ་ཉིས་པ།</value>
   </data>
   <data name="m_tbxSecondFolder.Font" type="System.Drawing.Font, System.Drawing">
@@ -200,7 +200,7 @@
   <data name="m_cbCreateRestoreInfo.Size" type="System.Drawing.Size, System.Drawing">
     <value>526, 41</value>
   </data>
-  <data name="m_cbCreateRestoreInfo.Text" xml:space="preserve">
+  <data name="checkBoxCreateRestoreInfo.Text" xml:space="preserve">
     <value>གལ་ཏེ་ད་དུང་མེད་ན། གནས་ཚུལ་ཁ་ཤས་སླར་གསོ་བྱེད་ཆེད་དུ་སྒྲ་ཐག་ཅིག་ལ་གསོག་འཇོག་བྱེད།</value>
   </data>
   <data name="m_cbTestAllFiles.Location" type="System.Drawing.Point, System.Drawing">
@@ -212,7 +212,7 @@
   <data name="m_cbTestAllFiles.Size" type="System.Drawing.Size, System.Drawing">
     <value>315, 41</value>
   </data>
-  <data name="m_cbTestAllFiles.Text" xml:space="preserve">
+  <data name="checkBoxTestAllFiles.Text" xml:space="preserve">
     <value>ཡིག་ཆ་ཚང་མའི་ཀློག་ཐུབ་ཚད་ཚོད་ལྟ་བྱེད་བཞིན་ཡོད།</value>
   </data>
   <data name="m_cbRepairBlockFailures.Location" type="System.Drawing.Point, System.Drawing">
@@ -224,7 +224,7 @@
   <data name="m_cbRepairBlockFailures.Size" type="System.Drawing.Size, System.Drawing">
     <value>274, 41</value>
   </data>
-  <data name="m_cbRepairBlockFailures.Text" xml:space="preserve">
+  <data name="checkBoxRepairBlockFailures.Text" xml:space="preserve">
     <value>བཀག་སྡོམ་རྐྱང་པའི་སྐྱོན་ཆ་བཟོ་བཅོས་བྱེད་པ།</value>
   </data>
   <data name="m_btnSync.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
@@ -239,7 +239,7 @@
   <data name="m_btnSync.Size" type="System.Drawing.Size, System.Drawing">
     <value>134, 65</value>
   </data>
-  <data name="m_btnSync.Text" xml:space="preserve">
+  <data name="buttonSync.Text" xml:space="preserve">
     <value>འགོ་བརྩམས།</value>
   </data>
   <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
@@ -284,7 +284,7 @@
   <data name="m_cbPreferCopies.Size" type="System.Drawing.Size, System.Drawing">
     <value>591, 41</value>
   </data>
-  <data name="m_cbPreferCopies.Text" xml:space="preserve">
+  <data name="checkBoxPreferCopies.Text" xml:space="preserve">
     <value>བཟོ་བཅོས་བྱེད་སྐབས་འགལ་ཟླ་བྱུང་ཚེ་དངོས་གཟུགས་ཀྱི་འདྲ་བཤུས་ལ་དགའ་པོ་བྱེད་པ་(འོས་སྦྱོར་མི་བྱེད་པ)</value>
   </data>
   <data name="m_lblProgress.Font" type="System.Drawing.Font, System.Drawing">
@@ -308,7 +308,7 @@
   <data name="m_cbFirstToSecond.Size" type="System.Drawing.Size, System.Drawing">
     <value>299, 41</value>
   </data>
-  <data name="m_cbFirstToSecond.Text" xml:space="preserve">
+  <data name="checkBoxFirstToSecond.Text" xml:space="preserve">
     <value>ཕྱོགས་གཅིག་ནས་སྣོད་ཐོ་དང་པོ་ནས་གཉིས་པ་བར།</value>
   </data>
   <data name="m_cbFirstReadonly.Location" type="System.Drawing.Point, System.Drawing">
@@ -320,7 +320,7 @@
   <data name="m_cbFirstReadonly.Size" type="System.Drawing.Size, System.Drawing">
     <value>291, 41</value>
   </data>
-  <data name="m_cbFirstReadonly.Text" xml:space="preserve">
+  <data name="checkBoxFirstReadonly.Text" xml:space="preserve">
     <value>སྣོད་ཐོ་དང་པོ་དེ་བརྗེ་མི་ཐུབ། (དཔེར་ན། ཌི་ཝི་ཌི)</value>
   </data>
   <data name="m_cbDeleteFilesInSecond.Location" type="System.Drawing.Point, System.Drawing">
@@ -332,7 +332,7 @@
   <data name="m_cbDeleteFilesInSecond.Size" type="System.Drawing.Size, System.Drawing">
     <value>375, 41</value>
   </data>
-  <data name="m_cbDeleteFilesInSecond.Text" xml:space="preserve">
+  <data name="checkBoxDeleteFilesInSecond.Text" xml:space="preserve">
     <value>སྣོད་ཐོ་དང་པོའི་ནང་མེད་པའི་སྣོད་ཐོ་གཉིས་པའི་ཤོག་ངོས་སུབ་པ།</value>
   </data>
   <data name="m_lblAbout.Location" type="System.Drawing.Point, System.Drawing">
@@ -344,7 +344,7 @@
   <data name="m_lblAbout.Size" type="System.Drawing.Size, System.Drawing">
     <value>198, 37</value>
   </data>
-  <data name="m_lblAbout.Text" xml:space="preserve">
+  <data name="linkLabelAbout.Text" xml:space="preserve">
     <value>"ཡིག་སྣོད་མཉམ་སྒྲིག་བྱེད་པ།"སྐོར།</value>
   </data>
   <data name="m_lblLicence.Location" type="System.Drawing.Point, System.Drawing">
@@ -356,7 +356,7 @@
   <data name="m_lblLicence.Size" type="System.Drawing.Size, System.Drawing">
     <value>206, 37</value>
   </data>
-  <data name="m_lblLicence.Text" xml:space="preserve">
+  <data name="linkLabelLicence.Text" xml:space="preserve">
     <value>ཆོག་མཆན། (GPL v2)</value>
   </data>
   <data name="m_cbSkipRecentlyTested.Location" type="System.Drawing.Point, System.Drawing">
@@ -368,7 +368,7 @@
   <data name="m_cbSkipRecentlyTested.Size" type="System.Drawing.Size, System.Drawing">
     <value>211, 41</value>
   </data>
-  <data name="m_cbSkipRecentlyTested.Text" xml:space="preserve">
+  <data name="checkBoxSkipRecentlyTested.Text" xml:space="preserve">
     <value>གལ་ཏེ་ཉེ་ཆར་ཚོད་ལྟ་བྱས་མེད་ན།</value>
   </data>
   <data name="m_cbParallel.Location" type="System.Drawing.Point, System.Drawing">
@@ -380,7 +380,7 @@
   <data name="m_cbParallel.Size" type="System.Drawing.Size, System.Drawing">
     <value>103, 41</value>
   </data>
-  <data name="m_cbParallel.Text" xml:space="preserve">
+  <data name="checkBoxParallel.Text" xml:space="preserve">
     <value>མཉམ་འགྲོས།</value>
   </data>
   <data name="m_cbSyncMode.Location" type="System.Drawing.Point, System.Drawing">
@@ -392,7 +392,7 @@
   <data name="m_cbSyncMode.Size" type="System.Drawing.Size, System.Drawing">
     <value>151, 41</value>
   </data>
-  <data name="m_cbSyncMode.Text" xml:space="preserve">
+  <data name="checkBoxSyncMode.Text" xml:space="preserve">
     <value>མཉམ་སྒྲིག་ཐབས་ལམ།</value>
   </data>
   <data name="m_cbIgnoreTime.Location" type="System.Drawing.Point, System.Drawing">
@@ -404,7 +404,7 @@
   <data name="m_cbIgnoreTime.Size" type="System.Drawing.Size, System.Drawing">
     <value>500, 41</value>
   </data>
-  <data name="m_cbIgnoreTime.Text" xml:space="preserve">
+  <data name="checkBoxIgnoreTime.Text" xml:space="preserve">
     <value>ཡིག་ཆ་དང་ཉར་ཚགས་བྱས་པའི་ཆ་འཕྲིན་བར་གྱི་དུས་ཚོད་ཀྱི་ཁྱད་པར་ལ་སྣང་མེད་བྱེད་པ།</value>
   </data>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
