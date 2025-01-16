@@ -160,6 +160,15 @@ namespace SyncFolders {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die standard/arab ähnelt.
+        /// </summary>
+        internal static string Digits {
+            get {
+                return ResourceManager.GetString("Digits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Warning: Encountered I/O error while copying &quot;{0}&quot;. The older file &quot;{1}&quot; seems to be OK ähnelt.
         /// </summary>
         internal static string EncounteredErrorOlderOk {

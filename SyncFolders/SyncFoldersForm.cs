@@ -6771,6 +6771,16 @@ namespace SyncFolders
                         m_strLogToShow.Append("        ");
                     }
 
+
+                    for (int i = aParams.Length - 1; i >= 0; --i)
+                    {
+                        if (aParams[i] is Int32 || aParams[i] is Int64 || 
+                            aParams[i] is UInt32 || aParams[i] is UInt64)
+                        {
+                            aParams[i] = FormatNumber(aParams[i]);
+                        }
+                    }
+
                     string s = string.Format(strFormat, aParams);
                     m_strLogToShow.Append(s);
                     m_oLogFileLocalized.Write(s);
@@ -6796,6 +6806,259 @@ namespace SyncFolders
                 }
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="oNumber"></param>
+        /// <returns></returns>
+        public static object FormatNumber(object oNumber)
+        {
+            if (Resources.Digits.Equals("CHS"))
+                return FormatNumberChineseJapaneseKorean(oNumber, "一十二亿三千四百五十六万七千八百九十一", "〇");
+            else
+                if (Resources.Digits.Equals("CHT"))
+                    return FormatNumberChineseJapaneseKorean(oNumber, "一十二億三千四百五十六萬七千八百九十一", "零");
+                else
+                    if (Resources.Digits.Equals("Korea"))
+                        return FormatNumberChineseJapaneseKorean(oNumber, "일십이억삼천사백오십육만칠천팔백구십일", "영");
+                    else
+                        if (Resources.Digits.Equals("Japan"))
+                            return FormatNumberChineseJapaneseKorean(oNumber, "一十二億三千四百五十六万七千八百九十一", "零");
+                        else
+                            if (Resources.Digits.Equals("Tibet"))
+                                return FormatNumberTibet(oNumber);
+                            else
+                                if (Resources.Digits.Equals("Latin"))
+                                    return FormatNumberLatin(oNumber);
+                                else
+                                    return oNumber;
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// Formats number in tibet digits
+        /// </summary>
+        /// <param name="nNumber">The number to format</param>
+        /// <returns>Formatted number</returns>
+        //===================================================================================================
+        public static string FormatNumberTibet(object oNumber)
+        {
+            const string c_strTibetDigits = "༠༡༢༣༤༥༦༧༨༩";
+            string strNumber = oNumber.ToString();
+            StringBuilder oResult = new StringBuilder(strNumber.Length);
+            foreach (char c in strNumber)
+            {
+                if (c >= '0' && c <= '9')
+                    oResult.Append(c_strTibetDigits[c - '0']);
+                else
+                    return strNumber;
+            }
+
+            return oResult.ToString();
+        }
+
+
+        //===================================================================================================
+        /// <summary>
+        /// Formats number in latin digits
+        /// </summary>
+        /// <param name="nNumber">The number to format</param>
+        /// <returns>Formatted number</returns>
+        //===================================================================================================
+        public static string FormatNumberLatin(object oNumber)
+        {
+            string[] c_strLatinHundredThousands = new string[] { "Ī", "Ū", "X̄", "L̄", "C̄", "D̄", "M̄", "D̿" };
+            string[] c_strLatinDigits = new string[] { "I", "V", "X", "L", "C", "D", "M", "Ū", "X̄", "L̄", "C̄", "D̄", "M̄" };
+
+            string strNumber = oNumber.ToString(); 
+
+            if (strNumber.Equals("0"))
+                return "nulla";
+
+            StringBuilder oResult = new StringBuilder(strNumber.Length);
+            if (strNumber.Length>7 || (strNumber.Length==7 && strNumber[0]>'3'))
+            {
+                strNumber = strNumber.Substring(0, strNumber.Length - 5);
+                // first put hundred thousands. There visual studio doesn't display next line...
+                oResult.Append("⎹");
+
+                try
+                {
+                    for (int i = 0, j = strNumber.Length * 2 - 2; i < strNumber.Length; ++i, j -= 2)
+                    {
+                        char c = strNumber[i];
+                        if (c >= '0' && c <= '9')
+                        {
+                            switch (c)
+                            {
+                                case '9':
+                                    oResult.Append(c_strLatinHundredThousands[j]);
+                                    oResult.Append(c_strLatinHundredThousands[j + 2]);
+                                    break;
+                                case '8':
+                                    oResult.Append(c_strLatinHundredThousands[j + 1]);
+                                    goto case '3';
+                                case '7':
+                                    oResult.Append(c_strLatinHundredThousands[j + 1]);
+                                    goto case '2';
+                                case '6':
+                                    oResult.Append(c_strLatinHundredThousands[j + 1]);
+                                    goto case '1';
+                                case '4':
+                                    oResult.Append(c_strLatinHundredThousands[j]);
+                                    goto case '5';
+                                case '5':
+                                    oResult.Append(c_strLatinHundredThousands[j + 1]);
+                                    break;
+                                case '3':
+                                    oResult.Append(c_strLatinHundredThousands[j]);
+                                    goto case '2';
+                                case '2':
+                                    oResult.Append(c_strLatinHundredThousands[j]);
+                                    goto case '1';
+                                case '1':
+                                    oResult.Append(c_strLatinHundredThousands[j]);
+                                    break;
+                            }
+                        }
+                        else
+                            return strNumber;
+                    }
+                }
+                catch
+                {
+                    return strNumber;
+                }
+
+
+                // There visual studio doesn't display next line...
+                oResult.Append("⎸");
+                // get the number again, but now the rest of it.
+                strNumber = oNumber.ToString();
+                strNumber = strNumber.Substring(strNumber.Length-5);
+            }
+
+
+           
+            try
+            {
+                for (int i = 0, j = strNumber.Length * 2 - 2; i < strNumber.Length; ++i, j -= 2)
+                {
+                    char c = strNumber[i];
+                    if (c >= '0' && c <= '9')
+                    {
+                        switch (c)
+                        {
+                            case '9':
+                                oResult.Append(c_strLatinDigits[j]);
+                                oResult.Append(c_strLatinDigits[j + 2]);
+                                break;
+                            case '8':
+                                oResult.Append(c_strLatinDigits[j + 1]);
+                                goto case '3';
+                            case '7':
+                                oResult.Append(c_strLatinDigits[j + 1]);
+                                goto case '2';
+                            case '6':
+                                oResult.Append(c_strLatinDigits[j + 1]);
+                                goto case '1';
+                            case '4':
+                                oResult.Append(c_strLatinDigits[j]);
+                                goto case '5';
+                            case '5':
+                                oResult.Append(c_strLatinDigits[j + 1]);
+                                break;
+                            case '3':
+                                oResult.Append(c_strLatinDigits[j]);
+                                goto case '2';
+                            case '2':
+                                oResult.Append(c_strLatinDigits[j]);
+                                goto case '1';
+                            case '1':
+                                oResult.Append(c_strLatinDigits[j]);
+                                break;
+                        }
+                    }
+                    else
+                        return strNumber;
+                }
+                return oResult.ToString();
+            }
+            catch
+            {
+                return strNumber;
+            }
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// Formats number in chinese, japanese or korean digits
+        /// </summary>
+        /// <param name="oNumber">The number to format</param>
+        /// <param name="strDigits">Digits</param>
+        /// <param name="strZero">String for zero</param>
+        /// <returns>Formatted number</returns>
+        //===================================================================================================
+        static string FormatNumberChineseJapaneseKorean(object oNumber, string strDigits, string strZero)
+        {
+            string strNumber = oNumber.ToString();
+
+            if (strNumber.Equals("0"))
+                return strZero;
+
+            StringBuilder oResult = new StringBuilder(strNumber.Length);
+            try
+            {
+                bool bSomeDigitsPresent = false;
+                for (int i = 0, j = strNumber.Length; i < strNumber.Length; ++i, --j)
+                {
+                    char c = strNumber[i];
+
+                    // skip zeros, except the whole number is zero, which is handled above
+                    if (c == '0')
+                    {
+                        if (j == 5 && bSomeDigitsPresent)
+                            oResult.Append(strDigits[strDigits.Length - 10]);
+                        else
+                            if (j == 9)
+                            {
+                                bSomeDigitsPresent = false;
+                                oResult.Append(strDigits[strDigits.Length - 18]);
+                            }
+
+                        continue;
+                    }
+
+                    if (c >= '1' && c <= '9')
+                    {
+                        bSomeDigitsPresent = true;
+
+                        // "one hundred" etc. is simply "hundred", so skip ones, except if at last position
+                        if (c != '1' || i == strNumber.Length - 1)
+                        {
+                            // append digit
+                            oResult.Append(strDigits[(c - '1') * 2]);
+                        }
+                        // append exponent
+                        if (i != strNumber.Length - 1)
+                        {
+                            oResult.Append(strDigits[strDigits.Length - 2 * j + 2]);
+                        }
+                    }
+                    else
+                        return strNumber;
+                }
+
+                return oResult.ToString();
+            }
+            catch
+            {
+                return strNumber;
+            }
+        }
+
+
 
     }
 }

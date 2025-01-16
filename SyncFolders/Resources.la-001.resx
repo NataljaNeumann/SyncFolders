@@ -123,6 +123,9 @@
   <data name="DefaultCulture" xml:space="preserve">
     <value>no</value>
   </data>
+  <data name="Digits" xml:space="preserve">
+    <value>Latin</value>
+  </data>
   <data name="FileCopied" xml:space="preserve">
     <value>Effingo completum: "{0}" ad "{1}" {2}</value>
   </data>

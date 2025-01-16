@@ -105,7 +105,7 @@ namespace SyncFolders
                     {
                         throw new IOException(
                             string.Format(Resources.ThisIsASimulatedIOErrorAtPosition,
-                               lErrorPosition));
+                               SyncFolders.FormSyncFolders.FormatNumber(lErrorPosition)));
 
                         //throw new IOException("This is a simulated I/O error for testing");
                     }
@@ -361,7 +361,7 @@ namespace SyncFolders
                         {
                             throw new IOException(
                                 string.Format(Resources.ThisIsASimulatedIOErrorAtPosition,
-                                   m_aListOfReadErrors[i]));
+                                   SyncFolders.FormSyncFolders.FormatNumber(m_aListOfReadErrors[i])));
                         }
                     }
                 }
@@ -387,7 +387,7 @@ namespace SyncFolders
                         {
                             throw new IOException(
                                 string.Format(Resources.ThisIsASimulatedIOErrorAtPosition,
-                                m_aListOfReadErrors[i]));
+                                SyncFolders.FormSyncFolders.FormatNumber(m_aListOfReadErrors[i])));
                         }
                     }
                 }

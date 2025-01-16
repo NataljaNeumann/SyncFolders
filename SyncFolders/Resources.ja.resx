@@ -337,4 +337,7 @@
   <data name="Yes" xml:space="preserve">
     <value>はい </value>
   </data>
+  <data name="Digits" xml:space="preserve">
+    <value>Japan</value>
+  </data>
 </root>
