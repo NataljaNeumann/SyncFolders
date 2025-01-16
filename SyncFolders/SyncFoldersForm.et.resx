@@ -118,170 +118,170 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="labelFolder1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="m_lblFolder1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="labelFolder1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_lblFolder1.Size" type="System.Drawing.Size, System.Drawing">
     <value>99, 16</value>
   </data>
-  <data name="labelFolder1.Text" xml:space="preserve">
+  <data name="m_lblFolder1.Text" xml:space="preserve">
     <value>Esimene kaust:</value>
   </data>
-  <data name="textBoxFirstFolder.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_tbxFirstFolder.Size" type="System.Drawing.Size, System.Drawing">
     <value>547, 22</value>
   </data>
-  <data name="buttonSelectFirstFolder.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_btnSelectFirstFolder.Location" type="System.Drawing.Point, System.Drawing">
     <value>582, 33</value>
   </data>
-  <data name="labelSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_lblSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
     <value>81, 16</value>
   </data>
-  <data name="labelSecondFolder.Text" xml:space="preserve">
+  <data name="m_lblSecondFolder.Text" xml:space="preserve">
     <value>Teine kaust:</value>
   </data>
-  <data name="textBoxSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_tbxSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
     <value>547, 22</value>
   </data>
-  <data name="buttonSelectSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_btnSelectSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
     <value>583, 89</value>
   </data>
-  <data name="checkBoxCreateRestoreInfo.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbCreateRestoreInfo.Location" type="System.Drawing.Point, System.Drawing">
     <value>20, 218</value>
   </data>
-  <data name="checkBoxCreateRestoreInfo.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbCreateRestoreInfo.Size" type="System.Drawing.Size, System.Drawing">
     <value>438, 20</value>
   </data>
-  <data name="checkBoxCreateRestoreInfo.Text" xml:space="preserve">
+  <data name="m_cbCreateRestoreInfo.Text" xml:space="preserve">
     <value>Teabe salvestamine üksikute plokkide taastamiseks, kui see puudub</value>
   </data>
-  <data name="checkBoxTestAllFiles.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbTestAllFiles.Location" type="System.Drawing.Point, System.Drawing">
     <value>20, 246</value>
   </data>
-  <data name="checkBoxTestAllFiles.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbTestAllFiles.Size" type="System.Drawing.Size, System.Drawing">
     <value>214, 20</value>
   </data>
-  <data name="checkBoxTestAllFiles.Text" xml:space="preserve">
+  <data name="m_cbTestAllFiles.Text" xml:space="preserve">
     <value>Kõigi failide loetavuse testimine</value>
   </data>
-  <data name="checkBoxRepairBlockFailures.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbRepairBlockFailures.Location" type="System.Drawing.Point, System.Drawing">
     <value>37, 274</value>
   </data>
-  <data name="checkBoxRepairBlockFailures.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbRepairBlockFailures.Size" type="System.Drawing.Size, System.Drawing">
     <value>200, 20</value>
   </data>
-  <data name="checkBoxRepairBlockFailures.Text" xml:space="preserve">
+  <data name="m_cbRepairBlockFailures.Text" xml:space="preserve">
     <value>Üheploki rikete parandamine</value>
   </data>
-  <data name="buttonSync.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="m_btnSync.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
-  <data name="buttonSync.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_btnSync.Location" type="System.Drawing.Point, System.Drawing">
     <value>407, 372</value>
   </data>
-  <data name="buttonSync.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_btnSync.Size" type="System.Drawing.Size, System.Drawing">
     <value>107, 28</value>
   </data>
-  <data name="buttonSync.Text" xml:space="preserve">
+  <data name="m_btnSync.Text" xml:space="preserve">
     <value>Sünkroniseeri</value>
   </data>
-  <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_btnCancel.Location" type="System.Drawing.Point, System.Drawing">
     <value>522, 372</value>
   </data>
-  <data name="buttonCancel.Text" xml:space="preserve">
+  <data name="m_btnCancel.Text" xml:space="preserve">
     <value>Tühista</value>
   </data>
-  <data name="progressBar1.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_ctlProgressBar.Location" type="System.Drawing.Point, System.Drawing">
     <value>20, 372</value>
   </data>
-  <data name="progressBar1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_ctlProgressBar.Size" type="System.Drawing.Size, System.Drawing">
     <value>494, 28</value>
   </data>
-  <data name="buttonSelfTest.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_btnSelfTest.Location" type="System.Drawing.Point, System.Drawing">
     <value>526, 186</value>
   </data>
-  <data name="buttonSelfTest.Text" xml:space="preserve">
+  <data name="m_btnSelfTest.Text" xml:space="preserve">
     <value>Eneseproov</value>
   </data>
-  <data name="checkBoxPreferCopies.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbPreferCopies.Size" type="System.Drawing.Size, System.Drawing">
     <value>566, 20</value>
   </data>
-  <data name="checkBoxPreferCopies.Text" xml:space="preserve">
+  <data name="m_cbPreferCopies.Text" xml:space="preserve">
     <value>Füüsiliste koopiate eelistamine remondi käigus tekkivate konfliktide korral (pole soovitatav)</value>
   </data>
-  <data name="labelProgress.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_lblProgress.Location" type="System.Drawing.Point, System.Drawing">
     <value>21, 298</value>
   </data>
-  <data name="labelProgress.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_lblProgress.Size" type="System.Drawing.Size, System.Drawing">
     <value>601, 53</value>
   </data>
-  <data name="checkBoxFirstToSecond.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbFirstToSecond.Size" type="System.Drawing.Size, System.Drawing">
     <value>274, 20</value>
   </data>
-  <data name="checkBoxFirstToSecond.Text" xml:space="preserve">
+  <data name="m_cbFirstToSecond.Text" xml:space="preserve">
     <value>Ühesuunaliselt, esimesest kaustast teise  </value>
   </data>
-  <data name="checkBoxFirstReadonly.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbFirstReadonly.Size" type="System.Drawing.Size, System.Drawing">
     <value>240, 20</value>
   </data>
-  <data name="checkBoxFirstReadonly.Text" xml:space="preserve">
+  <data name="m_cbFirstReadonly.Text" xml:space="preserve">
     <value>Esimest kausta ei saa muuta (nt CD)</value>
   </data>
-  <data name="checkBoxDeleteFilesInSecond.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbDeleteFilesInSecond.Size" type="System.Drawing.Size, System.Drawing">
     <value>453, 20</value>
   </data>
-  <data name="checkBoxDeleteFilesInSecond.Text" xml:space="preserve">
+  <data name="m_cbDeleteFilesInSecond.Text" xml:space="preserve">
     <value>Teisest kaustast failide kustutamine, mida esimeses kaustas enam pole</value>
   </data>
-  <data name="linkLabelAbout.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_lblAbout.Location" type="System.Drawing.Point, System.Drawing">
     <value>22, 378</value>
   </data>
-  <data name="linkLabelAbout.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_lblAbout.Size" type="System.Drawing.Size, System.Drawing">
     <value>172, 16</value>
   </data>
-  <data name="linkLabelAbout.Text" xml:space="preserve">
+  <data name="m_lblAbout.Text" xml:space="preserve">
     <value>Teave "Sünkrooni kaustad"</value>
   </data>
-  <data name="linkLabelLicence.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_lblLicence.Location" type="System.Drawing.Point, System.Drawing">
     <value>226, 378</value>
   </data>
-  <data name="linkLabelLicence.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_lblLicence.Size" type="System.Drawing.Size, System.Drawing">
     <value>107, 16</value>
   </data>
-  <data name="linkLabelLicence.Text" xml:space="preserve">
+  <data name="m_lblLicence.Text" xml:space="preserve">
     <value>Litsents (GPL v2)</value>
   </data>
-  <data name="checkBoxSkipRecentlyTested.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbSkipRecentlyTested.Location" type="System.Drawing.Point, System.Drawing">
     <value>241, 246</value>
   </data>
-  <data name="checkBoxSkipRecentlyTested.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbSkipRecentlyTested.Size" type="System.Drawing.Size, System.Drawing">
     <value>185, 20</value>
   </data>
-  <data name="checkBoxSkipRecentlyTested.Text" xml:space="preserve">
+  <data name="m_cbSkipRecentlyTested.Text" xml:space="preserve">
     <value>kui seda pole hiljuti testitud</value>
   </data>
-  <data name="checkBoxParallel.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbParallel.Location" type="System.Drawing.Point, System.Drawing">
     <value>445, 137</value>
   </data>
-  <data name="checkBoxParallel.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbParallel.Size" type="System.Drawing.Size, System.Drawing">
     <value>102, 20</value>
   </data>
-  <data name="checkBoxParallel.Text" xml:space="preserve">
+  <data name="m_cbParallel.Text" xml:space="preserve">
     <value>Paralleelselt</value>
   </data>
-  <data name="checkBoxSyncMode.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbSyncMode.Location" type="System.Drawing.Point, System.Drawing">
     <value>296, 137</value>
   </data>
-  <data name="checkBoxSyncMode.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbSyncMode.Size" type="System.Drawing.Size, System.Drawing">
     <value>143, 20</value>
   </data>
-  <data name="checkBoxSyncMode.Text" xml:space="preserve">
+  <data name="m_cbSyncMode.Text" xml:space="preserve">
     <value>Sünkroonimisrežiim</value>
   </data>
-  <data name="checkBoxIgnoreTime.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbIgnoreTime.Size" type="System.Drawing.Size, System.Drawing">
     <value>283, 20</value>
   </data>
-  <data name="checkBoxIgnoreTime.Text" xml:space="preserve">
+  <data name="m_cbIgnoreTime.Text" xml:space="preserve">
     <value>Faili ja salvestatud teabe ajavahe eiramine</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">

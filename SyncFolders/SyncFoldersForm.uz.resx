@@ -118,180 +118,180 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="labelFolder1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_lblFolder1.Size" type="System.Drawing.Size, System.Drawing">
     <value>74, 16</value>
   </data>
-  <data name="labelFolder1.Text" xml:space="preserve">
+  <data name="m_lblFolder1.Text" xml:space="preserve">
     <value>Birinchi jild:</value>
   </data>
-  <data name="textBoxFirstFolder.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_tbxFirstFolder.Size" type="System.Drawing.Size, System.Drawing">
     <value>600, 22</value>
   </data>
-  <data name="buttonSelectFirstFolder.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_btnSelectFirstFolder.Location" type="System.Drawing.Point, System.Drawing">
     <value>635, 33</value>
   </data>
-  <data name="labelSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_lblSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 16</value>
   </data>
-  <data name="labelSecondFolder.Text" xml:space="preserve">
+  <data name="m_lblSecondFolder.Text" xml:space="preserve">
     <value>Ikkinchi jild:</value>
   </data>
-  <data name="textBoxSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_tbxSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
     <value>600, 22</value>
   </data>
-  <data name="buttonSelectSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_btnSelectSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
     <value>636, 89</value>
   </data>
-  <data name="checkBoxCreateRestoreInfo.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbCreateRestoreInfo.Location" type="System.Drawing.Point, System.Drawing">
     <value>20, 247</value>
   </data>
-  <data name="checkBoxCreateRestoreInfo.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbCreateRestoreInfo.Size" type="System.Drawing.Size, System.Drawing">
     <value>540, 20</value>
   </data>
-  <data name="checkBoxCreateRestoreInfo.Text" xml:space="preserve">
+  <data name="m_cbCreateRestoreInfo.Text" xml:space="preserve">
     <value>Bitta bloklarni tiklash uchun ba'zi ma'lumotlarni saqlash, agar ular etishmayotgan bo'lsa</value>
   </data>
-  <data name="checkBoxTestAllFiles.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbTestAllFiles.Location" type="System.Drawing.Point, System.Drawing">
     <value>292, 276</value>
   </data>
-  <data name="checkBoxTestAllFiles.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbTestAllFiles.Size" type="System.Drawing.Size, System.Drawing">
     <value>298, 20</value>
   </data>
-  <data name="checkBoxTestAllFiles.Text" xml:space="preserve">
+  <data name="m_cbTestAllFiles.Text" xml:space="preserve">
     <value>barcha fayllarning o'qish qobiliyatini tekshirish</value>
   </data>
-  <data name="checkBoxRepairBlockFailures.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbRepairBlockFailures.Location" type="System.Drawing.Point, System.Drawing">
     <value>37, 303</value>
   </data>
-  <data name="checkBoxRepairBlockFailures.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbRepairBlockFailures.Size" type="System.Drawing.Size, System.Drawing">
     <value>187, 20</value>
   </data>
-  <data name="checkBoxRepairBlockFailures.Text" xml:space="preserve">
+  <data name="m_cbRepairBlockFailures.Text" xml:space="preserve">
     <value>Alohida bloklarni ta'mirlash</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buttonSync.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="m_btnSync.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
-  <data name="buttonSync.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_btnSync.Location" type="System.Drawing.Point, System.Drawing">
     <value>467, 401</value>
   </data>
-  <data name="buttonSync.Text" xml:space="preserve">
+  <data name="m_btnSync.Text" xml:space="preserve">
     <value>Sinxronlash</value>
   </data>
-  <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_btnCancel.Location" type="System.Drawing.Point, System.Drawing">
     <value>575, 401</value>
   </data>
-  <data name="buttonCancel.Text" xml:space="preserve">
+  <data name="m_btnCancel.Text" xml:space="preserve">
     <value>Bekor qilish</value>
   </data>
-  <data name="progressBar1.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_ctlProgressBar.Location" type="System.Drawing.Point, System.Drawing">
     <value>20, 401</value>
   </data>
-  <data name="progressBar1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_ctlProgressBar.Size" type="System.Drawing.Size, System.Drawing">
     <value>547, 28</value>
   </data>
-  <data name="buttonSelfTest.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_btnSelfTest.Location" type="System.Drawing.Point, System.Drawing">
     <value>616, 132</value>
   </data>
-  <data name="buttonSelfTest.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_btnSelfTest.Size" type="System.Drawing.Size, System.Drawing">
     <value>63, 28</value>
   </data>
-  <data name="buttonSelfTest.Text" xml:space="preserve">
+  <data name="m_btnSelfTest.Text" xml:space="preserve">
     <value>Imtihon</value>
   </data>
-  <data name="checkBoxPreferCopies.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbPreferCopies.Location" type="System.Drawing.Point, System.Drawing">
     <value>55, 334</value>
   </data>
-  <data name="checkBoxPreferCopies.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbPreferCopies.Size" type="System.Drawing.Size, System.Drawing">
     <value>624, 20</value>
   </data>
-  <data name="checkBoxPreferCopies.Text" xml:space="preserve">
+  <data name="m_cbPreferCopies.Text" xml:space="preserve">
     <value>Ta'mirlash paytida mojarolar yuzaga kelganda jismoniy nusxalarga ustunlik berish (tavsiya etilmaydi)</value>
   </data>
-  <data name="labelProgress.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_lblProgress.Location" type="System.Drawing.Point, System.Drawing">
     <value>21, 327</value>
   </data>
-  <data name="labelProgress.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_lblProgress.Size" type="System.Drawing.Size, System.Drawing">
     <value>654, 53</value>
   </data>
-  <data name="checkBoxFirstToSecond.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbFirstToSecond.Size" type="System.Drawing.Size, System.Drawing">
     <value>280, 20</value>
   </data>
-  <data name="checkBoxFirstToSecond.Text" xml:space="preserve">
+  <data name="m_cbFirstToSecond.Text" xml:space="preserve">
     <value>Bir tomonlama, birinchi jilddan ikkinchisiga </value>
   </data>
-  <data name="checkBoxFirstReadonly.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbFirstReadonly.Size" type="System.Drawing.Size, System.Drawing">
     <value>333, 20</value>
   </data>
-  <data name="checkBoxFirstReadonly.Text" xml:space="preserve">
+  <data name="m_cbFirstReadonly.Text" xml:space="preserve">
     <value>Birinchi papkani o'zgartirib bo'lmaydi (masalan, CD)</value>
   </data>
-  <data name="checkBoxDeleteFilesInSecond.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbDeleteFilesInSecond.Size" type="System.Drawing.Size, System.Drawing">
     <value>368, 20</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="checkBoxDeleteFilesInSecond.TabIndex" type="System.Int32, mscorlib">
+  <data name="m_cbDeleteFilesInSecond.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
   </data>
-  <data name="checkBoxDeleteFilesInSecond.Text" xml:space="preserve">
+  <data name="m_cbDeleteFilesInSecond.Text" xml:space="preserve">
     <value>Birinchi jildda bo'lmagan ikkinchi jilddagi fayllarni o'chirish</value>
   </data>
-  <data name="linkLabelAbout.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_lblAbout.Location" type="System.Drawing.Point, System.Drawing">
     <value>22, 407</value>
   </data>
-  <data name="linkLabelAbout.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_lblAbout.Size" type="System.Drawing.Size, System.Drawing">
     <value>226, 16</value>
   </data>
-  <data name="linkLabelAbout.Text" xml:space="preserve">
+  <data name="m_lblAbout.Text" xml:space="preserve">
     <value>"Papkalarni sinxronlashtiring" haqida</value>
   </data>
-  <data name="linkLabelLicence.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_lblLicence.Location" type="System.Drawing.Point, System.Drawing">
     <value>284, 407</value>
   </data>
-  <data name="linkLabelLicence.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_lblLicence.Size" type="System.Drawing.Size, System.Drawing">
     <value>121, 16</value>
   </data>
-  <data name="linkLabelLicence.Text" xml:space="preserve">
+  <data name="m_lblLicence.Text" xml:space="preserve">
     <value>Litsenziya (GPL v2)</value>
   </data>
-  <data name="checkBoxSkipRecentlyTested.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbSkipRecentlyTested.Location" type="System.Drawing.Point, System.Drawing">
     <value>20, 276</value>
   </data>
-  <data name="checkBoxSkipRecentlyTested.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbSkipRecentlyTested.Size" type="System.Drawing.Size, System.Drawing">
     <value>265, 20</value>
   </data>
-  <data name="checkBoxSkipRecentlyTested.Text" xml:space="preserve">
+  <data name="m_cbSkipRecentlyTested.Text" xml:space="preserve">
     <value>Agar yaqinda sinovdan o'tmagan bo'lsa</value>
   </data>
-  <data name="checkBoxParallel.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbParallel.Location" type="System.Drawing.Point, System.Drawing">
     <value>439, 137</value>
   </data>
-  <data name="checkBoxParallel.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbParallel.Size" type="System.Drawing.Size, System.Drawing">
     <value>128, 20</value>
   </data>
-  <data name="checkBoxParallel.Text" xml:space="preserve">
+  <data name="m_cbParallel.Text" xml:space="preserve">
     <value>Parallel ravishda</value>
   </data>
-  <data name="checkBoxSyncMode.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbSyncMode.Location" type="System.Drawing.Point, System.Drawing">
     <value>306, 137</value>
   </data>
-  <data name="checkBoxSyncMode.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbSyncMode.Size" type="System.Drawing.Size, System.Drawing">
     <value>131, 20</value>
   </data>
-  <data name="checkBoxSyncMode.Text" xml:space="preserve">
+  <data name="m_cbSyncMode.Text" xml:space="preserve">
     <value>Sinxronlash rejimi</value>
   </data>
-  <data name="checkBoxIgnoreTime.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbIgnoreTime.Location" type="System.Drawing.Point, System.Drawing">
     <value>37, 217</value>
   </data>
-  <data name="checkBoxIgnoreTime.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbIgnoreTime.Size" type="System.Drawing.Size, System.Drawing">
     <value>452, 20</value>
   </data>
-  <data name="checkBoxIgnoreTime.TabIndex" type="System.Int32, mscorlib">
+  <data name="m_cbIgnoreTime.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
   </data>
-  <data name="checkBoxIgnoreTime.Text" xml:space="preserve">
+  <data name="m_cbIgnoreTime.Text" xml:space="preserve">
     <value>Fayl va saqlangan ma'lumotlar o'rtasidagi vaqt farqiga e'tibor bermaslik</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">

@@ -309,7 +309,7 @@ namespace SyncFolders
             }
 
 #if DEBUG
-            buttonSelfTest.Visible = true;
+            m_btnSelfTest.Visible = true;
             //checkBoxParallel.Visible = true;
 #else
             if (!bProgramFiles)
@@ -884,7 +884,7 @@ namespace SyncFolders
         {
             if (m_bWorking)
             {
-                buttonCancel.Enabled = false;
+                m_btnCancel.Enabled = false;
                 m_bCancelClicked = true;
             }
             else
@@ -1585,7 +1585,7 @@ namespace SyncFolders
                     m_cbParallel.Enabled = true;
 
                     m_bWorking = false;
-                    buttonCancel.Enabled = true;
+                    m_btnCancel.Enabled = true;
                     m_oTimerUpdateFileDescription.Stop();
 
 
@@ -1630,7 +1630,7 @@ namespace SyncFolders
 
                 m_lblProgress.Visible = false;
                 m_bWorking = false;
-                buttonCancel.Enabled = true;
+                m_btnCancel.Enabled = true;
 
                 m_oTimerUpdateFileDescription.Stop();
 

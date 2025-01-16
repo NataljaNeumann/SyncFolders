@@ -118,420 +118,420 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="checkBoxIgnoreTime.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="m_cbIgnoreTime.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="checkBoxIgnoreTime.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbIgnoreTime.Location" type="System.Drawing.Point, System.Drawing">
     <value>51, 273</value>
   </data>
-  <data name="checkBoxIgnoreTime.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="m_cbIgnoreTime.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
   </data>
-  <data name="checkBoxIgnoreTime.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbIgnoreTime.Size" type="System.Drawing.Size, System.Drawing">
     <value>526, 28</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="checkBoxIgnoreTime.TabIndex" type="System.Int32, mscorlib">
+  <data name="m_cbIgnoreTime.TabIndex" type="System.Int32, mscorlib">
     <value>35</value>
   </data>
-  <data name="checkBoxIgnoreTime.Text" xml:space="preserve">
+  <data name="m_cbIgnoreTime.Text" xml:space="preserve">
     <value>មិនអើពើភាពខុសគ្នានៃពេលវេលារវាងឯកសារ និងព័ត៌មានដែលបានរក្សាទុក</value>
   </data>
-  <data name="checkBoxSyncMode.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="m_cbSyncMode.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="checkBoxSyncMode.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbSyncMode.Location" type="System.Drawing.Point, System.Drawing">
     <value>242, 170</value>
   </data>
-  <data name="checkBoxSyncMode.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="m_cbSyncMode.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
   </data>
-  <data name="checkBoxSyncMode.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbSyncMode.Size" type="System.Drawing.Size, System.Drawing">
     <value>174, 28</value>
   </data>
-  <data name="checkBoxSyncMode.TabIndex" type="System.Int32, mscorlib">
+  <data name="m_cbSyncMode.TabIndex" type="System.Int32, mscorlib">
     <value>31</value>
   </data>
-  <data name="checkBoxSyncMode.Text" xml:space="preserve">
+  <data name="m_cbSyncMode.Text" xml:space="preserve">
     <value>របៀបធ្វើសមកាលកម្</value>
   </data>
-  <data name="checkBoxParallel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="m_cbParallel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="checkBoxParallel.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbParallel.Location" type="System.Drawing.Point, System.Drawing">
     <value>433, 170</value>
   </data>
-  <data name="checkBoxParallel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="m_cbParallel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
   </data>
-  <data name="checkBoxParallel.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbParallel.Size" type="System.Drawing.Size, System.Drawing">
     <value>186, 28</value>
   </data>
-  <data name="checkBoxParallel.TabIndex" type="System.Int32, mscorlib">
+  <data name="m_cbParallel.TabIndex" type="System.Int32, mscorlib">
     <value>32</value>
   </data>
-  <data name="checkBoxParallel.Text" xml:space="preserve">
+  <data name="m_cbParallel.Text" xml:space="preserve">
     <value>ជាច្រើនក្នុងពេលតែមួយ</value>
   </data>
-  <data name="checkBoxSkipRecentlyTested.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="m_cbSkipRecentlyTested.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="checkBoxSkipRecentlyTested.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbSkipRecentlyTested.Location" type="System.Drawing.Point, System.Drawing">
     <value>326, 337</value>
   </data>
-  <data name="checkBoxSkipRecentlyTested.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="m_cbSkipRecentlyTested.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
   </data>
-  <data name="checkBoxSkipRecentlyTested.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbSkipRecentlyTested.Size" type="System.Drawing.Size, System.Drawing">
     <value>258, 28</value>
   </data>
-  <data name="checkBoxSkipRecentlyTested.TabIndex" type="System.Int32, mscorlib">
+  <data name="m_cbSkipRecentlyTested.TabIndex" type="System.Int32, mscorlib">
     <value>39</value>
   </data>
-  <data name="checkBoxSkipRecentlyTested.Text" xml:space="preserve">
+  <data name="m_cbSkipRecentlyTested.Text" xml:space="preserve">
     <value>ប្រសិនបើមិនបានសាកល្បងថ្មីៗនេះ</value>
   </data>
-  <data name="linkLabelLicence.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="m_lblLicence.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="linkLabelLicence.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_lblLicence.Location" type="System.Drawing.Point, System.Drawing">
     <value>300, 508</value>
   </data>
-  <data name="linkLabelLicence.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="m_lblLicence.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
   </data>
-  <data name="linkLabelLicence.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_lblLicence.Size" type="System.Drawing.Size, System.Drawing">
     <value>149, 24</value>
   </data>
-  <data name="linkLabelLicence.TabIndex" type="System.Int32, mscorlib">
+  <data name="m_lblLicence.TabIndex" type="System.Int32, mscorlib">
     <value>44</value>
   </data>
-  <data name="linkLabelLicence.Text" xml:space="preserve">
+  <data name="m_lblLicence.Text" xml:space="preserve">
     <value>អាជ្ញាប័ណ្ណ (GPL v2)</value>
   </data>
-  <data name="linkLabelAbout.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="m_lblAbout.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="linkLabelAbout.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_lblAbout.Location" type="System.Drawing.Point, System.Drawing">
     <value>30, 508</value>
   </data>
-  <data name="linkLabelAbout.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="m_lblAbout.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
   </data>
-  <data name="linkLabelAbout.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_lblAbout.Size" type="System.Drawing.Size, System.Drawing">
     <value>230, 24</value>
   </data>
-  <data name="linkLabelAbout.TabIndex" type="System.Int32, mscorlib">
+  <data name="m_lblAbout.TabIndex" type="System.Int32, mscorlib">
     <value>43</value>
   </data>
-  <data name="linkLabelAbout.Text" xml:space="preserve">
+  <data name="m_lblAbout.Text" xml:space="preserve">
     <value>អំពី "ធ្វើសមកាលកម្មថតឯកសារ"</value>
   </data>
-  <data name="checkBoxDeleteFilesInSecond.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="m_cbDeleteFilesInSecond.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="checkBoxDeleteFilesInSecond.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbDeleteFilesInSecond.Location" type="System.Drawing.Point, System.Drawing">
     <value>51, 240</value>
   </data>
-  <data name="checkBoxDeleteFilesInSecond.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="m_cbDeleteFilesInSecond.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
   </data>
-  <data name="checkBoxDeleteFilesInSecond.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbDeleteFilesInSecond.Size" type="System.Drawing.Size, System.Drawing">
     <value>486, 28</value>
   </data>
-  <data name="checkBoxDeleteFilesInSecond.TabIndex" type="System.Int32, mscorlib">
+  <data name="m_cbDeleteFilesInSecond.TabIndex" type="System.Int32, mscorlib">
     <value>36</value>
   </data>
-  <data name="checkBoxDeleteFilesInSecond.Text" xml:space="preserve">
+  <data name="m_cbDeleteFilesInSecond.Text" xml:space="preserve">
     <value>ការលុបឯកសារនៅក្នុងថតទីពីរដែលមិនមាននៅក្នុងថតទីមួយទៀតទេ</value>
   </data>
-  <data name="checkBoxFirstReadonly.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="m_cbFirstReadonly.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="checkBoxFirstReadonly.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbFirstReadonly.Location" type="System.Drawing.Point, System.Drawing">
     <value>51, 206</value>
   </data>
-  <data name="checkBoxFirstReadonly.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="m_cbFirstReadonly.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
   </data>
-  <data name="checkBoxFirstReadonly.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbFirstReadonly.Size" type="System.Drawing.Size, System.Drawing">
     <value>305, 28</value>
   </data>
-  <data name="checkBoxFirstReadonly.TabIndex" type="System.Int32, mscorlib">
+  <data name="m_cbFirstReadonly.TabIndex" type="System.Int32, mscorlib">
     <value>34</value>
   </data>
-  <data name="checkBoxFirstReadonly.Text" xml:space="preserve">
+  <data name="m_cbFirstReadonly.Text" xml:space="preserve">
     <value>ថតទីមួយមិនអាចផ្លាស់ប្តូរបានទេ (ឧ. ស៊ីឌី)</value>
   </data>
-  <data name="labelProgress.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="m_lblProgress.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="labelProgress.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_lblProgress.Location" type="System.Drawing.Point, System.Drawing">
     <value>29, 408</value>
   </data>
-  <data name="labelProgress.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="m_lblProgress.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>6, 0, 6, 0</value>
   </data>
-  <data name="labelProgress.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_lblProgress.Size" type="System.Drawing.Size, System.Drawing">
     <value>929, 80</value>
   </data>
-  <data name="labelProgress.TabIndex" type="System.Int32, mscorlib">
+  <data name="m_lblProgress.TabIndex" type="System.Int32, mscorlib">
     <value>42</value>
   </data>
-  <data name="checkBoxFirstToSecond.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="m_cbFirstToSecond.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="checkBoxFirstToSecond.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbFirstToSecond.Location" type="System.Drawing.Point, System.Drawing">
     <value>28, 173</value>
   </data>
-  <data name="checkBoxFirstToSecond.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="m_cbFirstToSecond.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
   </data>
-  <data name="checkBoxFirstToSecond.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbFirstToSecond.Size" type="System.Drawing.Size, System.Drawing">
     <value>206, 28</value>
   </data>
-  <data name="checkBoxFirstToSecond.TabIndex" type="System.Int32, mscorlib">
+  <data name="m_cbFirstToSecond.TabIndex" type="System.Int32, mscorlib">
     <value>30</value>
   </data>
-  <data name="checkBoxFirstToSecond.Text" xml:space="preserve">
+  <data name="m_cbFirstToSecond.Text" xml:space="preserve">
     <value>ឯកទិសពីថតទីមួយទៅទីពីរ</value>
   </data>
-  <data name="checkBoxPreferCopies.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="m_cbPreferCopies.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="checkBoxPreferCopies.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbPreferCopies.Location" type="System.Drawing.Point, System.Drawing">
     <value>78, 405</value>
   </data>
-  <data name="checkBoxPreferCopies.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="m_cbPreferCopies.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>6, 6, 6, 6</value>
   </data>
-  <data name="checkBoxPreferCopies.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbPreferCopies.Size" type="System.Drawing.Size, System.Drawing">
     <value>586, 28</value>
   </data>
-  <data name="checkBoxPreferCopies.TabIndex" type="System.Int32, mscorlib">
+  <data name="m_cbPreferCopies.TabIndex" type="System.Int32, mscorlib">
     <value>41</value>
   </data>
-  <data name="checkBoxPreferCopies.Text" xml:space="preserve">
+  <data name="m_cbPreferCopies.Text" xml:space="preserve">
     <value>ចូលចិត្តច្បាប់ចម្លងរូបវន្ត ក្នុងករណីមានជម្លោះកំឡុងពេលជួសជុល (មិនត្រូវបានណែនាំ)</value>
   </data>
-  <data name="buttonSelfTest.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="m_btnSelfTest.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="buttonSelfTest.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_btnSelfTest.Location" type="System.Drawing.Point, System.Drawing">
     <value>755, 169</value>
   </data>
-  <data name="buttonSelfTest.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="m_btnSelfTest.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>6, 6, 6, 6</value>
   </data>
-  <data name="buttonSelfTest.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_btnSelfTest.Size" type="System.Drawing.Size, System.Drawing">
     <value>143, 42</value>
   </data>
-  <data name="buttonSelfTest.TabIndex" type="System.Int32, mscorlib">
+  <data name="m_btnSelfTest.TabIndex" type="System.Int32, mscorlib">
     <value>33</value>
   </data>
-  <data name="buttonSelfTest.Text" xml:space="preserve">
+  <data name="m_btnSelfTest.Text" xml:space="preserve">
     <value>ការធ្វើតេស្តខ្លួនឯង</value>
   </data>
-  <data name="progressBar1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="m_ctlProgressBar.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="progressBar1.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_ctlProgressBar.Location" type="System.Drawing.Point, System.Drawing">
     <value>28, 499</value>
   </data>
-  <data name="progressBar1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="m_ctlProgressBar.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>6, 6, 6, 6</value>
   </data>
-  <data name="progressBar1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_ctlProgressBar.Size" type="System.Drawing.Size, System.Drawing">
     <value>759, 42</value>
   </data>
-  <data name="progressBar1.TabIndex" type="System.Int32, mscorlib">
+  <data name="m_ctlProgressBar.TabIndex" type="System.Int32, mscorlib">
     <value>47</value>
   </data>
-  <data name="buttonCancel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="m_btnCancel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_btnCancel.Location" type="System.Drawing.Point, System.Drawing">
     <value>799, 499</value>
   </data>
-  <data name="buttonCancel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="m_btnCancel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>6, 6, 6, 6</value>
   </data>
-  <data name="buttonCancel.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_btnCancel.Size" type="System.Drawing.Size, System.Drawing">
     <value>99, 42</value>
   </data>
-  <data name="buttonCancel.TabIndex" type="System.Int32, mscorlib">
+  <data name="m_btnCancel.TabIndex" type="System.Int32, mscorlib">
     <value>46</value>
   </data>
-  <data name="buttonCancel.Text" xml:space="preserve">
+  <data name="m_btnCancel.Text" xml:space="preserve">
     <value>បោះបង់</value>
   </data>
-  <data name="textBoxSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_tbxSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
     <value>28, 121</value>
   </data>
-  <data name="textBoxSecondFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="m_tbxSecondFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>6, 6, 6, 6</value>
   </data>
-  <data name="textBoxSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_tbxSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
     <value>783, 29</value>
   </data>
-  <data name="textBoxSecondFolder.TabIndex" type="System.Int32, mscorlib">
+  <data name="m_tbxSecondFolder.TabIndex" type="System.Int32, mscorlib">
     <value>28</value>
   </data>
-  <data name="labelSecondFolder.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="m_lblSecondFolder.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="labelSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_lblSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
     <value>23, 92</value>
   </data>
-  <data name="labelSecondFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="m_lblSecondFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>6, 0, 6, 0</value>
   </data>
-  <data name="labelSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_lblSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
     <value>68, 24</value>
   </data>
-  <data name="labelSecondFolder.TabIndex" type="System.Int32, mscorlib">
+  <data name="m_lblSecondFolder.TabIndex" type="System.Int32, mscorlib">
     <value>27</value>
   </data>
-  <data name="labelSecondFolder.Text" xml:space="preserve">
+  <data name="m_lblSecondFolder.Text" xml:space="preserve">
     <value>ថតទីពីរ៖</value>
   </data>
-  <data name="buttonSelectFirstFolder.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="m_btnSelectFirstFolder.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="buttonSelectFirstFolder.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_btnSelectFirstFolder.Location" type="System.Drawing.Point, System.Drawing">
     <value>838, 38</value>
   </data>
-  <data name="buttonSelectFirstFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="m_btnSelectFirstFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>6, 6, 6, 6</value>
   </data>
-  <data name="buttonSelectFirstFolder.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_btnSelectFirstFolder.Size" type="System.Drawing.Size, System.Drawing">
     <value>60, 42</value>
   </data>
-  <data name="buttonSelectFirstFolder.TabIndex" type="System.Int32, mscorlib">
+  <data name="m_btnSelectFirstFolder.TabIndex" type="System.Int32, mscorlib">
     <value>26</value>
   </data>
-  <data name="textBoxFirstFolder.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_tbxFirstFolder.Location" type="System.Drawing.Point, System.Drawing">
     <value>28, 44</value>
   </data>
-  <data name="textBoxFirstFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="m_tbxFirstFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>6, 6, 6, 6</value>
   </data>
-  <data name="textBoxFirstFolder.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_tbxFirstFolder.Size" type="System.Drawing.Size, System.Drawing">
     <value>783, 29</value>
   </data>
-  <data name="textBoxFirstFolder.TabIndex" type="System.Int32, mscorlib">
+  <data name="m_tbxFirstFolder.TabIndex" type="System.Int32, mscorlib">
     <value>25</value>
   </data>
-  <data name="labelFolder1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="m_lblFolder1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="labelFolder1.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_lblFolder1.Location" type="System.Drawing.Point, System.Drawing">
     <value>23, 16</value>
   </data>
-  <data name="labelFolder1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="m_lblFolder1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>6, 0, 6, 0</value>
   </data>
-  <data name="labelFolder1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_lblFolder1.Size" type="System.Drawing.Size, System.Drawing">
     <value>79, 24</value>
   </data>
-  <data name="labelFolder1.TabIndex" type="System.Int32, mscorlib">
+  <data name="m_lblFolder1.TabIndex" type="System.Int32, mscorlib">
     <value>24</value>
   </data>
-  <data name="labelFolder1.Text" xml:space="preserve">
+  <data name="m_lblFolder1.Text" xml:space="preserve">
     <value>ថតទីមួយ៖</value>
   </data>
-  <data name="checkBoxRepairBlockFailures.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="m_cbRepairBlockFailures.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="checkBoxRepairBlockFailures.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbRepairBlockFailures.Location" type="System.Drawing.Point, System.Drawing">
     <value>51, 369</value>
   </data>
-  <data name="checkBoxRepairBlockFailures.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="m_cbRepairBlockFailures.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>6, 6, 6, 6</value>
   </data>
-  <data name="checkBoxRepairBlockFailures.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbRepairBlockFailures.Size" type="System.Drawing.Size, System.Drawing">
     <value>227, 28</value>
   </data>
-  <data name="checkBoxRepairBlockFailures.TabIndex" type="System.Int32, mscorlib">
+  <data name="m_cbRepairBlockFailures.TabIndex" type="System.Int32, mscorlib">
     <value>40</value>
   </data>
-  <data name="checkBoxRepairBlockFailures.Text" xml:space="preserve">
+  <data name="m_cbRepairBlockFailures.Text" xml:space="preserve">
     <value>ជួសជុលការបរាជ័យប្លុកតែមួយ</value>
   </data>
-  <data name="checkBoxTestAllFiles.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="m_cbTestAllFiles.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="checkBoxTestAllFiles.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbTestAllFiles.Location" type="System.Drawing.Point, System.Drawing">
     <value>28, 337</value>
   </data>
-  <data name="checkBoxTestAllFiles.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="m_cbTestAllFiles.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>6, 6, 6, 6</value>
   </data>
-  <data name="checkBoxTestAllFiles.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbTestAllFiles.Size" type="System.Drawing.Size, System.Drawing">
     <value>288, 28</value>
   </data>
-  <data name="checkBoxTestAllFiles.TabIndex" type="System.Int32, mscorlib">
+  <data name="m_cbTestAllFiles.TabIndex" type="System.Int32, mscorlib">
     <value>38</value>
   </data>
-  <data name="checkBoxTestAllFiles.Text" xml:space="preserve">
+  <data name="m_cbTestAllFiles.Text" xml:space="preserve">
     <value>សាកល្បងលទ្ធភាពអានឯកសារទាំងអស់ </value>
   </data>
-  <data name="buttonSync.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="m_btnSync.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom</value>
   </data>
-  <data name="buttonSync.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="m_btnSync.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="buttonSync.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_btnSync.Location" type="System.Drawing.Point, System.Drawing">
     <value>658, 499</value>
   </data>
-  <data name="buttonSync.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="m_btnSync.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>6, 6, 6, 6</value>
   </data>
-  <data name="buttonSync.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_btnSync.Size" type="System.Drawing.Size, System.Drawing">
     <value>129, 42</value>
   </data>
-  <data name="buttonSync.TabIndex" type="System.Int32, mscorlib">
+  <data name="m_btnSync.TabIndex" type="System.Int32, mscorlib">
     <value>45</value>
   </data>
-  <data name="buttonSync.Text" xml:space="preserve">
+  <data name="m_btnSync.Text" xml:space="preserve">
     <value>ធ្វើសមកាលកម្ម</value>
   </data>
-  <data name="checkBoxCreateRestoreInfo.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="m_cbCreateRestoreInfo.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="checkBoxCreateRestoreInfo.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbCreateRestoreInfo.Location" type="System.Drawing.Point, System.Drawing">
     <value>28, 305</value>
   </data>
-  <data name="checkBoxCreateRestoreInfo.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="m_cbCreateRestoreInfo.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>6, 6, 6, 6</value>
   </data>
-  <data name="checkBoxCreateRestoreInfo.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbCreateRestoreInfo.Size" type="System.Drawing.Size, System.Drawing">
     <value>493, 28</value>
   </data>
-  <data name="checkBoxCreateRestoreInfo.TabIndex" type="System.Int32, mscorlib">
+  <data name="m_cbCreateRestoreInfo.TabIndex" type="System.Int32, mscorlib">
     <value>37</value>
   </data>
-  <data name="checkBoxCreateRestoreInfo.Text" xml:space="preserve">
+  <data name="m_cbCreateRestoreInfo.Text" xml:space="preserve">
     <value>ការរក្សាទុកព័ត៌មានមួយចំនួនសម្រាប់ការស្ដារប្លុកតែមួយ ប្រសិនបើបាត់</value>
   </data>
-  <data name="buttonSelectSecondFolder.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="m_btnSelectSecondFolder.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top</value>
   </data>
-  <data name="buttonSelectSecondFolder.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="m_btnSelectSecondFolder.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="buttonSelectSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_btnSelectSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
     <value>839, 115</value>
   </data>
-  <data name="buttonSelectSecondFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="m_btnSelectSecondFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>6, 6, 6, 6</value>
   </data>
-  <data name="buttonSelectSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_btnSelectSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
     <value>59, 42</value>
   </data>
-  <data name="buttonSelectSecondFolder.TabIndex" type="System.Int32, mscorlib">
+  <data name="m_btnSelectSecondFolder.TabIndex" type="System.Int32, mscorlib">
     <value>29</value>
   </data>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">

@@ -118,167 +118,167 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="labelFolder1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_lblFolder1.Size" type="System.Drawing.Size, System.Drawing">
     <value>112, 16</value>
   </data>
-  <data name="labelFolder1.Text" xml:space="preserve">
+  <data name="m_lblFolder1.Text" xml:space="preserve">
     <value>Thư mục đầu tiên:</value>
   </data>
-  <data name="textBoxFirstFolder.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_tbxFirstFolder.Size" type="System.Drawing.Size, System.Drawing">
     <value>620, 22</value>
   </data>
-  <data name="buttonSelectFirstFolder.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_btnSelectFirstFolder.Location" type="System.Drawing.Point, System.Drawing">
     <value>655, 33</value>
   </data>
-  <data name="labelSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_lblSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
     <value>103, 16</value>
   </data>
-  <data name="labelSecondFolder.Text" xml:space="preserve">
+  <data name="m_lblSecondFolder.Text" xml:space="preserve">
     <value>Thư mục thứ hai:</value>
   </data>
-  <data name="textBoxSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_tbxSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
     <value>620, 22</value>
   </data>
-  <data name="buttonSelectSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_btnSelectSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
     <value>656, 89</value>
   </data>
-  <data name="checkBoxCreateRestoreInfo.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbCreateRestoreInfo.Location" type="System.Drawing.Point, System.Drawing">
     <value>20, 218</value>
   </data>
-  <data name="checkBoxCreateRestoreInfo.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbCreateRestoreInfo.Size" type="System.Drawing.Size, System.Drawing">
     <value>374, 20</value>
   </data>
-  <data name="checkBoxCreateRestoreInfo.Text" xml:space="preserve">
+  <data name="m_cbCreateRestoreInfo.Text" xml:space="preserve">
     <value>Lưu một số thông tin để khôi phục các khối đơn lẻ, nếu thiếu</value>
   </data>
-  <data name="checkBoxTestAllFiles.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbTestAllFiles.Location" type="System.Drawing.Point, System.Drawing">
     <value>20, 246</value>
   </data>
-  <data name="checkBoxTestAllFiles.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbTestAllFiles.Size" type="System.Drawing.Size, System.Drawing">
     <value>266, 20</value>
   </data>
-  <data name="checkBoxTestAllFiles.Text" xml:space="preserve">
+  <data name="m_cbTestAllFiles.Text" xml:space="preserve">
     <value>Kiểm tra khả năng đọc của tất cả các tệp</value>
   </data>
-  <data name="checkBoxRepairBlockFailures.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbRepairBlockFailures.Location" type="System.Drawing.Point, System.Drawing">
     <value>37, 274</value>
   </data>
-  <data name="checkBoxRepairBlockFailures.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbRepairBlockFailures.Size" type="System.Drawing.Size, System.Drawing">
     <value>179, 20</value>
   </data>
-  <data name="checkBoxRepairBlockFailures.Text" xml:space="preserve">
+  <data name="m_cbRepairBlockFailures.Text" xml:space="preserve">
     <value>Sửa chữa các lỗi khối đơn</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buttonSync.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="m_btnSync.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
-  <data name="buttonSync.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_btnSync.Location" type="System.Drawing.Point, System.Drawing">
     <value>487, 372</value>
   </data>
-  <data name="buttonSync.Text" xml:space="preserve">
+  <data name="m_btnSync.Text" xml:space="preserve">
     <value>Đồng bộ hóa</value>
   </data>
-  <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_btnCancel.Location" type="System.Drawing.Point, System.Drawing">
     <value>595, 372</value>
   </data>
-  <data name="buttonCancel.Text" xml:space="preserve">
+  <data name="m_btnCancel.Text" xml:space="preserve">
     <value>Hủy</value>
   </data>
-  <data name="progressBar1.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_ctlProgressBar.Location" type="System.Drawing.Point, System.Drawing">
     <value>20, 372</value>
   </data>
-  <data name="progressBar1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_ctlProgressBar.Size" type="System.Drawing.Size, System.Drawing">
     <value>567, 28</value>
   </data>
-  <data name="buttonSelfTest.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_btnSelfTest.Location" type="System.Drawing.Point, System.Drawing">
     <value>599, 132</value>
   </data>
-  <data name="buttonSelfTest.Text" xml:space="preserve">
+  <data name="m_btnSelfTest.Text" xml:space="preserve">
     <value>Tự kiểm tra</value>
   </data>
-  <data name="checkBoxPreferCopies.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbPreferCopies.Size" type="System.Drawing.Size, System.Drawing">
     <value>602, 20</value>
   </data>
-  <data name="checkBoxPreferCopies.Text" xml:space="preserve">
+  <data name="m_cbPreferCopies.Text" xml:space="preserve">
     <value>Ưu tiên các bản sao vật lý trong trường hợp xung đột trong quá trình sửa chữa (không khuyến khích)</value>
   </data>
-  <data name="labelProgress.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_lblProgress.Location" type="System.Drawing.Point, System.Drawing">
     <value>21, 298</value>
   </data>
-  <data name="labelProgress.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_lblProgress.Size" type="System.Drawing.Size, System.Drawing">
     <value>674, 53</value>
   </data>
-  <data name="checkBoxFirstToSecond.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbFirstToSecond.Size" type="System.Drawing.Size, System.Drawing">
     <value>311, 20</value>
   </data>
-  <data name="checkBoxFirstToSecond.Text" xml:space="preserve">
+  <data name="m_cbFirstToSecond.Text" xml:space="preserve">
     <value>Một chiều, từ thư mục thứ nhất đến thư mục thứ hai</value>
   </data>
-  <data name="checkBoxFirstReadonly.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbFirstReadonly.Size" type="System.Drawing.Size, System.Drawing">
     <value>303, 20</value>
   </data>
-  <data name="checkBoxFirstReadonly.Text" xml:space="preserve">
+  <data name="m_cbFirstReadonly.Text" xml:space="preserve">
     <value>Thư mục đầu tiên không thể thay đổi (ví dụ: CD)</value>
   </data>
-  <data name="checkBoxDeleteFilesInSecond.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbDeleteFilesInSecond.Size" type="System.Drawing.Size, System.Drawing">
     <value>457, 20</value>
   </data>
-  <data name="checkBoxDeleteFilesInSecond.Text" xml:space="preserve">
+  <data name="m_cbDeleteFilesInSecond.Text" xml:space="preserve">
     <value>Xóa các tập tin trong thư mục thứ hai không còn trong thư mục đầu tiên nữa</value>
   </data>
-  <data name="linkLabelAbout.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_lblAbout.Location" type="System.Drawing.Point, System.Drawing">
     <value>22, 378</value>
   </data>
-  <data name="linkLabelAbout.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_lblAbout.Size" type="System.Drawing.Size, System.Drawing">
     <value>202, 16</value>
   </data>
-  <data name="linkLabelAbout.Text" xml:space="preserve">
+  <data name="m_lblAbout.Text" xml:space="preserve">
     <value>Tin tức về "đồng bộ hóa thư mục"</value>
   </data>
-  <data name="linkLabelLicence.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_lblLicence.Location" type="System.Drawing.Point, System.Drawing">
     <value>259, 378</value>
   </data>
-  <data name="linkLabelLicence.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_lblLicence.Size" type="System.Drawing.Size, System.Drawing">
     <value>124, 16</value>
   </data>
-  <data name="linkLabelLicence.Text" xml:space="preserve">
+  <data name="m_lblLicence.Text" xml:space="preserve">
     <value>Giấy phép (GPL v2)</value>
   </data>
-  <data name="checkBoxSkipRecentlyTested.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbSkipRecentlyTested.Location" type="System.Drawing.Point, System.Drawing">
     <value>293, 246</value>
   </data>
-  <data name="checkBoxSkipRecentlyTested.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbSkipRecentlyTested.Size" type="System.Drawing.Size, System.Drawing">
     <value>224, 20</value>
   </data>
-  <data name="checkBoxSkipRecentlyTested.Text" xml:space="preserve">
+  <data name="m_cbSkipRecentlyTested.Text" xml:space="preserve">
     <value>nếu gần đây không được kiểm tra</value>
   </data>
-  <data name="checkBoxParallel.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbParallel.Location" type="System.Drawing.Point, System.Drawing">
     <value>466, 137</value>
   </data>
-  <data name="checkBoxParallel.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbParallel.Size" type="System.Drawing.Size, System.Drawing">
     <value>90, 20</value>
   </data>
-  <data name="checkBoxParallel.Text" xml:space="preserve">
+  <data name="m_cbParallel.Text" xml:space="preserve">
     <value>song song</value>
   </data>
-  <data name="checkBoxSyncMode.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbSyncMode.Location" type="System.Drawing.Point, System.Drawing">
     <value>337, 137</value>
   </data>
-  <data name="checkBoxSyncMode.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbSyncMode.Size" type="System.Drawing.Size, System.Drawing">
     <value>123, 20</value>
   </data>
-  <data name="checkBoxSyncMode.Text" xml:space="preserve">
+  <data name="m_cbSyncMode.Text" xml:space="preserve">
     <value>Chế độ đồng bộ</value>
   </data>
-  <data name="checkBoxIgnoreTime.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbIgnoreTime.Location" type="System.Drawing.Point, System.Drawing">
     <value>346, 164</value>
   </data>
-  <data name="checkBoxIgnoreTime.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbIgnoreTime.Size" type="System.Drawing.Size, System.Drawing">
     <value>350, 20</value>
   </data>
-  <data name="checkBoxIgnoreTime.Text" xml:space="preserve">
+  <data name="m_cbIgnoreTime.Text" xml:space="preserve">
     <value>Bỏ qua chênh lệch thời gian giữa tệp và thông tin đã lưu</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">

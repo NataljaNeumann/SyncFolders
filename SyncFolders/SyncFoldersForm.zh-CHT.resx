@@ -118,167 +118,167 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="labelFolder1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_lblFolder1.Size" type="System.Drawing.Size, System.Drawing">
     <value>106, 16</value>
   </data>
-  <data name="labelFolder1.Text" xml:space="preserve">
+  <data name="m_lblFolder1.Text" xml:space="preserve">
     <value>第一個資料夾：</value>
   </data>
-  <data name="textBoxFirstFolder.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_tbxFirstFolder.Size" type="System.Drawing.Size, System.Drawing">
     <value>521, 22</value>
   </data>
-  <data name="buttonSelectFirstFolder.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_btnSelectFirstFolder.Location" type="System.Drawing.Point, System.Drawing">
     <value>556, 33</value>
   </data>
-  <data name="labelSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_lblSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
     <value>106, 16</value>
   </data>
-  <data name="labelSecondFolder.Text" xml:space="preserve">
+  <data name="m_lblSecondFolder.Text" xml:space="preserve">
     <value>第二個資料夾：</value>
   </data>
-  <data name="textBoxSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_tbxSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
     <value>521, 22</value>
   </data>
-  <data name="buttonSelectSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_btnSelectSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
     <value>556, 89</value>
   </data>
-  <data name="checkBoxCreateRestoreInfo.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbCreateRestoreInfo.Location" type="System.Drawing.Point, System.Drawing">
     <value>20, 219</value>
   </data>
-  <data name="checkBoxCreateRestoreInfo.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbCreateRestoreInfo.Size" type="System.Drawing.Size, System.Drawing">
     <value>298, 20</value>
   </data>
-  <data name="checkBoxCreateRestoreInfo.Text" xml:space="preserve">
+  <data name="m_cbCreateRestoreInfo.Text" xml:space="preserve">
     <value>保存一些資訊以恢復單一區塊（如果遺失）</value>
   </data>
-  <data name="checkBoxTestAllFiles.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbTestAllFiles.Location" type="System.Drawing.Point, System.Drawing">
     <value>20, 247</value>
   </data>
-  <data name="checkBoxTestAllFiles.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbTestAllFiles.Size" type="System.Drawing.Size, System.Drawing">
     <value>177, 20</value>
   </data>
-  <data name="checkBoxTestAllFiles.Text" xml:space="preserve">
+  <data name="m_cbTestAllFiles.Text" xml:space="preserve">
     <value>測試所有文件的可讀性</value>
   </data>
-  <data name="checkBoxRepairBlockFailures.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbRepairBlockFailures.Location" type="System.Drawing.Point, System.Drawing">
     <value>37, 275</value>
   </data>
-  <data name="checkBoxRepairBlockFailures.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbRepairBlockFailures.Size" type="System.Drawing.Size, System.Drawing">
     <value>117, 20</value>
   </data>
-  <data name="checkBoxRepairBlockFailures.Text" xml:space="preserve">
+  <data name="m_cbRepairBlockFailures.Text" xml:space="preserve">
     <value>修復單塊故障</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buttonSync.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="m_btnSync.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
-  <data name="buttonSync.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_btnSync.Location" type="System.Drawing.Point, System.Drawing">
     <value>388, 357</value>
   </data>
-  <data name="buttonSync.Text" xml:space="preserve">
+  <data name="m_btnSync.Text" xml:space="preserve">
     <value>同步</value>
   </data>
-  <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_btnCancel.Location" type="System.Drawing.Point, System.Drawing">
     <value>496, 357</value>
   </data>
-  <data name="buttonCancel.Text" xml:space="preserve">
+  <data name="m_btnCancel.Text" xml:space="preserve">
     <value>取消操作</value>
   </data>
-  <data name="progressBar1.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_ctlProgressBar.Location" type="System.Drawing.Point, System.Drawing">
     <value>24, 357</value>
   </data>
-  <data name="progressBar1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_ctlProgressBar.Size" type="System.Drawing.Size, System.Drawing">
     <value>464, 28</value>
   </data>
-  <data name="buttonSelfTest.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_btnSelfTest.Location" type="System.Drawing.Point, System.Drawing">
     <value>499, 131</value>
   </data>
-  <data name="buttonSelfTest.Text" xml:space="preserve">
+  <data name="m_btnSelfTest.Text" xml:space="preserve">
     <value>自檢</value>
   </data>
-  <data name="checkBoxPreferCopies.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbPreferCopies.Size" type="System.Drawing.Size, System.Drawing">
     <value>368, 20</value>
   </data>
-  <data name="checkBoxPreferCopies.Text" xml:space="preserve">
+  <data name="m_cbPreferCopies.Text" xml:space="preserve">
     <value>優先使用實體副本，以防修復期間發生衝突（不建議）</value>
   </data>
-  <data name="labelProgress.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_lblProgress.Location" type="System.Drawing.Point, System.Drawing">
     <value>21, 299</value>
   </data>
-  <data name="labelProgress.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_lblProgress.Size" type="System.Drawing.Size, System.Drawing">
     <value>575, 53</value>
   </data>
-  <data name="checkBoxFirstToSecond.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbFirstToSecond.Size" type="System.Drawing.Size, System.Drawing">
     <value>277, 20</value>
   </data>
-  <data name="checkBoxFirstToSecond.Text" xml:space="preserve">
+  <data name="m_cbFirstToSecond.Text" xml:space="preserve">
     <value>單向，從第一個資料夾到第二個資料夾</value>
   </data>
-  <data name="checkBoxFirstReadonly.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbFirstReadonly.Size" type="System.Drawing.Size, System.Drawing">
     <value>245, 20</value>
   </data>
-  <data name="checkBoxFirstReadonly.Text" xml:space="preserve">
+  <data name="m_cbFirstReadonly.Text" xml:space="preserve">
     <value>第一個資料夾不可更改（例如 CD）</value>
   </data>
-  <data name="checkBoxDeleteFilesInSecond.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbDeleteFilesInSecond.Size" type="System.Drawing.Size, System.Drawing">
     <value>372, 20</value>
   </data>
-  <data name="checkBoxDeleteFilesInSecond.Text" xml:space="preserve">
+  <data name="m_cbDeleteFilesInSecond.Text" xml:space="preserve">
     <value>刪除第二個資料夾中不再位於第一個資料夾中的文件</value>
   </data>
-  <data name="linkLabelAbout.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_lblAbout.Location" type="System.Drawing.Point, System.Drawing">
     <value>26, 363</value>
   </data>
-  <data name="linkLabelAbout.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_lblAbout.Size" type="System.Drawing.Size, System.Drawing">
     <value>121, 16</value>
   </data>
-  <data name="linkLabelAbout.Text" xml:space="preserve">
+  <data name="m_lblAbout.Text" xml:space="preserve">
     <value>關於“同步資料夾”</value>
   </data>
-  <data name="linkLabelLicence.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_lblLicence.Location" type="System.Drawing.Point, System.Drawing">
     <value>192, 363</value>
   </data>
-  <data name="linkLabelLicence.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_lblLicence.Size" type="System.Drawing.Size, System.Drawing">
     <value>92, 16</value>
   </data>
-  <data name="linkLabelLicence.Text" xml:space="preserve">
+  <data name="m_lblLicence.Text" xml:space="preserve">
     <value>執照 (GPL v2)</value>
   </data>
-  <data name="checkBoxSkipRecentlyTested.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbSkipRecentlyTested.Location" type="System.Drawing.Point, System.Drawing">
     <value>204, 247</value>
   </data>
-  <data name="checkBoxSkipRecentlyTested.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbSkipRecentlyTested.Size" type="System.Drawing.Size, System.Drawing">
     <value>132, 20</value>
   </data>
-  <data name="checkBoxSkipRecentlyTested.Text" xml:space="preserve">
+  <data name="m_cbSkipRecentlyTested.Text" xml:space="preserve">
     <value>如果最近未測試</value>
   </data>
-  <data name="checkBoxParallel.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbParallel.Location" type="System.Drawing.Point, System.Drawing">
     <value>396, 136</value>
   </data>
-  <data name="checkBoxParallel.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbParallel.Size" type="System.Drawing.Size, System.Drawing">
     <value>72, 20</value>
   </data>
-  <data name="checkBoxParallel.Text" xml:space="preserve">
+  <data name="m_cbParallel.Text" xml:space="preserve">
     <value>平行線</value>
   </data>
-  <data name="checkBoxSyncMode.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbSyncMode.Location" type="System.Drawing.Point, System.Drawing">
     <value>303, 136</value>
   </data>
-  <data name="checkBoxSyncMode.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbSyncMode.Size" type="System.Drawing.Size, System.Drawing">
     <value>87, 20</value>
   </data>
-  <data name="checkBoxSyncMode.Text" xml:space="preserve">
+  <data name="m_cbSyncMode.Text" xml:space="preserve">
     <value>同步模式</value>
   </data>
-  <data name="checkBoxIgnoreTime.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbIgnoreTime.Location" type="System.Drawing.Point, System.Drawing">
     <value>276, 164</value>
   </data>
-  <data name="checkBoxIgnoreTime.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbIgnoreTime.Size" type="System.Drawing.Size, System.Drawing">
     <value>252, 20</value>
   </data>
-  <data name="checkBoxIgnoreTime.Text" xml:space="preserve">
+  <data name="m_cbIgnoreTime.Text" xml:space="preserve">
     <value>忽略文件和保存資訊之間的時間差</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">

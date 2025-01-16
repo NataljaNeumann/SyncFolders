@@ -118,275 +118,275 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="labelFolder1.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_lblFolder1.Location" type="System.Drawing.Point, System.Drawing">
     <value>19, 20</value>
   </data>
-  <data name="labelFolder1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_lblFolder1.Size" type="System.Drawing.Size, System.Drawing">
     <value>81, 20</value>
   </data>
-  <data name="labelFolder1.Text" xml:space="preserve">
+  <data name="m_lblFolder1.Text" xml:space="preserve">
     <value>첫 번째 폴더:</value>
   </data>
-  <data name="textBoxFirstFolder.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_tbxFirstFolder.Location" type="System.Drawing.Point, System.Drawing">
     <value>22, 45</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="textBoxFirstFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="m_tbxFirstFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 5, 4, 5</value>
   </data>
-  <data name="textBoxFirstFolder.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_tbxFirstFolder.Size" type="System.Drawing.Size, System.Drawing">
     <value>575, 26</value>
   </data>
-  <data name="buttonSelectFirstFolder.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_btnSelectFirstFolder.Location" type="System.Drawing.Point, System.Drawing">
     <value>610, 41</value>
   </data>
-  <data name="buttonSelectFirstFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="m_btnSelectFirstFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 5, 4, 5</value>
   </data>
-  <data name="buttonSelectFirstFolder.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_btnSelectFirstFolder.Size" type="System.Drawing.Size, System.Drawing">
     <value>50, 35</value>
   </data>
-  <data name="labelSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_lblSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
     <value>19, 79</value>
   </data>
-  <data name="labelSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_lblSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
     <value>81, 20</value>
   </data>
-  <data name="labelSecondFolder.Text" xml:space="preserve">
+  <data name="m_lblSecondFolder.Text" xml:space="preserve">
     <value>두 번째 폴더:</value>
   </data>
-  <data name="textBoxSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_tbxSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
     <value>22, 104</value>
   </data>
-  <data name="textBoxSecondFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="m_tbxSecondFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 5, 4, 5</value>
   </data>
-  <data name="textBoxSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_tbxSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
     <value>575, 26</value>
   </data>
-  <data name="buttonSelectSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_btnSelectSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
     <value>610, 100</value>
   </data>
-  <data name="buttonSelectSecondFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="m_btnSelectSecondFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 5, 4, 5</value>
   </data>
-  <data name="buttonSelectSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_btnSelectSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
     <value>48, 35</value>
   </data>
-  <data name="checkBoxCreateRestoreInfo.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="m_cbCreateRestoreInfo.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left</value>
   </data>
-  <data name="checkBoxCreateRestoreInfo.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbCreateRestoreInfo.Location" type="System.Drawing.Point, System.Drawing">
     <value>22, 227</value>
   </data>
-  <data name="checkBoxCreateRestoreInfo.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="m_cbCreateRestoreInfo.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 5, 4, 5</value>
   </data>
-  <data name="checkBoxCreateRestoreInfo.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbCreateRestoreInfo.Size" type="System.Drawing.Size, System.Drawing">
     <value>300, 24</value>
   </data>
-  <data name="checkBoxCreateRestoreInfo.Text" xml:space="preserve">
+  <data name="m_cbCreateRestoreInfo.Text" xml:space="preserve">
     <value>누락된 경우 단일 블록 복원을 위한 일부 정보 저장</value>
   </data>
-  <data name="checkBoxTestAllFiles.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="m_cbTestAllFiles.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left</value>
   </data>
-  <data name="checkBoxTestAllFiles.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbTestAllFiles.Location" type="System.Drawing.Point, System.Drawing">
     <value>213, 256</value>
   </data>
-  <data name="checkBoxTestAllFiles.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="m_cbTestAllFiles.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 5, 4, 5</value>
   </data>
-  <data name="checkBoxTestAllFiles.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbTestAllFiles.Size" type="System.Drawing.Size, System.Drawing">
     <value>172, 24</value>
   </data>
-  <data name="checkBoxTestAllFiles.Text" xml:space="preserve">
+  <data name="m_cbTestAllFiles.Text" xml:space="preserve">
     <value>모든 파일의 가독성 테스트</value>
   </data>
-  <data name="checkBoxRepairBlockFailures.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="m_cbRepairBlockFailures.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left</value>
   </data>
-  <data name="checkBoxRepairBlockFailures.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbRepairBlockFailures.Location" type="System.Drawing.Point, System.Drawing">
     <value>42, 285</value>
   </data>
-  <data name="checkBoxRepairBlockFailures.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="m_cbRepairBlockFailures.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 5, 4, 5</value>
   </data>
-  <data name="checkBoxRepairBlockFailures.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbRepairBlockFailures.Size" type="System.Drawing.Size, System.Drawing">
     <value>136, 24</value>
   </data>
-  <data name="checkBoxRepairBlockFailures.Text" xml:space="preserve">
+  <data name="m_cbRepairBlockFailures.Text" xml:space="preserve">
     <value>단일 블록 오류 복구</value>
   </data>
-  <data name="buttonSync.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="m_btnSync.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
-  <data name="buttonSync.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_btnSync.Location" type="System.Drawing.Point, System.Drawing">
     <value>427, 386</value>
   </data>
-  <data name="buttonSync.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="m_btnSync.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 5, 4, 5</value>
   </data>
-  <data name="buttonSync.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_btnSync.Size" type="System.Drawing.Size, System.Drawing">
     <value>112, 35</value>
   </data>
-  <data name="buttonSync.Text" xml:space="preserve">
+  <data name="m_btnSync.Text" xml:space="preserve">
     <value>동조</value>
   </data>
-  <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_btnCancel.Location" type="System.Drawing.Point, System.Drawing">
     <value>547, 386</value>
   </data>
-  <data name="buttonCancel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="m_btnCancel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 5, 4, 5</value>
   </data>
-  <data name="buttonCancel.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_btnCancel.Size" type="System.Drawing.Size, System.Drawing">
     <value>112, 35</value>
   </data>
-  <data name="buttonCancel.Text" xml:space="preserve">
+  <data name="m_btnCancel.Text" xml:space="preserve">
     <value>작업 취소</value>
   </data>
-  <data name="progressBar1.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_ctlProgressBar.Location" type="System.Drawing.Point, System.Drawing">
     <value>27, 386</value>
   </data>
-  <data name="progressBar1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="m_ctlProgressBar.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 5, 4, 5</value>
   </data>
-  <data name="progressBar1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_ctlProgressBar.Size" type="System.Drawing.Size, System.Drawing">
     <value>514, 35</value>
   </data>
-  <data name="buttonSelfTest.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_btnSelfTest.Location" type="System.Drawing.Point, System.Drawing">
     <value>546, 135</value>
   </data>
-  <data name="buttonSelfTest.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="m_btnSelfTest.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 5, 4, 5</value>
   </data>
-  <data name="buttonSelfTest.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_btnSelfTest.Size" type="System.Drawing.Size, System.Drawing">
     <value>112, 35</value>
   </data>
-  <data name="buttonSelfTest.Text" xml:space="preserve">
+  <data name="m_btnSelfTest.Text" xml:space="preserve">
     <value>자가 테스트</value>
   </data>
-  <data name="checkBoxPreferCopies.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbPreferCopies.Location" type="System.Drawing.Point, System.Drawing">
     <value>71, 315</value>
   </data>
-  <data name="checkBoxPreferCopies.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="m_cbPreferCopies.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 5, 4, 5</value>
   </data>
-  <data name="checkBoxPreferCopies.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbPreferCopies.Size" type="System.Drawing.Size, System.Drawing">
     <value>382, 24</value>
   </data>
-  <data name="checkBoxPreferCopies.Text" xml:space="preserve">
+  <data name="m_cbPreferCopies.Text" xml:space="preserve">
     <value>수리 중 충돌이 발생할 경우 실제 복사본을 선호함(권장하지 않음)</value>
   </data>
-  <data name="labelProgress.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_lblProgress.Location" type="System.Drawing.Point, System.Drawing">
     <value>24, 313</value>
   </data>
-  <data name="labelProgress.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_lblProgress.Size" type="System.Drawing.Size, System.Drawing">
     <value>636, 66</value>
   </data>
-  <data name="checkBoxFirstToSecond.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbFirstToSecond.Location" type="System.Drawing.Point, System.Drawing">
     <value>22, 147</value>
   </data>
-  <data name="checkBoxFirstToSecond.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="m_cbFirstToSecond.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 4, 3, 4</value>
   </data>
-  <data name="checkBoxFirstToSecond.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbFirstToSecond.Size" type="System.Drawing.Size, System.Drawing">
     <value>254, 24</value>
   </data>
-  <data name="checkBoxFirstToSecond.Text" xml:space="preserve">
+  <data name="m_cbFirstToSecond.Text" xml:space="preserve">
     <value>단방향으로 1번째 폴더에서 2번째 폴더로</value>
   </data>
-  <data name="checkBoxFirstReadonly.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbFirstReadonly.Location" type="System.Drawing.Point, System.Drawing">
     <value>42, 173</value>
   </data>
-  <data name="checkBoxFirstReadonly.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="m_cbFirstReadonly.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 4, 3, 4</value>
   </data>
-  <data name="checkBoxFirstReadonly.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbFirstReadonly.Size" type="System.Drawing.Size, System.Drawing">
     <value>273, 24</value>
   </data>
-  <data name="checkBoxFirstReadonly.Text" xml:space="preserve">
+  <data name="m_cbFirstReadonly.Text" xml:space="preserve">
     <value>첫 번째 폴더는 변경할 수 없습니다(예: CD).</value>
   </data>
-  <data name="checkBoxDeleteFilesInSecond.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbDeleteFilesInSecond.Location" type="System.Drawing.Point, System.Drawing">
     <value>42, 201</value>
   </data>
-  <data name="checkBoxDeleteFilesInSecond.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="m_cbDeleteFilesInSecond.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 4, 3, 4</value>
   </data>
-  <data name="checkBoxDeleteFilesInSecond.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbDeleteFilesInSecond.Size" type="System.Drawing.Size, System.Drawing">
     <value>320, 24</value>
   </data>
-  <data name="checkBoxDeleteFilesInSecond.Text" xml:space="preserve">
+  <data name="m_cbDeleteFilesInSecond.Text" xml:space="preserve">
     <value>더 이상 첫 번째 폴더에 없는 두 번째 폴더의 파일 삭제</value>
   </data>
-  <data name="linkLabelAbout.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_lblAbout.Location" type="System.Drawing.Point, System.Drawing">
     <value>29, 393</value>
   </data>
-  <data name="linkLabelAbout.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_lblAbout.Size" type="System.Drawing.Size, System.Drawing">
     <value>113, 20</value>
   </data>
-  <data name="linkLabelAbout.Text" xml:space="preserve">
+  <data name="m_lblAbout.Text" xml:space="preserve">
     <value>"동기화 폴더" 정보</value>
   </data>
-  <data name="linkLabelLicence.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_lblLicence.Location" type="System.Drawing.Point, System.Drawing">
     <value>216, 393</value>
   </data>
-  <data name="linkLabelLicence.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_lblLicence.Size" type="System.Drawing.Size, System.Drawing">
     <value>99, 20</value>
   </data>
-  <data name="linkLabelLicence.Text" xml:space="preserve">
+  <data name="m_lblLicence.Text" xml:space="preserve">
     <value>특허 (GPL v2)</value>
   </data>
-  <data name="checkBoxSkipRecentlyTested.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="m_cbSkipRecentlyTested.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left</value>
   </data>
-  <data name="checkBoxSkipRecentlyTested.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbSkipRecentlyTested.Location" type="System.Drawing.Point, System.Drawing">
     <value>23, 255</value>
   </data>
-  <data name="checkBoxSkipRecentlyTested.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="m_cbSkipRecentlyTested.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 4, 3, 4</value>
   </data>
-  <data name="checkBoxSkipRecentlyTested.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbSkipRecentlyTested.Size" type="System.Drawing.Size, System.Drawing">
     <value>184, 24</value>
   </data>
-  <data name="checkBoxSkipRecentlyTested.Text" xml:space="preserve">
+  <data name="m_cbSkipRecentlyTested.Text" xml:space="preserve">
     <value>최근에 테스트하지 않은 경우</value>
   </data>
-  <data name="checkBoxParallel.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbParallel.Location" type="System.Drawing.Point, System.Drawing">
     <value>380, 147</value>
   </data>
-  <data name="checkBoxParallel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="m_cbParallel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 4, 3, 4</value>
   </data>
-  <data name="checkBoxParallel.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbParallel.Size" type="System.Drawing.Size, System.Drawing">
     <value>64, 24</value>
   </data>
-  <data name="checkBoxParallel.Text" xml:space="preserve">
+  <data name="m_cbParallel.Text" xml:space="preserve">
     <value>평행한</value>
   </data>
-  <data name="checkBoxSyncMode.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbSyncMode.Location" type="System.Drawing.Point, System.Drawing">
     <value>282, 147</value>
   </data>
-  <data name="checkBoxSyncMode.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="m_cbSyncMode.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 4, 3, 4</value>
   </data>
-  <data name="checkBoxSyncMode.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbSyncMode.Size" type="System.Drawing.Size, System.Drawing">
     <value>92, 24</value>
   </data>
-  <data name="checkBoxSyncMode.Text" xml:space="preserve">
+  <data name="m_cbSyncMode.Text" xml:space="preserve">
     <value>동기화 모드</value>
   </data>
-  <data name="checkBoxIgnoreTime.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="m_cbIgnoreTime.Location" type="System.Drawing.Point, System.Drawing">
     <value>332, 173</value>
   </data>
-  <data name="checkBoxIgnoreTime.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="m_cbIgnoreTime.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 4, 3, 4</value>
   </data>
-  <data name="checkBoxIgnoreTime.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="m_cbIgnoreTime.Size" type="System.Drawing.Size, System.Drawing">
     <value>292, 24</value>
   </data>
-  <data name="checkBoxIgnoreTime.Text" xml:space="preserve">
+  <data name="m_cbIgnoreTime.Text" xml:space="preserve">
     <value>파일과 저장된 정보 사이의 시간차를 무시합니다.</value>
   </data>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
