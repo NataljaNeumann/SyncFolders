@@ -168,6 +168,9 @@
   <data name="RightToLeft" xml:space="preserve">
     <value>no</value>
   </data>
+  <data name="ThisIsASimulatedIOErrorAtPosition" xml:space="preserve">
+    <value>Hoc scienter errorem in situ {0}</value>
+  </data>
   <data name="Yes" xml:space="preserve">
     <value>sic</value>
   </data>

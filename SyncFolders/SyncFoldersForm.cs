@@ -6868,8 +6868,8 @@ namespace SyncFolders
         //===================================================================================================
         public static string FormatNumberLatin(object oNumber)
         {
-            string[] c_strLatinHundredThousands = new string[] { "Ī", "Ū", "X̄", "L̄", "C̄", "D̄", "M̄", "D̿" };
-            string[] c_strLatinDigits = new string[] { "I", "V", "X", "L", "C", "D", "M", "Ū", "X̄", "L̄", "C̄", "D̄", "M̄" };
+            string[] c_strLatinHundredThousands = new string[] { "I̅", "V̅", "X̅", "L̅", "C̅", "D̅", "M̅", "D̿" };
+            string[] c_strLatinDigits = new string[] { "I", "V", "X", "L", "C", "D", "M", "V̅", "X̅", "L̅", "C̅", "D̅", "M̅" };
 
             string strNumber = oNumber.ToString(); 
 
