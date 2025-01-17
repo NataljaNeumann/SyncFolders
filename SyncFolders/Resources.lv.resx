@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BlockOfAtPositionWillBeCopiedFromNoMatterChecksum" xml:space="preserve">
+    <value>Faila “{0}” bloks pozīcijā {1} tiek kopēts no “{2}”, pat ja kontrolsumma parāda, ka bloks ir nepareizs</value>
+  </data>
+  <data name="BlockOfAtPositionWillBeRestoredFrom" xml:space="preserve">
+    <value>Faila “{0}” bloks pozīcijā {1} ir atjaunots no tās pašas faila “{2}” pozīcijas.</value>
+  </data>
+  <data name="BlocksOfAndAtPositionNonRecoverableFillDummy" xml:space="preserve">
+    <value>Failu blokus “{0}” un “{1}” pozīcijā {2} nevar atjaunot, un tie tiks aizpildīti ar tukšu bloku</value>
+  </data>
+  <data name="ChecksumOfBlockAtOffsetNotOK" xml:space="preserve">
+    <value>{0}: bloka kontrolsumma pozīcijā {1} nav pareiza</value>
+  </data>
+  <data name="CopiedFromToReason" xml:space="preserve">
+    <value>Kopēšana pabeigta: “{0}” uz “{1}” {2}</value>
+  </data>
+  <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
+    <value>Brīdinājums: failu “{0}” ar 1975. gada vai vecāku gadu nevarēja izmantot, lai atjaunotu failu “{1}”. Tik vecs datums norāda, ka tā bija pēdējā iespēja atgūt failu “{0}”.</value>
+  </data>
+  <data name="DefaultCulture" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="DeletedFileNotPresentIn" xml:space="preserve">
+    <value>Izdzēsts fails “{0}”, kas vairs nepastāv mapē “{1}”.</value>
+  </data>
+  <data name="DeletedFolder" xml:space="preserve">
+    <value>Mape “{0}”, ieskaitot saturu, ir izdzēsta, jo “{1}” vairs nepastāv</value>
+  </data>
+  <data name="EncounteredErrorOlderOk" xml:space="preserve">
+    <value>Brīdinājums. Kopējot failu “{0}”, radās I/O kļūda. Šķiet, ka vecākais fails “{1}” ir kārtībā</value>
+  </data>
+  <data name="EncounteredErrorOtherBadToo" xml:space="preserve">
+    <value>Brīdinājums. Kopējot failu “{0}”, radās I/O kļūda. Arī citā failā “{1}” ir kļūdas vai tas ir pēdējās iespējas atkopšanas produkts. Mēģina automātiski salabot “{0}”.</value>
+  </data>
+  <data name="EncounteredErrorWhileCopyingTryingToRepair" xml:space="preserve">
+    <value>Brīdinājums. Kopējot failu “{0}”, radās kļūda. Es mēģinu labot kļūdu.</value>
+  </data>
+  <data name="ErrorDeleting" xml:space="preserve">
+    <value>Kļūda, dzēšot failu “{0}”: {1}</value>
+  </data>
+  <data name="ErrorProcessinngFilePair" xml:space="preserve">
+    <value>Kļūda, apstrādājot failu pāri “{0}” un “{1}”: {2}</value>
+  </data>
+  <data name="ErrorReadingPositionWillFillWithDummy" xml:space="preserve">
+    <value>Kļūda, lasot failu “{0}” pozīcijā {1}: {2}. Bloks ir aizpildīts ar nullēm</value>
+  </data>
+  <data name="ErrorWhileTestingFile" xml:space="preserve">
+    <value>Pārbaudot failu “{0}”, radās kļūda</value>
+  </data>
+  <data name="FileCopied" xml:space="preserve">
+    <value>Kopēšana pabeigta: “{0}” uz “{1}” {2}</value>
+  </data>
+  <data name="FileHasDifferentTime" xml:space="preserve">
+    <value>(Failam ir cits datums vai garums)</value>
+  </data>
+  <data name="FileHasZeroLength" xml:space="preserve">
+    <value>Brīdinājums: faila garums ir nulle, kas norāda uz neveiksmīgu kopēšanas darbību pagātnē: “{0}”</value>
+  </data>
+  <data name="FileHealthyOrRepaired" xml:space="preserve">
+    <value>(Fails bija bez kļūdām vai tika labots)</value>
+  </data>
+  <data name="FilesHaveZeroLength" xml:space="preserve">
+    <value>Brīdinājums: abu failu garums ir nulle, kas norāda uz neveiksmīgu kopēšanas darbību pagātnē: “{0}” un “{1}” </value>
+  </data>
+  <data name="FileWasHealthy" xml:space="preserve">
+    <value>(Fails bija bez kļūdām)</value>
+  </data>
+  <data name="FileWasNew" xml:space="preserve">
+    <value>(fails bija jauns)</value>
+  </data>
+  <data name="FileWasNewer" xml:space="preserve">
+    <value>(Fails bija jaunāks vai lielāks)</value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetOfCopyWithDummy" xml:space="preserve">
+    <value>Neatkopējamais bloks kopētā faila “{1}” pozīcijā {0} ir aizpildīts ar nullēm</value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetWithDummy" xml:space="preserve">
+    <value>Neatkopjamais bloks pozīcijā {0} ir aizpildīts ar nullēm</value>
+  </data>
+  <data name="FirstFileHasBadBlocks" xml:space="preserve">
+    <value>Brīdinājums: pirmajā failā “{0}” ir slikti bloki. Faila “{1}” pārrakstīšana tika izlaista, atstājot to kā dublējumu</value>
+  </data>
+  <data name="FoundFileForSync" xml:space="preserve">
+    <value>Atrasts fails iespējamai sinhronizācijai</value>
+  </data>
+  <data name="FoundFilesForSync" xml:space="preserve">
+    <value>Atrasti {0} faili iespējamai sinhronizācijai</value>
+  </data>
+  <data name="InternalErrorCouldntRestoreAny" xml:space="preserve">
+    <value>Iekšēja kļūda: nevarēja atjaunot ne “{0}”, ne “{1}” failu kopiju </value>
+  </data>
+  <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
+    <value>I/O kļūda, labojot kopiju failā: “{0}”: {1}</value>
+  </data>
+  <data name="IOErrorReadingFile" xml:space="preserve">
+    <value>I/O kļūda, lasot failu “{0}”: {1}</value>
+  </data>
+  <data name="IOErrorReadingFileOffset" xml:space="preserve">
+    <value>I/O kļūda, lasot failu: “{0}” pozīcijā {1}: {2}</value>
+  </data>
+  <data name="IOErrorWhileReadingPositionFillDummyWhileCopy" xml:space="preserve">
+    <value>I/O kļūda, lasot failu “{0}” vietā {1}: {2}. Kopēšanas laikā bloks tiek aizstāts ar tukšu bloku.</value>
+  </data>
+  <data name="IOErrorWritingFile" xml:space="preserve">
+    <value>I/O kļūda, rakstot failu “{0}”: {1}</value>
+  </data>
+  <data name="KeepingReadableButNotRecoverableBlockAtOffset" xml:space="preserve">
+    <value>Paliek lasāms, bet neatkopjams bloks pozīcijā {0}. Kontrolsumma norāda, ka bloks ir nepareizs</value>
+  </data>
+  <data name="KeepingReadableNonRecovBBlockAtAlsoInCopy" xml:space="preserve">
+    <value>Nolasāmais, bet neatkopjamais bloks sākotnējā faila “{1}” pozīcijā {0} arī paliek kopijā “{2}”. Kontrolsumma norāda, ka bloks ir nepareizs</value>
+  </data>
+  <data name="LogFileName" xml:space="preserve">
+    <value>Mapju sinhronizācijas protokols Latviešu</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Pārskats par kopēšanas procesu</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>nē</value>
+  </data>
+  <data name="OperationCanceled" xml:space="preserve">
+    <value>Process pārtraukts</value>
+  </data>
+  <data name="OperationFinished" xml:space="preserve">
+    <value>Process beidzies</value>
+  </data>
+  <data name="OutOfBadBlocksNotRestoredInCopyBytes" xml:space="preserve">
+    <value>No {0} sliktajiem blokiem sākotnējā failā {2} baiti netika atgūti kopijā “{1}”.</value>
+  </data>
+  <data name="ProcessNo" xml:space="preserve">
+    <value>№</value>
+  </data>
+  <data name="RecoveringBlockAtOfCopiedFile" xml:space="preserve">
+    <value>Kopētā mērķa faila “{1}” bloķēšana {0}. pozīcijā ir atjaunota</value>
+  </data>
+  <data name="RecoveringBlockAtOffsetOfFile" xml:space="preserve">
+    <value>Faila “{1}” bloķēšana {0}. pozīcijā ir atjaunota.</value>
+  </data>
+  <data name="RightToLeft" xml:space="preserve">
+    <value>no</value>
+  </data>
+  <data name="RunningWithoutRepairOptionUndecided" xml:space="preserve">
+    <value>Sinhronizācija darbojas bez labošanas opcijas, tāpēc nevarēja izlemt, vai failu “{0}” var atjaunot, izmantojot “{1}”.</value>
+  </data>
+  <data name="SavedInfoFileCantBeUsedForTesting" xml:space="preserve">
+    <value>Saglabāto informācijas failu “{0}” nevar izmantot, lai pārbaudītu failu “{1}”: tas tika izveidots citai faila “{0}” versijai.</value>
+  </data>
+  <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
+    <value>Saglabātais informācijas fails “{0}” ir bojāts, un tas ir atkārtoti jāizveido no “{1}”.</value>
+  </data>
+  <data name="SecondFolderNoDelete" xml:space="preserve">
+    <value>Kļūda: otrajā mapē ir fails “{0}”. Šķiet, ka atlasītā mape nav piemērota dzēšanas opcijai. Mapes un apakšmapju apstrāde tiek izlaista.</value>
+  </data>
+  <data name="SkippingFilePairDontDelete" xml:space="preserve">
+    <value>Failu pāris “{0}” un “{1}” ir izlaists. Īpašs fails neļauj izmantot dzēšanas opciju nepareizā saknes mapē. </value>
+  </data>
+  <data name="TheFileCantBeModifiedMissingRepairApplyToCopy" xml:space="preserve">
+    <value>Failu nevar modificēt, jo trūkst labošanas iespējas. Atkopšanas process tiek piemērots kopijai.</value>
+  </data>
+  <data name="ThereAreBadBlocksInFileNonRestorableParts" xml:space="preserve">
+    <value>Failā “{1}” ir {0} slikti bloki, neatkopjamas daļas: {2} baiti.</value>
+  </data>
+  <data name="ThereAreBadBlocksInNonRestorableMayRetryLater" xml:space="preserve">
+    <value>Failā “{1}” ir {0} slikti bloki, neatkopjamas daļas: {2} baiti. Process nevar turpināties neatgūstamības dēļ.  Vēlāk to var mēģināt vēlreiz.</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableCantBeBackup" xml:space="preserve">
+    <value>Failā “{1}” ir {0} slikti bloki, neatkopjamas daļas: {2} baiti. Failu nevar izmantot kā dublējumu</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableOnlyTested" xml:space="preserve">
+    <value>Failā “{1}” ir {0} slikti bloki, neatkopjamas daļas: {2} baiti. Fails paliek nemainīgs, tas ir tikko pārbaudīts</value>
+  </data>
+  <data name="ThereIsBadBlockInFileNonRestorableParts" xml:space="preserve">
+    <value>Failā “{0}” ir slikts bloks, neatkopjamas daļas: {1} baiti.</value>
+  </data>
+  <data name="ThereIsBadBlockNonRestorableCantBeBackup" xml:space="preserve">
+    <value>Failā “{0}” ir nepareizs bloks, kuru nevar atgūt: {1} baiti. Failu nevar izmantot kā dublējumu </value>
+  </data>
+  <data name="ThereIsOneBadBlockNonRestorableOnlyTested" xml:space="preserve">
+    <value>Failā “{0}” ir slikts bloks, neatkopjamas daļas: {1} baiti. Fails paliek nemainīgs, tas ir tikko pārbaudīts</value>
+  </data>
+  <data name="ThereRemainBadBlocksInBecauseReadOnly" xml:space="preserve">
+    <value>{0} slikti bloki paliek mapē “{1}”, jo failu nevar modificēt</value>
+  </data>
+  <data name="ThereWasBadBlockInFileNotRestoredParts" xml:space="preserve">
+    <value>Failā “{0}” bija slikts bloks, neatkoptās daļas: {1} baiti</value>
+  </data>
+  <data name="ThereWasBadBlockNotRestoredInCopyBytes" xml:space="preserve">
+    <value>Sākotnējā failā bija slikts bloks, kopijā “{0}” neatkoptas daļas: {1} baiti.</value>
+  </data>
+  <data name="ThereWereBadBlocksInFileNotRestoredParts" xml:space="preserve">
+    <value>Failā “{1}” bija {0} slikti bloki, neatkoptās daļas: {2} baiti</value>
+  </data>
+  <data name="ThisIsASimulatedIOErrorAtPosition" xml:space="preserve">
+    <value>Šī ir simulēta I/O kļūda atrašanās vietā {0}</value>
+  </data>
+  <data name="WarningChecksumOffsetPrimarySavedInfoIgnored" xml:space="preserve">
+    <value>Brīdinājums: bloka kontrolsumma pozīcijā {0} neatbilst pieejamajiem primārajiem saglabātās informācijas blokiem “{1}”. Bloka primārā saglabātā informācija tiek ignorēta</value>
+  </data>
+  <data name="WarningChecksumOffsetSecondarySavedInfoIgnored" xml:space="preserve">
+    <value>Brīdinājums: bloka kontrolsumma pozīcijā {0} neatbilst pieejamajiem sekundārajiem saglabātās informācijas blokiem “{1}”. Sekundārā saglabātā informācija par bloku tiek ignorēta</value>
+  </data>
+  <data name="WarningCopiedToWithErrors" xml:space="preserve">
+    <value>Brīdinājums: “{0}” tika kopēts uz “{1}” ar kļūdām {2} </value>
+  </data>
+  <data name="WarningIOErrorWhileCopyingToReason" xml:space="preserve">
+    <value>Brīdinājums: I/O kļūda, kopējot failu “{0}” uz “{1}”: {2}</value>
+  </data>
+  <data name="WarningSeveralBlocksDontMatchInSIWillBeIgnored" xml:space="preserve">
+    <value>Brīdinājums: vairāki bloki neatbilst saglabātajai informācijai “{0}”. Saglabātā informācija tiek pilnībā ignorēta</value>
+  </data>
+  <data name="WarningWhileCreating" xml:space="preserve">
+    <value>Brīdinājums: {0}, veidojot failu “{1}”</value>
+  </data>
+  <data name="WarningWhileDiscoveringIfNeedsToBeRechecked" xml:space="preserve">
+    <value>Brīdinājums: {0}, nosakot, vai “{1}” ir atkārtoti jāpārbauda. </value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Jā</value>
+  </data>
+</root>

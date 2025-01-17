@@ -460,6 +460,9 @@
     <EmbeddedResource Include="Resources.bo-CN.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources.bs-Latn-BA.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources.cs.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -526,6 +529,9 @@
     <EmbeddedResource Include="Resources.la-001.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources.lv.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources.ms.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -554,6 +560,12 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources.sa.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources.sk.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources.sl.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources.sr.resx">
@@ -891,5 +903,8 @@
   <ItemGroup>
     <Content Include="SyncFolders.ico" />
     <Content Include="SyncFoldersSmall.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="1\" />
   </ItemGroup>
 </Project>
