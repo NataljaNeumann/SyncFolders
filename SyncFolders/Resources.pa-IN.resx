@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BlockOfAtPositionWillBeCopiedFromNoMatterChecksum" xml:space="preserve">
+    <value>ਸਥਿਤੀ {1} 'ਤੇ “{0}” ਫਾਈਲ ਦੇ ਬਲਾਕ ਨੂੰ “{2}” ਤੋਂ ਕਾਪੀ ਕੀਤਾ ਗਿਆ ਹੈ ਭਾਵੇਂ ਕਿ ਚੈੱਕਸਮ ਦਿਖਾਉਂਦਾ ਹੈ ਕਿ ਬਲਾਕ ਗਲਤ ਹੈ</value>
+  </data>
+  <data name="BlockOfAtPositionWillBeRestoredFrom" xml:space="preserve">
+    <value>“{0}” ਦੀ ਸਥਿਤੀ {1} 'ਤੇ ਫਾਈਲ ਦਾ ਬਲਾਕ “{2}” ਫਾਈਲ ਦੀ ਉਸੇ ਸਥਿਤੀ ਤੋਂ ਰੀਸਟੋਰ ਕੀਤਾ ਗਿਆ ਹੈ।</value>
+  </data>
+  <data name="BlocksOfAndAtPositionNonRecoverableFillDummy" xml:space="preserve">
+    <value>“{0}” ਅਤੇ “{1}” ਪੋਜੀਸ਼ਨ {2} 'ਤੇ ਫਾਈਲਾਂ ਦੇ ਬਲਾਕ ਰੀਸਟੋਰ ਨਹੀਂ ਕੀਤੇ ਜਾ ਸਕਦੇ ਹਨ ਅਤੇ ਖਾਲੀ ਬਲਾਕ ਨਾਲ ਭਰੇ ਜਾਣਗੇ।</value>
+  </data>
+  <data name="ChecksumOfBlockAtOffsetNotOK" xml:space="preserve">
+    <value>{0}: ਸਥਿਤੀ {1} 'ਤੇ ਬਲਾਕ ਦਾ ਚੈੱਕਸਮ ਠੀਕ ਨਹੀਂ ਹੈ</value>
+  </data>
+  <data name="CopiedFromToReason" xml:space="preserve">
+    <value>ਕਾਪੀ ਮੁਕੰਮਲ ਹੋਈ: “{0}” ਤੋਂ “{1}” {2}</value>
+  </data>
+  <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
+    <value>ਚੇਤਾਵਨੀ: ਸਾਲ 1975 ਜਾਂ ਇਸ ਤੋਂ ਪਹਿਲਾਂ ਵਾਲੀ “{0}” ਫਾਈਲ “{1}” ਨੂੰ ਰੀਸਟੋਰ ਕਰਨ ਲਈ ਨਹੀਂ ਵਰਤੀ ਜਾ ਸਕਦੀ ਹੈ। ਅਜਿਹੀ ਪੁਰਾਣੀ ਤਾਰੀਖ ਦਰਸਾਉਂਦੀ ਹੈ ਕਿ “{0}” ਫਾਈਲ ਨੂੰ ਮੁੜ ਪ੍ਰਾਪਤ ਕਰਨ ਦਾ ਇਹ ਆਖਰੀ ਮੌਕਾ ਸੀ।</value>
+  </data>
+  <data name="DefaultCulture" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="DeletedFileNotPresentIn" xml:space="preserve">
+    <value>ਮਿਟਾਈ ਗਈ “{0}” ਫਾਈਲ ਜੋ ਹੁਣ “{1}” ਵਿੱਚ ਮੌਜੂਦ ਨਹੀਂ ਹੈ।</value>
+  </data>
+  <data name="DeletedFolder" xml:space="preserve">
+    <value>ਫੋਲਡਰ “{0}” ਸਮੱਗਰੀ ਸਮੇਤ ਮਿਟਾਇਆ ਗਿਆ ਕਿਉਂਕਿ “{1}” ਹੁਣ ਮੌਜੂਦ ਨਹੀਂ ਹੈ</value>
+  </data>
+  <data name="EncounteredErrorOlderOk" xml:space="preserve">
+    <value>ਚੇਤਾਵਨੀ: ਫਾਈਲ “{0}” ਦੀ ਨਕਲ ਕਰਦੇ ਸਮੇਂ ਇੱਕ I/O ਗਲਤੀ ਆਈ ਹੈ। ਪੁਰਾਣੀ ਫ਼ਾਈਲ “{1}” ਠੀਕ ਜਾਪਦੀ ਹੈ</value>
+  </data>
+  <data name="EncounteredErrorOtherBadToo" xml:space="preserve">
+    <value>ਚੇਤਾਵਨੀ: ਫਾਈਲ “{0}” ਦੀ ਨਕਲ ਕਰਦੇ ਸਮੇਂ ਇੱਕ I/O ਗਲਤੀ ਆਈ ਹੈ। ਹੋਰ ਫ਼ਾਈਲ “{1}” ਵਿੱਚ ਵੀ ਤਰੁੱਟੀਆਂ ਹਨ ਜਾਂ ਇਹ ਆਖਰੀ-ਮੌਕਾ ਰਿਕਵਰੀ ਦਾ ਉਤਪਾਦ ਹੈ। ਸਵੈਚਲਿਤ ਤੌਰ 'ਤੇ “{0}” ਦੀ ਮੁਰੰਮਤ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ।</value>
+  </data>
+  <data name="EncounteredErrorWhileCopyingTryingToRepair" xml:space="preserve">
+    <value>ਚੇਤਾਵਨੀ: “{0}” ਫਾਈਲ ਦੀ ਨਕਲ ਕਰਦੇ ਸਮੇਂ ਇੱਕ ਗਲਤੀ ਆਈ ਹੈ। ਮੈਂ ਗਲਤੀ ਨੂੰ ਠੀਕ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰ ਰਿਹਾ/ਰਹੀ ਹਾਂ।</value>
+  </data>
+  <data name="ErrorDeleting" xml:space="preserve">
+    <value>“{0}” ਫ਼ਾਈਲ ਨੂੰ ਮਿਟਾਉਣ ਵਿੱਚ ਤਰੁੱਟੀ: {1}</value>
+  </data>
+  <data name="ErrorProcessinngFilePair" xml:space="preserve">
+    <value>ਫਾਈਲ ਜੋੜਾ “{0}” ਅਤੇ “{1}” ਦੀ ਪ੍ਰਕਿਰਿਆ ਕਰਨ ਵਿੱਚ ਗਲਤੀ: {2}</value>
+  </data>
+  <data name="ErrorReadingPositionWillFillWithDummy" xml:space="preserve">
+    <value>ਸਥਿਤੀ {1}: {2} 'ਤੇ ਫਾਈਲ “{0}” ਨੂੰ ਪੜ੍ਹਨ ਵਿੱਚ ਗਲਤੀ। ਬਲਾਕ ਜ਼ੀਰੋ ਨਾਲ ਭਰਿਆ ਹੋਇਆ ਹੈ</value>
+  </data>
+  <data name="ErrorWhileTestingFile" xml:space="preserve">
+    <value>ਫਾਈਲ “{0}” ਦੀ ਜਾਂਚ ਕਰਨ ਵਿੱਚ ਗਲਤੀ</value>
+  </data>
+  <data name="FileCopied" xml:space="preserve">
+    <value>ਕਾਪੀ ਮੁਕੰਮਲ ਹੋਈ: “{0}” ਤੋਂ “{1}” {2}</value>
+  </data>
+  <data name="FileHasDifferentTime" xml:space="preserve">
+    <value>(ਫਾਇਲ ਦੀ ਇੱਕ ਵੱਖਰੀ ਮਿਤੀ ਜਾਂ ਲੰਬਾਈ ਹੈ)</value>
+  </data>
+  <data name="FileHasZeroLength" xml:space="preserve">
+    <value>ਚੇਤਾਵਨੀ: ਫਾਈਲ ਦੀ ਲੰਬਾਈ ਜ਼ੀਰੋ ਹੈ, ਜੋ ਪਿਛਲੇ ਸਮੇਂ ਵਿੱਚ ਇੱਕ ਅਸਫਲ ਕਾਪੀ ਕਾਰਵਾਈ ਨੂੰ ਦਰਸਾਉਂਦੀ ਹੈ: “{0}”</value>
+  </data>
+  <data name="FileHealthyOrRepaired" xml:space="preserve">
+    <value>(ਫਾਈਲ ਗਲਤੀ-ਮੁਕਤ ਜਾਂ ਮੁਰੰਮਤ ਕੀਤੀ ਗਈ ਸੀ)</value>
+  </data>
+  <data name="FilesHaveZeroLength" xml:space="preserve">
+    <value>ਚੇਤਾਵਨੀ: ਦੋਵੇਂ ਫਾਈਲਾਂ ਜ਼ੀਰੋ ਲੰਬਾਈ ਦੀਆਂ ਹਨ, ਜੋ ਕਿ ਅਤੀਤ ਵਿੱਚ ਇੱਕ ਅਸਫਲ ਕਾਪੀ ਕਾਰਵਾਈ ਨੂੰ ਦਰਸਾਉਂਦੀਆਂ ਹਨ: “{0}” ਅਤੇ “{1}” </value>
+  </data>
+  <data name="FileWasHealthy" xml:space="preserve">
+    <value>(ਫਾਈਲ ਗਲਤੀ ਰਹਿਤ ਸੀ)</value>
+  </data>
+  <data name="FileWasNew" xml:space="preserve">
+    <value>(ਫਾਈਲ ਨਵੀਂ ਸੀ)</value>
+  </data>
+  <data name="FileWasNewer" xml:space="preserve">
+    <value>(ਫਾਈਲ ਨਵੀਂ ਜਾਂ ਵੱਡੀ ਸੀ)</value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetOfCopyWithDummy" xml:space="preserve">
+    <value>ਕਾਪੀ ਕੀਤੀ ਫ਼ਾਈਲ “{1}” ਦੀ ਸਥਿਤੀ {0} 'ਤੇ ਮੁੜ-ਪ੍ਰਾਪਤ ਨਾ ਹੋਣ ਵਾਲਾ ਬਲਾਕ ਜ਼ੀਰੋ ਨਾਲ ਭਰਿਆ ਹੋਇਆ ਹੈ।</value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetWithDummy" xml:space="preserve">
+    <value>ਪੁਜ਼ੀਸ਼ਨ {0} 'ਤੇ ਮੁੜ-ਪ੍ਰਾਪਤ ਨਾ ਹੋਣ ਵਾਲਾ ਬਲਾਕ ਜ਼ੀਰੋ ਨਾਲ ਭਰਿਆ ਹੋਇਆ ਹੈ</value>
+  </data>
+  <data name="FirstFileHasBadBlocks" xml:space="preserve">
+    <value>ਚੇਤਾਵਨੀ: ਪਹਿਲੀ ਫ਼ਾਈਲ “{0}” ਵਿੱਚ ਖਰਾਬ ਬਲਾਕ ਹਨ। ਓਵਰਰਾਈਟਿੰਗ ਫਾਇਲ “{1}” ਨੂੰ ਛੱਡ ਦਿੱਤਾ ਗਿਆ ਸੀ, ਇਸ ਨੂੰ ਬੈਕਅੱਪ ਦੇ ਤੌਰ 'ਤੇ ਛੱਡ ਦਿੱਤਾ ਗਿਆ ਸੀ</value>
+  </data>
+  <data name="FoundFileForSync" xml:space="preserve">
+    <value>ਸੰਭਾਵੀ ਸਮਕਾਲੀਕਰਨ ਲਈ ਇੱਕ ਫਾਈਲ ਲੱਭੀ ਹੈ</value>
+  </data>
+  <data name="FoundFilesForSync" xml:space="preserve">
+    <value>ਸੰਭਾਵੀ ਸਮਕਾਲੀਕਰਨ ਲਈ {0} ਫ਼ਾਈਲਾਂ ਲੱਭੀਆਂ</value>
+  </data>
+  <data name="InternalErrorCouldntRestoreAny" xml:space="preserve">
+    <value>ਅੰਦਰੂਨੀ ਗਲਤੀ: ਫਾਈਲਾਂ ਦੀ ਇੱਕ ਕਾਪੀ, ਨਾ ਤਾਂ “{0}” ਅਤੇ ਨਾ ਹੀ “{1}”, ਰੀਸਟੋਰ ਕੀਤੀ ਜਾ ਸਕਦੀ ਹੈ। </value>
+  </data>
+  <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
+    <value>ਫਾਈਲ ਵਿੱਚ ਕਾਪੀ ਦੀ ਮੁਰੰਮਤ ਕਰਦੇ ਸਮੇਂ I/O ਗਲਤੀ: “{0}”: {1}</value>
+  </data>
+  <data name="IOErrorReadingFile" xml:space="preserve">
+    <value>I/O ਫਾਈਲ “{0}” ਨੂੰ ਪੜ੍ਹਨ ਵਿੱਚ ਗਲਤੀ: {1}</value>
+  </data>
+  <data name="IOErrorReadingFileOffset" xml:space="preserve">
+    <value>I/O ਰੀਡਿੰਗ ਫਾਈਲ: “{0}” ਸਥਿਤੀ {1} 'ਤੇ: {2}</value>
+  </data>
+  <data name="IOErrorWhileReadingPositionFillDummyWhileCopy" xml:space="preserve">
+    <value>ਸਥਾਨ {1}: {2} 'ਤੇ ਫਾਈਲ “{0}” ਨੂੰ ਪੜ੍ਹਨ ਵਿੱਚ I/O ਗਲਤੀ। ਕਾਪੀ ਕਰਨ 'ਤੇ ਬਲਾਕ ਨੂੰ ਖਾਲੀ ਬਲਾਕ ਨਾਲ ਬਦਲ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ।</value>
+  </data>
+  <data name="IOErrorWritingFile" xml:space="preserve">
+    <value>I/O ਫਾਈਲ “{0}” ਲਿਖਣ ਵਿੱਚ ਗਲਤੀ: {1}</value>
+  </data>
+  <data name="KeepingReadableButNotRecoverableBlockAtOffset" xml:space="preserve">
+    <value>ਸਥਿਤੀ {0} 'ਤੇ ਪੜ੍ਹਨਯੋਗ ਪਰ ਮੁੜ-ਪ੍ਰਾਪਤ ਨਾ ਹੋਣ ਵਾਲਾ ਬਲਾਕ ਰਹਿੰਦਾ ਹੈ। ਚੈੱਕਸਮ ਦੱਸਦਾ ਹੈ ਕਿ ਬਲਾਕ ਗਲਤ ਹੈ</value>
+  </data>
+  <data name="KeepingReadableNonRecovBBlockAtAlsoInCopy" xml:space="preserve">
+    <value>ਮੂਲ ਫ਼ਾਈਲ “{1}” ਦੀ ਸਥਿਤੀ {0} 'ਤੇ ਪੜ੍ਹਨਯੋਗ ਪਰ ਮੁੜ-ਮੁੜਨਯੋਗ ਬਲਾਕ ਵੀ ਕਾਪੀ “{2}” ਵਿੱਚ ਰਹਿੰਦਾ ਹੈ। ਚੈੱਕਸਮ ਦੱਸਦਾ ਹੈ ਕਿ ਬਲਾਕ ਗਲਤ ਹੈ</value>
+  </data>
+  <data name="LogFileName" xml:space="preserve">
+    <value>ਪੰਜਾਬੀ ਵਿੱਚ ਫੋਲਡਰ ਸਿੰਕ ਪ੍ਰੋਟੋਕੋਲ</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>ਕਾਪੀ ਕਰਨ ਦੀ ਪ੍ਰਕਿਰਿਆ ਦੀ ਰਿਪੋਰਟ</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>ਨਹੀਂ</value>
+  </data>
+  <data name="OperationCanceled" xml:space="preserve">
+    <value>ਪ੍ਰਕਿਰਿਆ ਰੱਦ ਕੀਤੀ ਗਈ</value>
+  </data>
+  <data name="OperationFinished" xml:space="preserve">
+    <value>ਪ੍ਰਕਿਰਿਆ ਸਮਾਪਤ ਹੋਈ</value>
+  </data>
+  <data name="OutOfBadBlocksNotRestoredInCopyBytes" xml:space="preserve">
+    <value>ਮੂਲ ਫਾਈਲ ਵਿੱਚ {0} ਖਰਾਬ ਬਲਾਕਾਂ ਵਿੱਚੋਂ, ਕਾਪੀ “{1}” ਵਿੱਚ {2} ਬਾਈਟ ਮੁੜ ਪ੍ਰਾਪਤ ਨਹੀਂ ਕੀਤੇ ਗਏ ਸਨ।</value>
+  </data>
+  <data name="ProcessNo" xml:space="preserve">
+    <value>№</value>
+  </data>
+  <data name="RecoveringBlockAtOfCopiedFile" xml:space="preserve">
+    <value>ਕਾਪੀ ਕੀਤੀ ਟਾਰਗੇਟ ਫ਼ਾਈਲ “{1}” ਦੀ ਸਥਿਤੀ {0} 'ਤੇ ਬਲਾਕ ਨੂੰ ਮੁੜ-ਬਹਾਲ ਕੀਤਾ ਗਿਆ ਹੈ</value>
+  </data>
+  <data name="RecoveringBlockAtOffsetOfFile" xml:space="preserve">
+    <value>“{1}” ਫਾਈਲ ਦੀ ਸਥਿਤੀ {0} 'ਤੇ ਬਲਾਕ ਨੂੰ ਰੀਸਟੋਰ ਕੀਤਾ ਗਿਆ ਹੈ।</value>
+  </data>
+  <data name="RightToLeft" xml:space="preserve">
+    <value>no</value>
+  </data>
+  <data name="RunningWithoutRepairOptionUndecided" xml:space="preserve">
+    <value>ਸਮਕਾਲੀਕਰਨ ਇੱਕ ਮੁਰੰਮਤ ਵਿਕਲਪ ਤੋਂ ਬਿਨਾਂ ਚੱਲ ਰਿਹਾ ਹੈ ਅਤੇ ਇਸਲਈ ਇਹ ਫੈਸਲਾ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ ਕਿ “{0}” ਨੂੰ “{1}” ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਰੀਸਟੋਰ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ ਜਾਂ ਨਹੀਂ।</value>
+  </data>
+  <data name="SavedInfoFileCantBeUsedForTesting" xml:space="preserve">
+    <value>ਸੰਭਾਲੀ ਜਾਣਕਾਰੀ ਫਾਈਲ “{0}” ਨੂੰ “{1}” ਫਾਈਲ ਦੀ ਜਾਂਚ ਕਰਨ ਲਈ ਨਹੀਂ ਵਰਤਿਆ ਜਾ ਸਕਦਾ ਹੈ: ਇਹ ਫਾਈਲ “{0}” ਦੇ ਵੱਖਰੇ ਸੰਸਕਰਣ ਲਈ ਬਣਾਈ ਗਈ ਸੀ।</value>
+  </data>
+  <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
+    <value>ਸੁਰੱਖਿਅਤ ਕੀਤੀ ਜਾਣਕਾਰੀ ਫਾਈਲ “{0}” ਖਰਾਬ ਹੋ ਗਈ ਸੀ ਅਤੇ ਇਸਨੂੰ “{1}” ਤੋਂ ਦੁਬਾਰਾ ਬਣਾਉਣ ਦੀ ਲੋੜ ਹੈ।</value>
+  </data>
+  <data name="SecondFolderNoDelete" xml:space="preserve">
+    <value>ਗਲਤੀ: ਦੂਜੇ ਫੋਲਡਰ ਵਿੱਚ “{0}” ਫਾਈਲ ਹੈ। ਮਿਟਾਓ ਵਿਕਲਪ ਲਈ ਚੁਣਿਆ ਫੋਲਡਰ ਗਲਤ ਜਾਪਦਾ ਹੈ। ਫੋਲਡਰ ਅਤੇ ਸਬਫੋਲਡਰ ਦੀ ਪ੍ਰਕਿਰਿਆ ਛੱਡ ਦਿੱਤੀ ਗਈ ਹੈ।</value>
+  </data>
+  <data name="SkippingFilePairDontDelete" xml:space="preserve">
+    <value>ਫ਼ਾਈਲ ਜੋੜਾ “{0}” ਅਤੇ “{1}” ਛੱਡਿਆ ਗਿਆ ਹੈ। ਇੱਕ ਵਿਸ਼ੇਸ਼ ਫਾਈਲ ਗਲਤ ਰੂਟ ਫੋਲਡਰ ਵਿੱਚ ਡਿਲੀਟ ਵਿਕਲਪ ਦੀ ਵਰਤੋਂ ਕਰਨ ਤੋਂ ਰੋਕਦੀ ਹੈ। </value>
+  </data>
+  <data name="TheFileCantBeModifiedMissingRepairApplyToCopy" xml:space="preserve">
+    <value>ਮੁਰੰਮਤ ਵਿਕਲਪ ਦੀ ਘਾਟ ਕਾਰਨ ਫਾਈਲ ਨੂੰ ਸੋਧਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ ਹੈ। ਰਿਕਵਰੀ ਪ੍ਰਕਿਰਿਆ ਕਾਪੀ 'ਤੇ ਲਾਗੂ ਹੁੰਦੀ ਹੈ।</value>
+  </data>
+  <data name="ThereAreBadBlocksInFileNonRestorableParts" xml:space="preserve">
+    <value>“{1}” ਫਾਈਲ ਵਿੱਚ {0} ਖਰਾਬ ਬਲਾਕ ਹਨ, ਨਾ-ਮੁੜਨ ਯੋਗ ਹਿੱਸੇ: {2} ਬਾਈਟ।</value>
+  </data>
+  <data name="ThereAreBadBlocksInNonRestorableMayRetryLater" xml:space="preserve">
+    <value>“{1}” ਫਾਈਲ ਵਿੱਚ {0} ਖਰਾਬ ਬਲਾਕ ਹਨ, ਨਾ-ਮੁੜਨ ਯੋਗ ਹਿੱਸੇ: {2} ਬਾਈਟ। ਮੁੜ-ਪ੍ਰਾਪਤ ਨਾ ਹੋਣ ਕਾਰਨ ਪ੍ਰਕਿਰਿਆ ਜਾਰੀ ਨਹੀਂ ਰਹਿ ਸਕਦੀ।  ਇਹ ਬਾਅਦ ਵਿੱਚ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕੀਤੀ ਜਾ ਸਕਦੀ ਹੈ।</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableCantBeBackup" xml:space="preserve">
+    <value>“{1}” ਫਾਈਲ ਵਿੱਚ {0} ਖਰਾਬ ਬਲਾਕ ਹਨ, ਨਾ-ਮੁੜਨ ਯੋਗ ਹਿੱਸੇ: {2} ਬਾਈਟ। ਫ਼ਾਈਲ ਨੂੰ ਬੈਕਅੱਪ ਵਜੋਂ ਨਹੀਂ ਵਰਤਿਆ ਜਾ ਸਕਦਾ</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableOnlyTested" xml:space="preserve">
+    <value>“{1}” ਫਾਈਲ ਵਿੱਚ {0} ਖਰਾਬ ਬਲਾਕ ਹਨ, ਨਾ-ਮੁੜਨ ਯੋਗ ਹਿੱਸੇ: {2} ਬਾਈਟ। ਫਾਈਲ ਵਿੱਚ ਕੋਈ ਤਬਦੀਲੀ ਨਹੀਂ ਕੀਤੀ ਗਈ, ਇਸਦੀ ਹੁਣੇ ਜਾਂਚ ਕੀਤੀ ਗਈ ਸੀ</value>
+  </data>
+  <data name="ThereIsBadBlockInFileNonRestorableParts" xml:space="preserve">
+    <value>“{0}” ਫਾਈਲ ਵਿੱਚ ਇੱਕ ਖਰਾਬ ਬਲਾਕ ਹੈ, ਨਾ-ਮੁੜਨ ਯੋਗ ਹਿੱਸੇ: {1} ਬਾਈਟ।</value>
+  </data>
+  <data name="ThereIsBadBlockNonRestorableCantBeBackup" xml:space="preserve">
+    <value>“{0}” ਫਾਈਲ ਵਿੱਚ ਇੱਕ ਖਰਾਬ ਬਲਾਕ ਹੈ ਜੋ ਮੁੜ ਪ੍ਰਾਪਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ: {1} ਬਾਈਟ। ਫ਼ਾਈਲ ਨੂੰ ਬੈਕਅੱਪ ਵਜੋਂ ਨਹੀਂ ਵਰਤਿਆ ਜਾ ਸਕਦਾ </value>
+  </data>
+  <data name="ThereIsOneBadBlockNonRestorableOnlyTested" xml:space="preserve">
+    <value>“{0}” ਫਾਈਲ ਵਿੱਚ ਇੱਕ ਖਰਾਬ ਬਲਾਕ ਹੈ, ਨਾ-ਮੁੜਨ ਯੋਗ ਹਿੱਸੇ: {1} ਬਾਈਟ। ਫਾਈਲ ਵਿੱਚ ਕੋਈ ਬਦਲਾਅ ਨਹੀਂ ਹੈ, ਇਸਦੀ ਹੁਣੇ ਜਾਂਚ ਕੀਤੀ ਗਈ ਸੀ</value>
+  </data>
+  <data name="ThereRemainBadBlocksInBecauseReadOnly" xml:space="preserve">
+    <value>{0} ਖਰਾਬ ਬਲਾਕ “{1}” ਵਿੱਚ ਰਹਿੰਦੇ ਹਨ ਕਿਉਂਕਿ ਫ਼ਾਈਲ ਨੂੰ ਸੋਧਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ ਹੈ</value>
+  </data>
+  <data name="ThereWasBadBlockInFileNotRestoredParts" xml:space="preserve">
+    <value>“{0}” ਫਾਈਲ ਵਿੱਚ ਇੱਕ ਖਰਾਬ ਬਲਾਕ ਸੀ, ਅਣ-ਰਿਕਵਰ ਕੀਤੇ ਹਿੱਸੇ: {1} ਬਾਈਟ</value>
+  </data>
+  <data name="ThereWasBadBlockNotRestoredInCopyBytes" xml:space="preserve">
+    <value>ਅਸਲ ਫ਼ਾਈਲ ਵਿੱਚ ਇੱਕ ਖ਼ਰਾਬ ਬਲਾਕ ਸੀ, ਕਾਪੀ “{0}” ਵਿੱਚ ਅਣ-ਰਿਕਵਰ ਕੀਤੇ ਹਿੱਸੇ ਸਨ: {1} ਬਾਈਟ।</value>
+  </data>
+  <data name="ThereWereBadBlocksInFileNotRestoredParts" xml:space="preserve">
+    <value>“{1}” ਫ਼ਾਈਲ ਵਿੱਚ {0} ਖਰਾਬ ਬਲਾਕ ਸਨ, ਅਣ-ਰਿਕਵਰ ਕੀਤੇ ਹਿੱਸੇ: {2} ਬਾਈਟ</value>
+  </data>
+  <data name="ThisIsASimulatedIOErrorAtPosition" xml:space="preserve">
+    <value>ਇਹ ਸਥਾਨ {0} 'ਤੇ ਇੱਕ ਸਿਮੂਲੇਟਿਡ I/O ਗਲਤੀ ਹੈ</value>
+  </data>
+  <data name="WarningChecksumOffsetPrimarySavedInfoIgnored" xml:space="preserve">
+    <value>ਚੇਤਾਵਨੀ: ਸਥਿਤੀ {0} 'ਤੇ ਬਲਾਕ ਦਾ ਚੈੱਕਸਮ ਸਟੋਰ ਕੀਤੀ ਜਾਣਕਾਰੀ “{1}” ਦੇ ਉਪਲਬਧ ਪ੍ਰਾਇਮਰੀ ਬਲਾਕਾਂ ਨਾਲ ਮੇਲ ਨਹੀਂ ਖਾਂਦਾ ਹੈ। ਬਲਾਕ ਲਈ ਪ੍ਰਾਇਮਰੀ ਸਟੋਰ ਕੀਤੀ ਜਾਣਕਾਰੀ ਨੂੰ ਅਣਡਿੱਠ ਕੀਤਾ ਗਿਆ ਹੈ</value>
+  </data>
+  <data name="WarningChecksumOffsetSecondarySavedInfoIgnored" xml:space="preserve">
+    <value>ਚੇਤਾਵਨੀ: ਸਥਿਤੀ {0} 'ਤੇ ਬਲਾਕ ਦਾ ਚੈੱਕਸਮ ਸਟੋਰ ਕੀਤੀ ਜਾਣਕਾਰੀ “{1}” ਦੇ ਉਪਲਬਧ ਸੈਕੰਡਰੀ ਬਲਾਕਾਂ ਨਾਲ ਮੇਲ ਨਹੀਂ ਖਾਂਦਾ ਹੈ। ਬਲਾਕ ਲਈ ਸੈਕੰਡਰੀ ਸਟੋਰ ਕੀਤੀ ਜਾਣਕਾਰੀ ਨੂੰ ਅਣਡਿੱਠ ਕੀਤਾ ਗਿਆ ਹੈ</value>
+  </data>
+  <data name="WarningCopiedToWithErrors" xml:space="preserve">
+    <value>ਚੇਤਾਵਨੀ: “{0}” ਨੂੰ “{1}” ਵਿੱਚ ਤਰੁੱਟੀਆਂ ਨਾਲ ਕਾਪੀ ਕੀਤਾ ਗਿਆ ਸੀ {2} </value>
+  </data>
+  <data name="WarningIOErrorWhileCopyingToReason" xml:space="preserve">
+    <value>ਚੇਤਾਵਨੀ: ਫਾਈਲ “{0}” ਨੂੰ “{1}” ਵਿੱਚ ਕਾਪੀ ਕਰਨ ਦੌਰਾਨ I/O ਗਲਤੀ: {2}</value>
+  </data>
+  <data name="WarningSeveralBlocksDontMatchInSIWillBeIgnored" xml:space="preserve">
+    <value>ਚੇਤਾਵਨੀ: ਕਈ ਬਲਾਕ ਸਟੋਰ ਕੀਤੀ ਜਾਣਕਾਰੀ “{0}” ਨਾਲ ਮੇਲ ਨਹੀਂ ਖਾਂਦੇ। ਸਟੋਰ ਕੀਤੀ ਜਾਣਕਾਰੀ ਨੂੰ ਪੂਰੀ ਤਰ੍ਹਾਂ ਅਣਡਿੱਠ ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ</value>
+  </data>
+  <data name="WarningWhileCreating" xml:space="preserve">
+    <value>ਚੇਤਾਵਨੀ: “{1}” ਫ਼ਾਈਲ ਬਣਾਉਣ ਵੇਲੇ {0}</value>
+  </data>
+  <data name="WarningWhileDiscoveringIfNeedsToBeRechecked" xml:space="preserve">
+    <value>ਚੇਤਾਵਨੀ: {0} ਇਹ ਨਿਰਧਾਰਿਤ ਕਰਦੇ ਹੋਏ ਕਿ ਕੀ “{1}” ਦੀ ਮੁੜ ਜਾਂਚ ਕਰਨ ਦੀ ਲੋੜ ਹੈ। </value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>ਹਾਂ</value>
+  </data>
+</root>

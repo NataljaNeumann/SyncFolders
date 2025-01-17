@@ -508,6 +508,12 @@
     <EmbeddedResource Include="Resources.nl.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources.pa-Arab-PK.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources.pa-IN.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources.pl.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>

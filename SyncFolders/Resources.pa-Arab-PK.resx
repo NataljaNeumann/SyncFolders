@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BlockOfAtPositionWillBeCopiedFromNoMatterChecksum" xml:space="preserve">
+    <value>پوزیشن {1} تے فائل "{0}" دا بلاک "{2}" توں کاپی کیتا جاندا اے بھاویں چیک سم توں پتہ چلدا اے کہ بلاک غلط اے</value>
+  </data>
+  <data name="BlockOfAtPositionWillBeRestoredFrom" xml:space="preserve">
+    <value>پوزیشن {1} تے فائل "{0}" دا بلاک فائل "{2}" دی اسی پوزیشن توں بحال کیتا جاندا اے۔</value>
+  </data>
+  <data name="BlocksOfAndAtPositionNonRecoverableFillDummy" xml:space="preserve">
+    <value>پوزیشن {2} تے "{0}" تے "{1}" فائلاں دے بلاکس بحال نئیں کیتے جا سکدے تے خالی بلاک نال بھرے جان گے</value>
+  </data>
+  <data name="ChecksumOfBlockAtOffsetNotOK" xml:space="preserve">
+    <value>{0}: پوزیشن {1} تے بلاک دا چیک سم ٹھیک نئیں اے</value>
+  </data>
+  <data name="CopiedFromToReason" xml:space="preserve">
+    <value>کاپی مکمل ہو گئی: "{0}" توں "{1}" {2}</value>
+  </data>
+  <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
+    <value>خبردار: فائل "{0}" جس دی سال 1975 یا اس توں پہلے اے، فائل "{1}" نوں بحال کرن لئی استعمال نئیں کیتی جا سکی۔ اینی پرانی تاریخ دسدی اے کہ ایہ فائل "{0}" دی بازیابی دا آخری موقع سی۔</value>
+  </data>
+  <data name="DefaultCulture" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="DeletedFileNotPresentIn" xml:space="preserve">
+    <value>فائل "{0}" نو مٹا دتا گیا اے جہڑی ہن "{1}" چ موجود نئیں اے۔</value>
+  </data>
+  <data name="DeletedFolder" xml:space="preserve">
+    <value>فولڈر "{0}" جس چ مواد مٹا دتا گیا اے کیونکہ "{1}" ہن موجود نئیں اے۔</value>
+  </data>
+  <data name="EncounteredErrorOlderOk" xml:space="preserve">
+    <value>خبردار: فائل "{0}" دی کاپی کردے ویلے I/O دی غلطی ہو گئی اے۔ پرانی فائل "{1}" ٹھیک لگدی اے</value>
+  </data>
+  <data name="EncounteredErrorOtherBadToo" xml:space="preserve">
+    <value>خبردار: فائل "{0}" دی کاپی کردے ویلے I/O دی غلطی ہو گئی اے۔ دوجی فائل "{1}" چ وی غلطیاں نیں یا ایہ آخری موقع دی بازیابی دی پیداوار اے۔ "{0}" نو خود بخود مرمت کرن دی کوشش کر رئے آں۔</value>
+  </data>
+  <data name="EncounteredErrorWhileCopyingTryingToRepair" xml:space="preserve">
+    <value>خبردار: "{0}" فائل کاپی کردے ویلے کوئی غلطی ہو گئی اے۔ میں غلطی نوں ٹھیک کرن دی کوشش کر رہیا واں۔</value>
+  </data>
+  <data name="ErrorDeleting" xml:space="preserve">
+    <value>فائل "{0}" مٹان چ غلطی: {1}</value>
+  </data>
+  <data name="ErrorProcessinngFilePair" xml:space="preserve">
+    <value>فائل جوڑی "{0}" تے "{1}" دی پروسیسنگ چ غلطی: {2}</value>
+  </data>
+  <data name="ErrorReadingPositionWillFillWithDummy" xml:space="preserve">
+    <value>فائل "{0}" نوں {1}: {2} تے پڑھن چ غلطی ہو گئی اے۔ بلاک صفراں نال بھریا ہویا اے</value>
+  </data>
+  <data name="ErrorWhileTestingFile" xml:space="preserve">
+    <value>فائل "{0}" دی جانچ کرن چ غلطی اے۔</value>
+  </data>
+  <data name="FileCopied" xml:space="preserve">
+    <value>کاپی مکمل ہو گئی: "{0}" توں "{1}" {2}</value>
+  </data>
+  <data name="FileHasDifferentTime" xml:space="preserve">
+    <value>(فائل دی تاریخ یا لمبائی وکھری اے)</value>
+  </data>
+  <data name="FileHasZeroLength" xml:space="preserve">
+    <value>خبردار: فائل دی لمبائی صفر اے، جہڑی ماضی چ اک ناکام کاپی آپریشن دسدی اے: "{0}"۔</value>
+  </data>
+  <data name="FileHealthyOrRepaired" xml:space="preserve">
+    <value>(فائل غلطی توں پاک سی یا مرمت کیتی گئی سی)</value>
+  </data>
+  <data name="FilesHaveZeroLength" xml:space="preserve">
+    <value>خبردار: دونویں فائلاں دی لمبائی صفر اے، جہڑی ماضی چ اک ناکام کاپی آپریشن دی نشاندہی کردی اے: "{0}" تے "{1}"۔ </value>
+  </data>
+  <data name="FileWasHealthy" xml:space="preserve">
+    <value>(فائل غلطی توں پاک سی)</value>
+  </data>
+  <data name="FileWasNew" xml:space="preserve">
+    <value>(فائل نویں سی)</value>
+  </data>
+  <data name="FileWasNewer" xml:space="preserve">
+    <value>(فائل نویں یا وڈی سی)</value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetOfCopyWithDummy" xml:space="preserve">
+    <value>کاپی کیتی گئی فائل "{1}" دی پوزیشن {0} تے ناقابل بازیابی بلاک صفراں نال بھریا ہویا اے</value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetWithDummy" xml:space="preserve">
+    <value>پوزیشن {0} تے ناقابل بازیابی بلاک صفراں نال بھریا ہویا اے</value>
+  </data>
+  <data name="FirstFileHasBadBlocks" xml:space="preserve">
+    <value>خبردار: پہلی فائل "{0}" چ خراب بلاک نیں۔ اوور رائٹنگ فائل "{1}" نوں چھڈ دتا گیا سی، اس نوں بیک اپ دے طور تے چھڈ دتا گیا سی</value>
+  </data>
+  <data name="FoundFileForSync" xml:space="preserve">
+    <value>ممکنہ مطابقت پذیری لئی اک فائل لبھ گئی</value>
+  </data>
+  <data name="FoundFilesForSync" xml:space="preserve">
+    <value>{0} فائلاں ممکنہ مطابقت پذیری لئی لبھیاں گئیاں</value>
+  </data>
+  <data name="InternalErrorCouldntRestoreAny" xml:space="preserve">
+    <value>اندرونی غلطی: فائلاں دی اک کاپی، نہ "{0}" تے نہ ہی "{1}"، بحال کیتی جا سکی </value>
+  </data>
+  <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
+    <value>کاپی ٹو فائل دی مرمت کردے ویلے I/O غلطی: "{0}": {1}</value>
+  </data>
+  <data name="IOErrorReadingFile" xml:space="preserve">
+    <value>I/O فائل "{0}" پڑھن چ غلطی: {1}</value>
+  </data>
+  <data name="IOErrorReadingFileOffset" xml:space="preserve">
+    <value>I/O فائل پڑھن دی غلطی: "{0}" پوزیشن {1} تے: {2}</value>
+  </data>
+  <data name="IOErrorWhileReadingPositionFillDummyWhileCopy" xml:space="preserve">
+    <value>I/O دی فائل "{0}" نوں پڑھن چ غلطی {1}: {2} تے اے۔ جدوں کاپی کیتا جاندا اے تے بلاک دی تھاں خالی بلاک ہو جاندا اے۔</value>
+  </data>
+  <data name="IOErrorWritingFile" xml:space="preserve">
+    <value>I/O غلطی لکھن آلی فائل "{0}": {1}</value>
+  </data>
+  <data name="KeepingReadableButNotRecoverableBlockAtOffset" xml:space="preserve">
+    <value>پوزیشن {0} تے پڑھن دے قابل لیکن ناقابل بازیابی بلاک رہندا اے۔ چیک سم دسدا اے کہ بلاک غلط اے</value>
+  </data>
+  <data name="KeepingReadableNonRecovBBlockAtAlsoInCopy" xml:space="preserve">
+    <value>اصل فائل "{1}" دی پوزیشن {0} تے پڑھن جوگ پر ناقابل بازیابی بلاک وی کاپی "{2}" چ رہندا اے۔ چیک سم دسدا اے کہ بلاک غلط اے</value>
+  </data>
+  <data name="LogFileName" xml:space="preserve">
+    <value>پنجابی وچ فولڈر سنک پروٹوکول</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>کاپی کرن دے عمل دی رپورٹ</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>نئیں</value>
+  </data>
+  <data name="OperationCanceled" xml:space="preserve">
+    <value>عمل ختم کر دتا گیا</value>
+  </data>
+  <data name="OperationFinished" xml:space="preserve">
+    <value>عمل ختم ہو گیا</value>
+  </data>
+  <data name="OutOfBadBlocksNotRestoredInCopyBytes" xml:space="preserve">
+    <value>اصل فائل چ {0} خراب بلاکس چوں، {2} بائٹ کاپی "{1}" چ بازیافت نئیں کیتے گئے۔</value>
+  </data>
+  <data name="ProcessNo" xml:space="preserve">
+    <value>نئیں</value>
+  </data>
+  <data name="RecoveringBlockAtOfCopiedFile" xml:space="preserve">
+    <value>کاپی کیتی گئی ٹارگٹ فائل "{1}" دی پوزیشن {0} تے بلاک بحال ہو گیا اے</value>
+  </data>
+  <data name="RecoveringBlockAtOffsetOfFile" xml:space="preserve">
+    <value>فائل "{1}" دی پوزیشن {0} تے بلاک بحال ہو گیا اے۔</value>
+  </data>
+  <data name="RightToLeft" xml:space="preserve">
+    <value>yes</value>
+  </data>
+  <data name="RunningWithoutRepairOptionUndecided" xml:space="preserve">
+    <value>مطابقت پذیری مرمت دے آپشن دے بغیر چل رہی اے تے اس لئی ایہ فیصلہ نئیں کر سکیا کہ آیا فائل "{0}" نو "{1}" دا استعمال کردے ہوئے بحال کیتا جا سکدا اے۔</value>
+  </data>
+  <data name="SavedInfoFileCantBeUsedForTesting" xml:space="preserve">
+    <value>محفوظ کردہ انفو فائل "{0}" فائل "{1}" دی جانچ کرن لئی استعمال نئیں کیتی جاسکدی: ایہ فائل "{0}" دے وکھرے ورژن لئی بنائی گئی سی۔</value>
+  </data>
+  <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
+    <value>محفوظ کیتی گئی معلومات دی فائل "{0}" خراب ہو گئی سی تے اینوں "{1}" توں دوبارہ بنان دی لوڑ اے۔</value>
+  </data>
+  <data name="SecondFolderNoDelete" xml:space="preserve">
+    <value>غلطی: دوجے فولڈر چ فائل "{0}" اے۔ مٹان دے اختیار لئی منتخب کردہ فولڈر غلط لگدا اے۔ فولڈر تے ذیلی فولڈراں دی پروسیسنگ چھڈ دتی گئی اے۔</value>
+  </data>
+  <data name="SkippingFilePairDontDelete" xml:space="preserve">
+    <value>فائل جوڑی "{0}" تے "{1}" چھڈ دتی گئی اے۔ اک خاص فائل غلط روٹ فولڈر چ ڈیلیٹ آپشن ورتن توں روکدی اے۔ </value>
+  </data>
+  <data name="TheFileCantBeModifiedMissingRepairApplyToCopy" xml:space="preserve">
+    <value>مرمت دے آپشن دی کمی دی وجہ توں فائل نوں تبدیل نئیں کیتا جا سکدا۔ وصولی دا عمل کاپی تے لاگو کیتا جاندا اے۔</value>
+  </data>
+  <data name="ThereAreBadBlocksInFileNonRestorableParts" xml:space="preserve">
+    <value>فائل "{1}" وچ {0} ماڑے بلاک نیں، ناقابل بازیابی حصے: {2} بائٹس۔</value>
+  </data>
+  <data name="ThereAreBadBlocksInNonRestorableMayRetryLater" xml:space="preserve">
+    <value>فائل "{1}" وچ {0} ماڑے بلاک نیں، ناقابل بازیابی حصے: {2} بائٹس۔ ایہ عمل ناقابل بازیابی دی وجہ توں جاری نئیں رہ سکدا۔  ایہنوں بعد چ دوبارہ آزمایا جا سکدا اے۔</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableCantBeBackup" xml:space="preserve">
+    <value>فائل "{1}" وچ {0} ماڑے بلاک نیں، ناقابل بازیابی حصے: {2} بائٹس۔ فائل نو بیک اپ دے طور تے استعمال نئیں کیتا جا سکدا</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableOnlyTested" xml:space="preserve">
+    <value>فائل "{1}" وچ {0} ماڑے بلاک نیں، ناقابل بازیابی حصے: {2} بائٹس۔ فائل وچ کوئی تبدیلی نئیں آئی، ایہنوں صرف آزمایا گیا سی</value>
+  </data>
+  <data name="ThereIsBadBlockInFileNonRestorableParts" xml:space="preserve">
+    <value>فائل "{0}" وچ اک خراب بلاک اے، ناقابل بازیابی حصے: {1} بائٹس۔</value>
+  </data>
+  <data name="ThereIsBadBlockNonRestorableCantBeBackup" xml:space="preserve">
+    <value>فائل "{0}" وچ اک خراب بلاک اے جینوں واپس نئیں لیا جا سکدا: {1} بائٹس۔ فائل نو بیک اپ دے طور تے استعمال نئیں کیتا جا سکدا </value>
+  </data>
+  <data name="ThereIsOneBadBlockNonRestorableOnlyTested" xml:space="preserve">
+    <value>فائل "{0}" وچ اک خراب بلاک اے، ناقابل بازیابی حصے: {1} بائٹس۔ فائل وچ کوئی تبدیلی نئیں آئی، ایہ صرف آزمائی گئی اے</value>
+  </data>
+  <data name="ThereRemainBadBlocksInBecauseReadOnly" xml:space="preserve">
+    <value>{0} ماڑے بلاکس "{1}" چ رہندے نیں کیونکہ فائل چ تبدیل نئیں کیتا جا سکدا</value>
+  </data>
+  <data name="ThereWasBadBlockInFileNotRestoredParts" xml:space="preserve">
+    <value>فائل "{0}" وچ اک خراب بلاک سی، غیر بازیافت شدہ حصے: {1} بائٹس</value>
+  </data>
+  <data name="ThereWasBadBlockNotRestoredInCopyBytes" xml:space="preserve">
+    <value>اصل فائل چ اک ماڑا بلاک سی، کاپی "{0}": {1} بائٹس چ غیر بازیاب حصے سن۔</value>
+  </data>
+  <data name="ThereWereBadBlocksInFileNotRestoredParts" xml:space="preserve">
+    <value>فائل "{1}" وچ {0} خراب بلاک سن، غیر بازیافت شدہ حصے: {2} بائٹس</value>
+  </data>
+  <data name="ThisIsASimulatedIOErrorAtPosition" xml:space="preserve">
+    <value>ایہ مقام {0} تے اک نقلی I/O غلطی اے۔</value>
+  </data>
+  <data name="WarningChecksumOffsetPrimarySavedInfoIgnored" xml:space="preserve">
+    <value>انتباہ: پوزیشن {0} تے بلاک دا چیکسم ذخیرہ شدہ معلومات "{1}" دے دستیاب بنیادی بلاکس نال میل نئیں کھاندا۔ بلاک لئی بنیادی ذخیرہ شدہ معلومات نظر انداز کر دتی گئی اے</value>
+  </data>
+  <data name="WarningChecksumOffsetSecondarySavedInfoIgnored" xml:space="preserve">
+    <value>انتباہ: پوزیشن {0} تے بلاک دا چیکسم ذخیرہ شدہ معلومات "{1}" دے دستیاب ثانوی بلاکس نال میل نئیں کھاندا۔ بلاک لئی ثانوی ذخیرہ شدہ معلومات نظر انداز کر دتی گئی اے</value>
+  </data>
+  <data name="WarningCopiedToWithErrors" xml:space="preserve">
+    <value>انتباہ: "{0}" نو "{1}" چ کاپی کیتا گیا سی جہدے چ غلطیاں {2} سن </value>
+  </data>
+  <data name="WarningIOErrorWhileCopyingToReason" xml:space="preserve">
+    <value>انتباہ: فائل "{0}" نو "{1}" چ کاپی کردے ویلے I/O دی غلطی: {2}</value>
+  </data>
+  <data name="WarningSeveralBlocksDontMatchInSIWillBeIgnored" xml:space="preserve">
+    <value>انتباہ: کثیر بلاکس ذخیرہ کردہ معلومات "{0}" نال میل نئیں کھاندے۔ ذخیرہ کردہ معلومات نو مکمل طور تے نظر انداز کر دتا گیا اے۔</value>
+  </data>
+  <data name="WarningWhileCreating" xml:space="preserve">
+    <value>خبردار: {0} "{1}" فائل بنان ویلے</value>
+  </data>
+  <data name="WarningWhileDiscoveringIfNeedsToBeRechecked" xml:space="preserve">
+    <value>خبردار: {0} جدوں ایہ طے کیتا جا رہیا اے کہ "{1}" نوں دوبارہ چیک کرن دی لوڑ اے۔ </value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>آہو</value>
+  </data>
+</root>
