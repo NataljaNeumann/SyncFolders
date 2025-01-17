@@ -448,6 +448,9 @@
     <EmbeddedResource Include="Resources.ar.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources.az.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources.bo-CN.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
