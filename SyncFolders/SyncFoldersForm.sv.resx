@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="m_lblFolder1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>102, 16</value>
+  </data>
+  <data name="m_lblFolder1.Text" xml:space="preserve">
+    <value>Första mappen:</value>
+  </data>
+  <data name="m_tbxFirstFolder.Size" type="System.Drawing.Size, System.Drawing">
+    <value>516, 22</value>
+  </data>
+  <data name="m_btnSelectFirstFolder.Location" type="System.Drawing.Point, System.Drawing">
+    <value>551, 33</value>
+  </data>
+  <data name="m_lblSecondFolder.Text" xml:space="preserve">
+    <value>Andra mappen:</value>
+  </data>
+  <data name="m_tbxSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
+    <value>516, 22</value>
+  </data>
+  <data name="m_btnSelectSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
+    <value>552, 89</value>
+  </data>
+  <data name="m_cbCreateRestoreInfo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 243</value>
+  </data>
+  <data name="m_cbCreateRestoreInfo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>441, 20</value>
+  </data>
+  <data name="m_cbCreateRestoreInfo.Text" xml:space="preserve">
+    <value>Sparar viss information för att återställa enstaka block, om den saknas</value>
+  </data>
+  <data name="m_cbTestAllFiles.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 271</value>
+  </data>
+  <data name="m_cbTestAllFiles.Size" type="System.Drawing.Size, System.Drawing">
+    <value>207, 20</value>
+  </data>
+  <data name="m_cbTestAllFiles.Text" xml:space="preserve">
+    <value>Testar läsbarheten för alla filer</value>
+  </data>
+  <data name="m_cbRepairBlockFailures.Location" type="System.Drawing.Point, System.Drawing">
+    <value>37, 299</value>
+  </data>
+  <data name="m_cbRepairBlockFailures.Size" type="System.Drawing.Size, System.Drawing">
+    <value>186, 20</value>
+  </data>
+  <data name="m_cbRepairBlockFailures.Text" xml:space="preserve">
+    <value>Reparera enstaka blockfel</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="m_btnSync.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="m_btnSync.Location" type="System.Drawing.Point, System.Drawing">
+    <value>383, 397</value>
+  </data>
+  <data name="m_btnSync.Text" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="m_btnCancel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>491, 397</value>
+  </data>
+  <data name="m_btnCancel.Text" xml:space="preserve">
+    <value>Stoppa</value>
+  </data>
+  <data name="m_ctlProgressBar.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 397</value>
+  </data>
+  <data name="m_ctlProgressBar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>463, 28</value>
+  </data>
+  <data name="m_btnSelfTest.Location" type="System.Drawing.Point, System.Drawing">
+    <value>495, 159</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="m_btnSelfTest.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="m_btnSelfTest.Text" xml:space="preserve">
+    <value>Självtest</value>
+  </data>
+  <data name="m_cbPreferCopies.Location" type="System.Drawing.Point, System.Drawing">
+    <value>57, 332</value>
+  </data>
+  <data name="m_cbPreferCopies.Size" type="System.Drawing.Size, System.Drawing">
+    <value>539, 20</value>
+  </data>
+  <data name="m_cbPreferCopies.Text" xml:space="preserve">
+    <value>Föredrar fysiska kopior i händelse av konflikter under reparation (rekommenderas inte)</value>
+  </data>
+  <data name="m_lblProgress.Location" type="System.Drawing.Point, System.Drawing">
+    <value>21, 323</value>
+  </data>
+  <data name="m_lblProgress.Size" type="System.Drawing.Size, System.Drawing">
+    <value>570, 53</value>
+  </data>
+  <data name="m_cbFirstToSecond.Size" type="System.Drawing.Size, System.Drawing">
+    <value>244, 20</value>
+  </data>
+  <data name="m_cbFirstToSecond.Text" xml:space="preserve">
+    <value>Enkelriktat, från första mapp till andra</value>
+  </data>
+  <data name="m_cbFirstReadonly.Size" type="System.Drawing.Size, System.Drawing">
+    <value>291, 20</value>
+  </data>
+  <data name="m_cbFirstReadonly.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="m_cbFirstReadonly.Text" xml:space="preserve">
+    <value>Den första mappen kan inte ändras (t.ex. CD)</value>
+  </data>
+  <data name="m_cbDeleteFilesInSecond.Location" type="System.Drawing.Point, System.Drawing">
+    <value>37, 217</value>
+  </data>
+  <data name="m_cbDeleteFilesInSecond.Size" type="System.Drawing.Size, System.Drawing">
+    <value>471, 20</value>
+  </data>
+  <data name="m_cbDeleteFilesInSecond.Text" xml:space="preserve">
+    <value>Ta bort sidor i den andra mappen som inte finns i den första mappen längre</value>
+  </data>
+  <data name="m_lblAbout.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 403</value>
+  </data>
+  <data name="m_lblAbout.Size" type="System.Drawing.Size, System.Drawing">
+    <value>171, 16</value>
+  </data>
+  <data name="m_lblAbout.Text" xml:space="preserve">
+    <value>Om "Synkronisera mappar"</value>
+  </data>
+  <data name="m_lblLicence.Location" type="System.Drawing.Point, System.Drawing">
+    <value>237, 403</value>
+  </data>
+  <data name="m_lblLicence.Size" type="System.Drawing.Size, System.Drawing">
+    <value>101, 16</value>
+  </data>
+  <data name="m_lblLicence.Text" xml:space="preserve">
+    <value>Licens (GPL v2)</value>
+  </data>
+  <data name="m_cbSkipRecentlyTested.Location" type="System.Drawing.Point, System.Drawing">
+    <value>234, 271</value>
+  </data>
+  <data name="m_cbSkipRecentlyTested.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 20</value>
+  </data>
+  <data name="m_cbSkipRecentlyTested.Text" xml:space="preserve">
+    <value>om de inte testats nyligen</value>
+  </data>
+  <data name="m_cbParallel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>426, 137</value>
+  </data>
+  <data name="m_cbParallel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>79, 20</value>
+  </data>
+  <data name="m_cbParallel.Text" xml:space="preserve">
+    <value>Parallellt</value>
+  </data>
+  <data name="m_cbSyncMode.Location" type="System.Drawing.Point, System.Drawing">
+    <value>270, 137</value>
+  </data>
+  <data name="m_cbSyncMode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>150, 20</value>
+  </data>
+  <data name="m_cbSyncMode.Text" xml:space="preserve">
+    <value>Synkroniseringsläge</value>
+  </data>
+  <data name="m_cbIgnoreTime.Location" type="System.Drawing.Point, System.Drawing">
+    <value>37, 190</value>
+  </data>
+  <data name="m_cbIgnoreTime.Size" type="System.Drawing.Size, System.Drawing">
+    <value>360, 20</value>
+  </data>
+  <data name="m_cbIgnoreTime.Text" xml:space="preserve">
+    <value>Ignorerar tidsskillnaden mellan fil och sparad information</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>608, 444</value>
+  </data>
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAQEACAAEAAQAwBAAAFgAAACgAAABAAAAAgAAAAAEAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAgV5UAAAAAAP//////////////////////////////////////////////////////////9///////
+        ///j/////////8H/9X//////wP/gP/////8Af+B//////4A/4D//////wB/gf//////gD+A///////AH
+        4H//////+APgP//////8AeA///////4A4D///////wBgf+qqqqqqgCA/wAAAAAAAAH/AAAAAAAAAP8AA
+        AAAAAAB/4AAAAAAAAD/AAAAAAAAAP+iIiIiIgCA///////8AYH///////gDgP//////8AeB////+//gD
+        4D/d//x/8Afgf+D/+D/gD+A/wH/gH8Af4D/g/+AfgD/gP8B/wB8Af+B/4P+Af4D/4D/AfgB/wf/wf8D+
+        Af/j////wHwB//f////g+Af//////8BgB///////4OAP///////AQAAAAAAAf+AAAAAAAAA/wAAAAAAA
+        AH/AAAAAAAAAP8AAAAAAAAB/4IAAAAAAAD/AQBd3V3dXf+DgD///////wHAH///////g+AP//////8B8
+        Af//////wP4A///////AfwB//////+D/gD//////wH/AH//////g/+A//////8B/8D/////////4////
+        //////z/////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////3/////////+P/////////wf/1f//////A/+A//////wB/
+        4H//////gD/gP//////AH+B//////+AP4D//////8Afgf//////4A+A///////wB4D///////gDgP///
+        ////AGB/6qqqqqqAID/AAAAAAAAAf8AAAAAAAAA/wAAAAAAAAH/gAAAAAAAAP8AAAAAAAAA/6IiIiIiA
+        ID///////wBgf//////+AOA///////wB4H////7/+APgP93//H/wB+B/4P/4P+AP4D/Af+AfwB/gP+D/
+        4B+AP+A/wH/AHwB/4H/g/4B/gP/gP8B+AH/B//B/wP4B/+P////AfAH/9////+D4B///////wGAH////
+        ///g4A///////8BAAAAAAAB/4AAAAAAAAD/AAAAAAAAAf8AAAAAAAAA/wAAAAAAAAH/ggAAAAAAAP8BA
+        F3dXd1d/4OAP///////AcAf//////+D4A///////wHwB///////A/gD//////8B/AH//////4P+AP///
+        ///Af8Af/////+D/4D//////wH/wP/////////j//////////P//////////////////////////////
+        //////////////////8=
+</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Synkronisera mappar v1.5</value>
+  </data>
+</root>
