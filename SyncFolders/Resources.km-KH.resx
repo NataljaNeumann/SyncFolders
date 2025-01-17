@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BlockOfAtPositionWillBeCopiedFromNoMatterChecksum" xml:space="preserve">
+    <value>ប្លុកនៃឯកសារ “{0}” នៅទីតាំង {1} ត្រូវបានចម្លងពី “{2}” ទោះបីជា checksum បង្ហាញថាប្លុកនេះមិនត្រឹមត្រូវក៏ដោយ។</value>
+  </data>
+  <data name="BlockOfAtPositionWillBeRestoredFrom" xml:space="preserve">
+    <value>ប្លុកឯកសារ “{0}” នៅទីតាំង {1} ត្រូវបានស្ដារពីទីតាំងដូចគ្នានៃឯកសារ “{2}”។</value>
+  </data>
+  <data name="BlocksOfAndAtPositionNonRecoverableFillDummy" xml:space="preserve">
+    <value>ប្លុកឯកសារ “{0}” និង “{1}” នៅទីតាំង {2} មិនអាចស្ដារឡើងវិញបានទេ ហើយនឹងត្រូវបានបំពេញដោយប្លុកទទេ</value>
+  </data>
+  <data name="ChecksumOfBlockAtOffsetNotOK" xml:space="preserve">
+    <value>{0}៖ មូលប្បទានប័ត្រនៃប្លុកនៅទីតាំង {1} គឺមិនអីទេ។</value>
+  </data>
+  <data name="CopiedFromToReason" xml:space="preserve">
+    <value>ការចម្លងបានបញ្ចប់៖ “{0}” ទៅ “{1}”  {2}</value>
+  </data>
+  <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
+    <value>ការព្រមាន៖ ឯកសារ “{0}” ដែលមានឆ្នាំ 1975 ឬមុននេះមិនអាចប្រើដើម្បីស្ដារឯកសារ “{1}” បានទេ។ កាលបរិច្ឆេទចាស់បែបនេះបង្ហាញថាវាជាឱកាសចុងក្រោយក្នុងការសង្គ្រោះឯកសារ “{0}”។</value>
+  </data>
+  <data name="DefaultCulture" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="DeletedFileNotPresentIn" xml:space="preserve">
+    <value>បានលុបឯកសារ “{0}” ដែលលែងមាននៅក្នុង “{1}”។</value>
+  </data>
+  <data name="DeletedFolder" xml:space="preserve">
+    <value>ថត “{0}” រួម​ទាំង​មាតិកា​ត្រូវ​បាន​លុប​ព្រោះ “{1}” លែង​មាន​ទៀត​ហើយ។</value>
+  </data>
+  <data name="EncounteredErrorOlderOk" xml:space="preserve">
+    <value>ការព្រមាន៖ កំហុស I/O បានកើតឡើងខណៈពេលកំពុងចម្លងឯកសារ “{0}”។ ឯកសារចាស់ “{1}” ហាក់ដូចជាមិនអីទេ។</value>
+  </data>
+  <data name="EncounteredErrorOtherBadToo" xml:space="preserve">
+    <value>ការព្រមាន៖ កំហុស I/O បានកើតឡើងខណៈពេលកំពុងចម្លងឯកសារ “{0}”។ ឯកសារផ្សេងទៀត “{1}” ក៏មានកំហុស ឬជាផលិតផលនៃការសង្គ្រោះឱកាសចុងក្រោយផងដែរ។ កំពុងព្យាយាមជួសជុល “{0}” ដោយស្វ័យប្រវត្តិ។</value>
+  </data>
+  <data name="EncounteredErrorWhileCopyingTryingToRepair" xml:space="preserve">
+    <value>ការព្រមាន៖ កំហុសបានកើតឡើងខណៈពេលកំពុងចម្លងឯកសារ “{0}”។ ខ្ញុំកំពុងព្យាយាមជួសជុលកំហុស។</value>
+  </data>
+  <data name="ErrorDeleting" xml:space="preserve">
+    <value>កំហុសក្នុងការលុបឯកសារ “{0}”៖ {1}</value>
+  </data>
+  <data name="ErrorProcessinngFilePair" xml:space="preserve">
+    <value>កំហុសក្នុងដំណើរការឯកសារគូ “{0}” និង “{1}”: {2}</value>
+  </data>
+  <data name="ErrorReadingPositionWillFillWithDummy" xml:space="preserve">
+    <value>កំហុសក្នុងការអានឯកសារ “{0}” នៅទីតាំង {1}: {2}។ ប្លុកត្រូវបានបំពេញដោយសូន្យ</value>
+  </data>
+  <data name="ErrorWhileTestingFile" xml:space="preserve">
+    <value>កំហុសក្នុងការធ្វើតេស្តឯកសារ “{0}”</value>
+  </data>
+  <data name="FileCopied" xml:space="preserve">
+    <value>ការចម្លងបានបញ្ចប់៖ “{0}” ទៅ “{1}”  {2}</value>
+  </data>
+  <data name="FileHasDifferentTime" xml:space="preserve">
+    <value>(ឯកសារមានកាលបរិច្ឆេទ ឬប្រវែងខុសគ្នា)</value>
+  </data>
+  <data name="FileHasZeroLength" xml:space="preserve">
+    <value>ការព្រមាន៖ ឯកសារមានប្រវែងសូន្យ ដែលបង្ហាញពីប្រតិបត្តិការចម្លងដែលបរាជ័យកាលពីអតីតកាល៖ “{0}”</value>
+  </data>
+  <data name="FileHealthyOrRepaired" xml:space="preserve">
+    <value>(ឯកសារមិនមានកំហុស ឬជួសជុល)</value>
+  </data>
+  <data name="FilesHaveZeroLength" xml:space="preserve">
+    <value>ការព្រមាន៖ ឯកសារទាំងពីរមានប្រវែងសូន្យ ដែលបង្ហាញពីប្រតិបត្តិការចម្លងដែលបរាជ័យកាលពីអតីតកាល៖ “{0}” និង “{1}” </value>
+  </data>
+  <data name="FileWasHealthy" xml:space="preserve">
+    <value>(ឯកសារមិនមានកំហុស)</value>
+  </data>
+  <data name="FileWasNew" xml:space="preserve">
+    <value>(ឯកសារគឺថ្មី)</value>
+  </data>
+  <data name="FileWasNewer" xml:space="preserve">
+    <value>(ឯកសារគឺថ្មីជាង ឬធំជាង)</value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetOfCopyWithDummy" xml:space="preserve">
+    <value>ប្លុកដែលមិនអាចយកមកវិញបាននៅទីតាំង {0} នៃឯកសារដែលបានចម្លង “{1}” ត្រូវបានបំពេញដោយសូន្យ</value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetWithDummy" xml:space="preserve">
+    <value>ប្លុកដែលមិនអាចយកមកវិញបាននៅទីតាំង {0} ត្រូវបានបំពេញដោយសូន្យ</value>
+  </data>
+  <data name="FirstFileHasBadBlocks" xml:space="preserve">
+    <value>ការព្រមាន៖ ឯកសារដំបូង “{0}” មានប្លុកមិនល្អ។ ការសរសេរជាន់លើឯកសារ “{1}” ត្រូវបានរំលង ដោយទុកវាជាឯកសារបម្រុងទុក</value>
+  </data>
+  <data name="FoundFileForSync" xml:space="preserve">
+    <value>បានរកឃើញឯកសារសម្រាប់ការធ្វើសមកាលកម្មដែលអាចធ្វើទៅបាន</value>
+  </data>
+  <data name="FoundFilesForSync" xml:space="preserve">
+    <value>ឯកសារ {0} ត្រូវបានរកឃើញសម្រាប់ការធ្វើសមកាលកម្មដែលអាចធ្វើទៅបាន</value>
+  </data>
+  <data name="InternalErrorCouldntRestoreAny" xml:space="preserve">
+    <value>កំហុសខាងក្នុង៖ ច្បាប់ចម្លងនៃឯកសារ ទាំង “{0}” ឬ “{1}” មិនអាចស្ដារឡើងវិញបានទេ </value>
+  </data>
+  <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
+    <value>កំហុស I/O ខណៈពេលកំពុងជួសជុលច្បាប់ចម្លងទៅឯកសារ៖ “{0}”: {1}</value>
+  </data>
+  <data name="IOErrorReadingFile" xml:space="preserve">
+    <value>កំហុស I/O ការអានឯកសារ “{0}”៖ {1}</value>
+  </data>
+  <data name="IOErrorReadingFileOffset" xml:space="preserve">
+    <value>កំហុស I/O ការអានឯកសារ៖ “{0}” នៅទីតាំង {1}: {2}</value>
+  </data>
+  <data name="IOErrorWhileReadingPositionFillDummyWhileCopy" xml:space="preserve">
+    <value>កំហុស I/O ក្នុងការអានឯកសារ “{0}” នៅទីតាំង {1}: {2}។ ប្លុកត្រូវបានជំនួសដោយប្លុកទទេនៅពេលចម្លង។</value>
+  </data>
+  <data name="IOErrorWritingFile" xml:space="preserve">
+    <value>កំហុស I/O ការសរសេរឯកសារ “{0}”៖ {1}</value>
+  </data>
+  <data name="KeepingReadableButNotRecoverableBlockAtOffset" xml:space="preserve">
+    <value>ប្លុកដែលអាចអានបាន ប៉ុន្តែមិនអាចយកមកវិញបាននៅទីតាំង {0} នៅតែមាន។ មូលប្បទានប័ត្របង្ហាញថាប្លុកមិនត្រឹមត្រូវ</value>
+  </data>
+  <data name="KeepingReadableNonRecovBBlockAtAlsoInCopy" xml:space="preserve">
+    <value>ប្លុកដែលអាចអានបាន ប៉ុន្តែមិនអាចយកមកវិញបាននៅទីតាំង {0} នៃឯកសារដើម “{1}” ក៏នៅតែមាននៅក្នុងច្បាប់ចម្លង “{2}” ផងដែរ។ មូលប្បទានប័ត្របង្ហាញថាប្លុកមិនត្រឹមត្រូវ</value>
+  </data>
+  <data name="LogFileName" xml:space="preserve">
+    <value>ពិធីសារធ្វើសមកាលកម្មឯកសារជាភាសាខ្មែរ</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>របាយការណ៍នៃដំណើរការចម្លង</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>ទេ</value>
+  </data>
+  <data name="OperationCanceled" xml:space="preserve">
+    <value>ដំណើរការត្រូវបានលុបចោល</value>
+  </data>
+  <data name="OperationFinished" xml:space="preserve">
+    <value>ដំណើរការបានបញ្ចប់</value>
+  </data>
+  <data name="OutOfBadBlocksNotRestoredInCopyBytes" xml:space="preserve">
+    <value>ក្នុង​ចំណោម​ប្លុក​មិន​ល្អ {0} ក្នុង​ឯកសារ​ដើម {2} បៃ​មិន​ត្រូវ​បាន​យក​មក​វិញ​នៅ​ក្នុង​ច្បាប់ចម្លង “{1}” ទេ។</value>
+  </data>
+  <data name="ProcessNo" xml:space="preserve">
+    <value>№</value>
+  </data>
+  <data name="RecoveringBlockAtOfCopiedFile" xml:space="preserve">
+    <value>ការទប់ស្កាត់នៅទីតាំង {0} នៃឯកសារគោលដៅដែលបានចម្លង “{1}” ត្រូវបានស្ដារឡើងវិញ</value>
+  </data>
+  <data name="RecoveringBlockAtOffsetOfFile" xml:space="preserve">
+    <value>ការទប់ស្កាត់នៅទីតាំង {0} នៃឯកសារ “{1}” ត្រូវបានស្ដារឡើងវិញ។</value>
+  </data>
+  <data name="RightToLeft" xml:space="preserve">
+    <value>no</value>
+  </data>
+  <data name="RunningWithoutRepairOptionUndecided" xml:space="preserve">
+    <value>សមកាលកម្មកំពុងដំណើរការដោយគ្មានជម្រើសជួសជុល ដូច្នេះហើយមិនអាចសម្រេចថាតើឯកសារ “{0}” អាចស្ដារឡើងវិញដោយប្រើ “{1}” បានទេ។</value>
+  </data>
+  <data name="SavedInfoFileCantBeUsedForTesting" xml:space="preserve">
+    <value>ឯកសារព័ត៌មានដែលបានរក្សាទុក “{0}” មិនអាចប្រើដើម្បីសាកល្បងឯកសារ “{1}” បានទេ៖ វាត្រូវបានបង្កើតឡើងសម្រាប់កំណែផ្សេងនៃឯកសារ “{0}”។</value>
+  </data>
+  <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
+    <value>ឯកសារព័ត៌មានដែលបានរក្សាទុក “{0}” ត្រូវបានខូច ហើយត្រូវការបង្កើតឡើងវិញពី “{1}”។</value>
+  </data>
+  <data name="SecondFolderNoDelete" xml:space="preserve">
+    <value>កំហុស៖ ថតទីពីរមានឯកសារ “{0}”។ ថតដែលបានជ្រើសរើសហាក់ដូចជាមិនត្រឹមត្រូវសម្រាប់ជម្រើសលុប។ ដំណើរការថតឯកសារ និងថតរងត្រូវបានរំលង។</value>
+  </data>
+  <data name="SkippingFilePairDontDelete" xml:space="preserve">
+    <value>គូឯកសារ “{0}” និង “{1}” ត្រូវបានរំលង។ ឯកសារពិសេសរារាំងការប្រើជម្រើសលុបនៅក្នុងថតឫសខុស។ </value>
+  </data>
+  <data name="TheFileCantBeModifiedMissingRepairApplyToCopy" xml:space="preserve">
+    <value>ឯកសារមិនអាចកែប្រែបានទេ ដោយសារខ្វះជម្រើសជួសជុល។ ដំណើរការស្តារឡើងវិញត្រូវបានអនុវត្តចំពោះច្បាប់ចម្លង។</value>
+  </data>
+  <data name="ThereAreBadBlocksInFileNonRestorableParts" xml:space="preserve">
+    <value>មាន {0} ប្លុកមិនល្អនៅក្នុងឯកសារ “{1}” ផ្នែកដែលមិនអាចយកមកវិញបាន៖ {2} បៃ។</value>
+  </data>
+  <data name="ThereAreBadBlocksInNonRestorableMayRetryLater" xml:space="preserve">
+    <value>មាន {0} ប្លុកមិនល្អនៅក្នុងឯកសារ “{1}” ផ្នែកដែលមិនអាចយកមកវិញបាន៖ {2} បៃ។ ដំណើរការមិនអាចបន្តបានទេ ដោយសារមិនអាចស្តារឡើងវិញបាន។  វាអាចត្រូវបានព្យាយាមម្តងទៀតនៅពេលក្រោយ។</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableCantBeBackup" xml:space="preserve">
+    <value>មាន {0} ប្លុកមិនល្អនៅក្នុងឯកសារ “{1}” ផ្នែកដែលមិនអាចយកមកវិញបាន៖ {2} បៃ។ ឯកសារមិនអាចប្រើជាការបម្រុងទុកបានទេ។</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableOnlyTested" xml:space="preserve">
+    <value>មាន {0} ប្លុកមិនល្អនៅក្នុងឯកសារ “{1}” ផ្នែកដែលមិនអាចយកមកវិញបាន៖ {2} បៃ។ ឯកសារនៅតែមិនផ្លាស់ប្តូរ វាទើបតែត្រូវបានសាកល្បង</value>
+  </data>
+  <data name="ThereIsBadBlockInFileNonRestorableParts" xml:space="preserve">
+    <value>មានប្លុកមិនល្អនៅក្នុងឯកសារ “{0}” ផ្នែកដែលមិនអាចយកមកវិញបាន៖ {1} បៃ។</value>
+  </data>
+  <data name="ThereIsBadBlockNonRestorableCantBeBackup" xml:space="preserve">
+    <value>មានប្លុកមិនល្អនៅក្នុងឯកសារ “{0}” ដែលមិនអាចយកមកវិញបាន៖ {1} បៃ។ ឯកសារមិនអាចប្រើជាការបម្រុងទុកបានទេ។ </value>
+  </data>
+  <data name="ThereIsOneBadBlockNonRestorableOnlyTested" xml:space="preserve">
+    <value>មានប្លុកមិនល្អនៅក្នុងឯកសារ “{0}” ផ្នែកដែលមិនអាចយកមកវិញបាន៖ {1} បៃ។ ឯកសារនៅតែមិនផ្លាស់ប្តូរ វាទើបតែត្រូវបានសាកល្បង</value>
+  </data>
+  <data name="ThereRemainBadBlocksInBecauseReadOnly" xml:space="preserve">
+    <value>ប្លុកមិនល្អ {0} នៅតែមាននៅក្នុង “{1}” ពីព្រោះឯកសារមិនអាចកែប្រែបានទេ។</value>
+  </data>
+  <data name="ThereWasBadBlockInFileNotRestoredParts" xml:space="preserve">
+    <value>មាន​ប្លុក​មិន​ល្អ​នៅ​ក្នុង​ឯកសារ “{0}” ផ្នែក​ដែល​មិន​បាន​សង្គ្រោះ៖ {1} បៃ</value>
+  </data>
+  <data name="ThereWasBadBlockNotRestoredInCopyBytes" xml:space="preserve">
+    <value>មាន​ប្លុក​មិន​ល្អ​នៅ​ក្នុង​ឯកសារ​ដើម ដែល​មិន​ទាន់​បាន​រក​ឃើញ​ផ្នែក​នៅ​ក្នុង​ច្បាប់​ចម្លង “{0}”៖ {1} បៃ។</value>
+  </data>
+  <data name="ThereWereBadBlocksInFileNotRestoredParts" xml:space="preserve">
+    <value>មាន​ប្លុក​មិន​ល្អ {0} ក្នុង​ឯកសារ “{1}” ផ្នែក​ដែល​មិន​បាន​សង្គ្រោះ៖ {2} បៃ</value>
+  </data>
+  <data name="ThisIsASimulatedIOErrorAtPosition" xml:space="preserve">
+    <value>នេះគឺជាកំហុស I/O ក្លែងធ្វើនៅទីតាំង {0}</value>
+  </data>
+  <data name="WarningChecksumOffsetPrimarySavedInfoIgnored" xml:space="preserve">
+    <value>ការព្រមាន៖ មូលប្បទានប័ត្រនៃប្លុកនៅទីតាំង {0} មិនត្រូវគ្នានឹងប្លុកចម្បងដែលមានផ្ទុកព័ត៌មាន “{1}” ទេ។ ព័ត៌មានដែលរក្សាទុកបឋមសម្រាប់ប្លុកមិនត្រូវបានអើពើ</value>
+  </data>
+  <data name="WarningChecksumOffsetSecondarySavedInfoIgnored" xml:space="preserve">
+    <value>ការព្រមាន៖ មូលប្បទានប័ត្រនៃប្លុកនៅទីតាំង {0} មិនត្រូវគ្នានឹងប្លុកបន្ទាប់បន្សំនៃព័ត៌មានដែលបានរក្សាទុក “{1}” ទេ។ ព័ត៌មានដែលបានរក្សាទុកបន្ទាប់បន្សំសម្រាប់ប្លុកមិនត្រូវបានអើពើទេ។</value>
+  </data>
+  <data name="WarningCopiedToWithErrors" xml:space="preserve">
+    <value>ការ​ព្រមាន៖ “{0}” ត្រូវ​បាន​ចម្លង​ទៅ “{1}” ដោយ​មាន​កំហុស {2} </value>
+  </data>
+  <data name="WarningIOErrorWhileCopyingToReason" xml:space="preserve">
+    <value>ការព្រមាន៖ កំហុស I/O ខណៈពេលកំពុងចម្លងឯកសារ “{0}” ទៅ “{1}”៖ {2}</value>
+  </data>
+  <data name="WarningSeveralBlocksDontMatchInSIWillBeIgnored" xml:space="preserve">
+    <value>ការព្រមាន៖ ប្លុកច្រើនមិនត្រូវគ្នានឹងព័ត៌មានដែលបានរក្សាទុក “{0}” ទេ។ ព័ត៌មានដែលបានរក្សាទុកមិនត្រូវបានអើពើទាំងស្រុង</value>
+  </data>
+  <data name="WarningWhileCreating" xml:space="preserve">
+    <value>ការព្រមាន៖ {0} ពេលកំពុងបង្កើតឯកសារ “{1}”</value>
+  </data>
+  <data name="WarningWhileDiscoveringIfNeedsToBeRechecked" xml:space="preserve">
+    <value>ការព្រមាន៖ {0} ខណៈពេលដែលកំណត់ថាតើ “{1}” ចាំបាច់ត្រូវត្រួតពិនិត្យឡើងវិញដែរឬទេ។ </value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>បាទ</value>
+  </data>
+</root>
