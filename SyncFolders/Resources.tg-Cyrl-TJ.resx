@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BlockOfAtPositionWillBeCopiedFromNoMatterChecksum" xml:space="preserve">
+    <value>Блоки файли "{0}" дар мавқеи {1} аз "{2}" нусхабардорӣ карда мешавад, ҳатто агар маблағи санҷиш нишон диҳад, ки блок нодуруст аст</value>
+  </data>
+  <data name="BlockOfAtPositionWillBeRestoredFrom" xml:space="preserve">
+    <value>Блоки файли "{0}" дар мавқеи {1} аз ҳамон мавқеи файли "{2}" барқарор карда мешавад.</value>
+  </data>
+  <data name="BlocksOfAndAtPositionNonRecoverableFillDummy" xml:space="preserve">
+    <value>Блокҳои файлҳои "{0}" ва "{1}" дар мавқеи {2} барқарор карда намешаванд ва бо блоки холӣ пур карда мешаванд</value>
+  </data>
+  <data name="ChecksumOfBlockAtOffsetNotOK" xml:space="preserve">
+    <value>{0}: Маблағи назорати блок дар мавқеи {1} дуруст нест</value>
+  </data>
+  <data name="CopiedFromToReason" xml:space="preserve">
+    <value>Нусхабардорӣ анҷом ёфт: "{0}" ба "{1}" {2}</value>
+  </data>
+  <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
+    <value>Огоҳӣ: Файли "{0}" бо соли 1975 ё пештар барои барқарор кардани файли "{1}" истифода шуда натавонист. Чунин санаи кӯҳна нишон медиҳад, ки ин охирин имкони барқарор кардани файли "{0}" буд.</value>
+  </data>
+  <data name="DefaultCulture" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="DeletedFileNotPresentIn" xml:space="preserve">
+    <value>Файли ҳазфшудаи "{0}", ки дигар дар "{1}" вуҷуд надорад.</value>
+  </data>
+  <data name="DeletedFolder" xml:space="preserve">
+    <value>Ҷузвдони "{0}" бо шумули мундариҷа тоза карда шуд, зеро "{1}" дигар вуҷуд надорад</value>
+  </data>
+  <data name="EncounteredErrorOlderOk" xml:space="preserve">
+    <value>Огоҳӣ: Ҳангоми нусхабардории файли "{0}" хатогии воридотӣ ба вуҷуд омад. Ба назар чунин мерасад, ки файли кӯҳнаи "{1}" хуб аст</value>
+  </data>
+  <data name="EncounteredErrorOtherBadToo" xml:space="preserve">
+    <value>Огоҳӣ: Ҳангоми нусхабардории файли "{0}" хатогии воридотӣ ба вуҷуд омад. Дигар файли "{1}" низ хатогӣ дорад ё маҳсули барқарорсозии шонси охирин аст. Кӯшиши ба таври худкор таъмир кардани "{0}".</value>
+  </data>
+  <data name="EncounteredErrorWhileCopyingTryingToRepair" xml:space="preserve">
+    <value>Огоҳӣ: Ҳангоми нусхабардории файли "{0}" хатогӣ рух дод. Ман кӯшиш мекунам, ки хатогиро ислоҳ кунам.</value>
+  </data>
+  <data name="ErrorDeleting" xml:space="preserve">
+    <value>Хатогӣ ҳангоми нест кардани файли "{0}": {1}</value>
+  </data>
+  <data name="ErrorProcessinngFilePair" xml:space="preserve">
+    <value>Хатогӣ дар коркарди ҷуфти файлҳои "{0}" ва "{1}": {2}</value>
+  </data>
+  <data name="ErrorReadingPositionWillFillWithDummy" xml:space="preserve">
+    <value>Хатогии хондани файли "{0}" дар мавқеи {1}: {2}. Блок бо сифрҳо пур карда мешавад</value>
+  </data>
+  <data name="ErrorWhileTestingFile" xml:space="preserve">
+    <value>Хатогии санҷиши файли "{0}"</value>
+  </data>
+  <data name="FileCopied" xml:space="preserve">
+    <value>Нусхабардорӣ анҷом ёфт: "{0}" ба "{1}" {2}</value>
+  </data>
+  <data name="FileHasDifferentTime" xml:space="preserve">
+    <value>(Файл сана ё дарозии дигар дорад)</value>
+  </data>
+  <data name="FileHasZeroLength" xml:space="preserve">
+    <value>Огоҳӣ: Дарозии файл ба сифр баробар аст, ки амалиёти нобарори нусхабардориро дар гузашта нишон медиҳад: "{0}"</value>
+  </data>
+  <data name="FileHealthyOrRepaired" xml:space="preserve">
+    <value>(Файл бе хатогӣ ё таъмир карда шуд)</value>
+  </data>
+  <data name="FilesHaveZeroLength" xml:space="preserve">
+    <value>Огоҳӣ: Ҳарду файл дарозии сифр доранд, ки амалиёти нобарори нусхабардориро дар гузашта нишон медиҳад: "{0}" ва "{1}" </value>
+  </data>
+  <data name="FileWasHealthy" xml:space="preserve">
+    <value>(Файл бе хатогӣ буд)</value>
+  </data>
+  <data name="FileWasNew" xml:space="preserve">
+    <value>(файл нав буд)</value>
+  </data>
+  <data name="FileWasNewer" xml:space="preserve">
+    <value>(Файл навтар ё калонтар буд)</value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetOfCopyWithDummy" xml:space="preserve">
+    <value>Блоки барқарорнашаванда дар мавқеи {0}-и файли нусхабардории "{1}" бо сифрҳо пур карда мешавад</value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetWithDummy" xml:space="preserve">
+    <value>Блоки барқарорнашаванда дар мавқеи {0} бо сифрҳо пур карда мешавад</value>
+  </data>
+  <data name="FirstFileHasBadBlocks" xml:space="preserve">
+    <value>Огоҳӣ: Файли якуми "{0}" блокҳои бад дорад. Барнавишти файли "{1}" гузаронида шуд ва он ҳамчун нусха боқӣ монд</value>
+  </data>
+  <data name="FoundFileForSync" xml:space="preserve">
+    <value>Файл барои ҳамоҳангсозии имконпазир ёфт шуд</value>
+  </data>
+  <data name="FoundFilesForSync" xml:space="preserve">
+    <value>{0} файл барои ҳамоҳангсозии имконпазир пайдо шуд</value>
+  </data>
+  <data name="InternalErrorCouldntRestoreAny" xml:space="preserve">
+    <value>Хатои дохилӣ: Нусхаи файлҳоро, на "{0}" ва на "{1}" барқарор кардан мумкин нест </value>
+  </data>
+  <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
+    <value>Хатогии I/O ҳангоми таъмири нусхабардорӣ ба файл: "{0}": {1}</value>
+  </data>
+  <data name="IOErrorReadingFile" xml:space="preserve">
+    <value>Хатогии I/O хондани файли "{0}": {1}</value>
+  </data>
+  <data name="IOErrorReadingFileOffset" xml:space="preserve">
+    <value>Хатогии I/O дар хондани файл: "{0}" дар мавқеи {1}: {2}</value>
+  </data>
+  <data name="IOErrorWhileReadingPositionFillDummyWhileCopy" xml:space="preserve">
+    <value>Хатогии I/O дар хондани файли "{0}" дар макони {1}: {2}. Ҳангоми нусхабардорӣ блок бо блоки холӣ иваз карда мешавад.</value>
+  </data>
+  <data name="IOErrorWritingFile" xml:space="preserve">
+    <value>Хатогии I/O дар навиштани файли "{0}": {1}</value>
+  </data>
+  <data name="KeepingReadableButNotRecoverableBlockAtOffset" xml:space="preserve">
+    <value>Блоки хондашаванда, вале барқарорнашаванда дар мавқеи {0} боқӣ мемонад. Маблағи санҷиш нишон медиҳад, ки блок нодуруст аст</value>
+  </data>
+  <data name="KeepingReadableNonRecovBBlockAtAlsoInCopy" xml:space="preserve">
+    <value>Блоки хондашаванда, вале барқарорнашаванда дар мавқеи {0}-и файли аслии "{1}" низ дар нусхаи "{2}" боқӣ мемонад. Маблағи санҷиш нишон медиҳад, ки блок нодуруст аст</value>
+  </data>
+  <data name="LogFileName" xml:space="preserve">
+    <value>Протоколи ҳамоҳангсозии ҷузвдонҳо бо забони тоҷикӣ</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Ҳисобот дар бораи раванди нусхабардорӣ</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>не</value>
+  </data>
+  <data name="OperationCanceled" xml:space="preserve">
+    <value>Раванд қатъ карда шуд</value>
+  </data>
+  <data name="OperationFinished" xml:space="preserve">
+    <value>Раванд ба охир расид</value>
+  </data>
+  <data name="OutOfBadBlocksNotRestoredInCopyBytes" xml:space="preserve">
+    <value>Аз {0} блокҳои бад дар файли аслӣ, {2} байт дар нусхаи "{1}" барқарор карда нашуд.</value>
+  </data>
+  <data name="ProcessNo" xml:space="preserve">
+    <value>№</value>
+  </data>
+  <data name="RecoveringBlockAtOfCopiedFile" xml:space="preserve">
+    <value>Блок дар мавқеъи {0}-и файли ҳадафи нусхабардории "{1}" барқарор карда мешавад</value>
+  </data>
+  <data name="RecoveringBlockAtOffsetOfFile" xml:space="preserve">
+    <value>Блок дар мавқеи {0}-и файли "{1}" барқарор карда мешавад.</value>
+  </data>
+  <data name="RightToLeft" xml:space="preserve">
+    <value>no</value>
+  </data>
+  <data name="RunningWithoutRepairOptionUndecided" xml:space="preserve">
+    <value>Синхронизатсия бидуни имконоти таъмир кор мекунад ва аз ин рӯ тасмим гирифта натавонист, ки файли "{0}"-ро бо истифода аз "{1}" барқарор кардан мумкин аст ё на.</value>
+  </data>
+  <data name="SavedInfoFileCantBeUsedForTesting" xml:space="preserve">
+    <value>Файли иттилоотии захирашудаи "{0}" барои санҷиши файли "{1}" истифода намешавад: он барои версияи дигари файли "{0}" сохта шудааст.</value>
+  </data>
+  <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
+    <value>Файли иттилоотии захирашудаи "{0}" вайрон шудааст ва бояд аз "{1}" аз нав сохта шавад.</value>
+  </data>
+  <data name="SecondFolderNoDelete" xml:space="preserve">
+    <value>Хатогӣ: Дар папкаи дуюм файли "{0}" мавҷуд аст. Ба назар чунин мерасад, ки ҷузвдони интихобшуда барои интихоби тозакунӣ нодуруст аст. Коркарди ҷузвдон ва зерпапкаҳо гузаронида мешавад.</value>
+  </data>
+  <data name="SkippingFilePairDontDelete" xml:space="preserve">
+    <value>Ҷуфти файлҳои "{0}" ва "{1}" гузаред. Файли махсус истифодаи опсияи нест карданро дар папкаи решаи нодуруст пешгирӣ мекунад. </value>
+  </data>
+  <data name="TheFileCantBeModifiedMissingRepairApplyToCopy" xml:space="preserve">
+    <value>Аз сабаби мавҷуд набудани имконоти таъмир файлро тағир додан мумкин нест. Раванди барқарорсозӣ ба нусхабардорӣ татбиқ карда мешавад.</value>
+  </data>
+  <data name="ThereAreBadBlocksInFileNonRestorableParts" xml:space="preserve">
+    <value>Дар файли "{1}" {0} блокҳои бад мавҷуданд, қисмҳои барқарорнашаванда: {2} байт.</value>
+  </data>
+  <data name="ThereAreBadBlocksInNonRestorableMayRetryLater" xml:space="preserve">
+    <value>Дар файли "{1}" {0} блокҳои бад мавҷуданд, қисмҳои барқарорнашаванда: {2} байт. Раванд аз сабаби барқарорнашаванда идома дода наметавонад.  Он метавонад баъдтар бори дигар кӯшиш карда шавад.</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableCantBeBackup" xml:space="preserve">
+    <value>Дар файли "{1}" {0} блокҳои бад мавҷуданд, қисмҳои барқарорнашаванда: {2} байт. Файлро ҳамчун нусха истифода бурдан мумкин нест</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableOnlyTested" xml:space="preserve">
+    <value>Дар файли "{1}" {0} блокҳои бад мавҷуданд, қисмҳои барқарорнашаванда: {2} байт. Файл бетағйир мемонад, он танҳо санҷида шуд</value>
+  </data>
+  <data name="ThereIsBadBlockInFileNonRestorableParts" xml:space="preserve">
+    <value>Дар файли "{0}" блоки бад мавҷуд аст, қисмҳои барқарорнашаванда: {1} байт.</value>
+  </data>
+  <data name="ThereIsBadBlockNonRestorableCantBeBackup" xml:space="preserve">
+    <value>Дар файли "{0}" блоки бад мавҷуд аст, ки онро барқарор кардан ғайриимкон аст: {1} байт. Файлро ҳамчун нусха истифода бурдан мумкин нест </value>
+  </data>
+  <data name="ThereIsOneBadBlockNonRestorableOnlyTested" xml:space="preserve">
+    <value>Дар файли "{0}" блоки бад мавҷуд аст, қисмҳои барқарорнашаванда: {1} байт. Файл бетағйир мемонад, он танҳо санҷида шуд</value>
+  </data>
+  <data name="ThereRemainBadBlocksInBecauseReadOnly" xml:space="preserve">
+    <value>{0} блокҳои бад дар "{1}" боқӣ мемонанд, зеро файлро тағир додан мумкин нест</value>
+  </data>
+  <data name="ThereWasBadBlockInFileNotRestoredParts" xml:space="preserve">
+    <value>Дар файли "{0}" блоки бад мавҷуд буд, қисмҳои барқарорнашуда: {1} байт</value>
+  </data>
+  <data name="ThereWasBadBlockNotRestoredInCopyBytes" xml:space="preserve">
+    <value>Дар файли аслӣ блоки бад мавҷуд буд, қисмҳои барқарорнашуда дар нусхаи "{0}": {1} байт.</value>
+  </data>
+  <data name="ThereWereBadBlocksInFileNotRestoredParts" xml:space="preserve">
+    <value>Дар файли "{1}" {0} блокҳои бад мавҷуд буданд, қисмҳои барқарорнашуда: {2} байт</value>
+  </data>
+  <data name="ThisIsASimulatedIOErrorAtPosition" xml:space="preserve">
+    <value>Ин хатои тақлидшудаи I/O дар макони {0} аст</value>
+  </data>
+  <data name="WarningChecksumOffsetPrimarySavedInfoIgnored" xml:space="preserve">
+    <value>Огоҳӣ: Маблағи назоратии блок дар мавқеъи {0} ба блокҳои ибтидоии дастраси иттилооти захирашудаи "{1}" мувофиқат намекунад. Маълумоти ибтидоии захирашуда барои блок нодида гирифта мешавад</value>
+  </data>
+  <data name="WarningChecksumOffsetSecondarySavedInfoIgnored" xml:space="preserve">
+    <value>Огоҳӣ: Маблағи назоратии блок дар мавқеи {0} ба блокҳои дуюмдараҷаи дастраси иттилооти захирашудаи "{1}" мувофиқат намекунад. Маълумоти дуюмдараҷаи захирашуда барои блок сарфи назар карда мешавад</value>
+  </data>
+  <data name="WarningCopiedToWithErrors" xml:space="preserve">
+    <value>Огоҳӣ: "{0}" ба "{1}" бо хатогиҳои {2} нусхабардорӣ карда шуд </value>
+  </data>
+  <data name="WarningIOErrorWhileCopyingToReason" xml:space="preserve">
+    <value>Огоҳӣ: Хатогии I/O ҳангоми нусхабардории файли "{0}" ба "{1}": {2}</value>
+  </data>
+  <data name="WarningSeveralBlocksDontMatchInSIWillBeIgnored" xml:space="preserve">
+    <value>Огоҳӣ: Блокҳои сершумор ба маълумоти захирашудаи "{0}" мувофиқат намекунанд. Маълумоти захирашуда комилан нодида гирифта мешавад</value>
+  </data>
+  <data name="WarningWhileCreating" xml:space="preserve">
+    <value>Огоҳӣ: {0} ҳангоми сохтани файли "{1}"</value>
+  </data>
+  <data name="WarningWhileDiscoveringIfNeedsToBeRechecked" xml:space="preserve">
+    <value>Огоҳӣ: {0} ҳангоми муайян кардани он, ки оё "{1}" дубора тафтиш кардан лозим аст. </value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Бале</value>
+  </data>
+</root>
