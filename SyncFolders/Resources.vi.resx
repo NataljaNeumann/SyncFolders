@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BlockOfAtPositionWillBeCopiedFromNoMatterChecksum" xml:space="preserve">
+    <value>Khối tệp “{0}” ở vị trí {1} được sao chép từ “{2}” ngay cả khi tổng kiểm tra cho thấy khối đó không chính xác</value>
+  </data>
+  <data name="BlockOfAtPositionWillBeRestoredFrom" xml:space="preserve">
+    <value>Khối tệp “{0}” tại vị trí {1} được khôi phục từ cùng vị trí của tệp “{2}”.</value>
+  </data>
+  <data name="BlocksOfAndAtPositionNonRecoverableFillDummy" xml:space="preserve">
+    <value>Không thể khôi phục khối tệp “{0}” và “{1}” ở vị trí {2} và sẽ được lấp đầy bằng một khối trống</value>
+  </data>
+  <data name="ChecksumOfBlockAtOffsetNotOK" xml:space="preserve">
+    <value>{0}: Tổng kiểm tra khối ở vị trí {1} là không ổn</value>
+  </data>
+  <data name="CopiedFromToReason" xml:space="preserve">
+    <value>Sao chép đã hoàn tất: “{0}” tới “{1}” {2}</value>
+  </data>
+  <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
+    <value>Cảnh báo: Không thể sử dụng tệp “{0}” có năm 1975 hoặc sớm hơn để khôi phục tệp “{1}”. Ngày cũ như vậy cho biết đây là cơ hội cuối cùng để khôi phục tệp “{0}”.</value>
+  </data>
+  <data name="DefaultCulture" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="DeletedFileNotPresentIn" xml:space="preserve">
+    <value>Đã xóa tệp “{0}” không còn tồn tại trong “{1}”.</value>
+  </data>
+  <data name="DeletedFolder" xml:space="preserve">
+    <value>Thư mục “{0}” bao gồm các nội dung đã bị xóa vì “{1}” không còn tồn tại</value>
+  </data>
+  <data name="EncounteredErrorOlderOk" xml:space="preserve">
+    <value>Cảnh báo: Đã xảy ra lỗi I/O khi sao chép tệp “{0}”. Tệp cũ hơn “{1}” có vẻ ổn</value>
+  </data>
+  <data name="EncounteredErrorOtherBadToo" xml:space="preserve">
+    <value>Cảnh báo: Đã xảy ra lỗi I/O khi sao chép tệp “{0}”. Tệp khác “{1}” cũng có lỗi hoặc là sản phẩm của cơ hội khôi phục cuối cùng. Đang cố gắng tự động sửa chữa “{0}”.</value>
+  </data>
+  <data name="EncounteredErrorWhileCopyingTryingToRepair" xml:space="preserve">
+    <value>Cảnh báo: Đã xảy ra lỗi khi sao chép tệp “{0}”. Tôi đang cố gắng sửa lỗi.</value>
+  </data>
+  <data name="ErrorDeleting" xml:space="preserve">
+    <value>Lỗi xóa tệp “{0}”: {1}</value>
+  </data>
+  <data name="ErrorProcessinngFilePair" xml:space="preserve">
+    <value>Lỗi xử lý cặp tệp “{0}” và “{1}”: {2}</value>
+  </data>
+  <data name="ErrorReadingPositionWillFillWithDummy" xml:space="preserve">
+    <value>Lỗi đọc tệp “{0}” tại vị trí {1}: {2}. Khối chứa đầy số không</value>
+  </data>
+  <data name="ErrorWhileTestingFile" xml:space="preserve">
+    <value>Lỗi kiểm tra tệp “{0}”</value>
+  </data>
+  <data name="FileCopied" xml:space="preserve">
+    <value>Sao chép đã hoàn tất: “{0}” tới “{1}” {2}</value>
+  </data>
+  <data name="FileHasDifferentTime" xml:space="preserve">
+    <value>(Tệp có ngày hoặc độ dài khác)</value>
+  </data>
+  <data name="FileHasZeroLength" xml:space="preserve">
+    <value>Cảnh báo: Tệp có độ dài bằng 0, cho biết thao tác sao chép không thành công trước đây: “{0}”</value>
+  </data>
+  <data name="FileHealthyOrRepaired" xml:space="preserve">
+    <value>(Tệp không có lỗi hoặc đã được sửa chữa)</value>
+  </data>
+  <data name="FilesHaveZeroLength" xml:space="preserve">
+    <value>Cảnh báo: Cả hai tệp đều có độ dài bằng 0, biểu thị thao tác sao chép không thành công trước đây: “{0}” và “{1}”</value>
+  </data>
+  <data name="FileWasHealthy" xml:space="preserve">
+    <value>(Tập tin không có lỗi)</value>
+  </data>
+  <data name="FileWasNew" xml:space="preserve">
+    <value>(Tập tin này là mới hơn)</value>
+  </data>
+  <data name="FileWasNewer" xml:space="preserve">
+    <value>(Tệp mới hơn hoặc lớn hơn)</value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetOfCopyWithDummy" xml:space="preserve">
+    <value>Khối không thể phục hồi ở vị trí {0} của tệp đã sao chép “{1}” chứa đầy số không</value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetWithDummy" xml:space="preserve">
+    <value>Khối không thể phục hồi tại vị trí {0} chứa đầy số 0</value>
+  </data>
+  <data name="FirstFileHasBadBlocks" xml:space="preserve">
+    <value>Cảnh báo: Tệp đầu tiên “{0}” có khối xấu. Tệp ghi đè “{1}” đã bị bỏ qua, để nó làm bản sao lưu</value>
+  </data>
+  <data name="FoundFileForSync" xml:space="preserve">
+    <value>Đã tìm thấy một tệp có thể đồng bộ hóa</value>
+  </data>
+  <data name="FoundFilesForSync" xml:space="preserve">
+    <value>Đã tìm thấy {0} tệp có thể đồng bộ hóa</value>
+  </data>
+  <data name="InternalErrorCouldntRestoreAny" xml:space="preserve">
+    <value>Lỗi nội bộ: Không thể khôi phục bản sao của tệp, cả “{0}” và “{1}” </value>
+  </data>
+  <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
+    <value>Lỗi I/O khi sửa bản sao vào tệp: “{0}”: {1}</value>
+  </data>
+  <data name="IOErrorReadingFile" xml:space="preserve">
+    <value>Lỗi I/O khi đọc tệp “{0}”: {1}</value>
+  </data>
+  <data name="IOErrorReadingFileOffset" xml:space="preserve">
+    <value>Lỗi đọc tệp I/O: “{0}” tại vị trí {1}: {2}</value>
+  </data>
+  <data name="IOErrorWhileReadingPositionFillDummyWhileCopy" xml:space="preserve">
+    <value>Lỗi I/O khi đọc tệp “{0}” tại vị trí {1}: {2}. Khối được thay thế bằng khối trống khi sao chép.</value>
+  </data>
+  <data name="IOErrorWritingFile" xml:space="preserve">
+    <value>Lỗi I/O ghi tệp “{0}”: {1}</value>
+  </data>
+  <data name="KeepingReadableButNotRecoverableBlockAtOffset" xml:space="preserve">
+    <value>Khối có thể đọc được nhưng không thể phục hồi ở vị trí {0} vẫn còn. Tổng kiểm tra chỉ ra rằng khối không chính xác</value>
+  </data>
+  <data name="KeepingReadableNonRecovBBlockAtAlsoInCopy" xml:space="preserve">
+    <value>Khối có thể đọc được nhưng không thể phục hồi ở vị trí {0} của tệp gốc “{1}” cũng vẫn còn trong bản sao “{2}”. Tổng kiểm tra chỉ ra rằng khối không chính xác</value>
+  </data>
+  <data name="LogFileName" xml:space="preserve">
+    <value>Giao thức đồng bộ thư mục bằng tiếng Việt</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Báo cáo quá trình sao chép</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>không</value>
+  </data>
+  <data name="OperationCanceled" xml:space="preserve">
+    <value>Quá trình bị hủy bỏ</value>
+  </data>
+  <data name="OperationFinished" xml:space="preserve">
+    <value>Quá trình đã kết thúc</value>
+  </data>
+  <data name="OutOfBadBlocksNotRestoredInCopyBytes" xml:space="preserve">
+    <value>Trong số {0} khối lỗi ở tệp gốc, {2} byte không được khôi phục trong bản sao “{1}”.</value>
+  </data>
+  <data name="ProcessNo" xml:space="preserve">
+    <value>№</value>
+  </data>
+  <data name="RecoveringBlockAtOfCopiedFile" xml:space="preserve">
+    <value>Khối tại vị trí {0} của tệp mục tiêu đã sao chép “{1}” được khôi phục</value>
+  </data>
+  <data name="RecoveringBlockAtOffsetOfFile" xml:space="preserve">
+    <value>Khối ở vị trí {0} của tệp “{1}” được khôi phục.</value>
+  </data>
+  <data name="RightToLeft" xml:space="preserve">
+    <value>no</value>
+  </data>
+  <data name="RunningWithoutRepairOptionUndecided" xml:space="preserve">
+    <value>Đồng bộ hóa đang chạy mà không có tùy chọn sửa chữa và do đó không thể quyết định liệu tệp “{0}” có thể được khôi phục bằng “{1}” hay không.</value>
+  </data>
+  <data name="SavedInfoFileCantBeUsedForTesting" xml:space="preserve">
+    <value>Không thể sử dụng tệp thông tin đã lưu “{0}” để kiểm tra tệp “{1}”: nó được tạo cho một phiên bản khác của tệp “{0}”.</value>
+  </data>
+  <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
+    <value>Tệp thông tin đã lưu “{0}” bị hỏng và cần được tạo lại từ “{1}”.</value>
+  </data>
+  <data name="SecondFolderNoDelete" xml:space="preserve">
+    <value>Lỗi: Thư mục thứ hai chứa tệp “{0}”. Thư mục đã chọn có vẻ không chính xác đối với tùy chọn xóa. Quá trình xử lý thư mục và thư mục con bị bỏ qua.</value>
+  </data>
+  <data name="SkippingFilePairDontDelete" xml:space="preserve">
+    <value>Cặp tệp “{0}” và “{1}” bị bỏ qua. Một tệp đặc biệt ngăn chặn việc sử dụng tùy chọn xóa trong thư mục gốc sai. </value>
+  </data>
+  <data name="TheFileCantBeModifiedMissingRepairApplyToCopy" xml:space="preserve">
+    <value>Không thể sửa đổi tập tin do thiếu tùy chọn sửa chữa. Quá trình khôi phục được áp dụng cho bản sao.</value>
+  </data>
+  <data name="ThereAreBadBlocksInFileNonRestorableParts" xml:space="preserve">
+    <value>Có {0} khối lỗi trong tệp “{1}”, các phần không thể phục hồi được: {2} byte.</value>
+  </data>
+  <data name="ThereAreBadBlocksInNonRestorableMayRetryLater" xml:space="preserve">
+    <value>Có {0} khối lỗi trong tệp “{1}”, các phần không thể phục hồi được: {2} byte. Quá trình không thể tiếp tục do không thể phục hồi.  Nó có thể được thử lại sau.</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableCantBeBackup" xml:space="preserve">
+    <value>Có {0} khối lỗi trong tệp “{1}”, các phần không thể phục hồi được: {2} byte. Không thể sử dụng tệp làm bản sao lưu</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableOnlyTested" xml:space="preserve">
+    <value>Có {0} khối lỗi trong tệp “{1}”, các phần không thể phục hồi được: {2} byte. File không thay đổi, vừa test xong</value>
+  </data>
+  <data name="ThereIsBadBlockInFileNonRestorableParts" xml:space="preserve">
+    <value>Có một khối lỗi trong tệp “{0}”, các phần không thể phục hồi được: {1} byte.</value>
+  </data>
+  <data name="ThereIsBadBlockNonRestorableCantBeBackup" xml:space="preserve">
+    <value>Có một khối lỗi trong tệp “{0}” không thể khôi phục được: {1} byte. Không thể sử dụng tệp làm bản sao lưu </value>
+  </data>
+  <data name="ThereIsOneBadBlockNonRestorableOnlyTested" xml:space="preserve">
+    <value>Có một khối lỗi trong tệp “{0}”, các phần không thể phục hồi được: {1} byte. File không thay đổi, vừa test xong</value>
+  </data>
+  <data name="ThereRemainBadBlocksInBecauseReadOnly" xml:space="preserve">
+    <value>{0} khối lỗi vẫn còn trong “{1}” vì không thể sửa đổi tệp</value>
+  </data>
+  <data name="ThereWasBadBlockInFileNotRestoredParts" xml:space="preserve">
+    <value>Có một khối lỗi trong tệp “{0}”, các phần chưa được khôi phục: {1} byte</value>
+  </data>
+  <data name="ThereWasBadBlockNotRestoredInCopyBytes" xml:space="preserve">
+    <value>Có một khối lỗi trong tệp gốc, các phần chưa được khôi phục trong bản sao “{0}”: {1} byte.</value>
+  </data>
+  <data name="ThereWereBadBlocksInFileNotRestoredParts" xml:space="preserve">
+    <value>Có {0} khối lỗi trong tệp “{1}”, các phần chưa được khôi phục: {2} byte</value>
+  </data>
+  <data name="ThisIsASimulatedIOErrorAtPosition" xml:space="preserve">
+    <value>Đây là lỗi I/O mô phỏng tại vị trí {0}</value>
+  </data>
+  <data name="WarningChecksumOffsetPrimarySavedInfoIgnored" xml:space="preserve">
+    <value>Cảnh báo: Tổng kiểm tra khối ở vị trí {0} không khớp với khối thông tin được lưu trữ chính có sẵn “{1}”. Thông tin được lưu trữ chính cho khối bị bỏ qua</value>
+  </data>
+  <data name="WarningChecksumOffsetSecondarySavedInfoIgnored" xml:space="preserve">
+    <value>Cảnh báo: Tổng kiểm tra của khối tại vị trí {0} không khớp với các khối thông tin được lưu trữ thứ cấp có sẵn “{1}”. Thông tin được lưu trữ thứ cấp cho khối bị bỏ qua</value>
+  </data>
+  <data name="WarningCopiedToWithErrors" xml:space="preserve">
+    <value>Cảnh báo: “{0}” đã được sao chép sang “{1}” có lỗi {2} </value>
+  </data>
+  <data name="WarningIOErrorWhileCopyingToReason" xml:space="preserve">
+    <value>Cảnh báo: Lỗi I/O khi sao chép tệp “{0}” sang “{1}”: {2}</value>
+  </data>
+  <data name="WarningSeveralBlocksDontMatchInSIWillBeIgnored" xml:space="preserve">
+    <value>Cảnh báo: Nhiều khối không khớp với thông tin được lưu trữ “{0}”. Các thông tin được lưu trữ hoàn toàn bị bỏ qua</value>
+  </data>
+  <data name="WarningWhileCreating" xml:space="preserve">
+    <value>Cảnh báo: {0} khi tạo tệp “{1}”</value>
+  </data>
+  <data name="WarningWhileDiscoveringIfNeedsToBeRechecked" xml:space="preserve">
+    <value>Cảnh báo: {0} trong khi xác định xem có cần kiểm tra lại “{1}” hay không. </value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Đúng</value>
+  </data>
+</root>

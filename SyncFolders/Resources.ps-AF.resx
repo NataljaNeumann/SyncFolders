@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BlockOfAtPositionWillBeCopiedFromNoMatterChecksum" xml:space="preserve">
+    <value>د "{0}" د دوتنې بلاک په {1} موقعیت کې د "{2}" څخه کاپي شوی حتی که چکسم وښيي چې بلاک غلط دی</value>
+  </data>
+  <data name="BlockOfAtPositionWillBeRestoredFrom" xml:space="preserve">
+    <value>د "{0}" د دوتنې بلاک په {1} موقعیت کې د دوتنې "{2}" له ورته موقعیت څخه بیرته راستانه شوی.</value>
+  </data>
+  <data name="BlocksOfAndAtPositionNonRecoverableFillDummy" xml:space="preserve">
+    <value>د "{0}" او "{1}" د فایلونو بلاکونه په {2} موقعیت کې نشي بیرته راګرځیدلی او د خالي بلاک سره به ډک شي</value>
+  </data>
+  <data name="ChecksumOfBlockAtOffsetNotOK" xml:space="preserve">
+    <value>{0}: په {1} موقعیت کې د بلاک چیک سم سم ندی</value>
+  </data>
+  <data name="CopiedFromToReason" xml:space="preserve">
+    <value>کاپي بشپړه شوه: "{0}" تر "{1}" {2}</value>
+  </data>
+  <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
+    <value>خبرداری: د دوتنې "{0}" د کال 1975 یا مخکینۍ د دوتنې "{1}" د بیا رغولو لپاره کارول کیدی نشي. دا ډول زوړ نیټه په ګوته کوي چې دا د "{0}" دوتنې بیرته ترلاسه کولو وروستی چانس و.</value>
+  </data>
+  <data name="DefaultCulture" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="DeletedFileNotPresentIn" xml:space="preserve">
+    <value>ړنګ شوی دوتنې "{0}" چې نور په "{1}" کې شتون نلري.</value>
+  </data>
+  <data name="DeletedFolder" xml:space="preserve">
+    <value>فولډر "{0}" د مینځپانګې په شمول حذف شوی ځکه چې "{1}" نور شتون نلري</value>
+  </data>
+  <data name="EncounteredErrorOlderOk" xml:space="preserve">
+    <value>خبرداری: د "{0}" دوتنې د کاپي کولو په وخت کې د I/O تېروتنه رامنځته شوه. زوړ فایل "{1}" ښه ښکاري</value>
+  </data>
+  <data name="EncounteredErrorOtherBadToo" xml:space="preserve">
+    <value>خبرداری: د "{0}" دوتنې د کاپي کولو په وخت کې د I/O تېروتنه رامنځته شوه. نور فایل "{1}" هم تېروتنې لري یا د وروستي چانس بیا رغونه محصول دی. په اتوماتيک ډول د "{0}" د ترميمولو هڅه.</value>
+  </data>
+  <data name="EncounteredErrorWhileCopyingTryingToRepair" xml:space="preserve">
+    <value>خبرداری: د "{0}" دوتنې د کاپي کولو پرمهال یوه تېروتنه رامنځته شوه. زه هڅه کوم چې تېروتنه سمه کړم.</value>
+  </data>
+  <data name="ErrorDeleting" xml:space="preserve">
+    <value>د "{0}" دوتنې په ړنګولو کې تېروتنه: {1}</value>
+  </data>
+  <data name="ErrorProcessinngFilePair" xml:space="preserve">
+    <value>د "{0}" او "{1}" جوړه د دوتنې پروسس کولو کې تېروتنه: {2}</value>
+  </data>
+  <data name="ErrorReadingPositionWillFillWithDummy" xml:space="preserve">
+    <value>په {1}: {2} کې د "{0}" دوتنې په لوستلو کې تېروتنه. بلاک د صفرونو څخه ډک شوی</value>
+  </data>
+  <data name="ErrorWhileTestingFile" xml:space="preserve">
+    <value>د "{0}" دوتنې د ازموینې تېروتنه</value>
+  </data>
+  <data name="FileCopied" xml:space="preserve">
+    <value>کاپي بشپړه شوه: "{0}" تر "{1}" {2}</value>
+  </data>
+  <data name="FileHasDifferentTime" xml:space="preserve">
+    <value>(دوتنه مختلف نیټه یا اوږدوالی لري)</value>
+  </data>
+  <data name="FileHasZeroLength" xml:space="preserve">
+    <value>خبرداری: د فایل اوږدوالی صفر دی، په تیرو وختونو کې د کاپي ناکام عملیات په ګوته کوي: "{0}"</value>
+  </data>
+  <data name="FileHealthyOrRepaired" xml:space="preserve">
+    <value>(دوتنه له خطا پاکه وه یا ترمیم شوې)</value>
+  </data>
+  <data name="FilesHaveZeroLength" xml:space="preserve">
+    <value>خبرداری: دواړه فایلونه صفر اوږدوالی لري، په تیرو وختونو کې د کاپي ناکام عملیات په ګوته کوي: "{0}" او "{1}" </value>
+  </data>
+  <data name="FileWasHealthy" xml:space="preserve">
+    <value>(دوتنه له خطا پاکه وه)</value>
+  </data>
+  <data name="FileWasNew" xml:space="preserve">
+    <value>(دوتنه نوې وه)</value>
+  </data>
+  <data name="FileWasNewer" xml:space="preserve">
+    <value>(دوتنه نوې یا لویه وه)</value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetOfCopyWithDummy" xml:space="preserve">
+    <value>د کاپي شوي فایل "{1}" ځای {0} کې د بیرته راګرځیدو وړ بلاک له صفرونو ډک شوی</value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetWithDummy" xml:space="preserve">
+    <value>په {0} موقعیت کې د بیرته راګرځیدو وړ بلاک له صفرونو ډک دی</value>
+  </data>
+  <data name="FirstFileHasBadBlocks" xml:space="preserve">
+    <value>خبرداری: لومړۍ دوتنې "{0}" خراب بلاکونه لري. د "{1}" د دوتنې بیا لیکل پریښودل شوي، دا د بیک اپ په توګه پریږدي</value>
+  </data>
+  <data name="FoundFileForSync" xml:space="preserve">
+    <value>د ممکنه همغږي کولو لپاره فایل وموندل</value>
+  </data>
+  <data name="FoundFilesForSync" xml:space="preserve">
+    <value>د ممکنه همغږي کولو لپاره {0} فایلونه موندل شوي</value>
+  </data>
+  <data name="InternalErrorCouldntRestoreAny" xml:space="preserve">
+    <value>داخلي تېروتنه: د دوتنو یوه کاپي، نه "{0}" او نه هم "{1}"، بیا رغول کېدای شي </value>
+  </data>
+  <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
+    <value>فایل ته د کاپي ترمیم کولو پرمهال I/O تېروتنه: "{0}": {1}</value>
+  </data>
+  <data name="IOErrorReadingFile" xml:space="preserve">
+    <value>I/O د دوتنې لوستلو تېروتنه "{0}": {1}</value>
+  </data>
+  <data name="IOErrorReadingFileOffset" xml:space="preserve">
+    <value>د دوتنې لوستلو I/O تېروتنه: "{0}" په {1} کې: {2}</value>
+  </data>
+  <data name="IOErrorWhileReadingPositionFillDummyWhileCopy" xml:space="preserve">
+    <value>I/O په ځای {1} کې د "{0}" دوتنې لوستلو تېروتنه: {2}. بلاک د کاپي کولو په وخت کې د خالي بلاک لخوا بدلیږي.</value>
+  </data>
+  <data name="IOErrorWritingFile" xml:space="preserve">
+    <value>I/O د دوتنې لیکلو تېروتنه "{0}": {1}</value>
+  </data>
+  <data name="KeepingReadableButNotRecoverableBlockAtOffset" xml:space="preserve">
+    <value>په {0} موقعیت کې د لوستلو وړ مګر د بیرته راګرځیدو وړ بلاک پاتې دی. چکسم په ګوته کوي چې بلاک غلط دی</value>
+  </data>
+  <data name="KeepingReadableNonRecovBBlockAtAlsoInCopy" xml:space="preserve">
+    <value>د اصلي دوتنې "{1}" په {0} موقعیت کې د لوستلو وړ مګر نه راګرځیدونکی بلاک هم په کاپي "{2}" کې پاتې دی. چکسم په ګوته کوي چې بلاک غلط دی</value>
+  </data>
+  <data name="LogFileName" xml:space="preserve">
+    <value>د فولډر همغږي کولو پروتوکول افغان</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>د کاپي کولو پروسې راپور</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>نه</value>
+  </data>
+  <data name="OperationCanceled" xml:space="preserve">
+    <value>پروسه لغوه شوه</value>
+  </data>
+  <data name="OperationFinished" xml:space="preserve">
+    <value>پروسه پای ته ورسیده</value>
+  </data>
+  <data name="OutOfBadBlocksNotRestoredInCopyBytes" xml:space="preserve">
+    <value>په اصلي فایل کې د {0} خراب بلاکونو څخه، {2} بایټونه په کاپي "{1}" کې ندي ترلاسه شوي.</value>
+  </data>
+  <data name="ProcessNo" xml:space="preserve">
+    <value>№</value>
+  </data>
+  <data name="RecoveringBlockAtOfCopiedFile" xml:space="preserve">
+    <value>د کاپي شوي هدف فایل "{1}" ځای {0} کې بلاک بحال شوی</value>
+  </data>
+  <data name="RecoveringBlockAtOffsetOfFile" xml:space="preserve">
+    <value>د "{1}" دوتنې په {0} موقعیت کې بلاک بیا رغول شوی.</value>
+  </data>
+  <data name="RightToLeft" xml:space="preserve">
+    <value>yes</value>
+  </data>
+  <data name="RunningWithoutRepairOptionUndecided" xml:space="preserve">
+    <value>همغږي د ترمیم انتخاب پرته روانه ده او له همدې امله پریکړه نشي کولی چې ایا "{0}" فایل د "{1}" په کارولو سره بحال شي.</value>
+  </data>
+  <data name="SavedInfoFileCantBeUsedForTesting" xml:space="preserve">
+    <value>د خوندي شوي معلوماتو دوتنه "{0}" د "{1}" دوتنې د ازموینې لپاره نشي کارول کیدی: دا د "{0}" دوتنې د بلې نسخې لپاره رامینځته شوی.</value>
+  </data>
+  <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
+    <value>د خوندي شوي معلوماتو فایل "{0}" فاسد شوی او اړتیا لري چې له "{1}" څخه بیا جوړ شي.</value>
+  </data>
+  <data name="SecondFolderNoDelete" xml:space="preserve">
+    <value>تېروتنه: دوهم فولډر د "{0}" فایل لري. ټاکل شوی فولډر د حذف کولو اختیار لپاره غلط ښکاري. د فولډر او فرعي فولډر پروسس کول پریښودل شوي.</value>
+  </data>
+  <data name="SkippingFilePairDontDelete" xml:space="preserve">
+    <value>د فایل جوړه "{0}" او "{1}" پریښودل شوې. یو ځانګړی فایل په غلط روټ فولډر کې د حذف کولو اختیار کارولو مخه نیسي. </value>
+  </data>
+  <data name="TheFileCantBeModifiedMissingRepairApplyToCopy" xml:space="preserve">
+    <value>د ترمیم اختیار نشتوالی له امله فایل نشي بدلیدلی. د بیا رغونې پروسه په کاپي کې پلي کیږي.</value>
+  </data>
+  <data name="ThereAreBadBlocksInFileNonRestorableParts" xml:space="preserve">
+    <value>په "{1}" دوتنې کې {0} خراب بلاکونه دي، نه راګرځيدونکي برخې: {2} بایټ.</value>
+  </data>
+  <data name="ThereAreBadBlocksInNonRestorableMayRetryLater" xml:space="preserve">
+    <value>په "{1}" دوتنې کې {0} خراب بلاکونه دي، نه راګرځيدونکي برخې: {2} بایټ. پروسه نشي کولی د بیرته راګرځیدو له امله دوام وکړي.  ښايي وروسته بیا هڅه وشي.</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableCantBeBackup" xml:space="preserve">
+    <value>په "{1}" دوتنې کې {0} خراب بلاکونه دي، نه راګرځيدونکي برخې: {2} بایټ. فایل د بیک اپ په توګه نشي کارول کیدی</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableOnlyTested" xml:space="preserve">
+    <value>په "{1}" دوتنې کې {0} خراب بلاکونه دي، نه راګرځيدونکي برخې: {2} بایټ. دوتنه بدله پاتې ده، دا یوازې ازموینه شوې</value>
+  </data>
+  <data name="ThereIsBadBlockInFileNonRestorableParts" xml:space="preserve">
+    <value>په دوتنې "{0}" کې یو خراب بلاک دی، نه راګرځیدونکي برخې: {1} بایټ.</value>
+  </data>
+  <data name="ThereIsBadBlockNonRestorableCantBeBackup" xml:space="preserve">
+    <value>په "{0}" دوتنې کې یو خراب بلاک دی چې نشي بیرته راوړل کیدی: {1} بایټ. فایل د بیک اپ په توګه نشي کارول کیدی </value>
+  </data>
+  <data name="ThereIsOneBadBlockNonRestorableOnlyTested" xml:space="preserve">
+    <value>په دوتنې "{0}" کې یو خراب بلاک دی، نه راګرځیدونکي برخې: {1} بایټ. دوتنه بدله پاتې ده، دا یوازې ازموینه شوې</value>
+  </data>
+  <data name="ThereRemainBadBlocksInBecauseReadOnly" xml:space="preserve">
+    <value>{0} خراب بلاکونه په "{1}" کې پاتې دي ځکه چې فایل نشي بدلیدلی</value>
+  </data>
+  <data name="ThereWasBadBlockInFileNotRestoredParts" xml:space="preserve">
+    <value>په دوتنې "{0}" کې یو خراب بلاک و، نه موندل شوې برخې: {1} بایټ</value>
+  </data>
+  <data name="ThereWasBadBlockNotRestoredInCopyBytes" xml:space="preserve">
+    <value>په اصلي فایل کې یو خراب بلاک و، د کاپي "{0}": {1} بایټس کې ناڅرګندې برخې.</value>
+  </data>
+  <data name="ThereWereBadBlocksInFileNotRestoredParts" xml:space="preserve">
+    <value>په "{1}" دوتنې کې {0} خراب بلاکونه وو، نه موندل شوې برخې: {2} بایټ</value>
+  </data>
+  <data name="ThisIsASimulatedIOErrorAtPosition" xml:space="preserve">
+    <value>دا په ځای {0} کې د I/O سمول شوې تېروتنه ده</value>
+  </data>
+  <data name="WarningChecksumOffsetPrimarySavedInfoIgnored" xml:space="preserve">
+    <value>خبرداری: په {0} موقعیت کې د بلاک چیکسم د زیرمه شوي معلوماتو "{1}" موجود لومړني بلاکونو سره سمون نه لري. د بلاک لپاره لومړني زیرمه شوي معلومات له پامه غورځول شوي</value>
+  </data>
+  <data name="WarningChecksumOffsetSecondarySavedInfoIgnored" xml:space="preserve">
+    <value>خبرداری: په {0} موقعیت کې د بلاک چیک سم د زیرمه شوي معلوماتو "{1}" موجود ثانوي بلاکونو سره سمون نه لري. د بلاک لپاره ثانوي زیرمه شوي معلومات له پامه غورځول شوي</value>
+  </data>
+  <data name="WarningCopiedToWithErrors" xml:space="preserve">
+    <value>خبرداری: "{0}" د تېروتنو {2} سره "{1}" ته کاپي شوی </value>
+  </data>
+  <data name="WarningIOErrorWhileCopyingToReason" xml:space="preserve">
+    <value>خبرداری: د "{0}" دوتنې کاپي کولو په وخت کې د I/O تېروتنه "{1}" ته: {2}</value>
+  </data>
+  <data name="WarningSeveralBlocksDontMatchInSIWillBeIgnored" xml:space="preserve">
+    <value>خبرداری: څو بلاکونه د ذخیره شوي معلوماتو سره سمون نه خوري "{0}". زیرمه شوي معلومات په بشپړه توګه له پامه غورځول شوي</value>
+  </data>
+  <data name="WarningWhileCreating" xml:space="preserve">
+    <value>خبرداری: {0} د دوتنې د جوړولو پر مهال "{1}"</value>
+  </data>
+  <data name="WarningWhileDiscoveringIfNeedsToBeRechecked" xml:space="preserve">
+    <value>خبرداری: {0} په داسې حال کې چې دا معلوموي چې آیا "{1}" بیا کتلو ته اړتیا لري. </value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>هو</value>
+  </data>
+</root>
