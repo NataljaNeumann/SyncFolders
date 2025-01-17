@@ -3,7 +3,7 @@
 
 [English](#en)  
 
-#English
+# English
 <a name="System.Xml.XmlAttribute" />
 
 SyncFolders is an application that aims to help you to keep two folders or drives synchronised.
