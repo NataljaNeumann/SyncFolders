@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BlockOfAtPositionWillBeCopiedFromNoMatterChecksum" xml:space="preserve">
+    <value>Blok souboru „{0}“ na pozici {1} je zkopírován z „{2}“, i když kontrolní součet ukazuje, že blok je nesprávný</value>
+  </data>
+  <data name="BlockOfAtPositionWillBeRestoredFrom" xml:space="preserve">
+    <value>Blok souboru „{0}“ na pozici {1} je obnoven ze stejné pozice jako soubor „{2}“.</value>
+  </data>
+  <data name="BlocksOfAndAtPositionNonRecoverableFillDummy" xml:space="preserve">
+    <value>Bloky souborů „{0}“ a „{1}“ na pozici {2} nelze obnovit a budou vyplněny prázdným blokem</value>
+  </data>
+  <data name="ChecksumOfBlockAtOffsetNotOK" xml:space="preserve">
+    <value>{0}: Kontrolní součet bloku na pozici {1} není v pořádku</value>
+  </data>
+  <data name="CopiedFromToReason" xml:space="preserve">
+    <value>Kopírování dokončeno: „{0}“ do „{1}“ {2}</value>
+  </data>
+  <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
+    <value>Upozornění: Soubor „{0}“ s rokem 1975 nebo starším nelze použít k obnovení souboru „{1}“. Takto staré datum naznačuje, že to byla poslední šance na obnovení souboru „{0}“.</value>
+  </data>
+  <data name="DefaultCulture" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="DeletedFileNotPresentIn" xml:space="preserve">
+    <value>Byl smazán soubor „{0}“, který již v „{1}“ neexistuje.</value>
+  </data>
+  <data name="DeletedFolder" xml:space="preserve">
+    <value>Složka „{0}“ včetně obsahu byla smazána, protože „{1}“ již neexistuje</value>
+  </data>
+  <data name="EncounteredErrorOlderOk" xml:space="preserve">
+    <value>Upozornění: Při kopírování souboru „{0}“ došlo k I/O chybě. Starší soubor „{1}“ se zdá být v pořádku</value>
+  </data>
+  <data name="EncounteredErrorOtherBadToo" xml:space="preserve">
+    <value>Upozornění: Při kopírování souboru „{0}“ došlo k I/O chybě. Další soubor „{1}“ také obsahuje chyby nebo je produktem obnovení poslední šance. Pokus o automatickou opravu „{0}“.</value>
+  </data>
+  <data name="EncounteredErrorWhileCopyingTryingToRepair" xml:space="preserve">
+    <value>Upozornění: Při kopírování souboru „{0}“ došlo k chybě. Snažím se opravit chybu.</value>
+  </data>
+  <data name="ErrorDeleting" xml:space="preserve">
+    <value>Chyba při mazání souboru „{0}“: {1}</value>
+  </data>
+  <data name="ErrorProcessinngFilePair" xml:space="preserve">
+    <value>Chyba při zpracování dvojice souborů „{0}“ a „{1}“: {2}</value>
+  </data>
+  <data name="ErrorReadingPositionWillFillWithDummy" xml:space="preserve">
+    <value>Chyba při čtení souboru „{0}“ na pozici {1}: {2}. Blok je vyplněn nulami</value>
+  </data>
+  <data name="ErrorWhileTestingFile" xml:space="preserve">
+    <value>Chyba při testování souboru „{0}“</value>
+  </data>
+  <data name="FileCopied" xml:space="preserve">
+    <value>Kopírování dokončeno: „{0}“ do „{1}“ {2}</value>
+  </data>
+  <data name="FileHasDifferentTime" xml:space="preserve">
+    <value>(Soubor má jiné datum nebo délku)</value>
+  </data>
+  <data name="FileHasZeroLength" xml:space="preserve">
+    <value>Upozornění: Soubor má nulovou délku, což naznačuje neúspěšnou operaci kopírování v minulosti: „{0}“</value>
+  </data>
+  <data name="FileHealthyOrRepaired" xml:space="preserve">
+    <value>(Soubor byl bez chyb nebo opraven)</value>
+  </data>
+  <data name="FilesHaveZeroLength" xml:space="preserve">
+    <value>Upozornění: Oba soubory mají nulovou délku, což znamená, že se v minulosti nezdařila operace kopírování: „{0}“ a „{1}“ </value>
+  </data>
+  <data name="FileWasHealthy" xml:space="preserve">
+    <value>(Soubor byl bez chyb)</value>
+  </data>
+  <data name="FileWasNew" xml:space="preserve">
+    <value>(Soubor byl nový)</value>
+  </data>
+  <data name="FileWasNewer" xml:space="preserve">
+    <value>(Soubor byl novější nebo větší)</value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetOfCopyWithDummy" xml:space="preserve">
+    <value>Neobnovitelný blok na pozici {0} zkopírovaného souboru „{1}“ je vyplněn nulami</value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetWithDummy" xml:space="preserve">
+    <value>Neobnovitelný blok na pozici {0} je vyplněn nulami</value>
+  </data>
+  <data name="FirstFileHasBadBlocks" xml:space="preserve">
+    <value>Upozornění: První soubor „{0}“ obsahuje chybné bloky. Přepisování souboru „{1}“ bylo přeskočeno a byl ponechán jako záloha</value>
+  </data>
+  <data name="FoundFileForSync" xml:space="preserve">
+    <value>Nalezen soubor pro možnou synchronizaci</value>
+  </data>
+  <data name="FoundFilesForSync" xml:space="preserve">
+    <value>Počet nalezených souborů pro možnou synchronizaci: {0}</value>
+  </data>
+  <data name="InternalErrorCouldntRestoreAny" xml:space="preserve">
+    <value>Interní chyba: Kopii souborů, ani „{0}“ ani „{1}“, nelze obnovit </value>
+  </data>
+  <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
+    <value>Chyba I/O při opravě kopie do souboru: „{0}“: {1}</value>
+  </data>
+  <data name="IOErrorReadingFile" xml:space="preserve">
+    <value>Chyba I/O při čtení souboru „{0}“: {1}</value>
+  </data>
+  <data name="IOErrorReadingFileOffset" xml:space="preserve">
+    <value>Chyba I/O při čtení souboru: „{0}“ na pozici {1}: {2}</value>
+  </data>
+  <data name="IOErrorWhileReadingPositionFillDummyWhileCopy" xml:space="preserve">
+    <value>Chyba I/O při čtení souboru „{0}“ v umístění {1}: {2}. Blok je při kopírování nahrazen prázdným blokem.</value>
+  </data>
+  <data name="IOErrorWritingFile" xml:space="preserve">
+    <value>Chyba I/O při zápisu souboru „{0}“: {1}</value>
+  </data>
+  <data name="KeepingReadableButNotRecoverableBlockAtOffset" xml:space="preserve">
+    <value>Čitelný, ale neobnovitelný blok na pozici {0} zůstává. Kontrolní součet označuje, že blok je nesprávný</value>
+  </data>
+  <data name="KeepingReadableNonRecovBBlockAtAlsoInCopy" xml:space="preserve">
+    <value>Čitelný, ale neobnovitelný blok na pozici {0} původního souboru „{1}“ také zůstává v kopii „{2}“. Kontrolní součet označuje, že blok je nesprávný</value>
+  </data>
+  <data name="LogFileName" xml:space="preserve">
+    <value>Protokol synchronizace složek Česky</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Zpráva o procesu kopírování</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>žádný</value>
+  </data>
+  <data name="OperationCanceled" xml:space="preserve">
+    <value>Proces přerušen</value>
+  </data>
+  <data name="OperationFinished" xml:space="preserve">
+    <value>Proces ukončen</value>
+  </data>
+  <data name="OutOfBadBlocksNotRestoredInCopyBytes" xml:space="preserve">
+    <value>Z {0} chybných bloků v původním souboru nebylo v kopii „{1}“ obnoveno {2} bajtů.</value>
+  </data>
+  <data name="ProcessNo" xml:space="preserve">
+    <value>№</value>
+  </data>
+  <data name="RecoveringBlockAtOfCopiedFile" xml:space="preserve">
+    <value>Blok na pozici {0} zkopírovaného cílového souboru „{1}“ je obnoven</value>
+  </data>
+  <data name="RecoveringBlockAtOffsetOfFile" xml:space="preserve">
+    <value>Blok na pozici {0} souboru „{1}“ je obnoven.</value>
+  </data>
+  <data name="RightToLeft" xml:space="preserve">
+    <value>no</value>
+  </data>
+  <data name="RunningWithoutRepairOptionUndecided" xml:space="preserve">
+    <value>Synchronizace běží bez možnosti opravy, a proto nemůže rozhodnout, zda lze soubor „{0}“ obnovit pomocí „{1}“.</value>
+  </data>
+  <data name="SavedInfoFileCantBeUsedForTesting" xml:space="preserve">
+    <value>Uložený informační soubor „{0}“ nelze použít k testování souboru „{1}“: byl vytvořen pro jinou verzi souboru „{0}“.</value>
+  </data>
+  <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
+    <value>Uložený informační soubor „{0}“ byl poškozen a je třeba jej znovu vytvořit z „{1}“.</value>
+  </data>
+  <data name="SecondFolderNoDelete" xml:space="preserve">
+    <value>Chyba: Druhá složka obsahuje soubor „{0}“. Vybraná složka se zdá být nesprávná pro možnost odstranění. Zpracování složky a podsložek je přeskočeno.</value>
+  </data>
+  <data name="SkippingFilePairDontDelete" xml:space="preserve">
+    <value>Dvojice souborů „{0}“ a „{1}“ je přeskočena. Speciální soubor zabraňuje použití možnosti odstranění v nesprávné kořenové složce. </value>
+  </data>
+  <data name="TheFileCantBeModifiedMissingRepairApplyToCopy" xml:space="preserve">
+    <value>Soubor nelze upravit kvůli chybějící možnosti opravy. Proces obnovy se použije na kopii.</value>
+  </data>
+  <data name="ThereAreBadBlocksInFileNonRestorableParts" xml:space="preserve">
+    <value>V souboru „{1}“ je {0} chybných bloků, neopravitelné části: {2} bajtů.</value>
+  </data>
+  <data name="ThereAreBadBlocksInNonRestorableMayRetryLater" xml:space="preserve">
+    <value>V souboru „{1}“ je {0} chybných bloků, neopravitelné části: {2} bajtů. Proces nemůže pokračovat kvůli neobnovitelnosti.  Můžete to zkusit znovu později.</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableCantBeBackup" xml:space="preserve">
+    <value>V souboru „{1}“ je {0} chybných bloků, neopravitelné části: {2} bajtů. Soubor nelze použít jako zálohu</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableOnlyTested" xml:space="preserve">
+    <value>V souboru „{1}“ je {0} chybných bloků, neopravitelné části: {2} bajtů. Soubor zůstává nezměněn, byl pouze testován</value>
+  </data>
+  <data name="ThereIsBadBlockInFileNonRestorableParts" xml:space="preserve">
+    <value>V souboru „{0}“ je chybný blok, neopravitelné části: {1} bajtů.</value>
+  </data>
+  <data name="ThereIsBadBlockNonRestorableCantBeBackup" xml:space="preserve">
+    <value>V souboru „{0}“ je chybný blok, který nelze obnovit: {1} bajtů. Soubor nelze použít jako zálohu </value>
+  </data>
+  <data name="ThereIsOneBadBlockNonRestorableOnlyTested" xml:space="preserve">
+    <value>V souboru „{0}“ je chybný blok, neopravitelné části: {1} bajtů. Soubor zůstává nezměněn, byl pouze testován</value>
+  </data>
+  <data name="ThereRemainBadBlocksInBecauseReadOnly" xml:space="preserve">
+    <value>V „{1}“ zůstalo {0} špatných bloků, protože soubor nelze upravit</value>
+  </data>
+  <data name="ThereWasBadBlockInFileNotRestoredParts" xml:space="preserve">
+    <value>V souboru „{0}“ byl chybný blok, neobnovené části: {1} bajtů</value>
+  </data>
+  <data name="ThereWasBadBlockNotRestoredInCopyBytes" xml:space="preserve">
+    <value>V původním souboru byl chybný blok, neobnovené části v kopii „{0}“: {1} bajtů.</value>
+  </data>
+  <data name="ThereWereBadBlocksInFileNotRestoredParts" xml:space="preserve">
+    <value>V souboru „{1}“ byly chybné bloky (celkem {0}), neobnovené části: {2} bajtů</value>
+  </data>
+  <data name="ThisIsASimulatedIOErrorAtPosition" xml:space="preserve">
+    <value>Toto je simulovaná chyba I/O v umístění {0}</value>
+  </data>
+  <data name="WarningChecksumOffsetPrimarySavedInfoIgnored" xml:space="preserve">
+    <value>Upozornění: Kontrolní součet bloku na pozici {0} neodpovídá dostupným primárním blokům uložených informací „{1}“. Primárně uložené informace pro blok jsou ignorovány</value>
+  </data>
+  <data name="WarningChecksumOffsetSecondarySavedInfoIgnored" xml:space="preserve">
+    <value>Upozornění: Kontrolní součet bloku na pozici {0} neodpovídá dostupným sekundárním blokům uložených informací „{1}“. Sekundární uložené informace pro blok jsou ignorovány</value>
+  </data>
+  <data name="WarningCopiedToWithErrors" xml:space="preserve">
+    <value>Upozornění: „{0}“ bylo zkopírováno do „{1}“ s chybami {2} </value>
+  </data>
+  <data name="WarningIOErrorWhileCopyingToReason" xml:space="preserve">
+    <value>Upozornění: Chyba I/O při kopírování souboru „{0}“ do „{1}“: {2}</value>
+  </data>
+  <data name="WarningSeveralBlocksDontMatchInSIWillBeIgnored" xml:space="preserve">
+    <value>Upozornění: Více bloků neodpovídá uloženým informacím „{0}“. Uložené informace jsou zcela ignorovány</value>
+  </data>
+  <data name="WarningWhileCreating" xml:space="preserve">
+    <value>Upozornění: {0} při vytváření souboru „{1}“</value>
+  </data>
+  <data name="WarningWhileDiscoveringIfNeedsToBeRechecked" xml:space="preserve">
+    <value>Upozornění: {0} při určování, zda je třeba znovu zkontrolovat „{1}“. </value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Ano</value>
+  </data>
+</root>

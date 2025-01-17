@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BlockOfAtPositionWillBeCopiedFromNoMatterChecksum" xml:space="preserve">
+    <value>A(z) „{0}” fájl blokkja a(z) {1}. pozícióban a(z) „{2}” mappából másolva akkor is, ha az ellenőrző összeg azt mutatja, hogy a blokk helytelen</value>
+  </data>
+  <data name="BlockOfAtPositionWillBeRestoredFrom" xml:space="preserve">
+    <value>A(z) „{0}” fájl blokkja a(z) {1}. helyen visszaállt a(z) „{2}” fájl azonos pozíciójából.</value>
+  </data>
+  <data name="BlocksOfAndAtPositionNonRecoverableFillDummy" xml:space="preserve">
+    <value>A(z) „{0}” és „{1}” fájlok blokkjai a(z) {2} helyen nem állíthatók vissza, és üres blokkkal lesznek kitöltve</value>
+  </data>
+  <data name="ChecksumOfBlockAtOffsetNotOK" xml:space="preserve">
+    <value>{0}: A blokk ellenőrző összege a(z) {1} pozícióban nem megfelelő</value>
+  </data>
+  <data name="CopiedFromToReason" xml:space="preserve">
+    <value>Másolás kész: „{0}” ide: „{1}” {2}</value>
+  </data>
+  <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
+    <value>Figyelmeztetés: Az 1975-ös vagy korábbi évszámú „{0}” fájl nem használható a „{1}” fájl visszaállítására. Egy ilyen régi dátum azt jelzi, hogy ez volt az utolsó lehetőség a(z) „{0}” fájl helyreállítására.</value>
+  </data>
+  <data name="DefaultCulture" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="DeletedFileNotPresentIn" xml:space="preserve">
+    <value>A(z) „{0}” fájl törölve, amely már nem létezik a(z) „{1}” mappában.</value>
+  </data>
+  <data name="DeletedFolder" xml:space="preserve">
+    <value>A(z) „{0}” mappa tartalma törölve, mert a(z) „{1}” már nem létezik</value>
+  </data>
+  <data name="EncounteredErrorOlderOk" xml:space="preserve">
+    <value>Figyelmeztetés: I/O hiba történt a(z) „{0}” fájl másolása közben. A régebbi „{1}” fájl megfelelőnek tűnik</value>
+  </data>
+  <data name="EncounteredErrorOtherBadToo" xml:space="preserve">
+    <value>Figyelmeztetés: I/O hiba történt a(z) „{0}” fájl másolása közben. A(z) „{1}” másik fájl is tartalmaz hibákat, vagy az utolsó lehetőség helyreállításának terméke. „{0}” automatikus javításának kísérlete.</value>
+  </data>
+  <data name="EncounteredErrorWhileCopyingTryingToRepair" xml:space="preserve">
+    <value>Figyelmeztetés: Hiba történt a(z) „{0}” fájl másolása közben. Megpróbálom kijavítani a hibát.</value>
+  </data>
+  <data name="ErrorDeleting" xml:space="preserve">
+    <value>Hiba a(z) „{0}” fájl törlésekor: {1}</value>
+  </data>
+  <data name="ErrorProcessinngFilePair" xml:space="preserve">
+    <value>Hiba a(z) „{0}” és „{1}” fájlpár feldolgozása közben: {2}</value>
+  </data>
+  <data name="ErrorReadingPositionWillFillWithDummy" xml:space="preserve">
+    <value>Hiba a(z) „{0}” fájl olvasásakor a(z) {1} pozícióban: {2}. A blokk nullákkal van feltöltve</value>
+  </data>
+  <data name="ErrorWhileTestingFile" xml:space="preserve">
+    <value>Hiba a(z) „{0}” fájl tesztelésekor</value>
+  </data>
+  <data name="FileCopied" xml:space="preserve">
+    <value>Másolás kész: „{0}” ide: „{1}” {2}</value>
+  </data>
+  <data name="FileHasDifferentTime" xml:space="preserve">
+    <value>(A fájl dátuma vagy hossza eltérő)</value>
+  </data>
+  <data name="FileHasZeroLength" xml:space="preserve">
+    <value>Figyelmeztetés: A fájl hossza nulla, ami egy sikertelen másolási műveletet jelez a múltban: „{0}”</value>
+  </data>
+  <data name="FileHealthyOrRepaired" xml:space="preserve">
+    <value>(A fájl hibamentes volt vagy javítva)</value>
+  </data>
+  <data name="FilesHaveZeroLength" xml:space="preserve">
+    <value>Figyelmeztetés: Mindkét fájl nulla hosszú, ami egy sikertelen másolási műveletet jelez a múltban: „{0}” és „{1}” </value>
+  </data>
+  <data name="FileWasHealthy" xml:space="preserve">
+    <value>(A fájl hibamentes volt)</value>
+  </data>
+  <data name="FileWasNew" xml:space="preserve">
+    <value>(a fájl új volt)</value>
+  </data>
+  <data name="FileWasNewer" xml:space="preserve">
+    <value>(A fájl újabb vagy nagyobb volt)</value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetOfCopyWithDummy" xml:space="preserve">
+    <value>A(z) „{1}” másolt fájl {0}. pozíciójában lévő helyreállíthatatlan blokk nullákkal van kitöltve</value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetWithDummy" xml:space="preserve">
+    <value>A(z) {0} pozícióban lévő helyreállíthatatlan blokk nullákkal van kitöltve</value>
+  </data>
+  <data name="FirstFileHasBadBlocks" xml:space="preserve">
+    <value>Figyelmeztetés: Az első fájl „{0}” hibás blokkokat tartalmaz. A(z) „{1}” fájl felülírása kimaradt, így biztonsági másolatként maradt meg</value>
+  </data>
+  <data name="FoundFileForSync" xml:space="preserve">
+    <value>Talált egy fájlt a lehetséges szinkronizáláshoz</value>
+  </data>
+  <data name="FoundFilesForSync" xml:space="preserve">
+    <value>{0} fájl található lehetséges szinkronizáláshoz</value>
+  </data>
+  <data name="InternalErrorCouldntRestoreAny" xml:space="preserve">
+    <value>Belső hiba: A fájlok másolatát (sem „{0}”, sem „{1}”) nem sikerült visszaállítani </value>
+  </data>
+  <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
+    <value>I/O hiba a következő fájlba másolás javítása közben: „{0}”: {1}</value>
+  </data>
+  <data name="IOErrorReadingFile" xml:space="preserve">
+    <value>I/O hiba a(z) „{0}” fájl olvasásakor: {1}</value>
+  </data>
+  <data name="IOErrorReadingFileOffset" xml:space="preserve">
+    <value>I/O hiba a fájl olvasásakor: „{0}” a(z) {1}. pozícióban: {2}</value>
+  </data>
+  <data name="IOErrorWhileReadingPositionFillDummyWhileCopy" xml:space="preserve">
+    <value>I/O hiba a(z) „{0}” fájl olvasásakor a(z) {1} helyen: {2}. Másoláskor a blokk helyébe üres blokk lép.</value>
+  </data>
+  <data name="IOErrorWritingFile" xml:space="preserve">
+    <value>I/O hiba a(z) „{0}” fájl írásakor: {1}</value>
+  </data>
+  <data name="KeepingReadableButNotRecoverableBlockAtOffset" xml:space="preserve">
+    <value>Az olvasható, de visszaállíthatatlan blokk a(z) {0} pozícióban megmarad. Az ellenőrző összeg azt jelzi, hogy a blokk helytelen</value>
+  </data>
+  <data name="KeepingReadableNonRecovBBlockAtAlsoInCopy" xml:space="preserve">
+    <value>A(z) „{1}” eredeti fájl {0}. pozíciójában található olvasható, de visszaállíthatatlan blokk szintén a „{2}” másolatban marad. Az ellenőrző összeg azt jelzi, hogy a blokk helytelen</value>
+  </data>
+  <data name="LogFileName" xml:space="preserve">
+    <value>Mappa szinkronizálási protokoll magyar nyelven</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Jelentés a másolási folyamatról</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>nem</value>
+  </data>
+  <data name="OperationCanceled" xml:space="preserve">
+    <value>A folyamat megszakítva</value>
+  </data>
+  <data name="OperationFinished" xml:space="preserve">
+    <value>A folyamat befejeződött</value>
+  </data>
+  <data name="OutOfBadBlocksNotRestoredInCopyBytes" xml:space="preserve">
+    <value>Az eredeti fájl {0} hibás blokkjából {2} bájt nem lett visszaállítva a(z) „{1}” másolatban.</value>
+  </data>
+  <data name="ProcessNo" xml:space="preserve">
+    <value>№</value>
+  </data>
+  <data name="RecoveringBlockAtOfCopiedFile" xml:space="preserve">
+    <value>A(z) „{1}” másolt célfájl {0}. pozíciójában lévő blokkolt visszaállításra kerül</value>
+  </data>
+  <data name="RecoveringBlockAtOffsetOfFile" xml:space="preserve">
+    <value>A(z) „{1}” fájl {0}. pozíciójában lévő blokk visszaállításra került.</value>
+  </data>
+  <data name="RightToLeft" xml:space="preserve">
+    <value>no</value>
+  </data>
+  <data name="RunningWithoutRepairOptionUndecided" xml:space="preserve">
+    <value>A szinkronizálás javítási lehetőség nélkül fut, ezért nem tudta eldönteni, hogy a(z) „{0}” fájl visszaállítható-e a(z) „{1}” használatával.</value>
+  </data>
+  <data name="SavedInfoFileCantBeUsedForTesting" xml:space="preserve">
+    <value>A mentett „{0}” információs fájl nem használható a „{1}” fájl tesztelésére: a „{0}” fájl egy másik verziójához készült.</value>
+  </data>
+  <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
+    <value>A(z) „{0}” elmentett információs fájl sérült, ezért újra létre kell hozni a(z) „{1}” helyről.</value>
+  </data>
+  <data name="SecondFolderNoDelete" xml:space="preserve">
+    <value>Hiba: A második mappa a „{0}” fájlt tartalmazza. Úgy tűnik, hogy a kiválasztott mappa nem megfelelő a törlési opcióhoz. A mappa és az almappák feldolgozása kimarad.</value>
+  </data>
+  <data name="SkippingFilePairDontDelete" xml:space="preserve">
+    <value>A(z) „{0}” és „{1}” fájlpár kimaradt. Egy speciális fájl megakadályozza a törlés opció használatát a rossz gyökérmappában. </value>
+  </data>
+  <data name="TheFileCantBeModifiedMissingRepairApplyToCopy" xml:space="preserve">
+    <value>A fájl javítási lehetőség hiánya miatt nem módosítható. A helyreállítási folyamat a másolatra vonatkozik.</value>
+  </data>
+  <data name="ThereAreBadBlocksInFileNonRestorableParts" xml:space="preserve">
+    <value>{0} hibás blokk található a(z) „{1}” fájlban, helyreállíthatatlan részek: {2} bájt.</value>
+  </data>
+  <data name="ThereAreBadBlocksInNonRestorableMayRetryLater" xml:space="preserve">
+    <value>{0} hibás blokk található a(z) „{1}” fájlban, helyreállíthatatlan részek: {2} bájt. A folyamat a helyreállíthatatlanság miatt nem folytatódhat.  Később újra lehet próbálkozni.</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableCantBeBackup" xml:space="preserve">
+    <value>{0} hibás blokk található a(z) „{1}” fájlban, helyreállíthatatlan részek: {2} bájt. A fájl nem használható biztonsági másolatként</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableOnlyTested" xml:space="preserve">
+    <value>{0} hibás blokk található a(z) „{1}” fájlban, helyreállíthatatlan részek: {2} bájt. A fájl változatlan, csak tesztelve volt</value>
+  </data>
+  <data name="ThereIsBadBlockInFileNonRestorableParts" xml:space="preserve">
+    <value>Hibás blokk található a(z) „{0}” fájlban, helyreállíthatatlan részek: {1} bájt.</value>
+  </data>
+  <data name="ThereIsBadBlockNonRestorableCantBeBackup" xml:space="preserve">
+    <value>Hibás blokk található a(z) „{0}” fájlban, amelyet nem lehet visszaállítani: {1} bájt. A fájl nem használható biztonsági másolatként </value>
+  </data>
+  <data name="ThereIsOneBadBlockNonRestorableOnlyTested" xml:space="preserve">
+    <value>Hibás blokk található a(z) „{0}” fájlban, helyreállíthatatlan részek: {1} bájt. A fájl változatlan marad, csak tesztelték</value>
+  </data>
+  <data name="ThereRemainBadBlocksInBecauseReadOnly" xml:space="preserve">
+    <value>{0} hibás blokk marad a(z) „{1}” mappában, mert a fájl nem módosítható</value>
+  </data>
+  <data name="ThereWasBadBlockInFileNotRestoredParts" xml:space="preserve">
+    <value>Hibás blokk lépett fel a(z) „{0}” fájlban, helyreállítatlan részek: {1} bájt</value>
+  </data>
+  <data name="ThereWasBadBlockNotRestoredInCopyBytes" xml:space="preserve">
+    <value>Hibás blokk volt az eredeti fájlban, a(z) „{0}” másolatban vissza nem állított részek: {1} bájt.</value>
+  </data>
+  <data name="ThereWereBadBlocksInFileNotRestoredParts" xml:space="preserve">
+    <value>{0} hibás blokk található a(z) „{1}” fájlban, helyreállítatlan részek: {2} bájt</value>
+  </data>
+  <data name="ThisIsASimulatedIOErrorAtPosition" xml:space="preserve">
+    <value>Ez egy szimulált I/O hiba a következő helyen: {0}</value>
+  </data>
+  <data name="WarningChecksumOffsetPrimarySavedInfoIgnored" xml:space="preserve">
+    <value>Figyelmeztetés: A(z) {0}. pozícióban lévő blokk ellenőrző összege nem egyezik a(z) „{1}” tárolt információ elérhető elsődleges blokkjaival. A blokk elsődleges tárolt információit figyelmen kívül hagyja</value>
+  </data>
+  <data name="WarningChecksumOffsetSecondarySavedInfoIgnored" xml:space="preserve">
+    <value>Figyelmeztetés: A(z) {0} pozícióban lévő blokk ellenőrző összege nem egyezik a „{1}” tárolt információ elérhető másodlagos blokkjaival. A blokk másodlagos tárolt információi figyelmen kívül maradnak</value>
+  </data>
+  <data name="WarningCopiedToWithErrors" xml:space="preserve">
+    <value>Figyelmeztetés: A(z) „{0}” a(z) „{1}” mappába másolva {2} hibákkal </value>
+  </data>
+  <data name="WarningIOErrorWhileCopyingToReason" xml:space="preserve">
+    <value>Figyelmeztetés: I/O hiba a(z) „{0}” fájl „{1}” mappába másolása közben: {2}</value>
+  </data>
+  <data name="WarningSeveralBlocksDontMatchInSIWillBeIgnored" xml:space="preserve">
+    <value>Figyelmeztetés: A több blokk nem egyezik a „{0}” tárolt információval. A tárolt információkat teljesen figyelmen kívül hagyja</value>
+  </data>
+  <data name="WarningWhileCreating" xml:space="preserve">
+    <value>Figyelmeztetés: {0} a(z) „{1}” fájl létrehozásakor</value>
+  </data>
+  <data name="WarningWhileDiscoveringIfNeedsToBeRechecked" xml:space="preserve">
+    <value>Figyelmeztetés: {0} annak meghatározása közben, hogy a(z) „{1}” elemet újra ellenőrizni kell-e. </value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Igen</value>
+  </data>
+</root>
