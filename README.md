@@ -4,7 +4,7 @@
 [English](#en)  
 
 # English
-<a name="System.Xml.XmlAttribute" />
+<a name="en"></a>
 
 SyncFolders is an application that aims to help you to keep two folders or drives synchronised.
 With default settings this apllication creates hidden files, about 1% of the size of original files, that allow
