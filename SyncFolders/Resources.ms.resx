@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BlockOfAtPositionWillBeCopiedFromNoMatterChecksum" xml:space="preserve">
+    <value>Blok fail “{0}” pada kedudukan {1} disalin daripada “{2}” walaupun jika jumlah semak menunjukkan bahawa blok itu tidak betul</value>
+  </data>
+  <data name="BlockOfAtPositionWillBeRestoredFrom" xml:space="preserve">
+    <value>Sekatan fail “{0}” pada kedudukan {1} dipulihkan daripada kedudukan fail yang sama “{2}”.</value>
+  </data>
+  <data name="BlocksOfAndAtPositionNonRecoverableFillDummy" xml:space="preserve">
+    <value>Blok fail “{0}” dan “{1}” pada kedudukan {2} tidak boleh dipulihkan dan akan diisi dengan blok kosong</value>
+  </data>
+  <data name="ChecksumOfBlockAtOffsetNotOK" xml:space="preserve">
+    <value>{0}: Jumlah semak blok pada kedudukan {1} tidak OK</value>
+  </data>
+  <data name="CopiedFromToReason" xml:space="preserve">
+    <value>Salinan selesai: “{0}” kepada “{1}” {2}</value>
+  </data>
+  <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
+    <value>Amaran: Fail “{0}” dengan tahun 1975 atau lebih awal tidak boleh digunakan untuk memulihkan fail “{1}”. Tarikh lama sedemikian menunjukkan bahawa ia adalah peluang terakhir untuk memulihkan fail “{0}”.</value>
+  </data>
+  <data name="DefaultCulture" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="DeletedFileNotPresentIn" xml:space="preserve">
+    <value>Memadamkan fail “{0}” yang tidak lagi wujud dalam “{1}”.</value>
+  </data>
+  <data name="DeletedFolder" xml:space="preserve">
+    <value>Folder “{0}” termasuk kandungan dipadamkan kerana “{1}” tidak lagi wujud</value>
+  </data>
+  <data name="EncounteredErrorOlderOk" xml:space="preserve">
+    <value>Amaran: Ralat I/O berlaku semasa menyalin fail “{0}”. Fail lama “{1}” nampaknya baik</value>
+  </data>
+  <data name="EncounteredErrorOtherBadToo" xml:space="preserve">
+    <value>Amaran: Ralat I/O berlaku semasa menyalin fail “{0}”. Fail lain “{1}” juga mempunyai ralat atau merupakan produk pemulihan peluang terakhir. Cuba untuk membaiki “{0}” secara automatik.</value>
+  </data>
+  <data name="EncounteredErrorWhileCopyingTryingToRepair" xml:space="preserve">
+    <value>Amaran: Ralat berlaku semasa menyalin fail “{0}”. Saya cuba membetulkan ralat.</value>
+  </data>
+  <data name="ErrorDeleting" xml:space="preserve">
+    <value>Ralat semasa memadam fail “{0}”: {1}</value>
+  </data>
+  <data name="ErrorProcessinngFilePair" xml:space="preserve">
+    <value>Ralat memproses pasangan fail “{0}” dan “{1}”: {2}</value>
+  </data>
+  <data name="ErrorReadingPositionWillFillWithDummy" xml:space="preserve">
+    <value>Ralat membaca fail “{0}” pada kedudukan {1}: {2}. Blok diisi dengan sifar</value>
+  </data>
+  <data name="ErrorWhileTestingFile" xml:space="preserve">
+    <value>Ralat menguji fail “{0}”</value>
+  </data>
+  <data name="FileCopied" xml:space="preserve">
+    <value>Salinan selesai: “{0}” kepada “{1}” {2}</value>
+  </data>
+  <data name="FileHasDifferentTime" xml:space="preserve">
+    <value>(Fail mempunyai tarikh atau panjang yang berbeza)</value>
+  </data>
+  <data name="FileHasZeroLength" xml:space="preserve">
+    <value>Amaran: Panjang fail sifar, menunjukkan operasi penyalinan yang gagal pada masa lalu: “{0}”</value>
+  </data>
+  <data name="FileHealthyOrRepaired" xml:space="preserve">
+    <value>(Fail bebas ralat atau dibaiki)</value>
+  </data>
+  <data name="FilesHaveZeroLength" xml:space="preserve">
+    <value>Amaran: Kedua-dua fail adalah panjang sifar, menunjukkan operasi penyalinan yang gagal pada masa lalu: “{0}” dan “{1}” </value>
+  </data>
+  <data name="FileWasHealthy" xml:space="preserve">
+    <value>(Fail adalah bebas ralat)</value>
+  </data>
+  <data name="FileWasNew" xml:space="preserve">
+    <value>(fail baru)</value>
+  </data>
+  <data name="FileWasNewer" xml:space="preserve">
+    <value>(Fail lebih baharu atau lebih besar)</value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetOfCopyWithDummy" xml:space="preserve">
+    <value>Blok yang tidak boleh dipulihkan pada kedudukan {0} fail “{1}” yang disalin diisi dengan sifar</value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetWithDummy" xml:space="preserve">
+    <value>Blok yang tidak boleh dipulihkan pada kedudukan {0} diisi dengan sifar</value>
+  </data>
+  <data name="FirstFileHasBadBlocks" xml:space="preserve">
+    <value>Amaran: Fail pertama “{0}” mempunyai blok buruk. Menimpa fail “{1}” telah dilangkau, meninggalkannya sebagai sandaran</value>
+  </data>
+  <data name="FoundFileForSync" xml:space="preserve">
+    <value>Menemui fail untuk kemungkinan penyegerakan</value>
+  </data>
+  <data name="FoundFilesForSync" xml:space="preserve">
+    <value>{0} fail ditemui untuk kemungkinan penyegerakan</value>
+  </data>
+  <data name="InternalErrorCouldntRestoreAny" xml:space="preserve">
+    <value>Ralat dalaman: Salinan fail, “{0}” atau “{1}”, tidak boleh dipulihkan </value>
+  </data>
+  <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
+    <value>Ralat I/O semasa membaiki salinan ke fail: “{0}”: {1}</value>
+  </data>
+  <data name="IOErrorReadingFile" xml:space="preserve">
+    <value>Ralat I/O membaca fail “{0}”: {1}</value>
+  </data>
+  <data name="IOErrorReadingFileOffset" xml:space="preserve">
+    <value>Ralat membaca fail I/O: “{0}” pada kedudukan {1}: {2}</value>
+  </data>
+  <data name="IOErrorWhileReadingPositionFillDummyWhileCopy" xml:space="preserve">
+    <value>Ralat I/O membaca fail “{0}” di lokasi {1}: {2}. Blok digantikan dengan blok kosong apabila disalin.</value>
+  </data>
+  <data name="IOErrorWritingFile" xml:space="preserve">
+    <value>Fail penulisan ralat I/O “{0}”: {1}</value>
+  </data>
+  <data name="KeepingReadableButNotRecoverableBlockAtOffset" xml:space="preserve">
+    <value>Blok yang boleh dibaca tetapi tidak boleh dipulihkan pada kedudukan {0} kekal. Jumlah semak menunjukkan bahawa blok itu tidak betul</value>
+  </data>
+  <data name="KeepingReadableNonRecovBBlockAtAlsoInCopy" xml:space="preserve">
+    <value>Blok yang boleh dibaca tetapi tidak boleh dipulihkan pada kedudukan {0} fail asal “{1}” juga kekal dalam salinan “{2}”. Jumlah semak menunjukkan bahawa blok itu tidak betul</value>
+  </data>
+  <data name="LogFileName" xml:space="preserve">
+    <value>Protokol penyegerakan folder dalam bahasa Melayu</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Laporan proses penyalinan</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>tidak</value>
+  </data>
+  <data name="OperationCanceled" xml:space="preserve">
+    <value>Proses dibatalkan</value>
+  </data>
+  <data name="OperationFinished" xml:space="preserve">
+    <value>Proses tamat</value>
+  </data>
+  <data name="OutOfBadBlocksNotRestoredInCopyBytes" xml:space="preserve">
+    <value>Daripada {0} blok buruk dalam fail asal, {2} bait tidak dipulihkan dalam salinan “{1}”.</value>
+  </data>
+  <data name="ProcessNo" xml:space="preserve">
+    <value>№</value>
+  </data>
+  <data name="RecoveringBlockAtOfCopiedFile" xml:space="preserve">
+    <value>Sekat pada kedudukan {0} fail sasaran yang disalin “{1}” dipulihkan</value>
+  </data>
+  <data name="RecoveringBlockAtOffsetOfFile" xml:space="preserve">
+    <value>Sekat pada kedudukan {0} fail “{1}” dipulihkan.</value>
+  </data>
+  <data name="RightToLeft" xml:space="preserve">
+    <value>no</value>
+  </data>
+  <data name="RunningWithoutRepairOptionUndecided" xml:space="preserve">
+    <value>Penyegerakan berjalan tanpa pilihan pembaikan dan oleh itu tidak dapat memutuskan sama ada fail “{0}” boleh dipulihkan menggunakan “{1}”.</value>
+  </data>
+  <data name="SavedInfoFileCantBeUsedForTesting" xml:space="preserve">
+    <value>Fail maklumat yang disimpan “{0}” tidak boleh digunakan untuk menguji fail “{1}”: ia dicipta untuk versi fail “{0}” yang berbeza.</value>
+  </data>
+  <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
+    <value>Fail maklumat yang disimpan “{0}” telah rosak dan perlu dicipta semula daripada “{1}”.</value>
+  </data>
+  <data name="SecondFolderNoDelete" xml:space="preserve">
+    <value>Ralat: Folder kedua mengandungi fail “{0}”. Folder yang dipilih nampaknya tidak betul untuk pilihan padam. Pemprosesan folder dan subfolder dilangkau.</value>
+  </data>
+  <data name="SkippingFilePairDontDelete" xml:space="preserve">
+    <value>Pasangan fail “{0}” dan “{1}” dilangkau. Fail khas menghalang penggunaan pilihan padam dalam folder akar yang salah.</value>
+  </data>
+  <data name="TheFileCantBeModifiedMissingRepairApplyToCopy" xml:space="preserve">
+    <value>Fail tidak boleh diubah suai kerana kekurangan pilihan pembaikan. Proses pemulihan digunakan pada salinan.</value>
+  </data>
+  <data name="ThereAreBadBlocksInFileNonRestorableParts" xml:space="preserve">
+    <value>Terdapat {0} blok buruk dalam fail “{1}”, bahagian yang tidak boleh dipulihkan: {2} bait.</value>
+  </data>
+  <data name="ThereAreBadBlocksInNonRestorableMayRetryLater" xml:space="preserve">
+    <value>Terdapat {0} blok buruk dalam fail “{1}”, bahagian yang tidak boleh dipulihkan: {2} bait. Proses itu tidak dapat diteruskan kerana tidak dapat dipulihkan.  Ia mungkin dicuba lagi kemudian.</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableCantBeBackup" xml:space="preserve">
+    <value>Terdapat {0} blok buruk dalam fail “{1}”, bahagian yang tidak boleh dipulihkan: {2} bait. Fail tidak boleh digunakan sebagai sandaran</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableOnlyTested" xml:space="preserve">
+    <value>Terdapat {0} blok buruk dalam fail “{1}”, bahagian yang tidak boleh dipulihkan: {2} bait. Fail kekal tidak berubah, ia baru diuji</value>
+  </data>
+  <data name="ThereIsBadBlockInFileNonRestorableParts" xml:space="preserve">
+    <value>Terdapat blok buruk dalam fail “{0}”, bahagian yang tidak boleh dipulihkan: {1} bait.</value>
+  </data>
+  <data name="ThereIsBadBlockNonRestorableCantBeBackup" xml:space="preserve">
+    <value>Terdapat blok buruk dalam fail “{0}” yang tidak boleh dipulihkan: {1} bait. Fail tidak boleh digunakan sebagai sandaran </value>
+  </data>
+  <data name="ThereIsOneBadBlockNonRestorableOnlyTested" xml:space="preserve">
+    <value>Terdapat blok buruk dalam fail “{0}”, bahagian yang tidak boleh dipulihkan: {1} bait. Fail kekal tidak berubah, ia hanya diuji</value>
+  </data>
+  <data name="ThereRemainBadBlocksInBecauseReadOnly" xml:space="preserve">
+    <value>{0} blok buruk kekal dalam “{1}” kerana fail tidak boleh diubah suai</value>
+  </data>
+  <data name="ThereWasBadBlockInFileNotRestoredParts" xml:space="preserve">
+    <value>Terdapat sekatan buruk dalam fail “{0}”, bahagian yang belum dipulihkan: {1} bait</value>
+  </data>
+  <data name="ThereWasBadBlockNotRestoredInCopyBytes" xml:space="preserve">
+    <value>Terdapat blok buruk dalam fail asal, bahagian yang belum dipulihkan dalam salinan “{0}”: {1} bait.</value>
+  </data>
+  <data name="ThereWereBadBlocksInFileNotRestoredParts" xml:space="preserve">
+    <value>Terdapat {0} blok buruk dalam fail “{1}”, bahagian yang belum dipulihkan: {2} bait</value>
+  </data>
+  <data name="ThisIsASimulatedIOErrorAtPosition" xml:space="preserve">
+    <value>Ini ialah ralat I/O simulasi di lokasi {0}</value>
+  </data>
+  <data name="WarningChecksumOffsetPrimarySavedInfoIgnored" xml:space="preserve">
+    <value>Amaran: Jumlah semak blok pada kedudukan {0} tidak sepadan dengan blok utama maklumat tersimpan “{1}” yang tersedia. Maklumat utama yang disimpan untuk blok diabaikan</value>
+  </data>
+  <data name="WarningChecksumOffsetSecondarySavedInfoIgnored" xml:space="preserve">
+    <value>Amaran: Jumlah semak blok pada kedudukan {0} tidak sepadan dengan blok sekunder maklumat yang disimpan “{1}” yang tersedia. Maklumat yang disimpan sekunder untuk blok diabaikan</value>
+  </data>
+  <data name="WarningCopiedToWithErrors" xml:space="preserve">
+    <value>Amaran: “{0}” telah disalin ke “{1}” dengan ralat {2} </value>
+  </data>
+  <data name="WarningIOErrorWhileCopyingToReason" xml:space="preserve">
+    <value>Amaran: Ralat I/O semasa menyalin fail “{0}” ke “{1}”: {2}</value>
+  </data>
+  <data name="WarningSeveralBlocksDontMatchInSIWillBeIgnored" xml:space="preserve">
+    <value>Amaran: Berbilang blok tidak sepadan dengan maklumat yang disimpan “{0}”. Maklumat yang disimpan diabaikan sepenuhnya</value>
+  </data>
+  <data name="WarningWhileCreating" xml:space="preserve">
+    <value>Amaran: {0} semasa membuat fail “{1}”</value>
+  </data>
+  <data name="WarningWhileDiscoveringIfNeedsToBeRechecked" xml:space="preserve">
+    <value>Amaran: {0} semasa menentukan sama ada “{1}” perlu disemak semula. </value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>ya</value>
+  </data>
+</root>
