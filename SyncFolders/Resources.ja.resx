@@ -340,4 +340,7 @@
   <data name="Digits" xml:space="preserve">
     <value>Japan</value>
   </data>
+  <data name="DateFormat" xml:space="preserve">
+    <value>{1}年{2}月{3}日 {5}:{6}:{7}</value>
+  </data>
 </root>

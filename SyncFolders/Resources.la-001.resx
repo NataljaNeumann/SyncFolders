@@ -120,6 +120,9 @@
   <data name="CopiedFromToReason" xml:space="preserve">
     <value>Effingo completum: "{0}" ad "{1}" {2}</value>
   </data>
+  <data name="DateFormat" xml:space="preserve">
+    <value>{8} {3} {9} a.d. {1} {5}:{6}:{7}</value>
+  </data>
   <data name="DefaultCulture" xml:space="preserve">
     <value>no</value>
   </data>

@@ -616,7 +616,17 @@ namespace SyncFolders
             m_oLogFileLocalized.WriteLine(strQuarterOfASeparator);
 
             m_oLogFile.WriteLine(System.DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.fff") + "UT\tThread\tMessage from thread");
-            m_oLogFileLocalized.WriteLine(System.DateTime.Now.ToString("F") + "\t" + Resources.ProcessNo + "\t" + Resources.Message);
+
+            DateTime dtmNow = DateTime.Now;
+            string strNowF = dtmNow.ToString("F");
+            string[] astrNowF = strNowF.Split(' ');
+            string strDateTimeFormatted = string.Format(Resources.DateFormat, strNowF,
+                FormatNumber(dtmNow.Year), FormatNumber(dtmNow.Month), FormatNumber(dtmNow.Day),
+                astrNowF.Length >= 2 ? astrNowF[1] : "", FormatNumber(dtmNow.Hour), FormatNumber(dtmNow.Minute), FormatNumber(dtmNow.Second),
+                astrNowF[0], astrNowF.Length >= 3 ? astrNowF[2] : "", astrNowF.Length >= 4 ? astrNowF[3] : "",
+                astrNowF.Length >= 5 ? astrNowF[4] : "");
+            m_oLogFileLocalized.WriteLine(strDateTimeFormatted + "\t" + "=" + Resources.ProcessNo + "=" + "\t" + Resources.Message);
+
 
             m_oLogFile.Flush();
             m_oLogFileLocalized.Flush();
@@ -6681,7 +6691,7 @@ namespace SyncFolders
                             m_oLogFileLocalized.Write((char)0x200E);
 
                         m_oLogFileLocalized.Write("{0}\t={1}=\t", now.ToString("F"),
-                            System.Threading.Thread.CurrentThread.ManagedThreadId);
+                            FormatNumber(System.Threading.Thread.CurrentThread.ManagedThreadId));
                     }
 
                     while (nIndent-- > 0)
@@ -6762,8 +6772,16 @@ namespace SyncFolders
                 System.DateTime now = utc.ToLocalTime();
                 lock (m_strLogToShow)
                 {
-                    m_oLogFileLocalized.Write("{0}\t={1}=\t", now.ToString("F"),
-                        System.Threading.Thread.CurrentThread.ManagedThreadId);
+                    DateTime dtmNow = now;
+                    string strNowF = dtmNow.ToString("F");
+                    string[] astrNowF = strNowF.Split(' ');
+                    string strDateTimeFormatted = string.Format(Resources.DateFormat, strNowF ,
+                        FormatNumber(dtmNow.Year), FormatNumber(dtmNow.Month), FormatNumber(dtmNow.Day),
+                        astrNowF.Length >= 2 ? astrNowF[1]:"", FormatNumber(dtmNow.Hour), FormatNumber(dtmNow.Minute), FormatNumber(dtmNow.Second),
+                        astrNowF[0], astrNowF.Length >= 3 ? astrNowF[2] : "", astrNowF.Length >= 4 ? astrNowF[3] : "",
+                        astrNowF.Length >= 5 ? astrNowF[4] : "");
+                    m_oLogFileLocalized.Write("{0}\t={1}=\t", strDateTimeFormatted,
+                        FormatNumber(System.Threading.Thread.CurrentThread.ManagedThreadId));
 
                     while (nIndent-- > 0)
                     {

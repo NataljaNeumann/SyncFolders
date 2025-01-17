@@ -345,4 +345,7 @@
   <data name="Digits" xml:space="preserve">
     <value>standard/arab</value>
   </data>
+  <data name="DateFormat" xml:space="preserve">
+    <value>{0}</value>
+  </data>
 </root>

@@ -339,4 +339,7 @@
   <data name="Yes" xml:space="preserve">
     <value>ཡིན</value>
   </data>
+  <data name="DateFormat" xml:space="preserve">
+    <value>{1}ལོའི་ཟླ {2}ཚེས {3} {5}:{6}:{7}</value>
+  </data>
 </root>

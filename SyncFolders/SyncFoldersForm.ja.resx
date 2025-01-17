@@ -134,7 +134,7 @@
     <value>118, 16</value>
   </data>
   <data name="m_lblSecondFolder.Text" xml:space="preserve">
-    <value>2 番目のフォルダー:</value>
+    <value>二番目のフォルダー:</value>
   </data>
   <data name="m_tbxSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
     <value>541, 22</value>
