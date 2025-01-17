@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BlockOfAtPositionWillBeCopiedFromNoMatterChecksum" xml:space="preserve">
+    <value>Блокот на датотеката „{0}“ на позицијата {1} се копира од „{2}“ дури и ако контролната сума покажува дека блокот е неточен</value>
+  </data>
+  <data name="BlockOfAtPositionWillBeRestoredFrom" xml:space="preserve">
+    <value>Блокот на датотеката „{0}“ на позицијата {1} е вратен од истата позиција на датотеката „{2}“.</value>
+  </data>
+  <data name="BlocksOfAndAtPositionNonRecoverableFillDummy" xml:space="preserve">
+    <value>Блоковите датотеки „{0}“ и „{1}“ на позицијата {2} не можат да се вратат и ќе се пополнат со празен блок</value>
+  </data>
+  <data name="ChecksumOfBlockAtOffsetNotOK" xml:space="preserve">
+    <value>{0}: Контролната сума на блокот на позицијата {1} не е во ред</value>
+  </data>
+  <data name="CopiedFromToReason" xml:space="preserve">
+    <value>Процесот на копирање е завршен: „{0}“ во „{1}“ {2}</value>
+  </data>
+  <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
+    <value>Предупредување: Датотеката „{0}“ со 1975 година или порано не може да се користи за обновување на датотеката „{1}“. Таков стар датум покажува дека тоа е последна шанса да се врати датотеката „{0}“.</value>
+  </data>
+  <data name="DefaultCulture" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="DeletedFileNotPresentIn" xml:space="preserve">
+    <value>Избришана датотека „{0}“ која повеќе не постои во „{1}“.</value>
+  </data>
+  <data name="DeletedFolder" xml:space="preserve">
+    <value>Папката „{0}“ со содржината е избришана затоа што „{1}“ повеќе не постои</value>
+  </data>
+  <data name="EncounteredErrorOlderOk" xml:space="preserve">
+    <value>Предупредување: се појави грешка при влез/излез при копирање на датотеката „{0}“. Постарата датотека „{1}“ се чини дека е во ред</value>
+  </data>
+  <data name="EncounteredErrorOtherBadToo" xml:space="preserve">
+    <value>Предупредување: се појави грешка при влез/излез при копирање на датотеката „{0}“. Другата датотека „{1}“ исто така има грешки или е производ на последна шанса за враќање. Се обидува автоматски да го поправи „{0}“.</value>
+  </data>
+  <data name="EncounteredErrorWhileCopyingTryingToRepair" xml:space="preserve">
+    <value>Предупредување: се појави грешка при копирањето на датотеката „{0}“. Се обидувам да ја поправам грешката.</value>
+  </data>
+  <data name="ErrorDeleting" xml:space="preserve">
+    <value>Грешка при бришење на датотеката „{0}“: {1}</value>
+  </data>
+  <data name="ErrorProcessinngFilePair" xml:space="preserve">
+    <value>Грешка при обработката на парот на датотеки „{0}“ и „{1}“: {2}</value>
+  </data>
+  <data name="ErrorReadingPositionWillFillWithDummy" xml:space="preserve">
+    <value>Грешка при читањето на датотеката „{0}“ на позицијата {1}: {2}. Блокот е исполнет со нули</value>
+  </data>
+  <data name="ErrorWhileTestingFile" xml:space="preserve">
+    <value>Грешка при тестирање на датотеката „{0}“</value>
+  </data>
+  <data name="FileCopied" xml:space="preserve">
+    <value>Копирањето е завршено: „{0}“ во „{1}“ {2}</value>
+  </data>
+  <data name="FileHasDifferentTime" xml:space="preserve">
+    <value>(Датотеката има различен датум или должина)</value>
+  </data>
+  <data name="FileHasZeroLength" xml:space="preserve">
+    <value>Предупредување: датотеката е со нула должина, што укажува на неуспешна операција за копирање во минатото: „{0}“</value>
+  </data>
+  <data name="FileHealthyOrRepaired" xml:space="preserve">
+    <value>(Датотеката беше без грешки или поправена)</value>
+  </data>
+  <data name="FilesHaveZeroLength" xml:space="preserve">
+    <value>Предупредување: двете датотеки се со нула должина, што укажува на неуспешна операција за копирање во минатото: „{0}“ и „{1}“ </value>
+  </data>
+  <data name="FileWasHealthy" xml:space="preserve">
+    <value>(Датотеката беше без грешки)</value>
+  </data>
+  <data name="FileWasNew" xml:space="preserve">
+    <value>(датотеката беше нова)</value>
+  </data>
+  <data name="FileWasNewer" xml:space="preserve">
+    <value>(Датотеката беше понова или поголема)</value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetOfCopyWithDummy" xml:space="preserve">
+    <value>Непоправливиот блок на позицијата {0} од копираната датотека „{1}“ е исполнет со нули</value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetWithDummy" xml:space="preserve">
+    <value>Непоправливиот блок на позицијата {0} е исполнет со нули</value>
+  </data>
+  <data name="FirstFileHasBadBlocks" xml:space="preserve">
+    <value>Предупредување: првата датотека „{0}“ има лоши блокови. Датотеката за препишување „{1}“ беше прескокната, оставајќи ја како резервна копија</value>
+  </data>
+  <data name="FoundFileForSync" xml:space="preserve">
+    <value>Најдов датотека за можна синхронизација</value>
+  </data>
+  <data name="FoundFilesForSync" xml:space="preserve">
+    <value>Пронајдени се {0} датотеки за можна синхронизација</value>
+  </data>
+  <data name="InternalErrorCouldntRestoreAny" xml:space="preserve">
+    <value>Внатрешна грешка: копија од датотеките, ниту „{0}“ ниту „{1}“, може да се врати </value>
+  </data>
+  <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
+    <value>I/O грешка при поправка на копијата во датотека: „{0}“: {1}</value>
+  </data>
+  <data name="IOErrorReadingFile" xml:space="preserve">
+    <value>I/O грешка при читање на датотеката „{0}“: {1}</value>
+  </data>
+  <data name="IOErrorReadingFileOffset" xml:space="preserve">
+    <value>I/O грешка при читање на датотеката: „{0}“ на позиција {1}: {2}</value>
+  </data>
+  <data name="IOErrorWhileReadingPositionFillDummyWhileCopy" xml:space="preserve">
+    <value>Грешка во I/O при читање на датотеката „{0}“ на локација {1}: {2}. Блокот се заменува со празен блок кога се копира.</value>
+  </data>
+  <data name="IOErrorWritingFile" xml:space="preserve">
+    <value>I/O грешка при пишување на датотеката „{0}“: {1}</value>
+  </data>
+  <data name="KeepingReadableButNotRecoverableBlockAtOffset" xml:space="preserve">
+    <value>Останува читливиот, но неповратен блок на позицијата {0}. Контролната сума покажува дека блокот е неточен</value>
+  </data>
+  <data name="KeepingReadableNonRecovBBlockAtAlsoInCopy" xml:space="preserve">
+    <value>Блокот што може да се чита, но не може да се врати на позицијата {0} од оригиналната датотека „{1}“ исто така останува во копијата „{2}“. Контролната сума покажува дека блокот е неточен</value>
+  </data>
+  <data name="LogFileName" xml:space="preserve">
+    <value>Протокол за синхронизација на папки Македонски</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Извештај за процесот на копирање</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>бр</value>
+  </data>
+  <data name="OperationCanceled" xml:space="preserve">
+    <value>Процесот е прекинат</value>
+  </data>
+  <data name="OperationFinished" xml:space="preserve">
+    <value>Процесот заврши</value>
+  </data>
+  <data name="OutOfBadBlocksNotRestoredInCopyBytes" xml:space="preserve">
+    <value>Од {0} лоши блокови во оригиналната датотека, {2} бајти не беа обновени во копијата „{1}“.</value>
+  </data>
+  <data name="ProcessNo" xml:space="preserve">
+    <value>№</value>
+  </data>
+  <data name="RecoveringBlockAtOfCopiedFile" xml:space="preserve">
+    <value>Блокот на позицијата {0} од копираната целна датотека „{1}“ е вратен</value>
+  </data>
+  <data name="RecoveringBlockAtOffsetOfFile" xml:space="preserve">
+    <value>Блокот на позицијата {0} на датотеката „{1}“ е вратен.</value>
+  </data>
+  <data name="RightToLeft" xml:space="preserve">
+    <value>no</value>
+  </data>
+  <data name="RunningWithoutRepairOptionUndecided" xml:space="preserve">
+    <value>Синхронизацијата работи без опција за поправка и затоа не може да одлучи дали датотеката „{0}“ може да се врати со помош на „{1}“.</value>
+  </data>
+  <data name="SavedInfoFileCantBeUsedForTesting" xml:space="preserve">
+    <value>Зачуваната датотека со информации „{0}“ не може да се користи за тестирање на датотеката „{1}“: таа е создадена за друга верзија на датотеката „{0}“.</value>
+  </data>
+  <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
+    <value>Зачуваната датотека со информации „{0}“ е оштетена и треба повторно да се создаде од „{1}“.</value>
+  </data>
+  <data name="SecondFolderNoDelete" xml:space="preserve">
+    <value>Грешка: втората папка ја содржи датотеката „{0}“. Избраната папка се чини дека е неточна за опцијата за бришење. Обработката на папката и подпапките е прескокната.</value>
+  </data>
+  <data name="SkippingFilePairDontDelete" xml:space="preserve">
+    <value>Парот со датотеки „{0}“ и „{1}“ е прескокнат. Специјална датотека спречува користење на опцијата за бришење во погрешна основна папка. </value>
+  </data>
+  <data name="TheFileCantBeModifiedMissingRepairApplyToCopy" xml:space="preserve">
+    <value>Датотеката не може да се измени поради недостаток на опција за поправка. Процесот на обновување се применува на копијата.</value>
+  </data>
+  <data name="ThereAreBadBlocksInFileNonRestorableParts" xml:space="preserve">
+    <value>Има {0} лоши блокови во датотеката „{1}“, неповратни делови: {2} бајти.</value>
+  </data>
+  <data name="ThereAreBadBlocksInNonRestorableMayRetryLater" xml:space="preserve">
+    <value>Има {0} лоши блокови во датотеката „{1}“, неповратни делови: {2} бајти. Процесот не може да продолжи поради неповратност.  Може да се обиде повторно подоцна.</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableCantBeBackup" xml:space="preserve">
+    <value>Има {0} лоши блокови во датотеката „{1}“, неповратни делови: {2} бајти. Датотеката не може да се користи како резервна копија</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableOnlyTested" xml:space="preserve">
+    <value>Има {0} лоши блокови во датотеката „{1}“, неповратни делови: {2} бајти. Датотеката останува непроменета, само што беше тестирана</value>
+  </data>
+  <data name="ThereIsBadBlockInFileNonRestorableParts" xml:space="preserve">
+    <value>Има лош блок во датотеката „{0}“, неповратни делови: {1} бајти.</value>
+  </data>
+  <data name="ThereIsBadBlockNonRestorableCantBeBackup" xml:space="preserve">
+    <value>Има лош блок во датотеката „{0}“ што не може да се врати: {1} бајти. Датотеката не може да се користи како резервна копија</value>
+  </data>
+  <data name="ThereIsOneBadBlockNonRestorableOnlyTested" xml:space="preserve">
+    <value>Има лош блок во датотеката „{0}“, неповратни делови: {1} бајти. Датотеката останува непроменета, само што беше тестирана</value>
+  </data>
+  <data name="ThereRemainBadBlocksInBecauseReadOnly" xml:space="preserve">
+    <value>{0} лоши блокови остануваат во „{1}“ бидејќи датотеката не може да се измени</value>
+  </data>
+  <data name="ThereWasBadBlockInFileNotRestoredParts" xml:space="preserve">
+    <value>Имаше лош блок во датотеката „{0}“, неповратни делови: {1} бајти</value>
+  </data>
+  <data name="ThereWasBadBlockNotRestoredInCopyBytes" xml:space="preserve">
+    <value>Имаше лош блок во оригиналната датотека, неоткриени делови во копијата „{0}“: {1} бајти.</value>
+  </data>
+  <data name="ThereWereBadBlocksInFileNotRestoredParts" xml:space="preserve">
+    <value>Имаше {0} лоши блокови во датотеката „{1}“, неповратни делови: {2} бајти</value>
+  </data>
+  <data name="ThisIsASimulatedIOErrorAtPosition" xml:space="preserve">
+    <value>Ова е симулирана I/O грешка на локацијата {0}</value>
+  </data>
+  <data name="WarningChecksumOffsetPrimarySavedInfoIgnored" xml:space="preserve">
+    <value>Предупредување: контролната сума на блокот на позицијата {0} не се совпаѓа со достапните примарни блокови на складирани информации „{1}“. Примарните зачувани информации за блокот се игнорираат</value>
+  </data>
+  <data name="WarningChecksumOffsetSecondarySavedInfoIgnored" xml:space="preserve">
+    <value>Предупредување: контролната сума на блокот на позицијата {0} не се совпаѓа со достапните секундарни блокови на зачувани информации „{1}“. Секундарните зачувани информации за блокот се игнорираат</value>
+  </data>
+  <data name="WarningCopiedToWithErrors" xml:space="preserve">
+    <value>Предупредување: „{0}“ беше копиран во „{1}“ со грешки {2} </value>
+  </data>
+  <data name="WarningIOErrorWhileCopyingToReason" xml:space="preserve">
+    <value>Предупредување: I/O грешка при копирање на датотеката „{0}“ во „{1}“: {2}</value>
+  </data>
+  <data name="WarningSeveralBlocksDontMatchInSIWillBeIgnored" xml:space="preserve">
+    <value>Предупредување: повеќе блокови не се совпаѓаат со зачуваните информации „{0}“. Зачуваните информации се целосно игнорирани</value>
+  </data>
+  <data name="WarningWhileCreating" xml:space="preserve">
+    <value>Предупредување: {0} додека ја креирате датотеката „{1}“</value>
+  </data>
+  <data name="WarningWhileDiscoveringIfNeedsToBeRechecked" xml:space="preserve">
+    <value>Предупредување: {0} додека одредувате дали „{1}“ треба повторно да се провери. </value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Да</value>
+  </data>
+</root>
