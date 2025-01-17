@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BlockOfAtPositionWillBeCopiedFromNoMatterChecksum" xml:space="preserve">
+    <value>El bloc del fitxer "{0}" a la posició {1} es copia de "{2}", encara que la suma de comprovació mostri que el bloc és incorrecte</value>
+  </data>
+  <data name="BlockOfAtPositionWillBeRestoredFrom" xml:space="preserve">
+    <value>El bloc del fitxer "{0}" a la posició {1} es restaura des de la mateixa posició del fitxer "{2}".</value>
+  </data>
+  <data name="BlocksOfAndAtPositionNonRecoverableFillDummy" xml:space="preserve">
+    <value>Els blocs de fitxers "{0}" i "{1}" a la posició {2} no es poden restaurar i s'ompliran amb un bloc buit</value>
+  </data>
+  <data name="ChecksumOfBlockAtOffsetNotOK" xml:space="preserve">
+    <value>{0}: la suma de comprovació del bloc a la posició {1} no està bé</value>
+  </data>
+  <data name="CopiedFromToReason" xml:space="preserve">
+    <value>Còpia completada: “{0}” a “{1}” {2}</value>
+  </data>
+  <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
+    <value>Avís: el fitxer "{0}" amb l'any 1975 o anterior no s'ha pogut utilitzar per restaurar el fitxer "{1}". Una data tan antiga indica que era l'última oportunitat de recuperar el fitxer "{0}".</value>
+  </data>
+  <data name="DefaultCulture" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="DeletedFileNotPresentIn" xml:space="preserve">
+    <value>S'ha suprimit el fitxer “{0}” que ja no existeix a “{1}”.</value>
+  </data>
+  <data name="DeletedFolder" xml:space="preserve">
+    <value>S'ha suprimit la carpeta "{0}" inclòs el contingut perquè "{1}" ja no existeix</value>
+  </data>
+  <data name="EncounteredErrorOlderOk" xml:space="preserve">
+    <value>Avís: s'ha produït un error d'E/S en copiar el fitxer "{0}". Sembla que el fitxer més antic "{1}" està bé</value>
+  </data>
+  <data name="EncounteredErrorOtherBadToo" xml:space="preserve">
+    <value>Avís: s'ha produït un error d'E/S en copiar el fitxer "{0}". Un altre fitxer "{1}" també té errors o és producte de la recuperació d'última oportunitat. S'està intentant reparar "{0}" automàticament.</value>
+  </data>
+  <data name="EncounteredErrorWhileCopyingTryingToRepair" xml:space="preserve">
+    <value>Avís: s'ha produït un error en copiar el fitxer “{0}”. Estic intentant solucionar l'error.</value>
+  </data>
+  <data name="ErrorDeleting" xml:space="preserve">
+    <value>Error en suprimir el fitxer "{0}": {1}</value>
+  </data>
+  <data name="ErrorProcessinngFilePair" xml:space="preserve">
+    <value>Error en processar el parell de fitxers "{0}" i "{1}": {2}</value>
+  </data>
+  <data name="ErrorReadingPositionWillFillWithDummy" xml:space="preserve">
+    <value>Error en llegir el fitxer "{0}" a la posició {1}: {2}. El bloc està ple de zeros</value>
+  </data>
+  <data name="ErrorWhileTestingFile" xml:space="preserve">
+    <value>Error en provar el fitxer "{0}"</value>
+  </data>
+  <data name="FileCopied" xml:space="preserve">
+    <value>Còpia completada: “{0}” a “{1}” {2}</value>
+  </data>
+  <data name="FileHasDifferentTime" xml:space="preserve">
+    <value>(El fitxer té una data o una longitud diferent)</value>
+  </data>
+  <data name="FileHasZeroLength" xml:space="preserve">
+    <value>Avís: el fitxer té una longitud zero, cosa que indica una operació de còpia fallida en el passat: "{0}"</value>
+  </data>
+  <data name="FileHealthyOrRepaired" xml:space="preserve">
+    <value>(El fitxer no tenia errors o estava reparat)</value>
+  </data>
+  <data name="FilesHaveZeroLength" xml:space="preserve">
+    <value>Avís: tots dos fitxers tenen una longitud zero, cosa que indica una operació de còpia fallida en el passat: "{0}" i "{1}"</value>
+  </data>
+  <data name="FileWasHealthy" xml:space="preserve">
+    <value>(El fitxer no tenia errors)</value>
+  </data>
+  <data name="FileWasNew" xml:space="preserve">
+    <value>(el fitxer era nou)</value>
+  </data>
+  <data name="FileWasNewer" xml:space="preserve">
+    <value>(El fitxer era més nou o més gran)</value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetOfCopyWithDummy" xml:space="preserve">
+    <value>El bloc és irrecuperable a la posició {0} del fitxer copiat "{1}" és el mateix que els zeros</value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetWithDummy" xml:space="preserve">
+    <value>El bloc és irrecuperable a la posició {0} és el mateix que els zeros</value>
+  </data>
+  <data name="FirstFileHasBadBlocks" xml:space="preserve">
+    <value>Nota: el primer fitxer "{0}" té blocs de defectes. S'ha omès el sobreescriure del fitxer "{1}", deixant-lo com a còpia de seguretat</value>
+  </data>
+  <data name="FoundFileForSync" xml:space="preserve">
+    <value>S'ha trobat un fitxer per a una possible sincronització</value>
+  </data>
+  <data name="FoundFilesForSync" xml:space="preserve">
+    <value>S'han trobat {0} fitxers per a una possible sincronització</value>
+  </data>
+  <data name="InternalErrorCouldntRestoreAny" xml:space="preserve">
+    <value>Error intern: ningú pot restaurar la capçalera dels fitxers, ni "{0}" o "{1}". </value>
+  </data>
+  <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
+    <value>Error d'E/S en reparar el cap del fitxer: "{0}": {1}</value>
+  </data>
+  <data name="IOErrorReadingFile" xml:space="preserve">
+    <value>Error d'E/S en llegir el fitxer "{0}": {1}</value>
+  </data>
+  <data name="IOErrorReadingFileOffset" xml:space="preserve">
+    <value>Error d'E/S en llegir el fitxer: "{0}" a la posició {1}: {2}</value>
+  </data>
+  <data name="IOErrorWhileReadingPositionFillDummyWhileCopy" xml:space="preserve">
+    <value>Error d'E/S en llegir el fitxer "{0}" a la ubicació {1}: {2}. El bloc es substitueix per un bloc però quan és copia.</value>
+  </data>
+  <data name="IOErrorWritingFile" xml:space="preserve">
+    <value>Error d'E/S escrit al fitxer "{0}": {1}</value>
+  </data>
+  <data name="KeepingReadableButNotRecoverableBlockAtOffset" xml:space="preserve">
+    <value>El bloc llegible però irrecuperable a la posició {0} es manté. La suma de comprovació indica que el bloc és incorrecte</value>
+  </data>
+  <data name="KeepingReadableNonRecovBBlockAtAlsoInCopy" xml:space="preserve">
+    <value>El bloc llegible però irrecuperable a la posició {0} del fitxer original "{1}" també roman a la còpia "{2}". La suma de comprovació indica que el bloc és incorrecte</value>
+  </data>
+  <data name="LogFileName" xml:space="preserve">
+    <value>Protocol de sincronització de carpetes català</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Informe del procés de còpia</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>no</value>
+  </data>
+  <data name="OperationCanceled" xml:space="preserve">
+    <value>Procés avortat</value>
+  </data>
+  <data name="OperationFinished" xml:space="preserve">
+    <value>El procés ha finalitzat</value>
+  </data>
+  <data name="OutOfBadBlocksNotRestoredInCopyBytes" xml:space="preserve">
+    <value>Dels {0} blocs defectuosos del fitxer original, no s'han recuperat {2} bytes a la còpia "{1}".</value>
+  </data>
+  <data name="ProcessNo" xml:space="preserve">
+    <value>№</value>
+  </data>
+  <data name="RecoveringBlockAtOfCopiedFile" xml:space="preserve">
+    <value>Es restaura el bloc a la posició {0} del fitxer de destinació copiat "{1}".</value>
+  </data>
+  <data name="RecoveringBlockAtOffsetOfFile" xml:space="preserve">
+    <value>El bloc a la posició {0} del fitxer "{1}" es restaura.</value>
+  </data>
+  <data name="RightToLeft" xml:space="preserve">
+    <value>no</value>
+  </data>
+  <data name="RunningWithoutRepairOptionUndecided" xml:space="preserve">
+    <value>La sincronització s'està executant sense una opció de reparació i, per tant, no s'ha pogut decidir si el fitxer "{0}" es pot restaurar mitjançant "{1}".</value>
+  </data>
+  <data name="SavedInfoFileCantBeUsedForTesting" xml:space="preserve">
+    <value>El fitxer d'informació desat "{0}" no es pot utilitzar per provar el fitxer "{1}": s'ha creat per a una versió diferent del fitxer "{0}".</value>
+  </data>
+  <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
+    <value>El fitxer d'informació desat "{0}" ha estat malmès i s'ha de tornar a crear des de "{1}".</value>
+  </data>
+  <data name="SecondFolderNoDelete" xml:space="preserve">
+    <value>Error: la segona carpeta conté el fitxer "{0}". La carpeta seleccionada sembla ser incorrecta per a l'opció d'eliminació. S'ha omès el processament de la carpeta i les subcarpetes.</value>
+  </data>
+  <data name="SkippingFilePairDontDelete" xml:space="preserve">
+    <value>El parell de fitxers "{0}" i "{1}" s'ha omès. Un fitxer especial impedeix utilitzar l'opció d'eliminació a la carpeta arrel incorrecta. </value>
+  </data>
+  <data name="TheFileCantBeModifiedMissingRepairApplyToCopy" xml:space="preserve">
+    <value>El fitxer no es pot modificar a causa de la manca d'una opció de reparació. El procés de recuperació s'aplica a la còpia.</value>
+  </data>
+  <data name="ThereAreBadBlocksInFileNonRestorableParts" xml:space="preserve">
+    <value>Hi ha {0} blocs defectuosos al fitxer "{1}", parts irrecuperables: {2} bytes.</value>
+  </data>
+  <data name="ThereAreBadBlocksInNonRestorableMayRetryLater" xml:space="preserve">
+    <value>Hi ha {0} blocs defectuosos al fitxer "{1}", parts irrecuperables: {2} bytes. El procés no pot continuar per irrecuperació.  Es pot tornar a provar més tard.</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableCantBeBackup" xml:space="preserve">
+    <value>Hi ha {0} blocs defectuosos al fitxer "{1}", parts irrecuperables: {2} bytes. El fitxer no es pot utilitzar com a còpia de seguretat</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableOnlyTested" xml:space="preserve">
+    <value>Hi ha {0} blocs defectuosos al fitxer "{1}", parts irrecuperables: {2} bytes. El fitxer es manté sense canvis, s'acaba de provar</value>
+  </data>
+  <data name="ThereIsBadBlockInFileNonRestorableParts" xml:space="preserve">
+    <value>Hi ha un bloc dolent al fitxer "{0}", parts irrecuperables: {1} bytes.</value>
+  </data>
+  <data name="ThereIsBadBlockNonRestorableCantBeBackup" xml:space="preserve">
+    <value>Hi ha un bloc dolent al fitxer "{0}" que no es pot recuperar: {1} bytes. El fitxer no es pot utilitzar com a còpia de seguretat </value>
+  </data>
+  <data name="ThereIsOneBadBlockNonRestorableOnlyTested" xml:space="preserve">
+    <value>Hi ha un bloc defectuós al fitxer "{0}", parts irrecuperables: {1} bytes. El fitxer es manté sense canvis, s'acaba de provar</value>
+  </data>
+  <data name="ThereRemainBadBlocksInBecauseReadOnly" xml:space="preserve">
+    <value>{0} blocs incorrectes romanen a "{1}" perquè el fitxer no es pot modificar</value>
+  </data>
+  <data name="ThereWasBadBlockInFileNotRestoredParts" xml:space="preserve">
+    <value>Hi ha hagut un bloc dolent al fitxer "{0}", parts no recuperades: {1} bytes</value>
+  </data>
+  <data name="ThereWasBadBlockNotRestoredInCopyBytes" xml:space="preserve">
+    <value>Hi havia un bloc defectuós al fitxer original, parts no recuperades a la còpia "{0}": {1} bytes.</value>
+  </data>
+  <data name="ThereWereBadBlocksInFileNotRestoredParts" xml:space="preserve">
+    <value>Hi havia {0} blocs defectuosos al fitxer "{1}", parts no recuperades: {2} bytes</value>
+  </data>
+  <data name="ThisIsASimulatedIOErrorAtPosition" xml:space="preserve">
+    <value>Aquest és un error d'E/S simulat a la ubicació {0}</value>
+  </data>
+  <data name="WarningChecksumOffsetPrimarySavedInfoIgnored" xml:space="preserve">
+    <value>Avís: la suma de control del bloc a la posició {0} no coincideix amb els blocs primaris disponibles d'informació emmagatzemada "{1}". S'ignora la informació emmagatzemada principal del bloc</value>
+  </data>
+  <data name="WarningChecksumOffsetSecondarySavedInfoIgnored" xml:space="preserve">
+    <value>Avís: la suma de control del bloc a la posició {0} no coincideix amb els blocs secundaris disponibles d'informació emmagatzemada "{1}". La informació secundària emmagatzemada per al bloc s'ignora</value>
+  </data>
+  <data name="WarningCopiedToWithErrors" xml:space="preserve">
+    <value>Avís: "{0}" s'ha copiat a "{1}" amb errors {2} </value>
+  </data>
+  <data name="WarningIOErrorWhileCopyingToReason" xml:space="preserve">
+    <value>Avís: error d'E/S en copiar el fitxer "{0}" a "{1}": {2}</value>
+  </data>
+  <data name="WarningSeveralBlocksDontMatchInSIWillBeIgnored" xml:space="preserve">
+    <value>Avís: diversos blocs no coincideixen amb la informació emmagatzemada "{0}". La informació emmagatzemada s'ignora completament</value>
+  </data>
+  <data name="WarningWhileCreating" xml:space="preserve">
+    <value>Avís: {0} mentre es crea el fitxer "{1}"</value>
+  </data>
+  <data name="WarningWhileDiscoveringIfNeedsToBeRechecked" xml:space="preserve">
+    <value>Avís: {0} mentre es determina si "{1}" s'ha de tornar a comprovar. </value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Sí</value>
+  </data>
+</root>
