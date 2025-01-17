@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BlockOfAtPositionWillBeCopiedFromNoMatterChecksum" xml:space="preserve">
+    <value>«{0}» ֆայլի բլոկը {1} դիրքում պատճենվում է «{2}»-ից, նույնիսկ եթե ստուգիչ գումարը ցույց է տալիս, որ բլոկը սխալ է:</value>
+  </data>
+  <data name="BlockOfAtPositionWillBeRestoredFrom" xml:space="preserve">
+    <value>«{0}» ֆայլի բլոկը {1} դիրքում վերականգնվել է «{2}» ֆայլի նույն դիրքից:</value>
+  </data>
+  <data name="BlocksOfAndAtPositionNonRecoverableFillDummy" xml:space="preserve">
+    <value>«{0}» և «{1}» ֆայլերի բլոկները {2} դիրքում չեն կարող վերականգնվել և կլցվեն դատարկ բլոկով:</value>
+  </data>
+  <data name="ChecksumOfBlockAtOffsetNotOK" xml:space="preserve">
+    <value>{0}. {1} դիրքի բլոկի ստուգման գումարը կարգին չէ</value>
+  </data>
+  <data name="CopiedFromToReason" xml:space="preserve">
+    <value>Պատճենելու գործընթացը՝ «{0}» դեպի «{1}» {2}</value>
+  </data>
+  <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
+    <value>Զգուշացում. «{0}» ֆայլը 1975 թ. կամ ավելի վաղ չի կարող օգտագործվել «{1}» ֆայլը վերականգնելու համար: Նման հին ամսաթիվը ցույց է տալիս, որ դա վերջին հնարավորությունն էր վերականգնելու «{0}» ֆայլը:</value>
+  </data>
+  <data name="DefaultCulture" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="DeletedFileNotPresentIn" xml:space="preserve">
+    <value>Ջնջվել է «{0}» ֆայլը, որն այլևս գոյություն չունի «{1}»-ում:</value>
+  </data>
+  <data name="DeletedFolder" xml:space="preserve">
+    <value>«{0}» պանակը, ներառյալ բովանդակությունը, ջնջվել է, քանի որ «{1}»-ն այլևս գոյություն չունի</value>
+  </data>
+  <data name="EncounteredErrorOlderOk" xml:space="preserve">
+    <value>Զգուշացում․ «{0}» ֆայլը պատճենելիս մուտքի/ելքի սխալ է տեղի ունեցել։ Ավելի հին «{1}» ֆայլը կարծես թե լավ է</value>
+  </data>
+  <data name="EncounteredErrorOtherBadToo" xml:space="preserve">
+    <value>Զգուշացում․ «{0}» ֆայլը պատճենելիս մուտքի/ելքի սխալ է տեղի ունեցել։ Մյուս «{1}» ֆայլը նույնպես ունի սխալներ կամ վերջին հնարավորության վերականգնման արդյունք է: «{0}»-ն ինքնաբերաբար վերանորոգելու փորձ:</value>
+  </data>
+  <data name="EncounteredErrorWhileCopyingTryingToRepair" xml:space="preserve">
+    <value>գուշացում․ «{0}» ֆայլը պատճենելիս սխալ է տեղի ունեցել։ Ես փորձում եմ ուղղել սխալը:</value>
+  </data>
+  <data name="ErrorDeleting" xml:space="preserve">
+    <value>Սխալ՝ «{0}» ֆայլը ջնջելիս՝ {1}</value>
+  </data>
+  <data name="ErrorProcessinngFilePair" xml:space="preserve">
+    <value>Սխալ՝ «{0}» և «{1}» ֆայլերի զույգը մշակելիս՝ {2}</value>
+  </data>
+  <data name="ErrorReadingPositionWillFillWithDummy" xml:space="preserve">
+    <value>Չհաջողվեց կարդալ «{0}» ֆայլը {1} դիրքում՝ {2}: Բլոկը լցված է զրոներով</value>
+  </data>
+  <data name="ErrorWhileTestingFile" xml:space="preserve">
+    <value>«{0}» ֆայլի փորձարկման սխալ</value>
+  </data>
+  <data name="FileCopied" xml:space="preserve">
+    <value>Պատճենելու գործընթացը՝ «{0}» դեպի «{1}» {2}</value>
+  </data>
+  <data name="FileHasDifferentTime" xml:space="preserve">
+    <value>(Ֆայլն ունի այլ ամսաթիվ կամ երկարություն)</value>
+  </data>
+  <data name="FileHasZeroLength" xml:space="preserve">
+    <value>Զգուշացում. ֆայլը զրոյական երկարություն ունի, ինչը ցույց է տալիս նախկինում ձախողված պատճենման գործողությունը՝ «{0}»</value>
+  </data>
+  <data name="FileHealthyOrRepaired" xml:space="preserve">
+    <value>(Ֆայլն առանց սխալների կամ վերանորոգված էր)</value>
+  </data>
+  <data name="FilesHaveZeroLength" xml:space="preserve">
+    <value>Զգուշացում. երկու ֆայլերն էլ զրոյական երկարություն ունեն, ինչը վկայում է նախկինում ձախողված պատճենման գործողության մասին՝ «{0}» և «{1}»: </value>
+  </data>
+  <data name="FileWasHealthy" xml:space="preserve">
+    <value>(Ֆայլն առանց սխալների էր)</value>
+  </data>
+  <data name="FileWasNew" xml:space="preserve">
+    <value>(ֆայլը նոր էր)</value>
+  </data>
+  <data name="FileWasNewer" xml:space="preserve">
+    <value>(Ֆայլը ավելի նոր էր կամ ավելի մեծ)</value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetOfCopyWithDummy" xml:space="preserve">
+    <value>«{1}» պատճենված ֆայլի {0} դիրքում չվերականգնվող բլոկը լցված է զրոներով</value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetWithDummy" xml:space="preserve">
+    <value>{0} դիրքում չվերականգնվող բլոկը լցված է զրոներով</value>
+  </data>
+  <data name="FirstFileHasBadBlocks" xml:space="preserve">
+    <value>Զգուշացում. «{0}» առաջին ֆայլը վատ բլոկներ ունի: «{1}» ֆայլի վերագրանցումը բաց է թողնվել՝ թողնելով այն որպես կրկնօրինակ</value>
+  </data>
+  <data name="FoundFileForSync" xml:space="preserve">
+    <value>Գտնվել է ֆայլ հնարավոր համաժամացման համար</value>
+  </data>
+  <data name="FoundFilesForSync" xml:space="preserve">
+    <value>Գտնվել է {0} ֆայլ հնարավոր համաժամացման համար</value>
+  </data>
+  <data name="InternalErrorCouldntRestoreAny" xml:space="preserve">
+    <value>Ներքին սխալ. ֆայլերի պատճենը, ոչ «{0}», ոչ էլ «{1}», հնարավոր չէ վերականգնել: </value>
+  </data>
+  <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
+    <value>I/O սխալ ֆայլում պատճենը վերանորոգելիս՝ «{0}»: {1}</value>
+  </data>
+  <data name="IOErrorReadingFile" xml:space="preserve">
+    <value>«{0}» ֆայլը կարդալիս I/O սխալ՝ {1}</value>
+  </data>
+  <data name="IOErrorReadingFileOffset" xml:space="preserve">
+    <value>Ֆայլի ընթերցման I/O սխալ՝ «{0}» {1} դիրքում՝ {2}</value>
+  </data>
+  <data name="IOErrorWhileReadingPositionFillDummyWhileCopy" xml:space="preserve">
+    <value>I/O սխալ՝ «{0}» ֆայլը կարդալիս {1} վայրում՝ {2}: Բլոկը պատճենվելիս փոխարինվում է դատարկ բլոկով:</value>
+  </data>
+  <data name="IOErrorWritingFile" xml:space="preserve">
+    <value>«{0}» ֆայլը գրելու I/O սխալ՝ {1}</value>
+  </data>
+  <data name="KeepingReadableButNotRecoverableBlockAtOffset" xml:space="preserve">
+    <value>{0} դիրքում ընթեռնելի, բայց չվերականգնվող բլոկը մնում է: Ստուգման գումարը ցույց է տալիս, որ բլոկը սխալ է</value>
+  </data>
+  <data name="KeepingReadableNonRecovBBlockAtAlsoInCopy" xml:space="preserve">
+    <value>«{1}» բնօրինակ ֆայլի {0} դիրքում ընթեռնելի, բայց չվերականգնվող բլոկը նույնպես մնում է «{2}» պատճենում: Ստուգման գումարը ցույց է տալիս, որ բլոկը սխալ է</value>
+  </data>
+  <data name="LogFileName" xml:space="preserve">
+    <value>Թղթապանակների համաժամացման արձանագրություն հայերեն</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Պատճենահանման գործընթացի հաշվետվություն</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>ոչ</value>
+  </data>
+  <data name="OperationCanceled" xml:space="preserve">
+    <value>Գործընթացը ընդհատվեց</value>
+  </data>
+  <data name="OperationFinished" xml:space="preserve">
+    <value>Գործընթացն ավարտվեց</value>
+  </data>
+  <data name="OutOfBadBlocksNotRestoredInCopyBytes" xml:space="preserve">
+    <value>Սկզբնական ֆայլի {0} վատ բլոկներից {2} բայթը չի վերականգնվել «{1}» պատճենում:</value>
+  </data>
+  <data name="ProcessNo" xml:space="preserve">
+    <value>№</value>
+  </data>
+  <data name="RecoveringBlockAtOfCopiedFile" xml:space="preserve">
+    <value>«{1}» պատճենված թիրախային ֆայլի {0} դիրքի արգելափակումը վերականգնվել է</value>
+  </data>
+  <data name="RecoveringBlockAtOffsetOfFile" xml:space="preserve">
+    <value>«{1}» ֆայլի {0} դիրքի արգելափակումը վերականգնվել է:</value>
+  </data>
+  <data name="RightToLeft" xml:space="preserve">
+    <value>no</value>
+  </data>
+  <data name="RunningWithoutRepairOptionUndecided" xml:space="preserve">
+    <value>Համաժամեցումն աշխատում է առանց վերանորոգման տարբերակի, և, հետևաբար, չկարողացավ որոշել, թե արդյոք «{0}» ֆայլը կարող է վերականգնվել «{1}»-ի միջոցով:</value>
+  </data>
+  <data name="SavedInfoFileCantBeUsedForTesting" xml:space="preserve">
+    <value>Պահված «{0}» տեղեկատվական ֆայլը չի ​​կարող օգտագործվել «{1}» ֆայլը փորձարկելու համար. այն ստեղծվել է «{0}» ֆայլի այլ տարբերակի համար:</value>
+  </data>
+  <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
+    <value>Պահված «{0}» տեղեկատվական ֆայլը վնասված է և պետք է վերստեղծվի «{1}»-ից:</value>
+  </data>
+  <data name="SecondFolderNoDelete" xml:space="preserve">
+    <value>Սխալ․ երկրորդ թղթապանակը պարունակում է «{0}» ֆայլը։ Ընտրված թղթապանակը, կարծես, սխալ է ջնջման ընտրանքի համար: Թղթապանակի և ենթաթղթապանակների մշակումը բաց է թողնվել:</value>
+  </data>
+  <data name="SkippingFilePairDontDelete" xml:space="preserve">
+    <value>«{0}» և «{1}» ֆայլերի զույգը բաց է թողնվել: Հատուկ ֆայլը թույլ չի տալիս օգտագործել ջնջման տարբերակը սխալ արմատային պանակում: </value>
+  </data>
+  <data name="TheFileCantBeModifiedMissingRepairApplyToCopy" xml:space="preserve">
+    <value>Ֆայլը չի ​​կարող փոփոխվել վերանորոգման տարբերակի բացակայության պատճառով: Վերականգնման գործընթացը կիրառվում է պատճենի վրա:</value>
+  </data>
+  <data name="ThereAreBadBlocksInFileNonRestorableParts" xml:space="preserve">
+    <value>«{1}» ֆայլում կան {0} վատ բլոկներ, անվերականգնելի մասեր՝ {2} բայթ:</value>
+  </data>
+  <data name="ThereAreBadBlocksInNonRestorableMayRetryLater" xml:space="preserve">
+    <value>«{1}» ֆայլում կան {0} վատ բլոկներ, անվերականգնելի մասեր՝ {2} բայթ: Գործընթացը չի կարող շարունակվել անվերականգնելիության պատճառով։  Այն կարող է կրկին փորձել ավելի ուշ:</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableCantBeBackup" xml:space="preserve">
+    <value>«{1}» ֆայլում կան {0} վատ բլոկներ, անվերականգնելի մասեր՝ {2} բայթ: Ֆայլը չի ​​կարող օգտագործվել որպես կրկնօրինակ</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableOnlyTested" xml:space="preserve">
+    <value>«{1}» ֆայլում կան {0} վատ բլոկներ, անվերականգնելի մասեր՝ {2} բայթ: Ֆայլը մնում է անփոփոխ, այն նոր է փորձարկվել</value>
+  </data>
+  <data name="ThereIsBadBlockInFileNonRestorableParts" xml:space="preserve">
+    <value>«{0}» ֆայլում վատ բլոկ կա, անվերականգնելի մասեր՝ {1} բայթ:</value>
+  </data>
+  <data name="ThereIsBadBlockNonRestorableCantBeBackup" xml:space="preserve">
+    <value>«{0}» ֆայլում վատ բլոկ կա, որը հնարավոր չէ վերականգնել՝ {1} բայթ: Ֆայլը չի ​​կարող օգտագործվել որպես կրկնօրինակ </value>
+  </data>
+  <data name="ThereIsOneBadBlockNonRestorableOnlyTested" xml:space="preserve">
+    <value>«{0}» ֆայլում վատ բլոկ կա, անվերականգնելի մասեր՝ {1} բայթ: Ֆայլը մնում է անփոփոխ, այն նոր է փորձարկվել</value>
+  </data>
+  <data name="ThereRemainBadBlocksInBecauseReadOnly" xml:space="preserve">
+    <value>{0} վատ բլոկները մնում են «{1}»-ում, քանի որ ֆայլը հնարավոր չէ փոփոխել</value>
+  </data>
+  <data name="ThereWasBadBlockInFileNotRestoredParts" xml:space="preserve">
+    <value>«{0}» ֆայլում սխալ բլոկ կար, չվերականգնված մասեր՝ {1} բայթ</value>
+  </data>
+  <data name="ThereWasBadBlockNotRestoredInCopyBytes" xml:space="preserve">
+    <value>Բնօրինակ ֆայլում սխալ բլոկ կար, «{0}» պատճենում չվերականգնված մասեր՝ {1} բայթ:</value>
+  </data>
+  <data name="ThereWereBadBlocksInFileNotRestoredParts" xml:space="preserve">
+    <value>«{1}» ֆայլում կան {0} վատ բլոկներ, չվերականգնված մասեր՝ {2} բայթ</value>
+  </data>
+  <data name="ThisIsASimulatedIOErrorAtPosition" xml:space="preserve">
+    <value>Սա մոդելավորված I/O սխալ է {0} վայրում</value>
+  </data>
+  <data name="WarningChecksumOffsetPrimarySavedInfoIgnored" xml:space="preserve">
+    <value>Զգուշացում. {0} դիրքում գտնվող բլոկի ստուգման գումարը չի համընկնում «{1}» պահված տեղեկատվության առկա հիմնական բլոկների հետ: Բլոկի առաջնային պահպանված տեղեկատվությունը անտեսվում է</value>
+  </data>
+  <data name="WarningChecksumOffsetSecondarySavedInfoIgnored" xml:space="preserve">
+    <value>Զգուշացում. {0} դիրքում գտնվող բլոկի ստուգման գումարը չի համընկնում «{1}» պահված տեղեկատվության հասանելի երկրորդական բլոկների հետ: Բլոկի համար երկրորդային պահպանված տեղեկատվությունը անտեսվում է</value>
+  </data>
+  <data name="WarningCopiedToWithErrors" xml:space="preserve">
+    <value>Զգուշացում․ «{0}»-ը պատճենվել է «{1}»-ում՝ {2} սխալներով։ </value>
+  </data>
+  <data name="WarningIOErrorWhileCopyingToReason" xml:space="preserve">
+    <value>Զգուշացում․ «{0}» ֆայլը «{1}»-ում պատճենելիս I/O սխալ՝ {2}</value>
+  </data>
+  <data name="WarningSeveralBlocksDontMatchInSIWillBeIgnored" xml:space="preserve">
+    <value>Զգուշացում. մի քանի բլոկներ չեն համապատասխանում «{0}» պահված տեղեկատվությանը: Պահված տեղեկատվությունը լիովին անտեսվում է</value>
+  </data>
+  <data name="WarningWhileCreating" xml:space="preserve">
+    <value>Զգուշացում․ {0} «{1}» ֆայլը ստեղծելիս</value>
+  </data>
+  <data name="WarningWhileDiscoveringIfNeedsToBeRechecked" xml:space="preserve">
+    <value>Զգուշացում․ {0}՝ որոշելով, թե արդյոք «{1}»-ը պետք է նորից ստուգվի։ </value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Այո՛</value>
+  </data>
+</root>
