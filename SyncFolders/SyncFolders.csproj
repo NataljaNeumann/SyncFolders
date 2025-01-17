@@ -535,6 +535,9 @@
     <EmbeddedResource Include="Resources.la-001.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources.lt.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources.lv.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
