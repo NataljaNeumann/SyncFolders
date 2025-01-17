@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BlockOfAtPositionWillBeCopiedFromNoMatterChecksum" xml:space="preserve">
+    <value>Check {1} pozisiýasyndaky “{0}” faýlyň bloky, barlag blokynyň nädogrydygyny görkezse-de “{2}” -den göçürilýär</value>
+  </data>
+  <data name="BlockOfAtPositionWillBeRestoredFrom" xml:space="preserve">
+    <value>{1} position ýagdaýynda “{0}” faýlyň bloky “{2}” faýlyň şol bir ýagdaýyndan dikeldilýär.</value>
+  </data>
+  <data name="BlocksOfAndAtPositionNonRecoverableFillDummy" xml:space="preserve">
+    <value>{2} position ýagdaýynda “{0}” we “{1}” faýllaryň bloklaryny dikeldip bolmaýar we boş blok bilen doldurylýar</value>
+  </data>
+  <data name="ChecksumOfBlockAtOffsetNotOK" xml:space="preserve">
+    <value>{0}: block 1 position pozisiýadaky blokyň barlagy gowy däl</value>
+  </data>
+  <data name="CopiedFromToReason" xml:space="preserve">
+    <value>Göçürmek tamamlandy: “{0}” -dan “{1}” {2}</value>
+  </data>
+  <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
+    <value>Duýduryş: 1975-nji ýyl ýa-da ondan öňki “{0}” faýly “{1}” faýly dikeltmek üçin ulanylyp bilinmedi. Şeýle köne sene, “{0}” faýly dikeltmek üçin iň soňky pursatdygyny görkezýär.</value>
+  </data>
+  <data name="DefaultCulture" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="DeletedFileNotPresentIn" xml:space="preserve">
+    <value>“{1}” -de ýok bolan “{0}” faýly öçürildi.</value>
+  </data>
+  <data name="DeletedFolder" xml:space="preserve">
+    <value>“{1}” papkasy ýok edildi, sebäbi “{1}” ýok</value>
+  </data>
+  <data name="EncounteredErrorOlderOk" xml:space="preserve">
+    <value>Duýduryş: “{0}” faýly göçürilende I / O ýalňyşlygy ýüze çykdy. Has köne “{1}” faýly gowy ýaly</value>
+  </data>
+  <data name="EncounteredErrorOtherBadToo" xml:space="preserve">
+    <value>Duýduryş: “{0}” faýly göçürilende I / O ýalňyşlygy ýüze çykdy. “{1}” beýleki faýlynda hem ýalňyşlyklar bar ýa-da soňky pursatda dikeldişiň önümidir. “{0}” awtomatiki abatlamaga synanyşmak.</value>
+  </data>
+  <data name="EncounteredErrorWhileCopyingTryingToRepair" xml:space="preserve">
+    <value>Duýduryş: “{0}” faýly göçürilende ýalňyşlyk ýüze çykdy. Erroralňyşlygy düzetjek bolýaryn.</value>
+  </data>
+  <data name="ErrorDeleting" xml:space="preserve">
+    <value>“{0}” faýly pozmakda säwlik: {1}</value>
+  </data>
+  <data name="ErrorProcessinngFilePair" xml:space="preserve">
+    <value>“{0}” we “{1}” faýl jübütini gaýtadan işlemekde säwlik: {2}</value>
+  </data>
+  <data name="ErrorReadingPositionWillFillWithDummy" xml:space="preserve">
+    <value>{1}: {2} position ýagdaýynda “{0}” faýly okamakda säwlik. Blok nol bilen doldurylýar</value>
+  </data>
+  <data name="ErrorWhileTestingFile" xml:space="preserve">
+    <value>Synag faýly “{0}”</value>
+  </data>
+  <data name="FileCopied" xml:space="preserve">
+    <value>Göçürmek tamamlandy: “{0}” -dan “{1}” {2}</value>
+  </data>
+  <data name="FileHasDifferentTime" xml:space="preserve">
+    <value>(Faýlyň başga senesi ýa-da uzynlygy bar)</value>
+  </data>
+  <data name="FileHasZeroLength" xml:space="preserve">
+    <value>Duýduryş: Faýl nol uzynlyk bolup, geçmişde şowsuz göçürme amalyny görkezýär: “{0}”</value>
+  </data>
+  <data name="FileHealthyOrRepaired" xml:space="preserve">
+    <value>(Faýl ýalňyşsyz ýa-da abatlandy)</value>
+  </data>
+  <data name="FilesHaveZeroLength" xml:space="preserve">
+    <value>Duýduryş: Geçmişde şowsuz göçürme amalyny görkezýän iki faýl hem nol uzynlykda: “{0}” we “{1}” </value>
+  </data>
+  <data name="FileWasHealthy" xml:space="preserve">
+    <value>(Faýl ýalňyşsyzdy)</value>
+  </data>
+  <data name="FileWasNew" xml:space="preserve">
+    <value>(Faýl täze)</value>
+  </data>
+  <data name="FileWasNewer" xml:space="preserve">
+    <value>(Faýl has täze ýa-da has uludy)</value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetOfCopyWithDummy" xml:space="preserve">
+    <value>Göçürilen “{1}” faýlyň {0} position ýagdaýynda dikeldip bolmaýan blok nol bilen doldurylýar</value>
+  </data>
+  <data name="FillingNotRecoverableAtOffsetWithDummy" xml:space="preserve">
+    <value>{0} position pozisiýasynda dikeldip bolmaýan blok nol bilen doldurylýar</value>
+  </data>
+  <data name="FirstFileHasBadBlocks" xml:space="preserve">
+    <value>Duýduryş: “{0}” birinji faýlyň erbet bloklary bar. “{1}” faýlyň üstünden ýazmak, ätiýaçlyk hökmünde goýuldy</value>
+  </data>
+  <data name="FoundFileForSync" xml:space="preserve">
+    <value>Mümkin sinhronizasiýa üçin faýl tapdy</value>
+  </data>
+  <data name="FoundFilesForSync" xml:space="preserve">
+    <value>Mümkin sinhronizasiýa üçin tapylan {0} faýllar</value>
+  </data>
+  <data name="InternalErrorCouldntRestoreAny" xml:space="preserve">
+    <value>Içerki ýalňyşlyk: “{0}” ýa-da “{1}” faýllaryň bir nusgasy dikeldilip bilinmedi </value>
+  </data>
+  <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
+    <value>Göçürmäni faýl bilen bejermekde I / O ýalňyşlygy: “{0}”: {1}</value>
+  </data>
+  <data name="IOErrorReadingFile" xml:space="preserve">
+    <value>I / O ýalňyş okamak faýly “{0}”: {1}</value>
+  </data>
+  <data name="IOErrorReadingFileOffset" xml:space="preserve">
+    <value>I / O ýalňyş okamak faýly: {1} position: {2} position ýagdaýynda “{0}”</value>
+  </data>
+  <data name="IOErrorWhileReadingPositionFillDummyWhileCopy" xml:space="preserve">
+    <value>I / O error {1}: {2} location ýerinde “{0}” faýl okamakda ýalňyşlyk. Göçürilende blok boş blok bilen çalşyrylýar.</value>
+  </data>
+  <data name="IOErrorWritingFile" xml:space="preserve">
+    <value>I / O ýalňyş ýazmak faýly “{0}”: {1}</value>
+  </data>
+  <data name="KeepingReadableButNotRecoverableBlockAtOffset" xml:space="preserve">
+    <value>{0} position ýagdaýynda okalýan, ýöne yzyna gaýtaryp bolmaýan blok galýar. Barlag, blokyň nädogrydygyny görkezýär</value>
+  </data>
+  <data name="KeepingReadableNonRecovBBlockAtAlsoInCopy" xml:space="preserve">
+    <value>“{1}” asyl faýlyň {0} position ýagdaýynda okalýan, ýöne yzyna gaýtaryp bolmaýan blok hem “{2}” nusgasynda galýar. Barlag, blokyň nädogrydygyny görkezýär</value>
+  </data>
+  <data name="LogFileName" xml:space="preserve">
+    <value>Türkmenlerdäki bukjalary sinhronlaşdyrmak protokoly</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Göçürmek prosesi barada hasabat</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>ýok</value>
+  </data>
+  <data name="OperationCanceled" xml:space="preserve">
+    <value>Amal ýatyryldy</value>
+  </data>
+  <data name="OperationFinished" xml:space="preserve">
+    <value>Amal tamamlandy</value>
+  </data>
+  <data name="OutOfBadBlocksNotRestoredInCopyBytes" xml:space="preserve">
+    <value>Asyl faýldaky {0} erbet bloklardan “{1}” nusgasynda {2} baýt tapylmady.</value>
+  </data>
+  <data name="ProcessNo" xml:space="preserve">
+    <value>№</value>
+  </data>
+  <data name="RecoveringBlockAtOfCopiedFile" xml:space="preserve">
+    <value>Göçürilen maksatly faýlyň “{1}” {0} position ýagdaýynda blokirlendi</value>
+  </data>
+  <data name="RecoveringBlockAtOffsetOfFile" xml:space="preserve">
+    <value>“{1}” faýlyň {0} position ýagdaýynda blokirlendi.</value>
+  </data>
+  <data name="RightToLeft" xml:space="preserve">
+    <value>no</value>
+  </data>
+  <data name="RunningWithoutRepairOptionUndecided" xml:space="preserve">
+    <value>Sinhronlamak abatlaýyş opsiýasyz işleýär we şonuň üçin “{0}” faýlyň "{1} using" ulanyp dikeldilip bilinjekdigini kesgitläp bilmedi.</value>
+  </data>
+  <data name="SavedInfoFileCantBeUsedForTesting" xml:space="preserve">
+    <value>Saklanan maglumat faýly “{0}” “{1}” faýlyny barlamak üçin ulanyp bolmaýar: “{0}” faýlyň başga bir wersiýasy üçin döredildi.</value>
+  </data>
+  <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
+    <value>Saklanan maglumat faýly “{0}” zaýalandy we “{1}” -den döredilmeli.</value>
+  </data>
+  <data name="SecondFolderNoDelete" xml:space="preserve">
+    <value>Roralňyşlyk: Ikinji bukjada “{0}” faýly bar. Saýlanan bukjany pozmak opsiýasy nädogry bolup görünýär. Papkany we kiçi bukjalary gaýtadan işlemek geçirilýär.</value>
+  </data>
+  <data name="SkippingFilePairDontDelete" xml:space="preserve">
+    <value>“{0}” we “{1}” faýl jübütleri geçýär. Specialörite faýl nädogry kök bukjasynda pozmak opsiýasynyň ulanylmagynyň öňüni alýar. </value>
+  </data>
+  <data name="TheFileCantBeModifiedMissingRepairApplyToCopy" xml:space="preserve">
+    <value>Bejeriş mümkinçiliginiň ýoklugy sebäpli faýly üýtgedip bolmaýar. Dikeldiş prosesi göçürmä ulanylýar.</value>
+  </data>
+  <data name="ThereAreBadBlocksInFileNonRestorableParts" xml:space="preserve">
+    <value>“{1}” faýlynda {0} erbet bloklar, dikeldip bolmaýan bölekler bar: {2} baýt.</value>
+  </data>
+  <data name="ThereAreBadBlocksInNonRestorableMayRetryLater" xml:space="preserve">
+    <value>“{1}” faýlynda {0} erbet bloklar, dikeldip bolmaýan bölekler bar: {2} baýt. Amalyň öwezini dolup bolmajaklygy sebäpli dowam edip bilmez.  Soňrak gaýtadan synanyşyp bolar.</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableCantBeBackup" xml:space="preserve">
+    <value>“{1}” faýlynda {0} erbet bloklar, dikeldip bolmaýan bölekler bar: {2} baýt. Faýly ätiýaçlyk hökmünde ulanyp bolmaz</value>
+  </data>
+  <data name="ThereAreBadBlocksNonRestorableOnlyTested" xml:space="preserve">
+    <value>“{1}” faýlynda {0} erbet bloklar, dikeldip bolmaýan bölekler bar: {2} baýt. Faýl üýtgewsiz galýar, diňe synagdan geçirildi</value>
+  </data>
+  <data name="ThereIsBadBlockInFileNonRestorableParts" xml:space="preserve">
+    <value>“{0}” faýlynda erbet blok bar, dikeldip bolmaýan bölekler: {1} baýt.</value>
+  </data>
+  <data name="ThereIsBadBlockNonRestorableCantBeBackup" xml:space="preserve">
+    <value>“{0}” faýlynda dikeldip bolmaýan erbet blok bar: {1} baýt. Faýly ätiýaçlyk hökmünde ulanyp bolmaz</value>
+  </data>
+  <data name="ThereIsOneBadBlockNonRestorableOnlyTested" xml:space="preserve">
+    <value>“{0}” faýlynda erbet blok bar, dikeldip bolmaýan bölekler: {1} baýt. Faýl üýtgewsiz galýar, diňe synagdan geçirildi</value>
+  </data>
+  <data name="ThereRemainBadBlocksInBecauseReadOnly" xml:space="preserve">
+    <value>{0} erbet bloklar “{1}” -de galýar, sebäbi faýly üýtgedip bolmaýar</value>
+  </data>
+  <data name="ThereWasBadBlockInFileNotRestoredParts" xml:space="preserve">
+    <value>“{0}” faýlynda erbet blok bardy, açylmadyk bölekler: {1} baýt</value>
+  </data>
+  <data name="ThereWasBadBlockNotRestoredInCopyBytes" xml:space="preserve">
+    <value>Asyl faýlda “{0}”: {1} baýt göçürmede açylmadyk bölekler bardy.</value>
+  </data>
+  <data name="ThereWereBadBlocksInFileNotRestoredParts" xml:space="preserve">
+    <value>“{1}” faýlynda {0} erbet bloklar, açylmadyk bölekler: {2} baýt</value>
+  </data>
+  <data name="ThisIsASimulatedIOErrorAtPosition" xml:space="preserve">
+    <value>Bu {0} location ýerinde simulirlenen I / O ýalňyşlygy</value>
+  </data>
+  <data name="WarningChecksumOffsetPrimarySavedInfoIgnored" xml:space="preserve">
+    <value>Duýduryş: block 0 position pozisiýadaky blok barlagy, “{1}” saklanylýan maglumatlaryň esasy bloklaryna gabat gelmeýär. Blok üçin esasy saklanylýan maglumatlar hasaba alynmaýar</value>
+  </data>
+  <data name="WarningChecksumOffsetSecondarySavedInfoIgnored" xml:space="preserve">
+    <value>Duýduryş: block 0 position pozisiýadaky blok barlagy, “{1}” saklanylýan maglumatlaryň ikinji derejeli bloklaryna gabat gelmeýär. Blok üçin ikinji derejeli saklanylýan maglumatlar hasaba alynmaýar</value>
+  </data>
+  <data name="WarningCopiedToWithErrors" xml:space="preserve">
+    <value>Duýduryş: “{0}” {2} ýalňyşlyklar bilen “{1}” göçürildi </value>
+  </data>
+  <data name="WarningIOErrorWhileCopyingToReason" xml:space="preserve">
+    <value>Duýduryş: “{0}” faýly “{1}” -e göçürilende I / O ýalňyşlygy: {2}</value>
+  </data>
+  <data name="WarningSeveralBlocksDontMatchInSIWillBeIgnored" xml:space="preserve">
+    <value>Duýduryş: Birnäçe blok “{0}” saklanylýan maglumatlara gabat gelmeýär. Saklanan maglumatlar düýbünden hasaba alynmaýar</value>
+  </data>
+  <data name="WarningWhileCreating" xml:space="preserve">
+    <value>Duýduryş: “{1}” faýly döredilende {0}</value>
+  </data>
+  <data name="WarningWhileDiscoveringIfNeedsToBeRechecked" xml:space="preserve">
+    <value>Duýduryş: “{1}” gaýtadan barlanmalydygyny kesgitläniňizde {0}. </value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Hawa</value>
+  </data>
+</root>
