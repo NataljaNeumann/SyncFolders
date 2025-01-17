@@ -159,14 +159,14 @@
   <data name="&gt;&gt;m_cbCreateRestoreInfo.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="m_lblFolder1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+  <data name="&gt;&gt;m_lblProgress.Name" xml:space="preserve">
+    <value>m_lblProgress</value>
   </data>
   <data name="m_cbTestAllFiles.Text" xml:space="preserve">
     <value>Test readability of all files</value>
   </data>
-  <data name="&gt;&gt;m_ctlProgressBar.Name" xml:space="preserve">
-    <value>m_ctlProgressBar</value>
+  <data name="m_cbCreateRestoreInfo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 216</value>
   </data>
   <data name="m_btnSelfTest.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -183,14 +183,14 @@
   <data name="m_lblLicence.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="m_cbSyncMode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>263, 137</value>
-  </data>
   <data name="m_cbSyncMode.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
   </data>
   <data name="m_btnSync.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
+  </data>
+  <data name="m_cbParallel.Text" xml:space="preserve">
+    <value>Parallel</value>
   </data>
   <data name="m_cbRepairBlockFailures.Size" type="System.Drawing.Size, System.Drawing">
     <value>189, 20</value>
@@ -198,14 +198,8 @@
   <data name="m_cbCreateRestoreInfo.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
-  <data name="&gt;&gt;folderBrowserDialogFolder1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.FolderBrowserDialog, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;m_lblAbout.ZOrder" xml:space="preserve">
     <value>3</value>
-  </data>
-  <data name="m_ctlProgressBar.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
   </data>
   <data name="m_btnSelectSecondFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
@@ -219,20 +213,14 @@
   <data name="m_cbRepairBlockFailures.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
-  <data name="&gt;&gt;m_lblLicence.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
   <data name="&gt;&gt;m_lblLicence.Type" xml:space="preserve">
     <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="m_cbRepairBlockFailures.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
   </data>
-  <data name="m_lblAbout.TabIndex" type="System.Int32, mscorlib">
-    <value>19</value>
-  </data>
-  <data name="m_cbCreateRestoreInfo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 216</value>
+  <data name="&gt;&gt;m_btnSelectSecondFolder.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;m_cbDeleteFilesInSecond.ZOrder" xml:space="preserve">
     <value>18</value>
@@ -282,17 +270,20 @@
   <data name="m_cbFirstToSecond.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
   </data>
+  <data name="&gt;&gt;folderBrowserDialogFolder2.Name" xml:space="preserve">
+    <value>folderBrowserDialogFolder2</value>
+  </data>
   <data name="m_cbPreferCopies.Size" type="System.Drawing.Size, System.Drawing">
     <value>469, 20</value>
-  </data>
-  <data name="&gt;&gt;m_btnCancel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;folderBrowserDialogFolder1.Name" xml:space="preserve">
     <value>folderBrowserDialogFolder1</value>
   </data>
   <data name="&gt;&gt;m_cbParallel.Parent" xml:space="preserve">
     <value>$this</value>
+  </data>
+  <data name="&gt;&gt;m_ctlProgressBar.Name" xml:space="preserve">
+    <value>m_ctlProgressBar</value>
   </data>
   <data name="&gt;&gt;m_btnSelectFirstFolder.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -302,6 +293,35 @@
   </data>
   <data name="&gt;&gt;m_cbRepairBlockFailures.ZOrder" xml:space="preserve">
     <value>22</value>
+  </data>
+  <data name="m_btnSync.TabIndex" type="System.Int32, mscorlib">
+    <value>21</value>
+  </data>
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAQEACAAEAAQAwBAAAFgAAACgAAABAAAAAgAAAAAEAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAgV5UAAAAAAP//////////////////////////////////////////////////////////9///////
+        ///j/////////8H/9X//////wP/gP/////8Af+B//////4A/4D//////wB/gf//////gD+A///////AH
+        4H//////+APgP//////8AeA///////4A4D///////wBgf+qqqqqqgCA/wAAAAAAAAH/AAAAAAAAAP8AA
+        AAAAAAB/4AAAAAAAAD/AAAAAAAAAP+iIiIiIgCA///////8AYH///////gDgP//////8AeB////+//gD
+        4D/d//x/8Afgf+D/+D/gD+A/wH/gH8Af4D/g/+AfgD/gP8B/wB8Af+B/4P+Af4D/4D/AfgB/wf/wf8D+
+        Af/j////wHwB//f////g+Af//////8BgB///////4OAP///////AQAAAAAAAf+AAAAAAAAA/wAAAAAAA
+        AH/AAAAAAAAAP8AAAAAAAAB/4IAAAAAAAD/AQBd3V3dXf+DgD///////wHAH///////g+AP//////8B8
+        Af//////wP4A///////AfwB//////+D/gD//////wH/AH//////g/+A//////8B/8D/////////4////
+        //////z/////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////3/////////+P/////////wf/1f//////A/+A//////wB/
+        4H//////gD/gP//////AH+B//////+AP4D//////8Afgf//////4A+A///////wB4D///////gDgP///
+        ////AGB/6qqqqqqAID/AAAAAAAAAf8AAAAAAAAA/wAAAAAAAAH/gAAAAAAAAP8AAAAAAAAA/6IiIiIiA
+        ID///////wBgf//////+AOA///////wB4H////7/+APgP93//H/wB+B/4P/4P+AP4D/Af+AfwB/gP+D/
+        4B+AP+A/wH/AHwB/4H/g/4B/gP/gP8B+AH/B//B/wP4B/+P////AfAH/9////+D4B///////wGAH////
+        ///g4A///////8BAAAAAAAB/4AAAAAAAAD/AAAAAAAAAf8AAAAAAAAA/wAAAAAAAAH/ggAAAAAAAP8BA
+        F3dXd1d/4OAP///////AcAf//////+D4A///////wHwB///////A/gD//////8B/AH//////4P+AP///
+        ///Af8Af/////+D/4D//////wH/wP/////////j//////////P//////////////////////////////
+        //////////////////8=
+</value>
+  </data>
+  <data name="m_cbIgnoreTime.Location" type="System.Drawing.Point, System.Drawing">
+    <value>296, 164</value>
   </data>
   <data name="m_cbIgnoreTime.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -321,17 +341,17 @@
   <data name="m_cbSyncMode.Size" type="System.Drawing.Size, System.Drawing">
     <value>95, 20</value>
   </data>
-  <data name="m_btnSelectFirstFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+  <data name="&gt;&gt;folderBrowserDialogFolder2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.FolderBrowserDialog, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;m_cbTestAllFiles.Name" xml:space="preserve">
+    <value>m_cbTestAllFiles</value>
   </data>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>8, 16</value>
   </data>
   <data name="m_btnCancel.Text" xml:space="preserve">
     <value>Cancel</value>
-  </data>
-  <data name="&gt;&gt;m_btnSync.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="m_btnSelfTest.Location" type="System.Drawing.Point, System.Drawing">
     <value>519, 132</value>
@@ -348,8 +368,8 @@
   <data name="m_btnSelectFirstFolder.Size" type="System.Drawing.Size, System.Drawing">
     <value>44, 28</value>
   </data>
-  <data name="m_cbParallel.Text" xml:space="preserve">
-    <value>Parallel</value>
+  <data name="&gt;&gt;m_cbDeleteFilesInSecond.Name" xml:space="preserve">
+    <value>m_cbDeleteFilesInSecond</value>
   </data>
   <data name="m_lblSecondFolder.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -360,6 +380,9 @@
   <data name="m_cbPreferCopies.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
   </data>
+  <data name="&gt;&gt;m_oTimerUpdateFileDescription.Name" xml:space="preserve">
+    <value>m_oTimerUpdateFileDescription</value>
+  </data>
   <data name="m_lblSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
     <value>17, 72</value>
   </data>
@@ -369,8 +392,14 @@
   <data name="m_lblSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 16</value>
   </data>
+  <data name="m_cbSkipRecentlyTested.Location" type="System.Drawing.Point, System.Drawing">
+    <value>205, 243</value>
+  </data>
   <data name="&gt;&gt;m_btnSync.ZOrder" xml:space="preserve">
     <value>9</value>
+  </data>
+  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt</value>
   </data>
   <data name="m_cbSkipRecentlyTested.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
@@ -414,8 +443,8 @@
   <data name="&gt;&gt;m_cbIgnoreTime.ZOrder" xml:space="preserve">
     <value>17</value>
   </data>
-  <data name="&gt;&gt;m_cbSkipRecentlyTested.Name" xml:space="preserve">
-    <value>m_cbSkipRecentlyTested</value>
+  <data name="&gt;&gt;m_lblLicence.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
   <data name="m_lblProgress.Location" type="System.Drawing.Point, System.Drawing">
     <value>21, 296</value>
@@ -429,10 +458,16 @@
   <data name="&gt;&gt;m_ctlProgressBar.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
+  <data name="m_cbSkipRecentlyTested.Text" xml:space="preserve">
+    <value>if not tested recently</value>
+  </data>
+  <data name="m_lblAbout.Size" type="System.Drawing.Size, System.Drawing">
+    <value>125, 16</value>
+  </data>
   <data name="m_cbCreateRestoreInfo.Text" xml:space="preserve">
     <value>Save some info for restoring single blocks, if missing</value>
   </data>
-  <data name="&gt;&gt;folderBrowserDialogFolder2.Type" xml:space="preserve">
+  <data name="&gt;&gt;folderBrowserDialogFolder1.Type" xml:space="preserve">
     <value>System.Windows.Forms.FolderBrowserDialog, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;m_cbFirstToSecond.Type" xml:space="preserve">
@@ -447,6 +482,9 @@
   <data name="m_cbFirstReadonly.Size" type="System.Drawing.Size, System.Drawing">
     <value>253, 20</value>
   </data>
+  <data name="&gt;&gt;m_cbIgnoreTime.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
   <data name="m_ctlProgressBar.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
   </data>
@@ -456,8 +494,8 @@
   <data name="m_lblAbout.Location" type="System.Drawing.Point, System.Drawing">
     <value>22, 376</value>
   </data>
-  <data name="&gt;&gt;m_cbTestAllFiles.Name" xml:space="preserve">
-    <value>m_cbTestAllFiles</value>
+  <data name="m_btnSelectFirstFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
   </data>
   <data name="&gt;&gt;m_lblLicence.ZOrder" xml:space="preserve">
     <value>2</value>
@@ -471,31 +509,11 @@
   <data name="m_btnSelfTest.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
   </data>
-  <data name="&gt;&gt;m_cbIgnoreTime.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="m_cbPreferCopies.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        AAABAAEAQEACAAEAAQAwBAAAFgAAACgAAABAAAAAgAAAAAEAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAgV5UAAAAAAP//////////////////////////////////////////////////////////9///////
-        ///j/////////8H/9X//////wP/gP/////8Af+B//////4A/4D//////wB/gf//////gD+A///////AH
-        4H//////+APgP//////8AeA///////4A4D///////wBgf+qqqqqqgCA/wAAAAAAAAH/AAAAAAAAAP8AA
-        AAAAAAB/4AAAAAAAAD/AAAAAAAAAP+iIiIiIgCA///////8AYH///////gDgP//////8AeB////+//gD
-        4D/d//x/8Afgf+D/+D/gD+A/wH/gH8Af4D/g/+AfgD/gP8B/wB8Af+B/4P+Af4D/4D/AfgB/wf/wf8D+
-        Af/j////wHwB//f////g+Af//////8BgB///////4OAP///////AQAAAAAAAf+AAAAAAAAA/wAAAAAAA
-        AH/AAAAAAAAAP8AAAAAAAAB/4IAAAAAAAD/AQBd3V3dXf+DgD///////wHAH///////g+AP//////8B8
-        Af//////wP4A///////AfwB//////+D/gD//////wH/AH//////g/+A//////8B/8D/////////4////
-        //////z/////////////////////////////////////////////////////////////////////////
-        ///////////////////////////////////3/////////+P/////////wf/1f//////A/+A//////wB/
-        4H//////gD/gP//////AH+B//////+AP4D//////8Afgf//////4A+A///////wB4D///////gDgP///
-        ////AGB/6qqqqqqAID/AAAAAAAAAf8AAAAAAAAA/wAAAAAAAAH/gAAAAAAAAP8AAAAAAAAA/6IiIiIiA
-        ID///////wBgf//////+AOA///////wB4H////7/+APgP93//H/wB+B/4P/4P+AP4D/Af+AfwB/gP+D/
-        4B+AP+A/wH/AHwB/4H/g/4B/gP/gP8B+AH/B//B/wP4B/+P////AfAH/9////+D4B///////wGAH////
-        ///g4A///////8BAAAAAAAB/4AAAAAAAAD/AAAAAAAAAf8AAAAAAAAA/wAAAAAAAAH/ggAAAAAAAP8BA
-        F3dXd1d/4OAP///////AcAf//////+D4A///////wHwB///////A/gD//////8B/AH//////4P+AP///
-        ///Af8Af/////+D/4D//////wH/wP/////////j//////////P//////////////////////////////
-        //////////////////8=
-</value>
+  <data name="m_cbSyncMode.Location" type="System.Drawing.Point, System.Drawing">
+    <value>263, 137</value>
   </data>
   <data name="&gt;&gt;m_cbTestAllFiles.Parent" xml:space="preserve">
     <value>$this</value>
@@ -511,6 +529,9 @@
   </data>
   <data name="m_cbPreferCopies.Text" xml:space="preserve">
     <value>Prefer physical copies in case of conflicts during repair (not recommended)</value>
+  </data>
+  <data name="m_lblAbout.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
   </data>
   <data name="&gt;&gt;m_lblFolder1.Parent" xml:space="preserve">
     <value>$this</value>
@@ -533,8 +554,8 @@
   <data name="m_lblFolder1.Location" type="System.Drawing.Point, System.Drawing">
     <value>17, 16</value>
   </data>
-  <data name="&gt;&gt;m_lblAbout.Name" xml:space="preserve">
-    <value>m_lblAbout</value>
+  <data name="m_cbTestAllFiles.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
   </data>
   <data name="m_cbTestAllFiles.Location" type="System.Drawing.Point, System.Drawing">
     <value>20, 244</value>
@@ -542,29 +563,29 @@
   <data name="&gt;&gt;m_cbFirstToSecond.Name" xml:space="preserve">
     <value>m_cbFirstToSecond</value>
   </data>
-  <data name="m_cbPreferCopies.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;m_lblProgress.Name" xml:space="preserve">
-    <value>m_lblProgress</value>
-  </data>
   <data name="m_cbIgnoreTime.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="&gt;&gt;m_lblSecondFolder.ZOrder" xml:space="preserve">
     <value>15</value>
   </data>
-  <data name="&gt;&gt;folderBrowserDialogFolder2.Name" xml:space="preserve">
-    <value>folderBrowserDialogFolder2</value>
+  <data name="m_cbSkipRecentlyTested.Size" type="System.Drawing.Size, System.Drawing">
+    <value>144, 20</value>
   </data>
   <data name="&gt;&gt;m_tbxSecondFolder.Name" xml:space="preserve">
     <value>m_tbxSecondFolder</value>
   </data>
-  <data name="m_cbSkipRecentlyTested.Text" xml:space="preserve">
-    <value>if not tested recently</value>
+  <data name="m_tbxFirstFolder.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 36</value>
   </data>
-  <data name="m_cbSyncMode.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="&gt;&gt;m_cbDeleteFilesInSecond.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="m_cbIgnoreTime.Size" type="System.Drawing.Size, System.Drawing">
+    <value>319, 20</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>632, 417</value>
   </data>
   <data name="m_ctlProgressBar.Location" type="System.Drawing.Point, System.Drawing">
     <value>20, 370</value>
@@ -575,8 +596,8 @@
   <data name="m_btnSelectFirstFolder.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="&gt;&gt;m_cbIgnoreTime.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="m_lblFolder1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="m_lblFolder1.Text" xml:space="preserve">
     <value>First Folder:</value>
@@ -629,8 +650,8 @@
   <data name="m_cbIgnoreTime.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 9.75pt</value>
+  <data name="&gt;&gt;m_cbSkipRecentlyTested.Name" xml:space="preserve">
+    <value>m_cbSkipRecentlyTested</value>
   </data>
   <data name="m_btnSelectFirstFolder.Location" type="System.Drawing.Point, System.Drawing">
     <value>575, 33</value>
@@ -638,8 +659,14 @@
   <data name="m_cbCreateRestoreInfo.Size" type="System.Drawing.Size, System.Drawing">
     <value>336, 20</value>
   </data>
+  <data name="&gt;&gt;m_lblAbout.Name" xml:space="preserve">
+    <value>m_lblAbout</value>
+  </data>
   <data name="&gt;&gt;m_ctlProgressBar.Parent" xml:space="preserve">
     <value>$this</value>
+  </data>
+  <data name="m_cbSyncMode.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="m_cbCreateRestoreInfo.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
@@ -647,11 +674,14 @@
   <data name="&gt;&gt;m_cbFirstReadonly.Name" xml:space="preserve">
     <value>m_cbFirstReadonly</value>
   </data>
-  <data name="m_cbSkipRecentlyTested.Location" type="System.Drawing.Point, System.Drawing">
-    <value>205, 243</value>
+  <data name="m_btnSelectSecondFolder.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
   </data>
-  <data name="m_cbParallel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>73, 20</value>
+  <data name="m_lblAbout.Text" xml:space="preserve">
+    <value>About Sync Folders</value>
+  </data>
+  <data name="&gt;&gt;m_btnSync.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;m_cbRepairBlockFailures.Parent" xml:space="preserve">
     <value>$this</value>
@@ -671,8 +701,8 @@
   <data name="m_cbTestAllFiles.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
   </data>
-  <data name="&gt;&gt;m_cbDeleteFilesInSecond.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="m_lblFolder1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="&gt;&gt;m_cbRepairBlockFailures.Name" xml:space="preserve">
     <value>m_cbRepairBlockFailures</value>
@@ -683,23 +713,20 @@
   <data name="m_cbDeleteFilesInSecond.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
   </data>
-  <data name="&gt;&gt;m_oTimerUpdateFileDescription.Name" xml:space="preserve">
-    <value>m_oTimerUpdateFileDescription</value>
+  <data name="&gt;&gt;m_cbSyncMode.Name" xml:space="preserve">
+    <value>m_cbSyncMode</value>
   </data>
   <data name="m_lblLicence.Size" type="System.Drawing.Size, System.Drawing">
     <value>109, 16</value>
   </data>
-  <data name="m_lblAbout.Size" type="System.Drawing.Size, System.Drawing">
-    <value>125, 16</value>
+  <data name="m_btnCancel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
   </data>
   <data name="&gt;&gt;m_cbSkipRecentlyTested.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;m_lblSecondFolder.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>632, 417</value>
+  <data name="m_cbParallel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>73, 20</value>
   </data>
   <data name="&gt;&gt;m_cbSyncMode.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -707,17 +734,14 @@
   <data name="m_cbDeleteFilesInSecond.Size" type="System.Drawing.Size, System.Drawing">
     <value>321, 20</value>
   </data>
-  <data name="m_btnSync.TabIndex" type="System.Int32, mscorlib">
-    <value>21</value>
+  <data name="m_ctlProgressBar.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="m_cbFirstReadonly.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="m_btnSelectFirstFolder.Text" xml:space="preserve">
     <value>...</value>
-  </data>
-  <data name="m_cbSkipRecentlyTested.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 20</value>
   </data>
   <data name="m_cbRepairBlockFailures.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -731,14 +755,11 @@
   <data name="m_cbParallel.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
   </data>
-  <data name="&gt;&gt;m_btnSelectSecondFolder.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="m_cbFirstToSecond.Text" xml:space="preserve">
     <value>Unidirictionally from 1st to 2nd</value>
   </data>
-  <data name="m_lblAbout.Text" xml:space="preserve">
-    <value>About Sync Folders</value>
+  <data name="&gt;&gt;m_btnSelfTest.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
   <data name="&gt;&gt;m_lblFolder1.Name" xml:space="preserve">
     <value>m_lblFolder1</value>
@@ -758,14 +779,8 @@
   <data name="&gt;&gt;m_lblFolder1.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;m_cbDeleteFilesInSecond.Name" xml:space="preserve">
-    <value>m_cbDeleteFilesInSecond</value>
-  </data>
-  <data name="m_cbIgnoreTime.Location" type="System.Drawing.Point, System.Drawing">
-    <value>296, 164</value>
-  </data>
-  <data name="m_lblFolder1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="m_btnSync.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
   </data>
   <data name="m_ctlProgressBar.Size" type="System.Drawing.Size, System.Drawing">
     <value>487, 28</value>
@@ -793,9 +808,6 @@
   </data>
   <data name="&gt;&gt;m_btnSelectSecondFolder.Parent" xml:space="preserve">
     <value>$this</value>
-  </data>
-  <data name="&gt;&gt;m_cbSyncMode.Name" xml:space="preserve">
-    <value>m_cbSyncMode</value>
   </data>
   <data name="&gt;&gt;m_lblProgress.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -833,11 +845,11 @@
   <data name="m_lblProgress.Text" xml:space="preserve">
     <value>...</value>
   </data>
-  <data name="m_btnCancel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
+  <data name="m_lblLicence.TabIndex" type="System.Int32, mscorlib">
+    <value>20</value>
   </data>
-  <data name="m_tbxFirstFolder.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 36</value>
+  <data name="&gt;&gt;m_cbIgnoreTime.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;m_btnSelfTest.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -866,14 +878,8 @@
   <data name="&gt;&gt;m_btnSelectFirstFolder.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="m_btnSync.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
   <data name="m_cbDeleteFilesInSecond.Text" xml:space="preserve">
     <value>Delete files in 2nd folder that aren't in first anymore</value>
-  </data>
-  <data name="m_btnSelectSecondFolder.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
   </data>
   <data name="m_lblLicence.Text" xml:space="preserve">
     <value>Licence (GPL v2)</value>
@@ -884,9 +890,6 @@
   <data name="m_tbxSecondFolder.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
   </data>
-  <data name="&gt;&gt;m_btnSelfTest.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
   <data name="&gt;&gt;m_cbParallel.Name" xml:space="preserve">
     <value>m_cbParallel</value>
   </data>
@@ -896,14 +899,11 @@
   <data name="&gt;&gt;m_ctlProgressBar.Type" xml:space="preserve">
     <value>System.Windows.Forms.ProgressBar, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="m_cbIgnoreTime.Size" type="System.Drawing.Size, System.Drawing">
-    <value>319, 20</value>
+  <data name="&gt;&gt;m_lblSecondFolder.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
-  <data name="m_lblLicence.TabIndex" type="System.Int32, mscorlib">
-    <value>20</value>
-  </data>
-  <data name="m_cbTestAllFiles.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+  <data name="&gt;&gt;m_btnCancel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="m_cbFirstToSecond.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>

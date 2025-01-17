@@ -59,8 +59,8 @@ namespace SyncFolders
         public static void SetCultureForThread(Thread oThread)
         {
 #if DEBUG
-             oThread.CurrentCulture = new CultureInfo("ja-JP");
-             oThread.CurrentUICulture = new CultureInfo("ja-JP");
+             //oThread.CurrentCulture = new CultureInfo("ja-JP");
+             //oThread.CurrentUICulture = new CultureInfo("ja-JP");
 #endif
         }
     }

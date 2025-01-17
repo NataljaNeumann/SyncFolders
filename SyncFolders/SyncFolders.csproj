@@ -941,7 +941,4 @@
     <Content Include="SyncFolders.ico" />
     <Content Include="SyncFoldersSmall.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="1\" />
-  </ItemGroup>
 </Project>
