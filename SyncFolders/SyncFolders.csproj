@@ -532,6 +532,12 @@
     <EmbeddedResource Include="Resources.tr.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources.uk.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources.uz.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources.vi.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
