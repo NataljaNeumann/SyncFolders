@@ -2,9 +2,7 @@
 ‎
 # Sync Folders
   
-[Current SyncFolders Sources and Packages](https://github.com/NataljaNeumann/SyncFolders)
-[^1]: [^2]: SyncFolders-Don't-Delete.txt
-  
+[Current SyncFolders Sources and Packages](https://github.com/NataljaNeumann/SyncFolders)  
   
   
 ![SyncFolders-1](https://github.com/user-attachments/assets/3864175e-1b28-45eb-b56a-f95d1d338d44)  
@@ -53,6 +51,12 @@ can also overwrite new files in second directory by old files in first directory
 > [!NOTE]
 ‎If second directory contains special file, with the name specified below [^1], then the application
 > doesn't delete the files in it. In this case it ignores that you specified to delete the files in second directory.
+
+
+[^2]: [^3]: [^4]: [^5]: [^6]: [^7]: [^8]: [^9]: [^10]: [^11]: [^12]: [^13]: [^14]: [^15]:
+[^1]: SyncFolders-Don't-Delete.txt
+
+
 ‎
 # Français
 <a name="fr"></a>
@@ -145,7 +149,7 @@ la versión más reciente de las fotos a la otra carpeta o unidad respectiva. Si
 la aplicación También puede sobrescribir nuevos archivos en el segundo directorio por archivos antiguos en el primer directorio.
 
 > [!NOTE]
-‎Si el segundo directorio contiene un archivo especial, con el nombre especificado a continuación [^1], 
+‎Si el segundo directorio contiene un archivo especial, con el nombre especificado a continuación [^3], 
 > entonces la aplicación No elimina los archivos que contiene, cuando se especifica eliminar los archivos en el segundo directorio.
 ‎
 # Português
@@ -188,7 +192,7 @@ versão mais recente das fotos para a respectiva outra pasta ou unidade. Se voc�
 o aplicativo também pode substituir novos arquivos no segundo diretório por arquivos antigos no primeiro diretório.
 
 > [!NOTE]
-‎Se o segundo diretório contiver um arquivo especial, com o nome especificado abaixo [^1], 
+‎Se o segundo diretório contiver um arquivo especial, com o nome especificado abaixo [^4], 
 > o aplicativo não exclui os arquivos nele, quando você especifica para excluir os arquivos no segundo diretório.
 ‎
 # Italiano
@@ -236,7 +240,7 @@ rimuove la modalità di sincronizzazione, l'applicazione può anche sovrascriver
 nella seconda directory con vecchi file nella prima directory.
 
 > [!NOTE]
-‎Se la seconda directory contiene un file speciale, con il nome specificato di seguito [^1], 
+‎Se la seconda directory contiene un file speciale, con il nome specificato di seguito [^5], 
 > allora l'applicazione non elimina i file in esso contenuti. In questo caso, ignora che è stato 
 > specificato di eliminare i file nella seconda directory.
 ‎
@@ -286,7 +290,7 @@ Wenn Sie den Synchronisationsmodus ausschalten, kann die Anwendung auch neue Dat
 durch alte Dateien im ersten Verzeichnis überschreiben.
 
 > [!NOTE]
-‎Wenn das zweite Verzeichnis eine spezielle Datei mit dem unten [^1] angegebenen Namen enthält,
+‎Wenn das zweite Verzeichnis eine spezielle Datei mit dem unten [^6] angegebenen Namen enthält,
 > dann wird die Anwendung die Dateien darin nicht löschen. In diesem Fall wird ignoriert, dass Sie angegeben haben, 
 > dass die Dateien im zweiten Verzeichnis gelöscht werden sollen.
 ‎
@@ -337,7 +341,7 @@ durch alte Dateien im ersten Verzeichnis überschreiben.
 его новые файлы во втором каталоге на старые файлы в первом каталоге.
 
 > [!NOTE]
-‎Если во второй директории находится специальный файл, имя которого указано ниже [^1], 
+‎Если во второй директории находится специальный файл, имя которого указано ниже [^7], 
 > Приложение не удаляет файлы в приложении, когда вы указываете удаление файлов во втором каталоге.
 ‎
 # Polski
@@ -386,7 +390,7 @@ najnowszą wersję zdjęć do odpowiedniego innego folderu lub dysku. Jeśli usu
 aplikacja Może również nadpisać nowe pliki w drugim katalogu przez stare pliki w pierwszym katalogu.
 
 > [!NOTE]
-‎Jeśli drugi katalog zawiera specjalny plik o nazwie podanej poniżej [^1], to 
+‎Jeśli drugi katalog zawiera specjalny plik o nazwie podanej poniżej [^8], to 
 > aplikacja nie usuwa znajdujących się w nim plików. W takim przypadku ignoruje to, 
 > że określiłeś do usunięcia plików w drugim katalogu.
 ‎
@@ -422,7 +426,7 @@ Windows 最终会提示您安装 。NET-Framework，这就是您所需要的。
 如果删除同步模式，则应用程序 也可以用第一个目录中的旧文件覆盖第二个目录中的新文件。
 
 > [!NOTE]
-‎如果第二个目录包含特殊文件，其名称在 [^1] 下面指定，
+‎如果第二个目录包含特殊文件，其名称在 [^9] 下面指定，
 > 则应用程序 不会删除其中的文件。在这种情况下，它会忽略您指定的删除第二个目录中的文件。
 # 中文
 <a name="cht"></a>
@@ -457,7 +461,7 @@ Windows 最終會提示您安裝 。NET-Framework，這就是您所需要的。
 如果刪除同步模式，則應用程式 也可以用第一個目錄中的舊檔覆蓋第二個目錄中的新檔。
 
 > [!NOTE]
-‎如果第二個目錄包含特殊檔，其名稱在 [^1] 下面指定，
+‎如果第二個目錄包含特殊檔，其名稱在 [^10] 下面指定，
 > 則應用程式 不會刪除其中的檔。在這種情況下，它會忽略您指定的刪除第二個目錄中的檔。
 ‎
 # 日本語
@@ -501,7 +505,7 @@ Windows 最終會提示您安裝 。NET-Framework，這就是您所需要的。
 2 番目のディレクトリにある新しいファイルを 1 番目のディレクトリにある古いファイルで上書きすることもできます。
 
 > [!NOTE]
-‎2 番目のディレクトリに [^1] で指定した名前の特別なファイルが含まれている場合、
+‎2 番目のディレクトリに [^11] で指定した名前の特別なファイルが含まれている場合、
 > アプリケーションは その中のファイルは削除されません。この場合、
 > 2 番目のディレクトリ内のファイルを削除するように指定したことは無視されます。
 [‎
@@ -547,7 +551,7 @@ Windows 最終會提示您安裝 。NET-Framework，這就是您所需要的。
 동기화 모드를 제거하면 응용 프로그램이 두 번째 디렉토리의 새 파일을 첫 번째 디렉토리의 이전 파일로 덮어쓸 수도 있습니다.
 
 > [!NOTE]
-‎두 번째 디렉토리에 [^1] 아래에 지정된 이름의 특수 파일이 
+‎두 번째 디렉토리에 [^12] 아래에 지정된 이름의 특수 파일이 
 > 포함되어 있으면 응용 프로그램은 그 안에 있는 파일을 삭제하지 않습니다. 
 > 이 경우 두 번째 디렉토리의 파일을 삭제하도록 지정한 것을 무시합니다.
 ‎
@@ -588,7 +592,7 @@ Windows 最終會提示您安裝 。NET-Framework，這就是您所需要的。
 फ़ाइलों द्वारा दूसरी निर्देशिका में नई फ़ाइलों को भी अधिलेखित कर सकते हैं।
 
 > [!NOTE]
-‎यदि दूसरी निर्देशिका में विशेष फ़ाइल है, जिसका नाम नीचे निर्दिष्ट है [^1], 
+‎यदि दूसरी निर्देशिका में विशेष फ़ाइल है, जिसका नाम नीचे निर्दिष्ट है [^13], 
 > तो एप्लिकेशन इसमें फ़ाइलों को नहीं हटाता है। इस स्थिति में, यह अनदेखा करता है कि आपने दूसरी निर्देशिका में फ़ाइलों को हटाने के लिए निर्दिष्ट किया है।
 ‏
 # عربي
@@ -630,7 +634,7 @@ Windows في النهاية بالتثبيت .NET-Framework ، هذا كل ما 
 إذا قمت بإزالة وضع المزامنة ، تطبيق التطبيق يمكن أيضا استبدال الملفات الجديدة في الدليل الثاني بالملفات القديمة في الدليل الأول.
 
 > [!NOTE]
-‏ إذا كان الدليل الثاني يحتوي على ملف خاص ، بالاسم المحدد أدناه [^ 1] ،
+‏ إذا كان الدليل الثاني يحتوي على ملف خاص ، بالاسم المحدد أدناه [^14] ،
 > فإن التطبيق لا يحذف الملفات الموجودة فيه. في هذه الحالة، يتجاهل ما حددته لحذف الملفات الموجودة في الدليل الثاني.
 ‏
 # עִברִית
@@ -668,6 +672,6 @@ Windows יבקש ממך בסופו של דבר להתקין .NET-Framework, זה
 אם תסיר את מצב הסנכרון, היישום יכול גם להחליף קבצים חדשים בספרייה השנייה על ידי קבצים ישנים בספרייה הראשונה.
 
 > [!NOTE]
-‏ אם הספרייה השניה מכילה קובץ מיוחד, עם השם שצוין להלן [^1],
+‏ אם הספרייה השניה מכילה קובץ מיוחד, עם השם שצוין להלן [^15],
 > היישום אינו מוחק את הקבצים שבו. במקרה זה, הוא מתעלם מכך שציינת למחוק את הקבצים בספריה השניה.
 
