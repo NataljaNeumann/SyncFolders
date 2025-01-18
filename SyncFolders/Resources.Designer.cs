@@ -493,6 +493,15 @@ namespace SyncFolders {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die #en ähnelt.
+        /// </summary>
+        internal static string ReadmeHtmlHelpJumpPoint {
+            get {
+                return ResourceManager.GetString("ReadmeHtmlHelpJumpPoint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Recovering block at position {0} of copied destination file &quot;{1}&quot; ähnelt.
         /// </summary>
         internal static string RecoveringBlockAtOfCopiedFile {

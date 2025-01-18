@@ -348,4 +348,7 @@
   <data name="DateFormat" xml:space="preserve">
     <value>{0}</value>
   </data>
+  <data name="ReadmeHtmlHelpJumpPoint" xml:space="preserve">
+    <value>#en</value>
+  </data>
 </root>

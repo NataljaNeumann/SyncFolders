@@ -342,4 +342,7 @@
   <data name="DateFormat" xml:space="preserve">
     <value>{1}年{2}月{3}日 {5}:{6}:{7}</value>
   </data>
+  <data name="ReadmeHtmlHelpJumpPoint" xml:space="preserve">
+    <value>#chs</value>
+  </data>
 </root>
