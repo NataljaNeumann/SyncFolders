@@ -53,7 +53,6 @@ can also overwrite new files in second directory by old files in first directory
 > doesn't delete the files in it. In this case it ignores that you specified to delete the files in second directory.
 
 
-[^2]: [^3]: [^4]: [^5]: [^6]: [^7]: [^8]: [^9]: [^10]: [^11]: [^12]: [^13]: [^14]: [^15]:
 [^1]: SyncFolders-Don't-Delete.txt
 
 
