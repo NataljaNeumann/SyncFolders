@@ -202,6 +202,251 @@ namespace SyncFolders
                 // ignore
             }
 
+            // create .md file and .txt file from .html
+            if (Program.CreateRelease)
+            {
+                try
+                {
+                    StringBuilder strMd = new StringBuilder();
+                    StringBuilder strTxt = new StringBuilder();
+
+                    strMd.Append(Environment.NewLine);
+
+                    // for this: 1) load the readme html
+                    System.Xml.XmlDocument oHtmlReadme = new System.Xml.XmlDocument();
+                    oHtmlReadme.Load(System.IO.Path.Combine(Application.StartupPath, "Readme.html"));
+
+                    // put the first node to stack
+                    Stack<System.Xml.XmlNode> oXmlStack = new Stack<System.Xml.XmlNode>();
+                    oXmlStack.Push(oHtmlReadme.SelectSingleNode("/html/body"));
+                    bool bDescended = true;
+
+                    // and continue traversing the document, as long as there are nodes
+                    while (oXmlStack.Count > 0)
+                    {
+                        System.Xml.XmlNode oXmlNode = oXmlStack.Peek();
+                        if (bDescended)
+                        {
+                            if (oXmlNode is System.Xml.XmlElement)
+                            {
+                                if (oXmlNode.Name.Equals("img"))
+                                {
+                                    strTxt.Append("> " + oXmlNode.Attributes.GetNamedItem("src").Value);
+                                    strMd.Append(string.Format("![{0}]({1})",
+                                        oXmlNode.Attributes.GetNamedItem("alt").Value,
+                                        oXmlNode.Attributes.GetNamedItem("src").Value));
+                                }
+                                if (oXmlNode.Name.Equals("br"))
+                                {
+                                    strTxt.Append(Environment.NewLine);
+                                    strMd.Append("  " + Environment.NewLine);
+                                }
+                                if (oXmlNode.Name.Equals("p"))
+                                {
+                                    strTxt.Append(Environment.NewLine);
+                                    strMd.Append(Environment.NewLine);
+                                    if (oXmlNode.Attributes != null && oXmlNode.Attributes.GetNamedItem("style") != null)
+                                    {
+                                        strMd.AppendFormat("> [!{0}]\r\n",
+                                            oXmlNode.Attributes.GetNamedItem("style").Value.ToUpper());
+                                    }
+
+                                    if (oXmlNode.Attributes != null && oXmlNode.Attributes.GetNamedItem("dir") != null)
+                                    {
+                                        if (oXmlNode.Attributes.GetNamedItem("dir").Value.Equals("rtl"))
+                                        {
+                                            strTxt.Append((char)0x200F);
+                                            strMd.Append((char)0x200F);
+                                        }
+                                        else
+                                        {
+                                            strTxt.Append((char)0x200E);
+                                            strMd.Append((char)0x200E);
+                                        }
+                                    }
+
+                                }
+                                if (oXmlNode.Name.Equals("a") && oXmlNode.Attributes.GetNamedItem("href")!=null)
+                                {
+                                    strMd.Append("[");
+                                }
+                                if (oXmlNode.Name.Equals("b"))
+                                {
+                                    strMd.Append("**");
+                                }
+                                if (oXmlNode.Name.Equals("i"))
+                                {
+                                    strMd.Append("*");
+                                }
+                                if (oXmlNode.Name.Equals("h1"))
+                                {
+                                    if (oXmlNode.Attributes != null && oXmlNode.Attributes.GetNamedItem("dir") != null)
+                                    {
+                                        if (oXmlNode.Attributes.GetNamedItem("dir").Value.Equals("rtl"))
+                                        {
+                                            strTxt.Append((char)0x200F);
+                                            strMd.Append((char)0x200F);
+                                        }
+                                        else
+                                        {
+                                            strTxt.Append((char)0x200E);
+                                            strMd.Append((char)0x200E);
+                                        }
+                                        strTxt.Append(Environment.NewLine);
+                                        strMd.Append(Environment.NewLine);
+                                    }
+
+                                    strMd.Append("# ");
+                                    strTxt.Append(Environment.NewLine);
+                                    strTxt.Append(Environment.NewLine);
+                                    strTxt.Append(Environment.NewLine);
+                                    strTxt.Append(Environment.NewLine);
+                                }
+                                if (oXmlNode.Name.Equals("h2"))
+                                {
+                                    strMd.Append("## ");
+                                }
+                                if (oXmlNode.Name.Equals("li") && oXmlNode.ParentNode.Name.Equals("ul"))
+                                {
+                                    strTxt.Append("- ");
+                                    strMd.Append("- ");
+                                }
+                                if (oXmlNode.Name.Equals("li") && oXmlNode.ParentNode.Name.Equals("ol"))
+                                {
+                                    int nPos = CountPreviousSiblings(oXmlNode) + 1;
+                                    strTxt.Append(nPos.ToString() + ". ");
+                                    strMd.Append(nPos.ToString() + ". ");
+                                }
+                                // continue descent
+                                oXmlNode = oXmlNode.FirstChild;
+                                if (oXmlNode!=null)
+                                {
+                                    oXmlStack.Push(oXmlNode);
+                                    bDescended = true;
+                                }
+                                else
+                                {
+                                    bDescended = false;
+                                }
+                            }
+                            else
+                            {
+
+                                string strText = oXmlNode.InnerText;
+                                while (strText.IndexOf(Environment.NewLine + " ") >= 0)
+                                    strText = strText.Replace(Environment.NewLine + " ", Environment.NewLine);
+
+                                if (oXmlNode.ParentNode.Attributes != null && oXmlNode.ParentNode.Attributes.GetNamedItem("style") != null)
+                                {
+                                    strText = strText.Replace(Environment.NewLine,
+                                        Environment.NewLine+"> ");
+                                }
+
+                                strTxt.Append(strText);
+                                strMd.Append(strText);
+
+                                // then try to descend into next sibling
+                                if (oXmlNode.NextSibling != null)
+                                {
+                                    oXmlStack.Push(oXmlStack.Pop().NextSibling);
+                                    bDescended = true;
+                                }
+                                else
+                                {
+                                    // no more siblings? then return to parent
+                                    bDescended = false;
+                                    oXmlStack.Pop();
+                                }
+                            }
+                        }
+                        else
+                        {
+                            // we leave current node anyway 
+                            if (oXmlNode.Name.Equals("p") ||
+                                oXmlNode.Name.Equals("h1") ||
+                                oXmlNode.Name.Equals("h2") ||
+                                oXmlNode.Name.Equals("li"))
+                            {
+                                strTxt.Append(Environment.NewLine);
+                                strMd.Append(Environment.NewLine);
+                                if (oXmlNode.Name.Equals("h1"))
+                                {
+                                    strTxt.Append("___________________________________________________________");
+                                    strTxt.Append("___________________________________________________________");
+                                    strTxt.Append(Environment.NewLine);
+                                }
+
+                            }
+                            if (oXmlNode.Name.Equals("b"))
+                            {
+                                strMd.Append("**");
+                            }
+                            if (oXmlNode.Name.Equals("i"))
+                            {
+                                strMd.Append("*");
+                            }
+                            if (oXmlNode.Name.Equals("a"))
+                            {
+                                System.Xml.XmlNode oXmlAttr =
+                                    oXmlNode.Attributes.GetNamedItem("href");
+
+                                if (oXmlAttr != null)
+                                {
+                                    strMd.AppendFormat("]({0})", oXmlAttr.Value);
+                                    if (oXmlAttr.Value.StartsWith("#"))
+                                    {
+                                        strTxt.Append("..");
+                                    }
+                                    else
+                                    {
+                                        strTxt.Append(": " + oXmlAttr.Value);
+                                    }
+                                }
+                                else
+                                {
+                                    strMd.AppendFormat("<a name=\"{0}\"></a>",
+                                        oXmlNode.Attributes.GetNamedItem("name").Value);
+                                }
+                            }
+
+                            // then try to descend into next sibling
+                            if (oXmlNode.NextSibling != null)
+                            {
+                                oXmlStack.Push(oXmlStack.Pop().NextSibling);
+                                bDescended = true;
+                            }
+                            else
+                            {
+                                // no more siblings? then return to parent
+                                bDescended = false;
+                                oXmlStack.Pop();
+                            }
+                        }
+                    }
+
+                    using (System.IO.StreamWriter oTxtWriter = new System.IO.StreamWriter(
+                        System.IO.Path.Combine(Application.StartupPath, "Readme.txt"), 
+                        false, Encoding.UTF8))
+                    {
+                        oTxtWriter.WriteLine(strTxt.ToString());
+                        oTxtWriter.Flush();
+                    }
+
+
+                    using (System.IO.StreamWriter oMdWriter = new System.IO.StreamWriter(
+                        System.IO.Path.Combine(Application.StartupPath, "..\\..\\..\\Readme.md"), 
+                        false, Encoding.UTF8))
+                    {
+                        oMdWriter.WriteLine(strMd.ToString());
+                        oMdWriter.Flush();
+                    }
+
+                } catch (Exception oEx)
+                {
+                    MessageBox.Show(oEx.Message, "Error in readme.html", MessageBoxButtons.OK, MessageBoxIcon.Error );
+                }
+            }
+
 
             if (Program.CreateRelease)
             {
@@ -335,6 +580,22 @@ namespace SyncFolders
                 }
             }
 #endif
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// Counts previous siblings of the XML node
+        /// </summary>
+        /// <param name="oXmlNode">Node to start with</param>
+        /// <returns>Number of previous siblings. 0 if none</returns>
+        //===================================================================================================
+        int CountPreviousSiblings(System.Xml.XmlNode oXmlNode)
+        {
+            int nResult = 0;
+            while ((oXmlNode = oXmlNode.PreviousSibling) != null)
+                ++nResult;
+
+            return nResult;
         }
 
         //===================================================================================================
@@ -7073,6 +7334,23 @@ namespace SyncFolders
             catch
             {
                 return strNumber;
+            }
+        }
+
+        private void FormSyncFolders_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            // in case we don't have any special jump point in help open in browser.
+            // maybe browser can translate anything.
+            if (Resources.ReadmeHtmlHelpJumpPoint.Equals("#en"))
+            {
+                System.Diagnostics.Process.Start(System.IO.Path.Combine(Application.StartupPath, "Readme.html"));
+            }
+            else
+            {
+                using (HelpForm oForm = new HelpForm(Resources.ReadmeHtmlHelpJumpPoint))
+                {
+                    oForm.ShowDialog();
+                }
             }
         }
 
