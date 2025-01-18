@@ -1,10 +1,12 @@
 ﻿
-[‎# SyncFolders Sources
+[‎
+# SyncFolders Sources
 ](https://github.com/NataljaNeumann/SyncFolders)  
 ![SyncFolders-1](https://github.com/user-attachments/assets/3864175e-1b28-45eb-b56a-f95d1d338d44)  
 
 [English](#en), 
-‎# English
+‎
+# English
 <a name="en"></a>
 ‎SyncFolders is an application that aims to help you to keep two folders or drives synchronised.
 With default settings this apllication creates hidden files, about 1% of the size of original files, that allow
@@ -45,7 +47,8 @@ can also overwrite new files in second directory by old files in first directory
 > [!NOTE]
 ‎If second directory contains special file, with the name specified below [^1], then the application
 > doesn't delete the files in it. In this case it ignores that you specified to delete the files in second directory.
-‎# Français
+‎
+# Français
 <a name="fr"></a>
 ‎SyncFolders est une application qui vise à vous aider à garder deux dossiers ou lecteurs synchronisés. Avec les 
 paramètres par défaut, cette application crée des fichiers cachés, environ 1 % de la taille des fichiers d'origine, 
@@ -92,7 +95,8 @@ les nouveaux fichiers du deuxième répertoire par les anciens fichiers du premi
 > [!NOTE]
 ‎Si le deuxième répertoire contient un fichier spécial, dont le nom est spécifié ci-dessous [^1],
 > l'application ne supprime pas les fichiers qu'il contient lorsque vous spécifiez de supprimer les fichiers du deuxième répertoire.
-‎# Español
+‎
+# Español
 <a name="es"></a>
 ‎SyncFolders es una aplicación que tiene como objetivo ayudarte a mantener sincronizadas dos carpetas o unidades.
 Con la configuración predeterminada, esta aplicación crea archivos ocultos, aproximadamente el 1% del tamaño de 
@@ -137,7 +141,8 @@ la aplicación También puede sobrescribir nuevos archivos en el segundo directo
 > [!NOTE]
 ‎Si el segundo directorio contiene un archivo especial, con el nombre especificado a continuación [^1], 
 > entonces la aplicación No elimina los archivos que contiene, cuando se especifica eliminar los archivos en el segundo directorio.
-‎# Português
+‎
+# Português
 <a name="pt"></a>
 ‎SyncFolders é um aplicativo que visa ajudá-lo a manter duas pastas ou unidades sincronizadas. Com as configurações padrão, 
 esta aplicação cria arquivos ocultos, cerca de 1% do tamanho dos arquivos originais, que permitem você se recupere 
@@ -179,7 +184,8 @@ o aplicativo também pode substituir novos arquivos no segundo diretório por ar
 > [!NOTE]
 ‎Se o segundo diretório contiver um arquivo especial, com o nome especificado abaixo [^1], 
 > o aplicativo não exclui os arquivos nele, quando você especifica para excluir os arquivos no segundo diretório.
-‎# Italiano
+‎
+# Italiano
 <a name="it"></a>
 ‎SyncFolders è un'applicazione che ha lo scopo di aiutarti a mantenere sincronizzate due cartelle o unità. 
 Con le impostazioni predefinite questa applicazione crea file nascosti, circa l'1% della dimensione dei 
@@ -227,7 +233,8 @@ nella seconda directory con vecchi file nella prima directory.
 ‎Se la seconda directory contiene un file speciale, con il nome specificato di seguito [^1], 
 > allora l'applicazione non elimina i file in esso contenuti. In questo caso, ignora che è stato 
 > specificato di eliminare i file nella seconda directory.
-‎# Deutsch
+‎
+# Deutsch
 <a name="de"></a>
 ‎SyncFolders ist eine Anwendung, die Ihnen helfen soll, zwei Ordner oder Laufwerke synchron zu halten. 
 Mit den Standardeinstellungen erstellt diese Anwendung versteckte Dateien, die etwa 1% der Größe der 
@@ -276,7 +283,8 @@ durch alte Dateien im ersten Verzeichnis überschreiben.
 ‎Wenn das zweite Verzeichnis eine spezielle Datei mit dem unten [^1] angegebenen Namen enthält,
 > dann wird die Anwendung die Dateien darin nicht löschen. In diesem Fall wird ignoriert, dass Sie angegeben haben, 
 > dass die Dateien im zweiten Verzeichnis gelöscht werden sollen.
-‎# По русски
+‎
+# По русски
 <a name="ru"></a>
 ‎SyncFolders – это приложение, которое призвано помочь вам синхронизировать две папки или диска. 
 С помощью функции Настройки по умолчанию, это приложение создает скрытые файлы, примерно 1% от 
@@ -325,7 +333,8 @@ durch alte Dateien im ersten Verzeichnis überschreiben.
 > [!NOTE]
 ‎Если во второй директории находится специальный файл, имя которого указано ниже [^1], 
 > Приложение не удаляет файлы в приложении, когда вы указываете удаление файлов во втором каталоге.
-‎# Polski
+‎
+# Polski
 <a name="pl"></a>
 ‎SyncFolders to aplikacja, która ma na celu pomóc w synchronizacji dwóch folderów lub dysków. 
 Przy ustawieniach domyślnych ta aplikacja tworzy ukryte pliki, około 1% rozmiaru oryginalnych plików, 
@@ -374,7 +383,8 @@ aplikacja Może również nadpisać nowe pliki w drugim katalogu przez stare pli
 ‎Jeśli drugi katalog zawiera specjalny plik o nazwie podanej poniżej [^1], to 
 > aplikacja nie usuwa znajdujących się w nim plików. W takim przypadku ignoruje to, 
 > że określiłeś do usunięcia plików w drugim katalogu.
-‎# 中文
+‎
+# 中文
 <a name="chs"></a>
 ‎SyncFolders 是一个旨在帮助您保持两个文件夹或驱动器同步的应用程序。 在默认设置下，此属性会创建隐藏文件，
 大约是原始文件大小的 1%，允许 U 从单个数据块故障中完全恢复。有两层保护：
@@ -443,7 +453,8 @@ Windows 最終會提示您安裝 。NET-Framework，這就是您所需要的。
 > [!NOTE]
 ‎如果第二個目錄包含特殊檔，其名稱在 [^1] 下面指定，
 > 則應用程式 不會刪除其中的檔。在這種情況下，它會忽略您指定的刪除第二個目錄中的檔。
-‎# 日本語
+‎
+# 日本語
 <a name="ja"></a>
 ‎SyncFoldersは、2つのフォルダまたはドライブを同期させることを目的としたアプリケーションです。 デフォルト設定では、このアプリケーションは、元のファイルのサイズの約1%の隠しファイルを作成します。 単一のブロック障害から完全に回復します。保護には 2 つの層があります。
 ‎1. ファイルの完全なコピーを持つ 2 つの異なるドライブを保持します。
@@ -485,7 +496,8 @@ Windows 最終會提示您安裝 。NET-Framework，這就是您所需要的。
 ‎2 番目のディレクトリに [^1] で指定した名前の特別なファイルが含まれている場合、
 > アプリケーションは その中のファイルは削除されません。この場合、
 > 2 番目のディレクトリ内のファイルを削除するように指定したことは無視されます。
-[‎# 한국인
+[‎
+# 한국인
 ](ko)
 ‎SyncFolders는 두 개의 폴더 또는 드라이브를 동기화 상태로 유지하는 데 도움이 되는 응용 프로그램입니다. 
 기본 설정을 사용하면 이 응용 프로그램은 원본 파일 크기의 약 1%인 숨겨진 파일을 생성하여 다음을 허용합니다. 
@@ -568,7 +580,8 @@ Windows 最終會提示您安裝 。NET-Framework，這就是您所需要的。
 > [!NOTE]
 ‎यदि दूसरी निर्देशिका में विशेष फ़ाइल है, जिसका नाम नीचे निर्दिष्ट है [^1], 
 > तो एप्लिकेशन इसमें फ़ाइलों को नहीं हटाता है। इस स्थिति में, यह अनदेखा करता है कि आपने दूसरी निर्देशिका में फ़ाइलों को हटाने के लिए निर्दिष्ट किया है।
-‏# عربي
+‏
+# عربي
 <a name="ar"></a>
 ‏SyncFolders هو تطبيق يهدف إلى مساعدتك في الحفاظ على مزامنة مجلدين أو محركات أقراص.
 مع الإعدادات الافتراضية ، يقوم هذا التثبيت بإنشاء ملفات مخفية ، حوالي 1٪ من حجم الملفات الأصلية ،
@@ -609,7 +622,8 @@ Windows في النهاية بالتثبيت .NET-Framework ، هذا كل ما 
 > [!NOTE]
 ‏ إذا كان الدليل الثاني يحتوي على ملف خاص ، بالاسم المحدد أدناه [^ 1] ،
 > فإن التطبيق لا يحذف الملفات الموجودة فيه. في هذه الحالة، يتجاهل ما حددته لحذف الملفات الموجودة في الدليل الثاني.
-‏# עִברִית
+‏
+# עִברִית
 <a name="he"></a>
 ‏SyncFolders הוא יישום שמטרתו לעזור לך לשמור על שתי תיקיות או כוננים מסונכרנים. עם הגדרות ברירת מחדל,
 אפשרות זו יוצרת קבצים מוסתרים, כ- 1% מגודל הקבצים המקוריים, המאפשרים אתה כדי להתאושש לחלוטין מכשלים בלוק יחיד. ישנן שתי שכבות הגנה:
