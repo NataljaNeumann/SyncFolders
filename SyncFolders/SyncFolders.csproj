@@ -924,7 +924,6 @@
   copy /Y "$(SolutionDir)LICENSE.TXT" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\"
   copy /Y "$(SolutionDir)LICENSE.TXT" "$(TargetDir)license.txt"
   copy /Y "$(SolutionDir)README.md" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\"
-  copy /Y "$(SolutionDir)README.md" "$(TargetDir)readme.txt"
   copy /Y "$(SolutionDir)README.md" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\"
   copy /Y "$(ProjectDir)*.csproj" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\$(ProjectName)\"
   copy /Y "$(SolutionDir).gitignore" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\"
