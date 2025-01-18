@@ -219,7 +219,7 @@
     <value>333, 20</value>
   </data>
   <data name="m_cbFirstToSecond.Text" xml:space="preserve">
-    <value>一方向、1 番目のフォルダーから 2 番目のフォルダーへ</value>
+    <value>一方向、1 番目のフォルダーから 二 番目のフォルダーへ</value>
   </data>
   <data name="m_cbFirstReadonly.Size" type="System.Drawing.Size, System.Drawing">
     <value>285, 20</value>
@@ -231,7 +231,7 @@
     <value>457, 20</value>
   </data>
   <data name="m_cbDeleteFilesInSecond.Text" xml:space="preserve">
-    <value>最初のフォルダーに存在しない 2 番目のフォルダー内のファイルを削除します</value>
+    <value>最初のフォルダーに存在しない 二 番目のフォルダー内のファイルを削除します</value>
   </data>
   <data name="m_lblAbout.Location" type="System.Drawing.Point, System.Drawing">
     <value>26, 391</value>
