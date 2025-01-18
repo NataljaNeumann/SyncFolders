@@ -1,10 +1,14 @@
 ﻿
 ‎
 # Sync Folders
-[SyncFolders Sources](https://github.com/NataljaNeumann/SyncFolders)  
+
+[SyncFolders Sources](https://github.com/NataljaNeumann/SyncFolders)
 ![SyncFolders-1](https://github.com/user-attachments/assets/3864175e-1b28-45eb-b56a-f95d1d338d44)  
 
-[English](#en), 
+[English](#en), [Français](#fr), [Español](#es), [Português](#es), 
+[Italiano](#it), [Deutsch](#de), [По русски](#ru), [Polski](#pl),
+[中文](#chs), [日本語](#ja), [한국인](#ko), [संस्कृत](#hi),
+[عربيعربي](#ar), [עִברִית](#he)
 ‎
 # English
 <a name="en"></a>
@@ -456,7 +460,9 @@ Windows 最終會提示您安裝 。NET-Framework，這就是您所需要的。
 ‎
 # 日本語
 <a name="ja"></a>
-‎SyncFoldersは、2つのフォルダまたはドライブを同期させることを目的としたアプリケーションです。 デフォルト設定では、このアプリケーションは、元のファイルのサイズの約1%の隠しファイルを作成します。 単一のブロック障害から完全に回復します。保護には 2 つの層があります。
+‎SyncFoldersは、2つのフォルダまたはドライブを同期させることを目的としたアプリケーションです。
+デフォルト設定では、このアプリケーションは、元のファイルのサイズの約1%の隠しファイルを作成します。
+単一のブロック障害から完全に回復します。保護には 2 つの層があります。
 1. ファイルの完全なコピーを持つ 2 つの異なるドライブを保持します。
 2. ドライブがアクセスできなくなった場合でも、停電やその他の問題、単一のブロックの障害など また、
 ファイル内のより大きなエラー範囲は、追加で保存された情報を使用して復元できます。
