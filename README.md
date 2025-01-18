@@ -1,7 +1,7 @@
 ﻿
-[‎
-# SyncFolders Sources
-](https://github.com/NataljaNeumann/SyncFolders)  
+‎
+# Sync Folders
+[SyncFolders Sources](https://github.com/NataljaNeumann/SyncFolders)  
 ![SyncFolders-1](https://github.com/user-attachments/assets/3864175e-1b28-45eb-b56a-f95d1d338d44)  
 
 [English](#en), 
