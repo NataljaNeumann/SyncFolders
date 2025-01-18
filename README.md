@@ -2,7 +2,9 @@
 ‎
 # Sync Folders
   
-[Current SyncFolders Sources and Packages](https://github.com/NataljaNeumann/SyncFolders)  
+[Current SyncFolders Sources and Packages](https://github.com/NataljaNeumann/SyncFolders)
+[^1]: [^2]: SyncFolders-Don't-Delete.txt
+  
   
   
 ![SyncFolders-1](https://github.com/user-attachments/assets/3864175e-1b28-45eb-b56a-f95d1d338d44)  
@@ -97,7 +99,7 @@ autre dossier ou lecteur. Si vous supprimez le mode de synchronisation, l'applic
 les nouveaux fichiers du deuxième répertoire par les anciens fichiers du premier répertoire.
 
 > [!NOTE]
-‎Si le deuxième répertoire contient un fichier spécial, dont le nom est spécifié ci-dessous [^1],
+‎Si le deuxième répertoire contient un fichier spécial, dont le nom est spécifié ci-dessous [^2],
 > l'application ne supprime pas les fichiers qu'il contient lorsque vous spécifiez de supprimer les fichiers du deuxième répertoire.
 ‎
 # Español
@@ -668,10 +670,4 @@ Windows יבקש ממך בסופו של דבר להתקין .NET-Framework, זה
 > [!NOTE]
 ‏ אם הספרייה השניה מכילה קובץ מיוחד, עם השם שצוין להלן [^1],
 > היישום אינו מוחק את הקבצים שבו. במקרה זה, הוא מתעלם מכך שציינת למחוק את הקבצים בספריה השניה.
-
-
-
-
-[^1]: SyncFolders-Don't-Delete.txt
-
 
