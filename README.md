@@ -279,10 +279,10 @@ das ist alles, was Sie brauchen.
 
 ‎Wenn Sie sich für das Kopieren vom ersten in das zweite Verzeichnis entscheiden, behandelt die 
 App das erste Verzeichnis als primäres Verzeichnis Datenquelle und zweites Verzeichnis als Backup. 
-Wenn die Anwendung feststellt, dass eine Datei im ersten Verzeichnis fehlerhafte Blöcke, kann es immer noch versuchen, 
-die Blöcke aus dem Backup im zweiten Ordner oder die ältere Version des wiederherzustellen Dieselbe 
-Datei aus dem Backup im zweiten Verzeichnis. Sie müssen angeben, dass das erste Verzeichnis nicht beschreibbar ist, 
-Die Anwendung versucht also nicht, die Dateien im ersten Verzeichnis zu ändern.
+Wenn die Anwendung feststellt, dass eine Datei im ersten Verzeichnis fehlerhafte Blöcke enthält, kann sie immer noch versuchen, 
+die Blöcke aus dem Backup im zweiten Ordner oder die ältere Version derselben Datei aus dem Backup im zweiten Verzeichnis 
+wiederherzustellenn. Sie müssen angeben, dass das erste Verzeichnis nicht beschreibbar ist, damit die Anwendung nicht verucht, 
+die Dateien im ersten Verzeichnis zu ändern.
 
 ‎Die Anwendung wird normalerweise im Synchronisationsmodus ausgeführt, was bedeutet, dass sie versucht, 
 die neueste Version der Fotos zu kopieren in den jeweils anderen Ordner oder das jeweils andere Laufwerk. 
@@ -327,22 +327,19 @@ durch alte Dateien im ersten Verzeichnis überschreiben.
 
 ‎Если вы решите скопировать из первого каталога во второй, приложение будет рассматривать 
 первый каталог как первичный источник данных и второй каталог в качестве резервного. 
-Если приложение обнаруживает, что файл из первого содержит поврежденные блоки, он все еще может 
-попытаться восстановить блоки из резервной копии в каталоге вторая папка, либо старая версия 
-того же файла из резервной копии во второй директории. Необходимо указать, что первая 
-директория недоступна для записи, чтобы Приложение не пытается изменить файлы в первом каталоге.
+Если приложение обнаруживает, что файл из первого содержит поврежденные блоки, оно все ещё может 
+попытаться восстановить блоки из резервной копии, либо восстановить старую версию
+того же файла из резервной копии во второй директории. Вам необходимо указать, что первая 
+директория недоступна для записи, чтобы приложение не пыталось изменить файлы в первом каталоге.
 
 ‎Приложение обычно работает в режиме синхронизации, а значит, будет пытаться скопировать 
-Самая последняя версия фотографий в другой соответствующей папке или на диске. Если вы удалите параметр 
-В процессе синхронизации приложение также может перезаписать новые файлы во втором каталоге 
-с помощью команды старые файлы в первой директории. Приложение обычно работает в режиме синхронизации, 
-Это означает, что он попытается скопировать самую последнюю версию фотографий в соответствующий каталог. 
-Другая папка или диск. Если вы удалите режим синхронизации, приложение также может переопределить 
-его новые файлы во втором каталоге на старые файлы в первом каталоге.
+самую последнюю версию файлов/фотографий в другой соответствующую папку или на другой диск. Если вы удалите параметр
+синхронизации приложение также может перезаписать новые файлы, находящиеся во втором каталоге, старыми файлами,
+находящимися в первой директории.
 
 > [!NOTE]
 ‎Если во второй директории находится специальный файл, имя которого указано ниже [^7], 
-> Приложение не удаляет файлы в приложении, когда вы указываете удаление файлов во втором каталоге.
+> Приложение не удаляет в нём файлы, даже когда вы указываете необходимость удаления файлов во втором каталоге.
 ‎
 # Polski
 <a name="pl"></a>
