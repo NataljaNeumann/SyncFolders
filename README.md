@@ -672,6 +672,6 @@ Windows יבקש ממך בסופו של דבר להתקין .NET-Framework, זה
 
 
 
-[^1] SyncFolders-Don't-Delete.txt
+[^1]: SyncFolders-Don't-Delete.txt
 
 
