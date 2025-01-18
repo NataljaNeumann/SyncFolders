@@ -11,8 +11,8 @@
 ‎SyncFolders is an application that aims to help you to keep two folders or drives synchronised.
 With default settings this apllication creates hidden files, about 1% of the size of original files, that allow
 you to completely recover from single block failures. There are two layers of protection:
-‎1. You keep two different drives with complete copies of files.
-‎2. Even if a drive becomes inaccessible, e.g. power failure or other problems, single block failures
+1. You keep two different drives with complete copies of files.
+2. Even if a drive becomes inaccessible, e.g. power failure or other problems, single block failures
 and also bigger error ranges in files can be restored using additionally saved information.
 
 ‎The original files and additionally saved information can be verified by the application. In case
@@ -53,8 +53,8 @@ can also overwrite new files in second directory by old files in first directory
 ‎SyncFolders est une application qui vise à vous aider à garder deux dossiers ou lecteurs synchronisés. Avec les 
 paramètres par défaut, cette application crée des fichiers cachés, environ 1 % de la taille des fichiers d'origine, 
 qui vous permettent de récupérer complètement après des pannes d'un seul bloc. Il existe deux niveaux de protection :
-‎1. Vous conservez deux lecteurs différents avec des copies complètes des fichiers.
-‎2. Même si un lecteur devient inaccessible, par ex. une panne de courant ou d'autres problèmes, des pannes 
+1. Vous conservez deux lecteurs différents avec des copies complètes des fichiers.
+2. Même si un lecteur devient inaccessible, par ex. une panne de courant ou d'autres problèmes, des pannes 
 de bloc uniques ainsi que des plages d'erreurs plus importantes dans les fichiers peuvent être restaurées 
 à l'aide d'informations enregistrées supplémentaires.
 
@@ -102,8 +102,8 @@ les nouveaux fichiers du deuxième répertoire par les anciens fichiers du premi
 Con la configuración predeterminada, esta aplicación crea archivos ocultos, aproximadamente el 1% del tamaño de 
 los archivos originales, que permiten para recuperarse completamente de los errores de un solo bloque. 
 Hay dos capas de protección:
-‎- Conserva dos unidades diferentes con copias completas de los archivos.
-‎- Incluso si una unidad se vuelve inaccesible, por ejemplo, corte de energía u otros problemas, 
+- Conserva dos unidades diferentes con copias completas de los archivos.
+- Incluso si una unidad se vuelve inaccesible, por ejemplo, corte de energía u otros problemas, 
 fallas de un solo bloque Y también se pueden restaurar rangos de error más grandes en los archivos
 utilizando información guardada adicionalmente.
 
@@ -147,8 +147,8 @@ la aplicación También puede sobrescribir nuevos archivos en el segundo directo
 ‎SyncFolders é um aplicativo que visa ajudá-lo a manter duas pastas ou unidades sincronizadas. Com as configurações padrão, 
 esta aplicação cria arquivos ocultos, cerca de 1% do tamanho dos arquivos originais, que permitem você se recupere 
 completamente de falhas de bloco único. Existem duas camadas de proteção:
-‎1. Você mantém duas unidades diferentes com cópias completas dos arquivos.
-‎2. Mesmo que uma unidade se torne inacessível, por exemplo, falha de energia ou outros problemas, falhas de bloco 
+1. Você mantém duas unidades diferentes com cópias completas dos arquivos.
+2. Mesmo que uma unidade se torne inacessível, por exemplo, falha de energia ou outros problemas, falhas de bloco 
 único e também intervalos de erro maiores em arquivos podem ser restaurados usando informações salvas adicionalmente.
 
 ‎Os arquivos originais e as informações salvas adicionalmente podem ser verificados pelo aplicativo. Caso de erros, 
@@ -191,8 +191,8 @@ o aplicativo também pode substituir novos arquivos no segundo diretório por ar
 Con le impostazioni predefinite questa applicazione crea file nascosti, circa l'1% della dimensione dei 
 file originali, che consentono per eseguire il ripristino completo da errori di blocco singolo. 
 Esistono due livelli di protezione:
-‎1. Conservi due unità diverse con copie complete dei file.
-‎2. Anche se un'unità diventa inaccessibile, ad esempio in caso di interruzione di corrente o 
+1. Conservi due unità diverse con copie complete dei file.
+2. Anche se un'unità diventa inaccessibile, ad esempio in caso di interruzione di corrente o 
 altri problemi, i guasti di un singolo blocco E anche intervalli di errore più grandi nei file 
 possono essere ripristinati utilizzando le informazioni salvate in aggiunta.
 
@@ -240,8 +240,8 @@ nella seconda directory con vecchi file nella prima directory.
 Mit den Standardeinstellungen erstellt diese Anwendung versteckte Dateien, die etwa 1% der Größe der 
 Originaldateien betragen und Sie können nach Fehlern einzelner Blöcke eine vollständige Wiederherstellung durchführen. 
 Es gibt zwei Schutzebenen:
-‎1. Sie behalten zwei verschiedene Laufwerke mit vollständigen Kopien von Dateien.
-‎2. Selbst wenn ein Laufwerk nicht mehr zugänglich ist, z. B. durch Stromausfall oder andere Probleme, 
+1. Sie behalten zwei verschiedene Laufwerke mit vollständigen Kopien von Dateien.
+2. Selbst wenn ein Laufwerk nicht mehr zugänglich ist, z. B. durch Stromausfall oder andere Probleme, 
 Ausfälle einzelner Blöcke Und auch größere Fehlerbereiche in Dateien können mit zusätzlich 
 gespeicherten Informationen wiederhergestellt werden.
 
@@ -290,8 +290,8 @@ durch alte Dateien im ersten Verzeichnis überschreiben.
 С помощью функции Настройки по умолчанию, это приложение создает скрытые файлы, примерно 1% от 
 размера исходных файлов, которые позволяют полностью восстановиться после цельных отказов. 
 Существует два уровня защиты:
-‎1. Вы храните два разных диска с полными копиями файлов.
-‎2. Даже если диск становится недоступным, например, из-за сбоя питания или других проблем, 
+1. Вы храните два разных диска с полными копиями файлов.
+2. Даже если диск становится недоступным, например, из-за сбоя питания или других проблем, 
 Могут быть восстановлены уникальные файлы блоков, а также большие диапазоны ошибок в файлах 
 с использованием дополнительной сохраненной информации.
 
@@ -340,8 +340,8 @@ durch alte Dateien im ersten Verzeichnis überschreiben.
 Przy ustawieniach domyślnych ta aplikacja tworzy ukryte pliki, około 1% rozmiaru oryginalnych plików, 
 które pozwalają na Całkowicie odzyskasz sprawność po awariach pojedynczych bloków. 
 Istnieją dwie warstwy ochrony:
-‎1. Przechowujesz dwa różne dyski z pełnymi kopiami plików.
-‎2. Nawet jeśli dysk stanie się niedostępny, np. awaria zasilania lub inne problemy, 
+1. Przechowujesz dwa różne dyski z pełnymi kopiami plików.
+2. Nawet jeśli dysk stanie się niedostępny, np. awaria zasilania lub inne problemy, 
 awarie pojedynczych bloków A także większe zakresy błędów w plikach można przywrócić 
 za pomocą dodatkowo zapisanych informacji.
 
@@ -388,8 +388,8 @@ aplikacja Może również nadpisać nowe pliki w drugim katalogu przez stare pli
 <a name="chs"></a>
 ‎SyncFolders 是一个旨在帮助您保持两个文件夹或驱动器同步的应用程序。 在默认设置下，此属性会创建隐藏文件，
 大约是原始文件大小的 1%，允许 U 从单个数据块故障中完全恢复。有两层保护：
-‎1. 您保留两个不同的驱动器，其中包含文件的完整副本。
-‎2. 即使驱动器变得无法访问，例如电源故障或其他问题、单个数据块故障 此外，
+1. 您保留两个不同的驱动器，其中包含文件的完整副本。
+2. 即使驱动器变得无法访问，例如电源故障或其他问题、单个数据块故障 此外，
 还可以使用额外保存的信息来恢复文件中更大的错误范围。
 
 ‎应用程序可以验证原始文件和其他保存的信息。倘 的错误，应用程序将尝试修复文件。如果有第二个副本具有相同的日期和 
@@ -422,8 +422,8 @@ Windows 最终会提示您安装 。NET-Framework，这就是您所需要的。
 <a name="cht"></a>
 SyncFolders 是一個旨在説明您保持兩個資料夾或驅動器同步的應用程式。 在預設設置下，
 此屬性會創建隱藏檔，大約是原始檔案大小的1%，允許 U 從單個數據塊故障中完全恢復。有兩層保護：
-‎1. 您保留兩個不同的驅動器，其中包含檔的完整副本。
-‎2. 即使驅動器變得無法訪問，例如電源故障或其他問題、單個數據塊故障 此外，
+1. 您保留兩個不同的驅動器，其中包含檔的完整副本。
+2. 即使驅動器變得無法訪問，例如電源故障或其他問題、單個數據塊故障 此外，
 還可以使用額外保存的信息來恢復檔中更大的錯誤範圍。
 
 ‎應用程式可以驗證原始檔和其他儲存的資訊。倘 的錯誤，應用程式將嘗試修復檔。
@@ -457,8 +457,8 @@ Windows 最終會提示您安裝 。NET-Framework，這就是您所需要的。
 # 日本語
 <a name="ja"></a>
 ‎SyncFoldersは、2つのフォルダまたはドライブを同期させることを目的としたアプリケーションです。 デフォルト設定では、このアプリケーションは、元のファイルのサイズの約1%の隠しファイルを作成します。 単一のブロック障害から完全に回復します。保護には 2 つの層があります。
-‎1. ファイルの完全なコピーを持つ 2 つの異なるドライブを保持します。
-‎2. ドライブがアクセスできなくなった場合でも、停電やその他の問題、単一のブロックの障害など また、
+1. ファイルの完全なコピーを持つ 2 つの異なるドライブを保持します。
+2. ドライブがアクセスできなくなった場合でも、停電やその他の問題、単一のブロックの障害など また、
 ファイル内のより大きなエラー範囲は、追加で保存された情報を使用して復元できます。
 
 ‎元のファイルと追加で保存された情報は、アプリケーションで確認することができます。
@@ -502,8 +502,8 @@ Windows 最終會提示您安裝 。NET-Framework，這就是您所需要的。
 ‎SyncFolders는 두 개의 폴더 또는 드라이브를 동기화 상태로 유지하는 데 도움이 되는 응용 프로그램입니다. 
 기본 설정을 사용하면 이 응용 프로그램은 원본 파일 크기의 약 1%인 숨겨진 파일을 생성하여 다음을 허용합니다. 
 단일 블록 실패에서 완전히 복구할 수 있습니다. 보호에는 두 가지 계층이 있습니다.
-‎1. 파일의 전체 복사본이 있는 두 개의 서로 다른 드라이브를 유지합니다.
-‎2. 드라이브에 액세스할 수 없게 되더라도(예: 정전 또는 기타 문제, 단일 블록 고장) 
+1. 파일의 전체 복사본이 있는 두 개의 서로 다른 드라이브를 유지합니다.
+2. 드라이브에 액세스할 수 없게 되더라도(예: 정전 또는 기타 문제, 단일 블록 고장) 
 또한 추가로 저장된 정보를 사용하여 파일의 더 큰 오류 범위를 복원할 수 있습니다.
 
 ‎원본 파일 및 추가로 저장된 정보는 응용 프로그램에서 확인할 수 있습니다. 
@@ -546,8 +546,8 @@ Windows 最終會提示您安裝 。NET-Framework，這就是您所需要的。
 ‎SyncFolders एक ऐसा एप्लिकेशन है जिसका उद्देश्य आपको दो फ़ोल्डर्स या ड्राइव को सिंक्रनाइज़ रखने में मदद करना है। 
 डिफ़ॉल्ट सेटिंग्स के साथ यह एप्लीकेशन छिपी हुई फाइलें बनाता है, मूल फाइलों के आकार का लगभग 1%, 
 जो अनुमति देता है आप एकल ब्लॉक विफलताओं से पूरी तरह से उबरने के लिए। सुरक्षा की दो परतें हैं:
-‎1. आप फ़ाइलों की पूरी प्रतियों के साथ दो अलग-अलग ड्राइव रखते हैं।
-‎2. यहां तक कि अगर कोई ड्राइव दुर्गम हो जाता है, जैसे बिजली की विफलता या अन्य समस्याएं, 
+1. आप फ़ाइलों की पूरी प्रतियों के साथ दो अलग-अलग ड्राइव रखते हैं।
+2. यहां तक कि अगर कोई ड्राइव दुर्गम हो जाता है, जैसे बिजली की विफलता या अन्य समस्याएं, 
 एकल ब्लॉक विफलताएं और अतिरिक्त रूप से सहेजी गई जानकारी का उपयोग करके फ़ाइलों में बड़ी त्रुटि श्रेणियों को पुनर्स्थापित किया जा सकता है।
 
 ‎मूल फ़ाइलों और अतिरिक्त रूप से सहेजी गई जानकारी को एप्लिकेशन द्वारा सत्यापित किया जा सकता है। मामले में त्रुटियों में से अनुप्रयोग फ़ाइल को
@@ -586,8 +586,8 @@ Windows 最終會提示您安裝 。NET-Framework，這就是您所需要的。
 ‏SyncFolders هو تطبيق يهدف إلى مساعدتك في الحفاظ على مزامنة مجلدين أو محركات أقراص.
 مع الإعدادات الافتراضية ، يقوم هذا التثبيت بإنشاء ملفات مخفية ، حوالي 1٪ من حجم الملفات الأصلية ،
 والتي تسمح يمكنك التعافي تماما من فشل الكتلة الواحدة. هناك طبقتان من الحماية:
-‏1. يمكنك الاحتفاظ بمحركي أقراص مختلفين مع نسخ كاملة من الملفات.
-‏2. حتى إذا تعذر الوصول إلى محرك الأقراص ، على سبيل المثال انقطاع التيار الكهربائي أو مشاكل أخرى ،
+1. يمكنك الاحتفاظ بمحركي أقراص مختلفين مع نسخ كاملة من الملفات.
+2. حتى إذا تعذر الوصول إلى محرك الأقراص ، على سبيل المثال انقطاع التيار الكهربائي أو مشاكل أخرى ،
 فشل الكتلة الواحدة وأيضا يمكن استعادة نطاقات الخطأ الأكبر في الملفات باستخدام المعلومات المحفوظة بشكل إضافي.
 
 ‏ يمكن التحقق من الملفات الأصلية والمعلومات المحفوظة بالإضافة إلى ذلك بواسطة التطبيق. في حالة من الأخطاء ،
@@ -627,8 +627,8 @@ Windows في النهاية بالتثبيت .NET-Framework ، هذا كل ما 
 <a name="he"></a>
 ‏SyncFolders הוא יישום שמטרתו לעזור לך לשמור על שתי תיקיות או כוננים מסונכרנים. עם הגדרות ברירת מחדל,
 אפשרות זו יוצרת קבצים מוסתרים, כ- 1% מגודל הקבצים המקוריים, המאפשרים אתה כדי להתאושש לחלוטין מכשלים בלוק יחיד. ישנן שתי שכבות הגנה:
-‏1. אתה שומר שני כוננים שונים עם עותקים מלאים של קבצים.
-‏2. גם אם כונן הופך לבלתי נגיש, למשל הפסקת חשמל או בעיות אחרות,
+1. אתה שומר שני כוננים שונים עם עותקים מלאים של קבצים.
+2. גם אם כונן הופך לבלתי נגיש, למשל הפסקת חשמל או בעיות אחרות,
 כשלים בבלוק יחיד וגם טווחי שגיאה גדולים יותר בקבצים ניתן לשחזר באמצעות מידע שנשמר בנוסף.
 
 ‏הקבצים המקוריים והמידע שנשמר בנוסף יכולים להיות מאומתים על ידי היישום. במקרה של שגיאות היישום ינסה לתקן את הקובץ.
