@@ -2018,7 +2018,8 @@ namespace SyncFolders
                         di3.Create();
                         di3 = new System.IO.DirectoryInfo(
                             System.IO.Path.Combine(strDirPath1, "RestoreInfo"));
-                        di3.Attributes = di3.Attributes | System.IO.FileAttributes.Hidden;
+                        di3.Attributes = di3.Attributes | System.IO.FileAttributes.Hidden 
+                            | System.IO.FileAttributes.System;
                     }
                 }
 
@@ -2029,7 +2030,8 @@ namespace SyncFolders
                     di3.Create();
                     di3 = new System.IO.DirectoryInfo(
                         System.IO.Path.Combine(strDirPath2, "RestoreInfo"));
-                    di3.Attributes = di3.Attributes | System.IO.FileAttributes.Hidden;
+                    di3.Attributes = di3.Attributes 
+                        | System.IO.FileAttributes.Hidden | System.IO.FileAttributes.System;
                 }
 
             }
@@ -4182,7 +4184,8 @@ namespace SyncFolders
                     di = new System.IO.DirectoryInfo(
                         strPathSavedInfoFile.Substring(0, 
                         strPathSavedInfoFile.LastIndexOfAny(new char[] { '\\', '/' })));
-                    di.Attributes = di.Attributes | System.IO.FileAttributes.Hidden;
+                    di.Attributes = di.Attributes | System.IO.FileAttributes.Hidden 
+                        | System.IO.FileAttributes.System;
                 }
                 using (System.IO.FileStream s = System.IO.File.Create(strPathSavedInfoFile))
                 {
@@ -4193,6 +4196,8 @@ namespace SyncFolders
                 // save last write time also at the time of the .chk file
                 System.IO.FileInfo fiSavedInfo = new System.IO.FileInfo(strPathSavedInfoFile);
                 fiSavedInfo.LastWriteTimeUtc = finfo.LastWriteTimeUtc;
+                fiSavedInfo.Attributes = fiSavedInfo.Attributes | System.IO.FileAttributes.Hidden |
+                    System.IO.FileAttributes.System;
 
             }
             catch (System.IO.IOException ex)
@@ -4319,7 +4324,8 @@ namespace SyncFolders
                     di = new System.IO.DirectoryInfo(
                         strPathSavedChkInfoFile.Substring(0, 
                         strPathSavedChkInfoFile.LastIndexOfAny(new char[] { '\\', '/' })));
-                    di.Attributes = di.Attributes | System.IO.FileAttributes.Hidden;
+                    di.Attributes = di.Attributes | System.IO.FileAttributes.Hidden |
+                        System.IO.FileAttributes.System;
                 }
 
                 System.IO.FileInfo fiSavedInfo = new System.IO.FileInfo(strPathSavedChkInfoFile);
@@ -4345,6 +4351,8 @@ namespace SyncFolders
                 // save last write time also at the time of the .chk file
                 fiSavedInfo = new System.IO.FileInfo(strPathSavedChkInfoFile);
                 fiSavedInfo.LastWriteTimeUtc = finfo.LastWriteTimeUtc;
+                fiSavedInfo.Attributes = fiSavedInfo.Attributes | System.IO.FileAttributes.Hidden
+                    | System.IO.FileAttributes.System;
 
                 CreateOrUpdateFileChecked(strPathSavedChkInfoFile);
 
