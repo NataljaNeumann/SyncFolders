@@ -108,7 +108,7 @@ los archivos originales, que permiten para recuperarse completamente de los erro
 Hay dos capas de protección:
 - Conserva dos unidades diferentes con copias completas de los archivos.
 - Incluso si una unidad se vuelve inaccesible, por ejemplo, corte de energía u otros problemas, 
-fallas de un solo bloque Y también se pueden restaurar rangos de error más grandes en los archivos
+fallas de un solo bloque y también se pueden restaurar rangos de error más grandes en los archivos
 utilizando información guardada adicionalmente.
 
 ‎La aplicación puede verificar los archivos originales y la información guardada adicionalmente. 
@@ -131,12 +131,11 @@ por encima de estas partes faltantes.
 ‎No hay necesidad de instalación. Puede extraer el archivo en una subcarpeta de la unidad que contiene 
 fotos y ejecutarlo desde allí. Eventualmente, Windows le pedirá que instale .NET-Framework, eso es todo lo que necesitas.
 
-‎Si elige copiar del primer al segundo directorio, la aplicación tratará el primer directorio como 
-principal fuente de datos y segundo directorio como copia de seguridad. Si la aplicación detecta que 
-un archivo en el primer directorio tiene bloques defectuosos, todavía puede intentar restaurar los bloques 
-desde la copia de seguridad en la segunda carpeta, o la versión anterior de la mismo archivo de la copia 
-de seguridad en el segundo directorio. Debe especificar que el primer directorio no se puede escribir, 
-Por lo tanto, la aplicación no intenta modificar los archivos en el primer directorio.
+‎Si elige copiar del primer directorio al segundo directorio, la aplicación tratará el primer directorio como la fuente 
+de datos principal y el segundo directorio como la copia de seguridad. Si la aplicación detecta que un archivo en el primer directorio 
+contiene bloques defectuosos, aún puede intentar restaurar los bloques desde la copia de seguridad en la segunda carpeta o la versión 
+anterior del mismo archivo desde la copia de seguridad en el segundo directorio. Debe especificar que no se puede escribir en el primer 
+directorio para que la aplicación no intente modificar los archivos del primer directorio.
 
 ‎La aplicación generalmente se ejecuta en modo de sincronización, lo que significa que intentará copiar 
 la versión más reciente de las fotos a la otra carpeta o unidad respectiva. Si quita el modo de sincronización, 
@@ -148,9 +147,9 @@ la aplicación También puede sobrescribir nuevos archivos en el segundo directo
 ‎
 # Português
 <a name="pt"></a>
-‎SyncFolders é um aplicativo que visa ajudá-lo a manter duas pastas ou unidades sincronizadas. Com as configurações padrão, 
-esta aplicação cria arquivos ocultos, cerca de 1% do tamanho dos arquivos originais, que permitem você se recupere 
-completamente de falhas de bloco único. Existem duas camadas de proteção:
+‎SyncFolders es una aplicación diseñada para ayudarle a mantener dos carpetas o unidades sincronizadas. 
+Con la configuración predeterminada, esta aplicación crea archivos ocultos de aproximadamente el 1% del tamaño de los archivos originales 
+y le permite realizar una recuperación completa después de errores de bloqueo individuales. Hay dos niveles de protección:
 1. Você mantém duas unidades diferentes com cópias completas dos arquivos.
 2. Mesmo que uma unidade se torne inacessível, por exemplo, falha de energia ou outros problemas, falhas de bloco 
 único e também intervalos de erro maiores em arquivos podem ser restaurados usando informações salvas adicionalmente.
@@ -197,7 +196,7 @@ file originali, che consentono per eseguire il ripristino completo da errori di 
 Esistono due livelli di protezione:
 1. Conservi due unità diverse con copie complete dei file.
 2. Anche se un'unità diventa inaccessibile, ad esempio in caso di interruzione di corrente o 
-altri problemi, i guasti di un singolo blocco E anche intervalli di errore più grandi nei file 
+altri problemi, i guasti di un singolo blocco e anche intervalli di errore più grandi nei file 
 possono essere ripristinati utilizzando le informazioni salvate in aggiunta.
 
 ‎I file originali e le informazioni aggiuntive salvate possono essere verificati dall'applicazione. 
@@ -210,7 +209,7 @@ in aggiunta nei file nascosti.
 una copia precedente dall'altra Directory. Questo è il comportamento standard delle applicazioni di backup: 
 ripristinano vecchie copie degli stessi file.
 
-‎Dopotutto, se nulla ha funzionato, l'applicazione recupererà le parti disponibili del file 
+‎Se nulla ha funzionato, l'applicazione recupererà le parti disponibili del file 
 sovrascrivendo blocchi illeggibili con zeri, in modo che almeno il file possa essere letto e copiato, 
 anche se non tutte le parti di esso sono OK. Molte applicazioni multimediali possono saltare queste parti mancanti.
 
@@ -387,16 +386,15 @@ aplikacja Może również nadpisać nowe pliki w drugim katalogu przez stare pli
 ‎
 # 中文
 <a name="chs"></a>
-‎SyncFolders 是一个旨在帮助您保持两个文件夹或驱动器同步的应用程序。 在默认设置下，此属性会创建隐藏文件，
-大约是原始文件大小的 1%，允许 U 从单个数据块故障中完全恢复。有两层保护：
+‎SyncFolders 是一款旨在帮助您保持两个文件夹或驱动器同步的应用程序。使用默认设置，此应用程序会创建隐藏文件，
+其大小约为原始文件的 1%，这使您可以从单块故障中完全恢复。有两个级别的保护：
 1. 您保留两个不同的驱动器，其中包含文件的完整副本。
-2. 即使驱动器变得无法访问，例如电源故障或其他问题、单个数据块故障 此外，
-还可以使用额外保存的信息来恢复文件中更大的错误范围。
+2. 即使驱动器变得无法访问，例如电源故障或其他问题、单块故障以及文件中较大的错误范围可以使用附加保存的信息进行恢复。
 
 ‎应用程序可以验证原始文件和其他保存的信息。倘 的错误，应用程序将尝试修复文件。如果有第二个副本具有相同的日期和 
 相同的长度，则 app 将尝试从另一个副本中恢复单个块。如果此操作失败，则应用 将尝试从隐藏文件中额外保存的备份信息中恢复单个块。
 
-‎如果所有提到的措施都失败了，应用程序还将尝试从另一个 目录。这是备份应用程序的标准行为：它们恢复相同文件的旧副本。
+‎如果上述所有操作均失败，应用程序还将尝试将旧副本复制到另一个驱动器，这是备份应用程序的标准行为。
 
 ‎毕竟，如果没有任何效果，那么应用程序将通过用零覆盖不可读的块来恢复文件的可用部分，
 因此至少可以读取和复制文件，即使文件的所有部分并非都正常。
@@ -421,8 +419,8 @@ Windows 最终会提示您安装 .NET-Framework，这就是您所需要的。
 > 则应用程序 不会删除其中的文件。在这种情况下，它会忽略您指定的删除第二个目录中的文件。
 # 中文
 <a name="cht"></a>
-SyncFolders 是一個旨在説明您保持兩個資料夾或驅動器同步的應用程式。 在預設設置下，
-此屬性會創建隱藏檔，大約是原始檔案大小的1%，允許 U 從單個數據塊故障中完全恢復。有兩層保護：
+SyncFolders 是一款旨在帮助您同步两个文件夹或驱动器的应用程序。使用默认设置功能，
+该应用程序创建隐藏文件，其大小约为原始文件的 1%，从而允许从固体故障中完全恢复。有两个级别的保护：
 1. 您保留兩個不同的驅動器，其中包含檔的完整副本。
 2. 即使驅動器變得無法訪問，例如電源故障或其他問題、單個數據塊故障 此外，
 還可以使用額外保存的信息來恢復檔中更大的錯誤範圍。
@@ -431,8 +429,7 @@ SyncFolders 是一個旨在説明您保持兩個資料夾或驅動器同步的�
 如果有第二個副本具有相同的日期和 相同的長度，則app將嘗試從另一個副本中恢復單個塊。
 如果此操作失敗，則應用 將嘗試從隱藏檔中額外保存的備份資訊中恢復單個塊。
 
-‎如果所有提到的措施都失敗了，應用程式還將嘗試從另一個 目錄。
-這是備份應用程式的標準行為：它們恢復相同檔的舊副本。
+‎如果上述所有操作都失敗，應用程式還將嘗試將舊副本複製到另一個驅動器，這是備份應用程式的標準行為。
 
 ‎畢竟，如果沒有任何效果，那麼應用程式將透過用零覆蓋不可讀的區塊來恢復文件的可用部分，
 因此至少可以讀取和複製文件，即使文件的所有部分並非都正常。許多媒體應用程式可以跳過這些缺少的部分。
@@ -457,24 +454,25 @@ Windows 最終會提示您安裝 .NET-Framework，這就是您所需要的。
 ‎
 # 日本語
 <a name="ja"></a>
-‎SyncFoldersは、2つのフォルダまたはドライブを同期させることを目的としたアプリケーションです。
+‎SyncFoldersは、二つのフォルダまたはドライブを同期させることを目的としたアプリケーションです。
 デフォルト設定では、このアプリケーションは、元のファイルのサイズの約1%の隠しファイルを作成します。
-単一のブロック障害から完全に回復します。保護には 2 つの層があります。
-1. ファイルの完全なコピーを持つ 2 つの異なるドライブを保持します。
-2. ドライブがアクセスできなくなった場合でも、停電やその他の問題、単一のブロックの障害など また、
-ファイル内のより大きなエラー範囲は、追加で保存された情報を使用して復元できます。
+単一のブロック障害から完全に回復します。保護には 二 つの層があります:
+1. ファイルの完全なコピーを持つ 二 つの異なるドライブを保持します。
+2. 停電やその他の問題によりディスクが使用できなくなった場合でも、保存されている追加情報を使用して、
+ファイルの個々のブロックだけでなく、広範囲のファイル エラーも回復できます。
 
 ‎元のファイルと追加で保存された情報は、アプリケーションで確認することができます。
 万が一の場合 エラーの場合、アプリケーションはファイルの修復を試みます。
-同じ日付の 2 番目のコピーがある場合 同じ長さの場合、アプリは他のコピーから1つのブロックを回復しようとします。
+同じ日付の 二 番目のコピーがある場合 同じ長さの場合、アプリは他のコピーから1つのブロックを回復しようとします。
 これが失敗した場合、アプリ 隠しファイルに追加で保存されたバックアップ情報から単一のブロックを回復しようとします。
 
 ‎上記のすべての対策が失敗した場合、アプリケーションは他のコピーから古いコピーの復元も試みます ディレクトリ。
 これはバックアップアプリケーションの標準的な動作で、同じファイルの古いコピーを復元します。
 
-‎結局のところ、何も機能しなかった場合、アプリケーションはファイルの利用可能な部分を上書きして回復します 
-ゼロで読み取り不可能なブロックであるため、すべての部分が正常でなくても、少なくともファイルを読み取ってコピーできます。 
-多くのメディアアプリケーションは、これらの欠落している部分を飛び越えることができます。
+‎他に何も機能しない場合、アプリケーションは最終的にエラー ブロックをゼロで上書きすることにより、
+ファイルのアクセス可能な部分を復元します。これにより、ファイルのすべての部分が正しい場合でも、
+少なくともファイルの読み取りとコピーが可能になります。多くのマルチメディア アプリケーションは、
+これらのギャップを埋めることができます。
 
 ‎これらはすべて自動的に行われるため、個人の家族の写真やビデオは可能な限り安全に保管されます。
 
@@ -483,22 +481,22 @@ Windows 最終會提示您安裝 .NET-Framework，這就是您所需要的。
 ‎インストールの必要はありません。アーカイブは、次のファイルを含むドライブのサブフォルダに抽出できます 写真を撮って、
 そこから実行します。Windows は最終的にインストールするように求めます.NET-Framework、それだけで十分です。
 
-‎最初のディレクトリから 2 番目のディレクトリにコピーすることを選択した場合、
-アプリは最初のディレクトリをプライマリとして扱います バックアップとしてデータソースと 2 番目のディレクトリ。
+‎最初のディレクトリから 二 番目のディレクトリにコピーすることを選択した場合、
+アプリは最初のディレクトリをプライマリとして扱います バックアップとしてデータソースと 二 番目のディレクトリ。
 アプリケーションが、最初のディレクトリ内のファイルに次のものが含まれていることを検出した場合 不良ブロックの場合でも、
 アプリケーションはバックアップからブロックの復元を試みることができます。
 アプリケーションは古いものを復元することもできます バックアップディレクトリからの同じファイルのバージョン。
 最初のディレクトリが書き込み可能でないことを指定する必要があります。 
-そのため、アプリケーションは最初のディレクトリ内のファイルを変更しようとはしません。
+そうすれば、アプリケーションは最初のディレクトリ内のファイルを変更しようとしなくなります。
 
 ‎通常、アプリケーションは同期モードで実行されるため、最新バージョンのコピーが試行されます 
 それぞれの他のフォルダまたはドライブへの写真の。同期モードを削除すると、アプリケーションは また、
-2 番目のディレクトリにある新しいファイルを 1 番目のディレクトリにある古いファイルで上書きすることもできます。
+二 番目のディレクトリにある新しいファイルを 1 番目のディレクトリにある古いファイルで上書きすることもできます。
 
 > [!NOTE]
-> ‎2 番目のディレクトリに [^1] で指定した名前の特別なファイルが含まれている場合、
+> ‎二 番目のディレクトリに [^1] で指定した名前の特別なファイルが含まれている場合、
 > アプリケーションは その中のファイルは削除されません。この場合、
-> 2 番目のディレクトリ内のファイルを削除するように指定したことは無視されます。
+> 二 番目のディレクトリ内のファイルを削除するように指定したことは無視されます。
 [‎
 # 한국인
 ](ko)
