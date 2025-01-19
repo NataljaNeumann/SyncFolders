@@ -336,4 +336,7 @@
   <data name="Yes" xml:space="preserve">
     <value>Evet </value>
   </data>
+  <data name="ReadmeHtmlHelpJumpPoint" xml:space="preserve">
+    <value>#tr</value>
+  </data>
 </root>

@@ -7,7 +7,8 @@
   
 ![SyncFolders-1](https://github.com/user-attachments/assets/3864175e-1b28-45eb-b56a-f95d1d338d44)  
 
-‎[English](#en), [Français](#fr), [Español](#es), [Português](#pt), [Italiano](#it), [Deutsch](#de), [По русски](#ru), [Polski](#pl), [Στα ελληνικά](#gr), [中文文本](#chs), [中文文字](#cht), [日本語](#ja), [한국인](#ko), [भारतीय में](#hi), [باللغة العربية](#ar), [עִברִית](#he)
+‎[English](#en), [Français](#fr), [Español](#es), [Português](#pt), [Italiano](#it), [Deutsch](#de), [По русски](#ru), [Polski](#pl), [Στα ελληνικά](#gr), 
+[Nederlands](#nl), [Dansk](#da), [Suomeksi](#fi), [Svenska](#sv), [Türkçe](#tr), [中文文本](#chs), [中文文字](#cht), [日本語](#ja), [한국인](#ko), [भारतीय में](#hi), [باللغة العربية](#ar), [עִברִית](#he)
 ‎
 # English
 <a name="en"></a>
@@ -442,12 +443,250 @@ aplikacja Może również nadpisać nowe pliki w drugim katalogu przez stare pli
 η εφαρμογή μπορεί επίσης να αντικαταστήσει νέα αρχεία στον δεύτερο κατάλογο με παλιά αρχεία στον πρώτο κατάλογο.
 
 > [!NOTE]
-> ‎Εάν ο δεύτερος κατάλογος περιέχει ένα ειδικό αρχείο με το όνομα που δίνεται παρακάτω [1], 
+> ‎Εάν ο δεύτερος κατάλογος περιέχει ένα ειδικό αρχείο με το όνομα που δίνεται παρακάτω [^1], 
 > τότε η εφαρμογή δεν θα διαγράψει τα αρχεία σε αυτόν. Σε αυτήν την περίπτωση, 
 > αγνοεί ότι καθορίσατε ότι τα αρχεία στον δεύτερο κατάλογο πρέπει να διαγραφούν.
   
 [Χρειάζεστε υποστήριξη;](https://github.com/NataljaNeumann/SyncFolders/issues)  
 [Wiki](https://github.com/NataljaNeumann/SyncFolders/wiki)‎
+# Nederlands
+<a name="nl"></a>
+‎SyncFolders is een applicatie die is ontworpen om u te helpen twee mappen of schijven gesynchroniseerd te houden. 
+Met standaardinstellingen maakt deze applicatie verborgen bestanden van ongeveer 1% van de grootte van de originele bestanden en kunt 
+u een volledig herstel uitvoeren na individuele blokfouten. Er zijn twee beschermingsniveaus:
+1. U bewaart twee verschillende schijven met volledige kopieën van bestanden.
+2. Zelfs als een schijf niet meer toegankelijk is, b.v. B. Door stroomuitval of andere problemen kunnen storingen 
+van individuele blokken en zelfs grotere foutgebieden in bestanden worden hersteld met extra opgeslagen informatie.
+
+‎De originele bestanden en aanvullende opgeslagen informatie kunnen door de applicatie worden gecontroleerd. 
+In geval van fouten probeert de applicatie het bestand te herstellen. Als er een tweede kopie is met dezelfde datum en lengte, 
+probeert de app individuele blokken van de andere kopie te herstellen. Als dit niet lukt, probeert de app individuele blokken 
+te herstellen uit extra opgeslagen blokken met back-upinformatie in verborgen bestanden
+
+‎Als alle bovenstaande maatregelen mislukken, zal de applicatie ook proberen een oudere kopie van 
+de andere versie vanaf de andere schijf te herstellen. Dit is het standaardgedrag van back-uptoepassingen.
+
+‎Als niets werkte, herstelt de applicatie de beschikbare delen van het bestand door onleesbare 
+blokken met nullen te overschrijven, zodat het bestand in ieder geval gelezen en gekopieerd kan worden, 
+zelfs als niet alle delen ervan in orde zijn. Veel mediatoepassingen kunnen deze ontbrekende onderdelen overslaan.
+
+
+‎Dit gebeurt allemaal automatisch, waardoor uw persoonlijke familiefoto's en -video's zo veilig mogelijk blijven.
+
+‎Zodra het proces is voltooid, wordt een logboek weergegeven en ook opgeslagen in de map Documenten voor toekomstig gebruik.
+
+‎Installatie is niet vereist. U kunt het zip-archief uitpakken naar een submap op de schijf die Foto's bevat en het 
+van daaruit uitvoeren. Windows zal u uiteindelijk vragen om .NET Framework, meer heb je niet nodig.
+
+‎Als u ervoor kiest om van de eerste map naar de tweede map te kopiëren, behandelt de app de eerste map als de primaire 
+gegevensbron en de tweede map als de back-up. Als de toepassing detecteert dat een bestand in de eerste map slechte blokken bevat, 
+kan het nog steeds proberen de blokken uit de back-up in de tweede map of de oudere versie van hetzelfde bestand uit de back-up 
+in de tweede map te herstellen. U moet opgeven dat de eerste map niet beschrijfbaar is, zodat de toepassing niet probeert de 
+bestanden in de eerste map te wijzigen.
+
+‎De applicatie werkt doorgaans in de synchronisatiemodus, wat betekent dat wordt geprobeerd de
+nieuwste versie van foto's naar elkaars map of schijf te kopiëren. Als u de synchronisatiemodus uitschakelt, 
+kan de toepassing ook nieuwe bestanden in de tweede map overschrijven met oude bestanden in de eerste map.
+
+> [!NOTE]
+> ‎Als de tweede map een speciaal bestand bevat met de onderstaande naam [^1], zal de applicatie de bestanden 
+> daarin niet verwijderen. In dit geval wordt genegeerd dat u hebt opgegeven dat de bestanden in de tweede map moeten worden verwijderd.
+  
+[Heeft u ondersteuning nodig?](https://github.com/NataljaNeumann/SyncFolders/issues)  
+[Wiki](https://github.com/NataljaNeumann/SyncFolders/wiki)‎
+# Dansk
+<a name="da"></a>
+‎SyncFolders er et program designet til at hjælpe dig med at holde to mapper eller drev synkroniseret. 
+Med standardindstillinger opretter denne applikation skjulte filer omkring 1% af størrelsen af de originale filer og giver 
+dig mulighed for at udføre en fuld gendannelse efter individuelle blokeringsfejl. Der er to beskyttelsesniveauer:
+1. Du beholder to forskellige drev med fulde kopier af filer.
+2. Selvom et drev ikke længere er tilgængeligt, f.eks. B. på grund af strømsvigt eller andre problemer 
+kan fejl i enkelte blokke og endnu større fejlområder i filer gendannes med yderligere gemt information.
+
+‎
+De originale filer og yderligere lagrede oplysninger kan kontrolleres af applikationen. I tilfælde af fejl
+forsøger applikationen at reparere filen. Hvis der er en anden kopi med samme dato og længde, forsøger appen at gendanne
+individuelle blokke fra den anden kopi.Hvis dette mislykkes, vil appen forsøge at gendanne individuelle blokke fra yderligere 
+sikkerhedskopieringsoplysninger gemt i skjulte filer.
+
+‎Hvis alle ovenstående foranstaltninger mislykkes, vil applikationen også forsøge at gendanne en 
+ældre kopi af den anden fra det andet drev. Dette er standardadfærden for backup-applikationer.
+
+‎Hvis intet virkede, gendanner applikationen de tilgængelige dele af filen ved at overskrive 
+ulæselige blokke med nuller, så i det mindste filen kan læses og kopieres, selvom ikke alle dele af den er i orden. 
+Mange medieapplikationer kan springe over disse manglende dele.
+
+‎Alt dette sker automatisk, og holder dine personlige familiebilleder og videoer så sikre som muligt.
+
+‎Når processen er fuldført, vil en log blive vist og også gemt i mappen Dokumenter til fremtidig reference.
+
+‎Installation er ikke påkrævet. Du kan udpakke zip-arkivet til en undermappe på drevet, der indeholder Fotos, 
+og køre det derfra. Windows vil endelig bede dig om at installere .NET Framework, det er alt hvad du behøver.
+
+‎Hvis du vælger at kopiere fra den første mappe til den anden mappe, vil appen behandle den første 
+mappe som den primære datakilde og den anden mappe som backup. Hvis programmet registrerer, at en fil i den første mappe 
+indeholder dårlige blokke, kan den stadig forsøge at gendanne blokkene fra sikkerhedskopien i den anden mappe eller den 
+ældre version af den samme fil fra sikkerhedskopien i den anden mappe. Du skal angive, at den første mappe ikke kan skrives, 
+så programmet ikke forsøger at ændre filerne i den første mappe.
+
+‎Applikationen kører typisk i synkroniseringstilstand, hvilket betyder, at den forsøger at kopiere 
+den seneste version af billeder til hinandens mappe eller drev. Hvis du slår synkroniseringstilstand fra, 
+kan programmet også overskrive nye filer i den anden mappe med gamle filer i den første mappe.
+
+> [!NOTE]
+> ‎Hvis den anden mappe indeholder en speciel fil med navnet angivet nedenfor [^1], 
+> vil applikationen ikke slette filerne i den. I dette tilfælde ignorerer den, at du har angivet, at filerne i den anden mappe skal slettes.
+  
+[Har du brug for støtte?](https://github.com/NataljaNeumann/SyncFolders/issues)  
+[Wiki](https://github.com/NataljaNeumann/SyncFolders/wiki)‎
+# Suomeksi
+<a name="fi"></a>
+‎SyncFolders on sovellus, joka on suunniteltu auttamaan sinua pitämään kaksi kansiota tai 
+asemaa synkronoituna. Oletusasetuksissa tämä sovellus luo piilotettuja tiedostoja noin 1 % alkuperäisten tiedostojen 
+koosta ja mahdollistaa täyden palautuksen yksittäisten estovirheiden jälkeen. Suojaustasoja on kaksi:
+1. Säilytät kaksi eri asemaa täydellisillä tiedostokopioilla.
+2. Vaikka asema ei ole enää käytettävissä, esim. B. sähkökatkon tai muiden ongelmien 
+vuoksi yksittäisten lohkojen vikoja ja vielä suurempiakin virhealueita tiedostoissa 
+voidaan palauttaa tallennetuilla lisätiedoilla.
+
+‎Sovellus voi tarkistaa alkuperäiset tiedostot ja tallennetut lisätiedot. 
+Virheiden sattuessa sovellus yrittää korjata tiedoston. Jos on olemassa toinen kopio, 
+jolla on sama päivämäärä ja pituus, sovellus yrittää palauttaa yksittäisiä lohkoja toisesta kopiosta. 
+Jos tämä epäonnistuu, sovellus yrittää palauttaa yksittäisiä lohkoja piilotiedostoihin 
+tallennetuista lisävarmuuskopiotiedoista.
+
+‎Jos kaikki yllä olevat toimenpiteet epäonnistuvat, sovellus yrittää myös palauttaa vanhemman 
+kopion toisesta asemasta. Tämä on varmuuskopiointisovellusten normaali toiminta.
+
+‎Jos mikään ei auta, sovellus palauttaa tiedoston käytettävissä olevat osat kirjoittamalla 
+lukukelvottomien lohkojen päälle nollia, jotta ainakin tiedosto voidaan lukea ja kopioida, vaikka 
+kaikki sen osat eivät olisikaan kunnossa. Monet mediasovellukset voivat ohittaa nämä puuttuvat osat.
+
+‎Kaikki tämä tapahtuu automaattisesti, mikä pitää henkilökohtaiset perhekuvasi ja videosi mahdollisimman turvassa.
+
+‎Kun prosessi on valmis, loki tulee näkyviin ja tallennetaan myös Asiakirjat-kansioon myöhempää käyttöä varten.
+
+‎Asennusta ei vaadita. Voit purkaa zip-arkiston valokuvat sisältävään aseman alikansioon ja suorittaa sen sieltä. 
+Windows pyytää lopulta asentamaan .NET Frameworkin, siinä kaikki mitä tarvitset.
+
+‎Jos päätät kopioida ensimmäisestä hakemistosta toiseen, sovellus käsittelee ensimmäistä hakemistoa 
+ensisijaisena tietolähteenä ja toista hakemistoa varmuuskopiona. Jos sovellus havaitsee, että ensimmäisessä 
+hakemistossa oleva tiedosto sisältää virheellisiä lohkoja, se voi silti yrittää palauttaa lohkot toisen kansion 
+varmuuskopiosta tai saman tiedoston vanhemman version toisen hakemiston varmuuskopiosta. Sinun on määritettävä, 
+että ensimmäiseen hakemistoon ei voi kirjoittaa, jotta sovellus ei yritä muokata ensimmäisen hakemiston tiedostoja.
+
+‎Sovellus toimii yleensä synkronointitilassa, mikä tarkoittaa, että se yrittää kopioida uusimman 
+version valokuvista toistensa kansioon tai asemaan. Jos poistat synkronointitilan käytöstä, sovellus voi myös korvata 
+uudet tiedostot toisessa hakemistossa vanhoilla tiedostoilla ensimmäisessä hakemistossa.
+
+> [!NOTE]
+> ‎Jos toinen hakemisto sisältää erityisen tiedoston, jonka nimi on alla [^1], sovellus 
+> ei poista siinä olevia tiedostoja. Tässä tapauksessa se jättää huomioimatta, että määritit, että toisen hakemiston tiedostot pitäisi poistaa.
+  
+[Tarvitsetko tukea?](https://github.com/NataljaNeumann/SyncFolders/issues)  
+[Wiki](https://github.com/NataljaNeumann/SyncFolders/wiki)‎
+# Svenska
+<a name="sv"></a>
+‎
+SyncFolders är ett program utformat för att hjälpa dig att hålla två mappar eller enheter synkroniserade.
+Med standardinställningar skapar denna applikation dolda filer cirka 1 % av storleken på originalfilerna och låter dig utföra
+en fullständig återställning efter individuella blockeringsfel. Det finns två skyddsnivåer:
+
+1. Du behåller två olika enheter med fullständiga kopior av filer.
+2. 
+Även om en enhet inte längre är tillgänglig, t.ex. B. på grund av strömavbrott eller andra problem
+kan fel i enskilda block och ännu större felområden i filer återställas med ytterligare sparad information.
+
+
+‎
+Originalfilerna och ytterligare lagrad information kan kontrolleras av applikationen. Vid fel försöker programmet reparera filen.
+Om det finns en andra kopia med samma datum och längd, försöker appen återställa enskilda block från den andra kopian.
+Om detta misslyckas kommer appen att försöka återställa enskilda block från ytterligare säkerhetskopieringsinformation lagrad i dolda filer.
+
+
+‎
+Om alla ovanstående åtgärder misslyckas kommer programmet också att försöka återställa en äldre kopia av den andra från den andra enheten.
+Detta är standardbeteendet för säkerhetskopieringsapplikationer.
+
+
+‎
+Om inget fungerade återställer applikationen de tillgängliga delarna av filen genom att skriva över
+oläsbara block med nollor så att åtminstone filen kan läsas och kopieras, även om inte alla delar av den är i ordning.
+Många medieapplikationer kan hoppa över dessa saknade delar.
+
+
+‎Allt detta sker automatiskt, och håller dina personliga familjefoton och videor så säkra som möjligt.
+
+‎När processen är klar kommer en logg att visas och även sparas i mappen Dokument för framtida referens.
+
+‎
+Installation krävs inte. Du kan extrahera zip-arkivet till en undermapp på enheten som innehåller Foton
+och köra det därifrån. Windows kommer äntligen att be dig installera .NET Framework, det är allt du behöver.
+
+
+‎
+Om du väljer att kopiera från den första katalogen till den andra katalogen kommer appen att behandla
+den första katalogen som primär datakälla och den andra katalogen som säkerhetskopia. Om programmet upptäcker att en fil i
+den första katalogen innehåller dåliga block, kan den fortfarande försöka återställa blocken från säkerhetskopian i den andra
+mappen eller den äldre versionen av samma fil från säkerhetskopian i den andra katalogen. Du måste ange att den första katalogen
+inte är skrivbar så att programmet inte försöker ändra filerna i den första katalogen.
+
+
+‎
+Die Anwendung wird normalerweise im Synchronisationsmodus ausgeführt, was bedeutet, dass sie versucht,
+die neueste Version der Fotos zu kopieren in den jeweils anderen Ordner oder das jeweils andere Laufwerk. Wenn Sie den
+Synchronisationsmodus ausschalten, kann die Anwendung auch neue Dateien im zweiten Verzeichnis durch alte Dateien im
+ersten Verzeichnis überschreiben.
+
+
+> [!NOTE]
+> ‎
+> Om den andra katalogen innehåller en speciell fil med namnet nedan [^1], kommer programmet inte att radera filerna i den.
+> I det här fallet ignorerar den att du angav att filerna i den andra katalogen ska raderas.
+> 
+  
+[Behöver du stöd?](https://github.com/NataljaNeumann/SyncFolders/issues)  
+[Wiki](https://github.com/NataljaNeumann/SyncFolders/wiki)‎
+# Türkçe
+<a name="tr"></a>
+‎SyncFolders, iki klasörü veya sürücüyü senkronize tutmanıza yardımcı olmak için tasarlanmış bir uygulamadır. 
+Varsayılan ayarlarla bu uygulama, orijinal dosyaların boyutunun yaklaşık %1'i kadar gizli dosyalar oluşturur ve bireysel 
+blok hatalarından sonra tam kurtarma gerçekleştirmenize olanak tanır. İki koruma düzeyi vardır:
+1. Dosyaların tam kopyalarını içeren iki farklı sürücüyü saklıyorsunuz.
+2. Bir sürücüye artık erişilemese bile, örn. B. elektrik kesintisi veya diğer sorunlar nedeniyle, 
+bireysel bloklardaki arızalar ve dosyalardaki daha büyük hata alanları, kaydedilen ek bilgilerle geri yüklenebilir.
+
+‎Orijinal dosyalar ve saklanan ek bilgiler uygulama tarafından kontrol edilebilir. Hata durumunda uygulama dosyayı 
+onarmaya çalışır. Aynı tarih ve uzunlukta ikinci bir kopya varsa uygulama diğer kopyadaki blokları tek tek geri yüklemeye çalışır. 
+Bu başarısız olursa uygulama, gizli dosyalarda saklanan ek yedekleme bilgilerinden tek tek blokları geri yüklemeye çalışacaktır.
+
+‎Yukarıdaki önlemlerin tümü başarısız olursa, uygulama aynı zamanda diğerinin eski bir kopyasını diğer 
+sürücüden geri yüklemeye çalışacaktır. Bu, yedekleme uygulamalarının standart davranışıdır.
+
+‎Hiçbir şey işe yaramazsa uygulama, okunamayan blokların üzerine sıfırlar yazarak dosyanın mevcut bölümlerini geri yükler, böylece dosyanın tüm bölümleri sıralı olmasa bile en azından dosya okunabilir ve kopyalanabilir. Birçok medya uygulaması bu eksik kısımları atlayabilmektedir.
+
+‎Tüm bunlar otomatik olarak gerçekleşir ve kişisel aile fotoğraflarınızı ve videolarınızı mümkün olduğunca güvende tutar.
+
+‎İşlem tamamlandığında bir günlük görüntülenecek ve ileride başvurmak üzere Belgeler klasörüne kaydedilecektir.
+
+‎Kurulum gerekli değildir. Zip arşivini sürücüdeki Fotoğraflar'ın bulunduğu bir alt klasöre çıkarabilir 
+ve oradan çalıştırabilirsiniz. Windows sonunda sizden .NET Framework'ü kurmanızı isteyecek, ihtiyacınız olan tek şey bu.
+
+‎Birinci dizinden ikinci dizine kopyalamayı seçerseniz uygulama, ilk dizini birincil veri kaynağı, 
+ikinci dizini ise yedek olarak ele alır. Uygulama, birinci dizindeki bir dosyanın bozuk bloklar içerdiğini tespit ederse, 
+yine de blokları ikinci klasördeki yedekten veya aynı dosyanın eski sürümünü ikinci dizindeki yedekten geri yüklemeyi deneyebilir. 
+Uygulamanın ilk dizindeki dosyaları değiştirmeye çalışmaması için ilk dizinin yazılabilir olmadığını belirtmeniz gerekir.
+
+‎Uygulama genellikle senkronizasyon modunda çalışır; bu, fotoğrafların en son sürümlerini birbirlerinin klasörüne veya 
+sürücüsüne kopyalamaya çalıştığı anlamına gelir. Senkronizasyon modunu kapatırsanız, uygulama aynı zamanda ikinci dizindeki 
+yeni dosyaların üzerine birinci dizindeki eski dosyaları da yazabilir.
+
+> [!NOTE]
+> ‎İkinci dizin aşağıda [^1] adı verilen özel bir dosya içeriyorsa, uygulama içindeki dosyaları silmez. 
+> Bu durumda, ikinci dizindeki dosyaların silinmesi gerektiğini belirttiğiniz dikkate alınmaz.
+  
+[Desteğe mi ihtiyacınız var?](https://github.com/NataljaNeumann/SyncFolders/issues)  
+[Viki](https://github.com/NataljaNeumann/SyncFolders/wiki)‎
 # 中文文本
 <a name="chs"></a>
 ‎SyncFolders 是一款旨在帮助您保持两个文件夹或驱动器同步的应用程序。使用默认设置，此应用程序会创建隐藏文件，
