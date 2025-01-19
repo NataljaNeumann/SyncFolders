@@ -243,13 +243,6 @@ namespace SyncFolders
                                 }
                                 if (oXmlNode.Name.Equals("p"))
                                 {
-                                    strTxt.Append(Environment.NewLine);
-                                    strMd.Append(Environment.NewLine);
-                                    if (oXmlNode.Attributes != null && oXmlNode.Attributes.GetNamedItem("style") != null)
-                                    {
-                                        strMd.AppendFormat("> [!{0}]\r\n",
-                                            oXmlNode.Attributes.GetNamedItem("style").Value.ToUpper());
-                                    }
 
                                     if (oXmlNode.Attributes != null && oXmlNode.Attributes.GetNamedItem("dir") != null)
                                     {
@@ -264,6 +257,15 @@ namespace SyncFolders
                                             strMd.Append((char)0x200E);
                                         }
                                     }
+
+                                    strTxt.Append(Environment.NewLine);
+                                    strMd.Append(Environment.NewLine);
+                                    if (oXmlNode.Attributes != null && oXmlNode.Attributes.GetNamedItem("style") != null)
+                                    {
+                                        strMd.AppendFormat("> [!{0}]\r\n",
+                                            oXmlNode.Attributes.GetNamedItem("style").Value.ToUpper());
+                                    }
+
 
                                 }
                                 if (oXmlNode.Name.Equals("a"))
