@@ -250,6 +250,7 @@ namespace SyncFolders
                                     {
                                         strMd.AppendFormat("> [!{0}]\r\n> ",
                                             oXmlNode.Attributes.GetNamedItem("style").Value.ToUpper());
+                                        strTxt.Append("> ");
                                     }
 
                                     if (oXmlNode.Attributes != null && oXmlNode.Attributes.GetNamedItem("dir") != null)
