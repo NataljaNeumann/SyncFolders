@@ -352,6 +352,14 @@ namespace SyncFolders
                                         Environment.NewLine+"> ");
                                 }
 
+                                if (oXmlNode.ParentNode.Attributes != null && oXmlNode.ParentNode.Attributes.GetNamedItem("dir") != null)
+                                {
+                                    if (oXmlNode.ParentNode.Attributes.GetNamedItem("dir").Value.Equals("rtl"))
+                                    {
+                                        strText = strText.Replace(".NET-Framework", (char)0x200E + ".NET-Framework" + (char)0x200F);
+                                    }
+                                }
+
                                 strTxt.Append(strText);
 
                                 if (strText.Equals("[1]"))
