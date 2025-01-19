@@ -266,9 +266,15 @@ namespace SyncFolders
                                     }
 
                                 }
-                                if (oXmlNode.Name.Equals("a") && oXmlNode.Attributes.GetNamedItem("href")!=null)
+                                if (oXmlNode.Name.Equals("a"))
                                 {
-                                    strMd.Append("[");
+                                    if (oXmlNode.Attributes.GetNamedItem("href") != null)
+                                    {
+                                        if (!oXmlNode.Attributes.GetNamedItem("href").Value.Equals("#fn1"))
+                                        {
+                                            strMd.Append("[");
+                                        }
+                                    }
                                 }
                                 if (oXmlNode.Name.Equals("b"))
                                 {
@@ -317,6 +323,7 @@ namespace SyncFolders
                                     strTxt.Append(nPos.ToString() + ". ");
                                     strMd.Append(nPos.ToString() + ". ");
                                 }
+
                                 // continue descent
                                 oXmlNode = oXmlNode.FirstChild;
                                 if (oXmlNode!=null)
@@ -333,16 +340,23 @@ namespace SyncFolders
                             {
 
                                 string strText = oXmlNode.InnerText;
+
                                 while (strText.IndexOf(Environment.NewLine + " ") >= 0)
                                     strText = strText.Replace(Environment.NewLine + " ", Environment.NewLine);
 
                                 if (oXmlNode.ParentNode.Attributes != null && oXmlNode.ParentNode.Attributes.GetNamedItem("style") != null)
                                 {
-                                    strText = strText.Replace(Environment.NewLine,
+                                    strText = "> " + strText.Replace(Environment.NewLine,
                                         Environment.NewLine+"> ");
                                 }
 
                                 strTxt.Append(strText);
+
+                                if (strText.Equals("[1]"))
+                                    strText = "[^1]";
+                                if (strText.Equals("[1]:"))
+                                    strText = "[^1]:";
+
                                 strMd.Append(strText);
 
                                 // then try to descend into next sibling
@@ -387,25 +401,36 @@ namespace SyncFolders
                             }
                             if (oXmlNode.Name.Equals("a"))
                             {
+
                                 System.Xml.XmlNode oXmlAttr =
                                     oXmlNode.Attributes.GetNamedItem("href");
 
                                 if (oXmlAttr != null)
                                 {
-                                    strMd.AppendFormat("]({0})", oXmlAttr.Value);
-                                    if (oXmlAttr.Value.StartsWith("#"))
+                                    if (!oXmlAttr.Value.Equals("#fn1"))
                                     {
-                                        strTxt.Append("..");
-                                    }
-                                    else
-                                    {
-                                        strTxt.Append(": " + oXmlAttr.Value);
+                                        strMd.AppendFormat("]({0})", oXmlAttr.Value);
+                                        if (oXmlAttr.Value.StartsWith("#"))
+                                        {
+                                            strTxt.Append("..");
+                                        }
+                                        else
+                                        {
+                                            strTxt.Append(": " + oXmlAttr.Value);
+                                        }
                                     }
                                 }
                                 else
                                 {
-                                    strMd.AppendFormat("<a name=\"{0}\"></a>",
-                                        oXmlNode.Attributes.GetNamedItem("name").Value);
+                                    oXmlAttr =
+                                    oXmlNode.Attributes.GetNamedItem("name");
+
+                                    if (!oXmlAttr.Value.Equals("fn1"))
+                                    {
+                                        strMd.AppendFormat("<a name=\"{0}\"></a>",
+                                            oXmlNode.Attributes.GetNamedItem("name").Value);
+                                    }
+
                                 }
                             }
 
