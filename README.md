@@ -723,7 +723,9 @@ Windows 最终会提示您安装 .NET-Framework，这就是您所需要的。
 > 则应用程序 不会删除其中的文件。在这种情况下，它会忽略您指定的删除第二个目录中的文件。
   
 [您需要支持吗？](https://github.com/NataljaNeumann/SyncFolders/issues)  
-[维基百科](https://github.com/NataljaNeumann/SyncFolders/wiki)# 中文文字
+[维基百科](https://github.com/NataljaNeumann/SyncFolders/wiki)  
+‎
+# 中文文字
 <a name="cht"></a>
 SyncFolders 是一款旨在帮助您同步两个文件夹或驱动器的应用程序。使用默认设置功能，
 该应用程序创建隐藏文件，其大小约为原始文件的 1%，从而允许从固体故障中完全恢复。有两个级别的保护：
