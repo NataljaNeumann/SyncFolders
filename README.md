@@ -7,7 +7,7 @@
   
 ![SyncFolders-1](https://github.com/user-attachments/assets/3864175e-1b28-45eb-b56a-f95d1d338d44)  
 
-‎[English](#en), [Français](#fr), [Español](#es), [Português](#es), [Italiano](#it), [Deutsch](#de), [По русски](#ru), [Polski](#pl), 
+‎[English](#en), [Français](#fr), [Español](#es), [Português](#pt), [Italiano](#it), [Deutsch](#de), [По русски](#ru), [Polski](#pl), 
 [中文](#chs), [日本語](#ja), [한국인](#ko), [भारतीय में](#hi), [باللغة العربية](#ar), [עִברִית](#he)
 ‎
 # English
@@ -497,9 +497,9 @@ Windows 最終會提示您安裝 .NET-Framework，這就是您所需要的。
 > ‎二 番目のディレクトリに [^1] で指定した名前の特別なファイルが含まれている場合、
 > アプリケーションは その中のファイルは削除されません。この場合、
 > 二 番目のディレクトリ内のファイルを削除するように指定したことは無視されます。
-[‎
+‎
 # 한국인
-](ko)
+<a name="ko"></a>
 ‎SyncFolders는 두 개의 폴더 또는 드라이브를 동기화 상태로 유지하는 데 도움이 되는 응용 프로그램입니다. 
 기본 설정을 사용하면 이 응용 프로그램은 원본 파일 크기의 약 1%인 숨겨진 파일을 생성하여 다음을 허용합니다. 
 단일 블록 실패에서 완전히 복구할 수 있습니다. 보호에는 두 가지 계층이 있습니다.
