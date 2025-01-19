@@ -129,7 +129,7 @@ por encima de estas partes faltantes.
 ‎Se muestra un registro después de completar la operación y también se guarda en la carpeta Documentos para referencia posterior.
 
 ‎No hay necesidad de instalación. Puede extraer el archivo en una subcarpeta de la unidad que contiene 
-fotos y ejecutarlo desde allí. Eventualmente, Windows le pedirá que instale . NET-Framework, eso es todo lo que necesitas.
+fotos y ejecutarlo desde allí. Eventualmente, Windows le pedirá que instale .NET-Framework, eso es todo lo que necesitas.
 
 ‎Si elige copiar del primer al segundo directorio, la aplicación tratará el primer directorio como 
 principal fuente de datos y segundo directorio como copia de seguridad. Si la aplicación detecta que 
@@ -173,7 +173,7 @@ família sejam mantidos seguros da melhor maneira possível.
 ‎Um log é mostrado após a conclusão da operação e também salvo na pasta Documentos para referência posterior.
 
 ‎Não há necessidade de instalação. Você pode extrair o arquivo em uma subpasta da unidade que contém fotos 
-e executá-lo a partir daí. O Windows eventualmente solicitará que você instale o . NET-Framework, isso é tudo que você precisa.
+e executá-lo a partir daí. O Windows eventualmente solicitará que você instale o .NET-Framework, isso é tudo que você precisa.
 
 ‎Se você optar por copiar do primeiro para o segundo diretório, o aplicativo tratará o primeiro diretório 
 como primário fonte de dados e segundo diretório como backup. Se o aplicativo descobrir que um arquivo no 
@@ -219,7 +219,7 @@ anche se non tutte le parti di esso sono OK. Molte applicazioni multimediali pos
 ‎Al termine dell'operazione viene visualizzato un registro che viene salvato nella cartella Documenti per riferimento futuro.
 
 ‎Non è necessaria un'installazione. È possibile estrarre l'archivio in una sottocartella dell'unità 
-che contiene foto ed eseguirlo da lì. Windows chiederà di installare . NET-Framework, questo è tutto ciò di cui hai bisogno.
+che contiene foto ed eseguirlo da lì. Windows chiederà di installare .NET-Framework, questo è tutto ciò di cui hai bisogno.
 
 ‎Se scegli di copiare dalla prima alla seconda directory, l'app considererà la prima directory come 
 primaria origine dati e seconda directory come backup. Se l'applicazione rileva che un file nella prima 
@@ -268,7 +268,7 @@ können über diese fehlenden Teile hinwegspringen.
 ‎Nach Abschluss des Vorgangs wird ein Protokoll angezeigt und zur späteren Bezugnahme auch im Ordner "Dokumente" gespeichert.
 
 ‎Eine Installation ist nicht erforderlich. Sie können das Zip-Archiv in einen Unterordner des Laufwerks extrahieren, 
-der Photos enthäält, und es von dort aus ausführen. Windows fordert Sie schließlich auf, . NET-Framework zu installieren, 
+der Photos enthäält, und es von dort aus ausführen. Windows fordert Sie schließlich auf, .NET-Framework zu installieren, 
 das ist alles, was Sie brauchen.
 
 ‎Wenn Sie sich für das Kopieren vom ersten in das zweite Verzeichnis entscheiden, behandelt die 
@@ -407,7 +407,7 @@ aplikacja Może również nadpisać nowe pliki w drugim katalogu przez stare pli
 ‎操作完成后会显示日志，并保存在 Documents 文件夹中以供以后参考。
 
 ‎无需安装。您可以将存档提取到驱动器的子文件夹中，该子文件夹包含 照片并从那里运行它。
-Windows 最终会提示您安装 。NET-Framework，这就是您所需要的。
+Windows 最终会提示您安装 .NET-Framework，这就是您所需要的。
 
 ‎如果您选择从第一个目录复制到第二个目录，则应用程序会将第一个目录视为主目录 数据源和第二个目录作为备份。
 如果应用程序发现第一个目录中的文件包含 坏块，应用程序仍然可以尝试从 Backup 中恢复块。该应用程序还可以恢复旧的 版本。
@@ -442,7 +442,7 @@ SyncFolders 是一個旨在説明您保持兩個資料夾或驅動器同步的�
 ‎操作完成後會顯示日誌，並將其保存在 Documents 資料夾中以供以後參考。
 
 ‎無需安裝。您可以將存檔提取到驅動器的子資料夾中，該子資料夾包含 照片並從那裡運行它。
-Windows 最終會提示您安裝 。NET-Framework，這就是您所需要的。
+Windows 最終會提示您安裝 .NET-Framework，這就是您所需要的。
 
 ‎如果您選擇從第一個目錄複製到第二個目錄，則應用程式會將第一個目錄視為主目錄 數據源和第二個目錄作為備份。
 如果應用程式發現第一個目錄中的檔包含 壞塊，應用程式仍然可以嘗試從Backup中恢復塊。該應用程式還可以恢復舊的 版本。
@@ -481,7 +481,7 @@ Windows 最終會提示您安裝 。NET-Framework，這就是您所需要的。
 ‎操作の完了後にログが表示され、後で参照できるようにドキュメントフォルダーにも保存されます。
 
 ‎インストールの必要はありません。アーカイブは、次のファイルを含むドライブのサブフォルダに抽出できます 写真を撮って、
-そこから実行します。Windows は最終的にインストールするように求めます。NET-Framework、それだけで十分です。
+そこから実行します。Windows は最終的にインストールするように求めます.NET-Framework、それだけで十分です。
 
 ‎最初のディレクトリから 2 番目のディレクトリにコピーすることを選択した場合、
 アプリは最初のディレクトリをプライマリとして扱います バックアップとしてデータソースと 2 番目のディレクトリ。
@@ -527,7 +527,7 @@ Windows 最終會提示您安裝 。NET-Framework，這就是您所需要的。
 ‎작업 완료 후 로그가 표시되며 나중에 참조할 수 있도록 문서 폴더에도 저장됩니다.
 
 ‎설치가 필요하지 않습니다. 아카이브를 다음이 포함된 드라이브의 하위 폴더로 추출할 수 있습니다. 
-사진을 찍고 거기에서 실행하십시오. Windows는 결국 설치하라는 메시지를 표시합니다. NET-Framework만 있으면 됩니다.
+사진을 찍고 거기에서 실행하십시오. Windows는 결국 설치하라는 메시지를 표시합니다 .NET-Framework만 있으면 됩니다.
 
 ‎첫 번째 디렉터리에서 두 번째 디렉터리로 복사하도록 선택하면 앱은 첫 번째 
 디렉터리를 기본 디렉터리로 처리합니다 데이터 소스 및 두 번째 디렉토리를 백업으로 사용합니다. 
