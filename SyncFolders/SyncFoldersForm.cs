@@ -262,7 +262,7 @@ namespace SyncFolders
                                     strMd.Append(Environment.NewLine);
                                     if (oXmlNode.Attributes != null && oXmlNode.Attributes.GetNamedItem("style") != null)
                                     {
-                                        strMd.AppendFormat("> [!{0}]\r\n",
+                                        strMd.AppendFormat("> [!{0}]\r\n> ",
                                             oXmlNode.Attributes.GetNamedItem("style").Value.ToUpper());
                                     }
 
@@ -348,7 +348,7 @@ namespace SyncFolders
 
                                 if (oXmlNode.ParentNode.Attributes != null && oXmlNode.ParentNode.Attributes.GetNamedItem("style") != null)
                                 {
-                                    strText = "> " + strText.Replace(Environment.NewLine,
+                                    strText = strText.Replace(Environment.NewLine,
                                         Environment.NewLine+"> ");
                                 }
 
