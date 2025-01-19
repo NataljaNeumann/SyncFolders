@@ -7,8 +7,7 @@
   
 ![SyncFolders-1](https://github.com/user-attachments/assets/3864175e-1b28-45eb-b56a-f95d1d338d44)  
 
-‎[English](#en), [Français](#fr), [Español](#es), [Português](#pt), [Italiano](#it), [Deutsch](#de), [По русски](#ru), [Polski](#pl), 
-[中文文本](#chs), [中文文字](#cht), [日本語](#ja), [한국인](#ko), [भारतीय में](#hi), [باللغة العربية](#ar), [עִברִית](#he)
+‎[English](#en), [Français](#fr), [Español](#es), [Português](#pt), [Italiano](#it), [Deutsch](#de), [По русски](#ru), [Polski](#pl), [Στα ελληνικά](#gr), [中文文本](#chs), [中文文字](#cht), [日本語](#ja), [한국인](#ko), [भारतीय में](#hi), [باللغة العربية](#ar), [עִברִית](#he)
 ‎
 # English
 <a name="en"></a>
@@ -51,12 +50,14 @@ can also overwrite new files in second directory by old files in first directory
 > [!NOTE]
 > ‎If second directory contains special file, with the name specified below [^1], then the application
 > doesn't delete the files in it. In this case it ignores that you specified to delete the files in second directory.
-‎
+  
+[Do you need support?](https://github.com/NataljaNeumann/SyncFolders/issues)  
+[Wiki](https://github.com/NataljaNeumann/SyncFolders/wiki)‎
 # Français
 <a name="fr"></a>
 ‎SyncFolders est une application qui vise à vous aider à garder deux dossiers ou lecteurs synchronisés. Avec les 
 paramètres par défaut, cette application crée des fichiers cachés, environ 1 % de la taille des fichiers d'origine, 
-qui vous permettent de récupérer complètement après des pannes d'un seul bloc. Il existe deux niveaux de protection :
+qui vous permettent de récupérer complètement après des pannes d'un seul bloc. Il existe deux niveaux de protection:
 1. Vous conservez deux lecteurs différents avec des copies complètes des fichiers.
 2. Même si un lecteur devient inaccessible, par ex. une panne de courant ou d'autres problèmes, des pannes 
 de bloc uniques ainsi que des plages d'erreurs plus importantes dans les fichiers peuvent être restaurées 
@@ -99,7 +100,9 @@ les nouveaux fichiers du deuxième répertoire par les anciens fichiers du premi
 > [!NOTE]
 > ‎Si le deuxième répertoire contient un fichier spécial, dont le nom est spécifié ci-dessous [^1],
 > l'application ne supprime pas les fichiers qu'il contient lorsque vous spécifiez de supprimer les fichiers du deuxième répertoire.
-‎
+  
+[Avez-vous besoin de soutien?](https://github.com/NataljaNeumann/SyncFolders/issues)  
+[Wikia](https://github.com/NataljaNeumann/SyncFolders/wiki)‎
 # Español
 <a name="es"></a>
 ‎SyncFolders es una aplicación que tiene como objetivo ayudarte a mantener sincronizadas dos carpetas o unidades.
@@ -144,7 +147,9 @@ la aplicación También puede sobrescribir nuevos archivos en el segundo directo
 > [!NOTE]
 > ‎Si el segundo directorio contiene un archivo especial, con el nombre especificado a continuación [^1], 
 > entonces la aplicación No elimina los archivos que contiene, cuando se especifica eliminar los archivos en el segundo directorio.
-‎
+  
+[¿Necesitas apoyo?](https://github.com/NataljaNeumann/SyncFolders/issues)  
+[Wiki](https://github.com/NataljaNeumann/SyncFolders/wiki)‎
 # Português
 <a name="pt"></a>
 ‎SyncFolders es una aplicación diseñada para ayudarle a mantener dos carpetas o unidades sincronizadas. 
@@ -187,7 +192,9 @@ o aplicativo também pode substituir novos arquivos no segundo diretório por ar
 > [!NOTE]
 > ‎Se o segundo diretório contiver um arquivo especial, com o nome especificado abaixo [^1], 
 > o aplicativo não exclui os arquivos nele, quando você especifica para excluir os arquivos no segundo diretório.
-‎
+  
+[Você precisa de suporte?](https://github.com/NataljaNeumann/SyncFolders/issues)  
+[Wiki](https://github.com/NataljaNeumann/SyncFolders/wiki)‎
 # Italiano
 <a name="it"></a>
 ‎SyncFolders è un'applicazione che ha lo scopo di aiutarti a mantenere sincronizzate due cartelle o unità. 
@@ -236,7 +243,9 @@ nella seconda directory con vecchi file nella prima directory.
 > ‎Se la seconda directory contiene un file speciale, con il nome specificato di seguito [^1], 
 > allora l'applicazione non elimina i file in esso contenuti. In questo caso, ignora che è stato 
 > specificato di eliminare i file nella seconda directory.
-‎
+  
+[Hai bisogno di supporto?](https://github.com/NataljaNeumann/SyncFolders/issues)  
+[Wiki](https://github.com/NataljaNeumann/SyncFolders/wiki)‎
 # Deutsch
 <a name="de"></a>
 ‎SyncFolders ist eine Anwendung, die Ihnen helfen soll, zwei Ordner oder Laufwerke synchron zu halten. 
@@ -286,7 +295,9 @@ durch alte Dateien im ersten Verzeichnis überschreiben.
 > ‎Wenn das zweite Verzeichnis eine spezielle Datei mit dem unten [^1] angegebenen Namen enthält,
 > dann wird die Anwendung die Dateien darin nicht löschen. In diesem Fall wird ignoriert, dass Sie angegeben haben, 
 > dass die Dateien im zweiten Verzeichnis gelöscht werden sollen.
-‎
+  
+[Brauchen Sie Unterstützung?](https://github.com/NataljaNeumann/SyncFolders/issues)  
+[Wiki](https://github.com/NataljaNeumann/SyncFolders/wiki)‎
 # По русски
 <a name="ru"></a>
 ‎SyncFolders – это приложение, которое призвано помочь вам синхронизировать две папки или диска. 
@@ -333,7 +344,9 @@ durch alte Dateien im ersten Verzeichnis überschreiben.
 > [!NOTE]
 > ‎Если во второй директории находится специальный файл, имя которого указано ниже [^1], 
 > Приложение не удаляет в нём файлы, даже когда вы указываете необходимость удаления файлов во втором каталоге.
-‎
+  
+[Вам нужна поддержка?](https://github.com/NataljaNeumann/SyncFolders/issues)  
+[Вики](https://github.com/NataljaNeumann/SyncFolders/wiki)‎
 # Polski
 <a name="pl"></a>
 ‎SyncFolders to aplikacja, która ma na celu pomóc w synchronizacji dwóch folderów lub dysków. 
@@ -383,7 +396,58 @@ aplikacja Może również nadpisać nowe pliki w drugim katalogu przez stare pli
 > ‎Jeśli drugi katalog zawiera specjalny plik o nazwie podanej poniżej [^1], to 
 > aplikacja nie usuwa znajdujących się w nim plików. W takim przypadku ignoruje to, 
 > że określiłeś do usunięcia plików w drugim katalogu.
-‎
+  
+[Czy potrzebujesz wsparcia?](https://github.com/NataljaNeumann/SyncFolders/issues)  
+[Вики](https://github.com/NataljaNeumann/SyncFolders/wiki)‎
+# Στα ελληνικά
+<a name="gr"></a>
+‎Το SyncFolders είναι μια εφαρμογή που έχει σχεδιαστεί για να σας βοηθήσει να συγχρονίσετε δύο φακέλους ή μονάδες δίσκου. 
+Με τις προεπιλεγμένες ρυθμίσεις, αυτή η εφαρμογή δημιουργεί κρυφά αρχεία, περίπου 1% του μεγέθους των αρχικών αρχείων, 
+τα οποία επιτρέπουν την πλήρη ανάκτηση από αποτυχίες μεμονωμένων μπλοκ δίσκων. Υπάρχουν δύο επίπεδα προστασίας:
+1. Αποθηκεύετε δύο διαφορετικούς δίσκους με πλήρη αντίγραφα των αρχείων.
+2. Ακόμα κι αν ένας δίσκος δεν είναι διαθέσιμος, για παράδειγμα λόγω διακοπής ρεύματος ή άλλων προβλημάτων, 
+μπορούν να ανακτηθούν μεμονωμένα μπλοκ αρχείων, καθώς και μεγαλύτερα εύρη σφαλμάτων αρχείων, 
+χρησιμοποιώντας πρόσθετες αποθηκευμένες πληροφορίες.
+
+‎Τα αρχεία προέλευσης και οι αποθηκευμένες πρόσθετες πληροφορίες μπορούν να επαληθευτούν από την εφαρμογή.
+Εάν παρουσιαστούν σφάλματα, η εφαρμογή θα προσπαθήσει να επαναφέρει το αρχείο. Εάν υπάρχει μια δεύτερη παρουσία 
+ενός αρχείου με την ίδια ημερομηνία και το ίδιο μήκος, η εφαρμογή θα προσπαθήσει να εξαγάγει μεμονωμένα μπλοκ από το 
+άλλο αντίγραφο. Εάν αυτό αποτύχει, η εφαρμογή θα προσπαθήσει να συνδέσει πρόσθετες αποθηκευμένες πληροφορίες.
+
+‎Εάν όλα τα παραπάνω αποτύχουν, η εφαρμογή θα προσπαθήσει επίσης να αντιγράψει το παλαιότερο 
+αντίγραφο σε άλλη μονάδα δίσκου, κάτι που αποτελεί τυπική συμπεριφορά για εφαρμογές δημιουργίας αντιγράφων ασφαλείας.
+
+‎Τελικά, εάν τίποτα άλλο δεν λειτουργεί, η εφαρμογή θα ανακτήσει τα προσβάσιμα μέρη του 
+αρχείου αντικαθιστώντας τα μπλοκ που δεν είναι αναγνώσιμα με μηδενικά, έτσι ώστε τουλάχιστον το αρχείο να μπορεί 
+να διαβαστεί και να αντιγραφεί, ακόμα κι αν δεν είναι σωστά όλα τα μέρη του αρχείου. 
+Πολλές εφαρμογές πολυμέσων μπορούν να καλύψουν αυτά τα κενά.
+
+‎Όλα αυτά γίνονται αυτόματα, ώστε οι οικογενειακές σας φωτογραφίες και τα προσωπικά σας βίντεο να προστατεύονται όσο το δυνατόν περισσότερο.
+
+‎Μόλις ολοκληρωθεί η λειτουργία, εμφανίζεται ένα αρχείο καταγραφής και επίσης αποθηκεύεται στο φάκελο Documents για μελλοντική χρήση.
+
+‎Δεν απαιτείται εγκατάσταση. Μπορείτε να εξαγάγετε το αρχείο zip σε έναν υποφάκελο στη 
+μονάδα δίσκου που περιέχει τις Φωτογραφίες και να το εκτελέσετε από εκεί. Τα Windows θα σας ζητήσουν επιτέλους 
+να εγκαταστήσετε το .NET Framework, αυτό είναι το μόνο που χρειάζεστε.
+
+‎Εάν επιλέξετε να αντιγράψετε από τον πρώτο κατάλογο στον δεύτερο κατάλογο, 
+η εφαρμογή θα αντιμετωπίσει τον πρώτο κατάλογο ως την κύρια πηγή δεδομένων και τον δεύτερο κατάλογο ως αντίγραφο ασφαλείας. 
+Εάν η εφαρμογή εντοπίσει ότι ένα αρχείο στον πρώτο κατάλογο περιέχει εσφαλμένα μπλοκ, 
+μπορεί να προσπαθήσει να επαναφέρει τα μπλοκ από το αντίγραφο ασφαλείας στον δεύτερο φάκελο ή την 
+παλαιότερη έκδοση του ίδιου αρχείου από το αντίγραφο ασφαλείας του δεύτερου φακέλου. Πρέπει να καθορίσετε 
+ότι ο πρώτος κατάλογος δεν είναι εγγράψιμος, ώστε η εφαρμογή να μην επιχειρήσει να τροποποιήσει τα αρχεία στον πρώτο κατάλογο.
+
+‎Η εφαρμογή συνήθως εκτελείται σε λειτουργία συγχρονισμού, πράγμα που σημαίνει ότι προσπαθεί να αντιγράψει 
+την πιο πρόσφατη έκδοση των φωτογραφιών ο ένας στον φάκελο ή τη μονάδα δίσκου του άλλου. Εάν απενεργοποιήσετε τη λειτουργία συγχρονισμού, 
+η εφαρμογή μπορεί επίσης να αντικαταστήσει νέα αρχεία στον δεύτερο κατάλογο με παλιά αρχεία στον πρώτο κατάλογο.
+
+> [!NOTE]
+> ‎Εάν ο δεύτερος κατάλογος περιέχει ένα ειδικό αρχείο με το όνομα που δίνεται παρακάτω [1], 
+> τότε η εφαρμογή δεν θα διαγράψει τα αρχεία σε αυτόν. Σε αυτήν την περίπτωση, 
+> αγνοεί ότι καθορίσατε ότι τα αρχεία στον δεύτερο κατάλογο πρέπει να διαγραφούν.
+  
+[Χρειάζεστε υποστήριξη;](https://github.com/NataljaNeumann/SyncFolders/issues)  
+[Wiki](https://github.com/NataljaNeumann/SyncFolders/wiki)‎
 # 中文文本
 <a name="chs"></a>
 ‎SyncFolders 是一款旨在帮助您保持两个文件夹或驱动器同步的应用程序。使用默认设置，此应用程序会创建隐藏文件，
@@ -418,7 +482,9 @@ Windows 最终会提示您安装 .NET-Framework，这就是您所需要的。
 > [!NOTE]
 > ‎如果第二个目录包含特殊文件，其名称在 [^1] 下面指定，
 > 则应用程序 不会删除其中的文件。在这种情况下，它会忽略您指定的删除第二个目录中的文件。
-# 中文文字
+  
+[您需要支持吗？](https://github.com/NataljaNeumann/SyncFolders/issues)  
+[维基百科](https://github.com/NataljaNeumann/SyncFolders/wiki)# 中文文字
 <a name="cht"></a>
 SyncFolders 是一款旨在帮助您同步两个文件夹或驱动器的应用程序。使用默认设置功能，
 该应用程序创建隐藏文件，其大小约为原始文件的 1%，从而允许从固体故障中完全恢复。有两个级别的保护：
@@ -452,7 +518,9 @@ Windows 最終會提示您安裝 .NET-Framework，這就是您所需要的。
 > [!NOTE]
 > ‎如果第二個目錄包含特殊檔，其名稱在 [^1] 下面指定，
 > 則應用程式 不會刪除其中的檔。在這種情況下，它會忽略您指定的刪除第二個目錄中的檔。
-‎
+  
+[您需要支援嗎？](https://github.com/NataljaNeumann/SyncFolders/issues)  
+[維基百科](https://github.com/NataljaNeumann/SyncFolders/wiki)‎
 # 日本語
 <a name="ja"></a>
 ‎SyncFoldersは、二つのフォルダまたはドライブを同期させることを目的としたアプリケーションです。
@@ -499,7 +567,9 @@ Windows 最終會提示您安裝 .NET-Framework，這就是您所需要的。
 > ‎二 番目のディレクトリに [^1] で指定した名前の特別なファイルが含まれている場合、
 > アプリケーションは その中のファイルは削除されません。この場合、
 > 二 番目のディレクトリ内のファイルを削除するように指定したことは無視されます。
-‎
+  
+[サポートが必要ですか?](https://github.com/NataljaNeumann/SyncFolders/issues)  
+[ウィキ](https://github.com/NataljaNeumann/SyncFolders/wiki)‎
 # 한국인
 <a name="ko"></a>
 ‎SyncFolders는 두 개의 폴더 또는 드라이브를 동기화 상태로 유지하는 데 도움이 되는 응용 프로그램입니다. 
@@ -543,7 +613,9 @@ Windows는 결국 .NET-Framework를 설치하라는 메시지를 표시합니다
 > ‎두 번째 디렉토리에 [^1] 아래에 지정된 이름의 특수 파일이 
 > 포함되어 있으면 응용 프로그램은 그 안에 있는 파일을 삭제하지 않습니다. 
 > 이 경우 두 번째 디렉토리의 파일을 삭제하도록 지정한 것을 무시합니다.
-‎
+  
+[지원이 필요합니까?](https://github.com/NataljaNeumann/SyncFolders/issues)  
+[위키](https://github.com/NataljaNeumann/SyncFolders/wiki)‎
 # भारतीय में
 <a name="hi"></a>
 ‎SyncFolders एक ऐसा एप्लिकेशन है जिसका उद्देश्य आपको दो फ़ोल्डर्स या ड्राइव को सिंक्रनाइज़ रखने में मदद करना है। 
@@ -582,7 +654,9 @@ Windows는 결국 .NET-Framework를 설치하라는 메시지를 표시합니다
 > [!NOTE]
 > ‎यदि दूसरी निर्देशिका में विशेष फ़ाइल है, जिसका नाम नीचे निर्दिष्ट है [^1], 
 > तो एप्लिकेशन इसमें फ़ाइलों को नहीं हटाता है। इस स्थिति में, यह अनदेखा करता है कि आपने दूसरी निर्देशिका में फ़ाइलों को हटाने के लिए निर्दिष्ट किया है।
-‏
+  
+[क्या आपको समर्थन की आवश्यकता है?](https://github.com/NataljaNeumann/SyncFolders/issues)  
+[विकि](https://github.com/NataljaNeumann/SyncFolders/wiki)‏
 # باللغة العربية
 <a name="ar"></a>
 ‏SyncFolders هو تطبيق يهدف إلى مساعدتك في الحفاظ على مزامنة مجلدين أو محركات أقراص.
@@ -624,6 +698,9 @@ Windows في النهاية بالتثبيت ‎.NET-Framework‏ ، هذا كل
 > [!NOTE]
 > ‏ إذا كان الدليل الثاني يحتوي على ملف خاص ، بالاسم المحدد أدناه [^1] ،
 > فإن التطبيق لا يحذف الملفات الموجودة فيه. في هذه الحالة، يتجاهل ما حددته لحذف الملفات الموجودة في الدليل الثاني.
+
+‏[هل تحتاج إلى دعم؟](https://github.com/NataljaNeumann/SyncFolders/issues)  
+[ويكي](https://github.com/NataljaNeumann/SyncFolders/wiki)
 ‏
 # עִברִית
 <a name="he"></a>
@@ -662,6 +739,9 @@ Windows יבקש ממך בסופו של דבר להתקין ‎.NET-Framework‏
 > [!NOTE]
 > ‏ אם הספרייה השניה מכילה קובץ מיוחד, עם השם שצוין להלן [^1],
 > היישום אינו מוחק את הקבצים שבו. במקרה זה, הוא מתעלם מכך שציינת למחוק את הקבצים בספריה השניה.
+
+‏[האם אתה צריך תמיכה?](https://github.com/NataljaNeumann/SyncFolders/issues)  
+[ויקי](https://github.com/NataljaNeumann/SyncFolders/wiki)
   
   
   
