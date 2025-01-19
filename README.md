@@ -51,9 +51,6 @@ can also overwrite new files in second directory by old files in first directory
 > [!NOTE]
 > ‎If second directory contains special file, with the name specified below [^1], then the application
 > doesn't delete the files in it. In this case it ignores that you specified to delete the files in second directory.
-[^1]: SyncFolders-Don't-Delete.txt
-
-
 ‎
 # Français
 <a name="fr"></a>
@@ -668,4 +665,8 @@ Windows יבקש ממך בסופו של דבר להתקין .NET-Framework, זה
 > [!NOTE]
 > ‏ אם הספרייה השניה מכילה קובץ מיוחד, עם השם שצוין להלן [^1],
 > היישום אינו מוחק את הקבצים שבו. במקרה זה, הוא מתעלם מכך שציינת למחוק את הקבצים בספריה השניה.
+  
+  
+  
+[^1]: SyncFolders-Don't-Delete.txt
 
