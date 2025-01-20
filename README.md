@@ -261,11 +261,11 @@ gespeicherten Informationen wiederhergestellt werden.
 ‎Die Originaldateien und zusätzlich gespeicherte Informationen können von der Anwendung überprüft werden. 
 Bei Fehlern versucht die Anwendung, die Datei zu reparieren. Wenn es eine zweite Kopie mit demselben 
 Datum und gleicher Länge gibt, dann versucht die App, einzelne Blöcke von der anderen Kopie wiederherzustellen. 
-Wenn dies fehlschlägt, wird die App wird versuchen, einzelne Blöcke aus zusätzlich gespeicherten 
-Backup-Informationen in versteckten Dateien wiederherzustellen
+Wenn dies fehlschlägt, wird die App versuchen, einzelne Blöcke aus zusätzlich gespeicherten 
+Backup-Informationen in versteckten Dateien wiederherzustellen.
 
 ‎Falls alle genannten Maßnahmen fehlschlagen, versucht die Anwendung auch, eine ältere Kopie der 
-anderen vom anderen Laufwerk wiedeherzustellen. Das das Standardverhalten von Backup-Anwendungen.
+vom anderen Laufwerk wiedeherzustellen. Das ist das Standardverhalten von Backup-Anwendungen.
 
 ‎Wenn nichts funktioniert hat, stellt die Anwendung die verfügbaren Teile der Datei durch 
 Überschreiben unlesbarer Blöcke mit Nullen wieder her, damit zumindest die Datei gelesen und kopiert 
@@ -277,7 +277,7 @@ können über diese fehlenden Teile hinwegspringen.
 ‎Nach Abschluss des Vorgangs wird ein Protokoll angezeigt und zur späteren Bezugnahme auch im Ordner "Dokumente" gespeichert.
 
 ‎Eine Installation ist nicht erforderlich. Sie können das Zip-Archiv in einen Unterordner des Laufwerks extrahieren, 
-der Photos enthäält, und es von dort aus ausführen. Windows fordert Sie schließlich auf, .NET-Framework zu installieren, 
+der Photos enthält, und es von dort aus ausführen. Windows fordert Sie schließlich auf, .NET-Framework zu installieren, 
 das ist alles, was Sie brauchen.
 
 ‎Wenn Sie sich für das Kopieren vom ersten in das zweite Verzeichnis entscheiden, behandelt die 
@@ -327,7 +327,7 @@ durch alte Dateien im ersten Verzeichnis überschreiben.
 ‎После завершения операции отображается журнал, который также сохраняется в папке «Документы» для дальнейшего использования.
 
 ‎Нет необходимости в установке. Вы можете извлечь архив во вложенную папку диска, содержащую 
-фотографии и запускайте его оттуда. Windows в конечном итоге попросит вас установить 
+фотографии и запускайте его оттуда. Windows возможно предложит вам установить 
 .NET-Framework — это все, что вам нужно.
 
 ‎Если вы решите скопировать из первого каталога во второй, приложение будет рассматривать 
@@ -338,8 +338,8 @@ durch alte Dateien im ersten Verzeichnis überschreiben.
 директория недоступна для записи, чтобы приложение не пыталось изменить файлы в первом каталоге.
 
 ‎Приложение обычно работает в режиме синхронизации, а значит, будет пытаться скопировать 
-самую последнюю версию файлов/фотографий в другуую соответствующую папку или на другой диск. Если вы удалите параметр
-синхронизации приложение также может перезаписать новые файлы, находящиеся во втором каталоге, более старыми файлами,
+самую последнюю версию файлов/фотографий в другую соответствующую папку или на другой диск. Если вы удалите параметр
+синхронизации, приложение также может перезаписать новые файлы, находящиеся во втором каталоге, более старыми файлами,
 находящимися в первой директории.
 
 > [!NOTE]
