@@ -339,4 +339,10 @@
   <data name="ReadmeHtmlHelpJumpPoint" xml:space="preserve">
     <value>#fi</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>Poistan vanhoja tallennettuja tietoja, jotka ovat vanhentuneet...</value>
+  </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>Etsin synkronoitavia kansioita ja tiedostoja...</value>
+  </data>
 </root>

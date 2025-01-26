@@ -255,4 +255,10 @@
   <data name="Yes" xml:space="preserve">
     <value>Ja</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>Ek vee ou gestoorde data uit wat verval het...</value>
+  </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>Ek soek vouers en lêers om te sinkroniseer...</value>
+  </data>
 </root>

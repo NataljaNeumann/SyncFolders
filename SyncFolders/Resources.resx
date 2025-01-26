@@ -351,4 +351,10 @@
   <data name="ReadmeHtmlHelpJumpPoint" xml:space="preserve">
     <value>#en</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>Removing saved infos that became obsolete...</value>
+  </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>Scanning folders...</value>
+  </data>
 </root>

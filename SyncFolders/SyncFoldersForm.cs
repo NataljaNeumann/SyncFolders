@@ -172,6 +172,27 @@ namespace SyncFolders
         {
             InitializeComponent();
 
+            // hiding desktop.ini and the icon that could have been extracted from ZIP
+            HideIconAndDesktopIni();
+
+            // create .md file and .txt file from .html, if the application is executed in
+            // release process for automatic creation of readme.md and readme.txt files
+            if (Program.CreateRelease)
+                CreateRelease();
+
+            // test if the startup folder is writale, change settings
+            TestIfRunningFromReadonnly();
+        }
+
+
+        //===================================================================================================
+        /// <summary>
+        /// hiding desktop.ini and the icon that could have been extracted from ZIP
+        /// </summary>
+        //===================================================================================================
+        private void HideIconAndDesktopIni()
+        {
+            // some code for hiding desktop.ini and the icon that could have been extracted from ZIP
             try
             {
                 string strDesktopIni = System.IO.Path.Combine(Application.StartupPath, "desktop.ini");
@@ -201,8 +222,17 @@ namespace SyncFolders
             {
                 // ignore
             }
+        }
 
-            // create .md file and .txt file from .html
+
+        //===================================================================================================
+        /// <summary>
+        /// create .md file and .txt file from .html, if the application is executed in
+        /// release process for automatic creation of readme.md and readme.txt files
+        /// </summary>
+        //===================================================================================================
+        private void CreateRelease()
+        {
             if (Program.CreateRelease)
             {
                 try
@@ -483,7 +513,7 @@ namespace SyncFolders
                 }
             }
 
-
+            // some settings for creation of a release
             if (Program.CreateRelease)
             {
                 m_tbxFirstFolder.Text = m_tbxSecondFolder.Text = Application.StartupPath;
@@ -492,6 +522,15 @@ namespace SyncFolders
                 return;
             }
 
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// Tests, if the startup folder is writable, changes checked state of checkboxes, etc.
+        /// </summary>
+        //===================================================================================================
+        private void TestIfRunningFromReadonnly()
+        {
             // try to create a file in the location of exe file
             string strTempFileName = Application.StartupPath + "test.tmp";
             bool bProgramFiles = strTempFileName.StartsWith("C:\\progra", StringComparison.InvariantCultureIgnoreCase);
@@ -827,9 +866,11 @@ namespace SyncFolders
             m_cbSyncMode.Enabled = false;
             m_lblProgress.Visible = true;
             m_cbParallel.Enabled = false;
+            m_btnSelfTest.Enabled = false;
 
             m_nCurrentFile = 0;
             m_strCurrentPath = null;
+            m_lblProgress.Text = Resources.ScanningFolders;
             m_oTimerUpdateFileDescription.Start();
 
 
@@ -1837,7 +1878,10 @@ namespace SyncFolders
 
 
                 if (!m_bCancelClicked)
+                {
+                    m_strCurrentPath = Resources.DeletingObsoleteSavedInfos;
                     RemoveOldFilesAndDirs(m_strFolder1, m_strFolder2);
+                }
 
                 if (m_bCancelClicked)
                 {
@@ -1890,6 +1934,7 @@ namespace SyncFolders
                     m_cbSyncMode.Enabled = m_cbFirstToSecond.Checked;
                     m_lblProgress.Visible = false;
                     m_cbParallel.Enabled = true;
+                    m_btnSelfTest.Enabled = true;
 
                     m_bWorking = false;
                     m_btnCancel.Enabled = true;
@@ -1934,6 +1979,7 @@ namespace SyncFolders
                 m_cbSkipRecentlyTested.Enabled = m_cbTestAllFiles.Checked;
                 m_cbSyncMode.Enabled = m_cbFirstToSecond.Checked;
                 m_cbParallel.Enabled = true;
+                m_btnSelfTest.Enabled = true;
 
                 m_lblProgress.Visible = false;
                 m_bWorking = false;

@@ -345,4 +345,10 @@
   <data name="ReadmeHtmlHelpJumpPoint" xml:space="preserve">
     <value>#chs</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>我正在删除已过时的旧保存信息...</value>
+  </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>我正在寻找要同步的文件夹和文件...</value>
+  </data>
 </root>

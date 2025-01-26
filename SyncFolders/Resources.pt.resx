@@ -339,4 +339,10 @@
   <data name="ReadmeHtmlHelpJumpPointReadmeHtmlHelpJumpPoint" xml:space="preserve">
     <value>#pt</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>Estou removendo informações antigas salvas que se tornaram obsoletas...</value>
+  </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>Pastas e arquivos são examinados...</value>
+  </data>
 </root>

@@ -169,6 +169,15 @@ namespace SyncFolders {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Removing saved infos that became obsolete... ähnelt.
+        /// </summary>
+        internal static string DeletingObsoleteSavedInfos {
+            get {
+                return ResourceManager.GetString("DeletingObsoleteSavedInfos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die standard/arab ähnelt.
         /// </summary>
         internal static string Digits {
@@ -552,6 +561,15 @@ namespace SyncFolders {
         internal static string SavedInfoHasBeenDamagedNeedsRecreation {
             get {
                 return ResourceManager.GetString("SavedInfoHasBeenDamagedNeedsRecreation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Scanning folders... ähnelt.
+        /// </summary>
+        internal static string ScanningFolders {
+            get {
+                return ResourceManager.GetString("ScanningFolders", resourceCulture);
             }
         }
         

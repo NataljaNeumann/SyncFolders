@@ -346,4 +346,10 @@
   <data name="ReadmeHtmlHelpJumpPoint" xml:space="preserve">
     <value>#ja</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>古くなった古い保存情報を削除しています...</value>
+  </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>フォルダーとファイルが検査されます...</value>
+  </data>
 </root>

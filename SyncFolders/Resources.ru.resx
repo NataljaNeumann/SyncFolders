@@ -339,4 +339,10 @@
   <data name="ReadmeHtmlHelpJumpPoint" xml:space="preserve">
     <value>#ru</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>Я удаляю старую сохраненную информацию, которая устарела...</value>
+  </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>Ищу папки и файлы для синхронизации...</value>
+  </data>
 </root>

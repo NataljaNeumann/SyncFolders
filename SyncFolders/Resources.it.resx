@@ -337,4 +337,10 @@ Una data così vecchia indica che era l'ultima possibilità di recuperare il fil
   <data name="Yes" xml:space="preserve">
     <value>SÌ </value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>Sto rimuovendo le vecchie informazioni salvate che sono diventate obsolete...</value>
+  </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>Esamino cartelle e file...</value>
+  </data>
 </root>

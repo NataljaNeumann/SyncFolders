@@ -345,4 +345,10 @@
   <data name="ReadmeHtmlHelpJumpPoint" xml:space="preserve">
     <value>#ko</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>더 이상 사용되지 않는 오래된 저장 정보를 제거하고 있습니다...</value>
+  </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>폴더와 파일을 검사합니다...</value>
+  </data>
 </root>
