@@ -143,6 +143,7 @@
   </data>
   <data name="DefaultCulture" xml:space="preserve">
     <value>yes</value>
+    <comment>Provides indication, if this is the standard (english) culture</comment>
   </data>
   <data name="DeletedFileNotPresentIn" xml:space="preserve">
     <value>Deleted file "{0}" that is not present in "{1}" anymore</value>
@@ -326,24 +327,29 @@
   </data>
   <data name="LogFileName" xml:space="preserve">
     <value>Sync Folders Log English</value>
+    <comment>The name of the localized log file</comment>
   </data>
   <data name="Message" xml:space="preserve">
     <value>Message from copy process</value>
   </data>
   <data name="No" xml:space="preserve">
     <value>no</value>
+    <comment>The string for "No"</comment>
   </data>
   <data name="ProcessNo" xml:space="preserve">
     <value>№</value>
   </data>
   <data name="RightToLeft" xml:space="preserve">
     <value>no</value>
+    <comment>Provides indicaton, if in this culture the text goes from right to left</comment>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>yes</value>
+    <comment>String for "yes"</comment>
   </data>
   <data name="Digits" xml:space="preserve">
     <value>standard/arab</value>
+    <comment>Provides indication, which kind of digits must be used for messages: arab, Japan, Korea, CHS, CHT, Tibet, Latin</comment>
   </data>
   <data name="DateFormat" xml:space="preserve">
     <value>{0}</value>
