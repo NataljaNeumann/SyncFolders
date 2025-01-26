@@ -633,7 +633,7 @@ namespace SyncFolders
                 oLocalizationSubdirs["mn-MN"] = true;
                 // Malaisian
                 oLocalizationSubdirs["ms"] = true;
-                // Netherlands
+                // Dutch (Netherlands)
                 oLocalizationSubdirs["nl"] = true;
                 // Norsk
                 oLocalizationSubdirs["no"] = true;

@@ -1,5 +1,8 @@
 ﻿Dear all,
 
+The project is compiled with Visual Studio 2008 community edition.
+
+
 Any kind of participation is welcome.
 From my side I see three regions where the project needs improvement:
 
