@@ -947,6 +947,7 @@
 )</PostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="Readme-Developer.txt" />
     <Content Include="Readme.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
