@@ -255,7 +255,7 @@ Originaldateien betragen und Sie können nach Fehlern einzelner Blöcke eine vol
 Es gibt zwei Schutzebenen:
 1. Sie behalten zwei verschiedene Laufwerke mit vollständigen Kopien von Dateien.
 2. Selbst wenn ein Laufwerk nicht mehr zugänglich ist, z. B. durch Stromausfall oder andere Probleme, 
-Ausfälle einzelner Blöcke Und auch größere Fehlerbereiche in Dateien können mit zusätzlich 
+Ausfälle einzelner Blöcke und auch größere Fehlerbereiche in Dateien können mit zusätzlich 
 gespeicherten Informationen wiederhergestellt werden.
 
 ‎Die Originaldateien und zusätzlich gespeicherte Informationen können von der Anwendung überprüft werden. 
@@ -264,7 +264,7 @@ Datum und gleicher Länge gibt, dann versucht die App, einzelne Blöcke von der 
 Wenn dies fehlschlägt, wird die App versuchen, einzelne Blöcke aus zusätzlich gespeicherten 
 Backup-Informationen in versteckten Dateien wiederherzustellen.
 
-‎Falls alle genannten Maßnahmen fehlschlagen, versucht die Anwendung auch, eine ältere Kopie der 
+‎Falls alle genannten Maßnahmen fehlschlagen, versucht die Anwendung auch, eine ältere Kopie
 vom anderen Laufwerk wiedeherzustellen. Das ist das Standardverhalten von Backup-Anwendungen.
 
 ‎Wenn nichts funktioniert hat, stellt die Anwendung die verfügbaren Teile der Datei durch 
