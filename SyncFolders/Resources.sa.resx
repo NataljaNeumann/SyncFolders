@@ -342,4 +342,10 @@
   <data name="ScanningFolders" xml:space="preserve">
     <value>अहं समन्वयनार्थं फोल्डर्-सञ्चिकाः च अन्विष्यामि...</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos1" xml:space="preserve">
+    <value>अहं पुरातनं रक्षितं सूचनां निष्कासयामि यत् अप्रचलितं जातम्...</value>
+  </data>
+  <data name="ScanningFolders1" xml:space="preserve">
+    <value>अहं समन्वयनार्थं फोल्डर्-सञ्चिकाः च अन्विष्यामि...</value>
+  </data>
 </root>

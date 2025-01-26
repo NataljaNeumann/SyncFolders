@@ -342,4 +342,10 @@
   <data name="DateFormat" xml:space="preserve">
     <value>{1}ལོའི་ཟླ {2}ཚེས {3} {5}:{6}:{7}</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>ངས་ཉར་ཚགས་བྱས་པའི་ཆ་འཕྲིན་རྙིང་པ་དེ་ཚོ་མེད་པར་བཟོ་བཞིན་ཡོད།</value>
+  </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>ངས་མཉམ་སྒྲིག་བྱེད་པའི་སྣོད་དང་ཡིག་ཆ་འཚོལ་བཞིན་ཡོད།</value>
+  </data>
 </root>

@@ -336,4 +336,10 @@
   <data name="Yes" xml:space="preserve">
     <value>Đúng</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>Tôi đang xóa thông tin đã lưu cũ đã trở nên lỗi thời...</value>
+  </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>Tôi đang tìm kiếm các thư mục và tập tin để đồng bộ hóa...</value>
+  </data>
 </root>

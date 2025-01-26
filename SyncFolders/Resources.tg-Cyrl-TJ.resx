@@ -336,4 +336,10 @@
   <data name="Yes" xml:space="preserve">
     <value>Бале</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>Ман маълумоти кӯҳнаи захирашударо, ки кӯҳна шудаанд, хориҷ мекунам...</value>
+  </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>Ман папкаҳо ва файлҳоро барои ҳамоҳангсозӣ меҷӯям...</value>
+  </data>
 </root>

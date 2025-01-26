@@ -336,4 +336,10 @@
   <data name="Yes" xml:space="preserve">
     <value>Ha</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>Men eskirgan eski saqlangan ma'lumotlarni o'chiryapman...</value>
+  </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>Sinxronlash uchun papkalar va fayllarni qidiryapman...</value>
+  </data>
 </root>

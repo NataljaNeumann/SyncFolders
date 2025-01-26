@@ -336,4 +336,10 @@
   <data name="Yes" xml:space="preserve">
     <value>بله</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>من در حال حذف اطلاعات ذخیره شده قدیمی هستم که منسوخ شده است...</value>
+  </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>من به دنبال پوشه ها و فایل هایی برای همگام سازی می گردم...</value>
+  </data>
 </root>

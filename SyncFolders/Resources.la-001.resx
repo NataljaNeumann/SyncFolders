@@ -126,6 +126,9 @@
   <data name="DefaultCulture" xml:space="preserve">
     <value>no</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>Servatus info vetus amotio quae obsoleta sunt ...</value>
+  </data>
   <data name="Digits" xml:space="preserve">
     <value>Latin</value>
   </data>
@@ -170,6 +173,9 @@
   </data>
   <data name="RightToLeft" xml:space="preserve">
     <value>no</value>
+  </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>Quaero directoriis ac lima ad sync ...</value>
   </data>
   <data name="ThisIsASimulatedIOErrorAtPosition" xml:space="preserve">
     <value>Hoc scienter errorem in situ {0}</value>

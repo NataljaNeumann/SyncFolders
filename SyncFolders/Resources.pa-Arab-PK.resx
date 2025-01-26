@@ -336,4 +336,10 @@
   <data name="Yes" xml:space="preserve">
     <value>آہو</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>میں پرانی محفوظ کیتی گئی معلومات ہٹا ریا واں جہڑی متروک ہو چکی اے۔</value>
+  </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>میں فولڈراں تے فائلاں نوں مطابقت پذیر کرن لئی لبھ ریا واں...</value>
+  </data>
 </root>

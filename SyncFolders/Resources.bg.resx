@@ -336,4 +336,10 @@
   <data name="Yes" xml:space="preserve">
     <value>да</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>Премахвам стара запазена информация, която е остаряла...</value>
+  </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>Търся папки и файлове за синхронизиране...</value>
+  </data>
 </root>

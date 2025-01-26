@@ -336,4 +336,10 @@
   <data name="Yes" xml:space="preserve">
     <value>Այո՛</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>Ես հեռացնում եմ հին պահպանված տեղեկությունները, որոնք հնացել են...</value>
+  </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>Ես փնտրում եմ թղթապանակներ և ֆայլեր համաժամացման համար...</value>
+  </data>
 </root>

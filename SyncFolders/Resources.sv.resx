@@ -339,4 +339,10 @@
   <data name="ReadmeHtmlHelpJumpPoint" xml:space="preserve">
     <value>#sv</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>Jag tar bort gammal sparad information som har blivit föråldrad...</value>
+  </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>Jag letar efter mappar och filer att synkronisera...</value>
+  </data>
 </root>

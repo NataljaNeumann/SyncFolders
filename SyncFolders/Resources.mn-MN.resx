@@ -336,4 +336,10 @@
   <data name="Yes" xml:space="preserve">
     <value>Тиймээ</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>Би хуучирсан хуучин мэдээллийг устгаж байна...</value>
+  </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>Би синк хийх хавтас болон файлуудыг хайж байна...</value>
+  </data>
 </root>

@@ -336,4 +336,10 @@
   <data name="Yes" xml:space="preserve">
     <value>Sí</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>Estic eliminant la informació antiga desada que ha quedat obsoleta...</value>
+  </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>Estic buscant carpetes i fitxers per sincronitzar...</value>
+  </data>
 </root>

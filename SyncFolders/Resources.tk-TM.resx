@@ -336,4 +336,10 @@
   <data name="Yes" xml:space="preserve">
     <value>Hawa</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>Könelişen köne saklanan maglumatlary aýyrýaryn ...</value>
+  </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>Sinhronlamak üçin bukjalary we faýllary gözleýärin ...</value>
+  </data>
 </root>
