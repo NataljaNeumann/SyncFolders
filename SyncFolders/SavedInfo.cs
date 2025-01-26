@@ -43,7 +43,7 @@ namespace SyncFolders
     /// for each lBlockIndex in m_aBlocks, so the remaining data reads exactly the missing
     /// block.
     /// 
-    /// Having two rows of blocks with different lenths improves the probability
+    /// Having two rows of blocks with different lengths improves the probability
     /// of restoring single block failures (e.g. if length of m_aBlocks is 16 and
     /// length of m_aOtherBlocks is 17 then non restorable single blocks will be
     /// every 16*17 = 272 blocks, not every 16+17=33 blocks) but it reduces the
@@ -301,7 +301,7 @@ namespace SyncFolders
 
             oMetadataChecksum.AddByte(nMaxVersion);
 
-            // read in the time
+            // read the time
             long ticks = 0;
             for (int i = 7; i >= 0; --i)
             {
@@ -311,7 +311,7 @@ namespace SyncFolders
             };
             m_dtmFileTimestampUtc = new DateTime(ticks);
 
-            // read in the original file length
+            // read the original file length
             m_lFileLength = 0;
             for (int i = 7; i >= 0; --i)
             {
@@ -320,7 +320,7 @@ namespace SyncFolders
                 m_lFileLength = m_lFileLength * 256 + b;
             };
 
-            // read in the number of blocks in each row
+            // read the number of blocks in each row
             long lBlocksInFirstRow = 0;
             long lBlocksInSecondRow = 0;
 
@@ -480,7 +480,7 @@ namespace SyncFolders
 
             try
             {
-                // read in the minimum version
+                // read the minimum version
                 byFromStream = oInputStream.ReadByte();
 
                 if (byFromStream == -1)
@@ -533,7 +533,7 @@ namespace SyncFolders
                 // EOF mark
                 if ((byFromStream = oInputStream.ReadByte()) != 0x1A) return;
 
-                // read in the time
+                // read the time
                 long ticks = 0;
                 for (int i = 7; i >= 0; --i)
                 {
@@ -542,7 +542,7 @@ namespace SyncFolders
                 };
                 m_dtmFileTimestampUtc = new DateTime(ticks);
 
-                // read in the original file length
+                // read the original file length
                 m_lFileLength = 0;
                 for (int i = 7; i >= 0; --i)
                 {
@@ -559,7 +559,7 @@ namespace SyncFolders
                     nChecksumCount = nChecksumCount * 256 + b;
                 };
 
-                // read in the number of blocks in each row
+                // read the number of blocks in each row
                 lTotalRows = 0;
                 lBlocksInFirstRow = 0;
                 lBlocksInSecondRow = 0;
@@ -675,7 +675,7 @@ namespace SyncFolders
                 };
 
 
-                // read in the number of blocks in each row
+                // read the number of blocks in each row
                 lTotalRows = 0;
                 lBlocksInFirstRow = 0;
                 lBlocksInSecondRow = 0;
