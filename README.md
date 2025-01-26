@@ -593,10 +593,8 @@ Med standardinställningar skapar denna applikation dolda filer cirka 1 % av sto
 en fullständig återställning efter individuella blockeringsfel. Det finns två skyddsnivåer:
 
 1. Du behåller två olika enheter med fullständiga kopior av filer.
-2. 
-Även om en enhet inte längre är tillgänglig, t.ex. B. på grund av strömavbrott eller andra problem
+2. Även om en enhet inte längre är tillgänglig, t.ex. B. på grund av strömavbrott eller andra problem
 kan fel i enskilda block och ännu större felområden i filer återställas med ytterligare sparad information.
-
 
 ‎
 Originalfilerna och ytterligare lagrad information kan kontrolleras av applikationen. Vid fel försöker programmet reparera filen.
