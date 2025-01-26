@@ -559,63 +559,126 @@ namespace SyncFolders
             try
             {
                 Dictionary<string, bool> oLocalizationSubdirs = new Dictionary<string, bool>();
-                oLocalizationSubdirs["tr"] = true;
-                oLocalizationSubdirs["uk"] = true;
-                oLocalizationSubdirs["uz"] = true;
-                oLocalizationSubdirs["vi"] = true;
-                oLocalizationSubdirs["zh-CHS"] = true;
-                oLocalizationSubdirs["zh-CHT"] = true;
+                // Afrikaans (south africa)
                 oLocalizationSubdirs["af"] = true;
+                // Arab
                 oLocalizationSubdirs["ar"] = true;
+                // Azerbaijan
                 oLocalizationSubdirs["az"] = true;
+                // Belarussian
                 oLocalizationSubdirs["be-BY"] = true;
+                // Bulgarian
                 oLocalizationSubdirs["bg"] = true;
+                // Tibetan
+                oLocalizationSubdirs["bo-CN"] = true;
+                // Bulgarian
+                oLocalizationSubdirs["bg"] = true;
+                // Bosnian
                 oLocalizationSubdirs["bs-Latn-BA"] = true;
+                // Catalun
                 oLocalizationSubdirs["ca"] = true;
+                // Chech
                 oLocalizationSubdirs["cs"] = true;
+                // dannish
                 oLocalizationSubdirs["da"] = true;
+                // german
                 oLocalizationSubdirs["de"] = true;
+                // greek
                 oLocalizationSubdirs["el"] = true;
+                // spanish
                 oLocalizationSubdirs["es"] = true;
+                // Estonian
                 oLocalizationSubdirs["et"] = true;
+                // farsi (persian)
                 oLocalizationSubdirs["fa"] = true;
+                // finnish
                 oLocalizationSubdirs["fi"] = true;
+                // french
                 oLocalizationSubdirs["fr"] = true;
+                // hebrew
                 oLocalizationSubdirs["he"] = true;
+                // hindi
                 oLocalizationSubdirs["hi"] = true;
+                // hungarian
                 oLocalizationSubdirs["hu"] = true;
+                // armenian
                 oLocalizationSubdirs["hy"] = true;
+                // indonesian
                 oLocalizationSubdirs["id"] = true;
-                oLocalizationSubdirs["id-ID"] = true;
+                // icelandic
                 oLocalizationSubdirs["is"] = true;
+                // italian
                 oLocalizationSubdirs["it"] = true;
+                // japanese
                 oLocalizationSubdirs["ja"] = true;
+                // georgian
                 oLocalizationSubdirs["ka"] = true;
+                // Kazakh
                 oLocalizationSubdirs["kk"] = true;
+                // Khmer (Kambodscha)
                 oLocalizationSubdirs["km-KH"] = true;
+                // Korean
                 oLocalizationSubdirs["ko"] = true;
+                // Kyrgis
                 oLocalizationSubdirs["ky-KG"] = true;
+                // Latin (Vatikan)
                 oLocalizationSubdirs["la-001"] = true;
+                // Lithuanian
                 oLocalizationSubdirs["lt"] = true;
+                // Latvian
                 oLocalizationSubdirs["lv"] = true;
+                // Macedonian
+                oLocalizationSubdirs["mk"] = true;
+                // Mongolian
+                oLocalizationSubdirs["mn-MN"] = true;
+                // Malaisian
                 oLocalizationSubdirs["ms"] = true;
+                // Netherlands
                 oLocalizationSubdirs["nl"] = true;
+                // Norsk
                 oLocalizationSubdirs["no"] = true;
+                // Punjabi (Pakistan)
                 oLocalizationSubdirs["pa-Arab-PK"] = true;
+                // Punjabi (India)
                 oLocalizationSubdirs["pa-IN"] = true;
+                // Polish
                 oLocalizationSubdirs["pl"] = true;
+                // Pashtu (Afganistan)
                 oLocalizationSubdirs["ps-AF"] = true;
+                // Portuguese
                 oLocalizationSubdirs["pt"] = true;
-                oLocalizationSubdirs["RestoreInfo"] = true;
+                // Romanian
                 oLocalizationSubdirs["ro"] = true;
+                // Russian
                 oLocalizationSubdirs["ru"] = true;
+                // Sanskrit (India)
                 oLocalizationSubdirs["sa"] = true;
+                // Slovakian
                 oLocalizationSubdirs["sk"] = true;
+                // Slovenian
                 oLocalizationSubdirs["sl"] = true;
+                // Serbian
                 oLocalizationSubdirs["sr"] = true;
+                // Svedish
                 oLocalizationSubdirs["sv"] = true;
+                // Tadjikistan
                 oLocalizationSubdirs["tg-Cyrl-TJ"] = true;
+                // Thailand
                 oLocalizationSubdirs["th"] = true;
+                // Turkmenistan
+                oLocalizationSubdirs["tk-TM"] = true;
+                // Turkish
+                oLocalizationSubdirs["tr"] = true;
+                // Ukrainian
+                oLocalizationSubdirs["uk"] = true;
+                // Uzbekistan
+                oLocalizationSubdirs["uz"] = true;
+                // Vietnam
+                oLocalizationSubdirs["vi"] = true;
+                // Chinese simplified (Peoples republic of China)
+                oLocalizationSubdirs["zh-CHS"] = true;
+                // Chinese traditional (Taiwan)
+                oLocalizationSubdirs["zh-CHT"] = true;
 
                 foreach (string strSubdir in System.IO.Directory.GetDirectories(Application.StartupPath))
                 {
