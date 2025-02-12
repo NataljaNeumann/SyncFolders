@@ -21,8 +21,8 @@ namespace SyncFolders
         /// <param name="fi">fileinfo of source</param>
         /// <param name="strDestFileName">destinationn file name</param>
         //===================================================================================================
-        FileInfo CopyTo(
-            FileInfo fi, 
+        IFileInfo CopyTo(
+            IFileInfo fi, 
             string strDestFileName
             );
 
@@ -34,8 +34,8 @@ namespace SyncFolders
         /// <param name="strDestFileName">destinationn file name</param>
         /// <param name="bOverwrite">Indicates, if the file shall be overwritten, if exists</param>
         //===================================================================================================
-        FileInfo CopyTo(
-            FileInfo fi, 
+        IFileInfo CopyTo(
+            IFileInfo fi, 
             string strDestFileName, 
             bool bOverwrite
             );
@@ -128,7 +128,7 @@ namespace SyncFolders
         /// <param name="fi">Path of the file</param>
         //===================================================================================================
         void Delete(
-            FileInfo fi
+            IFileInfo fi
             );
     }
 }

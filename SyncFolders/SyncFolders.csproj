@@ -77,7 +77,15 @@
     <Compile Include="HelpForm.Designer.cs">
       <DependentUpon>HelpForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="IDirectoryInfo.cs" />
+    <Compile Include="IFile.cs" />
+    <Compile Include="IFileInfo.cs" />
     <Compile Include="IFileOpenAndCopyAbstraction.cs" />
+    <Compile Include="IFileOperations.cs" />
+    <Compile Include="RealDirectoryInfo.cs" />
+    <Compile Include="RealFile.cs" />
+    <Compile Include="RealFileInfo.cs" />
+    <Compile Include="RealFileSystem.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

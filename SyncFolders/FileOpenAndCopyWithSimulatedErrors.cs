@@ -64,7 +64,7 @@ namespace SyncFolders
         /// <param name="fi">Path of the file</param>
         //===================================================================================================
         public void Delete(
-            FileInfo fi
+            IFileInfo fi
             )
         {
             // we compare in upper case
@@ -123,7 +123,7 @@ namespace SyncFolders
         /// <param name="lLength">Intended read length</param>
         //===================================================================================================
         private void ThrowSimulatedReadErrorIfNeeded(
-            FileInfo fi,
+            IFileInfo fi,
             long lStartPosition,
             long lLength
             )
@@ -138,8 +138,8 @@ namespace SyncFolders
         /// <param name="fi">fileinfo of source</param>
         /// <param name="strDestFileName">destinationn file name</param>
         //===================================================================================================
-        public FileInfo CopyTo(
-            FileInfo fi, 
+        public IFileInfo CopyTo(
+            IFileInfo fi, 
             string strDestFileName
             )
         {
@@ -155,8 +155,8 @@ namespace SyncFolders
         /// <param name="strDestFileName">destinationn file name</param>
         /// <param name="bOverwrite">Indicates, if the file shall be overwritten, if exists</param>
         //===================================================================================================
-        public FileInfo CopyTo(
-            FileInfo fi, 
+        public IFileInfo CopyTo(
+            IFileInfo fi, 
             string strDestFileName, 
             bool bOverwrite
             )

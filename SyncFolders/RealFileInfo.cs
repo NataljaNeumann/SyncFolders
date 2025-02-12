@@ -1,0 +1,205 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.IO;
+
+namespace SyncFolders
+{
+    //*******************************************************************************************************
+    /// <summary>
+    /// Provides info about real files
+    /// </summary>
+    //*******************************************************************************************************
+    public class RealFileInfo : IFileInfo
+    {
+        //===================================================================================================
+        /// <summary>
+        /// The read file info
+        /// </summary>
+        private FileInfo m_oFileInfo;
+
+        //===================================================================================================
+        /// <summary>
+        /// Constructs a new RealFileInfo object
+        /// </summary>
+        /// <param name="oFileInfo">Real file info</param>
+        //===================================================================================================
+        public RealFileInfo(FileInfo oFileInfo)
+        {
+            m_oFileInfo = oFileInfo;
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// Gets or sets last write time
+        /// </summary>
+        public DateTime LastWriteTimeUtc
+        {
+            get
+            {
+                return m_oFileInfo.LastWriteTimeUtc;
+            }
+            set
+            {
+                m_oFileInfo.LastWriteTimeUtc = value;
+            }
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// Provides information, if the file exists
+        /// </summary>
+        public bool Exists
+        {
+            get
+            {
+                return m_oFileInfo.Exists;
+            }
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// Gets the length of the file
+        /// </summary>
+        public long Length
+        {
+            get
+            {
+                return m_oFileInfo.Length;
+            }
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// Gets the path of the file
+        /// </summary>
+        public string FullName
+        {
+            get
+            {
+                return m_oFileInfo.FullName;
+            }
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// Deletes the file
+        /// </summary>
+        //===================================================================================================
+        public void Delete()
+        {
+            m_oFileInfo.Delete();
+        }
+
+
+        //===================================================================================================
+        /// <summary>
+        /// Deletes the file
+        /// </summary>
+        /// <param name="strNewPath">New path for the file</param>
+        //===================================================================================================
+        public void MoveTo(
+            string strNewPath
+            )
+        {
+            m_oFileInfo.MoveTo(strNewPath);
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// Copies the file
+        /// </summary>
+        /// <param name="strDestPath">Destination path for the file</param>
+        /// <param name="bOverwrite">Specifies, if the file shall be overwritten</param>
+        //===================================================================================================
+        public IFileInfo CopyTo(
+            string strDestPath,
+            bool bOverwrite
+            )
+        {
+            return new RealFileInfo(m_oFileInfo.CopyTo(strDestPath,bOverwrite));
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// Copies the file
+        /// </summary>
+        /// <param name="strDestPath">Destination path for the file</param>
+        //===================================================================================================
+        public IFileInfo CopyTo(
+            string strDestPath
+            )
+        {
+            return new RealFileInfo(m_oFileInfo.CopyTo(strDestPath));
+        }
+        //===================================================================================================
+        /// <summary>
+        /// Name of the file
+        /// </summary>
+        //===================================================================================================
+        public string Name
+        {
+            get
+            {
+                return m_oFileInfo.Name;
+            }
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// Extension of the file name
+        /// </summary>
+        //===================================================================================================
+        public string Extension
+        {
+            get
+            {
+                return m_oFileInfo.Extension;
+            }
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// Directory of the file
+        /// </summary>
+        //===================================================================================================        
+        public string DirectoryName
+        {
+            get
+            {
+                return m_oFileInfo.DirectoryName;
+            }
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// Directory of the file
+        /// </summary>
+        //===================================================================================================        
+        public IDirectoryInfo Directory
+        {
+            get
+            {
+                return new RealDirectoryInfo(m_oFileInfo.Directory);
+            }
+        }
+
+
+        //===================================================================================================
+        /// <summary>
+        /// Gets or sets directory attributes
+        /// </summary>
+        //===================================================================================================
+        public FileAttributes Attributes
+        {
+            get
+            {
+                return m_oFileInfo.Attributes;
+            }
+            set
+            {
+                m_oFileInfo.Attributes = value;
+            }
+        }
+    }
+}
