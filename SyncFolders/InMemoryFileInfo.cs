@@ -7,46 +7,131 @@ namespace SyncFolders
 {
     //*******************************************************************************************************
     /// <summary>
-    /// Objects that implement this interface provide information about files
+    /// Provides information about  in-memory files
     /// </summary>
     //*******************************************************************************************************
-    public interface IFileInfo
+    public class InMemoryFileInfo : IFileInfo
     {
         //===================================================================================================
         /// <summary>
-        /// Last write time
+        /// The in-memory file system for performing operations
         /// </summary>
+        private readonly InMemoryFileSystem m_oFs;
+
         //===================================================================================================
-        DateTime LastWriteTimeUtc { get; set; }
+        /// <summary>
+        /// Contains information, if the file existed when the object was created
+        /// </summary>
+        private readonly bool m_bExists;
+
+        //===================================================================================================
+        /// <summary>
+        /// Contains information about the length of the file, at the time when the object was created
+        /// </summary>
+        private readonly long m_lLength;
+
+        //===================================================================================================
+        /// <summary>
+        /// Contains full name of the file
+        /// </summary>
+        private readonly string m_strFullName;
+
+        //===================================================================================================
+        /// <summary>
+        /// Constructs a new in-memory file info
+        /// </summary>
+        /// <param name="path">Path of the file</param>
+        /// <param name="stream">File stream</param>
+        /// <param name="fileWriteTimes">Information about file write times</param>
+        //===================================================================================================
+        public InMemoryFileInfo(string path, MemoryStream stream, InMemoryFileSystem oFS)
+        {
+            lock (m_oFs.m_oFileWriteTimes)
+                m_bExists = m_oFs.m_oFileWriteTimes.ContainsKey(path);
+            if (m_bExists)
+                Attributes = FileAttributes.Archive;
+            m_lLength = stream.Length;
+            m_strFullName = path;
+            m_oFs = oFS;
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// Gets or sets last write time
+        /// </summary>
+        public DateTime LastWriteTimeUtc
+        {
+            get
+            {
+                lock (m_oFs.m_oFileWriteTimes)
+                    return Exists ? m_oFs.m_oFileWriteTimes[FullName] : DateTime.MinValue;
+            }
+            set
+            {
+                lock (m_oFs.m_oFileWriteTimes)
+                    if (m_oFs.m_oFileWriteTimes.ContainsKey(FullName))
+                    {
+                        m_oFs.m_oFileWriteTimes[FullName] = value;
+                    }
+            }
+        }
 
         //===================================================================================================
         /// <summary>
         /// Does the file exist?
         /// </summary>
         //===================================================================================================
-        bool Exists { get; }
+        public bool Exists
+        {
+            get
+            {
+                return m_bExists;
+            }
+        }
+
 
         //===================================================================================================
         /// <summary>
         /// Length of the file
         /// </summary>
         //===================================================================================================
-        long Length {get; }
+        public long Length
+        {
+            get
+            {
+                return m_lLength;
+            }
+        }
 
         //===================================================================================================
         /// <summary>
         /// Full path of the file
         /// </summary>
         //===================================================================================================
-        string FullName { get; }
+        public string FullName
+        {
+            get
+            {
+                return m_strFullName;
+            }
+        }
 
         //===================================================================================================
         /// <summary>
         /// Deletes the file
         /// </summary>
         //===================================================================================================
-        void Delete();
-
+        public void Delete()
+        {
+            lock (m_oFs.m_oFiles)
+            {
+                m_oFs.m_oFiles.Remove(FullName);
+                lock (m_oFs.m_oFileWriteTimes)
+                {
+                    m_oFs.m_oFileWriteTimes.Remove(FullName);
+                }
+            }
+        }
 
         //===================================================================================================
         /// <summary>
@@ -54,8 +139,12 @@ namespace SyncFolders
         /// </summary>
         /// <param name="strNewPath">New path for the file</param>
         //===================================================================================================
-        void MoveTo(string strNewPath);
-
+        public void MoveTo(
+            string strNewPath
+            )
+        {
+            m_oFs.Move(FullName, strNewPath);
+        }
 
         //===================================================================================================
         /// <summary>
@@ -64,10 +153,18 @@ namespace SyncFolders
         /// <param name="strDestPath">Destination path for the file</param>
         /// <param name="bOverwrite">Specifies, if the file shall be overwritten</param>
         //===================================================================================================
-        IFileInfo CopyTo(
+        public IFileInfo CopyTo(
             string strDestPath,
             bool bOverwrite
-            );
+            )
+        {
+            if (!bOverwrite)
+                lock (m_oFs.m_oFiles)
+                    if (m_oFs.m_oFiles.ContainsKey(strDestPath))
+                        throw new System.IO.IOException("File " + strDestPath + " already present in memory");
+            m_oFs.CopyFile(FullName, strDestPath);
+            return m_oFs.GetFileInfo(strDestPath);
+        }
 
         //===================================================================================================
         /// <summary>
@@ -75,18 +172,24 @@ namespace SyncFolders
         /// </summary>
         /// <param name="strDestPath">Destination path for the file</param>
         //===================================================================================================
-        IFileInfo CopyTo(
+        public IFileInfo CopyTo(
             string strDestPath
-            );
+            )
+        {
+            return CopyTo(strDestPath, false);
+        }
 
         //===================================================================================================
         /// <summary>
         /// Name of the file
         /// </summary>
         //===================================================================================================
-        string Name
+        public string Name
         {
-            get;
+            get
+            {
+                return Path.GetFileName(FullName);
+            }
         }
 
         //===================================================================================================
@@ -94,9 +197,12 @@ namespace SyncFolders
         /// Extension of the file name
         /// </summary>
         //===================================================================================================
-        string Extension
+        public string Extension
         {
-            get;
+            get
+            {
+                return Path.GetExtension(FullName);
+            }
         }
 
         //===================================================================================================
@@ -104,9 +210,12 @@ namespace SyncFolders
         /// Directory of the file
         /// </summary>
         //===================================================================================================        
-        string DirectoryName
+        public string DirectoryName
         {
-            get;
+            get
+            {
+                return Path.GetDirectoryName(FullName);
+            }
         }
 
 
@@ -115,9 +224,12 @@ namespace SyncFolders
         /// Directory of the file
         /// </summary>
         //===================================================================================================        
-        IDirectoryInfo Directory
+        public IDirectoryInfo Directory
         {
-            get;
+            get
+            {
+                return new InMemoryDirectoryInfo(DirectoryName, m_oFs);
+            }
         }
 
         //===================================================================================================
@@ -125,11 +237,12 @@ namespace SyncFolders
         /// Gets or sets file attributes
         /// </summary>
         //===================================================================================================
-        FileAttributes Attributes
+        public FileAttributes Attributes
         {
             get;
             set;
         }
+
     }
 
 }

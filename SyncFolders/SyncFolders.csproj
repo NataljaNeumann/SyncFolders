@@ -82,6 +82,10 @@
     <Compile Include="IFileInfo.cs" />
     <Compile Include="IFileOpenAndCopyAbstraction.cs" />
     <Compile Include="IFileOperations.cs" />
+    <Compile Include="InMemoryDirectoryInfo.cs" />
+    <Compile Include="InMemoryFile.cs" />
+    <Compile Include="InMemoryFileInfo.cs" />
+    <Compile Include="InMemoryFileSystem.cs" />
     <Compile Include="RealDirectoryInfo.cs" />
     <Compile Include="RealFile.cs" />
     <Compile Include="RealFileInfo.cs" />

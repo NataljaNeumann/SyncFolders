@@ -56,7 +56,7 @@ namespace SyncFolders
         /// <param name="strPath">The path of the file</param>
         /// <param name="strContent">Content to write</param>
         //===================================================================================================
-        void WriteAllText(string path, string content);
+        void WriteAllText(string strPath, string strContent);
 
         //===================================================================================================
         /// <summary>
@@ -84,7 +84,7 @@ namespace SyncFolders
         /// <param name="strPath">Path of the file</param>
         /// <returns>Information object</returns>
         //===================================================================================================
-        IFileInfo GetFileInfo(string path);
+        IFileInfo GetFileInfo(string strPath);
 
 
         //===================================================================================================

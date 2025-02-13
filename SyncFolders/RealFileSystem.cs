@@ -11,53 +11,120 @@ namespace SyncFolders
     //*******************************************************************************************************
     public class RealFileSystem : IFileOperations
     {
-        public IFile OpenFileForRead(string path)
+
+        //===================================================================================================
+        /// <summary>
+        /// Opens a file for write
+        /// </summary>
+        /// <param name="strPath">Path of the file to open</param>
+        /// <returns>File access object</returns>
+        //===================================================================================================
+        public IFile OpenFileForRead(string strPathstrPath)
         {
-            var stream = File.OpenRead(path);
-            return new RealFile(stream);
+            var oStream = File.OpenRead(strPathstrPath);
+            return new RealFile(oStream);
         }
 
-        public IFile OpenFileForWrite(string path)
+
+
+        //===================================================================================================
+        /// <summary>
+        /// Opens a file for read
+        /// </summary>
+        /// <param name="strPath">Path of the file to open</param>
+        /// <returns>File access object</returns>
+        //===================================================================================================
+        public IFile OpenFileForWrite(string strPath)
         {
-            var stream = File.OpenWrite(path);
-            return new RealFile(stream);
+            var oStream = File.OpenWrite(strPath);
+            return new RealFile(oStream);
         }
 
-
-        public void CopyFile(string sourcePath, string destinationPath)
+        //===================================================================================================
+        /// <summary>
+        /// Copies a file from source to destination
+        /// </summary>
+        /// <param name="strSourcePath">Path to copy from</param>
+        /// <param name="strDestinationPath">Path to copy to</param>
+        //===================================================================================================
+        public void CopyFile(string strSourcePath, string strDestinationPath)
         {
-            File.Copy(sourcePath, destinationPath);
+            File.Copy(strSourcePath, strDestinationPath);
         }
 
-        public string ReadFromFile(string path)
+        //===================================================================================================
+        /// <summary>
+        /// Reads all contents of the file
+        /// </summary>
+        /// <param name="strPath">Path to read from</param>
+        /// <returns>The content of the file</returns>
+        //===================================================================================================
+        public string ReadFromFile(string strPath)
         {
-            return File.ReadAllText(path);
+            return File.ReadAllText(strPath);
         }
 
-        public void WriteAllText(string path, string content)
+        //===================================================================================================
+        /// <summary>
+        /// Writes tontent to file
+        /// </summary>
+        /// <param name="strPath">The path of the file</param>
+        /// <param name="strContent">Content to write</param>
+        //===================================================================================================
+        public void WriteAllText(string strPath, string strContent)
         {
-            File.WriteAllText(path, content);
+            File.WriteAllText(strPath, strContent);
         }
 
-        public List<string> SearchFiles(string searchPattern)
+        //===================================================================================================
+        /// <summary>
+        /// Searches file in a directory
+        /// </summary>
+        /// <param name="strSearchPattern">Directory</param>
+        /// <returns>A list of files</returns>
+        //===================================================================================================
+        public List<string> SearchFiles(string strSearchPattern)
         {
-            var files = Directory.GetFiles(Directory.GetCurrentDirectory(), searchPattern);
+            var files = Directory.GetFiles(Directory.GetCurrentDirectory(), strSearchPattern);
             return new List<string>(files);
         }
 
-        public void Move(string oldPath, string newPath)
+
+        //===================================================================================================
+        /// <summary>
+        /// Renames a file
+        /// </summary>
+        /// <param name="strOldPath">Old path of an existing file</param>
+        /// <param name="strNewPath">New path for the file</param>
+        //===================================================================================================
+        public void Move(string strOldPath, string strNewPath)
         {
-            File.Move(oldPath, newPath);
+            File.Move(strOldPath, strNewPath);
         }
 
-        public IFileInfo GetFileInfo(string path)
+        //===================================================================================================
+        /// <summary>
+        /// Gets information about a file
+        /// </summary>
+        /// <param name="strPath">Path of the file</param>
+        /// <returns>Information object</returns>
+        //===================================================================================================
+        public IFileInfo GetFileInfo(string strPath)
         {
-            return new RealFileInfo(new FileInfo(path));
+            return new RealFileInfo(new FileInfo(strPath));
         }
 
-        public IDirectoryInfo GetDirectoryInfo(string path)
+
+        //===================================================================================================
+        /// <summary>
+        /// Gets information about a directory
+        /// </summary>
+        /// <param name="strPath">Path of the directory</param>
+        /// <returns>Information object</returns>
+        //===================================================================================================
+        public IDirectoryInfo GetDirectoryInfo(string strPath)
         {
-            return new RealDirectoryInfo(new DirectoryInfo(path));
+            return new RealDirectoryInfo(new DirectoryInfo(strPath));
         }
     }
 

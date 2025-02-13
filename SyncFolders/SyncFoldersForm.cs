@@ -1321,8 +1321,8 @@ namespace SyncFolders
         {
             m_cbParallel.Checked = false;
             System.Windows.Forms.MessageBox.Show(this, "The self test doesn't test easy conditions. " +
-                "It simulates E/A errors, bad checksums and other problems, so an error full of messages is" +
-                " expected. You need to interpret the messages", "About self test", MessageBoxButtons.OK, 
+                "It simulates E/A errors, bad checksums and other problems, so a log full of error messages "
+                +"is expected. You need to interpret the messages", "About self test", MessageBoxButtons.OK, 
                 MessageBoxIcon.Information);
 
             // replace file abstraction layer with default, as long as we create all the files
