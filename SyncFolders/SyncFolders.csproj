@@ -61,853 +61,841 @@
   </Target>
   -->
   <ItemGroup>
-    <Compile Include="About.cs">
+    <Compile Include="Forms\About.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="About.designer.cs">
+    <Compile Include="Forms\About.designer.cs">
       <DependentUpon>About.cs</DependentUpon>
     </Compile>
-    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Block.cs" />
-    <Compile Include="FileOpenAndCopyDirectly.cs" />
-    <Compile Include="FileOpenAndCopyWithSimulatedErrors.cs" />
-    <Compile Include="HelpForm.cs">
+    <Compile Include="FileSystem\FileOpenAndCopyDirectly.cs" />
+    <Compile Include="FileSystem\FileOpenAndCopyWithSimulatedErrors.cs" />
+    <Compile Include="Forms\HelpForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="HelpForm.Designer.cs">
+    <Compile Include="Forms\HelpForm.Designer.cs">
       <DependentUpon>HelpForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="IDirectoryInfo.cs" />
-    <Compile Include="IFile.cs" />
-    <Compile Include="IFileInfo.cs" />
-    <Compile Include="IFileOpenAndCopyAbstraction.cs" />
-    <Compile Include="IFileOperations.cs" />
-    <Compile Include="InMemoryDirectoryInfo.cs" />
-    <Compile Include="InMemoryFile.cs" />
-    <Compile Include="InMemoryFileInfo.cs" />
-    <Compile Include="InMemoryFileSystem.cs" />
-    <Compile Include="RealDirectoryInfo.cs" />
-    <Compile Include="RealFile.cs" />
-    <Compile Include="RealFileInfo.cs" />
-    <Compile Include="RealFileSystem.cs" />
-    <Compile Include="Resources.Designer.cs">
+    <Compile Include="FileSystem\IDirectoryInfo.cs" />
+    <Compile Include="FileSystem\IFile.cs" />
+    <Compile Include="FileSystem\IFileInfo.cs" />
+    <Compile Include="FileSystem\IFileOpenAndCopyAbstraction.cs" />
+    <Compile Include="FileSystem\IFileOperations.cs" />
+    <Compile Include="FileSystem\InMemoryDirectoryInfo.cs" />
+    <Compile Include="FileSystem\InMemoryFile.cs" />
+    <Compile Include="FileSystem\InMemoryFileInfo.cs" />
+    <Compile Include="FileSystem\InMemoryFileSystem.cs" />
+    <Compile Include="FileSystem\RealDirectoryInfo.cs" />
+    <Compile Include="FileSystem\RealFile.cs" />
+    <Compile Include="FileSystem\RealFileInfo.cs" />
+    <Compile Include="FileSystem\RealFileSystem.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="SyncFoldersForm.cs">
+    <Compile Include="Forms\SyncFoldersForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SyncFoldersForm.designer.cs">
+    <Compile Include="Forms\SyncFoldersForm.designer.cs">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ILogWriter.cs" />
-    <Compile Include="LogDisplayingForm.cs">
+    <Compile Include="Forms\LogDisplayingForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LogDisplayingForm.designer.cs">
+    <Compile Include="Forms\LogDisplayingForm.designer.cs">
       <DependentUpon>LogDisplayingForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <!--Compile Include="Resources.Designer.cs" /-->
     <Compile Include="RestoreInfo.cs" />
     <Compile Include="SavedInfo.cs" />
-    <Compile Include="Settings.Designer.cs" />
-    <Compile Include="Settings1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="About.af.resx">
+    <EmbeddedResource Include="Forms\About.af.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.ar.resx">
+    <EmbeddedResource Include="Forms\About.ar.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.az.resx">
+    <EmbeddedResource Include="Forms\About.az.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.be-BY.resx">
+    <EmbeddedResource Include="Forms\About.be-BY.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.bg.resx">
+    <EmbeddedResource Include="Forms\About.bg.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.bs-Latn-BA.resx">
+    <EmbeddedResource Include="Forms\About.bs-Latn-BA.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.ca.resx">
+    <EmbeddedResource Include="Forms\About.ca.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.cs.resx">
+    <EmbeddedResource Include="Forms\About.cs.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.da.resx">
+    <EmbeddedResource Include="Forms\About.da.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.de.resx">
+    <EmbeddedResource Include="Forms\About.de.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.el.resx">
+    <EmbeddedResource Include="Forms\About.el.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.es.resx">
+    <EmbeddedResource Include="Forms\About.es.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.et.resx">
+    <EmbeddedResource Include="Forms\About.et.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.fa.resx">
+    <EmbeddedResource Include="Forms\About.fa.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.fi.resx">
+    <EmbeddedResource Include="Forms\About.fi.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.fr.resx">
+    <EmbeddedResource Include="Forms\About.fr.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.he.resx">
+    <EmbeddedResource Include="Forms\About.he.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.hi.resx">
+    <EmbeddedResource Include="Forms\About.hi.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.hu.resx">
+    <EmbeddedResource Include="Forms\About.hu.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.hy.resx">
+    <EmbeddedResource Include="Forms\About.hy.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.id-ID.resx">
+    <EmbeddedResource Include="Forms\About.id-ID.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.is.resx">
+    <EmbeddedResource Include="Forms\About.is.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.it.resx">
+    <EmbeddedResource Include="Forms\About.it.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.ja.resx">
+    <EmbeddedResource Include="Forms\About.ja.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.ka.resx">
+    <EmbeddedResource Include="Forms\About.ka.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.kk.resx">
+    <EmbeddedResource Include="Forms\About.kk.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.km-KH.resx">
+    <EmbeddedResource Include="Forms\About.km-KH.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.ko.resx">
+    <EmbeddedResource Include="Forms\About.ko.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.ky-KG.resx">
+    <EmbeddedResource Include="Forms\About.ky-KG.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.la-001.resx">
+    <EmbeddedResource Include="Forms\About.la-001.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.lt.resx">
+    <EmbeddedResource Include="Forms\About.lt.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.lv.resx">
+    <EmbeddedResource Include="Forms\About.lv.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.mk.resx">
+    <EmbeddedResource Include="Forms\About.mk.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.mn-MN.resx">
+    <EmbeddedResource Include="Forms\About.mn-MN.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.ms.resx">
+    <EmbeddedResource Include="Forms\About.ms.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.nl.resx">
+    <EmbeddedResource Include="Forms\About.nl.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.no.resx">
+    <EmbeddedResource Include="Forms\About.no.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.pa-Arab-PK.resx">
+    <EmbeddedResource Include="Forms\About.pa-Arab-PK.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.pa-IN.resx">
+    <EmbeddedResource Include="Forms\About.pa-IN.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.pl.resx">
+    <EmbeddedResource Include="Forms\About.pl.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.ps-AF.resx">
+    <EmbeddedResource Include="Forms\About.ps-AF.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.pt.resx">
+    <EmbeddedResource Include="Forms\About.pt.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.resx">
+    <EmbeddedResource Include="Forms\About.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.ro.resx">
+    <EmbeddedResource Include="Forms\About.ro.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.ru.resx">
+    <EmbeddedResource Include="Forms\About.ru.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.sa.resx">
+    <EmbeddedResource Include="Forms\About.sa.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.sk.resx">
+    <EmbeddedResource Include="Forms\About.sk.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.sl.resx">
+    <EmbeddedResource Include="Forms\About.sl.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.sr.resx">
+    <EmbeddedResource Include="Forms\About.sr.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.sv.resx">
+    <EmbeddedResource Include="Forms\About.sv.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.tg-Cyrl-TJ.resx">
+    <EmbeddedResource Include="Forms\About.tg-Cyrl-TJ.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.th.resx">
+    <EmbeddedResource Include="Forms\About.th.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.tr.resx">
+    <EmbeddedResource Include="Forms\About.tr.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.uk.resx">
+    <EmbeddedResource Include="Forms\About.uk.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.uz.resx">
+    <EmbeddedResource Include="Forms\About.uz.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.vi.resx">
+    <EmbeddedResource Include="Forms\About.vi.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.zh-CHS.resx">
+    <EmbeddedResource Include="Forms\About.zh-CHS.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="About.zh-CHT.resx">
+    <EmbeddedResource Include="Forms\About.zh-CHT.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="HelpForm.resx">
+    <EmbeddedResource Include="Forms\HelpForm.resx">
       <DependentUpon>HelpForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LogDisplayingForm.ar.resx">
+    <EmbeddedResource Include="Forms\LogDisplayingForm.ar.resx">
       <DependentUpon>LogDisplayingForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LogDisplayingForm.be-BY.resx">
+    <EmbeddedResource Include="Forms\LogDisplayingForm.be-BY.resx">
       <DependentUpon>LogDisplayingForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LogDisplayingForm.bo-CN.resx">
+    <EmbeddedResource Include="Forms\LogDisplayingForm.bo-CN.resx">
       <DependentUpon>LogDisplayingForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LogDisplayingForm.cs.resx">
+    <EmbeddedResource Include="Forms\LogDisplayingForm.cs.resx">
       <DependentUpon>LogDisplayingForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LogDisplayingForm.de.resx">
+    <EmbeddedResource Include="Forms\LogDisplayingForm.de.resx">
       <DependentUpon>LogDisplayingForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LogDisplayingForm.el.resx">
+    <EmbeddedResource Include="Forms\LogDisplayingForm.el.resx">
       <DependentUpon>LogDisplayingForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LogDisplayingForm.es.resx">
+    <EmbeddedResource Include="Forms\LogDisplayingForm.es.resx">
       <DependentUpon>LogDisplayingForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LogDisplayingForm.fa.resx">
+    <EmbeddedResource Include="Forms\LogDisplayingForm.fa.resx">
       <DependentUpon>LogDisplayingForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LogDisplayingForm.fi.resx">
+    <EmbeddedResource Include="Forms\LogDisplayingForm.fi.resx">
       <DependentUpon>LogDisplayingForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LogDisplayingForm.fr.resx">
+    <EmbeddedResource Include="Forms\LogDisplayingForm.fr.resx">
       <DependentUpon>LogDisplayingForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LogDisplayingForm.he.resx">
+    <EmbeddedResource Include="Forms\LogDisplayingForm.he.resx">
       <DependentUpon>LogDisplayingForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LogDisplayingForm.hi.resx">
+    <EmbeddedResource Include="Forms\LogDisplayingForm.hi.resx">
       <DependentUpon>LogDisplayingForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LogDisplayingForm.it.resx">
+    <EmbeddedResource Include="Forms\LogDisplayingForm.it.resx">
       <DependentUpon>LogDisplayingForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LogDisplayingForm.ja.resx">
+    <EmbeddedResource Include="Forms\LogDisplayingForm.ja.resx">
       <DependentUpon>LogDisplayingForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LogDisplayingForm.km-KH.resx">
+    <EmbeddedResource Include="Forms\LogDisplayingForm.km-KH.resx">
       <DependentUpon>LogDisplayingForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LogDisplayingForm.ko.resx">
+    <EmbeddedResource Include="Forms\LogDisplayingForm.ko.resx">
       <DependentUpon>LogDisplayingForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LogDisplayingForm.la-001.resx">
+    <EmbeddedResource Include="Forms\LogDisplayingForm.la-001.resx">
       <DependentUpon>LogDisplayingForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LogDisplayingForm.nl.resx">
+    <EmbeddedResource Include="Forms\LogDisplayingForm.nl.resx">
       <DependentUpon>LogDisplayingForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LogDisplayingForm.pa-Arab-PK.resx">
+    <EmbeddedResource Include="Forms\LogDisplayingForm.pa-Arab-PK.resx">
       <DependentUpon>LogDisplayingForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LogDisplayingForm.pa-IN.resx">
+    <EmbeddedResource Include="Forms\LogDisplayingForm.pa-IN.resx">
       <DependentUpon>LogDisplayingForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LogDisplayingForm.pl.resx">
+    <EmbeddedResource Include="Forms\LogDisplayingForm.pl.resx">
       <DependentUpon>LogDisplayingForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LogDisplayingForm.ps-AF.resx">
+    <EmbeddedResource Include="Forms\LogDisplayingForm.ps-AF.resx">
       <DependentUpon>LogDisplayingForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LogDisplayingForm.pt.resx">
+    <EmbeddedResource Include="Forms\LogDisplayingForm.pt.resx">
       <DependentUpon>LogDisplayingForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LogDisplayingForm.ru.resx">
+    <EmbeddedResource Include="Forms\LogDisplayingForm.ru.resx">
       <DependentUpon>LogDisplayingForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LogDisplayingForm.sa.resx">
+    <EmbeddedResource Include="Forms\LogDisplayingForm.sa.resx">
       <DependentUpon>LogDisplayingForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LogDisplayingForm.sv.resx">
+    <EmbeddedResource Include="Forms\LogDisplayingForm.sv.resx">
       <DependentUpon>LogDisplayingForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LogDisplayingForm.tr.resx">
+    <EmbeddedResource Include="Forms\LogDisplayingForm.tr.resx">
       <DependentUpon>LogDisplayingForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LogDisplayingForm.uk.resx">
+    <EmbeddedResource Include="Forms\LogDisplayingForm.uk.resx">
       <DependentUpon>LogDisplayingForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LogDisplayingForm.zh-CHS.resx">
+    <EmbeddedResource Include="Forms\LogDisplayingForm.zh-CHS.resx">
       <DependentUpon>LogDisplayingForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LogDisplayingForm.zh-CHT.resx">
+    <EmbeddedResource Include="Forms\LogDisplayingForm.zh-CHT.resx">
       <DependentUpon>LogDisplayingForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.af.resx">
+    <EmbeddedResource Include="Properties\Resources.af.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.ar.resx">
+    <EmbeddedResource Include="Properties\Resources.ar.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.az.resx">
+    <EmbeddedResource Include="Properties\Resources.az.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.be-BY.resx">
+    <EmbeddedResource Include="Properties\Resources.be-BY.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.bg.resx">
+    <EmbeddedResource Include="Properties\Resources.bg.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.bo-CN.resx">
+    <EmbeddedResource Include="Properties\Resources.bo-CN.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.bs-Latn-BA.resx">
+    <EmbeddedResource Include="Properties\Resources.bs-Latn-BA.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.ca.resx">
+    <EmbeddedResource Include="Properties\Resources.ca.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.cs.resx">
+    <EmbeddedResource Include="Properties\Resources.cs.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.da.resx">
+    <EmbeddedResource Include="Properties\Resources.da.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.de.resx">
+    <EmbeddedResource Include="Properties\Resources.de.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.el.resx">
+    <EmbeddedResource Include="Properties\Resources.el.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.es.resx">
+    <EmbeddedResource Include="Properties\Resources.es.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.et.resx">
+    <EmbeddedResource Include="Properties\Resources.et.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.fa.resx">
+    <EmbeddedResource Include="Properties\Resources.fa.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.fi.resx">
+    <EmbeddedResource Include="Properties\Resources.fi.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.fr.resx">
+    <EmbeddedResource Include="Properties\Resources.fr.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.he.resx">
+    <EmbeddedResource Include="Properties\Resources.he.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.hi.resx">
+    <EmbeddedResource Include="Properties\Resources.hi.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.hu.resx">
+    <EmbeddedResource Include="Properties\Resources.hu.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.hy.resx">
+    <EmbeddedResource Include="Properties\Resources.hy.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.id.resx">
+    <EmbeddedResource Include="Properties\Resources.id.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.is.resx">
+    <EmbeddedResource Include="Properties\Resources.is.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.it.resx">
+    <EmbeddedResource Include="Properties\Resources.it.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.ja.resx">
+    <EmbeddedResource Include="Properties\Resources.ja.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.ka.resx">
+    <EmbeddedResource Include="Properties\Resources.ka.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.kk.resx">
+    <EmbeddedResource Include="Properties\Resources.kk.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.km-KH.resx">
+    <EmbeddedResource Include="Properties\Resources.km-KH.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.ko.resx">
+    <EmbeddedResource Include="Properties\Resources.ko.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.ky-KG.resx">
+    <EmbeddedResource Include="Properties\Resources.ky-KG.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.la-001.resx">
+    <EmbeddedResource Include="Properties\Resources.la-001.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.lt.resx">
+    <EmbeddedResource Include="Properties\Resources.lt.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.lv.resx">
+    <EmbeddedResource Include="Properties\Resources.lv.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.mk.resx">
+    <EmbeddedResource Include="Properties\Resources.mk.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.mn-MN.resx">
+    <EmbeddedResource Include="Properties\Resources.mn-MN.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.ms.resx">
+    <EmbeddedResource Include="Properties\Resources.ms.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.nl.resx">
+    <EmbeddedResource Include="Properties\Resources.nl.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.no.resx">
+    <EmbeddedResource Include="Properties\Resources.no.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.pa-Arab-PK.resx">
+    <EmbeddedResource Include="Properties\Resources.pa-Arab-PK.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.pa-IN.resx">
+    <EmbeddedResource Include="Properties\Resources.pa-IN.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.pl.resx">
+    <EmbeddedResource Include="Properties\Resources.pl.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.ps-AF.resx">
+    <EmbeddedResource Include="Properties\Resources.ps-AF.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.pt.resx">
+    <EmbeddedResource Include="Properties\Resources.pt.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.ro.resx">
+    <EmbeddedResource Include="Properties\Resources.ro.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.ru.resx">
+    <EmbeddedResource Include="Properties\Resources.ru.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.sa.resx">
+    <EmbeddedResource Include="Properties\Resources.sa.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.sk.resx">
+    <EmbeddedResource Include="Properties\Resources.sk.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.sl.resx">
+    <EmbeddedResource Include="Properties\Resources.sl.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.sr.resx">
+    <EmbeddedResource Include="Properties\Resources.sr.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.sv.resx">
+    <EmbeddedResource Include="Properties\Resources.sv.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.tg-Cyrl-TJ.resx">
+    <EmbeddedResource Include="Properties\Resources.tg-Cyrl-TJ.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.th.resx">
+    <EmbeddedResource Include="Properties\Resources.th.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.tk-TM.resx">
+    <EmbeddedResource Include="Properties\Resources.tk-TM.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.tr.resx">
+    <EmbeddedResource Include="Properties\Resources.tr.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.uk.resx">
+    <EmbeddedResource Include="Properties\Resources.uk.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.uz.resx">
+    <EmbeddedResource Include="Properties\Resources.uz.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.vi.resx">
+    <EmbeddedResource Include="Properties\Resources.vi.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.zh-CHS.resx">
+    <EmbeddedResource Include="Properties\Resources.zh-CHS.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.zh-CHT.resx">
+    <EmbeddedResource Include="Properties\Resources.zh-CHT.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.af.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.af.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.ar.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.ar.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.az.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.az.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.be-BY.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.be-BY.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.bg.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.bg.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.bo-CN.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.bo-CN.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.bs-Latn-BA.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.bs-Latn-BA.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.ca.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.ca.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.cs.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.cs.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.da.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.da.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.de.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.de.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.el.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.el.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.es.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.es.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.et.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.et.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.fa.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.fa.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.fi.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.fi.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.fr.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.fr.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.he.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.he.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.hi.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.hi.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.hu.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.hu.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.hy.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.hy.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.id.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.id.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.is.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.is.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.it.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.it.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.ja.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.ja.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.ka.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.ka.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.kk.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.kk.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.km-KH.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.km-KH.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.ko.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.ko.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.ky-KG.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.ky-KG.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.la-001.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.la-001.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.lt.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.lt.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.lv.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.lv.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.mk.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.mk.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.mn-MN.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.mn-MN.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.ms.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.ms.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.nl.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.nl.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.no.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.no.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.pa-Arab-PK.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.pa-Arab-PK.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.pa-IN.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.pa-IN.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.pl.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.pl.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.ps-AF.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.ps-AF.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.pt.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.pt.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LogDisplayingForm.resx">
+    <EmbeddedResource Include="Forms\LogDisplayingForm.resx">
       <DependentUpon>LogDisplayingForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources.resx">
+    <EmbeddedResource Include="Properties\Resources.resx">
       <SubType>Designer</SubType>
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.ro.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.ro.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.ru.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.ru.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.sa.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.sa.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.sk.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.sk.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.sl.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.sl.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.sr.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.sr.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.sv.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.sv.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.tg-Cyrl-TJ.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.tg-Cyrl-TJ.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.th.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.th.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.tk-TM.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.tk-TM.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.tr.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.tr.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.uk.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.uk.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.uz.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.uz.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.vi.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.vi.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.zh-CHS.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.zh-CHS.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SyncFoldersForm.zh-CHT.resx">
+    <EmbeddedResource Include="Forms\SyncFoldersForm.zh-CHT.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings1.Designer.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -946,6 +934,9 @@
   if NOT EXIST "$(TargetDir)ZZ_SOURCE_CODE_ZZ" (
     mkdir  "$(TargetDir)ZZ_SOURCE_CODE_ZZ"
     mkdir  "$(TargetDir)ZZ_SOURCE_CODE_ZZ\$(ProjectName)"
+    mkdir   "$(TargetDir)ZZ_SOURCE_CODE_ZZ\$(ProjectName)\FileSystem"
+    mkdir   "$(TargetDir)ZZ_SOURCE_CODE_ZZ\$(ProjectName)\Forms"
+    mkdir   "$(TargetDir)ZZ_SOURCE_CODE_ZZ\$(ProjectName)\Properties"
   )
   copy /Y "$(SolutionDir)*.sln" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\"
   copy /Y "$(SolutionDir)LICENSE.TXT" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\"
@@ -954,15 +945,20 @@
   copy /Y "$(SolutionDir)README.md" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\"
   copy /Y "$(ProjectDir)*.csproj" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\$(ProjectName)\"
   copy /Y "$(SolutionDir).gitignore" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\"
-  copy /Y "$(ProjectDir)*.cs" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\$(ProjectName)\"
   copy /Y "$(ProjectDir)*.ico" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\$(ProjectName)\"
   copy /Y "$(ProjectDir)SyncFolders.ico" "$(TargetDir)"
   copy /Y "$(ProjectDir)desktop.ini.txt" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\$(ProjectName)\desktop.ini.txt"
   copy /Y "$(ProjectDir)desktop.ini.txt" "$(TargetDir)desktop.ini"
   attrib +S +H "$(TargetDir)desktop.ini"
   attrib +H "$(TargetDir)SyncFolders.ico"
+  copy /Y "$(ProjectDir)*.cs" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\$(ProjectName)\"
   copy /Y "$(ProjectDir)*.resx" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\$(ProjectName)\"
-  copy /Y "$(ProjectDir)*.settings" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\$(ProjectName)\"
+  copy /Y "$(ProjectDir)Properties\*.cs" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\$(ProjectName)\Properties\"
+  copy /Y "$(ProjectDir)Properties\*.resx" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\$(ProjectName)\Properties\"
+  copy /Y "$(ProjectDir)Properties\*.settings" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\$(ProjectName)\Properties\"
+  copy /Y "$(ProjectDir)Forms\*.cs" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\$(ProjectName)\Forms\"
+  copy /Y "$(ProjectDir)Forms\*.resx" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\$(ProjectName)\Forms\"
+  copy /Y "$(ProjectDir)FileSystem\*.cs" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\$(ProjectName)\FileSystem\"
   cd /D "$(TargetDir)ZZ_SOURCE_CODE_ZZ"
   tar.exe -cf "..\source_code.tar" *.*
   cd /D "$(TargetDir)"
