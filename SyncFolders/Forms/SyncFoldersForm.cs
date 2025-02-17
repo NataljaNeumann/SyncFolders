@@ -25,7 +25,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-
+using SyncFolders.Properties;
 
 namespace SyncFolders
 {
@@ -937,7 +937,7 @@ namespace SyncFolders
 
             m_nCurrentFile = 0;
             m_strCurrentPath = null;
-            m_lblProgress.Text = Resources.ScanningFolders;
+            m_lblProgress.Text = Properties. Resources.ScanningFolders;
             m_oTimerUpdateFileDescription.Start();
 
 
