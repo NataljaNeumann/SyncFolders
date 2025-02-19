@@ -232,6 +232,47 @@ namespace SyncFolders
             return s.Read(m_aData, m_aData.Length-nCount, nCount);
         }
 
+
+        //===================================================================================================
+        /// <summary>
+        /// Reads a block from given stream
+        /// </summary>
+        /// <param name="s">Stream to read from</param>
+        /// <returns>The number of bytes read</returns>
+        //===================================================================================================
+        public int ReadFrom(IFile s)
+        {
+            return s.Read(m_aData, 0, m_aData.Length);
+        }
+
+
+        //===================================================================================================
+        /// <summary>
+        /// Reads first part of a block from given stream
+        /// </summary>
+        /// <param name="s">Stream to read from</param>
+        /// <<param name="nCount">Number of bytes to read</param>
+        /// <returns>The number of bytes read</returns>
+        //===================================================================================================
+        public int ReadFirstPartFrom(IFile s, int nCount)
+        {
+            return s.Read(m_aData, 0, nCount);
+        }
+
+
+        //===================================================================================================
+        /// <summary>
+        /// Reads first part of a block from given stream
+        /// </summary>
+        /// <param name="s">Stream to read from</param>
+        /// <<param name="nCount">Number of bytes to read</param>
+        /// <returns>The number of bytes read</returns>
+        //===================================================================================================
+        public int ReadLastPartFrom(IFile s, int nCount)
+        {
+            return s.Read(m_aData, m_aData.Length - nCount, nCount);
+        }
+
         //===================================================================================================
         /// <summary>
         /// Writes the block to stream
@@ -243,6 +284,17 @@ namespace SyncFolders
             s.Write(m_aData, 0, m_aData.Length);
         }
 
+
+        //===================================================================================================
+        /// <summary>
+        /// Writes the block to stream
+        /// </summary>
+        /// <param name="s">Stream to write to</param>
+        //===================================================================================================
+        public void WriteTo(IFile s)
+        {
+            s.Write(m_aData, 0, m_aData.Length);
+        }
 
         //===================================================================================================
         /// <summary>
@@ -271,6 +323,32 @@ namespace SyncFolders
 
         //===================================================================================================
         /// <summary>
+        /// Writes first part of the block to stream
+        /// </summary>
+        /// <param name="s">Stream to write to</param>
+        /// <param name="nCount">Number of bytes to write</param>
+        //===================================================================================================
+        public void WriteFirstPartTo(IFile s, int nCount)
+        {
+            s.Write(m_aData, 0, nCount);
+        }
+
+
+        //===================================================================================================
+        /// <summary>
+        /// Writes last part of the block to stream
+        /// </summary>
+        /// <param name="s">Stream to write to</param>
+        /// <param name="nCount">Number of bytes to write</param>
+        //===================================================================================================
+        public void WriteLastPartTo(IFile s, int nCount)
+        {
+            s.Write(m_aData, m_aData.Length - nCount, nCount);
+        }
+
+
+        //===================================================================================================
+        /// <summary>
         /// Writes the beginning of the block to stream
         /// </summary>
         /// <param name="s">Stream to write to</param>
@@ -280,6 +358,19 @@ namespace SyncFolders
         {
             s.Write(m_aData, 0, length);
         }
+
+        //===================================================================================================
+        /// <summary>
+        /// Writes the beginning of the block to stream
+        /// </summary>
+        /// <param name="s">Stream to write to</param>
+        /// <param name="length">Numbe of bytes to write</param>
+        //===================================================================================================
+        public void WriteTo(IFile s, int length)
+        {
+            s.Write(m_aData, 0, length);
+        }
+
 
         //===================================================================================================
         /// <summary>

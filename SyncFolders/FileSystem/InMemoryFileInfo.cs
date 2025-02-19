@@ -68,13 +68,16 @@ namespace SyncFolders
         //===================================================================================================
         public InMemoryFileInfo(string path, MemoryStream stream, InMemoryFileSystem oFS)
         {
-            lock (m_oFs.m_oFileWriteTimes)
-                m_bExists = m_oFs.m_oFileWriteTimes.ContainsKey(path);
-            if (m_bExists)
-                Attributes = FileAttributes.Archive;
-            m_lLength = stream.Length;
+            if (oFS != null)
+            {
+                m_oFs = oFS;
+                lock (m_oFs.m_oFileWriteTimes)
+                    m_bExists = m_oFs.m_oFileWriteTimes.ContainsKey(path);
+                if (m_bExists)
+                    Attributes = FileAttributes.Archive;
+                m_lLength = stream.Length;
+            }
             m_strFullName = path;
-            m_oFs = oFS;
         }
 
         //===================================================================================================

@@ -38,7 +38,7 @@ namespace SyncFolders
         /// <summary>
         /// Contains the actual file stream
         /// </summary>
-        private FileStream m_oStream;
+        public Stream m_oStream;
 
         //===================================================================================================
         /// <summary>
@@ -47,7 +47,7 @@ namespace SyncFolders
         /// <param name="oStream">The real stream object</param>
         //===================================================================================================
         public RealFile(
-            FileStream oStream
+            Stream oStream
             )
         {
             m_oStream = oStream;
@@ -89,6 +89,20 @@ namespace SyncFolders
 
         //===================================================================================================
         /// <summary>
+        /// Writes a byte to the file
+        /// </summary>
+        /// <param name="by">Byte to write</param>
+        //===================================================================================================
+        public void WriteByte(
+            byte by
+            )
+        {
+            m_oStream.WriteByte(by);
+        }
+
+
+        //===================================================================================================
+        /// <summary>
         /// Reads from file
         /// </summary>
         /// <param name="aBuffer">Buffer to read to</param>
@@ -103,6 +117,17 @@ namespace SyncFolders
             )
         {
             return m_oStream.Read(aBuffer, nOffset, nCount);
+        }
+
+
+        //===================================================================================================
+        /// <summary>
+        /// Reads a byte from the file
+        /// </summary>
+        //===================================================================================================
+        public int ReadByte()
+        {
+            return m_oStream.ReadByte();
         }
 
 
@@ -140,5 +165,30 @@ namespace SyncFolders
         {
             m_oStream.Dispose();
         }
+
+        //===================================================================================================
+        /// <summary>
+        /// Flushes buffers
+        /// </summary>
+        //===================================================================================================
+        public void Flush()
+        {
+            m_oStream.Flush();
+        }
+
+
+        //===================================================================================================
+        /// <summary>
+        /// Returns length
+        /// </summary>
+        //===================================================================================================
+        public long Length
+        {
+            get
+            {
+                return m_oStream.Length;
+            }
+        }
+
     }
 }

@@ -69,8 +69,6 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Block.cs" />
-    <Compile Include="FileSystem\FileOpenAndCopyDirectly.cs" />
-    <Compile Include="FileSystem\FileOpenAndCopyWithSimulatedErrors.cs" />
     <Compile Include="Forms\HelpForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,7 +78,6 @@
     <Compile Include="FileSystem\IDirectoryInfo.cs" />
     <Compile Include="FileSystem\IFile.cs" />
     <Compile Include="FileSystem\IFileInfo.cs" />
-    <Compile Include="FileSystem\IFileOpenAndCopyAbstraction.cs" />
     <Compile Include="FileSystem\IFileOperations.cs" />
     <Compile Include="FileSystem\InMemoryDirectoryInfo.cs" />
     <Compile Include="FileSystem\InMemoryFile.cs" />

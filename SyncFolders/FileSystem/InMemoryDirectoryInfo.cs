@@ -76,9 +76,9 @@ namespace SyncFolders
             var oFilesInDirectory = new List<IFileInfo>();
             lock (m_oFs.m_oFiles)
             {
-                foreach (KeyValuePair<string, MemoryStream> oFile in m_oFs.m_oFiles)
+                foreach (KeyValuePair<string, InMemoryFileSystem.MemoryStreamWithErrors> oFile in m_oFs.m_oFiles)
                 {
-                    if (oFile.Key.StartsWith(m_strPath))
+                    if (oFile.Key.StartsWith(m_strPath) && oFile.Key.IndexOf("\\", m_strPath.Length+1)<0)
                     {
                         oFilesInDirectory.Add(new InMemoryFileInfo(oFile.Key, oFile.Value, m_oFs));
                     }
@@ -100,9 +100,21 @@ namespace SyncFolders
             {
                 foreach (KeyValuePair<string, IDirectoryInfo> oDirectory in m_oFs.m_oDirectories)
                 {
-                    if (oDirectory.Key.StartsWith(m_strPath))
+                    if (m_strPath.EndsWith("\\"))
                     {
-                        aDirectoriesInDirectory.Add(oDirectory.Value);
+                        if (oDirectory.Key.StartsWith(m_strPath) && 
+                            oDirectory.Key.Length > m_strPath.Length + 1)
+                        {
+                            aDirectoriesInDirectory.Add(oDirectory.Value);
+                        }
+                    }
+                    else
+                    {
+                        if (oDirectory.Key.StartsWith(m_strPath + "\\") && 
+                            oDirectory.Key.Length > m_strPath.Length + 2)
+                        {
+                            aDirectoriesInDirectory.Add(oDirectory.Value);
+                        }
                     }
                 }
             }

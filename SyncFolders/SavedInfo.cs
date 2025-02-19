@@ -283,7 +283,7 @@ namespace SyncFolders
         /// <param name="oInputStream">The stream to read from</param>
         //===================================================================================================
         private void ReadFrom_v0(
-            System.IO.Stream oInputStream
+            IFile oInputStream
             )
         {
             CheckSumCalculator oMetadataChecksum = new CheckSumCalculator();
@@ -460,7 +460,7 @@ namespace SyncFolders
         /// <param name="oInputStream">The stream to read from</param>
         //===================================================================================================
         public void ReadFrom(
-            System.IO.Stream oInputStream
+            IFile oInputStream
             )
         {
             Block oBlockForLength = Block.GetBlock();
@@ -919,7 +919,7 @@ namespace SyncFolders
         /// <param name="oOutputStream">The stream to save to</param>
         //===================================================================================================
         public void SaveTo_v0(
-            System.IO.Stream oOutputStream
+            IFile oOutputStream
             )
         {
             CheckSumCalculator oMetadataChecksum = new CheckSumCalculator();
@@ -1011,7 +1011,7 @@ namespace SyncFolders
         /// <param name="oOutputStream">The stream to save to</param>
         //===================================================================================================
         public void SaveTo(
-            System.IO.Stream oOutputStream
+            IFile oOutputStream
             )
         {
             // signature
