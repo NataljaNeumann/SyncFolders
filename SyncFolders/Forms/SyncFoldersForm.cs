@@ -7192,13 +7192,24 @@ namespace SyncFolders
                     DateTime dtmNow = now;
                     string strNowF = dtmNow.ToString("F");
                     string[] astrNowF = strNowF.Split(' ');
-                    string strDateTimeFormatted = string.Format(Resources.DateFormat, strNowF ,
+                    string strDateTimeFormatted = strNowF;
+                    try
+                    {
+                        strDateTimeFormatted = string.Format(Resources.DateFormat, strNowF,
                         FormatNumber(dtmNow.Year), FormatNumber(dtmNow.Month), FormatNumber(dtmNow.Day),
-                        astrNowF.Length >= 2 ? astrNowF[1]:"", FormatNumber(dtmNow.Hour), FormatNumber(dtmNow.Minute), FormatNumber(dtmNow.Second),
-                        astrNowF[0], astrNowF.Length >= 3 ? astrNowF[2] : "", astrNowF.Length >= 4 ? astrNowF[3] : "",
+                        astrNowF.Length >= 2 ? astrNowF[1] : "", 
+                        FormatNumber(dtmNow.Hour), FormatNumber(dtmNow.Minute), FormatNumber(dtmNow.Second),
+                        astrNowF[0], astrNowF.Length >= 3 ? astrNowF[2] : "", 
+                        astrNowF.Length >= 4 ? astrNowF[3] : "",
                         astrNowF.Length >= 5 ? astrNowF[4] : "");
-                    m_oLogFileLocalized.Write("{0}\t={1}=\t", strDateTimeFormatted,
-                        FormatNumber(System.Threading.Thread.CurrentThread.ManagedThreadId));
+                        m_oLogFileLocalized.Write("{0}\t={1}=\t", strDateTimeFormatted,
+                            FormatNumber(System.Threading.Thread.CurrentThread.ManagedThreadId));
+                    } catch (Exception oEx)
+                    {
+                        // if there are any errors - write to nonlocalized log
+                        WriteLog(true, 0, "Error during time formatting for localized log: " + 
+                            oEx.Message + " F:" + strNowF + " Format:" + Resources.DateFormat);
+                    }
 
                     while (nIndent-- > 0)
                     {
