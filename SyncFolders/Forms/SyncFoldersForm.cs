@@ -7207,8 +7207,8 @@ namespace SyncFolders
                     } catch (Exception oEx)
                     {
                         // if there are any errors - write to nonlocalized log
-                        WriteLog(true, 0, "Error during time formatting for localized log: " + 
-                            oEx.Message + " F:" + strNowF + " Format:" + Resources.DateFormat);
+                        WriteLog(true, 0, "Error while formatting time for localized log: " + 
+                            oEx.Message + " F:" + strNowF + " DateFormat:" + Resources.DateFormat);
                     }
 
                     while (nIndent-- > 0)
