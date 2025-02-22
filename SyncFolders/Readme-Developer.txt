@@ -1,6 +1,6 @@
 ﻿Dear all,
 
-The project is compiled with Visual Studio 2008 community edition.
+The project is compiled with Visual Studio 2008 express edition.
 
 
 Any kind of participation is welcome.
