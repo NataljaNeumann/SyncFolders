@@ -118,287 +118,146 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="m_lblFolder1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>19, 20</value>
-  </data>
   <data name="m_lblFolder1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>77, 20</value>
+    <value>71, 16</value>
   </data>
   <data name="m_lblFolder1.Text" xml:space="preserve">
     <value>لومړی فولډر:</value>
   </data>
-  <data name="m_tbxFirstFolder.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 45</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="m_tbxFirstFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
   <data name="m_tbxFirstFolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>537, 26</value>
+    <value>578, 22</value>
   </data>
   <data name="m_btnSelectFirstFolder.Location" type="System.Drawing.Point, System.Drawing">
-    <value>577, 41</value>
-  </data>
-  <data name="m_btnSelectFirstFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="m_btnSelectFirstFolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>50, 35</value>
-  </data>
-  <data name="m_lblSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
-    <value>19, 90</value>
+    <value>613, 33</value>
   </data>
   <data name="m_lblSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>68, 20</value>
+    <value>64, 16</value>
   </data>
   <data name="m_lblSecondFolder.Text" xml:space="preserve">
     <value>دوهم فولډر:</value>
   </data>
-  <data name="m_tbxSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 115</value>
-  </data>
-  <data name="m_tbxSecondFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
   <data name="m_tbxSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>537, 26</value>
+    <value>578, 22</value>
   </data>
   <data name="m_btnSelectSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
-    <value>578, 111</value>
-  </data>
-  <data name="m_btnSelectSecondFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="m_btnSelectSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>48, 35</value>
-  </data>
-  <data name="m_cbCreateRestoreInfo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 312</value>
-  </data>
-  <data name="m_cbCreateRestoreInfo.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>614, 89</value>
   </data>
   <data name="m_cbCreateRestoreInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>405, 24</value>
+    <value>378, 20</value>
   </data>
   <data name="m_cbCreateRestoreInfo.Text" xml:space="preserve">
     <value>د واحد بلاکونو بیا رغولو لپاره ځینې معلومات خوندي کول، که دا ورک وي</value>
   </data>
-  <data name="m_cbTestAllFiles.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 347</value>
-  </data>
-  <data name="m_cbTestAllFiles.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
   <data name="m_cbTestAllFiles.Size" type="System.Drawing.Size, System.Drawing">
-    <value>215, 24</value>
+    <value>198, 20</value>
   </data>
   <data name="m_cbTestAllFiles.Text" xml:space="preserve">
     <value>د ټولو فایلونو د لوستلو وړتیا ازموینه</value>
   </data>
-  <data name="m_cbRepairBlockFailures.Location" type="System.Drawing.Point, System.Drawing">
-    <value>42, 382</value>
-  </data>
-  <data name="m_cbRepairBlockFailures.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
   <data name="m_cbRepairBlockFailures.Size" type="System.Drawing.Size, System.Drawing">
-    <value>156, 24</value>
+    <value>150, 20</value>
   </data>
   <data name="m_cbRepairBlockFailures.Text" xml:space="preserve">
     <value>د واحد بلاک ناکامۍ ترمیم</value>
   </data>
-  <data name="m_btnSync.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
   <data name="m_btnSync.Location" type="System.Drawing.Point, System.Drawing">
-    <value>388, 504</value>
-  </data>
-  <data name="m_btnSync.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="m_btnSync.Size" type="System.Drawing.Size, System.Drawing">
-    <value>112, 35</value>
+    <value>445, 370</value>
   </data>
   <data name="m_btnSync.Text" xml:space="preserve">
     <value>همغږي کول</value>
   </data>
   <data name="m_btnCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>510, 504</value>
-  </data>
-  <data name="m_btnCancel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="m_btnCancel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>112, 35</value>
+    <value>553, 370</value>
   </data>
   <data name="m_btnCancel.Text" xml:space="preserve">
     <value>لغوه کړئ</value>
   </data>
-  <data name="m_ctlProgressBar.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 504</value>
-  </data>
-  <data name="m_ctlProgressBar.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
   <data name="m_ctlProgressBar.Size" type="System.Drawing.Size, System.Drawing">
-    <value>478, 35</value>
+    <value>525, 28</value>
   </data>
   <data name="m_btnSelfTest.Location" type="System.Drawing.Point, System.Drawing">
-    <value>514, 165</value>
-  </data>
-  <data name="m_btnSelfTest.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="m_btnSelfTest.Size" type="System.Drawing.Size, System.Drawing">
-    <value>112, 35</value>
+    <value>557, 132</value>
   </data>
   <data name="m_btnSelfTest.Text" xml:space="preserve">
     <value>ازموینه</value>
   </data>
-  <data name="m_cbPreferCopies.Location" type="System.Drawing.Point, System.Drawing">
-    <value>66, 415</value>
-  </data>
-  <data name="m_cbPreferCopies.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
   <data name="m_cbPreferCopies.Size" type="System.Drawing.Size, System.Drawing">
-    <value>454, 24</value>
+    <value>423, 20</value>
   </data>
   <data name="m_cbPreferCopies.Text" xml:space="preserve">
     <value>د ترمیم پرمهال د شخړو په صورت کې فزیکي کاپي غوره کول (سپارښتنه نه کیږي)</value>
   </data>
-  <data name="m_lblProgress.Location" type="System.Drawing.Point, System.Drawing">
-    <value>24, 411</value>
-  </data>
   <data name="m_lblProgress.Size" type="System.Drawing.Size, System.Drawing">
-    <value>598, 66</value>
-  </data>
-  <data name="m_cbFirstToSecond.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 171</value>
-  </data>
-  <data name="m_cbFirstToSecond.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 4, 3, 4</value>
+    <value>632, 53</value>
   </data>
   <data name="m_cbFirstToSecond.Size" type="System.Drawing.Size, System.Drawing">
-    <value>277, 24</value>
+    <value>251, 20</value>
   </data>
   <data name="m_cbFirstToSecond.Text" xml:space="preserve">
     <value>په غیر مستقیم ډول، له لومړي فولډر څخه دویم ته</value>
   </data>
-  <data name="m_cbFirstReadonly.Location" type="System.Drawing.Point, System.Drawing">
-    <value>42, 205</value>
-  </data>
-  <data name="m_cbFirstReadonly.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 4, 3, 4</value>
-  </data>
   <data name="m_cbFirstReadonly.Size" type="System.Drawing.Size, System.Drawing">
-    <value>293, 24</value>
+    <value>268, 20</value>
   </data>
   <data name="m_cbFirstReadonly.Text" xml:space="preserve">
     <value>لومړی فولډر د بدلون وړ ندی (د بیلګې په توګه CD)</value>
   </data>
-  <data name="m_cbDeleteFilesInSecond.Location" type="System.Drawing.Point, System.Drawing">
-    <value>42, 239</value>
-  </data>
-  <data name="m_cbDeleteFilesInSecond.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 4, 3, 4</value>
-  </data>
   <data name="m_cbDeleteFilesInSecond.Size" type="System.Drawing.Size, System.Drawing">
-    <value>387, 24</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="m_cbDeleteFilesInSecond.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
+    <value>366, 20</value>
   </data>
   <data name="m_cbDeleteFilesInSecond.Text" xml:space="preserve">
     <value>په دوهم فولډر کې د فایلونو حذف کول چې نور په لومړي فولډر کې ندي</value>
   </data>
-  <data name="m_lblAbout.Location" type="System.Drawing.Point, System.Drawing">
-    <value>25, 511</value>
-  </data>
   <data name="m_lblAbout.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 20</value>
+    <value>148, 16</value>
   </data>
   <data name="m_lblAbout.Text" xml:space="preserve">
     <value>د "فولډر همغږي کړئ" په اړه</value>
   </data>
-  <data name="m_lblLicence.Location" type="System.Drawing.Point, System.Drawing">
-    <value>212, 511</value>
-  </data>
   <data name="m_lblLicence.Size" type="System.Drawing.Size, System.Drawing">
-    <value>102, 20</value>
+    <value>85, 16</value>
   </data>
   <data name="m_lblLicence.Text" xml:space="preserve">
     <value>جواز (GPL v2)</value>
   </data>
-  <data name="m_cbSkipRecentlyTested.Location" type="System.Drawing.Point, System.Drawing">
-    <value>248, 347</value>
-  </data>
-  <data name="m_cbSkipRecentlyTested.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 4, 3, 4</value>
-  </data>
   <data name="m_cbSkipRecentlyTested.Size" type="System.Drawing.Size, System.Drawing">
-    <value>246, 24</value>
+    <value>225, 20</value>
   </data>
   <data name="m_cbSkipRecentlyTested.Text" xml:space="preserve">
     <value>که په دې وروستیو کې نه وي ازمول شوي</value>
   </data>
-  <data name="m_cbParallel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>432, 171</value>
-  </data>
-  <data name="m_cbParallel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 4, 3, 4</value>
-  </data>
   <data name="m_cbParallel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>62, 24</value>
+    <value>58, 20</value>
   </data>
   <data name="m_cbParallel.Text" xml:space="preserve">
     <value>موازي</value>
   </data>
   <data name="m_cbSyncMode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>312, 171</value>
-  </data>
-  <data name="m_cbSyncMode.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 4, 3, 4</value>
+    <value>277, 137</value>
   </data>
   <data name="m_cbSyncMode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>89, 24</value>
+    <value>87, 20</value>
   </data>
   <data name="m_cbSyncMode.Text" xml:space="preserve">
     <value>همغږي کول</value>
   </data>
   <data name="m_cbIgnoreTime.Location" type="System.Drawing.Point, System.Drawing">
-    <value>42, 271</value>
-  </data>
-  <data name="m_cbIgnoreTime.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 4, 3, 4</value>
+    <value>305, 164</value>
   </data>
   <data name="m_cbIgnoreTime.Size" type="System.Drawing.Size, System.Drawing">
-    <value>381, 24</value>
-  </data>
-  <data name="m_cbIgnoreTime.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
+    <value>352, 20</value>
   </data>
   <data name="m_cbIgnoreTime.Text" xml:space="preserve">
     <value>د فایل او خوندي شوي معلوماتو ترمینځ د وخت توپیر له پامه غورځول</value>
   </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>9, 20</value>
-  </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>641, 562</value>
+    <value>670, 417</value>
   </data>
-  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt</value>
-  </data>
-  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="$this.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
     <value>Yes</value>
   </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="$this.RightToLeftLayout" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
