@@ -7506,8 +7506,8 @@ namespace SyncFolders
 
         private void FormSyncFolders_HelpRequested(object sender, HelpEventArgs hlpevent)
         {
-            // in case we don't have any special jump point in help open in browser.
-            // maybe browser can translate anything.
+            // open in browser in case we don't have any special jump point in help.
+            // maybe browser can translate somethig.
             if (Resources.ReadmeHtmlHelpJumpPoint.Equals("#en"))
             {
                 System.Diagnostics.Process.Start(System.IO.Path.Combine(Application.StartupPath, "Readme.html"));
