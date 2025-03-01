@@ -59,8 +59,66 @@ namespace SyncFolders
         public static void SetCultureForThread(Thread oThread)
         {
 #if DEBUG
-             //oThread.CurrentCulture = new CultureInfo("ja-JP");
-             //oThread.CurrentUICulture = new CultureInfo("ja-JP");
+             //string strSetCulture =
+                // "af-ZA";
+                // "ar-SA";
+                // "az-AZ";
+                // "be-BY";
+                // "bg-BG";
+                // "bs-Latn-BA";
+                // "cs-CZ";
+                // "da-DK";
+                // "de-DE";
+                // "el-GR";
+                // "es-ES";
+                // "et-EE";
+                // "fa-IR";
+                // "fi-FI";
+                // "fr-FR";
+                // "he-IL";
+                // "hi-IN";
+                // "hu-HU";
+                // "hy-AM";
+                // "id-ID";
+                // "is-IS";
+                // "it-IT";
+                // "ja-JP";
+                // "ka-GE";
+                // "kk-KZ";
+                // "km-KH";
+                // "ko-KR";
+                // "ky-KG";
+                // "lt-LT";
+                // "lv-LV";
+                // "mk-MK";
+                // "mn-MN";
+                // "ms-MY";
+                // "nl-NL";
+                // "no-NO";
+                // "pa-Arab-PK";
+                // "pa-IN";
+                // "pl-PL";
+                // "ps-AF";
+                // "pt-PT";
+                // "en-US";
+                // "ro-RO";
+                // "ru-RU";
+                // "sa-IN";
+                // "sk-SK";
+                // "sl-SL";
+                // "sr-Latn-RS"; // TODO: need a fix
+                // "sv-SE";
+                // "tg-Cyrl-TJ";
+                // "th-TH";
+                // "tr-TR";
+                // "uk-UA";
+                // "uz-Latn-UZ";
+                // "vi-VN";
+                // "zh-TW";
+                // "zh-CN";
+
+             //oThread.CurrentCulture = new CultureInfo(strSetCulture);
+             //oThread.CurrentUICulture = new CultureInfo(strSetCulture);
 #endif
         }
     }
