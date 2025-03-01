@@ -118,288 +118,262 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="m_lblFolder1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14.25pt</value>
+  </data>
   <data name="m_lblFolder1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>19, 10</value>
+    <value>17, 12</value>
   </data>
   <data name="m_lblFolder1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 20</value>
+    <value>92, 24</value>
   </data>
   <data name="m_lblFolder1.Text" xml:space="preserve">
     <value>प्रथमं पुटम् : १.</value>
   </data>
-  <data name="m_tbxFirstFolder.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 35</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="m_tbxFirstFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+  <data name="m_tbxFirstFolder.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14.25pt</value>
   </data>
   <data name="m_tbxFirstFolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>646, 26</value>
+    <value>631, 29</value>
+  </data>
+  <data name="m_btnSelectFirstFolder.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14.25pt</value>
   </data>
   <data name="m_btnSelectFirstFolder.Location" type="System.Drawing.Point, System.Drawing">
-    <value>686, 31</value>
+    <value>666, 33</value>
   </data>
-  <data name="m_btnSelectFirstFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="m_btnSelectFirstFolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>50, 35</value>
+  <data name="m_lblSecondFolder.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14.25pt</value>
   </data>
   <data name="m_lblSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
-    <value>19, 66</value>
+    <value>17, 68</value>
   </data>
   <data name="m_lblSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>79, 20</value>
+    <value>98, 24</value>
   </data>
   <data name="m_lblSecondFolder.Text" xml:space="preserve">
     <value>द्वितीयं पुटम् : १.</value>
   </data>
-  <data name="m_tbxSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 91</value>
-  </data>
-  <data name="m_tbxSecondFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+  <data name="m_tbxSecondFolder.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14.25pt</value>
   </data>
   <data name="m_tbxSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>646, 26</value>
+    <value>631, 29</value>
+  </data>
+  <data name="m_btnSelectSecondFolder.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14.25pt</value>
   </data>
   <data name="m_btnSelectSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
-    <value>687, 87</value>
+    <value>667, 89</value>
   </data>
-  <data name="m_btnSelectSecondFolder.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="m_btnSelectSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>48, 35</value>
-  </data>
-  <data name="m_cbCreateRestoreInfo.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left</value>
+  <data name="m_cbCreateRestoreInfo.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14.25pt</value>
   </data>
   <data name="m_cbCreateRestoreInfo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 231</value>
-  </data>
-  <data name="m_cbCreateRestoreInfo.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>20, 217</value>
   </data>
   <data name="m_cbCreateRestoreInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>336, 24</value>
+    <value>421, 28</value>
   </data>
   <data name="m_cbCreateRestoreInfo.Text" xml:space="preserve">
     <value>एकखण्डानां पुनर्स्थापनार्थं काश्चन सूचनाः रक्षितः, यदि अनुपलब्धः अस्ति</value>
   </data>
-  <data name="m_cbTestAllFiles.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left</value>
-  </data>
-  <data name="m_cbTestAllFiles.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 266</value>
-  </data>
-  <data name="m_cbTestAllFiles.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+  <data name="m_cbTestAllFiles.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14.25pt</value>
   </data>
   <data name="m_cbTestAllFiles.Size" type="System.Drawing.Size, System.Drawing">
-    <value>196, 24</value>
+    <value>244, 28</value>
   </data>
   <data name="m_cbTestAllFiles.Text" xml:space="preserve">
     <value>सर्वेषां सञ्चिकानां पठनीयतायाः परीक्षणं</value>
   </data>
-  <data name="m_cbRepairBlockFailures.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left</value>
+  <data name="m_cbRepairBlockFailures.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14.25pt</value>
   </data>
   <data name="m_cbRepairBlockFailures.Location" type="System.Drawing.Point, System.Drawing">
-    <value>42, 301</value>
-  </data>
-  <data name="m_cbRepairBlockFailures.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>37, 269</value>
   </data>
   <data name="m_cbRepairBlockFailures.Size" type="System.Drawing.Size, System.Drawing">
-    <value>166, 24</value>
+    <value>204, 28</value>
   </data>
   <data name="m_cbRepairBlockFailures.Text" xml:space="preserve">
     <value>एकखण्डविफलतायाः मरम्मतम्</value>
   </data>
+  <data name="m_btnSync.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14.25pt</value>
+  </data>
   <data name="m_btnSync.Location" type="System.Drawing.Point, System.Drawing">
-    <value>575, 616</value>
-  </data>
-  <data name="m_btnSync.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="m_btnSync.Size" type="System.Drawing.Size, System.Drawing">
-    <value>82, 35</value>
+    <value>498, 375</value>
   </data>
   <data name="m_btnSync.Text" xml:space="preserve">
     <value>समन्वयनम्</value>
   </data>
+  <data name="m_btnCancel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14.25pt</value>
+  </data>
   <data name="m_btnCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>666, 411</value>
-  </data>
-  <data name="m_btnCancel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="m_btnCancel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>65, 35</value>
+    <value>606, 375</value>
   </data>
   <data name="m_btnCancel.Text" xml:space="preserve">
     <value>रद्द करें</value>
   </data>
   <data name="m_ctlProgressBar.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 411</value>
-  </data>
-  <data name="m_ctlProgressBar.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>20, 375</value>
   </data>
   <data name="m_ctlProgressBar.Size" type="System.Drawing.Size, System.Drawing">
-    <value>634, 35</value>
+    <value>578, 28</value>
+  </data>
+  <data name="m_btnSelfTest.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14.25pt</value>
   </data>
   <data name="m_btnSelfTest.Location" type="System.Drawing.Point, System.Drawing">
-    <value>623, 133</value>
-  </data>
-  <data name="m_btnSelfTest.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="m_btnSelfTest.Size" type="System.Drawing.Size, System.Drawing">
-    <value>112, 35</value>
+    <value>610, 132</value>
   </data>
   <data name="m_btnSelfTest.Text" xml:space="preserve">
     <value>आत्मपरीक्षा</value>
   </data>
-  <data name="m_cbPreferCopies.Location" type="System.Drawing.Point, System.Drawing">
-    <value>64, 334</value>
-  </data>
-  <data name="m_cbPreferCopies.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+  <data name="m_cbPreferCopies.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14.25pt</value>
   </data>
   <data name="m_cbPreferCopies.Size" type="System.Drawing.Size, System.Drawing">
-    <value>328, 24</value>
+    <value>412, 28</value>
   </data>
   <data name="m_cbPreferCopies.Text" xml:space="preserve">
     <value>मरम्मतकाले विग्रहस्य सन्दर्भे भौतिकप्रतियाः प्राधान्यं (न अनुशंसितम्)</value>
   </data>
+  <data name="m_lblProgress.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14.25pt</value>
+  </data>
   <data name="m_lblProgress.Location" type="System.Drawing.Point, System.Drawing">
-    <value>24, 329</value>
+    <value>21, 301</value>
   </data>
   <data name="m_lblProgress.Size" type="System.Drawing.Size, System.Drawing">
-    <value>708, 66</value>
+    <value>685, 53</value>
   </data>
-  <data name="m_cbFirstToSecond.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 139</value>
-  </data>
-  <data name="m_cbFirstToSecond.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 4, 3, 4</value>
+  <data name="m_cbFirstToSecond.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14.25pt</value>
   </data>
   <data name="m_cbFirstToSecond.Size" type="System.Drawing.Size, System.Drawing">
-    <value>199, 24</value>
+    <value>250, 28</value>
   </data>
   <data name="m_cbFirstToSecond.Text" xml:space="preserve">
     <value>एकदिशायाः प्रथमपुटतः द्वितीयपुटपर्यन्तं</value>
   </data>
-  <data name="m_cbFirstReadonly.Location" type="System.Drawing.Point, System.Drawing">
-    <value>42, 167</value>
-  </data>
-  <data name="m_cbFirstReadonly.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 4, 3, 4</value>
+  <data name="m_cbFirstReadonly.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14.25pt</value>
   </data>
   <data name="m_cbFirstReadonly.Size" type="System.Drawing.Size, System.Drawing">
-    <value>205, 24</value>
+    <value>252, 28</value>
   </data>
   <data name="m_cbFirstReadonly.Text" xml:space="preserve">
     <value>प्रथमं पुटं परिवर्तनीयं नास्ति (उदा. CD)</value>
   </data>
-  <data name="m_cbDeleteFilesInSecond.Location" type="System.Drawing.Point, System.Drawing">
-    <value>42, 201</value>
-  </data>
-  <data name="m_cbDeleteFilesInSecond.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 4, 3, 4</value>
+  <data name="m_cbDeleteFilesInSecond.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14.25pt</value>
   </data>
   <data name="m_cbDeleteFilesInSecond.Size" type="System.Drawing.Size, System.Drawing">
-    <value>244, 24</value>
+    <value>307, 28</value>
   </data>
   <data name="m_cbDeleteFilesInSecond.Text" xml:space="preserve">
     <value>द्वितीयपुटे सञ्चिकाः अपास्यन्ति ये प्रथमपुटे न सन्ति</value>
   </data>
+  <data name="m_lblAbout.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14.25pt</value>
+  </data>
   <data name="m_lblAbout.Location" type="System.Drawing.Point, System.Drawing">
-    <value>25, 419</value>
+    <value>22, 381</value>
   </data>
   <data name="m_lblAbout.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 20</value>
+    <value>141, 24</value>
   </data>
   <data name="m_lblAbout.Text" xml:space="preserve">
     <value>"समन्वयन पुट" विषये ।</value>
   </data>
+  <data name="m_lblLicence.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14.25pt</value>
+  </data>
   <data name="m_lblLicence.Location" type="System.Drawing.Point, System.Drawing">
-    <value>212, 419</value>
+    <value>188, 381</value>
   </data>
   <data name="m_lblLicence.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 20</value>
+    <value>149, 24</value>
   </data>
   <data name="m_lblLicence.Text" xml:space="preserve">
     <value>अनुज्ञापत्रम् (GPL v2)</value>
   </data>
-  <data name="m_cbSkipRecentlyTested.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left</value>
+  <data name="m_cbSkipRecentlyTested.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14.25pt</value>
   </data>
   <data name="m_cbSkipRecentlyTested.Location" type="System.Drawing.Point, System.Drawing">
-    <value>219, 266</value>
-  </data>
-  <data name="m_cbSkipRecentlyTested.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 4, 3, 4</value>
+    <value>271, 244</value>
   </data>
   <data name="m_cbSkipRecentlyTested.Size" type="System.Drawing.Size, System.Drawing">
-    <value>154, 24</value>
+    <value>189, 28</value>
   </data>
   <data name="m_cbSkipRecentlyTested.Text" xml:space="preserve">
     <value>यदि अद्यतनतया न परीक्षितम्</value>
   </data>
-  <data name="m_cbParallel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>429, 139</value>
+  <data name="m_cbParallel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14.25pt</value>
   </data>
-  <data name="m_cbParallel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 4, 3, 4</value>
+  <data name="m_cbParallel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>424, 137</value>
   </data>
   <data name="m_cbParallel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>71, 24</value>
+    <value>83, 28</value>
   </data>
   <data name="m_cbParallel.Text" xml:space="preserve">
     <value>समानांतर</value>
   </data>
-  <data name="m_cbSyncMode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>272, 139</value>
+  <data name="m_cbSyncMode.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14.25pt</value>
   </data>
-  <data name="m_cbSyncMode.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 4, 3, 4</value>
+  <data name="m_cbSyncMode.Location" type="System.Drawing.Point, System.Drawing">
+    <value>282, 137</value>
   </data>
   <data name="m_cbSyncMode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 24</value>
+    <value>112, 28</value>
   </data>
   <data name="m_cbSyncMode.Text" xml:space="preserve">
     <value>समन्वयनविधिः</value>
   </data>
-  <data name="m_cbIgnoreTime.Location" type="System.Drawing.Point, System.Drawing">
-    <value>272, 167</value>
+  <data name="m_cbIgnoreTime.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14.25pt</value>
   </data>
-  <data name="m_cbIgnoreTime.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 4, 3, 4</value>
+  <data name="m_cbIgnoreTime.Location" type="System.Drawing.Point, System.Drawing">
+    <value>307, 164</value>
   </data>
   <data name="m_cbIgnoreTime.Size" type="System.Drawing.Size, System.Drawing">
-    <value>276, 24</value>
+    <value>344, 28</value>
   </data>
   <data name="m_cbIgnoreTime.Text" xml:space="preserve">
     <value>सञ्चिकायाः ​​रक्षितसूचनायाश्च मध्ये समयान्तरस्य अवहेलना</value>
   </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>9, 20</value>
-  </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>750, 460</value>
+    <value>723, 422</value>
   </data>
-  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt</value>
-  </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>Inherit</value>
-  </data>
-  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAQEACAAEAAQAwBAAAFgAAACgAAABAAAAAgAAAAAEAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAgV5UAAAAAAP//////////////////////////////////////////////////////////9///////
+        ///j/////////8H/9X//////wP/gP/////8Af+B//////4A/4D//////wB/gf//////gD+A///////AH
+        4H//////+APgP//////8AeA///////4A4D///////wBgf+qqqqqqgCA/wAAAAAAAAH/AAAAAAAAAP8AA
+        AAAAAAB/4AAAAAAAAD/AAAAAAAAAP+iIiIiIgCA///////8AYH///////gDgP//////8AeB////+//gD
+        4D/d//x/8Afgf+D/+D/gD+A/wH/gH8Af4D/g/+AfgD/gP8B/wB8Af+B/4P+Af4D/4D/AfgB/wf/wf8D+
+        Af/j////wHwB//f////g+Af//////8BgB///////4OAP///////AQAAAAAAAf+AAAAAAAAA/wAAAAAAA
+        AH/AAAAAAAAAP8AAAAAAAAB/4IAAAAAAAD/AQBd3V3dXf+DgD///////wHAH///////g+AP//////8B8
+        Af//////wP4A///////AfwB//////+D/gD//////wH/AH//////g/+A//////8B/8D/////////4////
+        //////z/////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////3/////////+P/////////wf/1f//////A/+A//////wB/
+        4H//////gD/gP//////AH+B//////+AP4D//////8Afgf//////4A+A///////wB4D///////gDgP///
+        ////AGB/6qqqqqqAID/AAAAAAAAAf8AAAAAAAAA/wAAAAAAAAH/gAAAAAAAAP8AAAAAAAAA/6IiIiIiA
+        ID///////wBgf//////+AOA///////wB4H////7/+APgP93//H/wB+B/4P/4P+AP4D/Af+AfwB/gP+D/
+        4B+AP+A/wH/AHwB/4H/g/4B/gP/gP8B+AH/B//B/wP4B/+P////AfAH/9////+D4B///////wGAH////
+        ///g4A///////8BAAAAAAAB/4AAAAAAAAD/AAAAAAAAAf8AAAAAAAAA/wAAAAAAAAH/ggAAAAAAAP8BA
+        F3dXd1d/4OAP///////AcAf//////+D4A///////wHwB///////A/gD//////8B/AH//////4P+AP///
+        ///Af8Af/////+D/4D//////wH/wP/////////j//////////P//////////////////////////////
+        //////////////////8=
+</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>समन्वयन पुट v1.5</value>
