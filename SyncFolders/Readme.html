@@ -1,5 +1,39 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<html>
+<html><head><style>
+        .note-ltr {
+            position: relative;
+            border-left: 5px solid blue;
+            padding-left: 30px;
+            padding-top: 30px;
+            margin: 10px 0;
+            background-color: #f9f9f9;
+        }
+        .note-ltr::before {
+            content: 'ⓘ';
+            position: absolute;
+            top: 5px;
+            left: 5px; 
+            font-size: 25px;
+            color: blue;
+        }
+        .note-rtl {
+            position: relative;
+            border-right: 5px solid blue;
+            padding-right: 30px;
+            padding-top: 30px;
+            margin: 10px 0;
+            background-color: #f9f9f9;
+        }
+        .note-rtl::before {
+            content: 'ⓘ';
+            position: absolute;
+            top: 5px; 
+            right: 5px;
+            font-size: 25px;
+            color: blue;
+        }
+    </style>
+  </head>
   <body>
     <h1 dir="ltr" lang="en">Sync Folders</h1>
     <br/>
@@ -59,7 +93,7 @@
     of the photoes to the respective other folder or drive. If you remove the synchronization mode, then the application
     can also overwrite new files in second directory by old files in first directory.</p>
 
-    <p style="note" dir="ltr" lang="en">If second directory contains special file, with the name specified below <a href="#fn1">[1]</a>, then the application
+    <p class="note-ltr" style="note" dir="ltr" lang="en">If second directory contains special file, with the name specified below <a href="#fn1">[1]</a>, then the application
     doesn't delete the files in it. In this case it ignores that you specified to delete the files in second directory.</p>
 
     <br/>
@@ -115,7 +149,7 @@
     autre dossier ou lecteur. Si vous supprimez le mode de synchronisation, l'application peut également remplacer 
     les nouveaux fichiers du deuxième répertoire par les anciens fichiers du premier répertoire.</p>
 
-    <p style="note" dir="ltr" lang="fr">Si le deuxième répertoire contient un fichier spécial, dont le nom est spécifié ci-dessous <a href="#fn1">[1]</a>,
+    <p class="note-ltr"  style="note" dir="ltr" lang="fr">Si le deuxième répertoire contient un fichier spécial, dont le nom est spécifié ci-dessous <a href="#fn1">[1]</a>,
     l'application ne supprime pas les fichiers qu'il contient lorsque vous spécifiez de supprimer les fichiers du deuxième répertoire.</p>
 
     <br/>
@@ -167,7 +201,7 @@
     la versión más reciente de las fotos a la otra carpeta o unidad respectiva. Si quita el modo de sincronización, 
     la aplicación También puede sobrescribir nuevos archivos en el segundo directorio por archivos antiguos en el primer directorio.</p>
 
-    <p style="note" dir="ltr" lang="es">Si el segundo directorio contiene un archivo especial, con el nombre especificado a continuación <a href="#fn1">[1]</a>, 
+    <p class="note-ltr" style="note" dir="ltr" lang="es">Si el segundo directorio contiene un archivo especial, con el nombre especificado a continuación <a href="#fn1">[1]</a>, 
     entonces la aplicación No elimina los archivos que contiene, cuando se especifica eliminar los archivos en el segundo directorio.</p>
 
     <br/>
@@ -217,7 +251,7 @@
     versão mais recente das fotos para a respectiva outra pasta ou unidade. Se você remover o modo de sincronização, 
     o aplicativo também pode substituir novos arquivos no segundo diretório por arquivos antigos no primeiro diretório.</p>
 
-    <p style="note" dir="ltr" lang="pt">Se o segundo diretório contiver um arquivo especial, com o nome especificado abaixo <a href="#fn1">[1]</a>, 
+    <p class="note-ltr" style="note" dir="ltr" lang="pt">Se o segundo diretório contiver um arquivo especial, com o nome especificado abaixo <a href="#fn1">[1]</a>, 
     o aplicativo não exclui os arquivos nele, quando você especifica para excluir os arquivos no segundo diretório.</p>
 
     <br/>
@@ -271,7 +305,7 @@
     rimuove la modalità di sincronizzazione, l'applicazione può anche sovrascrivere i nuovi file 
     nella seconda directory con vecchi file nella prima directory.</p>
 
-    <p style="note" dir="ltr" lang="it">Se la seconda directory contiene un file speciale, con il nome specificato di seguito <a href="#fn1">[1]</a>, 
+    <p class="note-ltr" style="note" dir="ltr" lang="it">Se la seconda directory contiene un file speciale, con il nome specificato di seguito <a href="#fn1">[1]</a>, 
     allora l'applicazione non elimina i file in esso contenuti. In questo caso, ignora che è stato 
     specificato di eliminare i file nella seconda directory.</p>
 
@@ -326,7 +360,7 @@
     Wenn Sie den Synchronisationsmodus ausschalten, kann die Anwendung auch neue Dateien im zweiten Verzeichnis 
     durch alte Dateien im ersten Verzeichnis überschreiben.</p>
 
-    <p style="note" dir="ltr" lang="de">Wenn das zweite Verzeichnis eine spezielle Datei mit dem unten <a href="#fn1">[1]</a> angegebenen Namen enthält,
+    <p class="note-ltr" style="note" dir="ltr" lang="de">Wenn das zweite Verzeichnis eine spezielle Datei mit dem unten <a href="#fn1">[1]</a> angegebenen Namen enthält,
       dann wird die Anwendung die Dateien darin nicht löschen. In diesem Fall wird ignoriert, dass Sie angegeben haben, 
       dass die Dateien im zweiten Verzeichnis gelöscht werden sollen.</p>
 
@@ -379,7 +413,7 @@
     синхронизации, приложение также может перезаписать новые файлы, находящиеся во втором каталоге, более старыми файлами,
     находящимися в первой директории.</p>
 
-    <p style="note" dir="ltr" lang="ru">Если во второй директории находится специальный файл, имя которого указано ниже <a href="#fn1">[1]</a>, 
+    <p class="note-ltr" style="note" dir="ltr" lang="ru">Если во второй директории находится специальный файл, имя которого указано ниже <a href="#fn1">[1]</a>, 
     Приложение не удаляет в нём файлы, даже когда вы указываете необходимость удаления файлов во втором каталоге.</p>
 
     <br/>
@@ -436,7 +470,7 @@
     najnowszą wersję zdjęć do odpowiedniego innego folderu lub dysku. Jeśli usuniesz tryb synchronizacji, 
     aplikacja Może również nadpisać nowe pliki w drugim katalogu przez stare pliki w pierwszym katalogu.</p>
 
-    <p style="note" dir="ltr" lang="pl">Jeśli drugi katalog zawiera specjalny plik o nazwie podanej poniżej <a href="#fn1">[1]</a>, to 
+    <p class="note-ltr" style="note" dir="ltr" lang="pl">Jeśli drugi katalog zawiera specjalny plik o nazwie podanej poniżej <a href="#fn1">[1]</a>, to 
     aplikacja nie usuwa znajdujących się w nim plików. W takim przypadku ignoruje to, 
     że określiłeś do usunięcia plików w drugim katalogu.</p>
 
@@ -491,7 +525,7 @@
     την πιο πρόσφατη έκδοση των φωτογραφιών ο ένας στον φάκελο ή τη μονάδα δίσκου του άλλου. Εάν απενεργοποιήσετε τη λειτουργία συγχρονισμού, 
     η εφαρμογή μπορεί επίσης να αντικαταστήσει νέα αρχεία στον δεύτερο κατάλογο με παλιά αρχεία στον πρώτο κατάλογο.</p>
 
-    <p style="note" dir="ltr" lang="gr">Εάν ο δεύτερος κατάλογος περιέχει ένα ειδικό αρχείο με το όνομα που δίνεται παρακάτω <a href="#fn1">[1]</a>, 
+    <p class="note-ltr" style="note" dir="ltr" lang="gr">Εάν ο δεύτερος κατάλογος περιέχει ένα ειδικό αρχείο με το όνομα που δίνεται παρακάτω <a href="#fn1">[1]</a>, 
     τότε η εφαρμογή δεν θα διαγράψει τα αρχεία σε αυτόν. Σε αυτήν την περίπτωση, 
     αγνοεί ότι καθορίσατε ότι τα αρχεία στον δεύτερο κατάλογο πρέπει να διαγραφούν.</p>
 
@@ -541,7 +575,7 @@
     nieuwste versie van foto's naar elkaars map of schijf te kopiëren. Als u de synchronisatiemodus uitschakelt, 
     kan de toepassing ook nieuwe bestanden in de tweede map overschrijven met oude bestanden in de eerste map.</p>
 
-    <p style="note" dir="ltr" lang="nl">Als de tweede map een speciaal bestand bevat met de onderstaande naam <a href="#fn1">[1]</a>, zal de applicatie de bestanden 
+    <p class="note-ltr" style="note" dir="ltr" lang="nl">Als de tweede map een speciaal bestand bevat met de onderstaande naam <a href="#fn1">[1]</a>, zal de applicatie de bestanden 
     daarin niet verwijderen. In dit geval wordt genegeerd dat u hebt opgegeven dat de bestanden in de tweede map moeten worden verwijderd.</p>
 
     <br/>
@@ -591,7 +625,7 @@
     den seneste version af billeder til hinandens mappe eller drev. Hvis du slår synkroniseringstilstand fra, 
     kan programmet også overskrive nye filer i den anden mappe med gamle filer i den første mappe.</p>
 
-    <p style="note" dir="ltr" lang="da">Hvis den anden mappe indeholder en speciel fil med navnet angivet nedenfor <a href="#fn1">[1]</a>, 
+    <p class="note-ltr" style="note" dir="ltr" lang="da">Hvis den anden mappe indeholder en speciel fil med navnet angivet nedenfor <a href="#fn1">[1]</a>, 
     vil applikationen ikke slette filerne i den. I dette tilfælde ignorerer den, at du har angivet, at filerne i den anden mappe skal slettes.</p>
 
     <br/>
@@ -644,7 +678,7 @@
     version valokuvista toistensa kansioon tai asemaan. Jos poistat synkronointitilan käytöstä, sovellus voi myös korvata 
     uudet tiedostot toisessa hakemistossa vanhoilla tiedostoilla ensimmäisessä hakemistossa.</p>
 
-    <p style="note" dir="ltr" lang="fi">Jos toinen hakemisto sisältää erityisen tiedoston, jonka nimi on alla <a href="#fn1">[1]</a>, sovellus 
+    <p class="note-ltr" style="note" dir="ltr" lang="fi">Jos toinen hakemisto sisältää erityisen tiedoston, jonka nimi on alla <a href="#fn1">[1]</a>, sovellus 
     ei poista siinä olevia tiedostoja. Tässä tapauksessa se jättää huomioimatta, että määritit, että toisen hakemiston tiedostot pitäisi poistaa.</p>
 
     <br/>
@@ -655,62 +689,47 @@
     <a name="sv">
       <h1 dir="ltr" lang="sv">Svenska</h1>
     </a>
-    <p dir="ltr" lang="sv">
-      SyncFolders är ett program utformat för att hjälpa dig att hålla två mappar eller enheter synkroniserade.
+    <p dir="ltr" lang="sv">SyncFolders är ett program utformat för att hjälpa dig att hålla två mappar eller enheter synkroniserade.
       Med standardinställningar skapar denna applikation dolda filer cirka 1 % av storleken på originalfilerna och låter dig utföra
-      en fullständig återställning efter individuella blockeringsfel. Det finns två skyddsnivåer:
-    </p>
+      en fullständig återställning efter individuella blockeringsfel. Det finns två skyddsnivåer:</p>
 
     <ol dir="ltr" lang="sv">
       <li dir="ltr" lang="sv">Du behåller två olika enheter med fullständiga kopior av filer.</li>
       <li dir="ltr" lang="sv">Även om en enhet inte längre är tillgänglig, t.ex. B. på grund av strömavbrott eller andra problem
         kan fel i enskilda block och ännu större felområden i filer återställas med ytterligare sparad information.</li>
     </ol>
-    <p dir="ltr" lang="sv">
-      Originalfilerna och ytterligare lagrad information kan kontrolleras av applikationen. Vid fel försöker programmet reparera filen.
+    
+    <p dir="ltr" lang="sv">Originalfilerna och ytterligare lagrad information kan kontrolleras av applikationen. Vid fel försöker programmet reparera filen.
       Om det finns en andra kopia med samma datum och längd, försöker appen återställa enskilda block från den andra kopian.
-      Om detta misslyckas kommer appen att försöka återställa enskilda block från ytterligare säkerhetskopieringsinformation lagrad i dolda filer.
-    </p>
+      Om detta misslyckas kommer appen att försöka återställa enskilda block från ytterligare säkerhetskopieringsinformation lagrad i dolda filer.</p>
 
-    <p dir="ltr" lang="sv">
-      Om alla ovanstående åtgärder misslyckas kommer programmet också att försöka återställa en äldre kopia av den andra från den andra enheten.
-      Detta är standardbeteendet för säkerhetskopieringsapplikationer.
-    </p>
+    <p dir="ltr" lang="sv">Om alla ovanstående åtgärder misslyckas kommer programmet också att försöka återställa en äldre kopia av den andra från den andra enheten.
+      Detta är standardbeteendet för säkerhetskopieringsapplikationer.</p>
 
-    <p dir="ltr" lang="sv">
-      Om inget fungerade återställer applikationen de tillgängliga delarna av filen genom att skriva över
+    <p dir="ltr" lang="sv">Om inget fungerade återställer applikationen de tillgängliga delarna av filen genom att skriva över
       oläsbara block med nollor så att åtminstone filen kan läsas och kopieras, även om inte alla delar av den är i ordning.
-      Många medieapplikationer kan hoppa över dessa saknade delar.
-    </p>
+      Många medieapplikationer kan hoppa över dessa saknade delar.</p>
 
     <p dir="ltr" lang="sv">Allt detta sker automatiskt, och håller dina personliga familjefoton och videor så säkra som möjligt.</p>
 
     <p dir="ltr" lang="sv">När processen är klar kommer en logg att visas och även sparas i mappen Dokument för framtida referens.</p>
 
-    <p dir="ltr" lang="sv">
-      Installation krävs inte. Du kan extrahera zip-arkivet till en undermapp på enheten som innehåller Foton
-      och köra det därifrån. Windows kommer äntligen att be dig installera .NET Framework, det är allt du behöver.
-    </p>
+    <p dir="ltr" lang="sv">Installation krävs inte. Du kan extrahera zip-arkivet till en undermapp på enheten som innehåller Foton
+      och köra det därifrån. Windows kommer äntligen att be dig installera .NET Framework, det är allt du behöver.</p>
 
-    <p dir="ltr" lang="sv">
-      Om du väljer att kopiera från den första katalogen till den andra katalogen kommer appen att behandla
+    <p dir="ltr" lang="sv">Om du väljer att kopiera från den första katalogen till den andra katalogen kommer appen att behandla
       den första katalogen som primär datakälla och den andra katalogen som säkerhetskopia. Om programmet upptäcker att en fil i
       den första katalogen innehåller dåliga block, kan den fortfarande försöka återställa blocken från säkerhetskopian i den andra
       mappen eller den äldre versionen av samma fil från säkerhetskopian i den andra katalogen. Du måste ange att den första katalogen
-      inte är skrivbar så att programmet inte försöker ändra filerna i den första katalogen.
-    </p>
+      inte är skrivbar så att programmet inte försöker ändra filerna i den första katalogen.</p>
 
-    <p dir="ltr" lang="sv">
-      Die Anwendung wird normalerweise im Synchronisationsmodus ausgeführt, was bedeutet, dass sie versucht,
+    <p dir="ltr" lang="sv">Die Anwendung wird normalerweise im Synchronisationsmodus ausgeführt, was bedeutet, dass sie versucht,
       die neueste Version der Fotos zu kopieren in den jeweils anderen Ordner oder das jeweils andere Laufwerk. Wenn Sie den
       Synchronisationsmodus ausschalten, kann die Anwendung auch neue Dateien im zweiten Verzeichnis durch alte Dateien im
-      ersten Verzeichnis überschreiben.
-    </p>
+      ersten Verzeichnis überschreiben.</p>
 
-    <p style="note" dir="ltr" lang="sv">
-      Om den andra katalogen innehåller en speciell fil med namnet nedan <a href="#fn1">[1]</a>, kommer programmet inte att radera filerna i den.
-      I det här fallet ignorerar den att du angav att filerna i den andra katalogen ska raderas.
-    </p>
+    <p class="note-ltr" style="note" dir="ltr" lang="sv">Om den andra katalogen innehåller en speciell fil med namnet nedan <a href="#fn1">[1]</a>,kommer programmet inte att radera filerna i den.
+      I det här fallet ignorerar den att du angav att filerna i den andra katalogen ska raderas.</p>
 
     <br/>
     <a href="https://github.com/NataljaNeumann/SyncFolders/issues" target="_new" dir="ltr" lang="sv">Behöver du stöd?</a>
@@ -743,7 +762,7 @@
 
     <p dir="ltr" lang="tr">İşlem tamamlandığında bir günlük görüntülenecek ve ileride başvurmak üzere Belgeler klasörüne kaydedilecektir.</p>
 
-    <p dir="ltr" lang="de">Kurulum gerekli değildir. Zip arşivini sürücüdeki Fotoğraflar'ın bulunduğu bir alt klasöre çıkarabilir 
+    <p dir="ltr" lang="tr">Kurulum gerekli değildir. Zip arşivini sürücüdeki Fotoğraflar'ın bulunduğu bir alt klasöre çıkarabilir 
     ve oradan çalıştırabilirsiniz. Windows sonunda sizden .NET Framework'ü kurmanızı isteyecek, ihtiyacınız olan tek şey bu.</p>
 
     <p dir="ltr" lang="tr">Birinci dizinden ikinci dizine kopyalamayı seçerseniz uygulama, ilk dizini birincil veri kaynağı, 
@@ -755,7 +774,7 @@
     sürücüsüne kopyalamaya çalıştığı anlamına gelir. Senkronizasyon modunu kapatırsanız, uygulama aynı zamanda ikinci dizindeki 
     yeni dosyaların üzerine birinci dizindeki eski dosyaları da yazabilir.</p>
 
-    <p style="note" dir="ltr" lang="tr">İkinci dizin aşağıda <a href="#fn1">[1]</a> adı verilen özel bir dosya içeriyorsa, uygulama içindeki dosyaları silmez. 
+    <p class="note-ltr" style="note" dir="ltr" lang="tr">İkinci dizin aşağıda <a href="#fn1">[1]</a> adı verilen özel bir dosya içeriyorsa, uygulama içindeki dosyaları silmez. 
     Bu durumda, ikinci dizindeki dosyaların silinmesi gerektiğini belirttiğiniz dikkate alınmaz.</p>
 
     <br/>
@@ -798,7 +817,7 @@
     <p dir="ltr" lang="chs">应用程序通常以同步模式运行，这意味着它将尝试复制最新版本 的照片复制到相应的其他文件夹或驱动器。
     如果删除同步模式，则应用程序 也可以用第一个目录中的旧文件覆盖第二个目录中的新文件。</p>
 
-    <p style="note" dir="ltr" lang="chs">如果第二个目录包含特殊文件，其名称在 <a href="#fn1">[1]</a> 下面指定，
+    <p class="note-ltr" style="note" dir="ltr" lang="chs">如果第二个目录包含特殊文件，其名称在 <a href="#fn1">[1]</a> 下面指定，
     则应用程序 不会删除其中的文件。在这种情况下，它会忽略您指定的删除第二个目录中的文件。</p>
 
     <br/>
@@ -842,7 +861,7 @@
     <p dir="ltr" lang="cht">應用程式通常以同步模式運行，這意味著它將嘗試複製最新版本 的照片複製到相應的其他資料夾或驅動器。
     如果刪除同步模式，則應用程式 也可以用第一個目錄中的舊檔覆蓋第二個目錄中的新檔。</p>
 
-    <p style="note" dir="ltr" lang="cht">如果第二個目錄包含特殊檔，其名稱在 <a href="#fn1">[1]</a> 下面指定，
+    <p class="note-ltr" style="note" dir="ltr" lang="cht">如果第二個目錄包含特殊檔，其名稱在 <a href="#fn1">[1]</a> 下面指定，
     則應用程式 不會刪除其中的檔。在這種情況下，它會忽略您指定的刪除第二個目錄中的檔。</p>
 
     <br/>
@@ -894,7 +913,7 @@
       それぞれの他のフォルダまたはドライブへの写真の。同期モードを削除すると、アプリケーションは また、
       二 番目のディレクトリにある新しいファイルを 一 番目のディレクトリにある古いファイルで上書きすることもできます。</p>
 
-    <p style="note" dir="ltr" lang="ja">二 番目のディレクトリに <a href="#fn1">[1]</a> で指定した名前の特別なファイルが含まれている場合、
+    <p class="note-ltr" style="note" dir="ltr" lang="ja">二 番目のディレクトリに <a href="#fn1">[1]</a> で指定した名前の特別なファイルが含まれている場合、
     アプリケーションは その中のファイルは削除されません。この場合、
     二 番目のディレクトリ内のファイルを削除するように指定したことは無視されます。</p>
 
@@ -944,7 +963,7 @@
     이는 최신 버전을 복사하려고 시도한다는 것을 의미합니다 사진을 각각의 다른 폴더 또는 드라이브에 넣습니다. 
     동기화 모드를 제거하면 응용 프로그램이 두 번째 디렉토리의 새 파일을 첫 번째 디렉토리의 이전 파일로 덮어쓸 수도 있습니다.</p>
 
-    <p style="note" dir="ltr" lang="ko">두 번째 디렉토리에 <a href="#fn1">[1]</a> 아래에 지정된 이름의 특수 파일이 
+    <p class="note-ltr" style="note" dir="ltr" lang="ko">두 번째 디렉토리에 <a href="#fn1">[1]</a> 아래에 지정된 이름의 특수 파일이 
     포함되어 있으면 응용 프로그램은 그 안에 있는 파일을 삭제하지 않습니다. 
     이 경우 두 번째 디렉토리의 파일을 삭제하도록 지정한 것을 무시합니다.</p>
 
@@ -990,7 +1009,7 @@
     अन्य फ़ोल्डर या ड्राइव के लिए फोटो। यदि आप सिंक्रनाइज़ेशन मोड को हटाते हैं, तो एप्लिकेशन पहली निर्देशिका में पुरानी 
     फ़ाइलों द्वारा दूसरी निर्देशिका में नई फ़ाइलों को भी अधिलेखित कर सकते हैं।</p>
 
-    <p style="note" dir="ltr" lang="hi">यदि दूसरी निर्देशिका में विशेष फ़ाइल है, जिसका नाम नीचे निर्दिष्ट है <a href="#fn1">[1]</a>, 
+    <p class="note-ltr" style="note" dir="ltr" lang="hi">यदि दूसरी निर्देशिका में विशेष फ़ाइल है, जिसका नाम नीचे निर्दिष्ट है <a href="#fn1">[1]</a>, 
     तो एप्लिकेशन इसमें फ़ाइलों को नहीं हटाता है। इस स्थिति में, यह अनदेखा करता है कि आपने दूसरी निर्देशिका में फ़ाइलों को हटाने के लिए निर्दिष्ट किया है।</p>
 
     <br/>
@@ -1040,7 +1059,7 @@
     <p dir="rtl" lang="ar"> عادة ما يعمل التطبيق في وضع المزامنة ، مما يعني أنه سيحاول نسخ أحدث إصدار من الصور إلى المجلد أو محرك الأقراص الآخر المعني.
    إذا قمت بإزالة وضع المزامنة ، تطبيق التطبيق يمكن أيضا استبدال الملفات الجديدة في الدليل الثاني بالملفات القديمة في الدليل الأول.</p>
 
-   <p style="note" dir="rtl" lang="ar"> إذا كان الدليل الثاني يحتوي على ملف خاص ، بالاسم المحدد أدناه <a href="#fn1">[1]</a> ،
+   <p class="note-rtl" style="note" dir="rtl" lang="ar"> إذا كان الدليل الثاني يحتوي على ملف خاص ، بالاسم المحدد أدناه <a href="#fn1">[1]</a> ،
    فإن التطبيق لا يحذف الملفات الموجودة فيه. في هذه الحالة، يتجاهل ما حددته لحذف الملفات الموجودة في الدليل الثاني.</p>
 
       <p dir="rtl" lang="ar">
@@ -1087,7 +1106,7 @@
     <p dir="rtl" lang="he"> היישום פועל בדרך כלל במצב סינכרון, מה שאומר שהוא ינסה להעתיק את הגרסה החדשה ביותר של התמונות לתיקייה או לכונן המתאימים האחרים.
     אם תסיר את מצב הסנכרון, היישום יכול גם להחליף קבצים חדשים בספרייה השנייה על ידי קבצים ישנים בספרייה הראשונה.</p>
 
-    <p style="note" dir="rtl" lang="he"> אם הספרייה השניה מכילה קובץ מיוחד, עם השם שצוין להלן <a href="#fn1">[1]</a>,
+    <p class="note-rtl" style="note" dir="rtl" lang="he"> אם הספרייה השניה מכילה קובץ מיוחד, עם השם שצוין להלן <a href="#fn1">[1]</a>,
     היישום אינו מוחק את הקבצים שבו. במקרה זה, הוא מתעלם מכך שציינת למחוק את הקבצים בספריה השניה.</p>
 
     <p dir="rtl" lang="he">

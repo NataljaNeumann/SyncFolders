@@ -587,61 +587,45 @@ uudet tiedostot toisessa hakemistossa vanhoilla tiedostoilla ensimmäisessä hak
 [Wiki](https://github.com/NataljaNeumann/SyncFolders/wiki)‎
 # Svenska
 <a name="sv"></a>
-‎
-SyncFolders är ett program utformat för att hjälpa dig att hålla två mappar eller enheter synkroniserade.
+‎SyncFolders är ett program utformat för att hjälpa dig att hålla två mappar eller enheter synkroniserade.
 Med standardinställningar skapar denna applikation dolda filer cirka 1 % av storleken på originalfilerna och låter dig utföra
 en fullständig återställning efter individuella blockeringsfel. Det finns två skyddsnivåer:
-
 1. Du behåller två olika enheter med fullständiga kopior av filer.
 2. Även om en enhet inte längre är tillgänglig, t.ex. B. på grund av strömavbrott eller andra problem
 kan fel i enskilda block och ännu större felområden i filer återställas med ytterligare sparad information.
 
-‎
-Originalfilerna och ytterligare lagrad information kan kontrolleras av applikationen. Vid fel försöker programmet reparera filen.
+‎Originalfilerna och ytterligare lagrad information kan kontrolleras av applikationen. Vid fel försöker programmet reparera filen.
 Om det finns en andra kopia med samma datum och längd, försöker appen återställa enskilda block från den andra kopian.
 Om detta misslyckas kommer appen att försöka återställa enskilda block från ytterligare säkerhetskopieringsinformation lagrad i dolda filer.
 
-
-‎
-Om alla ovanstående åtgärder misslyckas kommer programmet också att försöka återställa en äldre kopia av den andra från den andra enheten.
+‎Om alla ovanstående åtgärder misslyckas kommer programmet också att försöka återställa en äldre kopia av den andra från den andra enheten.
 Detta är standardbeteendet för säkerhetskopieringsapplikationer.
 
-
-‎
-Om inget fungerade återställer applikationen de tillgängliga delarna av filen genom att skriva över
+‎Om inget fungerade återställer applikationen de tillgängliga delarna av filen genom att skriva över
 oläsbara block med nollor så att åtminstone filen kan läsas och kopieras, även om inte alla delar av den är i ordning.
 Många medieapplikationer kan hoppa över dessa saknade delar.
-
 
 ‎Allt detta sker automatiskt, och håller dina personliga familjefoton och videor så säkra som möjligt.
 
 ‎När processen är klar kommer en logg att visas och även sparas i mappen Dokument för framtida referens.
 
-‎
-Installation krävs inte. Du kan extrahera zip-arkivet till en undermapp på enheten som innehåller Foton
+‎Installation krävs inte. Du kan extrahera zip-arkivet till en undermapp på enheten som innehåller Foton
 och köra det därifrån. Windows kommer äntligen att be dig installera .NET Framework, det är allt du behöver.
 
-
-‎
-Om du väljer att kopiera från den första katalogen till den andra katalogen kommer appen att behandla
+‎Om du väljer att kopiera från den första katalogen till den andra katalogen kommer appen att behandla
 den första katalogen som primär datakälla och den andra katalogen som säkerhetskopia. Om programmet upptäcker att en fil i
 den första katalogen innehåller dåliga block, kan den fortfarande försöka återställa blocken från säkerhetskopian i den andra
 mappen eller den äldre versionen av samma fil från säkerhetskopian i den andra katalogen. Du måste ange att den första katalogen
 inte är skrivbar så att programmet inte försöker ändra filerna i den första katalogen.
 
-
-‎
-Die Anwendung wird normalerweise im Synchronisationsmodus ausgeführt, was bedeutet, dass sie versucht,
+‎Die Anwendung wird normalerweise im Synchronisationsmodus ausgeführt, was bedeutet, dass sie versucht,
 die neueste Version der Fotos zu kopieren in den jeweils anderen Ordner oder das jeweils andere Laufwerk. Wenn Sie den
 Synchronisationsmodus ausschalten, kann die Anwendung auch neue Dateien im zweiten Verzeichnis durch alte Dateien im
 ersten Verzeichnis überschreiben.
 
-
 > [!NOTE]
-> ‎
-> Om den andra katalogen innehåller en speciell fil med namnet nedan [^1], kommer programmet inte att radera filerna i den.
+> ‎Om den andra katalogen innehåller en speciell fil med namnet nedan [^1],kommer programmet inte att radera filerna i den.
 > I det här fallet ignorerar den att du angav att filerna i den andra katalogen ska raderas.
-> 
   
 [Behöver du stöd?](https://github.com/NataljaNeumann/SyncFolders/issues)  
 [Wiki](https://github.com/NataljaNeumann/SyncFolders/wiki)‎
