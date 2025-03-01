@@ -467,6 +467,38 @@
       <DependentUpon>LogDisplayingForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SyncFoldersForm.fa.resx">
+      <DependentUpon>SyncFoldersForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SyncFoldersForm.hi.resx">
+      <DependentUpon>SyncFoldersForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SyncFoldersForm.km-KH.resx">
+      <DependentUpon>SyncFoldersForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SyncFoldersForm.ko.resx">
+      <DependentUpon>SyncFoldersForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SyncFoldersForm.pa-IN.resx">
+      <DependentUpon>SyncFoldersForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SyncFoldersForm.ps-AF.resx">
+      <DependentUpon>SyncFoldersForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SyncFoldersForm.sa.resx">
+      <DependentUpon>SyncFoldersForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SyncFoldersForm.th.resx">
+      <DependentUpon>SyncFoldersForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.af.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -700,10 +732,6 @@
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SyncFoldersForm.fa.resx">
-      <DependentUpon>SyncFoldersForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\SyncFoldersForm.fi.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -713,10 +741,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SyncFoldersForm.he.resx">
-      <DependentUpon>SyncFoldersForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SyncFoldersForm.hi.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -749,14 +773,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SyncFoldersForm.kk.resx">
-      <DependentUpon>SyncFoldersForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SyncFoldersForm.km-KH.resx">
-      <DependentUpon>SyncFoldersForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SyncFoldersForm.ko.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -800,15 +816,7 @@
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SyncFoldersForm.pa-IN.resx">
-      <DependentUpon>SyncFoldersForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\SyncFoldersForm.pl.resx">
-      <DependentUpon>SyncFoldersForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SyncFoldersForm.ps-AF.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -837,10 +845,6 @@
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SyncFoldersForm.sa.resx">
-      <DependentUpon>SyncFoldersForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\SyncFoldersForm.sk.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -858,10 +862,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SyncFoldersForm.tg-Cyrl-TJ.resx">
-      <DependentUpon>SyncFoldersForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SyncFoldersForm.th.resx">
       <DependentUpon>SyncFoldersForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -943,6 +943,7 @@
   copy /Y "$(ProjectDir)*.csproj" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\$(ProjectName)\"
   copy /Y "$(SolutionDir).gitignore" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\"
   copy /Y "$(ProjectDir)*.ico" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\$(ProjectName)\"
+  copy /Y "$(ProjectDir)*.jpg" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\$(ProjectName)\"
   copy /Y "$(ProjectDir)SyncFolders.ico" "$(TargetDir)"
   copy /Y "$(ProjectDir)desktop.ini.txt" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\$(ProjectName)\desktop.ini.txt"
   copy /Y "$(ProjectDir)desktop.ini.txt" "$(TargetDir)desktop.ini"
