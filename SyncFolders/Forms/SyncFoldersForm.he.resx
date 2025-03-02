@@ -124,6 +124,9 @@
   <data name="m_lblFolder1.Text" xml:space="preserve">
     <value>תיקייה ראשונה:</value>
   </data>
+  <data name="m_tbxFirstFolder.Size" type="System.Drawing.Size, System.Drawing">
+    <value>487, 22</value>
+  </data>
   <data name="m_btnSelectFirstFolder.Location" type="System.Drawing.Point, System.Drawing">
     <value>523, 33</value>
   </data>
@@ -135,6 +138,12 @@
   </data>
   <data name="m_lblSecondFolder.Text" xml:space="preserve">
     <value>תיקייה שנייה:</value>
+  </data>
+  <data name="m_tbxSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
+    <value>487, 22</value>
+  </data>
+  <data name="m_btnSelectSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
+    <value>523, 89</value>
   </data>
   <data name="m_cbCreateRestoreInfo.Location" type="System.Drawing.Point, System.Drawing">
     <value>20, 247</value>
@@ -181,6 +190,12 @@
   </data>
   <data name="m_ctlProgressBar.Location" type="System.Drawing.Point, System.Drawing">
     <value>20, 401</value>
+  </data>
+  <data name="m_ctlProgressBar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>434, 28</value>
+  </data>
+  <data name="m_btnSelfTest.Location" type="System.Drawing.Point, System.Drawing">
+    <value>466, 132</value>
   </data>
   <data name="m_btnSelfTest.Text" xml:space="preserve">
     <value>בדיקה עצמית</value>
@@ -271,6 +286,29 @@
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>579, 448</value>
+  </data>
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAQEACAAEAAQAwBAAAFgAAACgAAABAAAAAgAAAAAEAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAgV5UAAAAAAP//////////////////////////////////////////////////////////9///////
+        ///j/////////8H/9X//////wP/gP/////8Af+B//////4A/4D//////wB/gf//////gD+A///////AH
+        4H//////+APgP//////8AeA///////4A4D///////wBgf+qqqqqqgCA/wAAAAAAAAH/AAAAAAAAAP8AA
+        AAAAAAB/4AAAAAAAAD/AAAAAAAAAP+iIiIiIgCA///////8AYH///////gDgP//////8AeB////+//gD
+        4D/d//x/8Afgf+D/+D/gD+A/wH/gH8Af4D/g/+AfgD/gP8B/wB8Af+B/4P+Af4D/4D/AfgB/wf/wf8D+
+        Af/j////wHwB//f////g+Af//////8BgB///////4OAP///////AQAAAAAAAf+AAAAAAAAA/wAAAAAAA
+        AH/AAAAAAAAAP8AAAAAAAAB/4IAAAAAAAD/AQBd3V3dXf+DgD///////wHAH///////g+AP//////8B8
+        Af//////wP4A///////AfwB//////+D/gD//////wH/AH//////g/+A//////8B/8D/////////4////
+        //////z/////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////3/////////+P/////////wf/1f//////A/+A//////wB/
+        4H//////gD/gP//////AH+B//////+AP4D//////8Afgf//////4A+A///////wB4D///////gDgP///
+        ////AGB/6qqqqqqAID/AAAAAAAAAf8AAAAAAAAA/wAAAAAAAAH/gAAAAAAAAP8AAAAAAAAA/6IiIiIiA
+        ID///////wBgf//////+AOA///////wB4H////7/+APgP93//H/wB+B/4P/4P+AP4D/Af+AfwB/gP+D/
+        4B+AP+A/wH/AHwB/4H/g/4B/gP/gP8B+AH/B//B/wP4B/+P////AfAH/9////+D4B///////wGAH////
+        ///g4A///////8BAAAAAAAB/4AAAAAAAAD/AAAAAAAAAf8AAAAAAAAA/wAAAAAAAAH/ggAAAAAAAP8BA
+        F3dXd1d/4OAP///////AcAf//////+D4A///////wHwB///////A/gD//////8B/AH//////4P+AP///
+        ///Af8Af/////+D/4D//////wH/wP/////////j//////////P//////////////////////////////
+        //////////////////8=
+</value>
   </data>
   <data name="$this.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
     <value>Yes</value>
