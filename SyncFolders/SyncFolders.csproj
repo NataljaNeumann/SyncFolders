@@ -973,6 +973,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="SyncFolders.ico" />
+    <Content Include="SyncFoldersHeader.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="SyncFoldersSmall.ico" />
   </ItemGroup>
 </Project>

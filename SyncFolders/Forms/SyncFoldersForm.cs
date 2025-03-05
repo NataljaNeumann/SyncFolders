@@ -189,6 +189,9 @@ namespace SyncFolders
 
             // test if the startup folder is writale, change settings
             TestIfRunningFromReadonnly();
+
+            // Add header image
+            ReadyToUseImageInjection("SyncFoldersHeader.jpg");
         }
 
 
@@ -303,8 +306,28 @@ namespace SyncFolders
                                             strMd.Append((char)0x200E);
                                         }
                                     }
+                                }
 
-
+                                if (oXmlNode.Name.Equals("cite"))
+                                {
+                                    if (oXmlNode.Attributes != null && oXmlNode.Attributes.GetNamedItem("dir") != null)
+                                    {
+                                        if (oXmlNode.Attributes.GetNamedItem("dir").Value.Equals("rtl"))
+                                        {
+                                            strTxt.Append(" ");
+                                            strMd.Append(" ");
+                                            strTxt.Append((char)0x200F);
+                                            strMd.Append((char)0x200F);
+                                        }
+                                        else
+                                        if (oXmlNode.Attributes.GetNamedItem("dir").Value.Equals("ltr"))
+                                        {
+                                            strTxt.Append(" ");
+                                            strMd.Append(" ");
+                                            strTxt.Append((char)0x200E);
+                                            strMd.Append((char)0x200E);
+                                        }
+                                    }
                                 }
                                 if (oXmlNode.Name.Equals("a"))
                                 {
@@ -380,6 +403,7 @@ namespace SyncFolders
                             {
 
                                 string strText = oXmlNode.InnerText;
+                                string strTextForMd = strText.Replace("&", "&amp;").Replace("<", "&lt;").Replace(">", "&gt;"); ;
 
                                 while (strText.IndexOf(Environment.NewLine + " ") >= 0)
                                     strText = strText.Replace(Environment.NewLine + " ", Environment.NewLine);
@@ -388,6 +412,8 @@ namespace SyncFolders
                                 {
                                     strText = strText.Replace(Environment.NewLine,
                                         Environment.NewLine+"> ");
+                                    strTextForMd = strTextForMd.Replace(Environment.NewLine,
+                                        Environment.NewLine + "> ");
                                 }
 
                                 if (oXmlNode.ParentNode.Attributes != null && oXmlNode.ParentNode.Attributes.GetNamedItem("dir") != null)
@@ -395,17 +421,24 @@ namespace SyncFolders
                                     if (oXmlNode.ParentNode.Attributes.GetNamedItem("dir").Value.Equals("rtl"))
                                     {
                                         strText = strText.Replace(".NET-Framework", (char)0x200E + ".NET-Framework" + (char)0x200F);
+                                        strTextForMd = strTextForMd.Replace(".NET-Framework", (char)0x200E + ".NET-Framework" + (char)0x200F);
                                     }
                                 }
 
                                 strTxt.Append(strText);
 
                                 if (strText.Equals("[1]"))
+                                {
                                     strText = "[^1]";
+                                    strTextForMd = strText;
+                                }
                                 if (strText.Equals("[1]:"))
+                                {
                                     strText = "[^1]:";
+                                    strTextForMd = strText;
+                                }
 
-                                strMd.Append(strText);
+                                strMd.Append(strTextForMd);
 
                                 // then try to descend into next sibling
                                 if (oXmlNode.NextSibling != null)
@@ -446,6 +479,24 @@ namespace SyncFolders
                             if (oXmlNode.Name.Equals("i"))
                             {
                                 strMd.Append("*");
+                            }
+                            if (oXmlNode.Name.Equals("cite"))
+                            {
+                                if (oXmlNode.ParentNode.Attributes != null && oXmlNode.ParentNode.Attributes.GetNamedItem("dir") != null)
+                                {
+                                    if (oXmlNode.ParentNode.Attributes.GetNamedItem("dir").Value.Equals("rtl"))
+                                    {
+                                        strTxt.Append((char)0x200F);
+                                        strMd.Append((char)0x200F);
+                                    }
+
+                                    if (oXmlNode.ParentNode.Attributes.GetNamedItem("dir").Value.Equals("ltr"))
+                                    {
+                                        strTxt.Append((char)0x200E);
+                                        strMd.Append((char)0x200E);
+                                    }
+
+                                }
                             }
                             if (oXmlNode.Name.Equals("a"))
                             {
@@ -7504,13 +7555,21 @@ namespace SyncFolders
             }
         }
 
-        private void FormSyncFolders_HelpRequested(object sender, HelpEventArgs hlpevent)
+        //===================================================================================================
+        /// <summary>
+        /// This is executed when user presses F1 key
+        /// </summary>
+        /// <param name="oSender">Sender object</param>
+        /// <param name="oEventArgs">Even arguments</param>
+        //===================================================================================================
+        private void FormSyncFolders_HelpRequested(object oSender, HelpEventArgs oEventArgs)
         {
             // open in browser in case we don't have any special jump point in help.
             // maybe browser can translate somethig.
             if (Resources.ReadmeHtmlHelpJumpPoint.Equals("#en"))
             {
-                System.Diagnostics.Process.Start(System.IO.Path.Combine(Application.StartupPath, "Readme.html"));
+                System.Diagnostics.Process.Start(
+                    System.IO.Path.Combine(Application.StartupPath, "Readme.html"));
             }
             else
             {
@@ -7521,6 +7580,122 @@ namespace SyncFolders
             }
         }
 
+
+
+        #region image injection part
+        //===================================================================================================
+        /// <summary>
+        /// Picture box control
+        /// </summary>
+        private PictureBox m_ctlPictureBox;
+        //===================================================================================================
+        /// <summary>
+        /// Image
+        /// </summary>
+        private System.Drawing.Image m_oLoadedImage;
+        //===================================================================================================
+        /// <summary>
+        /// A dictionary with positions of other elements
+        /// </summary>
+        private Dictionary<Control, int> m_oOriginalPositions;
+
+        //===================================================================================================
+        /// <summary>
+        /// Loads an image from application startup path and shows it at the top of the window
+        /// </summary>
+        /// <param name="strName">Name of the image, without directory specifications</param>
+        //===================================================================================================
+        private void ReadyToUseImageInjection(string strImageName)
+        {
+            string strImagePath = System.IO.Path.Combine(Application.StartupPath, strImageName);
+            if (System.IO.File.Exists(strImagePath))
+            {
+                m_oOriginalPositions = new Dictionary<Control, int>();
+                foreach (Control ctl in Controls)
+                {
+                    m_oOriginalPositions[ctl] = ctl.Top;
+                }
+
+                m_ctlPictureBox = new PictureBox();
+                m_ctlPictureBox.Location = this.ClientRectangle.Location;
+                m_ctlPictureBox.Size = new Size(0, 0);
+                Controls.Add(m_ctlPictureBox);
+
+                LoadAndResizeImage(strImagePath);
+
+                this.Resize += new EventHandler(ResizeImageAlongWithForm);
+            }
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// Resizes image along with the form
+        /// </summary>
+        /// <param name="oSender">Sender object</param>
+        /// <param name="oEventArgs">Event args</param>
+        //===================================================================================================
+        private void ResizeImageAlongWithForm(object oSender, EventArgs oEventArgs)
+        {
+            ResizeImageAndShiftElements();
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// Loads an image and resizes it to the width of client area
+        /// </summary>
+        /// <param name="strImagePath"></param>
+        //===================================================================================================
+        private void LoadAndResizeImage(string strImagePath)
+        {
+            m_oLoadedImage = Image.FromFile(strImagePath);
+            ResizeImageAndShiftElements();
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// Resizes image and shifts other elements
+        /// </summary>
+        //===================================================================================================
+        private void ResizeImageAndShiftElements()
+        {
+            if (m_oLoadedImage != null)
+            {
+                if (WindowState != FormWindowState.Minimized)
+                {
+                    float fAspectRatio = (float)m_oLoadedImage.Width / (float)m_oLoadedImage.Height;
+
+                    int nNewWidth = this.ClientSize.Width;
+                    if (nNewWidth != 0)
+                    {
+                        int nNewHeight = (int)(nNewWidth / fAspectRatio);
+
+                        int nHeightChange = nNewHeight - m_ctlPictureBox.Height;
+
+                        this.m_ctlPictureBox.Image = new Bitmap(m_oLoadedImage, nNewWidth, nNewHeight);
+                        this.m_ctlPictureBox.Size = new Size(nNewWidth, nNewHeight);
+
+                        this.Height += nHeightChange;
+                        ShiftOtherElementsUpOrDown(nNewHeight);
+                    }
+                }
+            }
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// Shifts elements, apart from the image box up or down
+        /// </summary>
+        /// <param name="nNewPictureHeight">New height of the picture</param>
+        //===================================================================================================
+        private void ShiftOtherElementsUpOrDown(int nNewPictureHeight)
+        {
+            foreach (Control ctl in m_oOriginalPositions.Keys)
+            {
+                if ((ctl.Anchor & AnchorStyles.Bottom) == AnchorStyles.None)
+                    ctl.Top = m_oOriginalPositions[ctl] + nNewPictureHeight;
+            }
+        }
+        #endregion
 
 
     }
