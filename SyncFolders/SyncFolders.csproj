@@ -109,6 +109,10 @@
     <!--Compile Include="Resources.Designer.cs" /-->
     <Compile Include="RestoreInfo.cs" />
     <Compile Include="SavedInfo.cs" />
+    <Compile Include="Taskbar\CLSCTX.cs" />
+    <Compile Include="Taskbar\ITaskbarList3.cs" />
+    <Compile Include="Taskbar\TaskbarProgress.cs" />
+    <Compile Include="Taskbar\TaskbarProgressState.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Forms\About.af.resx">

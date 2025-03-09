@@ -26,6 +26,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using SyncFolders.Properties;
+using SyncFolders.Taskbar;
 
 namespace SyncFolders
 {
@@ -158,6 +159,11 @@ namespace SyncFolders
         System.Threading.Semaphore m_oSemaphoreHugeReads = 
             new System.Threading.Semaphore(1, 1);
 
+        /// <summary>
+        /// An object for displaying progress in task bar
+        /// </summary>
+        Taskbar.TaskbarProgress m_oTaskbarProgress;
+
         /*
         /// <summary>
         /// This is used to simulate read errors in self-test
@@ -192,8 +198,28 @@ namespace SyncFolders
 
             // Add header image
             ReadyToUseImageInjection("SyncFoldersHeader.jpg");
+
+
+            // Init progress in task bar, if at least windows 7
+            if (IsWindows7OrLater())
+            {
+                m_oTaskbarProgress = new TaskbarProgress();
+                m_oTaskbarProgress.SetState(this.Handle, SyncFolders.Taskbar.TaskbarProgressState.eNoProgress);
+            }
         }
 
+        //===================================================================================================
+        /// <summary>
+        /// Tests, if the application is running at least in Windows 7
+        /// </summary>
+        /// <returns>true iff the OS is at least Windows 7</returns>
+        //===================================================================================================
+        public static bool IsWindows7OrLater()
+        {
+            Version windows7 = new Version(6, 1); // Windows 7 version
+            return Environment.OSVersion.Platform == PlatformID.Win32NT &&
+                   Environment.OSVersion.Version >= windows7;
+        }
 
         //===================================================================================================
         /// <summary>
@@ -1866,6 +1892,10 @@ namespace SyncFolders
             bool bException = false;
             try
             {
+                m_ctlProgressBar.Style = ProgressBarStyle.Marquee;
+                if (m_oTaskbarProgress != null)
+                    m_oTaskbarProgress.SetState(this.Handle, SyncFolders.Taskbar.TaskbarProgressState.eIndeterminate);
+
                 FindFilePairs(m_strFolder1, m_strFolder2);
             }
             catch (Exception ex)
@@ -1888,20 +1918,39 @@ namespace SyncFolders
                         WriteLog(true, 0, "Found 1 file for possible synchronisation");
                     }
 
+
+                // show progresss in the GUI
                 if (InvokeRequired)
                 {
                     Invoke(new EventHandler(delegate(object sender, EventArgs args)
                     {
+
+                        m_ctlProgressBar.Style = ProgressBarStyle.Continuous;
                         m_ctlProgressBar.Minimum = 0;
                         m_ctlProgressBar.Maximum = m_aFilePairs.Count;
                         m_ctlProgressBar.Value = 0;
+
+                        // show progress in task bar
+                        if (m_oTaskbarProgress != null)
+                        {
+                            m_oTaskbarProgress.SetState(this.Handle, SyncFolders.Taskbar.TaskbarProgressState.eNormal);
+                            m_oTaskbarProgress.SetProgress(this.Handle, 0ul, (ulong)m_aFilePairs.Count);
+                        }
                     }));
                 }
                 else
                 {
+                    m_ctlProgressBar.Style = ProgressBarStyle.Continuous;
                     m_ctlProgressBar.Minimum = 0;
                     m_ctlProgressBar.Maximum = m_aFilePairs.Count;
                     m_ctlProgressBar.Value = 0;
+
+                    // show progress in task bar
+                    if (m_oTaskbarProgress != null)
+                    {
+                        m_oTaskbarProgress.SetState(this.Handle, SyncFolders.Taskbar.TaskbarProgressState.eNormal);
+                        m_oTaskbarProgress.SetProgress(this.Handle, 0ul, (ulong)m_aFilePairs.Count);
+                    }
                 }
 
                 // if user still has not clicked cancel
@@ -1961,20 +2010,31 @@ namespace SyncFolders
                         m_nCurrentFile = currentFile;
                         m_strCurrentPath = pathPair.Key;
 
+
+                        // update progress bar
                         if ((++currentFile) % 10 == 0)
                         {
+                            // GUI
                             if (InvokeRequired)
                             {
                                 Invoke(new EventHandler(delegate(object sender, EventArgs args)
                                 {
                                     m_ctlProgressBar.Value = currentFile;
                                     m_lblProgress.Text = pathPair.Key;
+
+                                    // task bar
+                                    if (m_oTaskbarProgress != null)
+                                        m_oTaskbarProgress.SetProgress(this.Handle, (ulong)currentFile, (ulong)m_aFilePairs.Count);
                                 }));
                             }
                             else
                             {
                                 m_ctlProgressBar.Value = currentFile;
                                 m_lblProgress.Text = pathPair.Key;
+
+                                // task bar
+                                if (m_oTaskbarProgress != null)
+                                    m_oTaskbarProgress.SetProgress(this.Handle, (ulong)currentFile, (ulong)m_aFilePairs.Count);
                             }
                         };
 
@@ -1992,6 +2052,25 @@ namespace SyncFolders
                 for (int i = 0; i < s_nMaxParallelThreads; ++i)
                     m_oSemaphoreParallelThreads.Release();
 
+
+                if (InvokeRequired)
+                {
+                    Invoke(new EventHandler(delegate(object sender, EventArgs args)
+                    {
+                        // change progress in task bar
+                        if (m_oTaskbarProgress != null)
+                            m_oTaskbarProgress.SetState(this.Handle, SyncFolders.Taskbar.TaskbarProgressState.eIndeterminate);
+                        // and in the GUI
+                        m_ctlProgressBar.Style = ProgressBarStyle.Marquee;
+                    }));
+                } else
+                {
+                        // change progress in task bar
+                        if (m_oTaskbarProgress != null)
+                            m_oTaskbarProgress.SetState(this.Handle, SyncFolders.Taskbar.TaskbarProgressState.eIndeterminate);
+                        // and in the GUI
+                        m_ctlProgressBar.Style = ProgressBarStyle.Marquee;
+                }
 
                 if (!m_bCancelClicked)
                 {
@@ -2025,10 +2104,15 @@ namespace SyncFolders
             m_oLogFile = null;
             m_oLogFileLocalized = null;
 
+
+
             if (InvokeRequired)
             {
                 Invoke(new EventHandler(delegate (object sender, EventArgs args)
                 {
+                    if (m_oTaskbarProgress != null)
+                        m_oTaskbarProgress.SetState(this.Handle, SyncFolders.Taskbar.TaskbarProgressState.eNoProgress);
+
                     m_btnSync.Visible = true;
                     m_ctlProgressBar.Visible = false;
                     m_lblFolder1.Enabled = true;
@@ -2075,6 +2159,9 @@ namespace SyncFolders
                 }));
             } else
             {
+                if (m_oTaskbarProgress != null)
+                    m_oTaskbarProgress.SetState(this.Handle, SyncFolders.Taskbar.TaskbarProgressState.eNoProgress);
+
                 m_btnSync.Visible = true;
                 m_ctlProgressBar.Visible = false;
                 m_lblFolder1.Enabled = true;
