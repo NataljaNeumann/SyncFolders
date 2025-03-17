@@ -1455,7 +1455,7 @@ namespace SyncFolders
 
 
             //---------------------------------
-            Block b = Block.GetBlock();
+            Block b = new Block();
             using (IFile s = m_iFileSystem.OpenWrite(
                 System.IO.Path.Combine(m_tbxFirstFolder.Text, "restore1.txt")))
             {
@@ -1782,7 +1782,7 @@ namespace SyncFolders
             )
         {
             string strDestDataFilePath = System.IO.Path.Combine(strFolder,  strFileName);
-            Block oBlock = Block.GetBlock();
+            Block oBlock = new Block();
             using (IFile s = m_iFileSystem.OpenWrite(
                 strDestDataFilePath))
             {
@@ -1815,7 +1815,6 @@ namespace SyncFolders
                 }
             }
 
-            Block.ReleaseBlock(oBlock);
 
             // if need saved info, then create it with the specified date and time
             if (bCreateSaveInfo)
@@ -1892,9 +1891,21 @@ namespace SyncFolders
             bool bException = false;
             try
             {
-                m_ctlProgressBar.Style = ProgressBarStyle.Marquee;
-                if (m_oTaskbarProgress != null)
-                    m_oTaskbarProgress.SetState(this.Handle, SyncFolders.Taskbar.TaskbarProgressState.eIndeterminate);
+                if (InvokeRequired)
+                {
+                    Invoke(new EventHandler(delegate(object sender, EventArgs args)
+                    {
+                        m_ctlProgressBar.Style = ProgressBarStyle.Marquee;
+                        if (m_oTaskbarProgress != null)
+                            m_oTaskbarProgress.SetState(this.Handle, SyncFolders.Taskbar.TaskbarProgressState.eIndeterminate);
+                    }));
+                }
+                else
+                {
+                    m_ctlProgressBar.Style = ProgressBarStyle.Marquee;
+                    if (m_oTaskbarProgress != null)
+                        m_oTaskbarProgress.SetState(this.Handle, SyncFolders.Taskbar.TaskbarProgressState.eIndeterminate);
+                }
 
                 FindFilePairs(m_strFolder1, m_strFolder2);
             }
@@ -2105,6 +2116,8 @@ namespace SyncFolders
             m_oLogFileLocalized = null;
 
 
+            // Free pool of blocks, used during sync
+            Block.FreeMemory();
 
             if (InvokeRequired)
             {
@@ -4356,7 +4369,7 @@ namespace SyncFolders
                             m_iFileSystem.CreateBufferedStream(m_iFileSystem.Create(pathFileCopy), 
                             (int)Math.Min(finfo.Length + 1, 64 * 1024 * 1024)))
                         {
-                            Block b = Block.GetBlock();
+                            Block b = new Block();
 
                             for (int index = 0; ; index++)
                             {
@@ -4379,7 +4392,6 @@ namespace SyncFolders
                                 }
                             };
 
-                            Block.ReleaseBlock(b);
 
                             s2.Close();
                             IFileInfo fi2tmp = m_iFileSystem.GetFileInfo(pathFileCopy);
@@ -4523,7 +4535,7 @@ namespace SyncFolders
                     m_iFileSystem.CreateBufferedStream(m_iFileSystem.OpenRead(finfo.FullName), 
                         (int)Math.Min(finfo.Length + 1, 64 * 1024 * 1024)))
                 {
-                    Block b = Block.GetBlock();
+                    Block b = new Block();
 
                     for (int index = 0; ; index++)
                     {
@@ -4549,7 +4561,6 @@ namespace SyncFolders
  
                     };
 
-                    Block.ReleaseBlock(b);
 
                     s.Close();
                 };
@@ -4770,7 +4781,7 @@ namespace SyncFolders
                             "\": it was created for another version of the file");
                     }
 
-                Block b = Block.GetBlock();
+                Block b = new Block();
                 try
                 {
                     using (IFile s =
@@ -4819,7 +4830,6 @@ namespace SyncFolders
                         s.Close();
                     }
                 }
-                Block.ReleaseBlock(b);
 
                 if (bAllBlocksOK && bCreateConfirmationFile)
                 {
@@ -4844,7 +4854,7 @@ namespace SyncFolders
                 using (s)
                 {
                     si.StartRestore();
-                    Block b = Block.GetBlock();
+                    Block b = new Block();
                     for (int index = 0; ; index++)
                     {
 
@@ -4928,7 +4938,6 @@ namespace SyncFolders
                                 System.IO.SeekOrigin.Begin);
                         }
                     };
-                    Block.ReleaseBlock(b);
 
                     List<RestoreInfo> ri = si.EndRestore(out nonRestoredSize, fiSavedInfo.FullName, this);
                     if (ri.Count > 1)
@@ -5114,7 +5123,7 @@ namespace SyncFolders
                     bOnlyIfCompletelyRecoverable ? System.IO.FileAccess.Read : System.IO.FileAccess.ReadWrite,
                     System.IO.FileShare.Read))
                 {
-                    Block b = Block.GetBlock();
+                    Block b = new Block();
                     for (long index = 0; ; index++)
                     {
                         try
@@ -5157,7 +5166,6 @@ namespace SyncFolders
                             bAllBlocksOk = false;
                         }
                     }
-                    Block.ReleaseBlock(b);
 
                     s.Close();
                 }
@@ -5181,7 +5189,7 @@ namespace SyncFolders
                     m_iFileSystem.OpenRead(finfo.FullName))
                 {
                     si.StartRestore();
-                    Block b = Block.GetBlock();
+                    Block b = new Block();
                     for (long index = 0; ; index++)
                     {
 
@@ -5244,7 +5252,6 @@ namespace SyncFolders
 
                     };
 
-                    Block.ReleaseBlock(b);
 
                     s.Close();
                 };
@@ -5386,7 +5393,7 @@ namespace SyncFolders
 
                     if (nonRestoredSize > 0)
                     {
-                        int countErrors = (int)(nonRestoredSize / (Block.GetBlock().Length));
+                        int countErrors = (int)(nonRestoredSize / (new Block().Length));
                         finfo.LastWriteTimeUtc = new DateTime(1975, 9, 24 - countErrors / 60 / 24, 23 -
                             (countErrors / 60) % 24, 59 - countErrors % 60, 0);
                         bForceCreateInfo = true;
@@ -5532,8 +5539,8 @@ namespace SyncFolders
                         si1.StartRestore();
                         si2.StartRestore();
 
-                        Block b1 = Block.GetBlock();
-                        Block b2 = Block.GetBlock();
+                        Block b1 = new Block();
+                        Block b2 = new Block();
 
                         for (int index = 0; ; ++index)
                         {
@@ -5714,8 +5721,6 @@ namespace SyncFolders
 
                         s2.Close();
 
-                        Block.ReleaseBlock(b1);
-                        Block.ReleaseBlock(b2);
                     }
                     s1.Close();
 
@@ -5836,10 +5841,9 @@ namespace SyncFolders
                                 s1.Seek(ri1.Position, System.IO.SeekOrigin.Begin);
                                 s2.Seek(ri1.Position, System.IO.SeekOrigin.Begin);
 
-                                Block temp = Block.GetBlock();
+                                Block temp = new Block();
                                 int length = temp.ReadFrom(s2);
                                 temp.WriteTo(s1, length);
-                                Block.ReleaseBlock(temp);
                                 readableBlocks1[ri1.Position / ri1.Data.Length] = true;
                             }
                         };
@@ -5861,10 +5865,9 @@ namespace SyncFolders
                                 s1.Seek(ri2.Position, System.IO.SeekOrigin.Begin);
                                 s2.Seek(ri2.Position, System.IO.SeekOrigin.Begin);
 
-                                Block temp = Block.GetBlock();
+                                Block temp = new Block();
                                 int length = temp.ReadFrom(s1);
                                 temp.WriteTo(s2, length);
-                                Block.ReleaseBlock(temp);
                                 readableBlocks2[ri2.Position / ri2.Data.Length] = true;
                             }
                         };
@@ -5975,8 +5978,8 @@ namespace SyncFolders
                     {
                         for (int index = 0; ; ++index)
                         {
-                            Block b1 = Block.GetBlock();
-                            Block b2 = Block.GetBlock();
+                            Block b1 = new Block();
+                            Block b2 = new Block();
 
                             bool b1Present = false;
                             bool s1Continue = false;
@@ -6038,7 +6041,7 @@ namespace SyncFolders
                             else
                             if (!b1Present && !b2Present)
                             {
-                                Block b = Block.GetBlock();
+                                Block b = new Block();
                                 WriteLogFormattedLocalized(1, Resources.BlocksOfAndAtPositionNonRecoverableFillDummy,
                                     fi1.FullName, fi2.FullName, index * b1.Length);
                                 WriteLog(true, 1, "Blocks of ", fi1.FullName, 
@@ -6049,7 +6052,6 @@ namespace SyncFolders
                                 restore2.Add(new RestoreInfo(index * b2.Length, b2, true));
                                 notRestoredSize1 += b1.Length;
                                 notRestoredSize2 += b2.Length;
-                                Block.ReleaseBlock(b);
                             }
 
                             if (!s1Continue && !s2Continue)
@@ -6251,7 +6253,7 @@ namespace SyncFolders
                         {
                             for (long index = 0; ; index++)
                             {
-                                Block b = Block.GetBlock();
+                                Block b = new Block();
                                 try
                                 {
                                     int lengthToWrite = b.ReadFrom(s);
@@ -6279,8 +6281,6 @@ namespace SyncFolders
                                     ++countErrors;
                                     s.Seek(index * b.Length + lengthToWrite, System.IO.SeekOrigin.Begin);
                                 }
-
-                                Block.ReleaseBlock(b);
                             };
 
                             s2.Close();
@@ -6342,7 +6342,7 @@ namespace SyncFolders
                     m_iFileSystem.OpenRead(finfo.FullName))
                 {
                     si.StartRestore();
-                    Block b = Block.GetBlock();
+                    Block b = new Block();
                     for (long index = 0; ; index++)
                     {
                         try
@@ -6402,7 +6402,6 @@ namespace SyncFolders
                             throw new OperationCanceledException();
 
                     };
-                    Block.ReleaseBlock(b);
 
                     s.Close();
                 };
@@ -6504,7 +6503,7 @@ namespace SyncFolders
                             strPathTargetFile + ".tmp", System.IO.FileMode.Create, 
                             System.IO.FileAccess.Write, System.IO.FileShare.None))
                         {
-                            long blockSize = Block.GetBlock().Length;
+                            long blockSize = new Block().Length;
                             for (long position = 0; position < finfo.Length; position += blockSize)
                             {
                                 bool bBlockWritten = false;
@@ -6577,10 +6576,9 @@ namespace SyncFolders
                                 {
                                     // there we land in case we didn't overwrite the block with restore info,
                                     // so read from source and write to destination
-                                    Block b = Block.GetBlock();
+                                    Block b = new Block();
                                     int lengthToWrite = b.ReadFrom(s2);
                                     b.WriteTo(s, lengthToWrite);
-                                    Block.ReleaseBlock(b);
                                 }
                             }
 
@@ -6630,7 +6628,7 @@ namespace SyncFolders
 
                 if (nonRestoredSize > 0)
                 {
-                    int countErrors = (int)(nonRestoredSize / (Block.GetBlock().Length));
+                    int countErrors = (int)(nonRestoredSize / (new Block().Length));
                     finfo2.LastWriteTimeUtc = new DateTime(1975, 9, 24 - countErrors / 60 / 24, 
                         23 - (countErrors / 60) % 24, 59 - countErrors % 60, 0);
                     bForceCreateInfoTarget = true;
@@ -6774,8 +6772,8 @@ namespace SyncFolders
 
                         for (int index = 0; ; ++index)
                         {
-                            Block b1 = Block.GetBlock();
-                            Block b2 = Block.GetBlock();
+                            Block b1 = new Block();
+                            Block b2 = new Block();
 
                             bool b1Present = false;
                             bool b1Ok = false;
@@ -6915,8 +6913,6 @@ namespace SyncFolders
                             if (m_bCancelClicked)
                                 throw new OperationCanceledException();
 
-                            Block.ReleaseBlock(b1);
-                            Block.ReleaseBlock(b2);
                         }
 
                         s2.Close();
@@ -7010,11 +7006,10 @@ namespace SyncFolders
                                 s1.Seek(ri2.Position, System.IO.SeekOrigin.Begin);
                                 s2.Seek(ri2.Position, System.IO.SeekOrigin.Begin);
 
-                                Block temp = Block.GetBlock();
+                                Block temp = new Block();
                                 int length = temp.ReadFrom(s1);
                                 temp.WriteTo(s2, length);
                                 readableBlocks2[ri2.Position / ri2.Data.Length] = true;
-                                Block.ReleaseBlock(temp);
                             }
                         };
 
@@ -7088,8 +7083,8 @@ namespace SyncFolders
                     {
                         for (int index = 0; ; ++index)
                         {
-                            Block b1 = Block.GetBlock();
-                            Block b2 = Block.GetBlock();
+                            Block b1 = new Block();
+                            Block b2 = new Block();
 
                             bool b1Present = false;
                             bool s1Continue = false;
@@ -7155,8 +7150,6 @@ namespace SyncFolders
                             if (m_bCancelClicked)
                                 throw new OperationCanceledException();
 
-                            Block.ReleaseBlock(b1);
-                            Block.ReleaseBlock(b2);
                         }
 
                         s2.Close();

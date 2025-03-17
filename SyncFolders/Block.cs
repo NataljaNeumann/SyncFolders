@@ -33,60 +33,105 @@ namespace SyncFolders
     [Serializable]
     class Block : IEnumerable<byte>
     {
-        private Block()
+        //===================================================================================================
+        /// <summary>
+        /// Holds a pool of byte arrays for reusing
+        /// </summary>
+        static Stack<byte[]> s_oFreeBlocks = new Stack<byte[]>();
+
+        //===================================================================================================
+        /// <summary>
+        /// Frees memory, eventually used by the pool
+        /// </summary>
+        //===================================================================================================
+        public static void FreeMemory()
         {
-            // the default constructor is private so consumers are forced to use pool
+            lock (s_oFreeBlocks)
+            {
+                s_oFreeBlocks.Clear();
+            }
         }
 
 
-        static System.Collections.Generic.Queue<Block> m_oFreeBlocks = new Queue<Block>();
         //===================================================================================================
         /// <summary>
-        /// Gets a new block, or from pool of released blocks
+        /// Constructs a new block and inits it with zeros
         /// </summary>
-        /// <returns>A block</returns>
         //===================================================================================================
-        public static Block GetBlock()
+        public Block()
         {
-            // Fixme: I consider it to be unsafe to reuse blocks
-            return new Block();
-            /*
-            lock (m_oFreeBlocks)
+            lock (s_oFreeBlocks)
             {
-                if (m_oFreeBlocks.Count > 0)
-                {
-                    Block b = m_oFreeBlocks.Peek();
-                    for (int i = b.Length - 1; i >= 0; --i)
-                        b[i] = 0;
-                    return b;
-                }
+                if (s_oFreeBlocks.Count > 0)
+                    m_aData = s_oFreeBlocks.Pop();
                 else
-                    return new Block();
+                {
+                    // new array will init it with zeros
+                    m_aData = new byte[4096];
+                    return;
+                }
             }
-            */
+
+            // there we pulled array out of the pool and need to init it.
+            // we do it outside of the lock for possibly better concurrency
+            byte[] aData = m_aData;
+            for (int i = aData.Length - 1; i >= 0; --i)
+                aData[i] = 0;
         }
+
 
         //===================================================================================================
         /// <summary>
-        /// Releases given block
+        /// Constructs a new block
         /// </summary>
-        /// <param name="b">Block to release</param>
+        /// <param name="bInit">Indicates, if it needs to be initialized</param>
         //===================================================================================================
-        public static void ReleaseBlock(Block b)
+        protected Block(bool bInit)
         {
-            /*
-            lock (m_oFreeBlocks)
+            lock (s_oFreeBlocks)
             {
-                m_oFreeBlocks.Enqueue(b);
+                if (s_oFreeBlocks.Count > 0)
+                    m_aData = s_oFreeBlocks.Pop();
+                else
+                {
+                    // new array will init it with zeros
+                    m_aData = new byte[4096];
+                    return;
+                }
             }
-            */
+
+            if (bInit)
+            {
+                // there we pulled array out of the pool and need to init it.
+                // we do it outside of the lock for possibly better concurrency
+                byte[] aData = m_aData;
+                for (int i = aData.Length - 1; i >= 0; --i)
+                    aData[i] = 0;
+            }
         }
+
+
+
+        // Finalizer: Returns the byte array to the pool when the object is garbage collected
+        ~Block()
+        {
+            if (m_aData != null)
+            {
+                lock (s_oFreeBlocks)
+                {
+                    s_oFreeBlocks.Push(m_aData); // Return the block to the pool
+                }
+
+                m_aData = null; // Mark the data as unused
+            }
+        }
+
 
         //===================================================================================================
         /// <summary>
         /// The data of the block
         /// </summary>
-        public byte[] m_aData = new byte[4096];
+        public byte[] m_aData;
 
         //===================================================================================================
         /// <summary>
@@ -128,7 +173,7 @@ namespace SyncFolders
         //===================================================================================================
         public static Block operator |(Block b1, Block b2)
         {
-            Block rb = GetBlock();
+            Block rb = new Block(false);
             for (int i = b1.m_aData.Length - 1; i >= 0; --i)
                 rb.m_aData[i] = (byte)(b1.m_aData[i] | b2.m_aData[i]);
             return rb;
@@ -143,7 +188,7 @@ namespace SyncFolders
         //===================================================================================================
         public static Block operator ~(Block b1)
         {
-            Block rb = GetBlock();
+            Block rb = new Block(false);
             for (int i = b1.m_aData.Length - 1; i >= 0; --i)
                 rb.m_aData[i] = (byte)(~b1.m_aData[i]);
             return rb;
@@ -159,7 +204,7 @@ namespace SyncFolders
         //===================================================================================================
         public static Block operator &(Block b1, Block b2)
         {
-            Block rb = GetBlock();
+            Block rb = new Block(false);
             for (int i = b1.m_aData.Length - 1; i >= 0; --i)
                 rb.m_aData[i] = (byte)(b1.m_aData[i] & b2.m_aData[i]);
             return rb;
@@ -175,7 +220,7 @@ namespace SyncFolders
         //===================================================================================================
         public static Block operator ^(Block b1, Block b2)
         {
-            Block rb = GetBlock();
+            Block rb = new Block(false);
             for (int i = b1.m_aData.Length - 1; i >= 0; --i)
                 rb.m_aData[i] = (byte)(b1.m_aData[i] ^ b2.m_aData[i]);
             return rb;
@@ -186,6 +231,7 @@ namespace SyncFolders
         /// Bitwise XOR other block inside this block
         /// </summary>
         /// <param name="other">Other block</param>
+        //===================================================================================================
         public void DoXor(Block other)
         {
             for (int i = m_aData.Length - 1; i >= 0; --i)

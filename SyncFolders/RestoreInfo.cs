@@ -40,7 +40,7 @@ namespace SyncFolders
         /// The block to write. (Actual length needs to be calculated outside, based on
         /// position and file size
         /// </summary>
-        public Block Data = Block.GetBlock();
+        public Block Data = new Block();
         /// <summary>
         /// Indicates that this is non-recoverable area, so the block is empty
         /// to fill non-recoverable space.

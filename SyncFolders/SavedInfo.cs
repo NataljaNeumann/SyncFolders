@@ -110,9 +110,9 @@ namespace SyncFolders
         //===================================================================================================
         public SavedInfo()
         {
-            Block testb = Block.GetBlock();
+            Block testb = new Block();
             for (int i = 1024 * 64 / testb.Length - 1; i >= 0; --i)
-                m_aBlocks.Add(Block.GetBlock());
+                m_aBlocks.Add(new Block());
             m_aChecksums = new List<byte[]>();
         }
 
@@ -133,7 +133,7 @@ namespace SyncFolders
             m_lFileLength = lFileLength;
             m_dtmFileTimestampUtc = dtmFileTimestampUtc;
 
-            Block oTestBlock = Block.GetBlock();
+            Block oTestBlock = new Block();
             // maxblocks is at least 0.5 per cent of the file or at least 64K in 64K steps
             int nMaxBlocks = ((int)(lFileLength / 200)) / (1024 * 64) * (1024 * 64) / oTestBlock.Length;
             if (nMaxBlocks < 1024 * 64 / oTestBlock.Length)
@@ -165,7 +165,7 @@ namespace SyncFolders
 
             // fill first row of the blocks
             for (int i = nMaxBlocks - 1; i >= 0; --i)
-                m_aBlocks.Add(Block.GetBlock());
+                m_aBlocks.Add(new Block());
 
             // calculate the length of the second row: Total number of blocks ~ 1% in
             // both rows
@@ -208,7 +208,7 @@ namespace SyncFolders
 
             // fill second row of blocks
             for (int i = nMaxOtherBlocks - 1; i >= 0; --i)
-                m_aOtherBlocks.Add(Block.GetBlock());
+                m_aOtherBlocks.Add(new Block());
 
             // init checksums
             m_aChecksums = new List<byte[]>();
@@ -344,7 +344,7 @@ namespace SyncFolders
             {
                 Block oBlock = null;
 
-                oBlock = Block.GetBlock();
+                oBlock = new Block();
 
                 try
                 {
@@ -372,7 +372,7 @@ namespace SyncFolders
             {
                 Block oBlock = null;
 
-                oBlock = Block.GetBlock();
+                oBlock = new Block();
 
                 try
                 {
@@ -463,7 +463,7 @@ namespace SyncFolders
             IFile oInputStream
             )
         {
-            Block oBlockForLength = Block.GetBlock();
+            Block oBlockForLength = new Block();
 
             bool bVersion0 = false;
             int byFromStream = -1;
@@ -771,7 +771,7 @@ namespace SyncFolders
             {
                 Block oBlock = null;
 
-                oBlock = Block.GetBlock();
+                oBlock = new Block();
 
                 try
                 {
@@ -813,7 +813,7 @@ namespace SyncFolders
             // read blocks of second row
             for (long i = lBlocksInSecondRow - 1; i >= 0; --i)
             {
-                Block oBlock = Block.GetBlock();
+                Block oBlock = new Block();
 
                 try
                 {
@@ -908,8 +908,6 @@ namespace SyncFolders
                 // error while reading checksums? clear checksums
                 m_aChecksums.Clear();
             }
-
-            Block.ReleaseBlock(oBlockForLength);
         }
 
         //===================================================================================================
@@ -1398,7 +1396,7 @@ namespace SyncFolders
             ILogWriter iLogWriter)
         {
             // add the missing blocks at the end of file
-            Block oTestBlock = Block.GetBlock();
+            Block oTestBlock = new Block();
             while (++m_lCurrentlyRestoredBlock < 
                 (m_lFileLength + oTestBlock.Length - 1) / oTestBlock.Length)
             {
@@ -1417,7 +1415,7 @@ namespace SyncFolders
                     long blockToRestore = m_aListOfBlocksToRestore[i];
                     outlNotRestoredSize = outlNotRestoredSize + oTestBlock.Length;
                     oResult.Add(new RestoreInfo(blockToRestore * oTestBlock.Length,
-                        Block.GetBlock(), true));
+                        new Block(), true));
                 }
                 return oResult;
             };
@@ -1485,8 +1483,8 @@ namespace SyncFolders
                         !bOtherSeemOk)
                     {
                         outlNotRestoredSize = outlNotRestoredSize + oTestBlock.Length;
-                        oResult.Add(new RestoreInfo(blockToRestore * oTestBlock.Length, 
-                            Block.GetBlock(), true));
+                        oResult.Add(new RestoreInfo(blockToRestore * oTestBlock.Length,
+                            new Block(), true));
                     }
                     else
                     {
@@ -1672,8 +1670,8 @@ namespace SyncFolders
                 {
                     long blockToRestore = m_aListOfBlocksToRestore[i];
                     outlNotRestoredSize = outlNotRestoredSize + oTestBlock.Length;
-                    oResult.Add(new RestoreInfo(blockToRestore * oTestBlock.Length, 
-                        Block.GetBlock(), true));
+                    oResult.Add(new RestoreInfo(blockToRestore * oTestBlock.Length,
+                        new Block(), true));
                 }
 
             }
@@ -1805,7 +1803,7 @@ namespace SyncFolders
 
                     if (oOtherSaveInfo.m_aBlocks[i] == null && this.m_aBlocks[i] != null)
                     {
-                        Block newB = Block.GetBlock();
+                        Block newB = new Block();
                         Block oldB = this.m_aBlocks[i];
                         for (int j = newB.Length - 1; j >= 0; --j)
                             newB[j] = oldB[j];
@@ -1825,7 +1823,7 @@ namespace SyncFolders
 
                     if (oOtherSaveInfo.m_aOtherBlocks[i] == null && this.m_aOtherBlocks[i] != null)
                     {
-                        Block newB = Block.GetBlock();
+                        Block newB = new Block();
                         Block oldB = this.m_aOtherBlocks[i];
                         for (int j = newB.Length - 1; j >= 0; --j)
                             newB[j] = oldB[j];
@@ -1845,7 +1843,7 @@ namespace SyncFolders
 
                     if (this.m_aBlocks[i] == null && oOtherSaveInfo.m_aBlocks[i] != null)
                     {
-                        Block newB = Block.GetBlock();
+                        Block newB = new Block();
                         Block oldB = oOtherSaveInfo.m_aBlocks[i];
                         for (int j = newB.Length - 1; j >= 0; --j)
                             newB[j] = oldB[j];
@@ -1865,7 +1863,7 @@ namespace SyncFolders
 
                     if (this.m_aOtherBlocks[i] == null && oOtherSaveInfo.m_aOtherBlocks[i] != null)
                     {
-                        Block newB = Block.GetBlock();
+                        Block newB = new Block();
                         Block oldB = oOtherSaveInfo.m_aOtherBlocks[i];
                         for (int j = newB.Length - 1; j >= 0; --j)
                             newB[j] = oldB[j];
