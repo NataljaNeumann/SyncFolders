@@ -963,6 +963,9 @@
   copy /Y "$(ProjectDir)FileSystem\*.cs" "$(TargetDir)ZZ_SOURCE_CODE_ZZ\$(ProjectName)\FileSystem\"
   cd /D "$(TargetDir)ZZ_SOURCE_CODE_ZZ"
   tar.exe -cf "..\source_code.tar" *.*
+  cd ..
+  tar.exe -a -c -f source_code.tar.zip source_code.tar
+  del /Q source_code.tar
   cd /D "$(TargetDir)"
   del /F /S /Q ZZ_SOURCE_CODE_ZZ
   rmdir /S /Q ZZ_SOURCE_CODE_ZZ

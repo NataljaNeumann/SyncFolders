@@ -143,7 +143,7 @@ namespace SyncFolders
             if (nMaxBlocks > (lFileLength + oTestBlock.Length - 1) / oTestBlock.Length / 2)
             {
                 // small release files don't need more than one block
-                if (Program.CreateRelease && lFileLength < 1024 * 1024)
+                if (Program.CreateRelease && lFileLength < 300 * 1024)
                 {
                     nMaxBlocks = 1;
                 }
@@ -154,8 +154,8 @@ namespace SyncFolders
                 }
             }
 
-            // if we create release and have the source_code.tar there then improve security
-            if (Program.CreateRelease && lFileLength > 1024 * 1024)
+            // if we create release and have the source_code.tar.zip there then improve security
+            if (Program.CreateRelease && lFileLength > 300 * 1024)
                 bForceOtherBlocks = true;
 
 
