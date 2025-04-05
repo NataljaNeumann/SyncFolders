@@ -252,7 +252,7 @@ namespace SyncFolders
             /// <summary>
             /// Adds a byte to the checksum (XORs it somewhere)
             /// </summary>
-            /// <param name="oBlockOfOriginalFile">Byte to addd</param>
+            /// <param name="b">Byte to addd</param>
             //===============================================================================================
             public void AddByte(byte b)
             {
@@ -264,7 +264,7 @@ namespace SyncFolders
             /// <summary>
             /// Adds a byte to the checksum (XORs it somewhere)
             /// </summary>
-            /// <param name="oBlockOfOriginalFile">Byte to addd</param>
+            /// <param name="by">Byte to addd</param>
             //===============================================================================================
             public void AddByte(int b)
             {
