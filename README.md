@@ -5,7 +5,7 @@
 [Latest SyncFolders Sources and Packages](https://github.com/NataljaNeumann/SyncFolders)  
   
   
-![SyncFolders-1-Arrow](https://github.com/user-attachments/assets/9a7ad087-7cd5-4ced-ae4d-be2445be90b9) 
+![SyncFolders-1](https://github.com/user-attachments/assets/3864175e-1b28-45eb-b56a-f95d1d338d44)  
 
 ‎[English](#en), [Français](#fr), [Español](#es), [Português](#pt), [Italiano](#it), [Deutsch](#de), [По русски](#ru), [Polski](#pl), [Στα ελληνικά](#gr), 
       [Nederlands](#nl), [Dansk](#da), [Suomeksi](#fi), [Svenska](#sv), [Türkçe](#tr), [中文文本](#chs), [中文文字](#cht), [日本語](#ja), [한국인](#ko), [भारतीय में](#hi), [باللغة العربية](#ar), [עִברִית](#he)
@@ -48,7 +48,7 @@
     of the photoes to the respective other folder or drive. If you remove the synchronization mode, then the application
     can also overwrite new files in second directory by old files in first directory.
 
-‎If you specify the same directory or drive in the first and second directory (e.g. E:\ and E:\), 
+‎If you specify the same directory or drive in the first and second directory (e.g. E:\ and E:\ ), 
     the application works in the same mode as SaveMyFiles - it creates additional data if it is missing, 
     or verifies and repairs the files if appropriate options were specified.
 
@@ -102,7 +102,7 @@
     autre dossier ou lecteur. Si vous supprimez le mode de synchronisation, l'application peut également remplacer 
     les nouveaux fichiers du deuxième répertoire par les anciens fichiers du premier répertoire.
 
-‎Si vous spécifiez le même répertoire ou lecteur dans le premier et le deuxième répertoire (par exemple E:\ et E:\), 
+‎Si vous spécifiez le même répertoire ou lecteur dans le premier et le deuxième répertoire (par exemple E:\ et E:\ ), 
     l'application fonctionne dans le même mode que SaveMyFiles - elle crée des données supplémentaires si elles sont manquantes, 
     ou vérifie et répare les fichiers si les options appropriées ont été spécifiées.
 
@@ -153,7 +153,7 @@
     la versión más reciente de las fotos a la otra carpeta o unidad respectiva. Si quita el modo de sincronización, 
     la aplicación También puede sobrescribir nuevos archivos en el segundo directorio por archivos antiguos en el primer directorio.
 
-‎Si especifica el mismo directorio o unidad en el primer y segundo directorio (por ejemplo, E:\ y E:\), 
+‎Si especifica el mismo directorio o unidad en el primer y segundo directorio (por ejemplo, E:\ y E:\ ), 
     la aplicación funciona en el mismo modo que SaveMyFiles: crea datos adicionales si faltan, 
     o verifica y repara los archivos si se especificaron las opciones adecuadas.
 
@@ -202,7 +202,7 @@
     versão mais recente das fotos para a respectiva outra pasta ou unidade. Se você remover o modo de sincronização, 
     o aplicativo também pode substituir novos arquivos no segundo diretório por arquivos antigos no primeiro diretório.
 
-‎Se especificar o mesmo diretório ou unidade no primeiro e no segundo diretório (por exemplo, E:\ e E:\), 
+‎Se especificar o mesmo diretório ou unidade no primeiro e no segundo diretório (por exemplo, E:\ e E:\ ), 
     a aplicação funcionará no mesmo modo que o SaveMyFiles: cria dados adicionais se estiverem em falta 
     ou verifica e repara os ficheiros se as opções apropriadas tiverem sido especificadas.
 
@@ -256,7 +256,7 @@
     rimuove la modalità di sincronizzazione, l'applicazione può anche sovrascrivere i nuovi file 
     nella seconda directory con vecchi file nella prima directory.
 
-‎Se si specifica la stessa directory o unità nella prima e nella seconda directory (ad esempio E:\ e E:\), 
+‎Se si specifica la stessa directory o unità nella prima e nella seconda directory (ad esempio E:\ e E:\ ), 
     l'applicazione funziona nella stessa modalità di SaveMyFiles: crea dati aggiuntivi se mancano oppure 
     verifica e ripara i file se sono state specificate le opzioni appropriate.
 
@@ -312,7 +312,7 @@
     Wenn Sie den Synchronisationsmodus ausschalten, kann die Anwendung auch neue Dateien im zweiten Verzeichnis 
     durch alte Dateien im ersten Verzeichnis überschreiben.
 
-‎Wenn man im ersten und zweiten Verzeichnis gleiches Verzeichnis bzw. Laufwerk angibt (z.B. E:\ und E:\), 
+‎Wenn man im ersten und zweiten Verzeichnis gleiches Verzeichnis bzw. Laufwerk angibt (z.B. E:\ und E:\ ), 
     dann arbeitet die Applikation im gleichen Modus wie SaveMyFiles - sie erstellt zusätzliche Daten, wenn diese fehlen, 
     bzw. verifiziert und repariert die Dateien, wenn entsprechende Optionen angegeben wurden.
 
@@ -366,7 +366,7 @@
     синхронизации, приложение также может перезаписать новые файлы, находящиеся во втором каталоге, более старыми файлами,
     находящимися в первой директории.
 
-‎Если указать один и тот же каталог или диск в первом и втором каталоге (например, E:\ и E:\), 
+‎Если указать один и тот же каталог или диск в первом и втором каталоге (например, E:\ и E:\ ), 
     приложение работает в том же режиме, что и SaveMyFiles — создает дополнительные данные, если они отсутствуют, 
     или проверяет и восстанавливает файлы, если были указаны соответствующие параметры.
 
@@ -421,7 +421,7 @@
     najnowszą wersję zdjęć do odpowiedniego innego folderu lub dysku. Jeśli usuniesz tryb synchronizacji, 
     aplikacja Może również nadpisać nowe pliki w drugim katalogu przez stare pliki w pierwszym katalogu.
 
-‎Jeżeli w pierwszym i drugim katalogu podasz ten sam katalog lub dysk (np. E:\ i E:\), 
+‎Jeżeli w pierwszym i drugim katalogu podasz ten sam katalog lub dysk (np. E:\ i E:\ ), 
     aplikacja będzie działać w tym samym trybie co SaveMyFiles — utworzy dodatkowe dane, jeśli ich zabraknie, 
     lub zweryfikuje i naprawi pliki, jeśli określono odpowiednie opcje.
 
@@ -474,7 +474,7 @@
     την πιο πρόσφατη έκδοση των φωτογραφιών ο ένας στον φάκελο ή τη μονάδα δίσκου του άλλου. Εάν απενεργοποιήσετε τη λειτουργία συγχρονισμού, 
     η εφαρμογή μπορεί επίσης να αντικαταστήσει νέα αρχεία στον δεύτερο κατάλογο με παλιά αρχεία στον πρώτο κατάλογο.
 
-‎Εάν καθορίσετε τον ίδιο κατάλογο ή μονάδα δίσκου στον πρώτο και στον δεύτερο κατάλογο (π.χ. E:\ και E:\), 
+‎Εάν καθορίσετε τον ίδιο κατάλογο ή μονάδα δίσκου στον πρώτο και στον δεύτερο κατάλογο (π.χ. E:\ και E:\ ), 
     η εφαρμογή λειτουργεί στην ίδια λειτουργία με το SaveMyFiles - δημιουργεί πρόσθετα δεδομένα εάν λείπουν ή επαληθεύει 
     και επιδιορθώνει τα αρχεία εάν έχουν καθοριστεί οι κατάλληλες επιλογές.
 
@@ -524,7 +524,7 @@
     nieuwste versie van foto's naar elkaars map of schijf te kopiëren. Als u de synchronisatiemodus uitschakelt, 
     kan de toepassing ook nieuwe bestanden in de tweede map overschrijven met oude bestanden in de eerste map.
 
-‎Als u in de eerste en tweede map dezelfde directory of hetzelfde station opgeeft (bijvoorbeeld E:\ en E:\), 
+‎Als u in de eerste en tweede map dezelfde directory of hetzelfde station opgeeft (bijvoorbeeld E:\ en E:\ ), 
     werkt de toepassing in dezelfde modus als SaveMyFiles: er worden aanvullende gegevens gemaakt als deze ontbreken, 
     of de bestanden worden gecontroleerd en hersteld als er geschikte opties zijn opgegeven.
 
@@ -573,7 +573,7 @@
     den seneste version af billeder til hinandens mappe eller drev. Hvis du slår synkroniseringstilstand fra, 
     kan programmet også overskrive nye filer i den anden mappe med gamle filer i den første mappe.
 
-‎Hvis du angiver den samme mappe eller det samme drev i den første og anden mappe (f.eks. E:\ og E:\), 
+‎Hvis du angiver den samme mappe eller det samme drev i den første og anden mappe (f.eks. E:\ og E:\ ), 
     fungerer programmet i samme tilstand som SaveMyFiles - det opretter yderligere data, hvis de mangler, 
     eller verificerer og reparerer filerne, hvis de relevante indstillinger er angivet.
 
@@ -623,7 +623,7 @@
     version valokuvista toistensa kansioon tai asemaan. Jos poistat synkronointitilan käytöstä, sovellus voi myös korvata 
     uudet tiedostot toisessa hakemistossa vanhoilla tiedostoilla ensimmäisessä hakemistossa.
 
-‎Jos määrität saman hakemiston tai aseman ensimmäiseen ja toiseen hakemistoon (esim. E:\ ja E:\), 
+‎Jos määrität saman hakemiston tai aseman ensimmäiseen ja toiseen hakemistoon (esim. E:\ ja E:\ ), 
     sovellus toimii samassa tilassa kuin SaveMyFiles – se luo lisätietoja, jos niitä puuttuu, 
     tai tarkistaa ja korjaa tiedostot, jos asianmukaiset asetukset on määritetty.
 
@@ -671,7 +671,7 @@
       Synchronisationsmodus ausschalten, kann die Anwendung auch neue Dateien im zweiten Verzeichnis durch alte Dateien im
       ersten Verzeichnis überschreiben.
 
-‎Om du anger samma katalog eller enhet i den första och andra katalogen (t.ex. E:\ och E:\), 
+‎Om du anger samma katalog eller enhet i den första och andra katalogen (t.ex. E:\ och E:\ ), 
     fungerar programmet i samma läge som SaveMyFiles – det skapar ytterligare data om den saknas, 
     eller verifierar och reparerar filerna om lämpliga alternativ har angetts.
 
@@ -715,7 +715,7 @@
     sürücüsüne kopyalamaya çalıştığı anlamına gelir. Senkronizasyon modunu kapatırsanız, uygulama aynı zamanda ikinci dizindeki 
     yeni dosyaların üzerine birinci dizindeki eski dosyaları da yazabilir.
 
-‎Birinci ve ikinci dizinde aynı dizini veya sürücüyü belirtirseniz (örneğin E:\ ve E:\), 
+‎Birinci ve ikinci dizinde aynı dizini veya sürücüyü belirtirseniz (örneğin E:\ ve E:\ ), 
     uygulama SaveMyFiles ile aynı modda çalışır; eksikse ek veri oluşturur 
     veya uygun seçenekler belirtildiyse dosyaları doğrular ve onarır.
 
@@ -755,7 +755,7 @@
 ‎应用程序通常以同步模式运行，这意味着它将尝试复制最新版本 的照片复制到相应的其他文件夹或驱动器。
     如果删除同步模式，则应用程序 也可以用第一个目录中的旧文件覆盖第二个目录中的新文件。
 
-‎如果您在第一个和第二个目录中指定相同的目录或驱动器（例如 E:\ 和 E:\），
+‎如果您在第一个和第二个目录中指定相同的目录或驱动器（例如 E:\ 和 E:\ ），
     则该应用程序将以与 SaveMyFiles 相同的模式工作 - 如果丢失，它会创建额外的数据，
     或者如果指定了适当的选项，它会验证并修复文件。
 
@@ -797,7 +797,7 @@ SyncFolders 是一款旨在帮助您同步两个文件夹或驱动器的应用�
 ‎應用程式通常以同步模式運行，這意味著它將嘗試複製最新版本 的照片複製到相應的其他資料夾或驅動器。
     如果刪除同步模式，則應用程式 也可以用第一個目錄中的舊檔覆蓋第二個目錄中的新檔。
 
-‎如果您在第一個和第二個目錄中指定相同的目錄或磁碟機（例如 E:\ 和 E:\），
+‎如果您在第一個和第二個目錄中指定相同的目錄或磁碟機（例如 E:\ 和 E:\ ），
     則該應用程式將以與 SaveMyFiles 相同的模式工作 - 如果遺失，它會建立額外的數據，
     或者如果指定了適當的選項，它會驗證並修復檔案。
 
@@ -849,7 +849,7 @@ SyncFolders 是一款旨在帮助您同步两个文件夹或驱动器的应用�
       それぞれの他のフォルダまたはドライブへの写真の。同期モードを削除すると、アプリケーションは また、
       二 番目のディレクトリにある新しいファイルを 一 番目のディレクトリにある古いファイルで上書きすることもできます。
 
-‎最初のディレクトリと 2 番目のディレクトリに同じディレクトリまたはドライブ (例: E:\ と E:\) を指定した場合、
+‎最初のディレクトリと 2 番目のディレクトリに同じディレクトリまたはドライブ (例: E:\ と E:\ ) を指定した場合、
     アプリケーションは SaveMyFiles と同じモードで動作します。つまり、データが不足している場合は追加のデータを作成し、
     適切なオプションが指定されている場合はファイルを検証して修復します。
 
@@ -899,7 +899,7 @@ SyncFolders 是一款旨在帮助您同步两个文件夹或驱动器的应用�
     이는 최신 버전을 복사하려고 시도한다는 것을 의미합니다 사진을 각각의 다른 폴더 또는 드라이브에 넣습니다. 
     동기화 모드를 제거하면 응용 프로그램이 두 번째 디렉토리의 새 파일을 첫 번째 디렉토리의 이전 파일로 덮어쓸 수도 있습니다.
 
-‎첫 번째와 두 번째 디렉토리에 같은 디렉토리나 드라이브를 지정하면(예: E:\ 및 E:\), 
+‎첫 번째와 두 번째 디렉토리에 같은 디렉토리나 드라이브를 지정하면(예: E:\ 및 E:\ ), 
     해당 애플리케이션은 SaveMyFiles와 같은 모드로 작동합니다. 즉, 데이터가 누락된 경우 추가 데이터를 생성하고, 
     적절한 옵션이 지정된 경우 파일을 검증하고 복구합니다.
 
@@ -945,7 +945,7 @@ SyncFolders 是一款旨在帮助您同步两个文件夹或驱动器的应用�
     अन्य फ़ोल्डर या ड्राइव के लिए फोटो। यदि आप सिंक्रनाइज़ेशन मोड को हटाते हैं, तो एप्लिकेशन पहली निर्देशिका में पुरानी 
     फ़ाइलों द्वारा दूसरी निर्देशिका में नई फ़ाइलों को भी अधिलेखित कर सकते हैं।
 
-‎यदि आप पहली और दूसरी निर्देशिका में एक ही निर्देशिका या ड्राइव निर्दिष्ट करते हैं (उदाहरण के लिए E:\ और E:\), 
+‎यदि आप पहली और दूसरी निर्देशिका में एक ही निर्देशिका या ड्राइव निर्दिष्ट करते हैं (उदाहरण के लिए E:\ और E:\ ), 
     तो अनुप्रयोग SaveMyFiles के समान मोड में कार्य करता है - यदि डेटा गायब है तो यह अतिरिक्त डेटा बनाता है, 
     या यदि उपयुक्त विकल्प निर्दिष्ट किए गए हैं तो फ़ाइलों को सत्यापित और सुधारता है।
 
@@ -993,7 +993,7 @@ SyncFolders 是一款旨在帮助您同步两个文件夹或驱动器的应用�
 ‏ عادة ما يعمل التطبيق في وضع المزامنة ، مما يعني أنه سيحاول نسخ أحدث إصدار من الصور إلى المجلد أو محرك الأقراص الآخر المعني.
    إذا قمت بإزالة وضع المزامنة ، تطبيق التطبيق يمكن أيضا استبدال الملفات الجديدة في الدليل الثاني بالملفات القديمة في الدليل الأول.
 
-‏إذا قمت بتحديد نفس الدليل أو محرك الأقراص في الدليل الأول والثاني (على سبيل المثال E:\ و E:\)، 
+‏إذا قمت بتحديد نفس الدليل أو محرك الأقراص في الدليل الأول والثاني (على سبيل المثال E:\ و E:\ )، 
       يعمل التطبيق بنفس الوضع مثل SaveMyFiles - فهو ينشئ بيانات إضافية إذا كانت مفقودة،
       أو يتحقق من الملفات ويصلحها إذا تم تحديد الخيارات المناسبة.
 
@@ -1038,7 +1038,7 @@ SyncFolders 是一款旨在帮助您同步两个文件夹或驱动器的应用�
 ‏ היישום פועל בדרך כלל במצב סינכרון, מה שאומר שהוא ינסה להעתיק את הגרסה החדשה ביותר של התמונות לתיקייה או לכונן המתאימים האחרים.
     אם תסיר את מצב הסנכרון, היישום יכול גם להחליף קבצים חדשים בספרייה השנייה על ידי קבצים ישנים בספרייה הראשונה.
 
-‏אם תציין את אותה ספרייה או כונן בספרייה הראשונה והשנייה (לדוגמה, E:\ ו-E:\), 
+‏אם תציין את אותה ספרייה או כונן בספרייה הראשונה והשנייה (לדוגמה, E:\ ו- E:\ ), 
       היישום יפעל באותו מצב כמו SaveMyFiles - הוא יוצר נתונים נוספים אם הם חסרים,
       או מאמת ומתקן את הקבצים אם צוינו אפשרויות מתאימות.
 
