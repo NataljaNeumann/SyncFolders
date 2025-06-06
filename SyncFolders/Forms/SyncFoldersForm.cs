@@ -574,6 +574,28 @@ namespace SyncFolders
                         }
                     }
 
+
+                    int nPrevLength = 0;
+                    while (strTxt.Length != nPrevLength)
+                    {
+                        nPrevLength = strTxt.Length;
+                        strTxt = strTxt.Replace(((char)0x200E) + " ", (char)0x200E + "");
+                        strTxt = strTxt.Replace(((char)0x200F) + " ", (char)0x200F + "");
+                        strTxt = strTxt.Replace("\n ", "\n");
+                        strTxt = strTxt.Replace("\n>  ", "\n> ");
+                    }
+
+
+                    nPrevLength = 0;
+                    while (strMd.Length != nPrevLength)
+                    {
+                        nPrevLength = strMd.Length;
+                        strMd = strMd.Replace(((char)0x200E) + " ", (char)0x200E + "");
+                        strMd = strMd.Replace(((char)0x200F) + " ", (char)0x200F + "");
+                        strMd = strMd.Replace("\n ", "\n");
+                        strMd = strMd.Replace("\n>  ", "\n> ");
+                    }
+
                     using (System.IO.StreamWriter oTxtWriter = new System.IO.StreamWriter(
                         System.IO.Path.Combine(Application.StartupPath, "Readme.txt"), 
                         false, Encoding.UTF8))
