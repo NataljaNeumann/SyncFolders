@@ -5,7 +5,7 @@
 [Latest SyncFolders Sources and Packages](https://github.com/NataljaNeumann/SyncFolders)  
   
   
-![SyncFolders-1](https://github.com/user-attachments/assets/3864175e-1b28-45eb-b56a-f95d1d338d44)  
+![SyncFolders-1-Arrow](https://github.com/user-attachments/assets/9a7ad087-7cd5-4ced-ae4d-be2445be90b9)  
 
 ‎[English](#en), [Français](#fr), [Español](#es), [Português](#pt), [Italiano](#it), [Deutsch](#de), [По русски](#ru), [Polski](#pl), [Στα ελληνικά](#gr), 
       [Nederlands](#nl), [Dansk](#da), [Suomeksi](#fi), [Svenska](#sv), [Türkçe](#tr), [中文文本](#chs), [中文文字](#cht), [日本語](#ja), [한국인](#ko), [भारतीय में](#hi), [باللغة العربية](#ar), [עִברִית](#he)
