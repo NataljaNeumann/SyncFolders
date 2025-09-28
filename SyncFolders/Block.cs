@@ -41,6 +41,12 @@ namespace SyncFolders
 
         //===================================================================================================
         /// <summary>
+        /// An creator of arrays in a separate thread, so all arrays are created in a separate heap
+        /// </summary>
+        static ThreadBoundArrayFactory<byte> s_oArrayCreator = new ThreadBoundArrayFactory<byte>(4096);
+
+        //===================================================================================================
+        /// <summary>
         /// Frees memory, eventually used by the pool
         /// </summary>
         //===================================================================================================
@@ -67,7 +73,7 @@ namespace SyncFolders
                 else
                 {
                     // new array will init it with zeros
-                    m_aData = new byte[4096];
+                    m_aData = s_oArrayCreator.Create();
                     return;
                 }
             }
@@ -95,7 +101,7 @@ namespace SyncFolders
                 else
                 {
                     // new array will init it with zeros
-                    m_aData = new byte[4096];
+                    m_aData = s_oArrayCreator.Create();
                     return;
                 }
             }
@@ -452,7 +458,7 @@ namespace SyncFolders
             int h = 0;
             for (int i = m_aData.Length; i >= 0; --i)
             {
-                h = ((h * 2) | (h < 0 ? 1 : 0)) ^ (m_aData[i]);
+                h = ((h << 1) | (h < 0 ? 1 : 0)) ^ (m_aData[i]);
             }
             return h;
         }
