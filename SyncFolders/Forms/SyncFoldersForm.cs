@@ -22,7 +22,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 using SyncFolders.Properties;
@@ -123,9 +125,9 @@ namespace SyncFolders
         /// <summary>
         /// This is used for randomization of recently tested files
         /// </summary>
-        Random m_oRandomForRecentlyChecked = new Random(DateTime.Now.Millisecond + 1000 
+        Random m_oRandomForRecentlyChecked = new Random(unchecked(DateTime.Now.Millisecond + 1000 
             * (DateTime.Now.Second + 60 * (DateTime.Now.Minute + 60 
-            * (DateTime.Now.Hour + 24 * DateTime.Now.DayOfYear))));
+            * (DateTime.Now.Hour + 24 * DateTime.Now.DayOfYear)))));
         /// <summary>
         /// This is the index of currently processed file (the last one)
         /// </summary>
@@ -1252,8 +1254,26 @@ namespace SyncFolders
             LinkLabelLinkClickedEventArgs oEventArgs
             )
         {
-            System.Diagnostics.Process.Start(
-                "https://www.gnu.org/licenses/gpl-2.0.html");
+            string strUrl = "https://www.gnu.org/licenses/gpl-2.0.html";
+            try
+            {
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+                    Process.Start(new ProcessStartInfo(strUrl) { UseShellExecute = true });
+                }
+                else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                {
+                    Process.Start("xdg-open", strUrl);
+                }
+                else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                {
+                    Process.Start("open", strUrl);
+                }
+            }
+            catch (Exception oEx)
+            {
+                MessageBox.Show("Could not open browser: " + oEx.Message);
+            }
         }
 
         //===================================================================================================
@@ -1436,10 +1456,10 @@ namespace SyncFolders
             DateTime dtmTimeForFile = DateTime.UtcNow;
 
             if (string.IsNullOrEmpty(m_tbxFirstFolder.Text))
-                m_tbxFirstFolder.Text = Application.StartupPath + "\\TestFolder1";
+                m_tbxFirstFolder.Text = Path.Combine(Application.StartupPath, "TestFolder1");
 
             if (string.IsNullOrEmpty(m_tbxSecondFolder.Text))
-                m_tbxSecondFolder.Text = Application.StartupPath + "\\TestFolder2";
+                m_tbxSecondFolder.Text = Path.Combine(Application.StartupPath, "TestFolder2");
 
             IDirectoryInfo di1 =
                 m_iFileSystem.GetDirectoryInfo(m_tbxFirstFolder.Text);
@@ -4952,9 +4972,9 @@ namespace SyncFolders
                             bAllBlocksOK = false;
 
                             WriteLogFormattedLocalized(1, Resources.IOErrorReadingFileOffset,
-                                finfo.FullName, ex.Message);
+                                finfo.FullName, index * b.Length, ex.Message);
                             WriteLog(true, 1, "I/O Error reading file: \"", 
-                                finfo.FullName, "\", offset ", 
+                                finfo.FullName, "\", offset ",
                                 index * b.Length, ": " + ex.Message);
                             s.Seek((index + 1) * b.Length, 
                                 System.IO.SeekOrigin.Begin);
@@ -6301,6 +6321,10 @@ namespace SyncFolders
                                         b.WriteTo(s2, lengthToWrite);
                                     bAllBlocksOk = false;
                                     ++countErrors;
+
+                                    if (lengthToWrite != b.Length)
+                                        break;
+
                                     s.Seek(index * b.Length + lengthToWrite, System.IO.SeekOrigin.Begin);
                                 }
                             };

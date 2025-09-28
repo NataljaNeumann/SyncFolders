@@ -936,7 +936,7 @@ namespace SyncFolders
             {
                 byte b = (byte)(ulToWriteBytewise >> 56);
                 oMetadataChecksum.AddByte(b);
-                ulToWriteBytewise = ulToWriteBytewise * 256;
+                ulToWriteBytewise = ulToWriteBytewise << 8;
                 oOutputStream.WriteByte(b);
             };
 
@@ -946,7 +946,7 @@ namespace SyncFolders
             {
                 byte b = (byte)(ulToWriteBytewise >> 56);
                 oMetadataChecksum.AddByte(b);
-                ulToWriteBytewise = ulToWriteBytewise * 256;
+                ulToWriteBytewise = ulToWriteBytewise << 8;
                 oOutputStream.WriteByte(b);
             };
 
@@ -956,7 +956,7 @@ namespace SyncFolders
             {
                 byte b = (byte)(ulToWriteBytewise >> 56);
                 oMetadataChecksum.AddByte(b);
-                ulToWriteBytewise = ulToWriteBytewise * 256;
+                ulToWriteBytewise = ulToWriteBytewise << 8;
                 oOutputStream.WriteByte(b);
             };
 
@@ -966,7 +966,7 @@ namespace SyncFolders
             {
                 byte b = (byte)(ulToWriteBytewise >> 56);
                 oMetadataChecksum.AddByte(b);
-                ulToWriteBytewise = ulToWriteBytewise * 256;
+                ulToWriteBytewise = ulToWriteBytewise << 8;
                 oOutputStream.WriteByte(b);
             };
 
@@ -985,7 +985,7 @@ namespace SyncFolders
             {
                 byte b = (byte)(ulToWriteBytewise >> 56);
                 oMetadataChecksum.AddByte(b);
-                ulToWriteBytewise = ulToWriteBytewise * 256;
+                ulToWriteBytewise = ulToWriteBytewise << 8;
                 oOutputStream.WriteByte(b);
             };
 
@@ -1047,7 +1047,7 @@ namespace SyncFolders
             for (int i = 7; i >= 0; --i)
             {
                 byte b = (byte)(ulToWriteBytewise >> 56);
-                ulToWriteBytewise = ulToWriteBytewise * 256;
+                ulToWriteBytewise = ulToWriteBytewise <<8;
                 oOutputStream.WriteByte(b);
             };
 
@@ -1056,7 +1056,7 @@ namespace SyncFolders
             for (int i = 7; i >= 0; --i)
             {
                 byte b = (byte)(ulToWriteBytewise >> 56);
-                ulToWriteBytewise = ulToWriteBytewise * 256;
+                ulToWriteBytewise = ulToWriteBytewise <<8;
                 oOutputStream.WriteByte(b);
             };
 
@@ -1066,7 +1066,7 @@ namespace SyncFolders
             for (int i = 7; i >= 0; --i)
             {
                 byte b = (byte)(ulToWriteBytewise >> 56);
-                ulToWriteBytewise = ulToWriteBytewise * 256;
+                ulToWriteBytewise = ulToWriteBytewise <<8;
                 oOutputStream.WriteByte(b);
             };
 
@@ -1076,7 +1076,7 @@ namespace SyncFolders
             for (int i = 7; i >= 0; --i)
             {
                 byte b = (byte)(ulToWriteBytewise >> 56);
-                ulToWriteBytewise = ulToWriteBytewise * 256;
+                ulToWriteBytewise = ulToWriteBytewise << 8;
                 oOutputStream.WriteByte(b);
             };
 
@@ -1085,7 +1085,7 @@ namespace SyncFolders
             for (int i = 7; i >= 0; --i)
             {
                 byte b = (byte)(ulToWriteBytewise >> 56);
-                ulToWriteBytewise = ulToWriteBytewise * 256;
+                ulToWriteBytewise = ulToWriteBytewise << 8;
                 oOutputStream.WriteByte(b);
             };
 
@@ -1096,7 +1096,7 @@ namespace SyncFolders
                 for (int i = 7; i >= 0; --i)
                 {
                     byte b = (byte)(ulToWriteBytewise >> 56);
-                    ulToWriteBytewise = ulToWriteBytewise * 256;
+                    ulToWriteBytewise = ulToWriteBytewise << 8;
                     oOutputStream.WriteByte(b);
                 };
             }
@@ -1146,7 +1146,7 @@ namespace SyncFolders
             for (int i = 7; i >= 0; --i)
             {
                 byte b = (byte)(ulToWriteBytewise >> 56);
-                ulToWriteBytewise = ulToWriteBytewise * 256;
+                ulToWriteBytewise = ulToWriteBytewise << 8;
                 oOutputStream.WriteByte(b);
             };
 
@@ -1157,7 +1157,7 @@ namespace SyncFolders
                 for (int i = 7; i >= 0; --i)
                 {
                     byte b = (byte)(ulToWriteBytewise >> 56);
-                    ulToWriteBytewise = ulToWriteBytewise * 256;
+                    ulToWriteBytewise = ulToWriteBytewise << 8;
                     oOutputStream.WriteByte(b);
                 };
             }
@@ -1197,7 +1197,7 @@ namespace SyncFolders
             for (int i = 7; i >= 0; --i)
             {
                 byte b = (byte)(ulToWriteBytewise >> 56);
-                ulToWriteBytewise = ulToWriteBytewise * 256;
+                ulToWriteBytewise = ulToWriteBytewise << 8;
                 oOutputStream.WriteByte(b);
             };
 
@@ -1206,7 +1206,7 @@ namespace SyncFolders
             for (int i = 7; i >= 0; --i)
             {
                 byte b = (byte)(ulToWriteBytewise >> 56);
-                ulToWriteBytewise = ulToWriteBytewise * 256;
+                ulToWriteBytewise = ulToWriteBytewise << 8;
                 oOutputStream.WriteByte(b);
             };
 
@@ -1216,7 +1216,7 @@ namespace SyncFolders
             for (int i = 7; i >= 0; --i)
             {
                 byte b = (byte)(ulToWriteBytewise >> 56);
-                ulToWriteBytewise = ulToWriteBytewise * 256;
+                ulToWriteBytewise = ulToWriteBytewise << 8;
                 oOutputStream.WriteByte(b);
             };
 
@@ -1225,7 +1225,7 @@ namespace SyncFolders
             for (int i = 7; i >= 0; --i)
             {
                 byte b = (byte)(ulToWriteBytewise >> 56);
-                ulToWriteBytewise = ulToWriteBytewise * 256;
+                ulToWriteBytewise = ulToWriteBytewise << 8;
                 oOutputStream.WriteByte(b);
             };
 
@@ -1234,7 +1234,7 @@ namespace SyncFolders
             for (int i = 7; i >= 0; --i)
             {
                 byte b = (byte)(ulToWriteBytewise >> 56);
-                ulToWriteBytewise = ulToWriteBytewise * 256;
+                ulToWriteBytewise = ulToWriteBytewise << 8;
                 oOutputStream.WriteByte(b);
             };
 
