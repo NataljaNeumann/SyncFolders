@@ -1,8 +1,8 @@
-SyncFolders/obj/**
-SyncFolders/bin/*.zip
-SyncFolders/bin/Release/**
-SyncFolders/bin/Debug/**
-SyncFolders/bin/RestoreInfo/**
+*/obj/**
+*/bin/*.zip
+*/bin/Release/**
+*/bin/Debug/**
+*/bin/RestoreInfo/**
 **/.vs/**
 Backup/**
 !SyncFolders/bin/Debug/net8.0-windows/Coolpix_2010-08-01_23-57-56.JPG
