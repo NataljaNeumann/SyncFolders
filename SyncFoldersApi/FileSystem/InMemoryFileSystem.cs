@@ -24,8 +24,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
+using SyncFoldersApi.Localization;
 
-namespace SyncFolders
+namespace SyncFoldersApi
 {
     //*******************************************************************************************************
     /// <summary>
@@ -137,7 +138,7 @@ namespace SyncFolders
                     {
                         throw new IOException(
                             string.Format(Properties.Resources.ThisIsASimulatedIOErrorAtPosition,
-                               SyncFolders.FormSyncFolders.FormatNumber(lErrorPosition)));
+                               Properties.Resources.FormatNumber(lErrorPosition)));
 
                         //throw new IOException("This is a simulated I/O error for testing");
                     }
@@ -275,7 +276,7 @@ namespace SyncFolders
         /// <param name="strPath">Path to read from</param>
         /// <returns>The content of the file</returns>
         //===================================================================================================
-        public string ReadFromFile(string strPath)
+        public string ReadAllText(string strPath)
         {
             if (m_oFiles.ContainsKey(strPath))
             {
@@ -325,7 +326,7 @@ namespace SyncFolders
         //===================================================================================================
         public List<string> SearchFiles(string strSearchPattern)
         {
-            Regex oRegex = new Regex(".*\\\\"+
+            Regex oRegex = new Regex(".*"+
                 (strSearchPattern
                     .Replace("\\", "\\\\")
                     .Replace(")", "\\)")
@@ -599,6 +600,14 @@ namespace SyncFolders
             string strFilePath
             )
         {
+            lock (m_oFiles)
+            {
+                m_oFiles.Remove(strFilePath);
+                lock (m_oFileWriteTimes)
+                {
+                    m_oFileWriteTimes.Remove(strFilePath);
+                }
+            }
         }
 
         //===================================================================================================
@@ -759,7 +768,7 @@ namespace SyncFolders
                         {
                             throw new IOException(
                                 string.Format(Properties.Resources.ThisIsASimulatedIOErrorAtPosition,
-                                   SyncFolders.FormSyncFolders.FormatNumber(m_aListOfReadErrors[i])));
+                                   Properties.Resources.FormatNumber(m_aListOfReadErrors[i])));
                         }
                     }
                 }
@@ -785,7 +794,7 @@ namespace SyncFolders
                         {
                             throw new IOException(
                                 string.Format(Properties.Resources.ThisIsASimulatedIOErrorAtPosition,
-                                SyncFolders.FormSyncFolders.FormatNumber(m_aListOfReadErrors[i])));
+                                Properties.Resources.FormatNumber(m_aListOfReadErrors[i])));
                         }
                     }
                 }

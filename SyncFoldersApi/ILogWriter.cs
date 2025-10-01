@@ -23,14 +23,14 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SyncFolders
+namespace SyncFoldersApi
 {
     //*******************************************************************************************************
     /// <summary>
     /// Objects that impement this interface provide possibility to write some log messages
     /// </summary>
     //*******************************************************************************************************
-    interface ILogWriter
+    public interface ILogWriter
     {
         //===================================================================================================
         /// <summary>

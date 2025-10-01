@@ -42,6 +42,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SyncFoldersApi\SyncFoldersApi.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="SyncFoldersHeader.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -21,9 +21,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.IO;
 
-namespace SyncFolders
+namespace SyncFoldersApi
 {
     //*******************************************************************************************************
     /// <summary>
@@ -119,7 +120,7 @@ namespace SyncFolders
         /// <param name="strPath">Path to read from</param>
         /// <returns>The content of the file</returns>
         //===================================================================================================
-        public string ReadFromFile(
+        public string ReadAllText(
             string strPath
             )
         {
@@ -152,8 +153,10 @@ namespace SyncFolders
             string strSearchPattern
             )
         {
-            var files = Directory.GetFiles(Directory.GetCurrentDirectory(), strSearchPattern);
-            return new List<string>(files);
+            if (strSearchPattern.Contains(Path.DirectorySeparatorChar))
+                return new List<string>(Directory.GetFiles(Path.GetDirectoryName(strSearchPattern), Path.GetFileName(strSearchPattern)));
+            else
+                return new List<string>(Directory.GetFiles(Directory.GetCurrentDirectory(), strSearchPattern));
         }
 
 

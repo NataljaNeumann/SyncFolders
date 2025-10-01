@@ -29,6 +29,7 @@ using System.Text;
 using System.Windows.Forms;
 using SyncFolders.Properties;
 using SyncFolders.Taskbar;
+using SyncFoldersApi;
 
 namespace SyncFolders
 {
@@ -185,6 +186,7 @@ namespace SyncFolders
         //===================================================================================================
         public FormSyncFolders()
         {
+
             InitializeComponent();
 
             // hiding desktop.ini and the icon that could have been extracted from ZIP

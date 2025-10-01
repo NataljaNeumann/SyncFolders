@@ -45,6 +45,10 @@ namespace SyncFolders
         static void Main()
         {
             SetCultureForThread(Thread.CurrentThread);
+
+            // Init API resources
+            SyncFoldersApi.Localization.Properties.Resources = new Properties.SyncFoldersApiResources();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new FormSyncFolders());

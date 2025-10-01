@@ -25,7 +25,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 
-namespace SyncFolders
+namespace SyncFoldersApi
 {
     //*******************************************************************************************************
     /// <summary>
@@ -99,7 +99,7 @@ namespace SyncFolders
         /// <param name="strPath">Path to read from</param>
         /// <returns>The content of the file</returns>
         //===================================================================================================
-        string ReadFromFile(
+        string ReadAllText(
             string strPath
             );
 

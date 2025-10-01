@@ -25,7 +25,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 
-namespace SyncFolders
+namespace SyncFoldersApi
 {
     //*******************************************************************************************************
     /// <summary>
@@ -44,7 +44,7 @@ namespace SyncFolders
         /// <summary>
         /// Contains information, if the file existed when the object was created
         /// </summary>
-        private readonly bool m_bExists;
+        private bool m_bExists;
 
         //===================================================================================================
         /// <summary>
@@ -56,7 +56,7 @@ namespace SyncFolders
         /// <summary>
         /// Contains full name of the file
         /// </summary>
-        private readonly string m_strFullName;
+        private string m_strFullName;
 
         //===================================================================================================
         /// <summary>
@@ -155,6 +155,7 @@ namespace SyncFolders
                 {
                     m_oFs.m_oFileWriteTimes.Remove(FullName);
                 }
+                m_bExists = false;
             }
         }
 
@@ -169,6 +170,7 @@ namespace SyncFolders
             )
         {
             m_oFs.Move(FullName, strNewPath);
+            m_strFullName = strNewPath;
         }
 
         //===================================================================================================

@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 
-namespace SyncFolders
+namespace SyncFoldersApi
 {
     //*******************************************************************************************************
     /// <summary>
@@ -49,7 +49,13 @@ namespace SyncFolders
         /// <summary>
         /// Indicates, if the directory existed when the object was created
         /// </summary>
-        private readonly bool m_bExists;
+        private bool m_bExists;
+
+        //===================================================================================================
+        /// <summary>
+        /// Attributes of the directory, just for testing once
+        /// </summary>
+        private FileAttributes m_eAttributes = FileAttributes.Directory;
 
         //===================================================================================================
         /// <summary>
@@ -57,6 +63,7 @@ namespace SyncFolders
         /// </summary>
         /// <param name="strPath">Path of the directory</param>
         /// <param name="oFs">File system for operations</param>
+        //===================================================================================================
         public InMemoryDirectoryInfo(string strPath, InMemoryFileSystem oFs)
         {
             m_strPath = strPath;
@@ -187,6 +194,7 @@ namespace SyncFolders
         public void Create()
         {
             m_oFs.EnsureDirectoryExists(m_strPath);
+            m_bExists = true;
         }
 
         //===================================================================================================
@@ -211,6 +219,7 @@ namespace SyncFolders
                     throw new IOException("Directory not empty");
             }
             m_oFs.m_oDirectories.Remove(m_strPath);
+            m_bExists = false;
         }
 
         //===================================================================================================
@@ -222,11 +231,11 @@ namespace SyncFolders
         {
             get
             {
-                return FileAttributes.Archive;
+                return m_eAttributes;
             }
             set
             {
-                // ignore
+                m_eAttributes = FileAttributes.Directory | value;
             }
         }
 

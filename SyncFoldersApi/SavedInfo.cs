@@ -19,12 +19,13 @@
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
+using SyncFoldersApi.Localization;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using SyncFolders.Properties;
 
-namespace SyncFolders
+
+namespace SyncFoldersApi
 {
 
     //*******************************************************************************************************
@@ -52,7 +53,7 @@ namespace SyncFolders
     /// </summary>
     //*******************************************************************************************************
     [Serializable]
-    class SavedInfo
+    public class SavedInfo
     {
 
         /// <summary>
@@ -143,7 +144,7 @@ namespace SyncFolders
             if (nMaxBlocks > (lFileLength + oTestBlock.Length - 1) / oTestBlock.Length / 2)
             {
                 // small release files don't need more than one block
-                if (Program.CreateRelease && lFileLength < 300 * 1024)
+                if (Properties.Resources.CreateRelease && lFileLength < 300 * 1024)
                 {
                     nMaxBlocks = 1;
                 }
@@ -155,7 +156,7 @@ namespace SyncFolders
             }
 
             // if we create release and have the source_code.tar.zip there then improve security
-            if (Program.CreateRelease && lFileLength > 300 * 1024)
+            if (Properties.Resources.CreateRelease && lFileLength > 300 * 1024)
                 bForceOtherBlocks = true;
 
 
@@ -1465,7 +1466,7 @@ namespace SyncFolders
                     if (!bOtherSeemOk)
                     {
                         iLogWriter.WriteLogFormattedLocalized(1,
-                            Resources.WarningSeveralBlocksDontMatchInSIWillBeIgnored,
+                            Properties.Resources.WarningSeveralBlocksDontMatchInSIWillBeIgnored,
                             strCurrentFile);
                         iLogWriter.WriteLog(true, 1, "Warning: several blocks don't match in saved info ",
                             strCurrentFile, ", saved info will be ignored completely");
@@ -1573,9 +1574,10 @@ namespace SyncFolders
                             }
                             else
                             {
-                                iLogWriter.WriteLogFormattedLocalized(1, Resources.WarningChecksumOffsetPrimarySavedInfoIgnored,
+                                iLogWriter.WriteLogFormattedLocalized(1, 
+                                    Properties.Resources.WarningChecksumOffsetPrimarySavedInfoIgnored,
                                     blockToRestore * oTestBlock.Length, strCurrentFile);
-                                iLogWriter.WriteLog(true, 1, "Warning: checksum of block at offsset ",
+                                iLogWriter.WriteLog(true, 1, "Warning: checksum of block at offset ",
                                     blockToRestore * oTestBlock.Length,
                                     " doesn't match available in primary blocks of restoreinfo ", strCurrentFile, 
                                     ", primary restoreinfo for the block will be ignored");
@@ -1647,7 +1649,7 @@ namespace SyncFolders
                             else
                             {
                                 iLogWriter.WriteLogFormattedLocalized(1, 
-                                    Resources.WarningChecksumOffsetSecondarySavedInfoIgnored,
+                                    Properties.Resources.WarningChecksumOffsetSecondarySavedInfoIgnored,
                                     blockToRestore * oTestBlock.Length,
                                     strCurrentFile);
                                 iLogWriter.WriteLog(true, 1, "Warning: checksum of block at offset ", 

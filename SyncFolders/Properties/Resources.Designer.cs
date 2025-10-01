@@ -709,7 +709,7 @@ namespace SyncFolders.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Warning: checksum of block at offsset {0} doesn&apos;t match available in primary blocks of saved info &quot;{1}&quot;, primary saved info for the block will be ignored ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Warning: checksum of block at offset {0} doesn&apos;t match available in primary blocks of saved info &quot;{1}&quot;, primary saved info for the block will be ignored ähnelt.
         /// </summary>
         internal static string WarningChecksumOffsetPrimarySavedInfoIgnored {
             get {

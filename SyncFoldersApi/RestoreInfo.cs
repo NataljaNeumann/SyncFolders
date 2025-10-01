@@ -23,14 +23,14 @@ using System.Collections.Generic;
 using System.Text;
 
 
-namespace SyncFolders
+namespace SyncFoldersApi
 {
     //*******************************************************************************************************
     /// <summary>
     /// Object of this class provide information about single restores
     /// </summary>
     //*******************************************************************************************************
-    class RestoreInfo
+    public class RestoreInfo
     {
         /// <summary>
         /// The position to write to

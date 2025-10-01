@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SyncFolders
+namespace SyncFoldersApi
 {
     //*******************************************************************************************************
     /// <summary>
@@ -31,7 +31,7 @@ namespace SyncFolders
     /// </summary>
     //*******************************************************************************************************
     [Serializable]
-    class Block : IEnumerable<byte>
+    public class Block : IEnumerable<byte>
     {
         //===================================================================================================
         /// <summary>

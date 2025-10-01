@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace SyncFolders
+namespace SyncFoldersApi
 {
     //*******************************************************************************************************
     /// <summary>
@@ -33,30 +33,35 @@ namespace SyncFolders
     //*******************************************************************************************************
     public class InMemoryFile : IFile
     {
-        //=======================================================================================================
+        //===================================================================================================
         /// <summary>
         /// Memory stream of the file
         /// </summary>
         private MemoryStream m_oStream;
-        //=======================================================================================================
+        //===================================================================================================
         /// <summary>
         /// File write times UTC from file system
         /// </summary>
         private Dictionary<string, DateTime> m_oFileWriteTimes;
-        //=======================================================================================================
+        //===================================================================================================
         /// <summary>
         /// Path of current file
         /// </summary>
         private string m_strPath;
+        //===================================================================================================
+        /// <summary>
+        /// Indicates if file has been closed
+        /// </summary>
+        private bool m_bClosed;
 
-        //=======================================================================================================
+        //===================================================================================================
         /// <summary>
         /// Constructs a new In-Memory File object
         /// </summary>
         /// <param name="oStream">In-Memory stream of the file</param>
         /// <param name="oFileWriteTimes">Information about file write times from file system</param>
-        /// <param name="path">Path of this file</param>
-        //=======================================================================================================
+        /// <param name="strPath">Path of this file</param>
+        //===================================================================================================
         public InMemoryFile(
             MemoryStream oStream, 
             Dictionary<string, DateTime> oFileWriteTimes, 
@@ -77,10 +82,20 @@ namespace SyncFolders
         {
             get
             {
+                if (m_bClosed)
+                {
+                    throw new ObjectDisposedException(m_strPath);
+                }
+
                 return m_oStream.Position;
             }
             set
             {
+                if (m_bClosed)
+                {
+                    throw new ObjectDisposedException(m_strPath);
+                }
+
                 m_oStream.Position = value;
             }
         }
@@ -99,6 +114,11 @@ namespace SyncFolders
             int nOffset, 
             int nCount)
         {
+            if (m_bClosed)
+            {
+                throw new ObjectDisposedException(m_strPath);
+            }
+
             m_oStream.Write(aBuffer, nOffset, nCount);
             m_oFileWriteTimes[m_strPath] = DateTime.UtcNow;
         }
@@ -114,6 +134,11 @@ namespace SyncFolders
             byte by
             )
         {
+            if (m_bClosed)
+            {
+                throw new ObjectDisposedException(m_strPath);
+            }
+
             m_oStream.WriteByte(by);
             m_oFileWriteTimes[m_strPath] = DateTime.UtcNow;
         }
@@ -132,6 +157,11 @@ namespace SyncFolders
             int nOffset, 
             int nCount)
         {
+            if (m_bClosed)
+            {
+                throw new ObjectDisposedException(m_strPath);
+            }
+
             return m_oStream.Read(aBuffer, nOffset, nCount);
         }
 
@@ -143,6 +173,11 @@ namespace SyncFolders
         //===================================================================================================
         public int ReadByte()
         {
+            if (m_bClosed)
+            {
+                throw new ObjectDisposedException(m_strPath);
+            }
+
             return m_oStream.ReadByte();
         }
 
@@ -157,6 +192,11 @@ namespace SyncFolders
             long lOffset, 
             SeekOrigin eOrigin)
         {
+            if (m_bClosed)
+            {
+                throw new ObjectDisposedException(m_strPath);
+            }
+
             m_oStream.Seek(lOffset, eOrigin);
         }
 
@@ -167,8 +207,24 @@ namespace SyncFolders
         //===================================================================================================
         public void Close()
         {
+            if (m_bClosed)
+            {
+                throw new ObjectDisposedException(m_strPath);
+            }
+
+            m_bClosed = true;
             // does nothing
             //m_oStream.Close();
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// Reopens the file. It is expected that only one will access file at a time.
+        /// </summary>
+        //===================================================================================================
+        public void Reopen()
+        {
+            m_bClosed = false;
         }
 
         //===================================================================================================
@@ -202,6 +258,17 @@ namespace SyncFolders
             {
                 return m_oStream.Length;
             }
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// Returns contents as array
+        /// </summary>
+        /// <returns>Contents as byte array</returns>
+        //===================================================================================================
+        public byte[] ToArray()
+        {
+            return m_oStream.ToArray();
         }
 
     }

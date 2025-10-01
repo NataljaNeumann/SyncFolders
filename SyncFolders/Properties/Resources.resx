@@ -305,7 +305,7 @@
     <value>This is a simulated I/O error at position {0}</value>
   </data>
   <data name="WarningChecksumOffsetPrimarySavedInfoIgnored" xml:space="preserve">
-    <value>Warning: checksum of block at offsset {0} doesn't match available in primary blocks of saved info "{1}", primary saved info for the block will be ignored</value>
+    <value>Warning: checksum of block at offset {0} doesn't match available in primary blocks of saved info "{1}", primary saved info for the block will be ignored</value>
   </data>
   <data name="WarningChecksumOffsetSecondarySavedInfoIgnored" xml:space="preserve">
     <value>Warning: checksum of block at offset {0} doesn't match available in secondary blocks of saved info "{1}", secondary saved info for the block will be ignored</value>
