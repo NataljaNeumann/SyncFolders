@@ -604,6 +604,8 @@ namespace SyncFoldersTests
             175, 82, 253, 167, 82, 245, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 
             // there other unspecified data can appear in the future. The length of te data must be specified at the end of saved info.
+            // example other data: 1 to 5
+            1, 2, 3, 4, 5,
 
             // total number of blocks in row 1 is before signature, because we have variable number of blocks
             0, 0, 0, 0, 0, 0, 0, 2,
@@ -616,7 +618,7 @@ namespace SyncFoldersTests
             0, 0, 0, 0, 0, 0, 64, 0, // length of file, shall be 16384
             0, 0, 0, 0, 0, 0, 0, 4, // total number of checksums, equal to number of blocks in file, shall be 4
             0, 0, 0, 0, 0, 0, 0, 1, // total number of rows, shall read 1
-            0, 0, 0, 0, 0, 0, 0, 0 // total amount of other unspecified data for verification of total length of saved info, shall be 0
+            0, 0, 0, 0, 0, 0, 0, 5 // total amount of other unspecified data for verification of total length of saved info, shall read 5
         };
 
         //===================================================================================================
