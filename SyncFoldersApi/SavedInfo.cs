@@ -67,11 +67,11 @@ namespace SyncFoldersApi
         /// <summary>
         /// Holds first row of blocks for restoring single block failures
         /// </summary>
-        public List<Block> m_aBlocks = new List<Block>();
+        public List<Block?> m_aBlocks = new List<Block?>();
         /// <summary>
         /// Holds second row of blocks for restoring single block failures
         /// </summary>
-        List<Block> m_aOtherBlocks = new List<Block>();
+        List<Block?> m_aOtherBlocks = new List<Block?>();
         /// <summary>
         /// Simple checksums of the blocks of the original file
         /// </summary>
@@ -115,6 +115,7 @@ namespace SyncFoldersApi
             for (int i = 1024 * 64 / testb.Length - 1; i >= 0; --i)
                 m_aBlocks.Add(new Block());
             m_aChecksums = new List<byte[]>();
+            m_aListOfBlocksToRestore = new List<long>();
         }
 
         //===================================================================================================
@@ -133,6 +134,7 @@ namespace SyncFoldersApi
         {
             m_lFileLength = lFileLength;
             m_dtmFileTimestampUtc = dtmFileTimestampUtc;
+            m_aListOfBlocksToRestore = new List<long>();
 
             Block oTestBlock = new Block();
             // maxblocks is at least 0.5 per cent of the file or at least 64K in 64K steps
@@ -343,9 +345,7 @@ namespace SyncFoldersApi
             // read blocks of the first row
             for (long i = lBlocksInFirstRow - 1; i >= 0; --i)
             {
-                Block oBlock = null;
-
-                oBlock = new Block();
+                Block oBlock = new Block();
 
                 try
                 {
@@ -371,9 +371,7 @@ namespace SyncFoldersApi
             // read blocks of second row
             for (long i = lBlocksInSecondRow - 1; i >= 0; --i)
             {
-                Block oBlock = null;
-
-                oBlock = new Block();
+                Block oBlock = new Block();
 
                 try
                 {
@@ -770,9 +768,7 @@ namespace SyncFoldersApi
             // read blocks of the first row
             while (m_aBlocks.Count < lBlocksInFirstRow)
             {
-                Block oBlock = null;
-
-                oBlock = new Block();
+                Block oBlock = new Block();
 
                 try
                 {
@@ -833,18 +829,21 @@ namespace SyncFoldersApi
                     // we don't expect the restore file to be perfect
                     // add a null block for failed reads
                     m_aOtherBlocks.Add(null);
-                    // seek the next block
+                    // seek the next block. We assuume that blocks are at
+                    // block boundaries, because the headder shouln't bee too big
+                    // and the first block is cut off
                     oInputStream.Seek(oBlock.Length * (lBlocksInSecondRow - i + lBlocksInFirstRow),
                         System.IO.SeekOrigin.Begin);
                 };
             };
 
             // read the end of first block
-            if (m_aBlocks.Count > 0 && m_aBlocks[0] != null)
+            Block? oBlock0 = m_aBlocks[0];
+            if (m_aBlocks.Count > 0 && oBlock0 != null)
             {
                 try
                 {
-                    if (m_aBlocks[0].ReadLastPartFrom(oInputStream,
+                    if (oBlock0.ReadLastPartFrom(oInputStream,
                         (int)(28 + 32 + lTotalRows * 8)) !=
                               28 + 32 + lTotalRows * 8)
                     {
@@ -973,11 +972,27 @@ namespace SyncFoldersApi
 
             // save the blocks in first row
             for (int i = 0; i < m_aBlocks.Count; ++i)
-                m_aBlocks[i].WriteTo(oOutputStream);
+            {
+                Block? oBlock = m_aBlocks[i];
+
+                // are we trying to save info of a non-restored file?
+                if (oBlock == null)
+                    throw new InvalidOperationException();
+
+                oBlock.WriteTo(oOutputStream);
+            }
 
             // save the blocks in second row
             for (int i = 0; i < m_aOtherBlocks.Count; ++i)
-                m_aOtherBlocks[i].WriteTo(oOutputStream);
+            {
+                Block? oBlock = m_aOtherBlocks[i];
+
+                // are we trying to save info of a non-restored file?
+                if (oBlock == null)
+                    throw new InvalidOperationException();
+
+                oBlock.WriteTo(oOutputStream);
+            }
 
             // save the number of checksums (shall be same as number
             // of blocks in original file
@@ -1104,22 +1119,44 @@ namespace SyncFoldersApi
 
             // save the blocks in first row, first block only partly, so
             // all other blocks are correctly alligned at physical blocks
-            m_aBlocks[0].WriteFirstPartTo(oOutputStream, m_aBlocks[0].Length-28-32-nTotalRows*8);
+            Block? oBlock0 = m_aBlocks[0];
+
+            // are we trying to save info of a non-restored file?
+            if (oBlock0 == null)
+                throw new InvalidOperationException();
+
+            oBlock0.WriteFirstPartTo(oOutputStream, oBlock0.Length-28-32-nTotalRows*8);
             for (int i = 1; i < m_aBlocks.Count; ++i)
-                m_aBlocks[i].WriteTo(oOutputStream);
+            {
+                Block? oBlock = m_aBlocks[i];
+
+                // are we trying to save info of a non-restored file?
+                if (oBlock == null)
+                    throw new InvalidOperationException();
+
+                oBlock.WriteTo(oOutputStream);
+            }
 
 
             if (m_aOtherBlocks.Count > 0)
             {
                 // save the blocks in second row
                 for (int i = 0; i < m_aOtherBlocks.Count; ++i)
-                    m_aOtherBlocks[i].WriteTo(oOutputStream);
+                {
+                    Block? oBlock = m_aOtherBlocks[i];
+
+                    // are we trying to save info of a non-restored file?
+                    if (oBlock == null)
+                        throw new InvalidOperationException();
+
+                    oBlock.WriteTo(oOutputStream);
+                }
             }
 
             // after all blocks have been written at correct block offsets
             // write the rest of the first block. So the first block is split
             // for putting all other blocks at physical block boundaries
-            m_aBlocks[0].WriteLastPartTo(oOutputStream, 28 + 32 + nTotalRows * 8);
+            oBlock0.WriteLastPartTo(oOutputStream, 28 + 32 + nTotalRows * 8);
 
             CheckSumCalculator oChecksumOfChecksums = new CheckSumCalculator();
 
@@ -1257,10 +1294,25 @@ namespace SyncFoldersApi
             if (m_aBlocks.Count == 0)
                 return;
 
-            m_aBlocks[(int)(lBlockIndex % m_aBlocks.Count)].DoXor(oBlockOfOriginalFile);
+            // in case of analysis for info collection we assume there
+            // are no read errors, and we have all blocks in row, since we created
+            // and filled them on initialization
+            Block? oBlockToXor = m_aBlocks[(int)(lBlockIndex % m_aBlocks.Count)];
+
+            if (oBlockToXor == null)
+                throw new InvalidOperationException();
+
+             oBlockToXor.DoXor(oBlockOfOriginalFile);
 
             if (m_aOtherBlocks.Count > 0)
-                m_aOtherBlocks[(int)(lBlockIndex % m_aOtherBlocks.Count)].DoXor(oBlockOfOriginalFile);
+            {
+                oBlockToXor = m_aOtherBlocks[(int)(lBlockIndex % m_aOtherBlocks.Count)];
+
+                if (oBlockToXor == null)
+                        throw new InvalidOperationException();
+            
+               oBlockToXor.DoXor(oBlockOfOriginalFile);
+            }
 
             // if we can save checksum of the block in a list
             if (lBlockIndex < int.MaxValue)
@@ -1323,14 +1375,18 @@ namespace SyncFoldersApi
             // then simply add the block as OK
             if (m_aChecksums.Count <= index)
             {
-                if (m_aBlocks[(int)(index % m_aBlocks.Count)]!=null)
-                    m_aBlocks[(int)(index % m_aBlocks.Count)].DoXor(oBlock);
+                Block? oBlockOfRow1 = m_aBlocks[(int)(index % m_aBlocks.Count)];
+                if (oBlockOfRow1 != null)
+                    oBlockOfRow1.DoXor(oBlock);
 
                 // if there is a second row of blocks, then perform also
                 // preparation of other blocks;
                 if (m_aOtherBlocks.Count > 0)
-                    if (m_aOtherBlocks[(int)(index % m_aOtherBlocks.Count)]!=null)
-                        m_aOtherBlocks[(int)(index % m_aOtherBlocks.Count)].DoXor(oBlock);
+                {
+                    Block? oBlockOfRow2 = m_aOtherBlocks[(int)(index % m_aOtherBlocks.Count)];
+                    if (oBlockOfRow2 != null)
+                        oBlockOfRow2.DoXor(oBlock);
+                }
 
                 // analyze which blocks have been skipped
                 while (++m_lCurrentlyRestoredBlock < index)
@@ -1364,13 +1420,18 @@ namespace SyncFoldersApi
             }
             else
             {
-                if (m_aBlocks[(int)(index % m_aBlocks.Count)] != null)
-                    m_aBlocks[(int)(index % m_aBlocks.Count)].DoXor(oBlock);
+                Block? oBlockOfRow1 = m_aBlocks[(int)(index % m_aBlocks.Count)];
+                if (oBlockOfRow1 != null)
+                    oBlockOfRow1.DoXor(oBlock);
 
                 // if there is a second row of blocks, then perform also 
                 // preparation of other blocks;
-                if (m_aOtherBlocks.Count > 0 && m_aOtherBlocks[(int)(index % m_aOtherBlocks.Count)]!=null)
-                    m_aOtherBlocks[(int)(index % m_aOtherBlocks.Count)].DoXor(oBlock);
+                if (m_aOtherBlocks.Count > 0)
+                {
+                    Block? oBlockOfRow2 = m_aOtherBlocks[(int)(index % m_aOtherBlocks.Count)];
+                    if (oBlockOfRow2 != null)
+                        oBlockOfRow2.DoXor(oBlock);
+                }
 
                 // analyze which blocks have been skipped
                 while (++m_lCurrentlyRestoredBlock < index)
@@ -1451,7 +1512,7 @@ namespace SyncFoldersApi
                 {
                     if (!aUsedIndexesInFirstRow.Contains(i))
                     {
-                        Block oBlock = m_aBlocks[i];
+                        Block? oBlock = m_aBlocks[i];
                         if (oBlock != null)
                         {
                             for (int j = oBlock.Length - 1; j >= 0; --j)
@@ -1489,8 +1550,13 @@ namespace SyncFoldersApi
                     }
                     else
                     {
+#pragma warning disable CS8602
+                        // non-null is thought to be ensured by other means
+                        Block oResultBlock = m_aBlocks[nIndexToUseFromFirstRow].Clone();
+#pragma warning restore CS8602
+
                         oResult.Add(new RestoreInfo(blockToRestore * oTestBlock.Length, 
-                            m_aBlocks[nIndexToUseFromFirstRow], false));
+                            oResultBlock, false));
                     }
                 }
             }
@@ -1531,7 +1597,9 @@ namespace SyncFoldersApi
                     {
                         long blockToRestore = m_aListOfBlocksToRestore[i];
                         int nIndexToUseInFirstRow = (int)(blockToRestore % m_aBlocks.Count);
-                        if (!aNonUsableIndexesInFirstRow.Contains(nIndexToUseInFirstRow))
+                        Block? oBlockToUseInFirstRow = m_aBlocks[nIndexToUseInFirstRow];
+                        if (!aNonUsableIndexesInFirstRow.Contains(nIndexToUseInFirstRow) &&
+                            oBlockToUseInFirstRow != null)
                         {
                             bool bChecksumOk2 = true;
 
@@ -1540,7 +1608,8 @@ namespace SyncFoldersApi
                                 // calc a checksum for verification of the block
                                 byte[] checksum = new byte[3];
                                 int currentIndex = 0;
-                                foreach (byte by in m_aBlocks[nIndexToUseInFirstRow])
+
+                                foreach (byte by in oBlockToUseInFirstRow)
                                 {
                                     checksum[currentIndex++] ^= by;
                                     if (currentIndex >= checksum.Length)
@@ -1556,14 +1625,19 @@ namespace SyncFoldersApi
                             // block only if checksum matches
                             if (bChecksumOk2)
                             {
-                                oResult.Add(new RestoreInfo(blockToRestore * oTestBlock.Length, 
-                                    m_aBlocks[nIndexToUseInFirstRow], false));
+                                oResult.Add(new RestoreInfo(blockToRestore * oTestBlock.Length,
+                                    oBlockToUseInFirstRow, false));
 
                                 // we calculated the new block, it could improve the situation 
                                 // at the other row of blocks
-                                m_aOtherBlocks[(int)(blockToRestore % m_aOtherBlocks.Count)] = 
-                                    m_aOtherBlocks[(int)(blockToRestore % m_aOtherBlocks.Count)] ^ 
-                                    m_aBlocks[nIndexToUseInFirstRow];
+                                Block? oBlockToUseInOtherBlocks =
+                                    m_aOtherBlocks[(int)(blockToRestore % m_aOtherBlocks.Count)];
+
+                                if (oBlockToUseInOtherBlocks != null)
+                                {
+                                    m_aOtherBlocks[(int)(blockToRestore % m_aOtherBlocks.Count)] =
+                                         oBlockToUseInOtherBlocks ^ oBlockToUseInFirstRow;
+                                }
 
                                 // we need i to run backwards for this to work
                                 m_aListOfBlocksToRestore.RemoveAt(i);
@@ -1607,7 +1681,9 @@ namespace SyncFoldersApi
                     {
                         long blockToRestore = m_aListOfBlocksToRestore[i];
                         int blockToUse = (int)(blockToRestore % m_aOtherBlocks.Count);
-                        if (!aNonUsableIndexesInOtherBlocks.Contains(blockToUse))
+                        Block? oBlockToUseFromOtherBlocks = m_aOtherBlocks[blockToUse];
+                        if (!aNonUsableIndexesInOtherBlocks.Contains(blockToUse) &&
+                            oBlockToUseFromOtherBlocks != null)
                         {
                             bool bChecksumOk3 = true;
 
@@ -1616,7 +1692,7 @@ namespace SyncFoldersApi
                                 // calc a checksum for verification of the block
                                 byte[] checksum = new byte[3];
                                 int currentIndex = 0;
-                                foreach (byte by in m_aOtherBlocks[blockToUse])
+                                foreach (byte by in oBlockToUseFromOtherBlocks)
                                 {
                                     checksum[currentIndex++] ^= by;
                                     if (currentIndex >= checksum.Length)
@@ -1632,18 +1708,23 @@ namespace SyncFoldersApi
                             {
                                 // we calculated the new block, it could improve the situation 
                                 // at the primary row of blocks
-                                m_aBlocks[(int)(blockToRestore % m_aBlocks.Count)] = 
-                                    m_aBlocks[(int)(blockToRestore % m_aBlocks.Count)] ^ 
-                                    m_aOtherBlocks[blockToUse];
+                                Block? oBlockToUseFromFirstRow = 
+                                    m_aBlocks[(int)(blockToRestore % m_aBlocks.Count)];
+
+                                if (oBlockToUseFromFirstRow != null)
+                                {
+                                    m_aBlocks[(int)(blockToRestore % m_aBlocks.Count)] =
+                                        oBlockToUseFromFirstRow ^ oBlockToUseFromOtherBlocks;
+                                }
 
                                 // skip these two lines in test case for testing the "repeat" case 
-                                oResult.Add(new RestoreInfo(blockToRestore * oTestBlock.Length, 
-                                    m_aOtherBlocks[blockToUse], false));
+                                oResult.Add(new RestoreInfo(blockToRestore * oTestBlock.Length,
+                                    oBlockToUseFromOtherBlocks.Clone(), false));
                                 m_aListOfBlocksToRestore.RemoveAt(i);
 
                                 // repeat restoring using the primary and the secondary row of blocks:
                                 // we restored something using the second row, 
-                                // this could improve the situation with the primary blocks.
+                                // this could improve the situation with the primary blocks, again
                                 bRepeat = true;
                             }
                             else
@@ -1693,7 +1774,7 @@ namespace SyncFoldersApi
             //  then all contents of the m_aBlocks shall be zero
             for (int i = m_aBlocks.Count - 1; i >= 0; --i)
             {
-                Block oBlock = m_aBlocks[i];
+                Block? oBlock = m_aBlocks[i];
 
                 if (oBlock == null)
                     return false;
@@ -1709,7 +1790,7 @@ namespace SyncFoldersApi
                 //  then all contents of the m_aOtherBlocks also shall be zero
                 for (int i = m_aOtherBlocks.Count - 1; i >= 0; --i)
                 {
-                    Block oBlock = m_aOtherBlocks[i];
+                    Block? oBlock = m_aOtherBlocks[i];
 
                     if (oBlock == null)
                         return false;
@@ -1756,9 +1837,12 @@ namespace SyncFoldersApi
         public int NonEmptyBlocks()
         {
             int cnt = 0;
-            foreach (Block blk in m_aBlocks)
+            foreach (Block? oBlock in m_aBlocks)
             {
-                foreach (byte b in blk)
+                if (oBlock == null)
+                    continue;
+
+                foreach (byte b in oBlock)
                 {
                     if (b != 0)
                     {
@@ -1803,13 +1887,10 @@ namespace SyncFoldersApi
                     if (oOtherSaveInfo.m_aBlocks.Count <= i)
                         oOtherSaveInfo.m_aBlocks.Add(null);
 
-                    if (oOtherSaveInfo.m_aBlocks[i] == null && this.m_aBlocks[i] != null)
+                    Block? oBlockAtI = this.m_aBlocks[i];
+                    if (oOtherSaveInfo.m_aBlocks[i] == null && oBlockAtI != null)
                     {
-                        Block newB = new Block();
-                        Block oldB = this.m_aBlocks[i];
-                        for (int j = newB.Length - 1; j >= 0; --j)
-                            newB[j] = oldB[j];
-                        oOtherSaveInfo.m_aBlocks[i] = newB;
+                        oOtherSaveInfo.m_aBlocks[i] = oBlockAtI.Clone();
                     }
                 }
             }
@@ -1823,13 +1904,10 @@ namespace SyncFoldersApi
                     if (oOtherSaveInfo.m_aOtherBlocks.Count <= i)
                         oOtherSaveInfo.m_aOtherBlocks.Add(null);
 
-                    if (oOtherSaveInfo.m_aOtherBlocks[i] == null && this.m_aOtherBlocks[i] != null)
+                    Block? oOtherBlockAtI = this.m_aOtherBlocks[i];
+                    if (oOtherSaveInfo.m_aOtherBlocks[i] == null && oOtherBlockAtI != null)
                     {
-                        Block newB = new Block();
-                        Block oldB = this.m_aOtherBlocks[i];
-                        for (int j = newB.Length - 1; j >= 0; --j)
-                            newB[j] = oldB[j];
-                        oOtherSaveInfo.m_aOtherBlocks[i] = newB;
+                        oOtherSaveInfo.m_aOtherBlocks[i] = oOtherBlockAtI.Clone();
                     }
                 }
             }
@@ -1843,13 +1921,10 @@ namespace SyncFoldersApi
                     if (this.m_aBlocks.Count <= i)
                         this.m_aBlocks.Add(null);
 
-                    if (this.m_aBlocks[i] == null && oOtherSaveInfo.m_aBlocks[i] != null)
+                    Block? oBlockAtI = oOtherSaveInfo.m_aBlocks[i];
+                    if (this.m_aBlocks[i] == null && oBlockAtI != null)
                     {
-                        Block newB = new Block();
-                        Block oldB = oOtherSaveInfo.m_aBlocks[i];
-                        for (int j = newB.Length - 1; j >= 0; --j)
-                            newB[j] = oldB[j];
-                        this.m_aBlocks[i] = newB;
+                        this.m_aBlocks[i] = oBlockAtI.Clone();
                     }
                 }
             }
@@ -1863,16 +1938,16 @@ namespace SyncFoldersApi
                     if (this.m_aOtherBlocks.Count <= i)
                         this.m_aOtherBlocks.Add(null);
 
-                    if (this.m_aOtherBlocks[i] == null && oOtherSaveInfo.m_aOtherBlocks[i] != null)
+                    Block? oOtherBlockAtI = oOtherSaveInfo.m_aOtherBlocks[i];
+                    if (this.m_aOtherBlocks[i] == null && oOtherBlockAtI != null)
                     {
-                        Block newB = new Block();
-                        Block oldB = oOtherSaveInfo.m_aOtherBlocks[i];
-                        for (int j = newB.Length - 1; j >= 0; --j)
-                            newB[j] = oldB[j];
-                        this.m_aOtherBlocks[i] = newB;
+                        this.m_aOtherBlocks[i] = oOtherBlockAtI.Clone();
                     }
                 }
             }
+
+            // TODO: handle possible case that block counts differ (maybe
+            // created by different versions
         }
     }
 }
