@@ -62,22 +62,20 @@ namespace SyncFoldersApi
         /// <summary>
         /// Constructs a new in-memory file info
         /// </summary>
-        /// <param name="path">Path of the file</param>
-        /// <param name="stream">File stream</param>
-        /// <param name="fileWriteTimes">Information about file write times</param>
+        /// <param name="strPath">Path of the file</param>
+        /// <param name="oStream">File stream</param>
         //===================================================================================================
-        public InMemoryFileInfo(string path, MemoryStream stream, InMemoryFileSystem oFS)
+        public InMemoryFileInfo(string strPath, MemoryStream? oStream, InMemoryFileSystem oFS)
         {
-            if (oFS != null)
-            {
-                m_oFs = oFS;
-                lock (m_oFs.m_oFileWriteTimes)
-                    m_bExists = m_oFs.m_oFileWriteTimes.ContainsKey(path);
-                if (m_bExists)
-                    Attributes = FileAttributes.Archive;
-                m_lLength = stream.Length;
-            }
-            m_strFullName = path;
+
+            m_oFs = oFS;
+            lock (m_oFs.m_oFileWriteTimes)
+                m_bExists = m_oFs.m_oFileWriteTimes.ContainsKey(strPath);
+            if (m_bExists)
+                Attributes = FileAttributes.Archive;
+            m_lLength = oStream?.Length??0;
+
+            m_strFullName = strPath;
         }
 
         //===================================================================================================
@@ -241,7 +239,10 @@ namespace SyncFoldersApi
         {
             get
             {
+                // we ignore the case that there could be no directory specification
+#pragma warning disable CS8603
                 return Path.GetDirectoryName(FullName);
+#pragma warning restore CS8603
             }
         }
 
