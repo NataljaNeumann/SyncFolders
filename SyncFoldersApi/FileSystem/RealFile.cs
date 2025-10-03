@@ -38,7 +38,7 @@ namespace SyncFoldersApi
         /// <summary>
         /// Contains the actual file stream
         /// </summary>
-        public Stream m_oStream;
+        public Stream? m_oStream;
 
         //===================================================================================================
         /// <summary>
@@ -61,10 +61,16 @@ namespace SyncFoldersApi
         {
             get
             {
+                if (m_oStream == null)
+                    throw new ObjectDisposedException("RealFile");
+
                 return m_oStream.Position;
             }
             set
             {
+                if (m_oStream == null)
+                    throw new ObjectDisposedException("RealFile");
+
                 m_oStream.Position = value;
             }
         }
@@ -83,6 +89,9 @@ namespace SyncFoldersApi
             int nCount
             )
         {
+            if (m_oStream == null)
+                throw new ObjectDisposedException("RealFile");
+
             m_oStream.Write(aBuffer, nOffset, nCount);
         }
 
@@ -97,6 +106,9 @@ namespace SyncFoldersApi
             byte by
             )
         {
+            if (m_oStream == null)
+                throw new ObjectDisposedException("RealFile");
+
             m_oStream.WriteByte(by);
         }
 
@@ -116,6 +128,9 @@ namespace SyncFoldersApi
             int nCount
             )
         {
+            if (m_oStream == null)
+                throw new ObjectDisposedException("RealFile");
+
             return m_oStream.Read(aBuffer, nOffset, nCount);
         }
 
@@ -127,6 +142,9 @@ namespace SyncFoldersApi
         //===================================================================================================
         public int ReadByte()
         {
+            if (m_oStream == null)
+                throw new ObjectDisposedException("RealFile");
+
             return m_oStream.ReadByte();
         }
 
@@ -142,6 +160,9 @@ namespace SyncFoldersApi
             long lOffset, 
             SeekOrigin eOrigin)
         {
+            if (m_oStream == null)
+                throw new ObjectDisposedException("RealFile");
+
             m_oStream.Seek(lOffset, eOrigin);
         }
 
@@ -153,6 +174,9 @@ namespace SyncFoldersApi
         //===================================================================================================
         public void Close()
         {
+            if (m_oStream == null)
+                throw new ObjectDisposedException("RealFile");
+
             m_oStream.Close();
         }
 
@@ -163,6 +187,9 @@ namespace SyncFoldersApi
         //===================================================================================================
         public void Dispose()
         {
+            if (m_oStream == null)
+                throw new ObjectDisposedException("RealFile");
+
             m_oStream.Dispose();
         }
 
@@ -173,6 +200,9 @@ namespace SyncFoldersApi
         //===================================================================================================
         public void Flush()
         {
+            if (m_oStream == null)
+                throw new ObjectDisposedException("RealFile");
+
             m_oStream.Flush();
         }
 
@@ -186,6 +216,9 @@ namespace SyncFoldersApi
         {
             get
             {
+                if (m_oStream == null)
+                    throw new ObjectDisposedException("RealFile");
+
                 return m_oStream.Length;
             }
         }
