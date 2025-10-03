@@ -128,7 +128,14 @@ namespace SyncFoldersApi
                     s_oFreeBlocks.Push(m_aData); // Return the block to the pool
                 }
 
+                // we are in finalizer
+                // there should be no more references of
+                // the object, still we want to ensure thate
+                // the array is not referenced anywhere
+                // after we put it back to the pool
+#pragma warning disable CS8625                
                 m_aData = null; // Mark the data as unused
+#pragma warning restore CS8625
             }
         }
 
@@ -431,7 +438,7 @@ namespace SyncFoldersApi
         /// <param name="obj">Other block for comparison</param>
         /// <returns>true iff the contents of the blocks are equal</returns>
         //===================================================================================================
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (!(obj is Block))
                 return false;
@@ -493,5 +500,22 @@ namespace SyncFoldersApi
         }
 
         #endregion
+
+        //===================================================================================================
+        /// <summary>
+        /// Clones the block. Creates a whole new array of bytes
+        /// </summary>
+        /// <returns>A clone</returns>
+        //===================================================================================================
+        public Block Clone()
+        {
+            Block oNewBlock = new Block(false);
+
+            for (int i = oNewBlock.Length-1; i >= 0; --i)
+                oNewBlock.m_aData[i] = m_aData[i];
+
+            return oNewBlock; 
+        }
+
     }
 }
