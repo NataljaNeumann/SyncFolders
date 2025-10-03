@@ -435,11 +435,18 @@ namespace SyncFoldersApi
         /// <param name="strPath">Path of the directory</param>
         /// <returns>Information object</returns>
         //===================================================================================================
-        public void EnsureDirectoryExists(string path)
+        public void EnsureDirectoryExists(string strPath)
         {
-            if (path == null) return;
-            string[] astrDirectories = path.Split(new[] { '\\' }, StringSplitOptions.RemoveEmptyEntries);
+            if (strPath == null) 
+                return;
+
+            string[] astrDirectories = strPath.Split(new[] { '\\' }, StringSplitOptions.RemoveEmptyEntries);
             string strCurrentPath = "";
+            if (strPath.StartsWith("\\\\"))
+            {
+                strCurrentPath = "\\\\";
+            }
+
             foreach (string strDirectory in astrDirectories)
             {
                 if (strCurrentPath.Length == 0)
