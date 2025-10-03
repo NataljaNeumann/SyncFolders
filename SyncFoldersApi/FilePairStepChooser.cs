@@ -36,13 +36,16 @@ namespace SyncFoldersApi
             IFilePairSteps iStepsImpl,
             ILogWriter iLogWriter)
         {
-            IFileInfo fi1 = null, fi2 = null;
 
+            IFileInfo fi1 = iFileSystem.GetFileInfo(strFilePath1);
+            IFileInfo fi2 = iFileSystem.GetFileInfo(strFilePath2);
+
+            //IFileInfo fi1 = null, fi2 = null;
             //try
-            {
-                fi1 = iFileSystem.GetFileInfo(strFilePath1);
-                fi2 = iFileSystem.GetFileInfo(strFilePath2);
-            }
+            //{
+            //  fi1 = iFileSystem.GetFileInfo(strFilePath1);
+            //    fi2 = iFileSystem.GetFileInfo(strFilePath2);
+            //}
             // this solves the problem in this place, but other problems appear down the code
             //catch (Exception oEx)
             //{
