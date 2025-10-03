@@ -153,8 +153,9 @@ namespace SyncFoldersApi
             string strSearchPattern
             )
         {
-            if (strSearchPattern.Contains(Path.DirectorySeparatorChar))
-                return new List<string>(Directory.GetFiles(Path.GetDirectoryName(strSearchPattern), Path.GetFileName(strSearchPattern)));
+            string? strDir = Path.GetDirectoryName(strSearchPattern);
+            if (strSearchPattern.Contains(Path.DirectorySeparatorChar) && strDir!=null)
+                return new List<string>(Directory.GetFiles(strDir, Path.GetFileName(strSearchPattern)));
             else
                 return new List<string>(Directory.GetFiles(Directory.GetCurrentDirectory(), strSearchPattern));
         }
@@ -216,9 +217,15 @@ namespace SyncFoldersApi
             int nBufferLength
             )
         {
-            Stream s = ((RealFile)iFile).m_oStream;
+            Stream? oStream = ((RealFile)iFile).m_oStream;
+
+            if (oStream == null)
+            {
+                throw new ObjectDisposedException("iFile");
+            }
+
             ((RealFile)iFile).m_oStream = null;
-            return new RealFile(new BufferedStream(s, nBufferLength));
+            return new RealFile(new BufferedStream(oStream, nBufferLength));
         }
 
 
