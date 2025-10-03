@@ -54,14 +54,6 @@ namespace SyncFoldersApi
             }
             else
             {
-                if (fi2.Length == 0 && Utils.CheckIfZeroLengthIsInteresting(strFilePath2))
-                {
-                    iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.FileHasZeroLength,
-                            strFilePath2);
-                    iLogWriter.WriteLog(true, 0, "Warning: file has zero length, " +
-                        "indicating a failed copy operation in the past: ", strFilePath2);
-                }
-
                 if (iSettings.TestFiles)
                 {
                     IFileInfo fiSavedInfo2 =
@@ -107,14 +99,6 @@ namespace SyncFoldersApi
             ILogWriter iLogWriter
             )
         {
-            if (fi1.Length == 0 && Utils.CheckIfZeroLengthIsInteresting(strFilePath1))
-            {
-                iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.FileHasZeroLength,
-                            strFilePath1);
-                iLogWriter.WriteLog(true, 0, "Warning: file has zero length, " +
-                    "indicating a failed copy operation in the past: ", strFilePath1);
-            }
-
             IFileInfo fiSavedInfo1 = iFileSystem.GetFileInfo(
                 Utils.CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
             IFileInfo fiSavedInfo2 = iFileSystem.GetFileInfo(
@@ -419,12 +403,7 @@ namespace SyncFoldersApi
             }
             else
             {
-                if (fi2.Length == 0 && Utils.CheckIfZeroLengthIsInteresting(strFilePath2))
-                {
-                    iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.FileHasZeroLength, strFilePath2);
-                    iLogWriter.WriteLog(true, 0, "Warning: file has zero length, " +
-                        "indicating a failed copy operation in the past: ", strFilePath2);
-                }
+
 
                 if (iSettings.TestFiles)
                 {
@@ -668,13 +647,6 @@ namespace SyncFoldersApi
             ILogWriter iLogWriter
             )
         {
-            if (fi1.Length == 0 && Utils.CheckIfZeroLengthIsInteresting(strFilePath1))
-            {
-                iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.FileHasZeroLength, strFilePath1);
-                iLogWriter.WriteLog(true, 0, "Warning: file has zero length, " +
-                    "indicating a failed copy operation in the past: ", strFilePath1);
-            }
-
             IFileInfo fiSavedInfo1 = iFileSystem.GetFileInfo(
                 Utils.CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
 

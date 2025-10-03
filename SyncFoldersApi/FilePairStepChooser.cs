@@ -172,15 +172,38 @@ namespace SyncFoldersApi
             else
             {
                 if (fi2.Exists && (!fi1.Exists || fi1.Length == 0))
+                {
+                    if (fi1.Exists && fi1.Length == 0 && Utils.CheckIfZeroLengthIsInteresting(strFilePath1))
+                    {
+                        iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.FileHasZeroLength,
+                            strFilePath1);
+                        iLogWriter.WriteLog(true, 0, "Warning: file has zero length, " +
+                            "indicating a failed copy operation in the past: ",
+                            strFilePath1);
+
+                    }
                     iLogic.ProcessFilePair_FirstToSecond_FirstReadonly_SecondExists(
                         strFilePath1, strFilePath2, fi1, fi2,
                         iFileSystem, iSettings, iStepsImpl, iLogWriter);
+                }
                 else
                 {
                     if (fi1.Exists && (!fi2.Exists || fi2.Length == 0))
+                    {
+                        if (fi2.Exists && fi2.Length == 0 && Utils.CheckIfZeroLengthIsInteresting(strFilePath2))
+                        {
+                            iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.FileHasZeroLength,
+                                strFilePath2);
+                            iLogWriter.WriteLog(true, 0, "Warning: file has zero length, " +
+                                "indicating a failed copy operation in the past: ",
+                                strFilePath2);
+
+                        }
+
                         iLogic.ProcessFilePair_FirstToSecond_FirstReadonly_FirstExists(
                             strFilePath1, strFilePath2, fi1, fi2,
                             iFileSystem, iSettings, iStepsImpl, iLogWriter);
+                    }
                     else
                         ProcessFilePair_FirstToSecond_FirstReadonly_BothExist(
                             strFilePath1, strFilePath2, fi1, fi2,
@@ -275,15 +298,34 @@ namespace SyncFoldersApi
             else
             {
                 if (fi2.Exists && (!fi1.Exists || fi1.Length == 0))
+                {
+                    if ((fi1.Exists && fi1.Length == 0) && Utils.CheckIfZeroLengthIsInteresting(strFilePath1))
+                    {
+                        iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.FileHasZeroLength,
+                            strFilePath1);
+                        iLogWriter.WriteLog(true, 0, "Warning: file has zero length, " +
+                            "indicating a failed copy operation in the past: ", strFilePath1);
+                    };
+
                     iLogic.ProcessFilePair_FirstToSecond_FirstReadWrite_SecondExists(
                         strFilePath1, strFilePath2, fi1, fi2,
                     iFileSystem, iSettings, iStepsImpl, iLogWriter);
+                }
                 else
                 {
                     if (fi1.Exists && (!fi2.Exists || fi2.Length == 0))
+                    {
+                        if ((fi2.Exists && fi2.Length == 0) && Utils.CheckIfZeroLengthIsInteresting(strFilePath2))
+                        {
+                            iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.FileHasZeroLength,
+                                strFilePath2);
+                            iLogWriter.WriteLog(true, 0, "Warning: file has zero length, " +
+                                "indicating a failed copy operation in the past: ", strFilePath2);
+                        };
                         iLogic.ProcessFilePair_FirstToSecond_FirstReadWrite_FirstExists(
                             strFilePath1, strFilePath2, fi1, fi2,
                             iFileSystem, iSettings, iStepsImpl, iLogWriter);
+                    }
                     else
                         ProcessFilePair_FirstToSecond_FirstReadWrite_BothExist(
                             strFilePath1, strFilePath2, fi1, fi2,
@@ -387,7 +429,7 @@ namespace SyncFoldersApi
             {
                 if (Utils.CheckIfZeroLengthIsInteresting(strFilePath2))
                 {
-                    if (strFilePath1.Equals(strFilePath2,
+                    if (!strFilePath1.Equals(strFilePath2,
                         StringComparison.CurrentCultureIgnoreCase))
                     {
                         iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.FileHasZeroLength, strFilePath1);
@@ -402,17 +444,34 @@ namespace SyncFoldersApi
                     }
                 }
             }
-            else
-                if (fi1.Exists && (!fi2.Exists || fi2.Length == 0))
+            else if (fi1.Exists && (!fi2.Exists || fi2.Length == 0))
+            {
+                if (fi2.Exists && fi2.Length == 0 && Utils.CheckIfZeroLengthIsInteresting(strFilePath2))
+                {
+                    iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.FileHasZeroLength, strFilePath2);
+                    iLogWriter.WriteLog(true, 0, "Warning: file has zero length, " +
+                        "indicating a failed copy operation in the past: ", strFilePath2);
+                }
+
                 iLogic.ProcessFilePair_Bidirectionally_FirstExists(
                     strFilePath1, strFilePath2, fi1, fi2,
                     iFileSystem, iSettings, iStepsImpl, iLogWriter);
+            }
             else
             {
                 if (fi2.Exists && (!fi1.Exists || fi1.Length == 0))
+                {
+                    if (fi1.Exists && fi1.Length == 0 && Utils.CheckIfZeroLengthIsInteresting(strFilePath1))
+                    {
+                        iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.FileHasZeroLength, strFilePath1);
+                        iLogWriter.WriteLog(true, 0, "Warning: file has zero length, " +
+                            "indicating a failed copy operation in the past: ", strFilePath1);
+                    }
+
                     iLogic.ProcessFilePair_Bidirectionally_SecondExists(
                         strFilePath1, strFilePath2, fi1, fi2,
                     iFileSystem, iSettings, iStepsImpl, iLogWriter);
+                }
                 else
                     ProcessFilePair_Bidirectionally_BothExist(
                         strFilePath1, strFilePath2, fi1, fi2,
