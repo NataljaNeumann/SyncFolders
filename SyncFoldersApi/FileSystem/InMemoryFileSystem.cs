@@ -394,7 +394,7 @@ namespace SyncFoldersApi
             }
             else
             {
-                return new InMemoryFileInfo(strPath, null, null);
+                return new InMemoryFileInfo(strPath, null, this);
             }
         }
 
@@ -419,10 +419,13 @@ namespace SyncFoldersApi
         /// <param name="strPath">Path of the directory</param>
         /// <returns>Information object</returns>
         //===================================================================================================
-        public void TestDirectoryExists(string path)
+        public void TestDirectoryExists(string? strPath)
         {
-            if (!m_oDirectories.ContainsKey(path))
-                throw new IOException("Directory "+path+" doesn't exist in memory");
+            if (strPath == null)
+                throw new ArgumentNullException(nameof(strPath));
+
+            if (!m_oDirectories.ContainsKey(strPath))
+                throw new IOException("Directory "+strPath+" doesn't exist in memory");
         }
 
         //===================================================================================================
@@ -451,9 +454,8 @@ namespace SyncFoldersApi
                 }
                 if (!m_oDirectories.ContainsKey(strCurrentPath))
                 {
-                    m_oDirectories.Add(strCurrentPath, null);
-                    // the direcory must exist before we create the object
                     m_oDirectories[strCurrentPath] = new InMemoryDirectoryInfo(strCurrentPath, this);
+                    m_oDirectories[strCurrentPath].Create();
                 }
             }
         }
