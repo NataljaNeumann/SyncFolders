@@ -14,7 +14,7 @@ namespace SyncFolders.Taskbar
         /// <summary>
         /// Taskbar object
         /// </summary>
-        private ITaskbarList3 m_oTaskbar;
+        private ITaskbarList3? m_oTaskbar;
 
 
         //===================================================================================================
@@ -48,7 +48,6 @@ namespace SyncFolders.Taskbar
 
             try
             {
-                object oTaskbar = null;
                 // Create the COM object
                 int hresult = CoCreateInstance(
                     ref CLSID_TaskbarList,
