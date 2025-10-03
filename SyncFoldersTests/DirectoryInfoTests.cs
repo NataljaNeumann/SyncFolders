@@ -45,14 +45,13 @@ namespace SyncFoldersTests
         /// <remarks>This interface is intended to provide a contract for performing file-related
         /// operations,  such as reading, writing, or managing files and directories. Implementations of this 
         /// interface may vary depending on the underlying file system or storage mechanism.</remarks>
-        protected IFileOperations m_oFileSystem;
+        protected IFileOperations m_oFileSystem = new InMemoryFileSystem();
 
         //===================================================================================================
         /// <summary>
         /// Temporary ddirectory for current test
         /// </summary>
         private string m_strTempPath;
-
 
         //===================================================================================================
         /// <summary>
@@ -180,7 +179,7 @@ namespace SyncFoldersTests
         {
             var dir = m_oFileSystem.GetDirectoryInfo(m_strTempPath);
             var parent = dir.Parent;
-            Assert.AreEqual(Path.GetDirectoryName(m_strTempPath), parent.FullName);
+            Assert.AreEqual(Path.GetDirectoryName(m_strTempPath), parent?.FullName);
         }
 
         //===================================================================================================
@@ -236,9 +235,8 @@ namespace SyncFoldersTests
         //===================================================================================================
         public override void Setup()
         {
-            base.Setup();
-
             m_oFileSystem = new InMemoryFileSystem();
+            base.Setup();
         }
 
     }
@@ -261,9 +259,8 @@ namespace SyncFoldersTests
         //===================================================================================================
         public override void Setup()
         {
-            base.Setup();
-
             m_oFileSystem = new RealFileSystem();
+            base.Setup();
         }
 
     }

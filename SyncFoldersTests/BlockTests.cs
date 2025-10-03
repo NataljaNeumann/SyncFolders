@@ -577,6 +577,41 @@ namespace SyncFoldersTests
             }
         }
 
+        //===================================================================================================
+        /// <summary>
+        /// This function is used in MultithreadedBlockCreationAndUsage test,
+        /// so all pointers of blocks run out of scope before garbage collection
+        /// </summary>
+        //===================================================================================================
+        private void BlockUsageFunction()
+        {
+            Block b1 = new Block();
+            Assert.Zero(b1[0]);
+            Assert.Zero(b1[b1.Length - 1]);
+            b1[0] = 1;
+            b1[b1.Length - 1] = 1;
+            Block b2 = new Block();
+            Assert.Zero(b2[0]);
+            Assert.Zero(b2[1]);
+            Assert.Zero(b2[b2.Length - 1]);
+            b2 = b2 | b1;
+            Assert.AreEqual(1, b2[0]);
+            Assert.Zero(b2[1]);
+            Assert.AreEqual(1, b2[b2.Length - 1]);
+            Block b3 = b2 & b1;
+            Assert.AreEqual(1, b3[0]);
+            Assert.Zero(b3[1]);
+            Assert.AreEqual(1, b3[b3.Length - 1]);
+            Block b4 = ~b3;
+            Assert.AreEqual(254, b4[0]);
+            Assert.AreEqual(255, b4[1]);
+            Assert.AreEqual(254, b4[b4.Length - 1]);
+            Block b5 = b3 ^ b4;
+            Assert.AreEqual(255, b5[0]);
+            Assert.AreEqual(255, b5[1]);
+            Assert.AreEqual(255, b5[b5.Length - 1]);
+        }
+
 
         //===================================================================================================
         /// <summary>
@@ -594,33 +629,8 @@ namespace SyncFoldersTests
 
             Parallel.For(0, 1000, options, i =>
             {
-                Block b1 = new Block();
-                Assert.Zero(b1[0]);
-                Assert.Zero(b1[b1.Length - 1]);
-                b1[0] = 1;
-                b1[b1.Length - 1] = 1;
-                Block b2 = new Block();
-                Assert.Zero(b2[0]);
-                Assert.Zero(b2[1]);
-                Assert.Zero(b2[b2.Length - 1]);
-                b2 = b2 | b1;
-                Assert.AreEqual(b2[0], 1);
-                Assert.Zero(b2[1]);
-                Assert.AreEqual(b2[b2.Length - 1],1);
-                Block b3 = b2 & b1;
-                Assert.AreEqual(b3[0], 1);
-                Assert.Zero(b3[1]);
-                Assert.AreEqual(b3[b3.Length - 1], 1);
-                Block b4 = ~b3;
-                Assert.AreEqual(b4[0], 254);
-                Assert.AreEqual(b4[1], 255);
-                Assert.AreEqual(b4[b4.Length - 1], 254);
-                Block b5 = b3 ^ b4;
-                Assert.AreEqual(b5[0], 255);
-                Assert.AreEqual(b5[1], 255);
-                Assert.AreEqual(b5[b5.Length - 1], 255);
-                // remove references of all the blocks
-                b1 = b2 = b3 = b4 = b5 = null;
+                BlockUsageFunction();
+
                 // collect garbage and start from the beginning
                 GC.Collect();
                 if ((i/10)%10 == 0)

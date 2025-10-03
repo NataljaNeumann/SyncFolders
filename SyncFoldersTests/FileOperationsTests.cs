@@ -44,7 +44,7 @@ namespace SyncFoldersTests
         /// <remarks>This interface is intended to provide a contract for performing file-related
         /// operations,  such as reading, writing, or managing files and directories. Implementations of this 
         /// interface may vary depending on the underlying file system or storage mechanism.</remarks>
-        protected IFileOperations m_oFileSystem;
+        protected IFileOperations m_oFileSystem = new InMemoryFileSystem();
 
         //===================================================================================================
         /// <summary>

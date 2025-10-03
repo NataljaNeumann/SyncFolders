@@ -44,7 +44,7 @@ namespace SyncFoldersTests
         /// <remarks>This interface is intended to provide a contract for performing file-related
         /// operations,  such as reading, writing, or managing files and directories. Implementations of this 
         /// interface may vary depending on the underlying file system or storage mechanism.</remarks>
-        protected IFileOperations m_oFileSystem;
+        protected IFileOperations m_oFileSystem = new InMemoryFileSystem();
 
         //===================================================================================================
         /// <summary>
@@ -252,7 +252,7 @@ namespace SyncFoldersTests
             var copy = file.CopyTo(copyPath);
             Assert.IsTrue(m_oFileSystem.Exists(copyPath));
             Assert.AreEqual("copy.txt", copy.Name);
-            Assert.AreEqual(m_oFileSystem.ReadAllText(copyPath), "Hello World");
+            Assert.AreEqual("Hello World", m_oFileSystem.ReadAllText(copyPath));
         }
 
         //===================================================================================================
