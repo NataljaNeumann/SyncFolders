@@ -44,7 +44,7 @@ namespace SyncFoldersApi
         void WriteLog(
             bool bOnlyToFile, 
             int nIndent, 
-            params object[] aParts
+            params object? [] aParts
             );
 
         //===================================================================================================
@@ -58,7 +58,7 @@ namespace SyncFoldersApi
         void WriteLogFormattedLocalized(
             int nIndent,
             string strFormat,
-            params object[] aParams
+            params object? [] aParams
             );
 
     }
