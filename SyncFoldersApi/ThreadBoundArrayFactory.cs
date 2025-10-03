@@ -66,7 +66,7 @@ namespace SyncFoldersApi
             /// <summary>
             /// The object created by the worker thread.
             /// </summary>
-            public T[] CreatedArray;
+            public T[]? CreatedArray;
         }
 
         //===================================================================================================
@@ -95,7 +95,7 @@ namespace SyncFoldersApi
                 // Wait until a request is signaled
                 m_oRequestSignal.WaitOne();
 
-                CreationRequest oRequest = null;
+                CreationRequest? oRequest = null;
 
                 // Safely dequeue the next request
                 lock (m_oLock)
@@ -125,17 +125,26 @@ namespace SyncFoldersApi
         {
             var oRequest = new CreationRequest();
 
-            // Enqueue the request
-            lock (m_oLock)
+            do
             {
-                m_oRequestQueue.Enqueue(oRequest);
-            }
+                // Enqueue the request
+                lock (m_oLock)
+                {
+                    m_oRequestQueue.Enqueue(oRequest);
+                }
 
-            // Signal the worker thread to process the request
-            m_oRequestSignal.Set();
+                // Signal the worker thread to process the request
+                m_oRequestSignal.Set();
 
-            // Wait until the object is created
-            oRequest.DoneEvent.WaitOne();
+                // Wait until the object is created
+                oRequest.DoneEvent.WaitOne();
+
+#if DEBUG
+                System.Diagnostics.Debug.Assert(oRequest.CreatedArray != null);
+#endif
+
+            } while (oRequest.CreatedArray == null);
+
             return oRequest.CreatedArray;
         }
 
