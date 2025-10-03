@@ -7,6 +7,7 @@
     <AssemblyVersion>1.5.2.0</AssemblyVersion>
     <FileVersion>1.5.1.0</FileVersion>
     <Version>$(AssemblyVersion)</Version>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
