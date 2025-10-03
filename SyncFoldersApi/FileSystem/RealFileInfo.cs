@@ -189,7 +189,10 @@ namespace SyncFoldersApi
         {
             get
             {
+                // we assume that we will always have directory specificaions
+#pragma warning disable CS8603
                 return m_oFileInfo.DirectoryName;
+#pragma warning restore CS8603
             }
         }
 
@@ -202,7 +205,10 @@ namespace SyncFoldersApi
         {
             get
             {
+                // we assume that we will always have directory specificaions
+#pragma warning disable CS8604
                 return new RealDirectoryInfo(m_oFileInfo.Directory);
+#pragma warning restore CS8604
             }
         }
 
