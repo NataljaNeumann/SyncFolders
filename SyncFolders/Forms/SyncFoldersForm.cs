@@ -58,65 +58,14 @@ namespace SyncFolders
         /// True iff the synchronization process is running
         /// </summary>
         bool m_bWorking;
-        /*
-        /// <summary>
-        /// Indicates that user cliecked the cancel button
-        /// </summary>
-        bool m_bCancelClicked;
-        */
         /// <summary>
         /// First folder from GUI textbox
         /// </summary>
-        string m_strFolder1;
+        string m_strFolder1 = "";
         /// <summary>
         /// Second folder from GUI textbox
         /// </summary>
-        string m_strFolder2;
-        /*
-        /// <summary>
-        /// Create saved info from GUI checkbox
-        /// </summary>
-        bool m_bCreateInfo;
-        /// <summary>
-        /// Test readability of all files from GUI checkbox
-        /// </summary>
-        bool m_bTestFiles;
-        /// <summary>
-        /// Repair single block failures from GUI checkbox
-        /// </summary>
-        bool m_bRepairFiles;
-        /// <summary>
-        /// Prefer physical copies in case of error, from GUI checkbox
-        /// </summary>
-        bool m_bPreferPhysicalCopies;
-        /// <summary>
-        /// Unidirectionally, from first to second, from GUI checkbox
-        /// </summary>
-        bool m_bFirstToSecond;
-        /// <summary>
-        /// First folder can't be written to, e.g CD. From GUI checkbox
-        /// </summary>
-        bool m_bFirstReadOnly;
-        /// <summary>
-        /// Sync mode from GUI checkbox. Makes only sence, if first to second checked, too
-        /// </summary>
-        bool m_bFirstToSecondSyncMode;
-        /// <summary>
-        /// Delete files in second that aren't present in first.
-        /// Makes only sence, if first to second checked, too.
-        /// </summary>
-        bool m_bFirstToSecondDeleteInSecond;
-        /// <summary>
-        /// Skip test of recently tested files.
-        /// Makes only sence, if test files has been checked, too.
-        /// </summary>
-        bool m_bTestFilesSkipRecentlyTested = true;
-        /// <summary>
-        /// Ignore time difference between file and checksum.
-        /// May be useful in case there are problems with times in filesystem.
-        /// </summary>
-        bool m_bIgnoreTimeDifferencesBetweenDataAndSaveInfo;
-        */
+        string m_strFolder2 = "";
         /// <summary>
         /// If the application starts from a CD then we fill the first directory and forward
         /// focus to second directory textbox
@@ -126,7 +75,8 @@ namespace SyncFolders
         /// <summary>
         /// Found file pairs for possible synchronization
         /// </summary>
-        List<KeyValuePair<string, string>> m_aFilePairs;
+        List<KeyValuePair<string, string>> m_aFilePairs = 
+            new List<KeyValuePair<string, string>>();
 
         /// <summary>
         /// This is the index of currently processed file (the last one)
@@ -135,7 +85,7 @@ namespace SyncFolders
         /// <summary>
         /// This is the path of currently processed file (the last one)
         /// </summary>
-        volatile string m_strCurrentPath;
+        volatile string m_strCurrentPath = "";
 
         /// <summary>
         /// Semaphore for copy file operations
@@ -156,7 +106,7 @@ namespace SyncFolders
         /// <summary>
         /// An object for displaying progress in task bar
         /// </summary>
-        Taskbar.TaskbarProgress m_oTaskbarProgress;
+        Taskbar.TaskbarProgress? m_oTaskbarProgress;
 
         /*
         /// <summary>
@@ -651,7 +601,10 @@ namespace SyncFolders
             // try to create a file in the location of exe file
             string strTempFileName = Application.StartupPath + "test.tmp";
             bool bProgramFiles = strTempFileName.StartsWith("C:\\progra", StringComparison.InvariantCultureIgnoreCase);
+            // compiler seems to have a problem: doesn' recognize that there can be an exception in Create()...
+#pragma warning disable CS0219
             bool bFolderWritable = false;
+#pragma warning disable CS0219
             if (!bProgramFiles)
             {
                 try
@@ -844,11 +797,12 @@ namespace SyncFolders
         /// <param name="oXmlNode">Node to start with</param>
         /// <returns>Number of previous siblings. 0 if none</returns>
         //===================================================================================================
-        int CountPreviousSiblings(System.Xml.XmlNode oXmlNode)
+        int CountPreviousSiblings(System.Xml.XmlNode? oXmlNode)
         {
             int nResult = 0;
-            while ((oXmlNode = oXmlNode.PreviousSibling) != null)
-                ++nResult;
+            if (oXmlNode!=null)
+                while ((oXmlNode = oXmlNode.PreviousSibling) != null)
+                    ++nResult;
 
             return nResult;
         }
@@ -1021,7 +975,7 @@ namespace SyncFolders
             m_btnSelfTest.Enabled = false;
 
             m_nCurrentFile = 0;
-            m_strCurrentPath = null;
+            m_strCurrentPath = "";
             m_lblProgress.Text = Properties. Resources.ScanningFolders;
             m_oTimerUpdateFileDescription.Start();
 
@@ -1029,7 +983,7 @@ namespace SyncFolders
 
 
             m_oSettings.CancelClicked = false;
-            m_strLogToShow = new StringBuilder();
+            m_oLogToShow = new StringBuilder();
             m_oLogFile = new System.IO.StreamWriter(
                 System.IO.Path.Combine(
                 System.Environment.GetFolderPath(
@@ -1338,7 +1292,7 @@ namespace SyncFolders
         {
             if (InvokeRequired)
             {
-                Invoke(new EventHandler(delegate(object sender2, EventArgs args)
+                Invoke(new EventHandler(delegate(object? sender2, EventArgs args)
                 {
                     if (m_nCurrentFile > 0)
                         m_ctlProgressBar.Value = m_nCurrentFile;
@@ -1875,7 +1829,7 @@ namespace SyncFolders
             {
                 if (InvokeRequired)
                 {
-                    Invoke(new EventHandler(delegate(object sender, EventArgs args)
+                    Invoke(new EventHandler(delegate(object? sender, EventArgs args)
                     {
                         m_ctlProgressBar.Style = ProgressBarStyle.Marquee;
                         if (m_oTaskbarProgress != null)
@@ -1915,7 +1869,7 @@ namespace SyncFolders
                 // show progresss in the GUI
                 if (InvokeRequired)
                 {
-                    Invoke(new EventHandler(delegate(object sender, EventArgs args)
+                    Invoke(new EventHandler(delegate(object? sender, EventArgs args)
                     {
 
                         m_ctlProgressBar.Style = ProgressBarStyle.Continuous;
@@ -2010,7 +1964,7 @@ namespace SyncFolders
                             // GUI
                             if (InvokeRequired)
                             {
-                                Invoke(new EventHandler(delegate(object sender, EventArgs args)
+                                Invoke(new EventHandler(delegate(object? sender, EventArgs args)
                                 {
                                     m_ctlProgressBar.Value = currentFile;
                                     m_lblProgress.Text = pathPair.Key;
@@ -2048,7 +2002,7 @@ namespace SyncFolders
 
                 if (InvokeRequired)
                 {
-                    Invoke(new EventHandler(delegate(object sender, EventArgs args)
+                    Invoke(new EventHandler(delegate(object? sender, EventArgs args)
                     {
                         // change progress in task bar
                         if (m_oTaskbarProgress != null)
@@ -2090,10 +2044,10 @@ namespace SyncFolders
             m_iFileSystem = new RealFileSystem();
 #endif
 
-            m_oLogFile.Close();
-            m_oLogFileLocalized.Close();
-            m_oLogFile.Dispose();
-            m_oLogFileLocalized.Dispose();
+            m_oLogFile?.Close();
+            m_oLogFileLocalized?.Close();
+            m_oLogFile?.Dispose();
+            m_oLogFileLocalized?.Dispose();
             m_oLogFile = null;
             m_oLogFileLocalized = null;
 
@@ -2103,7 +2057,7 @@ namespace SyncFolders
 
             if (InvokeRequired)
             {
-                Invoke(new EventHandler(delegate (object sender, EventArgs args)
+                Invoke(new EventHandler(delegate (object? sender, EventArgs args)
                 {
                     if (m_oTaskbarProgress != null)
                         m_oTaskbarProgress.SetState(this.Handle, SyncFolders.Taskbar.TaskbarProgressState.eNoProgress);
@@ -2145,7 +2099,7 @@ namespace SyncFolders
                     {
                         using (LogDisplayingForm form = new LogDisplayingForm())
                         {
-                            form.textBoxLog.Text = m_strLogToShow.ToString();
+                            form.textBoxLog.Text = m_oLogToShow.ToString();
                             form.ShowDialog(this);
                         }
                     }
@@ -2195,7 +2149,7 @@ namespace SyncFolders
                 {
                     using (LogDisplayingForm form = new LogDisplayingForm())
                     {
-                        form.textBoxLog.Text = m_strLogToShow.ToString();
+                        form.textBoxLog.Text = m_oLogToShow.ToString();
                         form.ShowDialog(this);
                     }
                 }
@@ -2213,137 +2167,138 @@ namespace SyncFolders
         /// <param name="strDirPath2">Path in subdir of second folder</param>
         //===================================================================================================
         void FindFilePairs(
-            string strDirPath1, 
+            string strDirPath1,
             string strDirPath2)
         {
-            IDirectoryInfo di1 = m_iFileSystem.GetDirectoryInfo(strDirPath1);
-            IDirectoryInfo di2 = m_iFileSystem.GetDirectoryInfo(strDirPath2);
+            // find subdirectories in both directories
+            Dictionary<string, bool> oDirNames = new Dictionary<string, bool>();
 
-            // don't sync recycle bin
-            if (di1.Name.Equals("$RECYCLE.BIN", 
-                StringComparison.InvariantCultureIgnoreCase))
-                return;
-
-            // don't sync system volume information
-            if (di1.Name.Equals("System Volume Information", 
-                StringComparison.InvariantCultureIgnoreCase))
-                return;
-
-            // if one of the directories exists while the other doesn't then create the missing one
-            // and set its attributes
-            if (di1.Exists && !di2.Exists)
+            // the block is for releasing the di objects
             {
-                di2.Create();
-                di2 = m_iFileSystem.GetDirectoryInfo(strDirPath2);
-                di2.Attributes = di1.Attributes;
-            } else
-            if (di2.Exists && !di1.Exists)
-            {
-                if (!m_oSettings.FirstToSecond)
+                IDirectoryInfo di1 = m_iFileSystem.GetDirectoryInfo(strDirPath1);
+                IDirectoryInfo di2 = m_iFileSystem.GetDirectoryInfo(strDirPath2);
+
+                // don't sync recycle bin
+                if (di1.Name.Equals("$RECYCLE.BIN",
+                    StringComparison.InvariantCultureIgnoreCase))
+                    return;
+
+                // don't sync system volume information
+                if (di1.Name.Equals("System Volume Information",
+                    StringComparison.InvariantCultureIgnoreCase))
+                    return;
+
+                // if one of the directories exists while the other doesn't then create the missing one
+                // and set its attributes
+                if (di1.Exists && !di2.Exists)
                 {
-                    di1.Create();
-                    di1.Attributes = di2.Attributes;
+                    di2.Create();
+                    di2 = m_iFileSystem.GetDirectoryInfo(strDirPath2);
+                    di2.Attributes = di1.Attributes;
                 }
-            };
-
-
-            if (di1.Name.Equals("RestoreInfo", 
-                StringComparison.CurrentCultureIgnoreCase))
-                return;
-            if (m_oSettings.CreateInfo)
-            {
-                IDirectoryInfo di3;
-
-                if (!m_oSettings.FirstToSecond || !m_oSettings.FirstReadOnly)
+                else
+                if (di2.Exists && !di1.Exists)
                 {
+                    if (!m_oSettings.FirstToSecond)
+                    {
+                        di1.Create();
+                        di1.Attributes = di2.Attributes;
+                    }
+                }
+                ;
+
+
+                if (di1.Name.Equals("RestoreInfo",
+                    StringComparison.CurrentCultureIgnoreCase))
+                    return;
+                if (m_oSettings.CreateInfo)
+                {
+                    IDirectoryInfo di3;
+
+                    if (!m_oSettings.FirstToSecond || !m_oSettings.FirstReadOnly)
+                    {
+                        di3 = m_iFileSystem.GetDirectoryInfo(
+                            System.IO.Path.Combine(strDirPath1, "RestoreInfo"));
+                        if (!di3.Exists)
+                        {
+                            di3.Create();
+                            di3 = m_iFileSystem.GetDirectoryInfo(
+                                System.IO.Path.Combine(strDirPath1, "RestoreInfo"));
+                            di3.Attributes = di3.Attributes | System.IO.FileAttributes.Hidden
+                                | System.IO.FileAttributes.System;
+                        }
+                    }
+
                     di3 = m_iFileSystem.GetDirectoryInfo(
-                        System.IO.Path.Combine(strDirPath1, "RestoreInfo"));
+                        System.IO.Path.Combine(strDirPath2, "RestoreInfo"));
                     if (!di3.Exists)
                     {
                         di3.Create();
                         di3 = m_iFileSystem.GetDirectoryInfo(
-                            System.IO.Path.Combine(strDirPath1, "RestoreInfo"));
-                        di3.Attributes = di3.Attributes | System.IO.FileAttributes.Hidden 
-                            | System.IO.FileAttributes.System;
+                            System.IO.Path.Combine(strDirPath2, "RestoreInfo"));
+                        di3.Attributes = di3.Attributes
+                            | System.IO.FileAttributes.Hidden | System.IO.FileAttributes.System;
+                    }
+
+                }
+
+                if (m_oSettings.FirstToSecond && m_oSettings.FirstToSecondDeleteInSecond)
+                {
+                    IFileInfo fiDontDelete =
+                        m_iFileSystem.GetFileInfo(System.IO.Path.Combine(
+                            m_strFolder2, "SyncFolders-Dont-Delete.txt"));
+                    if (!fiDontDelete.Exists)
+                        fiDontDelete = m_iFileSystem.GetFileInfo(System.IO.Path.Combine(
+                            m_strFolder2, "SyncFolders-Don't-Delete.txt"));
+
+                    if (fiDontDelete.Exists)
+                    {
+                        WriteLogFormattedLocalized(0, Resources.SecondFolderNoDelete, fiDontDelete.Name);
+                        WriteLog(true, 0, "Error: The second folder contains file \"", fiDontDelete.Name, "\"," +
+                            " the selected folder seem to be wrong for delete option. " +
+                            "Skipping processing of the folder and subfolders");
+                        return;
                     }
                 }
 
-                di3 = m_iFileSystem.GetDirectoryInfo(
-                    System.IO.Path.Combine(strDirPath2, "RestoreInfo"));
-                if (!di3.Exists)
+
+                // find files in both directories
+                Dictionary<string, bool> oFileNames = new Dictionary<string, bool>();
+                if (di1.Exists || !m_oSettings.FirstToSecond)
                 {
-                    di3.Create();
-                    di3 = m_iFileSystem.GetDirectoryInfo(
-                        System.IO.Path.Combine(strDirPath2, "RestoreInfo"));
-                    di3.Attributes = di3.Attributes 
-                        | System.IO.FileAttributes.Hidden | System.IO.FileAttributes.System;
+                    foreach (IFileInfo fi1 in di1.GetFiles())
+                    {
+                        if (fi1.Name.Length <= 4 || !".tmp".Equals(
+                            fi1.Name.Substring(fi1.Name.Length - 4),
+                            StringComparison.InvariantCultureIgnoreCase))
+                            oFileNames[fi1.Name] = false;
+                    }
+
+                    foreach (IFileInfo fi2 in di2.GetFiles())
+                    {
+                        if (fi2.Name.Length <= 4 || !".tmp".Equals(
+                            fi2.Name.Substring(fi2.Name.Length - 4),
+                            StringComparison.InvariantCultureIgnoreCase))
+                            oFileNames[fi2.Name] = false;
+                    }
                 }
 
-            }
 
-            if (m_oSettings.FirstToSecond && m_oSettings.FirstToSecondDeleteInSecond)
-            {
-                IFileInfo fiDontDelete = 
-                    m_iFileSystem.GetFileInfo(System.IO.Path.Combine(
-                        m_strFolder2, "SyncFolders-Dont-Delete.txt"));
-                if (!fiDontDelete.Exists)
-                    fiDontDelete = m_iFileSystem.GetFileInfo(System.IO.Path.Combine(
-                        m_strFolder2, "SyncFolders-Don't-Delete.txt"));
+                foreach (string strFileName in oFileNames.Keys)
+                    m_aFilePairs.Add(new KeyValuePair<string, string>(
+                        System.IO.Path.Combine(strDirPath1, strFileName),
+                        System.IO.Path.Combine(strDirPath2, strFileName)));
 
-                if (fiDontDelete.Exists)
+                if (di1.Exists || !m_oSettings.FirstToSecond)
                 {
-                    WriteLogFormattedLocalized(0, Resources.SecondFolderNoDelete, fiDontDelete.Name);
-                    WriteLog(true, 0, "Error: The second folder contains file \"", fiDontDelete.Name, "\"," +
-                        " the selected folder seem to be wrong for delete option. " +
-                        "Skipping processing of the folder and subfolders");
-                    return;
-                }
-            }
+                    foreach (IDirectoryInfo sub1 in di1.GetDirectories())
+                        oDirNames[sub1.Name] = false;
 
-
-            // find files in both directories
-            Dictionary<string, bool> oFileNames = new Dictionary<string, bool>();
-            if (di1.Exists || !m_oSettings.FirstToSecond)
-            {
-                foreach (IFileInfo fi1 in di1.GetFiles())
-                {
-                    if (fi1.Name.Length<=4 || !".tmp".Equals(
-                        fi1.Name.Substring(fi1.Name.Length - 4), 
-                        StringComparison.InvariantCultureIgnoreCase))
-                        oFileNames[fi1.Name] = false;
-                }
-
-                foreach (IFileInfo fi2 in di2.GetFiles())
-                {
-                    if (fi2.Name.Length <= 4 || !".tmp".Equals(
-                        fi2.Name.Substring(fi2.Name.Length - 4), 
-                        StringComparison.InvariantCultureIgnoreCase))
-                        oFileNames[fi2.Name] = false;
+                    foreach (IDirectoryInfo sub2 in di2.GetDirectories())
+                        oDirNames[sub2.Name] = false;
                 }
             }
 
-
-            foreach (string strFileName in oFileNames.Keys)
-                m_aFilePairs.Add( new KeyValuePair<string,string>(
-                    System.IO.Path.Combine(strDirPath1, strFileName), 
-                    System.IO.Path.Combine(strDirPath2, strFileName)));
-
-
-            // find subdirectories in both directories
-            Dictionary<string, bool> oDirNames = new Dictionary<string, bool>();
-
-            if (di1.Exists || !m_oSettings.FirstToSecond)
-            {
-                foreach (IDirectoryInfo sub1 in di1.GetDirectories())
-                    oDirNames[sub1.Name] = false;
-
-                foreach (IDirectoryInfo sub2 in di2.GetDirectories())
-                    oDirNames[sub2.Name] = false;
-            }
-
-            // free the parent directory info objects
-            di1 = null;
-            di2 = null;
 
             // continue with the subdirs
             foreach (string strSubDirName in oDirNames.Keys)
@@ -2393,53 +2348,108 @@ namespace SyncFolders
         /// <param name="strFolderPath2">second folder</param>
         //===================================================================================================
         void RemoveOldFilesAndDirs(
-            string strFolderPath1, 
+            string strFolderPath1,
             string strFolderPath2
             )
         {
-            IDirectoryInfo di1 = m_iFileSystem.GetDirectoryInfo(strFolderPath1);
-            IDirectoryInfo di2 = m_iFileSystem.GetDirectoryInfo(strFolderPath2);
+            // find subdirectories in both directories
+            Dictionary<string, bool> oDirNames = new Dictionary<string, bool>();
 
-            // don't sync recycle bin
-            if (di1.Name.Equals("$RECYCLE.BIN", StringComparison.InvariantCultureIgnoreCase))
-                return;
-
-            // don't sync system volume information
-            if (di1.Name.Equals("System Volume Information", StringComparison.InvariantCultureIgnoreCase))
-                return;
-
-
-            // the contents of the RestoreInfo folders is considered at their parent folders
-            if (di1.Name == "RestoreInfo")
-                return;
-
-            // if one of the directories exists while the other doesn't then create the missing one
-            // and set its attributes
-            if (di2.Exists && !di1.Exists)
+            // block is for freeing the di objects
             {
-                if (m_oSettings.FirstToSecond && m_oSettings.FirstToSecondDeleteInSecond)
-                {
-                    di2.Delete(true);
-                    WriteLogFormattedLocalized(0, Resources.DeletedFolder, 
-                        di2.FullName, strFolderPath1);
-                    WriteLog(true, 0, "Deleted folder ", di2.FullName, 
-                        " including contents, because there is no ", 
-                        strFolderPath1, " anymore");
+                IDirectoryInfo di1 = m_iFileSystem.GetDirectoryInfo(strFolderPath1);
+                IDirectoryInfo di2 = m_iFileSystem.GetDirectoryInfo(strFolderPath2);
+
+                // don't sync recycle bin
+                if (di1.Name.Equals("$RECYCLE.BIN", StringComparison.InvariantCultureIgnoreCase))
                     return;
+
+                // don't sync system volume information
+                if (di1.Name.Equals("System Volume Information", StringComparison.InvariantCultureIgnoreCase))
+                    return;
+
+
+                // the contents of the RestoreInfo folders is considered at their parent folders
+                if (di1.Name == "RestoreInfo")
+                    return;
+
+                // if one of the directories exists while the other doesn't then create the missing one
+                // and set its attributes
+                if (di2.Exists && !di1.Exists)
+                {
+                    if (m_oSettings.FirstToSecond && m_oSettings.FirstToSecondDeleteInSecond)
+                    {
+                        di2.Delete(true);
+                        WriteLogFormattedLocalized(0, Resources.DeletedFolder,
+                            di2.FullName, strFolderPath1);
+                        WriteLog(true, 0, "Deleted folder ", di2.FullName,
+                            " including contents, because there is no ",
+                            strFolderPath1, " anymore");
+                        return;
+                    }
                 }
-            };
+                ;
 
-            IDirectoryInfo di3;
-            // consider contents of the first folder
-            if (!m_oSettings.FirstToSecond || !m_oSettings.FirstReadOnly)
-            {
-                di3 = m_iFileSystem.GetDirectoryInfo(
-                    System.IO.Path.Combine(strFolderPath1, "RestoreInfo"));
+                IDirectoryInfo di3;
+                // consider contents of the first folder
+                if (!m_oSettings.FirstToSecond || !m_oSettings.FirstReadOnly)
+                {
+                    di3 = m_iFileSystem.GetDirectoryInfo(
+                        System.IO.Path.Combine(strFolderPath1, "RestoreInfo"));
 
+                    if (di3.Exists)
+                    {
+                        List<IFileInfo> aAvailableFiles = new List<IFileInfo>();
+                        aAvailableFiles.AddRange(di1.GetFiles());
+
+                        FileEqualityComparer feq = new FileEqualityComparer();
+                        FileEqualityComparer2 feq2 = new FileEqualityComparer2();
+
+                        foreach (IFileInfo fi in di3.GetFiles())
+                        {
+                            try
+                            {
+                                if (fi.Extension.Equals(".chk", StringComparison.InvariantCultureIgnoreCase) &&
+                                    !CheckIfContains(aAvailableFiles, m_iFileSystem.GetFileInfo(
+                                        System.IO.Path.Combine(
+                                        di3.FullName, fi.Name.Substring(0, fi.Name.Length - 4))), feq, feq2))
+                                {
+                                    m_iFileSystem.Delete(fi);
+                                }
+                                else
+                                if (fi.Extension.Equals(".chked", StringComparison.InvariantCultureIgnoreCase) &&
+                                    !CheckIfContains(aAvailableFiles, m_iFileSystem.GetFileInfo(
+                                        System.IO.Path.Combine(
+                                        di3.FullName, fi.Name.Substring(0, fi.Name.Length - 6))), feq, feq2))
+                                {
+                                    m_iFileSystem.Delete(fi);
+                                }
+                            }
+                            catch (Exception oEx)
+                            {
+                                try
+                                {
+                                    WriteLogFormattedLocalized(0, Resources.ErrorDeleting,
+                                        System.IO.Path.Combine(di3.FullName, fi.Name), oEx.Message);
+                                    WriteLog(true, 0, "Error while deleting ",
+                                        System.IO.Path.Combine(di3.FullName, fi.Name), ": ", oEx.Message);
+                                }
+                                catch (Exception oEx2)
+                                {
+                                    WriteLog(false, 0, "Error in RemoveOldFilesAndDirs: ", oEx2.Message);
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+                // consider contents of the second folder
+                di3 = m_iFileSystem.GetDirectoryInfo(System.IO.Path.Combine(strFolderPath2, "RestoreInfo"));
                 if (di3.Exists)
                 {
                     List<IFileInfo> aAvailableFiles = new List<IFileInfo>();
-                    aAvailableFiles.AddRange(di1.GetFiles());
+                    aAvailableFiles.AddRange(di2.GetFiles());
 
                     FileEqualityComparer feq = new FileEqualityComparer();
                     FileEqualityComparer2 feq2 = new FileEqualityComparer2();
@@ -2448,17 +2458,18 @@ namespace SyncFolders
                     {
                         try
                         {
-                            if (fi.Extension.Equals(".chk", StringComparison.InvariantCultureIgnoreCase) && 
+                            if (fi.Extension.Equals(".chk", StringComparison.InvariantCultureIgnoreCase) &&
                                 !CheckIfContains(aAvailableFiles, m_iFileSystem.GetFileInfo(
                                     System.IO.Path.Combine(
-                                    di3.FullName,fi.Name.Substring(0, fi.Name.Length - 4))), feq, feq2))
+                                    di3.FullName, fi.Name.Substring(0, fi.Name.Length - 4))), feq, feq2))
                             {
                                 m_iFileSystem.Delete(fi);
-                            } else
-                            if (fi.Extension.Equals(".chked", StringComparison.InvariantCultureIgnoreCase) && 
+                            }
+                            else
+                            if (fi.Extension.Equals(".chked", StringComparison.InvariantCultureIgnoreCase) &&
                                 !CheckIfContains(aAvailableFiles, m_iFileSystem.GetFileInfo(
                                     System.IO.Path.Combine(
-                                    di3.FullName,fi.Name.Substring(0, fi.Name.Length - 6))), feq, feq2))
+                                    di3.FullName, fi.Name.Substring(0, fi.Name.Length - 6))), feq, feq2))
                             {
                                 m_iFileSystem.Delete(fi);
                             }
@@ -2468,87 +2479,33 @@ namespace SyncFolders
                             try
                             {
                                 WriteLogFormattedLocalized(0, Resources.ErrorDeleting,
-                                    System.IO.Path.Combine(di3.FullName, fi.Name), oEx.Message);
-                                WriteLog(true, 0, "Error while deleting ", 
-                                    System.IO.Path.Combine(di3.FullName,fi.Name), ": ", oEx.Message);
+                                    System.IO.Path.Combine(di3.FullName, fi.Name),
+                                    oEx.Message);
+                                WriteLog(true, 0, "Error while deleting ",
+                                    System.IO.Path.Combine(di3.FullName, fi.Name),
+                                    ": ", oEx.Message);
                             }
                             catch (Exception oEx2)
                             {
-                                WriteLog(false, 0, "Error in RemoveOldFilesAndDirs: ", oEx2.Message); 
+                                WriteLog(false, 0, "Error while deleting files in ",
+                                    di3.FullName, ": ", oEx.Message);
+                                WriteLog(false, 1, "Error while writing log: ", oEx2.Message);
                             }
                         }
                     }
                 }
+
+
+
+                if (di1.Exists)
+                    foreach (IDirectoryInfo diSubDir1 in di1.GetDirectories())
+                        oDirNames[diSubDir1.Name] = false;
+
+                if (di2.Exists)
+                    foreach (IDirectoryInfo diSubDir2 in di2.GetDirectories())
+                        oDirNames[diSubDir2.Name] = false;
+
             }
-
-
-            // consider contents of the second folder
-            di3 = m_iFileSystem.GetDirectoryInfo(System.IO.Path.Combine(strFolderPath2, "RestoreInfo"));
-            if (di3.Exists)
-            {
-                List<IFileInfo> aAvailableFiles = new List<IFileInfo>();
-                aAvailableFiles.AddRange(di2.GetFiles());
-
-                FileEqualityComparer feq = new FileEqualityComparer();
-                FileEqualityComparer2 feq2 = new FileEqualityComparer2();
-
-                foreach (IFileInfo fi in di3.GetFiles())
-                {
-                    try
-                    {
-                        if (fi.Extension.Equals(".chk", StringComparison.InvariantCultureIgnoreCase) && 
-                            !CheckIfContains(aAvailableFiles, m_iFileSystem.GetFileInfo(
-                                System.IO.Path.Combine(
-                                di3.FullName, fi.Name.Substring(0, fi.Name.Length - 4))), feq, feq2))
-                        {
-                            m_iFileSystem.Delete(fi);
-                        }
-                        else
-                        if (fi.Extension.Equals(".chked", StringComparison.InvariantCultureIgnoreCase) && 
-                            !CheckIfContains(aAvailableFiles, m_iFileSystem.GetFileInfo(
-                                System.IO.Path.Combine(
-                                di3.FullName, fi.Name.Substring(0, fi.Name.Length - 6))), feq, feq2))
-                        {
-                            m_iFileSystem.Delete(fi);
-                        }
-                    }
-                    catch (Exception oEx)
-                    {
-                        try
-                        {
-                            WriteLogFormattedLocalized(0, Resources.ErrorDeleting,
-                                System.IO.Path.Combine(di3.FullName, fi.Name),
-                                oEx.Message);
-                            WriteLog(true, 0, "Error while deleting ", 
-                                System.IO.Path.Combine(di3.FullName, fi.Name), 
-                                ": ", oEx.Message);
-                        }
-                        catch (Exception oEx2)
-                        {
-                            WriteLog(false, 0, "Error while deleting files in ", 
-                                di3.FullName, ": ", oEx.Message);
-                            WriteLog(false, 1, "Error while writing log: ", oEx2.Message);
-                        }
-                    }
-                }
-            }
-
-
-            // find subdirectories in both directories
-            Dictionary<string, bool> oDirNames = new Dictionary<string, bool>();
-
-            if (di1.Exists)
-                foreach (IDirectoryInfo diSubDir1 in di1.GetDirectories())
-                    oDirNames[diSubDir1.Name] = false;
-
-            if (di2.Exists)
-                foreach (IDirectoryInfo diSubDir2 in di2.GetDirectories())
-                    oDirNames[diSubDir2.Name] = false;
-
-            // free the parent directory info objects
-            di1 = null;
-            di2 = null;
-            di3 = null;
 
             // continue with the subdirs
             foreach (string strSubDirName in oDirNames.Keys)
@@ -2579,8 +2536,8 @@ namespace SyncFolders
             /// <returns>true iff the file names are equal case insensitively</returns>
             //===============================================================================================
             public bool Equals(
-                IFileInfo fi1, 
-                IFileInfo fi2
+                IFileInfo? fi1, 
+                IFileInfo? fi2
                 )
             {
                 if (fi1 == null || fi2 == null)
@@ -2626,8 +2583,8 @@ namespace SyncFolders
             /// <returns>true iff the file names are considered equal</returns>
             //===============================================================================================
             public bool Equals(
-                IFileInfo fi1, 
-                IFileInfo fi2)
+                IFileInfo? fi1, 
+                IFileInfo? fi2)
             {
                 if (fi1 == null || fi2 == null)
                     return fi1 == fi2;
@@ -2662,9 +2619,12 @@ namespace SyncFolders
         /// </summary>
         /// <param name="oFilePair">The file pair to process</param>
         void FilePairWorker(
-            object oFilePair
+            object? oFilePair
             )
         {
+            if (oFilePair == null)
+                throw new ArgumentNullException(nameof(oFilePair));
+
             KeyValuePair<string, string> pathPair = 
                 (KeyValuePair<string, string>)oFilePair;
             try
@@ -2716,9 +2676,9 @@ namespace SyncFolders
         }
 
 
-        System.Text.StringBuilder m_strLogToShow;
-        System.IO.TextWriter m_oLogFileLocalized;
-        System.IO.TextWriter m_oLogFile;
+        System.Text.StringBuilder m_oLogToShow = new StringBuilder();
+        System.IO.TextWriter? m_oLogFileLocalized;
+        System.IO.TextWriter? m_oLogFile;
 
 
         //===================================================================================================
@@ -2733,7 +2693,7 @@ namespace SyncFolders
         public void WriteLog(
             bool bOnlyToNonlocalizedLog,
             int nIndent, 
-            params object [] aParts
+            params object? [] aParts
             )
         {
             if (m_oLogFile != null)
@@ -2747,11 +2707,11 @@ namespace SyncFolders
 
                 System.DateTime utc = System.DateTime.UtcNow;
                 System.DateTime now = utc.ToLocalTime();
-                lock (m_strLogToShow)
+                lock (m_oLogToShow)
                 {
                     m_oLogFile.Write("{0}UT\t={1}=\t", utc.ToString("yyyy-MM-dd HH:mm:ss.fff"),
                         System.Threading.Thread.CurrentThread.ManagedThreadId);
-                    if (!bOnlyToNonlocalizedLog)
+                    if (!bOnlyToNonlocalizedLog && m_oLogFileLocalized!=null)
                     {
                         // switch back to LTR for this message in the localized log
                         if (Resources.RightToLeft.Equals("yes"))
@@ -2764,34 +2724,44 @@ namespace SyncFolders
                     while (nIndent-- > 0)
                     {
                         m_oLogFile.Write("\t");
-                        if (!bOnlyToNonlocalizedLog)
+                        if (!bOnlyToNonlocalizedLog && m_oLogFileLocalized != null)
                              m_oLogFileLocalized.Write("\t");
                         if (!bOnlyToNonlocalizedLog) 
-                            m_strLogToShow.Append("        ");
+                            m_oLogToShow.Append("        ");
                     }
 
-                    foreach (object part in aParts)
+                    foreach (object? oPart in aParts)
                     {
-                        string s = part.ToString().Replace(Environment.NewLine,"");
-                        if (!bOnlyToNonlocalizedLog)
+                        if (oPart != null)
                         {
-                            m_strLogToShow.Append(s);
-                            m_oLogFileLocalized.Write(s);
+                            string? strPart = oPart.ToString();
+                            if (strPart != null)
+                            {
+                                strPart = strPart.Replace(Environment.NewLine, "");
+                                if (!bOnlyToNonlocalizedLog)
+                                {
+                                    m_oLogToShow.Append(strPart);
+                                    m_oLogFileLocalized?.Write(strPart);
+                                }
+                                m_oLogFile.Write(strPart);
+                            }
                         }
-                        m_oLogFile.Write(s);
                     }
 
 
                     if (!bOnlyToNonlocalizedLog)
                     {
-                        m_strLogToShow.Append(Environment.NewLine);
+                        m_oLogToShow.Append(Environment.NewLine);
 
-                        // continue with rtl
-                        if (Resources.RightToLeft.Equals("yes"))
-                            m_oLogFileLocalized.Write((char)0x200F);
+                        if (m_oLogFileLocalized != null)
+                        {
+                            // continue with rtl
+                            if (Resources.RightToLeft.Equals("yes"))
+                                m_oLogFileLocalized.Write((char)0x200F);
 
-                        m_oLogFileLocalized.WriteLine();
-                        m_oLogFileLocalized.Flush();
+                            m_oLogFileLocalized.WriteLine();
+                            m_oLogFileLocalized.Flush();
+                        }
                     }
                     m_oLogFile.WriteLine();
                     m_oLogFile.Flush();
@@ -2801,19 +2771,24 @@ namespace SyncFolders
             {
                 if (!bOnlyToNonlocalizedLog)
                 {
-                    lock (m_strLogToShow)
+                    lock (m_oLogToShow)
                     {
                         while (nIndent-- > 0)
                         {
-                            m_strLogToShow.Append("        ");
+                            m_oLogToShow.Append("        ");
                         }
 
-                        foreach (object part in aParts)
+                        foreach (object? oPart in aParts)
                         {
-                            m_strLogToShow.Append(part.ToString());
+                            if (oPart != null)
+                            {
+                                string? strPart = oPart.ToString();
+                                if (strPart != null)
+                                    m_oLogToShow.Append(strPart);
+                            }
                         }
 
-                        m_strLogToShow.Append("\r\n");
+                        m_oLogToShow.Append("\r\n");
                     }
                 }
             }
@@ -2830,14 +2805,14 @@ namespace SyncFolders
         public void WriteLogFormattedLocalized(
             int nIndent,
             string strFormat,
-            params object[] aParams
+            params object?[] aParams
             )
         {
             if (m_oLogFileLocalized != null)
             {
                 System.DateTime utc = System.DateTime.UtcNow;
                 System.DateTime now = utc.ToLocalTime();
-                lock (m_strLogToShow)
+                lock (m_oLogToShow)
                 {
                     DateTime dtmNow = now;
                     string strNowF = dtmNow.ToString("F");
@@ -2864,7 +2839,7 @@ namespace SyncFolders
                     while (nIndent-- > 0)
                     {
                         m_oLogFileLocalized.Write("\t");
-                        m_strLogToShow.Append("        ");
+                        m_oLogToShow.Append("        ");
                     }
 
 
@@ -2878,27 +2853,27 @@ namespace SyncFolders
                     }
 
                     string s = string.Format(strFormat, aParams);
-                    m_strLogToShow.Append(s);
+                    m_oLogToShow.Append(s);
                     m_oLogFileLocalized.Write(s);
 
-                    m_strLogToShow.Append(Environment.NewLine);
+                    m_oLogToShow.Append(Environment.NewLine);
                     m_oLogFileLocalized.Write(Environment.NewLine);
                     m_oLogFileLocalized.Flush();
                 }
             }
             else
             {
-                lock (m_strLogToShow)
+                lock (m_oLogToShow)
                 {
                     while (nIndent-- > 0)
                     {
-                        m_strLogToShow.Append("        ");
+                        m_oLogToShow.Append("        ");
                     }
 
                     string s = string.Format(strFormat, aParams);
-                    m_strLogToShow.Append(s);
+                    m_oLogToShow.Append(s);
 
-                    m_strLogToShow.Append("\r\n");
+                    m_oLogToShow.Append("\r\n");
                 }
             }
         }
@@ -2908,8 +2883,11 @@ namespace SyncFolders
         /// </summary>
         /// <param name="oNumber"></param>
         /// <returns></returns>
-        public static object FormatNumber(object oNumber)
+        public static object FormatNumber(object? oNumber)
         {
+            if (oNumber == null)
+                return "";
+
             if (Resources.Digits.Equals("CHS"))
                 return FormatNumberChineseJapaneseKorean(oNumber, "一十二亿三千四百五十六万七千八百九十一", "〇");
             else
@@ -2938,10 +2916,16 @@ namespace SyncFolders
         /// <param name="nNumber">The number to format</param>
         /// <returns>Formatted number</returns>
         //===================================================================================================
-        public static string FormatNumberTibet(object oNumber)
+        public static string FormatNumberTibet(object? oNumber)
         {
+            if (oNumber == null)
+                return "";
+
+            string? strNumber = oNumber.ToString();
+            if (strNumber == null)
+                return "";
+
             const string c_strTibetDigits = "༠༡༢༣༤༥༦༧༨༩";
-            string strNumber = oNumber.ToString();
             StringBuilder oResult = new StringBuilder(strNumber.Length);
             foreach (char c in strNumber)
             {
@@ -2964,10 +2948,16 @@ namespace SyncFolders
         //===================================================================================================
         public static string FormatNumberLatin(object oNumber)
         {
+            if (oNumber == null)
+                return "";
+
+            string? strNumber = oNumber.ToString();
+            if (strNumber == null)
+                return "";
+
             string[] c_strLatinHundredThousands = new string[] { "I̅", "V̅", "X̅", "L̅", "C̅", "D̅", "M̅", "D̿" };
             string[] c_strLatinDigits = new string[] { "I", "V", "X", "L", "C", "D", "M", "V̅", "X̅", "L̅", "C̅", "D̅", "M̅" };
 
-            string strNumber = oNumber.ToString(); 
 
             if (strNumber.Equals("0"))
                 return "nulla";
@@ -3032,6 +3022,10 @@ namespace SyncFolders
                 oResult.Append("⎸");
                 // get the number again, but now the rest of it.
                 strNumber = oNumber.ToString();
+
+                if (strNumber == null)
+                    return oResult.ToString();
+
                 strNumber = strNumber.Substring(strNumber.Length-5);
             }
 
@@ -3098,7 +3092,12 @@ namespace SyncFolders
         //===================================================================================================
         static string FormatNumberChineseJapaneseKorean(object oNumber, string strDigits, string strZero)
         {
-            string strNumber = oNumber.ToString();
+            if (oNumber == null)
+                return "";
+
+            string? strNumber = oNumber.ToString();
+            if (strNumber == null)
+                return "";
 
             if (strNumber.Equals("0"))
                 return strZero;
@@ -3186,17 +3185,17 @@ namespace SyncFolders
         /// <summary>
         /// Picture box control
         /// </summary>
-        private PictureBox m_ctlPictureBox;
+        private PictureBox? m_ctlPictureBox;
         //===================================================================================================
         /// <summary>
         /// Image
         /// </summary>
-        private System.Drawing.Image m_oLoadedImage;
+        private System.Drawing.Image? m_oLoadedImage;
         //===================================================================================================
         /// <summary>
         /// A dictionary with positions of other elements
         /// </summary>
-        private Dictionary<Control, int> m_oOriginalPositions;
+        private Dictionary<Control, int>? m_oOriginalPositions;
 
         //===================================================================================================
         /// <summary>
@@ -3233,7 +3232,7 @@ namespace SyncFolders
         /// <param name="oSender">Sender object</param>
         /// <param name="oEventArgs">Event args</param>
         //===================================================================================================
-        private void ResizeImageAlongWithForm(object oSender, EventArgs oEventArgs)
+        private void ResizeImageAlongWithForm(object? oSender, EventArgs oEventArgs)
         {
             ResizeImageAndShiftElements();
         }
@@ -3257,7 +3256,7 @@ namespace SyncFolders
         //===================================================================================================
         private void ResizeImageAndShiftElements()
         {
-            if (m_oLoadedImage != null)
+            if (m_oLoadedImage != null && m_ctlPictureBox != null)
             {
                 if (WindowState != FormWindowState.Minimized)
                 {
@@ -3288,10 +3287,13 @@ namespace SyncFolders
         //===================================================================================================
         private void ShiftOtherElementsUpOrDown(int nNewPictureHeight)
         {
-            foreach (Control ctl in m_oOriginalPositions.Keys)
+            if (m_oOriginalPositions != null)
             {
-                if ((ctl.Anchor & AnchorStyles.Bottom) == AnchorStyles.None)
-                    ctl.Top = m_oOriginalPositions[ctl] + nNewPictureHeight;
+                foreach (Control ctl in m_oOriginalPositions.Keys)
+                {
+                    if ((ctl.Anchor & AnchorStyles.Bottom) == AnchorStyles.None)
+                        ctl.Top = m_oOriginalPositions[ctl] + nNewPictureHeight;
+                }
             }
         }
         #endregion
