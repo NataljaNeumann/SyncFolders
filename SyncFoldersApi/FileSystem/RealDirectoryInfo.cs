@@ -112,7 +112,7 @@ namespace SyncFoldersApi
         /// <summary>
         /// Gets parent directory
         /// </summary>
-        public IDirectoryInfo Parent
+        public IDirectoryInfo? Parent
         {
             get
             {

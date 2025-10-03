@@ -160,11 +160,11 @@ namespace SyncFoldersApi
         /// Gets parent directory
         /// </summary>
         //===================================================================================================
-        public IDirectoryInfo Parent
+        public IDirectoryInfo? Parent
         {
             get
             {
-                DirectoryInfo oParentDirectoryInfo = Directory.GetParent(m_strPath);
+                DirectoryInfo? oParentDirectoryInfo = Directory.GetParent(m_strPath);
                 if (oParentDirectoryInfo == null)
                     return null;
                 string oParentPath = oParentDirectoryInfo.FullName;
