@@ -13,22 +13,14 @@ namespace SyncFoldersTests
     [NonParallelizable]
     public class FilePairStepChooserTests
     {
-        enum FileConfigurationsType
-        {
-            eSecondZeroLength = 6,
-            eFirstZeroLength = 7,
-            eBothZeroLength = 8,
-            eFirstZeroLengthSecondMissing = 9,
-            eSecondZeroLengthFirstMissing = 10,
-            eLast
-        };
-
+        //===================================================================================================
         /// <summary>
         /// This is the function that was called by the choice algorithm
         /// </summary>
+        //===================================================================================================
         enum ChosenStepType
         {
-            eNone = 0, 
+            eNone = 0,
             eProcessFilePair_FirstToSecond_FirstReadonly_SecondExists,
             eProcessFilePair_FirstToSecond_FirstReadonly_FirstExists,
             eProcessFilePair_FirstToSecond_FirstReadonly_BothExist_NeedToCopy,
@@ -43,6 +35,11 @@ namespace SyncFoldersTests
             eProcessFilePair_Bidirectionally_BothExist_AssumingBothEqual
         }
 
+        //===================================================================================================
+        /// <summary>
+        /// Setp initializes resources of the API
+        /// </summary>
+        //===================================================================================================
         [SetUp]
         public void Setup()
         {
@@ -51,6 +48,36 @@ namespace SyncFoldersTests
         }
 
 
+        //===================================================================================================
+        /// <summary>
+        /// Executes step chooser for a particular configuration
+        /// </summary>
+        /// <param name="oFS">File system for the test, with readily available files for test</param>
+        /// <param name="bFirstToSecond">
+        /// Indicates, if the process shall go from first file/folder to second</param>
+        /// <param name="bFirstReadOnly">
+        /// Indicates, if first file/folder shall be considered read-only</param>
+        /// <param name="bFirstToSecondSyncMode">
+        /// Indicatess if first-to-second shall be dony in sync mode (in contrast to overwrite mode)</param>
+        /// <param name="bFirstToSecondDeleteInSecond">
+        /// Indicates, if first-to-second shall delete files of second folder that aren't present in first
+        /// </param>
+        /// <param name="bTestFiles">Indicates, if readability of files shall be tested</param>
+        /// <param name="bTestFilesSkipRecentlyTested">
+        /// Indicates if test of files shall randomly skip recently tested files</param>
+        /// <param name="bRepairFiles">Indicates, if single block failures shall be repaired</param>
+        /// <param name="bCreateInfo">Indicates, if SavedInfo shall be created, if it is missing</param>
+        /// <param name="bIgnoreTimeDifferencesBetweenDataAndSaveInfo">
+        /// Indicates if time difference between files and saved info shall be ignored</param>
+        /// <param name="bPreferPhysicalCopies">
+        /// Indicates, if physical copies shall be preferred over calculated restored info</param>
+        /// <param name="oLogMessages">Contains log messages</param>
+        /// <param name="oLocalizedLogMessages">Contains localized log messages</param>
+        /// <param name="oSettings">Returns created settings object</param>
+        /// <param name="strFile1">Path of file 1</param>
+        /// <param name="strFile2">Path of file 2</param>
+        /// <returns></returns>
+        //===================================================================================================
         ChosenStepType RunConfiguration(
             InMemoryFileSystem oFS,
             bool bIgnoreTimeDifferencesBetweenDataAndSaveInfo,
@@ -98,6 +125,17 @@ namespace SyncFoldersTests
             return oStep.Id;
         }
 
+        /// <summary>
+        /// Executes step chooser for a particular configuration
+        /// </summary>
+        /// <param name="oFS">File system for the test, with readily available files for test</param>
+        /// <param name="nConfiguration">The index of configuration 0..1023</param>
+        /// <param name="oLogMessages">Contains log messages</param>
+        /// <param name="oLocalizedLogMessages">Contains localized log messages</param>
+        /// <param name="oSettingsOut">Returns created settings object</param>
+        /// <param name="strFile1">Path of file 1</param>
+        /// <param name="strFile2">Path of file 2</param>
+        /// <returns></returns>
         ChosenStepType RunConfiguration(InMemoryFileSystem oFS,
             int nConfiguration,
             HashSet<string> oLogMessages,
@@ -140,7 +178,7 @@ namespace SyncFoldersTests
         public void Test01_FirstFilePresent()
         {
 
-            for (int nConfig=0; nConfig<1024; ++nConfig)
+            for (int nConfig = 0; nConfig < 1024; ++nConfig)
             {
                 InMemoryFileSystem oFS = new InMemoryFileSystem();
                 oFS.EnsureDirectoryExists(c_strDir1);
@@ -159,7 +197,8 @@ namespace SyncFoldersTests
                         Assert.AreEqual(ChosenStepType.eProcessFilePair_FirstToSecond_FirstReadonly_FirstExists, eStep);
                     else
                         Assert.AreEqual(ChosenStepType.eProcessFilePair_FirstToSecond_FirstReadWrite_FirstExists, eStep);
-                } else
+                }
+                else
                     Assert.AreEqual(ChosenStepType.eProcessFilePair_Bidirectionally_FirstExists, eStep);
 
                 Assert.AreEqual(0, oMessages.Count);
@@ -176,7 +215,7 @@ namespace SyncFoldersTests
         //===================================================================================================
         [Test]
         public void Test02_SecondFilePresent()
-        { 
+        {
             for (int nConfig = 0; nConfig < 1024; ++nConfig)
             {
                 InMemoryFileSystem oFS = new InMemoryFileSystem();
@@ -369,9 +408,9 @@ namespace SyncFoldersTests
                             Assert.AreEqual(ChosenStepType.eProcessFilePair_FirstToSecond_FirstReadonly_BothExist_NeedToCopy, eStep);
                     else
                         if (oSettings.FirstToSecondSyncMode)
-                            Assert.AreEqual(ChosenStepType.eProcessFilePair_FirstToSecond_FirstReadWrite_BothExist_NoNeedToCopy, eStep);
-                        else
-                            Assert.AreEqual(ChosenStepType.eProcessFilePair_Bidirectionally_BothExist_FirstNewer, eStep);
+                        Assert.AreEqual(ChosenStepType.eProcessFilePair_FirstToSecond_FirstReadWrite_BothExist_NoNeedToCopy, eStep);
+                    else
+                        Assert.AreEqual(ChosenStepType.eProcessFilePair_Bidirectionally_BothExist_FirstNewer, eStep);
                 }
                 else
                     Assert.AreEqual(ChosenStepType.eProcessFilePair_Bidirectionally_BothExist_SecondNewer, eStep);
@@ -384,7 +423,7 @@ namespace SyncFoldersTests
 
         //===================================================================================================
         /// <summary>
-        /// This test simulates the case that first file is present, and the second is missing
+        /// This test simulates the case that first file is present, and the second has zero length
         /// in all configurations
         /// </summary>
         //===================================================================================================
@@ -421,7 +460,7 @@ namespace SyncFoldersTests
                 else
                     Assert.AreEqual(ChosenStepType.eProcessFilePair_Bidirectionally_FirstExists, eStep);
 
-                Assert.IsTrue( oMessages.Contains("Warning: file has zero length, indicating a failed copy operation in the past: \\\\sim\\dir2\\test.jpg"));
+                Assert.IsTrue(oMessages.Contains("Warning: file has zero length, indicating a failed copy operation in the past: \\\\sim\\dir2\\test.jpg"));
                 Assert.IsTrue(oLocalized.Contains("Warning: file has zero length, indicating a failed copy operation in the past: \\\\sim\\dir2\\test.jpg"));
                 Assert.AreEqual(1, oMessages.Count);
                 Assert.AreEqual(1, oLocalized.Count);
@@ -456,7 +495,7 @@ namespace SyncFoldersTests
 
         //===================================================================================================
         /// <summary>
-        /// This test simulates the case that first file is present, and the second is missing
+        /// This test simulates the case that first file has zero length and the second is ok
         /// in all configurations
         /// </summary>
         //===================================================================================================
@@ -523,6 +562,129 @@ namespace SyncFoldersTests
 
             }
         }
+
+
+        //===================================================================================================
+        /// <summary>
+        /// This test simulates the case that first file is present but has zero length, and the no second
+        /// in all configurations
+        /// </summary>
+        //===================================================================================================
+        [Test]
+        public void Test09_FirstZeroLengthSecondMissing()
+        {
+
+            for (int nConfig = 0; nConfig < 1024; ++nConfig)
+            {
+                InMemoryFileSystem oFS = new InMemoryFileSystem();
+                oFS.EnsureDirectoryExists(c_strDir1);
+                oFS.EnsureDirectoryExists(c_strDir2);
+                oFS.WriteAllText(c_strFile1, "");
+
+                HashSet<string> oMessages = new HashSet<string>();
+                HashSet<string> oLocalized = new HashSet<string>();
+                SettingsAndEnvironment oSettings;
+
+                ChosenStepType eStep = RunConfiguration(oFS, nConfig, oMessages, oLocalized, out oSettings, c_strFile1, c_strFile2);
+
+                if (oSettings.FirstToSecond)
+                {
+                    if (oSettings.FirstReadOnly)
+                        Assert.AreEqual(ChosenStepType.eProcessFilePair_FirstToSecond_FirstReadonly_FirstExists, eStep);
+                    else
+                        Assert.AreEqual(ChosenStepType.eProcessFilePair_FirstToSecond_FirstReadWrite_FirstExists, eStep);
+                }
+                else
+                    Assert.AreEqual(ChosenStepType.eProcessFilePair_Bidirectionally_FirstExists, eStep);
+
+                Assert.IsTrue(oMessages.Contains("Warning: file has zero length, indicating a failed copy operation in the past: \\\\sim\\dir1\\test.jpg"));
+                Assert.IsTrue(oLocalized.Contains("Warning: file has zero length, indicating a failed copy operation in the past: \\\\sim\\dir1\\test.jpg"));
+                Assert.AreEqual(1, oMessages.Count);
+                Assert.AreEqual(1, oLocalized.Count);
+            }
+        }
+
+
+        //===================================================================================================
+        /// <summary>
+        /// This test simulates the case that first file is missing and the second has zero length
+        /// in all configurations
+        /// </summary>
+        //===================================================================================================
+        [Test]
+        public void Test10_FirstMissingSecondZeroLength()
+        {
+            for (int nConfig = 0; nConfig < 1024; ++nConfig)
+            {
+                InMemoryFileSystem oFS = new InMemoryFileSystem();
+
+                oFS.EnsureDirectoryExists(c_strDir1);
+                oFS.EnsureDirectoryExists(c_strDir2);
+                oFS.WriteAllText(c_strFile2, "");
+
+                HashSet<string> oMessages = new HashSet<string>();
+                HashSet<string> oLocalized = new HashSet<string>();
+                SettingsAndEnvironment oSettings;
+
+                ChosenStepType eStep = RunConfiguration(oFS, nConfig, oMessages, oLocalized, out oSettings, c_strFile1, c_strFile2);
+
+                if (oSettings.FirstToSecond)
+                {
+                    if (oSettings.FirstReadOnly)
+                        Assert.AreEqual(ChosenStepType.eProcessFilePair_FirstToSecond_FirstReadonly_SecondExists, eStep);
+                    else
+                        Assert.AreEqual(ChosenStepType.eProcessFilePair_FirstToSecond_FirstReadWrite_SecondExists, eStep);
+                }
+                else
+                    Assert.AreEqual(ChosenStepType.eProcessFilePair_Bidirectionally_SecondExists, eStep);
+
+                Assert.IsTrue(oMessages.Contains("Warning: file has zero length, indicating a failed copy operation in the past: \\\\sim\\dir2\\test.jpg"));
+                Assert.IsTrue(oLocalized.Contains("Warning: file has zero length, indicating a failed copy operation in the past: \\\\sim\\dir2\\test.jpg"));
+                Assert.AreEqual(1, oMessages.Count);
+                Assert.AreEqual(1, oLocalized.Count);
+            }
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// This test simulates the case that first file is missing and the second has zero length
+        /// in all configurations
+        /// </summary>
+        //===================================================================================================
+        [Test]
+        public void Test11_BothZeroLength()
+        {
+            for (int nConfig = 0; nConfig < 1024; ++nConfig)
+            {
+                InMemoryFileSystem oFS = new InMemoryFileSystem();
+
+                oFS.EnsureDirectoryExists(c_strDir1);
+                oFS.EnsureDirectoryExists(c_strDir2);
+                oFS.WriteAllText(c_strFile1, "");
+                oFS.WriteAllText(c_strFile2, "");
+
+                // Set same time to both files
+                DateTime dtmNow = DateTime.UtcNow;
+                oFS.SetLastWriteTimeUtc(c_strFile1, dtmNow);
+                oFS.SetLastWriteTimeUtc(c_strFile2, dtmNow);
+
+                HashSet<string> oMessages = new HashSet<string>();
+                HashSet<string> oLocalized = new HashSet<string>();
+                SettingsAndEnvironment oSettings;
+
+                ChosenStepType eStep = RunConfiguration(oFS, nConfig, oMessages, oLocalized, out oSettings, c_strFile1, c_strFile2);
+
+
+                Assert.AreEqual(ChosenStepType.eNone, eStep);
+
+                Assert.IsTrue(oMessages.Contains("Warning: both files have zero length, indicating a failed copy operation in the past: \\\\sim\\dir1\\test.jpg, \\\\sim\\dir2\\test.jpg"));
+                Assert.IsTrue(oLocalized.Contains("Warning: both files have zero length, indicating a failed copy operation in the past: \"\\\\sim\\dir1\\test.jpg\" | \"\\\\sim\\dir2\\test.jpg\""));
+                Assert.AreEqual(1, oMessages.Count);
+                Assert.AreEqual(1, oLocalized.Count);
+            }
+        }
+
+
 
         //***************************************************************************************************
         /// <summary>
