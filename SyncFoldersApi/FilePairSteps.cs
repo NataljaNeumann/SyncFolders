@@ -436,7 +436,8 @@ namespace SyncFoldersApi
         /// var to true</param>
         /// <param name="bForceCreateInfoTarget">If saved info of target file needs to be updated then 
         /// method sets given var to true</param>
-        /// <param name="strReason">The reason of the copy for log messages</param>
+        /// <param name="strReasonEn">The reason of copy for messages</param>
+        /// <param name="strReasonTranslated">The reason of copy for messages, localized</param>
         /// <param name="bApplyRepairsToSrc">If set to true, method will also repair source file,
         /// not only the copy</param>
         /// <param name="bFailOnNonRecoverable">If there are non-recoverable blocks and this flag
@@ -1688,7 +1689,8 @@ namespace SyncFoldersApi
         /// </summary>
         /// <param name="fi">File info of the source file</param>
         /// <param name="strTargetPath">target path</param>
-        /// <param name="strReason">Reason of the copy for messages</param>
+        /// <param name="strReasonEn">The reason of copy for messages</param>
+        /// <param name="strReasonTranslated">The reason of copy for messages, localized</param>
         //===================================================================================================
         public void CopyFileSafely(
             IFileInfo fi,
@@ -2483,7 +2485,8 @@ namespace SyncFoldersApi
         /// <param name="strPathFile">The source path for copy</param>
         /// <param name="strTargetPath">The target path for copy</param>
         /// <param name="strPathSavedInfoFile">The target path for saved info</param>
-        /// <param name="strReason">The reason of copy for messages</param>
+        /// <param name="strReasonEn">The reason of copy for messages</param>
+        /// <param name="strReasonTranslated">The reason of copy for messages, localized</param>
         /// <returns>true iff the operation succeeded</returns>
         //===================================================================================================
         public bool CreateSavedInfoAndCopy(
@@ -2647,7 +2650,7 @@ namespace SyncFoldersApi
         /// <returns>true iff the test succeeded</returns>
         //===================================================================================================
         public bool TestSingleFile2(
-            string pathFile,
+            string strPathFile,
             string strPathSavedInfoFile,
             ref bool bForceCreateInfo,
             bool bNeedsMessageAboutOldSavedInfo,
@@ -2661,7 +2664,7 @@ namespace SyncFoldersApi
             )
         {
             IFileInfo finfo =
-                iFileSystem.GetFileInfo(pathFile);
+                iFileSystem.GetFileInfo(strPathFile);
             IFileInfo fiSavedInfo =
                 iFileSystem.GetFileInfo(strPathSavedInfoFile);
             bool bSkipBufferedFile = false;
@@ -2690,9 +2693,9 @@ namespace SyncFoldersApi
             catch (Exception ex)
             {
                 iLogWriter.WriteLogFormattedLocalized(1, Properties.Resources.WarningWhileDiscoveringIfNeedsToBeRechecked,
-                    ex.Message, pathFile);
+                    ex.Message, strPathFile);
                 iLogWriter.WriteLog(true, 1, "Warning: ", ex.Message,
-                    " while discovering, if ", pathFile,
+                    " while discovering, if ", strPathFile,
                     " needs to be rechecked.");
             }
 
@@ -2747,9 +2750,9 @@ namespace SyncFoldersApi
                     if (bNeedsMessageAboutOldSavedInfo)
                     {
                         iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.SavedInfoFileCantBeUsedForTesting,
-                            strPathSavedInfoFile, pathFile);
+                            strPathSavedInfoFile, strPathFile);
                         iLogWriter.WriteLog(true, 0, "Saved info file \"", strPathSavedInfoFile,
-                            "\" can't be used for testing file \"", pathFile,
+                            "\" can't be used for testing file \"", strPathFile,
                             "\": it was created for another version of the file");
                     }
 
@@ -2945,10 +2948,10 @@ namespace SyncFoldersApi
                         if (bNeedsMessageAboutOldSavedInfo)
                         {
                             iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.SavedInfoHasBeenDamagedNeedsRecreation,
-                                strPathSavedInfoFile, pathFile);
+                                strPathSavedInfoFile, strPathFile);
                             iLogWriter.WriteLog(true, 0, "Saved info file \"", strPathSavedInfoFile,
                                 "\" has been damaged and needs to be recreated from \"",
-                                pathFile, "\"");
+                                strPathFile, "\"");
                         }
                         bForceCreateInfo = true;
                     }

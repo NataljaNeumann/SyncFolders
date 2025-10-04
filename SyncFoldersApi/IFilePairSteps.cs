@@ -123,7 +123,8 @@ namespace SyncFoldersApi
         /// var to true</param>
         /// <param name="bForceCreateInfoTarget">If saved info of target file needs to be updated then 
         /// method sets given var to true</param>
-        /// <param name="strReason">The reason of the copy for log messages</param>
+        /// <param name="strReasonEn">The reason of copy for messages</param>
+        /// <param name="strReasonTranslated">The reason of copy for messages, localized</param>
         /// <param name="bApplyRepairsToSrc">If set to true, method will also repair source file,
         /// not only the copy</param>
         /// <param name="bFailOnNonRecoverable">If there are non-recoverable blocks and this flag
@@ -176,7 +177,8 @@ namespace SyncFoldersApi
         /// </summary>
         /// <param name="fi">File info of the source file</param>
         /// <param name="strTargetPath">target path</param>
-        /// <param name="strReason">Reason of the copy for messages</param>
+        /// <param name="strReasonEn">The reason of copy for messages</param>
+        /// <param name="strReasonTranslated">The reason of copy for messages, localized</param>
         //===================================================================================================
         void CopyFileSafely(
             IFileInfo fi,
@@ -241,7 +243,8 @@ namespace SyncFoldersApi
         /// <param name="strPathFile">The source path for copy</param>
         /// <param name="strTargetPath">The target path for copy</param>
         /// <param name="strPathSavedInfoFile">The target path for saved info</param>
-        /// <param name="strReason">The reason of copy for messages</param>
+        /// <param name="strReasonEn">The reason of copy for messages</param>
+        /// <param name="strReasonTranslated">The reason of copy for messages, localized</param>
         /// <returns>true iff the operation succeeded</returns>
         //===================================================================================================
         bool CreateSavedInfoAndCopy(
@@ -276,7 +279,7 @@ namespace SyncFoldersApi
         /// <returns>true iff the test succeeded</returns>
         //===================================================================================================
         bool TestSingleFile2(
-            string pathFile,
+            string strPathFile,
             string strPathSavedInfoFile,
             ref bool bForceCreateInfo,
             bool bNeedsMessageAboutOldSavedInfo,
