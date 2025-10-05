@@ -264,6 +264,10 @@ namespace SyncFoldersApi
                 ThrowSimulatedReadErrorIfNeeded(strSourcePath, 0, m_oFiles.ContainsKey(strSourcePath) ? m_oFiles[strSourcePath].Length : 0);
                 m_oFiles[strDestinationPath] = new MemoryStreamWithErrors(m_oFiles[strSourcePath].ToArray(), new List<long>());
                 m_oFileWriteTimes[strDestinationPath] = m_oFileWriteTimes[strSourcePath];
+                if (m_oSimulatedReadErrors.ContainsKey(strDestinationPath.ToUpper()))
+                {
+                    m_oSimulatedReadErrors.Remove(strDestinationPath.ToUpper());
+                }
             }
             else
             {
@@ -652,6 +656,18 @@ namespace SyncFoldersApi
             IFileInfo fi
             )
         {
+            lock (m_oFiles)
+            {
+                m_oFiles.Remove(fi.FullName);
+                lock (m_oFileWriteTimes)
+                {
+                    m_oFileWriteTimes.Remove(fi.FullName);
+                }
+
+                if (m_oSimulatedReadErrors.ContainsKey(fi.FullName.ToUpper()))
+                    m_oSimulatedReadErrors.Remove(fi.FullName.ToUpper());
+            }
+
         }
 
 

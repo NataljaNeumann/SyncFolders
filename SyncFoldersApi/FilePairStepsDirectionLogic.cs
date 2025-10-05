@@ -198,7 +198,7 @@ namespace SyncFoldersApi
 
                     iStepsImpl.CopyFileSafely(fi1, strFilePath2, "(file newer or bigger)",
                         Properties.Resources.FileWasNewer,
-                        iFileSystem, iSettings, iLogWriter);
+                        iFileSystem, iLogWriter);
                     //iFileSystem.CopyTo(fi1,strFilePath2, true);
                 }
                 finally
@@ -549,7 +549,7 @@ namespace SyncFoldersApi
                                     iStepsImpl.CopyFileSafely(fi1, strFilePath2,
                                         "(file was healthy, or repaired)",
                                         Properties.Resources.FileHealthyOrRepaired,
-                                        iFileSystem, iSettings, iLogWriter);
+                                        iFileSystem, iLogWriter);
                                 else
                                 {
                                     iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.CouldntUseOutdatedFileForRestoringOther,
@@ -607,7 +607,7 @@ namespace SyncFoldersApi
                                     {
                                         iStepsImpl.CopyFileSafely(fi2, strFilePath1, "(file was healthy, or repaired)",
                                             Properties.Resources.FileHealthyOrRepaired,
-                                            iFileSystem, iSettings, iLogWriter);
+                                            iFileSystem, iLogWriter);
                                     }
                                     else
                                     {
@@ -700,7 +700,7 @@ namespace SyncFoldersApi
                                 iFileSystem, iSettings, iLogWriter);
                         else
                             iStepsImpl.CopyFileSafely(fi1, strFilePath2, "(file was new)", Properties.Resources.FileWasNew,
-                                iFileSystem, iSettings, iLogWriter);
+                                iFileSystem, iLogWriter);
                     }
                     catch (Exception)
                     {
@@ -875,7 +875,7 @@ namespace SyncFoldersApi
                                 iFileSystem, iSettings, iLogWriter);
                         else
                             iStepsImpl.CopyFileSafely(fi1, strFilePath2, strReasonEn, strReasonTranslated,
-                                iFileSystem, iSettings, iLogWriter);
+                                iFileSystem, iLogWriter);
                     }
                     catch (Exception)
                     {
@@ -919,7 +919,7 @@ namespace SyncFoldersApi
                         else
                         {
                             iStepsImpl.CopyFileSafely(fi1, strFilePath2, strReasonEn, strReasonTranslated,
-                                iFileSystem, iSettings, iLogWriter);
+                                iFileSystem, iLogWriter);
                             bCopied1To2 = true;
                         }
                     }

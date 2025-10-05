@@ -1712,7 +1712,6 @@ namespace SyncFoldersApi
             string strReasonEn,
             string strReasonTranslated,
             IFileOperations iFileSystem,
-            IFilePairStepsSettings iSettings,
             ILogWriter iLogWriter)
         {
             string strTargetPath2 = strTargetPath + ".tmp";
@@ -1735,7 +1734,7 @@ namespace SyncFoldersApi
             {
                 try
                 {
-                    System.Threading.Thread.Sleep(5000);
+                    System.Threading.Thread.Sleep(1000);
                     IFileInfo fi2 = iFileSystem.GetFileInfo(strTargetPath2);
                     if (fi2.Exists)
                         iFileSystem.Delete(fi2);

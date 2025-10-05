@@ -186,7 +186,6 @@ namespace SyncFoldersApi
             string strReasonEn,
             string strReasonTranslated,
             IFileOperations iFileSystem,
-            IFilePairStepsSettings iSettings,
             ILogWriter iLogWriter);
 
 

@@ -1,5 +1,7 @@
 ﻿using SyncFoldersApi;
 
+#pragma warning disable NUnit2005 
+
 namespace SyncFoldersTests
 {
     [TestFixture]
@@ -82,7 +84,7 @@ namespace SyncFoldersTests
             int nTotalCores = Environment.ProcessorCount;
             var options = new ParallelOptions
             {
-                MaxDegreeOfParallelism = 1//nTotalCores - 1
+                MaxDegreeOfParallelism = nTotalCores - 1
             };
 
             //for (int nConfiguration = 0; nConfiguration < 1024; ++nConfiguration)
@@ -199,9 +201,9 @@ namespace SyncFoldersTests
                     string strPathSavedInfo = $@"c:\temp\RestoreInfo\test_lastblock{i}.dat.chk";
 
                     List<long> aListOfReadErrorsInFile = new List<long>();
-                    aListOfReadErrorsInFile.Add(nLengthKB * 1024 -1);
+                    aListOfReadErrorsInFile.Add(nLengthKB * 1024 - 1);
 
-                    oFS.CreateTestFile(strPath, i ,
+                    oFS.CreateTestFile(strPath, i,
                         nLengthKB * 1024 + i * 1024 * ((4 - (nLengthKB % 4)) % 4), dtmToUse, true, false, null,
                         new List<long>(aListOfReadErrorsInFile),
                         null,
@@ -222,7 +224,7 @@ namespace SyncFoldersTests
                         ));
                     Assert.IsFalse(bForceCreateInfo);
 
-                    Assert.IsTrue(oLog.Log.Contains($"I/O Error reading file: \"{strPath}\", offset {(aListOfReadErrorsInFile[0])/4096*4096}: This is a simulated I/O error at position {aListOfReadErrorsInFile[0]}"));
+                    Assert.IsTrue(oLog.Log.Contains($"I/O Error reading file: \"{strPath}\", offset {(aListOfReadErrorsInFile[0]) / 4096 * 4096}: This is a simulated I/O error at position {aListOfReadErrorsInFile[0]}"));
                     Assert.IsTrue(oLog.Log.Contains($"Recovering block at offset {(aListOfReadErrorsInFile[0]) / 4096 * 4096} of the file {strPath}"));
                     Assert.IsTrue(oLog.Log.Contains($"There was one bad block in the file {strPath}, not restored parts: 0 bytes"));
                     Assert.AreEqual(3, oLog.Log.Count);
@@ -235,7 +237,86 @@ namespace SyncFoldersTests
 
 
         }
-    }
-}
 
+        //===================================================================================================
+        /// <summary>
+        /// Tests TestAndRepairSingleFile
+        /// </summary>
+        //===================================================================================================
+        [Test]
+        public void Test03_CopyFileSafely()
+        {
+            DateTime dtmToUse = DateTime.Now;
+            DateTime dtmToUse2 = DateTime.Now.AddMinutes(-1);
+            InMemoryFileSystem oFS = new InMemoryFileSystem();
+
+            FilePairSteps oStepsImpl = new FilePairSteps();
+            HashSetLog oLog = new HashSetLog();
+
+            int nLengthB = 16;
+
+            string strPath1 = $@"c:\temp\testCopyFileSafely.dat";
+            string strPathSavedInfo1 = $@"c:\temp\RestoreInfo\testCopyFileSafely.dat.chk";
+            string strPath2 = $@"c:\temp2\testCopyFileSafely.dat";
+            string strPathSavedInfo2 = $@"c:\temp2\RestoreInfo\testCopyFileSafely.dat.chk";
+
+            List<long> aListOfReadErrorsInFile = new List<long>();
+            aListOfReadErrorsInFile.Add(0);
+
+            oFS.CreateTestFile(strPath1, 1,
+                nLengthB, dtmToUse, false, false, null,
+                new List<long>(aListOfReadErrorsInFile),
+                null,
+                true
+                );
+
+            oFS.CreateTestFile(strPath2, 2,
+                nLengthB, dtmToUse, true, false, null,
+                null,
+                null,
+                true
+                );
+
+
+            oLog.Log.Clear();
+            oLog.LocalizedLog.Clear();
+
+            Assert.Throws<IOException>(() => oStepsImpl.CopyFileSafely(oFS.GetFileInfo(strPath1), strPath2, "testing file", "testing file", oFS, oLog));
+            Assert.True(oFS.IsTestFile(strPath1, 1,
+                nLengthB, dtmToUse, false, false, null,
+                new List<long>(aListOfReadErrorsInFile),
+                null
+                ));
+            Assert.True(oFS.IsTestFile(strPath2, 2,
+                nLengthB, dtmToUse, true, false, null,
+                null,
+                null
+                ));
+            Assert.AreEqual(0, oLog.Log.Count);
+            Assert.AreEqual(oLog.Log.Count, oLog.LocalizedLog.Count);
+
+
+            oLog.Log.Clear();
+            oLog.LocalizedLog.Clear();
+            oStepsImpl.CopyFileSafely(oFS.GetFileInfo(strPath2), strPath1, "testing file", "testing file", oFS, oLog);
+
+            Assert.IsTrue(oLog.Log.Contains($"Copied {strPath2} to {strPath1} testing file"));
+            Assert.AreEqual(1, oLog.Log.Count);
+            Assert.AreEqual(oLog.Log.Count, oLog.LocalizedLog.Count);
+
+            Assert.True(oFS.IsTestFile(strPath1, 2,
+                nLengthB, dtmToUse, false, false, null,
+                null,
+                null
+                ));
+            Assert.True(oFS.IsTestFile(strPath2, 2,
+                nLengthB, dtmToUse, true, false, null,
+                null,
+                null
+                ));
+
+        }
+    }
+
+}
 

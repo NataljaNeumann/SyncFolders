@@ -146,15 +146,9 @@ namespace SyncFoldersApi
         //===================================================================================================
         public void Delete()
         {
-            lock (m_oFs.m_oFiles)
-            {
-                m_oFs.m_oFiles.Remove(FullName);
-                lock (m_oFs.m_oFileWriteTimes)
-                {
-                    m_oFs.m_oFileWriteTimes.Remove(FullName);
-                }
-                m_bExists = false;
-            }
+            m_oFs.Delete(this);
+
+            m_bExists = false;
         }
 
         //===================================================================================================
