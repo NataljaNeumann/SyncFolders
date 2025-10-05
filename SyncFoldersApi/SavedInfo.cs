@@ -311,7 +311,7 @@ namespace SyncFoldersApi
             {
                 int b = oInputStream.ReadByte(); if (b == -1) return;
                 oMetadataChecksum.AddByte(b);
-                ticks = ticks * 256 + b;
+                ticks = (ticks<<8) | b;
             };
             m_dtmFileTimestampUtc = new DateTime(ticks);
 
@@ -321,7 +321,7 @@ namespace SyncFoldersApi
             {
                 int b = oInputStream.ReadByte(); if (b == -1) return;
                 oMetadataChecksum.AddByte(b);
-                m_lFileLength = m_lFileLength * 256 + b;
+                m_lFileLength = (m_lFileLength<<8) | b;
             };
 
             // read the number of blocks in each row
@@ -332,14 +332,14 @@ namespace SyncFoldersApi
             {
                 int b = oInputStream.ReadByte(); if (b == -1) return;
                 oMetadataChecksum.AddByte(b);
-                lBlocksInFirstRow = lBlocksInFirstRow * 256 + b;
+                lBlocksInFirstRow = (lBlocksInFirstRow << 8) | b;
             };
 
             for (int i = 7; i >= 0; --i)
             {
                 int b = oInputStream.ReadByte(); if (b == -1) return;
                 oMetadataChecksum.AddByte(b);
-                lBlocksInSecondRow = lBlocksInSecondRow * 256 + b;
+                lBlocksInSecondRow = (lBlocksInSecondRow << 8) | b;
             };
 
             // read blocks of the first row
@@ -405,7 +405,7 @@ namespace SyncFoldersApi
                 {
                     int b = oInputStream.ReadByte(); if (b == -1) return;
                     oMetadataChecksum.AddByte(b);
-                    nChecksumCount = nChecksumCount * 256 + b;
+                    nChecksumCount = (nChecksumCount << 8) | b;
                 };
 
                 // read the checksums
@@ -538,7 +538,7 @@ namespace SyncFoldersApi
                 for (int i = 7; i >= 0; --i)
                 {
                     int b = oInputStream.ReadByte(); if (b == -1) return;
-                    ticks = ticks * 256 + b;
+                    ticks = (ticks << 8) | b;
                 };
                 m_dtmFileTimestampUtc = new DateTime(ticks);
 
@@ -547,7 +547,7 @@ namespace SyncFoldersApi
                 for (int i = 7; i >= 0; --i)
                 {
                     int b = oInputStream.ReadByte(); if (b == -1) return;
-                    m_lFileLength = m_lFileLength * 256 + b;
+                    m_lFileLength = (m_lFileLength << 8) | b;
                 };
 
                 // read the number of checksums of original file.
@@ -556,7 +556,7 @@ namespace SyncFoldersApi
                 for (int i = 7; i >= 0; --i)
                 {
                     int b = oInputStream.ReadByte(); if (b == -1) return;
-                    nChecksumCount = nChecksumCount * 256 + b;
+                    nChecksumCount = (nChecksumCount << 8) | b;
                 };
 
                 // read the number of blocks in each row
@@ -567,7 +567,7 @@ namespace SyncFoldersApi
                 for (int i = 7; i >= 0; --i)
                 {
                     int b = oInputStream.ReadByte(); if (b == -1) return;
-                    lTotalRows = lTotalRows * 256 + b;
+                    lTotalRows = (lTotalRows << 8) | b;
                 };
 
                 if (lTotalRows > 0)
@@ -575,7 +575,7 @@ namespace SyncFoldersApi
                     for (int i = 7; i >= 0; --i)
                     {
                         int b = oInputStream.ReadByte(); if (b == -1) return;
-                        lBlocksInFirstRow = lBlocksInFirstRow * 256 + b;
+                        lBlocksInFirstRow = (lBlocksInFirstRow << 8) | b;
                     };
                 }
 
@@ -584,7 +584,7 @@ namespace SyncFoldersApi
                     for (int i = 7; i >= 0; --i)
                     {
                         int b = oInputStream.ReadByte(); if (b == -1) return;
-                        lBlocksInSecondRow = lBlocksInSecondRow * 256 + b;
+                        lBlocksInSecondRow = (lBlocksInSecondRow << 8) | b;
                     };
                 }
 
@@ -599,7 +599,7 @@ namespace SyncFoldersApi
                         for (int i = 7; i >= 0; --i)
                         {
                             int b = oInputStream.ReadByte(); if (b == -1) return;
-                            lBlocksInSkippedRow = lBlocksInSkippedRow * 256 + b;
+                            lBlocksInSkippedRow = (lBlocksInSkippedRow << 8) | b;
                         };
                         lTotalSkippedBlocks += lBlocksInFirstRow;
                     }
@@ -652,7 +652,7 @@ namespace SyncFoldersApi
                 for (int i = 7; i >= 0; --i)
                 {
                     int b = oInputStream.ReadByte(); if (b == -1) return;
-                    ticks = ticks * 256 + b;
+                    ticks = (ticks << 8) | b;
                 };
                 m_dtmFileTimestampUtc = new DateTime(ticks);
 
@@ -661,7 +661,7 @@ namespace SyncFoldersApi
                 for (int i = 7; i >= 0; --i)
                 {
                     int b = oInputStream.ReadByte(); if (b == -1) return;
-                    m_lFileLength = m_lFileLength * 256 + b;
+                    m_lFileLength = (m_lFileLength << 8) | b;
                 };
 
 
@@ -671,7 +671,7 @@ namespace SyncFoldersApi
                 for (int i = 7; i >= 0; --i)
                 {
                     int b = oInputStream.ReadByte(); if (b == -1) return;
-                    nChecksumCount = nChecksumCount * 256 + b;
+                    nChecksumCount = (nChecksumCount << 8) | b;
                 };
 
 
@@ -683,7 +683,7 @@ namespace SyncFoldersApi
                 for (int i = 7; i >= 0; --i)
                 {
                     int b = oInputStream.ReadByte(); if (b == -1) return;
-                    lTotalRows = lTotalRows * 256 + b;
+                    lTotalRows = (lTotalRows << 8) | b;
                 };
 
                 // apart from blocks there can be other data
@@ -693,7 +693,7 @@ namespace SyncFoldersApi
                 {
                     int b = oInputStream.ReadByte(); if (b == -1) return;
                     lTotalOtherDataLengthForVerification =
-                        lTotalOtherDataLengthForVerification * 256 + b;
+                        (lTotalOtherDataLengthForVerification << 8) | b;
                 };
 
                 // at the end of the file the row lengths are right before the
@@ -705,7 +705,7 @@ namespace SyncFoldersApi
                     for (int i = 7; i >= 0; --i)
                     {
                         int b = oInputStream.ReadByte(); if (b == -1) return;
-                        lBlocksInFirstRow = lBlocksInFirstRow * 256 + b;
+                        lBlocksInFirstRow = (lBlocksInFirstRow << 8) | b;
                     };
                 }
 
@@ -714,7 +714,7 @@ namespace SyncFoldersApi
                     for (int i = 7; i >= 0; --i)
                     {
                         int b = oInputStream.ReadByte(); if (b == -1) return;
-                        lBlocksInSecondRow = lBlocksInSecondRow * 256 + b;
+                        lBlocksInSecondRow = (lBlocksInSecondRow << 8) | b;
                     };
                 }
 
@@ -729,7 +729,7 @@ namespace SyncFoldersApi
                         for (int i = 7; i >= 0; --i)
                         {
                             int b = oInputStream.ReadByte(); if (b == -1) return;
-                            lBlocksInSkippedRow = lBlocksInSkippedRow * 256 + b;
+                            lBlocksInSkippedRow = (lBlocksInSkippedRow << 8) | b;
                         };
                         lTotalSkippedBlocks += lBlocksInFirstRow;
                     }
