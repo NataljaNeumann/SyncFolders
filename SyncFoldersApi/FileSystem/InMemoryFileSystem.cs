@@ -112,6 +112,27 @@ namespace SyncFoldersApi
 
         //===================================================================================================
         /// <summary>
+        /// Sets read errors to simulate for a file
+        /// </summary>
+        /// <param name="strFilePath">Path of the file</param>
+        /// <param name="oSimulatedReadErrors">List of simulated errors for each file</param>
+        //===================================================================================================
+        public void SetSimulatedReadError(
+            string strFilePath, 
+            List<long> oSimulatedReadErrors
+            )
+        {
+            // copy file names in upper case
+            m_oSimulatedReadErrors[strFilePath.ToUpper()] =
+                    oSimulatedReadErrors;
+
+            if (m_oFiles.ContainsKey(strFilePath))
+                m_oFiles[strFilePath].SetSimulatedErrors(oSimulatedReadErrors);
+        }
+
+
+        //===================================================================================================
+        /// <summary>
         /// If the file is in the list and one of specified positions is in the list then throws an
         /// intentional I/O exception
         /// </summary>
@@ -709,6 +730,312 @@ namespace SyncFoldersApi
             )
         {
             // ignore
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// This method creates a test file for unit tests
+        /// </summary>
+        /// <param name="strPath">Path of the file to create, will also create directory</param>
+        /// <param name="nId">Id of the file, so we can distinguish between files</param>
+        /// <param name="nLength">Length of the file</param>
+        /// <param name="dtmLastWriteTimeUtc">Date and time that the file shall have</param>
+        /// <param name="bWithSavedInfo">Indicates, if saved info needs to be created, too</param>
+        /// <param name="bV0">Indicates if saved info needs to be in version 0</param>
+        /// <param name="aErasedBlockPositions">Positions of erased blocks</param>
+        /// <param name="aReadErrorsFile">The simulated read errors for the main file</param>
+        /// <param name="aReadErrorsSavedInfo">The simlated read errors for the saved info</param>
+        //===================================================================================================
+        public void CreateTestFile(
+            string strPath, 
+            int nId, 
+            int nLength, 
+            DateTime dtmLastWriteTimeUtc, 
+            bool bWithSavedInfo, 
+            bool bV0,
+            List<long>? aErasedBlockPositions = null,
+            List<long>? aReadErrorsFile = null, 
+            List<long>? aReadErrorsSavedInfo = null
+            )
+        {
+            byte[] aFileContent = new byte[nLength];
+            for (int i = nLength-1; i>=0; --i)
+            {
+                switch (i%4)
+                {
+                    case 0:
+                        aFileContent[i] = (byte)(nId & 255);
+                        break;
+                    case 1:
+                        aFileContent[i] = (byte)((i >> 18) & 255);
+                        break;
+                    case 2:
+                        aFileContent[i] = (byte)((i >> 10) & 255);
+                        break;
+                    case 3:
+                        aFileContent[i] = (byte)((i >> 2) & 255);
+                        break;
+                }
+            }
+
+            if (aErasedBlockPositions != null)
+            {
+                foreach (long lPos in aErasedBlockPositions)
+                {
+                    for (int i = 0; i < 4096 && lPos + i < aFileContent.Length; ++i)
+                    {
+                        aFileContent[i] = 0;
+                    }
+                }
+            }
+
+
+            IFileInfo fi = GetFileInfo(strPath);
+            fi.Directory.Create();
+
+
+            using (IFile iFile = Create(strPath))
+            {
+                iFile.Write(aFileContent, 0, aFileContent.Length);
+            }
+
+            if (aReadErrorsFile != null)
+                SetSimulatedReadError(strPath, aReadErrorsFile);
+
+            SetLastWriteTimeUtc(strPath, dtmLastWriteTimeUtc);
+
+            if (bWithSavedInfo)
+            {
+                SavedInfo oInfo = new SavedInfo(nLength, dtmLastWriteTimeUtc, false);
+                Block b = new Block();
+                int nCurrentPos = 0;
+                int nCurrentBlock = 0;
+
+                while (nCurrentPos < aFileContent.Length)
+                {
+                    int nBytesToWrite = b.Length;
+                    if (nCurrentPos + nBytesToWrite > aFileContent.Length)
+                    {
+                        nBytesToWrite = aFileContent.Length - nCurrentPos;
+                    }
+
+                    Array.Copy(aFileContent, 0, b.m_aData, 0, nBytesToWrite);
+                    nCurrentPos += nBytesToWrite;
+
+                    while (nBytesToWrite < b.Length)
+                        b[nBytesToWrite++] = 0;
+
+                    oInfo.AnalyzeForInfoCollection(b, nCurrentBlock++);
+                }
+
+                string strPathInfo = Utils.CreatePathOfChkFile(fi.Directory.FullName, "RestoreInfo", fi.Name, ".chk");
+                using (IFile iFile = Create(strPathInfo))
+                {
+                    if (bV0)
+                        oInfo.SaveTo_v0(iFile);
+                    else
+                        oInfo.SaveTo(iFile);
+                }
+
+                if (aReadErrorsSavedInfo != null)
+                    SetSimulatedReadError(strPathInfo, aReadErrorsSavedInfo);
+
+                SetLastWriteTimeUtc(strPathInfo, dtmLastWriteTimeUtc);
+            }
+        }
+
+
+        //===================================================================================================
+        /// <summary>
+        /// Tests, if a file matches specification
+        /// </summary>
+        /// <param name="strPath">Path of the file to create, will also create directory</param>
+        /// <param name="nId">Id of the file, so we can distinguish between files</param>
+        /// <param name="nLength">Length of the file</param>
+        /// <param name="dtmLastWriteTimeUtc">Date and time that the file shall have</param>
+        /// <param name="bWithSavedInfo">Indicates, if saved info needs to be created, too</param>
+        /// <param name="bV0">Indicates if saved info needs to be in version 0</param>
+        /// <param name="aErasedBlockPositions">Positions of erased blocks</param>
+        /// <param name="aReadErrorsFile">The simulated read errors for the main file</param>
+        /// <param name="aReadErrorsSavedInfo">The simlated read errors for the saved info</param>
+        //===================================================================================================
+        public bool IsTestFile(
+            string strPath,
+            int nId,
+            int nLength,
+            DateTime? dtmLastWriteTimeUtc,
+            bool bWithSavedInfo,
+            bool bV0,
+            List<long>? aErasedBlockPositions = null,
+            List<long>? aReadErrorsFile = null,
+            List<long>? aReadErrorsSavedInfo = null
+            )
+        {
+            IFileInfo fi = GetFileInfo(strPath);
+            if (!fi.Exists)
+                return false;
+
+            if (fi.Length!=nLength)
+                return false;
+
+            if (dtmLastWriteTimeUtc.HasValue)
+            {
+                if (fi.LastWriteTimeUtc != dtmLastWriteTimeUtc)
+                    return false;
+            }
+
+            byte[] aExpectedFileContent = new byte[nLength];
+            for (int i = nLength - 1; i >= 0; --i)
+            {
+                switch (i % 4)
+                {
+                    case 0:
+                        aExpectedFileContent[i] = (byte)(nId & 255);
+                        break;
+                    case 1:
+                        aExpectedFileContent[i] = (byte)((i >> 18) & 255);
+                        break;
+                    case 2:
+                        aExpectedFileContent[i] = (byte)((i >> 10) & 255);
+                        break;
+                    case 3:
+                        aExpectedFileContent[i] = (byte)((i >> 2) & 255);
+                        break;
+                }
+            }
+
+            if (aErasedBlockPositions != null)
+            {
+                foreach (long lPos in aErasedBlockPositions)
+                {
+                    for (int i = 0; i < 4096 && lPos + i < aExpectedFileContent.Length; ++i)
+                    {
+                        aExpectedFileContent[i] = 0;
+                    }
+                }
+            }
+
+            MemoryStreamWithErrors oStream = m_oFiles[strPath];
+            byte[] aFileContent = oStream.ToArray();
+
+            for (int i = aFileContent.Length - 1; i >= 0; --i)
+            {
+                if (aFileContent[i] != aExpectedFileContent[i])
+                    return false;
+            }
+
+            if (aReadErrorsFile != null && aReadErrorsFile.Count>0)
+            {
+                // test that errors exist and the count is equal
+                if (!m_oSimulatedReadErrors.ContainsKey(strPath.ToUpper())
+                    || m_oSimulatedReadErrors[strPath.ToUpper()].Count != aReadErrorsFile.Count)
+                    return false;
+
+                // it is enough to test that all from one side are in the other
+                // no need to test in both directions
+                foreach (long lPos in m_oSimulatedReadErrors[strPath.ToUpper()])
+                {
+                    if (!aReadErrorsFile.Contains(lPos))
+                        return false;
+                }
+            } else
+            {
+                if (m_oSimulatedReadErrors.ContainsKey(strPath.ToUpper()) &&
+                    m_oSimulatedReadErrors[strPath.ToUpper()].Count > 0)
+                    return false;
+            }
+
+            string strPathInfo = Utils.CreatePathOfChkFile(fi.Directory.FullName, "RestoreInfo", fi.Name, ".chk");
+            if (bWithSavedInfo)
+            {
+                IFileInfo finfo = GetFileInfo(strPathInfo);
+                if (!finfo.Exists)
+                    return false;
+
+                if (finfo.Length == 0)
+                    return false;
+
+                if (finfo.LastWriteTimeUtc != fi.LastWriteTimeUtc)
+                    return false;
+
+
+                MemoryStreamWithErrors oStreamInfo = m_oFiles[strPathInfo];
+                byte[] aFileContentInfoActual = oStreamInfo.ToArray();
+
+
+                SavedInfo oInfoExpected = new SavedInfo(nLength, fi.LastWriteTimeUtc, false);
+                Block b = new Block();
+                int nCurrentPos = 0;
+                int nCurrentBlock = 0;
+
+                while (nCurrentPos < aFileContent.Length)
+                {
+                    int nBytesToWrite = b.Length;
+                    if (nCurrentPos + nBytesToWrite > aFileContent.Length)
+                    {
+                        nBytesToWrite = aFileContent.Length - nCurrentPos;
+                    }
+
+                    Array.Copy(aFileContent, 0, b.m_aData, 0, nBytesToWrite);
+                    nCurrentPos += nBytesToWrite;
+
+                    while (nBytesToWrite < b.Length)
+                        b[nBytesToWrite++] = 0;
+
+                    oInfoExpected.AnalyzeForInfoCollection(b, nCurrentBlock++);
+                }
+
+                string strPathInfoExpected = strPathInfo + ".tmp";
+                using (IFile iFile = Create(strPathInfo+".tmp"))
+                {
+                    if (bV0)
+                        oInfoExpected.SaveTo_v0(iFile);
+                    else
+                        oInfoExpected.SaveTo(iFile);
+                }
+
+                MemoryStreamWithErrors oStreamInfoExpected = m_oFiles[strPathInfoExpected];
+                byte[] aFileContentInfoExpected = oStreamInfoExpected.ToArray();
+
+                Delete(strPathInfo + ".tmp");
+
+                if (aFileContentInfoActual.Length != aFileContentInfoExpected.Length)
+                    return false;
+
+                for (int i = aFileContentInfoExpected.Length - 1; i >= 0; --i)
+                {
+                    if (aFileContentInfoExpected[i] != aFileContentInfoActual[i])
+                        return false;
+                }
+
+                if (aReadErrorsSavedInfo != null)
+                {               
+                    // test that errors exist and the count is equal
+                    if (!m_oSimulatedReadErrors.ContainsKey(strPathInfo.ToUpper())
+                        || m_oSimulatedReadErrors[strPathInfo.ToUpper()].Count != aReadErrorsSavedInfo.Count)
+                        return false;
+
+                    // it is enough to test that all from one side are in the other
+                    // no need to test in both directions
+                    foreach (long lPos in m_oSimulatedReadErrors[strPathInfo.ToUpper()])
+                    {
+                        if (!aReadErrorsSavedInfo.Contains(lPos))
+                            return false;
+                    }
+                }
+                else
+                {
+                    if (m_oSimulatedReadErrors.ContainsKey(strPathInfo.ToUpper()) &&
+                        m_oSimulatedReadErrors[strPathInfo.ToUpper()].Count > 0)
+                        return false;
+                }
+            } else
+            {
+                if (Exists(strPathInfo))
+                    return false;
+            }
+
+            return true;
         }
 
 
