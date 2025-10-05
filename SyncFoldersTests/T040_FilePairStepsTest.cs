@@ -80,135 +80,50 @@ namespace SyncFoldersTests
         [Test]
         public void Test02_RepairFileInPlace()
         {
-            // test all configurations
-            int nTotalCores = Environment.ProcessorCount;
-            var options = new ParallelOptions
+            // the called method uses only CancelClicked... no need to test all configs
+            SettingsAndEnvironment oConfig = new SettingsAndEnvironment(
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false
+                );
+
+            DateTime dtmToUse = DateTime.Now;
+            InMemoryFileSystem oFS = new InMemoryFileSystem();
+
+            FilePairSteps oStepsImpl = new FilePairSteps();
+            HashSetLog oLog = new HashSetLog();
+
+            int nLengthKB = 33;
+
+            for (int i = 0; i < 4; ++i)
             {
-                MaxDegreeOfParallelism = nTotalCores - 1
-            };
-
-            //for (int nConfiguration = 0; nConfiguration < 1024; ++nConfiguration)
-            Parallel.For(0, 1024, options, nConfiguration =>
-            {
-                SettingsAndEnvironment oConfig = new SettingsAndEnvironment(
-                    (nConfiguration & 1) != 0,
-                    (nConfiguration & 2) != 0,
-                    (nConfiguration & 4) != 0,
-                    (nConfiguration & 8) != 0,
-                    (nConfiguration & 16) != 0,
-                    (nConfiguration & 32) != 0,
-                    (nConfiguration & 64) != 0,
-                    (nConfiguration & 128) != 0,
-                    (nConfiguration & 256) != 0,
-                    (nConfiguration & 512) != 0
-                    );
-
-                DateTime dtmToUse = DateTime.Now;
-                InMemoryFileSystem oFS = new InMemoryFileSystem();
-
-                FilePairSteps oStepsImpl = new FilePairSteps();
-                HashSetLog oLog = new HashSetLog();
-
-                int nLengthKB = 33;
-
-                for (int i = 0; i < 4; ++i)
+                for (int j = 0; j < 4; ++j)
                 {
-                    for (int j = 0; j < 4; ++j)
-                    {
-                        string strPath = $@"c:\temp\test{i}_{j}.dat";
-                        string strPathSavedInfo = $@"c:\temp\RestoreInfo\test{i}_{j}.dat.chk";
-
-                        List<long> aListOfReadErrorsInFile = new List<long>();
-                        aListOfReadErrorsInFile.Add(i * 4096);
-
-                        List<long> aListOfReadErrorsInSavedInfo = new List<long>();
-                        aListOfReadErrorsInSavedInfo.Add(j * 4096);
-
-                        oFS.CreateTestFile(strPath, i * 4 + j,
-                            nLengthKB * 1024 + 1024 * (j % 4), dtmToUse, true, false, null,
-                            new List<long>(aListOfReadErrorsInFile),
-                            new List<long>(aListOfReadErrorsInSavedInfo),
-                            true
-                            );
-
-                        //oStepsImpl.CreateSavedInfo(strPath, strPathSavedInfo, oFS, oConfig, oLog);
-
-
-                        oLog.Log.Clear();
-                        oLog.LocalizedLog.Clear();
-
-                        bool bForceCreateInfo = false;
-                        bool bResult = oStepsImpl.TestAndRepairSingleFile(strPath, strPathSavedInfo, ref bForceCreateInfo, true, oFS, oConfig, oLog);
-
-                        if (i == j)
-                        {
-                            Assert.IsFalse(bResult);
-                            Assert.IsTrue(oFS.IsTestFile(strPath, i * 4 + j,
-                                nLengthKB * 1024 + 1024 * (j % 4), dtmToUse, true, false, null,
-                                new List<long>(aListOfReadErrorsInFile),
-                                new List<long>(aListOfReadErrorsInSavedInfo)
-                                ));
-                            Assert.IsTrue(bForceCreateInfo);
-
-                            Assert.IsTrue(oLog.Log.Contains($"I/O Error reading file: \"{strPath}\", offset {aListOfReadErrorsInFile[0]}: This is a simulated I/O error at position {aListOfReadErrorsInFile[0]}"));
-                            Assert.IsTrue(oLog.Log.Contains($"There is one bad block in the file {strPath} and it can't be restored: 4096 bytes, file can't be used as backup"));
-                            Assert.AreEqual(2, oLog.Log.Count);
-                            Assert.AreEqual(oLog.Log.Count, oLog.LocalizedLog.Count);
-
-                            bForceCreateInfo = false;
-                            bResult = oStepsImpl.TestAndRepairSingleFile(strPath, strPathSavedInfo, ref bForceCreateInfo, false, oFS, oConfig, oLog);
-
-                            Assert.IsFalse(bResult);
-                            Assert.IsTrue(oFS.IsTestFile(strPath, i * 4 + j,
-                                nLengthKB * 1024 + 1024 * (j % 4), null, true, false,
-                                new List<long>(aListOfReadErrorsInFile),
-                                null,
-                                new List<long>(aListOfReadErrorsInSavedInfo)
-                                ));
-                            Assert.IsTrue(bForceCreateInfo);
-                            Assert.IsTrue(oLog.Log.Contains($"I/O Error reading file: \"{strPath}\", offset {aListOfReadErrorsInFile[0]}: This is a simulated I/O error at position {aListOfReadErrorsInFile[0]}"));
-                            Assert.IsTrue(oLog.Log.Contains($"There is one bad block in the file {strPath} and it can't be restored: 4096 bytes, file can't be used as backup"));
-                            Assert.IsTrue(oLog.Log.Contains($"Filling not recoverable block at offset {aListOfReadErrorsInFile[0]} with a dummy block"));
-                            Assert.IsTrue(oLog.Log.Contains($"There was one bad block in the file {strPath}, not restored parts: 4096 bytes"));
-                            Assert.AreEqual(4, oLog.Log.Count);
-                            Assert.AreEqual(oLog.Log.Count, oLog.LocalizedLog.Count);
-
-                        }
-                        else
-                        {
-                            Assert.IsTrue(bResult);
-                            Assert.IsTrue(oFS.IsTestFile(strPath, i * 4 + j,
-                                nLengthKB * 1024 + 1024 * (j % 4), dtmToUse, true, false, null,
-                                null,
-                                new List<long>(aListOfReadErrorsInSavedInfo)
-                                ));
-                            Assert.IsTrue(bForceCreateInfo);
-
-                            Assert.IsTrue(oLog.Log.Contains($"I/O Error reading file: \"{strPath}\", offset {aListOfReadErrorsInFile[0]}: This is a simulated I/O error at position {aListOfReadErrorsInFile[0]}"));
-                            Assert.IsTrue(oLog.Log.Contains($"Recovering block at offset {aListOfReadErrorsInFile[0]} of the file {strPath}"));
-                            Assert.IsTrue(oLog.Log.Contains($"There was one bad block in the file {strPath}, not restored parts: 0 bytes"));
-                            Assert.IsTrue(oLog.Log.Contains($"Saved info file \"{strPathSavedInfo}\" has been damaged and needs to be recreated from \"{strPath}\""));
-                            Assert.AreEqual(4, oLog.Log.Count);
-                            Assert.AreEqual(oLog.Log.Count, oLog.LocalizedLog.Count);
-
-                        }
-                    }
-                }
-
-                for (int i = 0; i <= 1; ++i)
-                {
-                    string strPath = $@"c:\temp\test_lastblock{i}.dat";
-                    string strPathSavedInfo = $@"c:\temp\RestoreInfo\test_lastblock{i}.dat.chk";
+                    string strPath = $@"c:\temp\test{i}_{j}.dat";
+                    string strPathSavedInfo = $@"c:\temp\RestoreInfo\test{i}_{j}.dat.chk";
 
                     List<long> aListOfReadErrorsInFile = new List<long>();
-                    aListOfReadErrorsInFile.Add(nLengthKB * 1024 - 1);
+                    aListOfReadErrorsInFile.Add(i * 4096);
 
-                    oFS.CreateTestFile(strPath, i,
-                        nLengthKB * 1024 + i * 1024 * ((4 - (nLengthKB % 4)) % 4), dtmToUse, true, false, null,
+                    List<long> aListOfReadErrorsInSavedInfo = new List<long>();
+                    aListOfReadErrorsInSavedInfo.Add(j * 4096);
+
+                    oFS.CreateTestFile(strPath, i * 4 + j,
+                        nLengthKB * 1024 + 1024 * (j % 4), dtmToUse, true, false, null,
                         new List<long>(aListOfReadErrorsInFile),
-                        null,
+                        new List<long>(aListOfReadErrorsInSavedInfo),
                         true
                         );
+
+                    //oStepsImpl.CreateSavedInfo(strPath, strPathSavedInfo, oFS, oConfig, oLog);
+
 
                     oLog.Log.Clear();
                     oLog.LocalizedLog.Clear();
@@ -216,26 +131,97 @@ namespace SyncFoldersTests
                     bool bForceCreateInfo = false;
                     bool bResult = oStepsImpl.TestAndRepairSingleFile(strPath, strPathSavedInfo, ref bForceCreateInfo, true, oFS, oConfig, oLog);
 
-                    Assert.IsTrue(bResult);
-                    Assert.IsTrue(oFS.IsTestFile(strPath, i,
-                        nLengthKB * 1024 + i * 1024 * ((4 - (nLengthKB % 4)) % 4), dtmToUse, true, false, null,
-                        null,
-                        null
-                        ));
-                    Assert.IsFalse(bForceCreateInfo);
+                    if (i == j)
+                    {
+                        Assert.IsFalse(bResult);
+                        Assert.IsTrue(oFS.IsTestFile(strPath, i * 4 + j,
+                            nLengthKB * 1024 + 1024 * (j % 4), dtmToUse, true, false, null,
+                            new List<long>(aListOfReadErrorsInFile),
+                            new List<long>(aListOfReadErrorsInSavedInfo)
+                            ));
+                        Assert.IsTrue(bForceCreateInfo);
 
-                    Assert.IsTrue(oLog.Log.Contains($"I/O Error reading file: \"{strPath}\", offset {(aListOfReadErrorsInFile[0]) / 4096 * 4096}: This is a simulated I/O error at position {aListOfReadErrorsInFile[0]}"));
-                    Assert.IsTrue(oLog.Log.Contains($"Recovering block at offset {(aListOfReadErrorsInFile[0]) / 4096 * 4096} of the file {strPath}"));
-                    Assert.IsTrue(oLog.Log.Contains($"There was one bad block in the file {strPath}, not restored parts: 0 bytes"));
-                    Assert.AreEqual(3, oLog.Log.Count);
-                    Assert.AreEqual(oLog.Log.Count, oLog.LocalizedLog.Count);
+                        Assert.IsTrue(oLog.Log.Contains($"I/O Error reading file: \"{strPath}\", offset {aListOfReadErrorsInFile[0]}: This is a simulated I/O error at position {aListOfReadErrorsInFile[0]}"));
+                        Assert.IsTrue(oLog.Log.Contains($"There is one bad block in the file {strPath} and it can't be restored: 4096 bytes, file can't be used as backup"));
+                        Assert.AreEqual(2, oLog.Log.Count);
+                        Assert.AreEqual(oLog.Log.Count, oLog.LocalizedLog.Count);
 
+                        bForceCreateInfo = false;
+                        bResult = oStepsImpl.TestAndRepairSingleFile(strPath, strPathSavedInfo, ref bForceCreateInfo, false, oFS, oConfig, oLog);
+
+                        Assert.IsFalse(bResult);
+                        Assert.IsTrue(oFS.IsTestFile(strPath, i * 4 + j,
+                            nLengthKB * 1024 + 1024 * (j % 4), null, true, false,
+                            new List<long>(aListOfReadErrorsInFile),
+                            null,
+                            new List<long>(aListOfReadErrorsInSavedInfo)
+                            ));
+                        Assert.IsTrue(bForceCreateInfo);
+                        Assert.IsTrue(oLog.Log.Contains($"I/O Error reading file: \"{strPath}\", offset {aListOfReadErrorsInFile[0]}: This is a simulated I/O error at position {aListOfReadErrorsInFile[0]}"));
+                        Assert.IsTrue(oLog.Log.Contains($"There is one bad block in the file {strPath} and it can't be restored: 4096 bytes, file can't be used as backup"));
+                        Assert.IsTrue(oLog.Log.Contains($"Filling not recoverable block at offset {aListOfReadErrorsInFile[0]} with a dummy block"));
+                        Assert.IsTrue(oLog.Log.Contains($"There was one bad block in the file {strPath}, not restored parts: 4096 bytes"));
+                        Assert.AreEqual(4, oLog.Log.Count);
+                        Assert.AreEqual(oLog.Log.Count, oLog.LocalizedLog.Count);
+
+                    }
+                    else
+                    {
+                        Assert.IsTrue(bResult);
+                        Assert.IsTrue(oFS.IsTestFile(strPath, i * 4 + j,
+                            nLengthKB * 1024 + 1024 * (j % 4), dtmToUse, true, false, null,
+                            null,
+                            new List<long>(aListOfReadErrorsInSavedInfo)
+                            ));
+                        Assert.IsTrue(bForceCreateInfo);
+
+                        Assert.IsTrue(oLog.Log.Contains($"I/O Error reading file: \"{strPath}\", offset {aListOfReadErrorsInFile[0]}: This is a simulated I/O error at position {aListOfReadErrorsInFile[0]}"));
+                        Assert.IsTrue(oLog.Log.Contains($"Recovering block at offset {aListOfReadErrorsInFile[0]} of the file {strPath}"));
+                        Assert.IsTrue(oLog.Log.Contains($"There was one bad block in the file {strPath}, not restored parts: 0 bytes"));
+                        Assert.IsTrue(oLog.Log.Contains($"Saved info file \"{strPathSavedInfo}\" has been damaged and needs to be recreated from \"{strPath}\""));
+                        Assert.AreEqual(4, oLog.Log.Count);
+                        Assert.AreEqual(oLog.Log.Count, oLog.LocalizedLog.Count);
+
+                    }
                 }
+            }
+
+            for (int i = 0; i <= 1; ++i)
+            {
+                string strPath = $@"c:\temp\test_lastblock{i}.dat";
+                string strPathSavedInfo = $@"c:\temp\RestoreInfo\test_lastblock{i}.dat.chk";
+
+                List<long> aListOfReadErrorsInFile = new List<long>();
+                aListOfReadErrorsInFile.Add(nLengthKB * 1024 - 1);
+
+                oFS.CreateTestFile(strPath, i,
+                    nLengthKB * 1024 + i * 1024 * ((4 - (nLengthKB % 4)) % 4), dtmToUse, true, false, null,
+                    new List<long>(aListOfReadErrorsInFile),
+                    null,
+                    true
+                    );
+
+                oLog.Log.Clear();
+                oLog.LocalizedLog.Clear();
+
+                bool bForceCreateInfo = false;
+                bool bResult = oStepsImpl.TestAndRepairSingleFile(strPath, strPathSavedInfo, ref bForceCreateInfo, true, oFS, oConfig, oLog);
+
+                Assert.IsTrue(bResult);
+                Assert.IsTrue(oFS.IsTestFile(strPath, i,
+                    nLengthKB * 1024 + i * 1024 * ((4 - (nLengthKB % 4)) % 4), dtmToUse, true, false, null,
+                    null,
+                    null
+                    ));
+                Assert.IsFalse(bForceCreateInfo);
+
+                Assert.IsTrue(oLog.Log.Contains($"I/O Error reading file: \"{strPath}\", offset {(aListOfReadErrorsInFile[0]) / 4096 * 4096}: This is a simulated I/O error at position {aListOfReadErrorsInFile[0]}"));
+                Assert.IsTrue(oLog.Log.Contains($"Recovering block at offset {(aListOfReadErrorsInFile[0]) / 4096 * 4096} of the file {strPath}"));
+                Assert.IsTrue(oLog.Log.Contains($"There was one bad block in the file {strPath}, not restored parts: 0 bytes"));
+                Assert.AreEqual(3, oLog.Log.Count);
+                Assert.AreEqual(oLog.Log.Count, oLog.LocalizedLog.Count);
 
             }
-            );
-
-
         }
 
         //===================================================================================================

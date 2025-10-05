@@ -300,7 +300,6 @@ namespace SyncFoldersApi
         void CreateOrUpdateFileChecked(
             string strPathSavedInfoFile,
             IFileOperations iFileSystem,
-            IFilePairStepsSettings iSettings,
             ILogWriter iLogWriter
             );
 

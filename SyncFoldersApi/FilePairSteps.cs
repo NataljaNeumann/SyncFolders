@@ -144,7 +144,7 @@ namespace SyncFoldersApi
                 if (bAllBlocksOk)
                 {
                     CreateOrUpdateFileChecked(strPathSavedInfoFile, 
-                        iFileSystem, iSettings, iLogWriter);
+                        iFileSystem, iLogWriter);
                 }
 
                 return bAllBlocksOk;
@@ -248,7 +248,7 @@ namespace SyncFoldersApi
                     else
                     {
                         CreateOrUpdateFileChecked(strPathSavedInfoFile,
-                            iFileSystem, iSettings, iLogWriter);
+                            iFileSystem, iLogWriter);
                     }
                 }
             }
@@ -379,7 +379,7 @@ namespace SyncFoldersApi
                         else
                         {
                             CreateOrUpdateFileChecked(strPathSavedInfoFile,
-                                iFileSystem, iSettings, iLogWriter);
+                                iFileSystem, iLogWriter);
                         }
                     }
 
@@ -1678,7 +1678,7 @@ namespace SyncFoldersApi
                     | System.IO.FileAttributes.System;
 
                 CreateOrUpdateFileChecked(strPathSavedChkInfoFile,
-                    iFileSystem, iSettings, iLogWriter);
+                    iFileSystem, iLogWriter);
 
             }
             catch (System.IO.IOException ex)
@@ -2296,13 +2296,13 @@ namespace SyncFoldersApi
                 if (notRestoredSize1 == 0 && restore1.Count == 0)
                 {
                     CreateOrUpdateFileChecked(strPathSavedInfo1,
-                        iFileSystem, iSettings, iLogWriter);
+                        iFileSystem, iLogWriter);
                 }
 
                 if (notRestoredSize2 == 0 && restore2.Count == 0)
                 {
                     CreateOrUpdateFileChecked(strPathSavedInfo2,
-                        iFileSystem, iSettings, iLogWriter);
+                        iFileSystem, iLogWriter);
                 }
 
             }
@@ -2477,13 +2477,13 @@ namespace SyncFoldersApi
                 if (notRestoredSize1 == 0 && restore1.Count == 0)
                 {
                     CreateOrUpdateFileChecked(strPathSavedInfo1,
-                        iFileSystem, iSettings, iLogWriter);
+                        iFileSystem, iLogWriter);
                 }
 
                 if (notRestoredSize2 == 0 && restore2.Count == 0)
                 {
                     CreateOrUpdateFileChecked(strPathSavedInfo2,
-                        iFileSystem, iSettings, iLogWriter);
+                        iFileSystem, iLogWriter);
                 }
 
             }
@@ -2634,7 +2634,7 @@ namespace SyncFoldersApi
 
             // we just created the file, so assume we checked everything, no need to double-check immediately
             CreateOrUpdateFileChecked(strPathSavedInfoFile,
-                iFileSystem, iSettings, iLogWriter);
+                iFileSystem, iLogWriter);
 
             return true;
         }
@@ -2822,7 +2822,7 @@ namespace SyncFoldersApi
                 if (bAllBlocksOK && bCreateConfirmationFile)
                 {
                     CreateOrUpdateFileChecked(strPathSavedInfoFile,
-                        iFileSystem, iSettings, iLogWriter);
+                        iFileSystem, iLogWriter);
                 }
 
                 return bAllBlocksOK;
@@ -2973,7 +2973,7 @@ namespace SyncFoldersApi
                 if (bAllBlocksOK && bCreateConfirmationFile)
                 {
                     CreateOrUpdateFileChecked(strPathSavedInfoFile,
-                        iFileSystem, iSettings, iLogWriter);
+                        iFileSystem, iLogWriter);
                 }
 
                 if (bReturnFalseIfNonRecoverableNotIfDamaged)
@@ -3000,7 +3000,6 @@ namespace SyncFoldersApi
         public void CreateOrUpdateFileChecked(
             string strPathSavedInfoFile,
             IFileOperations iFileSystem,
-            IFilePairStepsSettings iSettings,
             ILogWriter iLogWriter
             )
         {
