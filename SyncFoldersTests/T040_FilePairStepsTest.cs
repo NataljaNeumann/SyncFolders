@@ -302,7 +302,187 @@ namespace SyncFoldersTests
                 ));
 
         }
+
+
+        //===================================================================================================
+        /// <summary>
+        /// Tests TestAndRepairSingleFile
+        /// </summary>
+        //===================================================================================================
+        [Test]
+        public void Test04_CopyRepairSingleFile()
+        {
+            int nTotalCores = Environment.ProcessorCount;
+            var options = new ParallelOptions
+            {
+                MaxDegreeOfParallelism = nTotalCores - 1
+            };
+            //Parallel.For(0, 1024, options, nConfiguration =>
+            for (int nConfiguration = 0; nConfiguration < 64; ++nConfiguration)
+            {
+               SettingsAndEnvironment oSettings = new SettingsAndEnvironment(
+                   false,
+                   false,
+                   false,
+                   false,
+                   (nConfiguration & 1) != 0,
+                   (nConfiguration & 2) != 0,
+                   (nConfiguration & 4) != 0,
+                   (nConfiguration & 8) != 0,
+                   (nConfiguration & 16) != 0,
+                   (nConfiguration & 32) != 0);
+
+               for (int nLengthKB = 31; nLengthKB <= 32; ++nLengthKB)
+               {
+                   for (int nFailingBlock = 0; nFailingBlock < 8; ++nFailingBlock)
+                   {
+                       for (int nSavedInfoConfig = 0; nSavedInfoConfig < 4; ++nSavedInfoConfig)
+                       {
+                           // not implemented, so skip
+                           if (nSavedInfoConfig == 3 && nFailingBlock > 4)
+                               continue;
+
+                           int bApplyRepairToSrc = oSettings.RepairFiles ? 1 : 0;
+                           {
+                               for (int bFailOnNonrecoverable = 0; bFailOnNonrecoverable <= 1; ++bFailOnNonrecoverable)
+                               {
+                                   DateTime dtmToUse = DateTime.Now;
+                                   DateTime dtmToUse2 = DateTime.Now.AddMinutes(-1);
+                                   InMemoryFileSystem oFS = new InMemoryFileSystem();
+
+                                   FilePairSteps oStepsImpl = new FilePairSteps();
+                                   HashSetLog oLog = new HashSetLog();
+
+                                   string strPath1 = $@"c:\temp\testCopyRepairSingleFile{nLengthKB}_{nFailingBlock}_{nSavedInfoConfig}.dat";
+                                   string strPathSavedInfo1 = $@"c:\temp\RestoreInfo\testCopyRepairSingleFile{nLengthKB}_{nFailingBlock}_{nSavedInfoConfig}.dat.chk";
+                                   string strPath2 = $@"c:\temp2\testCopyRepairSingleFile{nLengthKB}_{nFailingBlock}_{nSavedInfoConfig}.dat";
+                                   string strPathSavedInfo2 = $@"c:\temp2\RestoreInfo\testCopyRepairSingleFile{nLengthKB}_{nFailingBlock}_{nSavedInfoConfig}.dat.chk";
+
+                                   List<long> aListOfReadErrorsInFile = new List<long>();
+                                   aListOfReadErrorsInFile.Add(nFailingBlock * 4096);
+                                   List<long> aListOfReadErrorsOtherThanInFile = new List<long>();
+                                   aListOfReadErrorsOtherThanInFile.Add(nFailingBlock % 4 == 0 ? 4096 : 0);
+
+                                   oLog.Log.Clear();
+                                   oLog.LocalizedLog.Clear();
+
+                                   oFS.CreateTestFile(strPath1, 1,
+                                       nLengthKB * 1024, dtmToUse, nSavedInfoConfig > 0, false, null,
+                                       new List<long>(aListOfReadErrorsInFile),
+                                       nSavedInfoConfig == 2 ? new List<long>(aListOfReadErrorsOtherThanInFile) :
+                                       (nSavedInfoConfig == 3 ? new List<long>(aListOfReadErrorsInFile) : null),
+                                       true
+                                       );
+
+                                   oFS.GetDirectoryInfo("c:\\temp2\\RestoreInfo").Create();
+
+
+                                   bool bForceCreateInfo = false;
+                                   bool bForceCreateInfoTarget = false;
+
+                                   if ((nSavedInfoConfig == 3 || nSavedInfoConfig == 0) && bFailOnNonrecoverable != 0)
+                                       Assert.Throws<IOException>(() =>
+                                           oStepsImpl.CopyRepairSingleFile(strPath2, strPath1,
+                                               strPathSavedInfo1, ref bForceCreateInfo,
+                                               ref bForceCreateInfoTarget, "(testing)", "(testing)",
+                                               bFailOnNonrecoverable != 0, bApplyRepairToSrc != 0,
+                                               oFS, oSettings, oLog));
+                                   else
+                                       oStepsImpl.CopyRepairSingleFile(strPath2, strPath1,
+                                           strPathSavedInfo1, ref bForceCreateInfo,
+                                           ref bForceCreateInfoTarget, "(testing)", "(testing)",
+                                           bFailOnNonrecoverable != 0, bApplyRepairToSrc != 0,
+                                           oFS, oSettings, oLog);
+
+
+                                   if (bApplyRepairToSrc != 0 && nSavedInfoConfig >= 1 && nSavedInfoConfig <= 2)
+                                   {
+                                       Assert.True(oFS.IsTestFile(strPath1, 1,
+                                       nLengthKB * 1024, dtmToUse, nSavedInfoConfig > 0, false, null,
+                                       null,
+                                       nSavedInfoConfig == 2 ? new List<long>(aListOfReadErrorsOtherThanInFile) :
+                                       (nSavedInfoConfig == 3 ? new List<long>(aListOfReadErrorsInFile) : null)));
+                                   }
+                                   else
+                                   {
+                                       // if we don't apply repairs to source then
+                                       // source is to be unchanged
+                                       Assert.True(oFS.IsTestFile(strPath1, 1,
+                                       nLengthKB * 1024, dtmToUse, nSavedInfoConfig > 0, false, null,
+                                       new List<long>(aListOfReadErrorsInFile),
+                                       nSavedInfoConfig == 2 ? new List<long>(aListOfReadErrorsOtherThanInFile) :
+                                       (nSavedInfoConfig == 3 ? new List<long>(aListOfReadErrorsInFile) : null)));
+                                   }
+
+                                   if (bFailOnNonrecoverable != 0 && (nSavedInfoConfig == 3 || nSavedInfoConfig == 0))
+                                   {
+                                       if (nSavedInfoConfig == 3)
+                                       {
+                                           Assert.IsTrue(oLog.Log.Contains($"I/O Error reading file: \"{strPath1}\", offset {aListOfReadErrorsInFile[0]}: This is a simulated I/O error at position {aListOfReadErrorsInFile[0]}"));
+                                           Assert.IsTrue(oLog.Log.Contains($"There are 1 bad blocks in the file {strPath1}, non-restorable parts: 4096 bytes. Can't proceed there because of non-recoverable, may retry later."));
+                                           Assert.AreEqual(2, oLog.Log.Count);
+                                           Assert.AreEqual(oLog.Log.Count, oLog.LocalizedLog.Count);
+                                       }
+                                       else
+                                       {
+                                           Assert.AreEqual(0, oLog.Log.Count);
+                                           Assert.AreEqual(oLog.Log.Count, oLog.LocalizedLog.Count);
+                                       }
+                                   }
+                                   else
+                                   {
+
+
+                                       if (nSavedInfoConfig == 3 || nSavedInfoConfig == 0)
+                                       {
+                                           Assert.IsTrue(oLog.Log.Contains($"Warning: copied {strPath1} to {strPath2} (testing) with errors"));
+                                           if (nSavedInfoConfig == 0)
+                                           {
+                                               Assert.IsTrue(oLog.Log.Contains($"I/O Error while reading file {strPath1} position {aListOfReadErrorsInFile[0]}: This is a simulated I/O error at position {aListOfReadErrorsInFile[0]}. Block will be replaced with a dummy during copy."));
+                                               Assert.AreEqual(2, oLog.Log.Count);
+                                               Assert.AreEqual(oLog.Log.Count, oLog.LocalizedLog.Count);
+                                           }
+                                           else
+                                           {
+                                               Assert.IsTrue(oLog.Log.Contains($"I/O Error reading file: \"{strPath1}\", offset {aListOfReadErrorsInFile[0]}: This is a simulated I/O error at position {aListOfReadErrorsInFile[0]}"));
+                                               Assert.IsTrue(oLog.Log.Contains($"There is one bad block in the file {strPath1}, non-restorable parts: 4096 bytes. The file can't be modified because of missing repair option, the restore process will be applied to copy.") ||
+                                                             oLog.Log.Contains($"There is one bad block in the file {strPath1}, non-restorable parts: 4096 bytes. "));
+                                               Assert.IsTrue(oLog.Log.Contains($"Filling not recoverable block at offset {aListOfReadErrorsInFile[0]} of copied file {strPath2} with a dummy"));
+                                               Assert.IsTrue(oLog.Log.Contains($"There was one bad block in the original file, not restored parts in the copy {strPath2}: 4096 bytes."));
+                                               Assert.AreEqual(5, oLog.Log.Count);
+                                               Assert.AreEqual(oLog.Log.Count, oLog.LocalizedLog.Count);
+                                           }
+                                       }
+                                       else
+                                       {
+                                           Assert.IsTrue(oLog.Log.Contains($"I/O Error reading file: \"{strPath1}\", offset {aListOfReadErrorsInFile[0]}: This is a simulated I/O error at position {aListOfReadErrorsInFile[0]}"));
+                                           Assert.IsTrue(oLog.Log.Contains($"Recovering block at offset {aListOfReadErrorsInFile[0]} of copied file {strPath2}"));
+                                           Assert.IsTrue(oLog.Log.Contains($"There was one bad block in the original file, not restored parts in the copy {strPath2}: 0 bytes."));
+                                           Assert.IsTrue(oLog.Log.Contains($"Copied {strPath1} to {strPath2} (testing)"));
+                                           Assert.AreEqual(oLog.Log.Count, oLog.LocalizedLog.Count);
+                                           if (bApplyRepairToSrc != 0)
+                                           {
+                                               Assert.AreEqual(6, oLog.Log.Count);
+                                               Assert.IsTrue(oLog.Log.Contains($"There is one bad block in the file {strPath1}, non-restorable parts: 0 bytes. "));
+                                               Assert.IsTrue(oLog.Log.Contains($"Recovering block at offset {aListOfReadErrorsInFile[0]} of file {strPath1}"));
+                                           }
+                                           else
+                                           {
+                                               Assert.AreEqual(5, oLog.Log.Count);
+                                               Assert.IsTrue(oLog.Log.Contains($"There is one bad block in the file {strPath1}, non-restorable parts: 0 bytes. The file can't be modified because of missing repair option, the restore process will be applied to copy."));
+                                           }
+                                       }
+                                   }
+                               }
+                           }
+
+                       }
+                   }
+
+               }
+            }
+            //);
+
+        }
     }
-
 }
-

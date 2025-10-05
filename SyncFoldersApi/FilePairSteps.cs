@@ -642,7 +642,7 @@ namespace SyncFoldersApi
                     }
                     catch
                     {
-                        System.Threading.Thread.Sleep(5000);
+                        // System.Threading.Thread.Sleep(100);
 
                         throw;
                     }
@@ -773,7 +773,7 @@ namespace SyncFoldersApi
                             " bad blocks in the file ", finfo.FullName,
                             ", non-restorable parts: ", nonRestoredSize,
                             " bytes. Can't proceed there because of non-recoverable, may retry later.");
-                        throw new Exception("Non-recoverable blocks discovered, failing");
+                        throw new IOException("Non-recoverable blocks discovered, failing");
                     }
                     else
                         bForceCreateInfoTarget = true;
@@ -977,6 +977,9 @@ namespace SyncFoldersApi
             }
             catch (System.IO.IOException ex)
             {
+                if (bFailOnNonRecoverable)
+                    throw;
+
                 iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.IOErrorDuringRepairCopyOf,
                     strPathTargetFile, ex.Message);
                 iLogWriter.WriteLog(true, 0, "I/O Error during repair copy to file: \"",
@@ -1734,7 +1737,7 @@ namespace SyncFoldersApi
             {
                 try
                 {
-                    System.Threading.Thread.Sleep(1000);
+                    // System.Threading.Thread.Sleep(100);
                     IFileInfo fi2 = iFileSystem.GetFileInfo(strTargetPath2);
                     if (fi2.Exists)
                         iFileSystem.Delete(fi2);
@@ -2573,7 +2576,7 @@ namespace SyncFoldersApi
                     {
                         try
                         {
-                            System.Threading.Thread.Sleep(5000);
+                            System.Threading.Thread.Sleep(100);
                             IFileInfo finfoCopy = iFileSystem.GetFileInfo(pathFileCopy);
                             if (finfoCopy.Exists)
                                 iFileSystem.Delete(finfoCopy);
