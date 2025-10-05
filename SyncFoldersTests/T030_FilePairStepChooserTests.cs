@@ -11,7 +11,7 @@ namespace SyncFoldersTests
     /// </summary>
     [TestFixture]
     [NonParallelizable]
-    public class FilePairStepChooserTests
+    public class T030_FilePairStepChooserTests
     {
         //===================================================================================================
         /// <summary>

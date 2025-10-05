@@ -755,7 +755,8 @@ namespace SyncFoldersApi
             bool bV0,
             List<long>? aErasedBlockPositions = null,
             List<long>? aReadErrorsFile = null, 
-            List<long>? aReadErrorsSavedInfo = null
+            List<long>? aReadErrorsSavedInfo = null,
+            bool bCreateRestoreInfoDir = false
             )
         {
             byte[] aFileContent = new byte[nLength];
@@ -804,6 +805,16 @@ namespace SyncFoldersApi
 
             SetLastWriteTimeUtc(strPath, dtmLastWriteTimeUtc);
 
+
+            // proceed with saved info
+            string strPathInfo = Utils.CreatePathOfChkFile(fi.Directory.FullName, "RestoreInfo", fi.Name, ".chk");
+
+            // create RestoreInfo directory, if it is needed
+            IFileInfo finfo = GetFileInfo(strPathInfo);
+            if (bWithSavedInfo || bCreateRestoreInfoDir)
+                finfo.Directory.Create();
+
+            // now the saved info itself
             if (bWithSavedInfo)
             {
                 SavedInfo oInfo = new SavedInfo(nLength, dtmLastWriteTimeUtc, false);
@@ -819,7 +830,7 @@ namespace SyncFoldersApi
                         nBytesToWrite = aFileContent.Length - nCurrentPos;
                     }
 
-                    Array.Copy(aFileContent, 0, b.m_aData, 0, nBytesToWrite);
+                    Array.Copy(aFileContent, nCurrentPos, b.m_aData, 0, nBytesToWrite);
                     nCurrentPos += nBytesToWrite;
 
                     while (nBytesToWrite < b.Length)
@@ -828,7 +839,6 @@ namespace SyncFoldersApi
                     oInfo.AnalyzeForInfoCollection(b, nCurrentBlock++);
                 }
 
-                string strPathInfo = Utils.CreatePathOfChkFile(fi.Directory.FullName, "RestoreInfo", fi.Name, ".chk");
                 using (IFile iFile = Create(strPathInfo))
                 {
                     if (bV0)
@@ -910,7 +920,7 @@ namespace SyncFoldersApi
                 {
                     for (int i = 0; i < 4096 && lPos + i < aExpectedFileContent.Length; ++i)
                     {
-                        aExpectedFileContent[i] = 0;
+                        aExpectedFileContent[lPos + i] = 0;
                     }
                 }
             }
@@ -955,79 +965,81 @@ namespace SyncFoldersApi
                 if (finfo.Length == 0)
                     return false;
 
-                if (finfo.LastWriteTimeUtc != fi.LastWriteTimeUtc)
+                if (finfo.LastWriteTimeUtc != fi.LastWriteTimeUtc && dtmLastWriteTimeUtc.HasValue)
                     return false;
 
-
-                MemoryStreamWithErrors oStreamInfo = m_oFiles[strPathInfo];
-                byte[] aFileContentInfoActual = oStreamInfo.ToArray();
-
-
-                SavedInfo oInfoExpected = new SavedInfo(nLength, fi.LastWriteTimeUtc, false);
-                Block b = new Block();
-                int nCurrentPos = 0;
-                int nCurrentBlock = 0;
-
-                while (nCurrentPos < aFileContent.Length)
+                if (dtmLastWriteTimeUtc.HasValue)
                 {
-                    int nBytesToWrite = b.Length;
-                    if (nCurrentPos + nBytesToWrite > aFileContent.Length)
+                    MemoryStreamWithErrors oStreamInfo = m_oFiles[strPathInfo];
+                    byte[] aFileContentInfoActual = oStreamInfo.ToArray();
+
+
+                    SavedInfo oInfoExpected = new SavedInfo(nLength, fi.LastWriteTimeUtc, false);
+                    Block b = new Block();
+                    int nCurrentPos = 0;
+                    int nCurrentBlock = 0;
+
+                    while (nCurrentPos < aExpectedFileContent.Length)
                     {
-                        nBytesToWrite = aFileContent.Length - nCurrentPos;
+                        int nBytesToWrite = b.Length;
+                        if (nCurrentPos + nBytesToWrite > aExpectedFileContent.Length)
+                        {
+                            nBytesToWrite = aExpectedFileContent.Length - nCurrentPos;
+                        }
+
+                        Array.Copy(aExpectedFileContent, nCurrentPos, b.m_aData, 0, nBytesToWrite);
+                        nCurrentPos += nBytesToWrite;
+
+                        while (nBytesToWrite < b.Length)
+                            b[nBytesToWrite++] = 0;
+
+                        oInfoExpected.AnalyzeForInfoCollection(b, nCurrentBlock++);
                     }
 
-                    Array.Copy(aFileContent, 0, b.m_aData, 0, nBytesToWrite);
-                    nCurrentPos += nBytesToWrite;
-
-                    while (nBytesToWrite < b.Length)
-                        b[nBytesToWrite++] = 0;
-
-                    oInfoExpected.AnalyzeForInfoCollection(b, nCurrentBlock++);
-                }
-
-                string strPathInfoExpected = strPathInfo + ".tmp";
-                using (IFile iFile = Create(strPathInfo+".tmp"))
-                {
-                    if (bV0)
-                        oInfoExpected.SaveTo_v0(iFile);
-                    else
-                        oInfoExpected.SaveTo(iFile);
-                }
-
-                MemoryStreamWithErrors oStreamInfoExpected = m_oFiles[strPathInfoExpected];
-                byte[] aFileContentInfoExpected = oStreamInfoExpected.ToArray();
-
-                Delete(strPathInfo + ".tmp");
-
-                if (aFileContentInfoActual.Length != aFileContentInfoExpected.Length)
-                    return false;
-
-                for (int i = aFileContentInfoExpected.Length - 1; i >= 0; --i)
-                {
-                    if (aFileContentInfoExpected[i] != aFileContentInfoActual[i])
-                        return false;
-                }
-
-                if (aReadErrorsSavedInfo != null)
-                {               
-                    // test that errors exist and the count is equal
-                    if (!m_oSimulatedReadErrors.ContainsKey(strPathInfo.ToUpper())
-                        || m_oSimulatedReadErrors[strPathInfo.ToUpper()].Count != aReadErrorsSavedInfo.Count)
-                        return false;
-
-                    // it is enough to test that all from one side are in the other
-                    // no need to test in both directions
-                    foreach (long lPos in m_oSimulatedReadErrors[strPathInfo.ToUpper()])
+                    string strPathInfoExpected = strPathInfo + ".tmp";
+                    using (IFile iFile = Create(strPathInfo + ".tmp"))
                     {
-                        if (!aReadErrorsSavedInfo.Contains(lPos))
+                        if (bV0)
+                            oInfoExpected.SaveTo_v0(iFile);
+                        else
+                            oInfoExpected.SaveTo(iFile);
+                    }
+
+                    MemoryStreamWithErrors oStreamInfoExpected = m_oFiles[strPathInfoExpected];
+                    byte[] aFileContentInfoExpected = oStreamInfoExpected.ToArray();
+
+                    Delete(strPathInfo + ".tmp");
+
+                    if (aFileContentInfoActual.Length != aFileContentInfoExpected.Length)
+                        return false;
+
+                    for (int i = aFileContentInfoExpected.Length - 1; i >= 0; --i)
+                    {
+                        if (aFileContentInfoExpected[i] != aFileContentInfoActual[i])
                             return false;
                     }
-                }
-                else
-                {
-                    if (m_oSimulatedReadErrors.ContainsKey(strPathInfo.ToUpper()) &&
-                        m_oSimulatedReadErrors[strPathInfo.ToUpper()].Count > 0)
-                        return false;
+
+                    if (aReadErrorsSavedInfo != null)
+                    {
+                        // test that errors exist and the count is equal
+                        if (!m_oSimulatedReadErrors.ContainsKey(strPathInfo.ToUpper())
+                            || m_oSimulatedReadErrors[strPathInfo.ToUpper()].Count != aReadErrorsSavedInfo.Count)
+                            return false;
+
+                        // it is enough to test that all from one side are in the other
+                        // no need to test in both directions
+                        foreach (long lPos in m_oSimulatedReadErrors[strPathInfo.ToUpper()])
+                        {
+                            if (!aReadErrorsSavedInfo.Contains(lPos))
+                                return false;
+                        }
+                    }
+                    else
+                    {
+                        if (m_oSimulatedReadErrors.ContainsKey(strPathInfo.ToUpper()) &&
+                            m_oSimulatedReadErrors[strPathInfo.ToUpper()].Count > 0)
+                            return false;
+                    }
                 }
             } else
             {
@@ -1126,8 +1138,7 @@ namespace SyncFoldersApi
                     long lCurrentPos = Position;
                     for (int i = m_aListOfReadErrors.Count - 1; i >= 0; --i)
                     {
-                        if (m_aListOfReadErrors[i] + 4095 >= lCurrentPos &&
-                            m_aListOfReadErrors[i] <= lCurrentPos)
+                        if (m_aListOfReadErrors[i] == lCurrentPos)
                         {
                             throw new IOException(
                                 string.Format(Properties.Resources.ThisIsASimulatedIOErrorAtPosition,

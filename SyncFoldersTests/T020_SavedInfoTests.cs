@@ -32,7 +32,7 @@ namespace SyncFoldersTests
     //*******************************************************************************************************
     [TestFixture]
     [NonParallelizable]
-    public class SavedInfoTests
+    public class T020_SavedInfoTests
     {
         //===================================================================================================
         /// <summary>

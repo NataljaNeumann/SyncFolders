@@ -218,23 +218,24 @@ namespace SyncFoldersApi
                             iLogWriter.WriteLog(true, 1, "I/O Error reading file: \"",
                                 finfo.FullName, "\", offset ",
                                 index * b.Length, ": " + ex.Message);
+                            if ((index + 1) * b.Length >= s.Length)
+                                break;
                             s.Seek((index + 1) * b.Length,
                                 System.IO.SeekOrigin.Begin);
                         }
 
                     }
-                    ;
-
+                    
 
                     s.Close();
                 }
-                ;
+                
 
                 if (bAllBlocksOK)
                 {
                     // check also, if the contents of the checksum file 
                     // match the file itself, or if they have been corrupted somehow
-                    if (!si.VerifyIntegrityAfterRestoreTest())
+                    if (!si.VerifyIntegrityAfterRestoreTest() || si.NeedsRebuild())
                     {
                         iLogWriter.WriteLogFormattedLocalized(0,
                             Properties.Resources.SavedInfoHasBeenDamagedNeedsRecreation,
@@ -265,59 +266,63 @@ namespace SyncFoldersApi
                 long nonRestoredSize = 0;
                 List<RestoreInfo> rinfos = si.EndRestore(
                     out nonRestoredSize, fiSavedInfo.FullName, iLogWriter);
-                if (nonRestoredSize > 0)
-                {
-                    bForceCreateInfo = true;
-                }
 
-                if (nonRestoredSize == 0 || !bOnlyIfCompletelyRecoverable)
+                if (rinfos.Count > 0)
                 {
-                    using (IFile s =
-                        iFileSystem.OpenWrite(finfo.FullName))
+                    if (nonRestoredSize > 0)
                     {
-                        foreach (RestoreInfo ri in rinfos)
+                        bForceCreateInfo = true;
+                    }
+
+                    if (nonRestoredSize == 0 || !bOnlyIfCompletelyRecoverable)
+                    {
+                        using (IFile s =
+                            iFileSystem.OpenWrite(finfo.FullName))
                         {
-                            if (ri.NotRecoverableArea)
+                            foreach (RestoreInfo ri in rinfos)
                             {
-                                if (readableButNotAccepted.ContainsKey(ri.Position / ri.Data.Length))
+                                if (ri.NotRecoverableArea)
                                 {
-                                    iLogWriter.WriteLogFormattedLocalized(1,
-                                        Properties.Resources.KeepingReadableButNotRecoverableBlockAtOffset,
-                                        ri.Position);
-                                    iLogWriter.WriteLog(true, 1, "Keeping readable but not recoverable block at offset ",
-                                        ri.Position, ", checksum indicates the block is wrong");
+                                    if (readableButNotAccepted.ContainsKey(ri.Position / ri.Data.Length))
+                                    {
+                                        iLogWriter.WriteLogFormattedLocalized(1,
+                                            Properties.Resources.KeepingReadableButNotRecoverableBlockAtOffset,
+                                            ri.Position);
+                                        iLogWriter.WriteLog(true, 1, "Keeping readable but not recoverable block at offset ",
+                                            ri.Position, ", checksum indicates the block is wrong");
+                                    }
+                                    else
+                                    {
+                                        s.Seek(ri.Position, System.IO.SeekOrigin.Begin);
+                                        iLogWriter.WriteLogFormattedLocalized(1, Properties.Resources.FillingNotRecoverableAtOffsetWithDummy,
+                                            ri.Position);
+                                        iLogWriter.WriteLog(true, 1, "Filling not recoverable block at offset ",
+                                            ri.Position, " with a dummy block");
+                                        int lengthToWrite = (int)(si.Length - ri.Position >= ri.Data.Length ?
+                                            ri.Data.Length :
+                                            si.Length - ri.Position);
+                                        if (lengthToWrite > 0)
+                                            ri.Data.WriteTo(s, lengthToWrite);
+                                    }
+                                    bForceCreateInfo = true;
                                 }
                                 else
                                 {
                                     s.Seek(ri.Position, System.IO.SeekOrigin.Begin);
-                                    iLogWriter.WriteLogFormattedLocalized(1, Properties.Resources.FillingNotRecoverableAtOffsetWithDummy,
-                                        ri.Position);
-                                    iLogWriter.WriteLog(true, 1, "Filling not recoverable block at offset ",
-                                        ri.Position, " with a dummy block");
+                                    iLogWriter.WriteLogFormattedLocalized(1, Properties.Resources.RecoveringBlockAtOffsetOfFile,
+                                        ri.Position, finfo.FullName);
+                                    iLogWriter.WriteLog(true, 1, "Recovering block at offset ",
+                                        ri.Position, " of the file ", finfo.FullName);
                                     int lengthToWrite = (int)(si.Length - ri.Position >= ri.Data.Length ?
                                         ri.Data.Length :
                                         si.Length - ri.Position);
                                     if (lengthToWrite > 0)
                                         ri.Data.WriteTo(s, lengthToWrite);
                                 }
-                                bForceCreateInfo = true;
                             }
-                            else
-                            {
-                                s.Seek(ri.Position, System.IO.SeekOrigin.Begin);
-                                iLogWriter.WriteLogFormattedLocalized(1, Properties.Resources.RecoveringBlockAtOffsetOfFile,
-                                    ri.Position, finfo.FullName);
-                                iLogWriter.WriteLog(true, 1, "Recovering block at offset ",
-                                    ri.Position, " of the file ", finfo.FullName);
-                                int lengthToWrite = (int)(si.Length - ri.Position >= ri.Data.Length ?
-                                    ri.Data.Length :
-                                    si.Length - ri.Position);
-                                if (lengthToWrite > 0)
-                                    ri.Data.WriteTo(s, lengthToWrite);
-                            }
-                        }
 
-                        s.Close();
+                            s.Close();
+                        }
                     }
                 }
 
@@ -331,8 +336,7 @@ namespace SyncFoldersApi
                             " bad blocks in the file ", finfo.FullName,
                             ", non-restorable parts: ", nonRestoredSize, " bytes, file can't be used as backup");
                     }
-                    else
-                        if (rinfos.Count > 0)
+                    else if (rinfos.Count > 0)
                     {
                         iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.ThereIsBadBlockNonRestorableCantBeBackup,
                             finfo.FullName, nonRestoredSize);
@@ -352,8 +356,7 @@ namespace SyncFoldersApi
                             " bad blocks in the file ", finfo.FullName,
                             ", not restored parts: ", nonRestoredSize, " bytes");
                     }
-                    else
-                        if (rinfos.Count > 0)
+                    else if (rinfos.Count > 0)
                     {
                         iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.ThereWasBadBlockInFileNotRestoredParts,
                             finfo.FullName, nonRestoredSize);
@@ -361,10 +364,23 @@ namespace SyncFoldersApi
                             ", not restored parts: ", nonRestoredSize, " bytes");
                     }
 
-                    if (nonRestoredSize == 0 && rinfos.Count == 0)
+                    if (nonRestoredSize == 0)
                     {
-                        CreateOrUpdateFileChecked(strPathSavedInfoFile,
-                            iFileSystem, iSettings, iLogWriter);
+                        if (si.NeedsRebuild())
+                        {
+                            iLogWriter.WriteLogFormattedLocalized(0,
+                                Properties.Resources.SavedInfoHasBeenDamagedNeedsRecreation,
+                                strPathSavedInfoFile, strPathFile);
+                            iLogWriter.WriteLog(true, 0, "Saved info file \"", strPathSavedInfoFile,
+                                "\" has been damaged and needs to be recreated from \"",
+                                strPathFile, "\"");
+                            bForceCreateInfo = true;
+                        }
+                        else
+                        {
+                            CreateOrUpdateFileChecked(strPathSavedInfoFile,
+                                iFileSystem, iSettings, iLogWriter);
+                        }
                     }
 
                     if (nonRestoredSize > 0)
@@ -1606,12 +1622,10 @@ namespace SyncFoldersApi
                             throw new OperationCanceledException();
 
                     }
-                    ;
 
 
                     s.Close();
                 }
-                ;
             }
             catch (System.IO.IOException ex)
             {

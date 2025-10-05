@@ -18,24 +18,25 @@
     with this program; if not, write to the Free Software Foundation, Inc.,
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
-using SyncFoldersApi;
+
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SyncFoldersApi;
 
 #pragma warning disable NUnit2005
-
 
 namespace SyncFoldersTests
 {
     //*******************************************************************************************************
     /// <summary>
-    /// This class provides base for file info tests
+    /// Base class for directory info tests
     /// </summary>
     //*******************************************************************************************************
-    public abstract class FileInfoTestsBase
+    public abstract class DirectoryInfoTestsBase
     {
         //===================================================================================================
         /// <summary>
@@ -48,41 +49,31 @@ namespace SyncFoldersTests
 
         //===================================================================================================
         /// <summary>
-        /// Path of temp directory
+        /// Temporary ddirectory for current test
         /// </summary>
-        private string m_strTempDir;
+        private string m_strTempPath;
 
         //===================================================================================================
         /// <summary>
-        /// Patth of temp file
-        /// </summary>
-        private string m_strFilePath;
-
-
-        //===================================================================================================
-        /// <summary>
-        /// Sets up the environment for testing
+        /// Sets up the test
         /// </summary>
         //===================================================================================================
         [SetUp]
         public virtual void Setup()
         {
-            m_strTempDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
-            m_oFileSystem.GetDirectoryInfo(m_strTempDir).Create();
-
-            m_strFilePath = Path.Combine(m_strTempDir, "test.txt");
-            m_oFileSystem.WriteAllText(m_strFilePath, "Hello World");
+            m_strTempPath = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
         }
 
         //===================================================================================================
         /// <summary>
-        /// Deletes used temporary directories and files
+        /// Deletes the used directory after test
         /// </summary>
         //===================================================================================================
         [TearDown]
         public void Cleanup()
         {
-            IDirectoryInfo iDir = m_oFileSystem.GetDirectoryInfo(m_strTempDir);
+            // Delete the directory (kind of silly to use tested class there :-)
+            IDirectoryInfo iDir = m_oFileSystem.GetDirectoryInfo(m_strTempPath);
             if (iDir.Exists)
             {
                 iDir.Delete(true);
@@ -91,188 +82,142 @@ namespace SyncFoldersTests
 
         //===================================================================================================
         /// <summary>
-        /// Tests if exists works correctly for an existing file
+        /// Tests, if the directory is created
         /// </summary>
         //===================================================================================================
         [Test]
-        public void Exists_ShouldBeTrueForExistingFile()
+        public void Create_ShouldMakeDirectory()
         {
-            var file = m_oFileSystem.GetFileInfo(m_strFilePath);
-            Assert.IsTrue(file.Exists);
+            var dir = m_oFileSystem.GetDirectoryInfo(m_strTempPath);
+            dir.Create();
+            Assert.IsTrue(m_oFileSystem.GetDirectoryInfo(m_strTempPath).Exists);
+            Assert.IsTrue(dir.Exists);
         }
 
         //===================================================================================================
         /// <summary>
-        /// Tests if length works correctly
+        /// Tests if delete removes the directory from file system
         /// </summary>
         //===================================================================================================
         [Test]
-        public void Length_ShouldMatchFileSize()
+        public void Delete_ShouldRemoveDirectory()
         {
-            var file = m_oFileSystem.GetFileInfo(m_strFilePath);
-            Assert.AreEqual(11, file.Length); // "Hello World" = 11 bytes
-        }
+            var dir = m_oFileSystem.GetDirectoryInfo(m_strTempPath);
+            dir.Create();
+            Assert.IsTrue(dir.Exists);
+            dir.Delete(true);
 
+            Assert.IsFalse(m_oFileSystem.GetDirectoryInfo(m_strTempPath).Exists);
+        }
 
         //===================================================================================================
         /// <summary>
-        /// Tests if FullName property works correctly
+        /// Tests, if a file that is created in the directory is returned by directory info
+        /// </summary>
+        //===================================================================================================
+        [Test]
+        public void GetFiles_ShouldReturnCreatedFiles()
+        {
+            var dir = m_oFileSystem.GetDirectoryInfo(m_strTempPath);
+            dir.Create();
+            m_oFileSystem.WriteAllText(Path.Combine(m_strTempPath, "test.txt"), "hello");
+            var files = dir.GetFiles();
+            Assert.AreEqual(1, files.Length);
+            Assert.AreEqual("test.txt", files[0].Name);
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// Tests, if a subdirectory that is created in the directory is returned
+        /// </summary>
+        //===================================================================================================
+        [Test]
+        public void GetDirectories_ShouldReturnCreatedSubdirectories()
+        {
+            var dir = m_oFileSystem.GetDirectoryInfo(m_strTempPath);
+            dir.Create();
+            var subDirPath = Path.Combine(m_strTempPath, "sub");
+            var subDir = m_oFileSystem.GetDirectoryInfo(subDirPath);
+            subDir.Create();
+
+            var subDirs = dir.GetDirectories();
+            Assert.AreEqual(1, subDirs.Length);
+            Assert.AreEqual("sub", subDirs[0].Name);
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// Tests if FullName property is correct
         /// </summary>
         //===================================================================================================
         [Test]
         public void FullName_ShouldMatchPath()
         {
-            var file = m_oFileSystem.GetFileInfo(m_strFilePath);
-            Assert.AreEqual(m_strFilePath, file.FullName);
+            var dir = m_oFileSystem.GetDirectoryInfo(m_strTempPath);
+            Assert.AreEqual(m_strTempPath, dir.FullName);
         }
 
         //===================================================================================================
         /// <summary>
-        /// Tests, if Name property works correctly
+        /// Tests, if name of the directory is correct 
         /// </summary>
         //===================================================================================================
         [Test]
-        public void Name_ShouldMatchFileName()
+        public void Name_ShouldMatchLastSegment()
         {
-            var file = m_oFileSystem.GetFileInfo(m_strFilePath);
-            Assert.AreEqual("test.txt", file.Name);
+            var dir = m_oFileSystem.GetDirectoryInfo(m_strTempPath);
+            Assert.AreEqual(Path.GetFileName(m_strTempPath), dir.Name);
         }
 
         //===================================================================================================
         /// <summary>
-        /// Tests, if file extension works correctly
+        /// Tests if parent directory is returned correctly
         /// </summary>
         //===================================================================================================
         [Test]
-        public void Extension_ShouldMatchFileExtension()
+        public void Parent_ShouldBeCorrect()
         {
-            var file = m_oFileSystem.GetFileInfo(m_strFilePath);
-            Assert.AreEqual(".txt", file.Extension);
+            var dir = m_oFileSystem.GetDirectoryInfo(m_strTempPath);
+            var parent = dir.Parent;
+            Assert.AreEqual(Path.GetDirectoryName(m_strTempPath), parent?.FullName);
         }
 
         //===================================================================================================
         /// <summary>
-        /// Tests, if directory name is returned correctly
-        /// </summary>
-        //===================================================================================================
-        [Test]
-        public void DirectoryName_ShouldMatchParentPath()
-        {
-            var file = m_oFileSystem.GetFileInfo(m_strFilePath);
-            Assert.AreEqual(m_strTempDir, file.DirectoryName);
-        }
-
-        //===================================================================================================
-        /// <summary>
-        /// Tests the Directory property
-        /// </summary>
-        //===================================================================================================
-        [Test]
-        public void Directory_ShouldReturnParentDirectory()
-        {
-            var file = m_oFileSystem.GetFileInfo(m_strFilePath);
-            var dir = file.Directory;
-            Assert.AreEqual(m_strTempDir, dir.FullName);
-        }
-
-        //===================================================================================================
-        /// <summary>
-        /// Tests file attributes
+        /// Tests if directory attributes are settable
         /// </summary>
         //===================================================================================================
         [Test]
         public void Attributes_ShouldBeSettable()
         {
-            var file = m_oFileSystem.GetFileInfo(m_strFilePath);
-            file.Attributes = FileAttributes.Hidden;
-            Assert.AreEqual(FileAttributes.Hidden, file.Attributes);
+            var dir = m_oFileSystem.GetDirectoryInfo(m_strTempPath);
+            dir.Create();
+            dir.Attributes = FileAttributes.Hidden | FileAttributes.Directory;
+            Assert.AreEqual(FileAttributes.Hidden | FileAttributes.Directory, dir.Attributes);
         }
 
         //===================================================================================================
         /// <summary>
-        /// Tests, if last write time works correctly
+        /// Tests, if creation of a directory actually creates one
         /// </summary>
         //===================================================================================================
         [Test]
-        public void LastWriteTimeUtc_ShouldBeSettable()
+        public void Exists_ShouldReflectActualState()
         {
-            var file = m_oFileSystem.GetFileInfo(m_strFilePath);
-            var newTime = DateTime.UtcNow.AddHours(-1);
-            file.LastWriteTimeUtc = newTime;
-            Assert.AreEqual(newTime, file.LastWriteTimeUtc);
+            // ensure that the dir is not there
+            IDirectoryInfo iDir = m_oFileSystem.GetDirectoryInfo(m_strTempPath);
+            if (iDir.Exists)
+            {
+                iDir.Delete(true);
+            }
+
+            var dir = m_oFileSystem.GetDirectoryInfo(m_strTempPath);
+            Assert.IsFalse(dir.Exists);
+            dir.Create();
+            Assert.IsTrue(dir.Exists);
         }
 
-        //===================================================================================================
-        /// <summary>
-        /// Tests, if Delete works correctly
-        /// </summary>
-        //===================================================================================================
-        [Test]
-        public void Delete_ShouldRemoveFile()
-        {
-            var file = m_oFileSystem.GetFileInfo(m_strFilePath);
-            file.Delete();
-            Assert.IsFalse(m_oFileSystem.Exists(m_strFilePath));
-            Assert.IsFalse(file.Exists);
-            // create the file again, since we don't know order of tests
-            m_oFileSystem.WriteAllText(m_strFilePath, "Hello World");
-        }
-
-        //===================================================================================================
-        /// <summary>
-        /// Tests, if moving files works correctly
-        /// </summary>
-        //===================================================================================================
-        [Test]
-        public void MoveTo_ShouldRelocateFile()
-        {
-            var file = m_oFileSystem.GetFileInfo(m_strFilePath);
-            var newPath = Path.Combine(m_strTempDir, "moved.txt");
-            file.MoveTo(newPath);
-            Assert.IsFalse(m_oFileSystem.Exists(m_strFilePath));
-            Assert.IsTrue(m_oFileSystem.Exists(newPath));
-            Assert.AreEqual("moved.txt", file.Name);
-            // move back, since we don't know the order of tests
-            file.MoveTo(m_strFilePath);
-            Assert.IsFalse(m_oFileSystem.Exists(newPath));
-            Assert.IsTrue(m_oFileSystem.Exists(m_strFilePath));
-            Assert.AreEqual("test.txt", file.Name);
-        }
-
-        //===================================================================================================
-        /// <summary>
-        /// Tests, if copy works correctly
-        /// </summary>
-        //===================================================================================================
-        [Test]
-        public void CopyTo_ShouldCreateCopy()
-        {
-            var file = m_oFileSystem.GetFileInfo(m_strFilePath);
-            var copyPath = Path.Combine(m_strTempDir, "copy.txt");
-            var copy = file.CopyTo(copyPath);
-            Assert.IsTrue(m_oFileSystem.Exists(copyPath));
-            Assert.AreEqual("copy.txt", copy.Name);
-            Assert.AreEqual("Hello World", m_oFileSystem.ReadAllText(copyPath));
-        }
-
-        //===================================================================================================
-        /// <summary>
-        /// Tests if overwriting works
-        /// </summary>
-        //===================================================================================================
-        [Test]
-        public void CopyTo_WithOverwrite_ShouldReplaceFile()
-        {
-            var file = m_oFileSystem.GetFileInfo(m_strFilePath);
-            var copyPath = Path.Combine(m_strTempDir, "copy2.txt");
-            m_oFileSystem.WriteAllText(copyPath, "Old long content"); // Length != 11
-            var copy = file.CopyTo(copyPath, true);
-            Assert.AreEqual("copy2.txt", copy.Name);
-            Assert.AreEqual(11, copy.Length); // "Hello World" Length == 11
-        }
     }
-
-
 
     //*******************************************************************************************************
     /// <summary>
@@ -281,7 +226,7 @@ namespace SyncFoldersTests
     //*******************************************************************************************************
     [TestFixture]
     [NonParallelizable]
-    public class FileInfoTestInMemory : FileInfoTestsBase
+    public class T000_DirectoryInfoTestInMemory : DirectoryInfoTestsBase
     {
         //===================================================================================================
         /// <summary>
@@ -291,8 +236,7 @@ namespace SyncFoldersTests
         public override void Setup()
         {
             m_oFileSystem = new InMemoryFileSystem();
-
-            base.Setup();            
+            base.Setup();
         }
 
     }
@@ -306,7 +250,7 @@ namespace SyncFoldersTests
     //*******************************************************************************************************
     [TestFixture]
     [NonParallelizable]
-    public class FileInfoTestInReal : FileInfoTestsBase
+    public class T000_DirectoryInfoTestInReal : DirectoryInfoTestsBase
     {
         //===================================================================================================
         /// <summary>
@@ -316,12 +260,10 @@ namespace SyncFoldersTests
         public override void Setup()
         {
             m_oFileSystem = new RealFileSystem();
-
             base.Setup();
-
-            
         }
 
     }
+
 
 }

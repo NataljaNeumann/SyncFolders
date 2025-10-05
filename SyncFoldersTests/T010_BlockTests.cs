@@ -39,7 +39,7 @@ namespace SyncFoldersTests
     //*******************************************************************************************************
     [TestFixture]
     [NonParallelizable]
-    public class BlockTests
+    public class T010_BlockTests
     {
         //===================================================================================================
         /// <summary>

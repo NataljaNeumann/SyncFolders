@@ -188,7 +188,7 @@ namespace SyncFoldersTests
     //===================================================================================================
     [TestFixture]
     [NonParallelizable]
-    public class FileTestsInMemory : FileTestsBase
+    public class T000_FileTestsInMemory : FileTestsBase
     {
         //===============================================================================================
         /// <summary>
@@ -233,7 +233,7 @@ namespace SyncFoldersTests
     //===================================================================================================
     [TestFixture]
     [NonParallelizable]
-    public class FileTestsRealFileSystem : FileTestsBase
+    public class T000_FileTestsRealFileSystem : FileTestsBase
     {
         //===============================================================================================
         /// <summary>
