@@ -93,6 +93,7 @@ namespace SyncFoldersApi
                    strFilePath.EndsWith(".png", StringComparison.InvariantCultureIgnoreCase) ||
                    strFilePath.EndsWith(".gif", StringComparison.InvariantCultureIgnoreCase) ||
                    strFilePath.EndsWith(".tif", StringComparison.InvariantCultureIgnoreCase) ||
+                   strFilePath.EndsWith(".bmp", StringComparison.InvariantCultureIgnoreCase) ||
                    strFilePath.EndsWith(".wma", StringComparison.InvariantCultureIgnoreCase) ||
                    strFilePath.EndsWith(".flac", StringComparison.InvariantCultureIgnoreCase) ||
                    strFilePath.EndsWith(".doc", StringComparison.InvariantCultureIgnoreCase) ||
@@ -100,10 +101,21 @@ namespace SyncFoldersApi
                    strFilePath.EndsWith(".docm", StringComparison.InvariantCultureIgnoreCase) ||
                    strFilePath.EndsWith(".xls", StringComparison.InvariantCultureIgnoreCase) ||
                    strFilePath.EndsWith(".xlsx", StringComparison.InvariantCultureIgnoreCase) ||
-                   strFilePath.EndsWith(".clsm", StringComparison.InvariantCultureIgnoreCase) ||
+                   strFilePath.EndsWith(".xlsm", StringComparison.InvariantCultureIgnoreCase) ||
                    strFilePath.EndsWith(".ppt", StringComparison.InvariantCultureIgnoreCase) ||
                    strFilePath.EndsWith(".pptx", StringComparison.InvariantCultureIgnoreCase) ||
                    strFilePath.EndsWith(".pptm", StringComparison.InvariantCultureIgnoreCase) ||
+                   strFilePath.EndsWith(".odt", StringComparison.InvariantCultureIgnoreCase) ||
+                   strFilePath.EndsWith(".sxw", StringComparison.InvariantCultureIgnoreCase) ||
+                   strFilePath.EndsWith(".ods", StringComparison.InvariantCultureIgnoreCase) ||
+                   strFilePath.EndsWith(".sxc", StringComparison.InvariantCultureIgnoreCase) ||
+                   strFilePath.EndsWith(".odp", StringComparison.InvariantCultureIgnoreCase) ||
+                   strFilePath.EndsWith(".sxi", StringComparison.InvariantCultureIgnoreCase) ||
+                   strFilePath.EndsWith(".zip", StringComparison.InvariantCultureIgnoreCase) ||
+                   strFilePath.EndsWith(".rar", StringComparison.InvariantCultureIgnoreCase) ||
+                   strFilePath.EndsWith(".7z", StringComparison.InvariantCultureIgnoreCase) ||
+                   strFilePath.EndsWith(".ace", StringComparison.InvariantCultureIgnoreCase) ||
+                   strFilePath.EndsWith(".xps", StringComparison.InvariantCultureIgnoreCase) ||
                    strFilePath.EndsWith(".pdf", StringComparison.InvariantCultureIgnoreCase);
         }
 
