@@ -119,8 +119,15 @@ namespace SyncFoldersApi
         /// <summary>
         /// Processes a file pair in "first-to-second" folder mode.
         /// </summary>
-        /// <param name="strFilePath1">first file</param>
-        /// <param name="strFilePath2">second file</param>
+        /// <param name="strFilePath1">Path of first file</param>
+        /// <param name="strFilePath2">Path of second file</param>
+        /// <param name="fi1">Information about the first file</param>
+        /// <param name="fi2">Information about the first file</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iLogic">Logic implementation determining actions</param>
+        /// <param name="iStepsImpl">Implementation of the actual file steps</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         //===================================================================================================
         void ProcessFilePair_FirstToSecond(
             string strFilePath1,
@@ -157,10 +164,15 @@ namespace SyncFoldersApi
         /// This method processes a file pair in first-to-second folder mode, in case user specified
         /// that first folder is read-only
         /// </summary>
-        /// <param name="strFilePath1">first file</param>
-        /// <param name="strFilePath2">second file</param>
-        /// <param name="fi1">The file information about first file</param>
-        /// <param name="fi2">The file information about second file</param>
+        /// <param name="strFilePath1">Path of first file</param>
+        /// <param name="strFilePath2">Path of second file</param>
+        /// <param name="fi1">Information about the first file</param>
+        /// <param name="fi2">Information about the first file</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iLogic">Logic implementation determining actions</param>
+        /// <param name="iStepsImpl">Implementation of the actual file steps</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         //===================================================================================================
         void ProcessFilePair_FirstToSecond_FirstReadonly(
             string strFilePath1,
@@ -255,10 +267,15 @@ namespace SyncFoldersApi
         /// This method processes a file pair in first-to-second folder mode, in case user specified
         /// that first folder is read-only and both files exist
         /// </summary>
-        /// <param name="strFilePath1">first file</param>
-        /// <param name="strFilePath2">second file</param>
-        /// <param name="fi1">The file information about first file</param>
-        /// <param name="fi2">The file information about second file</param>
+        /// <param name="strFilePath1">Path of first file</param>
+        /// <param name="strFilePath2">Path of second file</param>
+        /// <param name="fi1">Information about the first file</param>
+        /// <param name="fi2">Information about the first file</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iLogic">Logic implementation determining actions</param>
+        /// <param name="iStepsImpl">Implementation of the actual file steps</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         //===================================================================================================
         void ProcessFilePair_FirstToSecond_FirstReadonly_BothExist(
             string strFilePath1,
@@ -272,8 +289,11 @@ namespace SyncFoldersApi
             ILogWriter iLogWriter)
         {
             // Compare modification times and lengths
-            if (!iSettings.FirstToSecondSyncMode ? (!Utils.FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) || (fi1.Length != fi2.Length)) :
-                           ((!Utils.FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) && (fi1.LastWriteTimeUtc > fi2.LastWriteTimeUtc)) || (Utils.FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) && fi1.Length > fi2.Length))
+            if (!iSettings.FirstToSecondSyncMode ? 
+                    (!Utils.FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) || (fi1.Length != fi2.Length)) 
+                    :
+                    ((!Utils.FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) && (fi1.LastWriteTimeUtc > fi2.LastWriteTimeUtc)) 
+                       || (Utils.FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) && fi1.Length > fi2.Length))
                 )
             {
                 iLogic.ProcessFilePair_FirstToSecond_FirstReadonly_BothExist_NeedToCopy(
@@ -297,10 +317,15 @@ namespace SyncFoldersApi
         /// This method processes a file pair in first-to-second folder mode, in case user specified
         /// that first folder can be written to.
         /// </summary>
-        /// <param name="strFilePath1">first file</param>
-        /// <param name="strFilePath2">second file</param>
-        /// <param name="fi1">The file information about first file</param>
-        /// <param name="fi2">The file information about second file</param>
+        /// <param name="strFilePath1">Path of first file</param>
+        /// <param name="strFilePath2">Path of second file</param>
+        /// <param name="fi1">Information about the first file</param>
+        /// <param name="fi2">Information about the first file</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iLogic">Logic implementation determining actions</param>
+        /// <param name="iStepsImpl">Implementation of the actual file steps</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         //===================================================================================================
         void ProcessFilePair_FirstToSecond_FirstReadWrite(
             string strFilePath1,
@@ -383,10 +408,15 @@ namespace SyncFoldersApi
         /// This method processes a file pair in first-to-second folder mode, in case user specified
         /// that first folder can be written to and both files exist.
         /// </summary>
-        /// <param name="strFilePath1">first file</param>
-        /// <param name="strFilePath2">second file</param>
-        /// <param name="fi1">The file information about first file</param>
-        /// <param name="fi2">The file information about second file</param>
+        /// <param name="strFilePath1">Path of first file</param>
+        /// <param name="strFilePath2">Path of second file</param>
+        /// <param name="fi1">Information about the first file</param>
+        /// <param name="fi2">Information about the first file</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iLogic">Logic implementation determining actions</param>
+        /// <param name="iStepsImpl">Implementation of the actual file steps</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         //===================================================================================================
         void ProcessFilePair_FirstToSecond_FirstReadWrite_BothExist(
             string strFilePath1,
@@ -401,8 +431,11 @@ namespace SyncFoldersApi
             )
         {
             // first to second, but first can be written to
-            if (!iSettings.FirstToSecondSyncMode ? (!Utils.FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) || (fi1.Length != fi2.Length)) :
-                           ((!Utils.FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) && fi1.LastWriteTimeUtc > fi2.LastWriteTimeUtc) || (Utils.FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) && (fi1.Length != fi2.Length)))
+            if (!iSettings.FirstToSecondSyncMode ? 
+                    (!Utils.FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) || (fi1.Length != fi2.Length)) 
+                    :
+                    ((!Utils.FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) && fi1.LastWriteTimeUtc > fi2.LastWriteTimeUtc) 
+                        || (Utils.FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) && (fi1.Length != fi2.Length)))
                )
                 ProcessFilePair_FirstToSecond_FirstReadWrite_BothExist_NeedToCopy(
                     strFilePath1, strFilePath2, fi1, fi2,
@@ -420,10 +453,15 @@ namespace SyncFoldersApi
         /// that first folder can be written to, both files exist and the first needs to be written over
         /// second file.
         /// </summary>
-        /// <param name="strFilePath1">first file</param>
-        /// <param name="strFilePath2">second file</param>
-        /// <param name="fi1">The file information about first file</param>
-        /// <param name="fi2">The file information about second file</param>
+        /// <param name="strFilePath1">Path of first file</param>
+        /// <param name="strFilePath2">Path of second file</param>
+        /// <param name="fi1">Information about the first file</param>
+        /// <param name="fi2">Information about the first file</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iLogic">Logic implementation determining actions</param>
+        /// <param name="iStepsImpl">Implementation of the actual file steps</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         //===================================================================================================
         void ProcessFilePair_FirstToSecond_FirstReadWrite_BothExist_NeedToCopy(
             string strFilePath1,
@@ -450,10 +488,15 @@ namespace SyncFoldersApi
         /// <summary>
         /// Processes a file pair bidirectionally (default mode).
         /// </summary>
-        /// <param name="strFilePath1">first file</param>
-        /// <param name="strFilePath2">second file</param>
-        /// <param name="fi1">The file information about first file</param>
-        /// <param name="fi2">The file information about second file</param>
+        /// <param name="strFilePath1">Path of first file</param>
+        /// <param name="strFilePath2">Path of second file</param>
+        /// <param name="fi1">Information about the first file</param>
+        /// <param name="fi2">Information about the first file</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iLogic">Logic implementation determining actions</param>
+        /// <param name="iStepsImpl">Implementation of the actual file steps</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         //===================================================================================================
         void ProcessFilePair_Bidirectionally(
             string strFilePath1,
@@ -540,10 +583,15 @@ namespace SyncFoldersApi
         /// This method processes a file pair in bidirectional folder mode (default), in case both files
         /// exist
         /// </summary>
-        /// <param name="strFilePath1">first file</param>
-        /// <param name="strFilePath2">second file</param>
-        /// <param name="fi1">The file information about first file</param>
-        /// <param name="fi2">The file information about second file</param>
+        /// <param name="strFilePath1">Path of first file</param>
+        /// <param name="strFilePath2">Path of second file</param>
+        /// <param name="fi1">Information about the first file</param>
+        /// <param name="fi2">Information about the first file</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iLogic">Logic implementation determining actions</param>
+        /// <param name="iStepsImpl">Implementation of the actual file steps</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         //===================================================================================================
         void ProcessFilePair_Bidirectionally_BothExist(
             string strFilePath1,

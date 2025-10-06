@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Resources;
@@ -8,6 +8,11 @@ using SyncFoldersApi.Localization;
 
 namespace SyncFoldersApi
 {
+    //*******************************************************************************************************
+    /// <summary>
+    /// This class provide basic implementation for copying and testing files
+    /// </summary>
+    //*******************************************************************************************************
     public class FilePairSteps: IFilePairSteps
     {
         //===================================================================================================
@@ -18,6 +23,11 @@ namespace SyncFoldersApi
         /// <param name="strPathSavedInfoFile">The path of saved info (.chk)</param>
         /// <param name="bForceCreateInfo">If saved info needs to be updated then method sets given 
         /// var to true</param>
+        /// <param name="bOnlyIfCompletelyRecoverable">Indicates, if the operation shall be performmed
+        /// only if the file is healthy or completely recoverable</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         /// <returns>true iff the test or restore succeeded</returns>
         //===================================================================================================
         public bool TestAndRepairSingleFile(
@@ -40,8 +50,7 @@ namespace SyncFoldersApi
             {
                 try
                 {
-                    using (IFile s =
-                        iFileSystem.CreateBufferedStream(
+                    using (IFile s = iFileSystem.CreateBufferedStream(
                             iFileSystem.OpenRead(
                             strPathSavedInfoFile),
                             (int)Math.Min(fiSavedInfo.Length + 1, 8 * 1024 * 1024)))
@@ -65,8 +74,10 @@ namespace SyncFoldersApi
                     {
                         iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.IOErrorReadingFile,
                             strPathSavedInfoFile, ex.Message);
+
                         iLogWriter.WriteLog(true, 0, "I/O Error reading file: \"",
                             strPathSavedInfoFile, "\": " + ex.Message);
+
                         bNotReadableSi = true;
                     }
                 }
@@ -84,6 +95,7 @@ namespace SyncFoldersApi
                 {
                     iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.SavedInfoFileCantBeUsedForTesting,
                         strPathSavedInfoFile, strPathFile);
+
                     iLogWriter.WriteLog(true, 0, "Saved info file \"", strPathSavedInfoFile,
                         "\" can't be used for testing file \"", strPathFile,
                         "\": it was created for another version of the file");
@@ -119,18 +131,24 @@ namespace SyncFoldersApi
                                 // we can't recover, so put only messages, don't write to file
                                 iLogWriter.WriteLogFormattedLocalized(1, Properties.Resources.IOErrorReadingFileOffset,
                                     finfo.FullName, index * b.Length, ex.Message);
+
                                 iLogWriter.WriteLog(true, 1, "I/O error reading file ", finfo.FullName,
                                     " position ", index * b.Length, ": ", ex.Message);
+
                                 s.Seek(index * b.Length + lengthToWrite, System.IO.SeekOrigin.Begin);
                             }
                             else
                             {
-                                iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.ErrorReadingPositionWillFillWithDummy,
+                                iLogWriter.WriteLogFormattedLocalized(0,
+                                    Properties.Resources.ErrorReadingPositionWillFillWithDummy,
                                     finfo.FullName, index * b.Length, ex.Message);
+
                                 iLogWriter.WriteLog(true, 0, "Error while reading file ", finfo.FullName,
                                     " position ", index * b.Length, ": ", ex.Message,
                                     ". Block will be filled with a dummy");
+
                                 s.Seek(index * b.Length, System.IO.SeekOrigin.Begin);
+
                                 if (lengthToWrite > 0)
                                     b.WriteTo(s, lengthToWrite);
                             }
@@ -175,11 +193,15 @@ namespace SyncFoldersApi
                                 if (!bBlockOk)
                                 {
                                     bAllBlocksOK = false;
-                                    iLogWriter.WriteLogFormattedLocalized(1, Properties.Resources.ChecksumOfBlockAtOffsetNotOK,
+
+                                    iLogWriter.WriteLogFormattedLocalized(1,
+                                        Properties.Resources.ChecksumOfBlockAtOffsetNotOK,
                                         finfo.FullName, index * b.Length);
+
                                     iLogWriter.WriteLog(true, 1, finfo.FullName,
                                         ": checksum of block at offset ",
                                         index * b.Length, " not OK");
+
                                     readableButNotAccepted[index] = true;
                                 }
                             }
@@ -194,12 +216,15 @@ namespace SyncFoldersApi
                                     if (!bBlockOk)
                                     {
                                         bAllBlocksOK = false;
+
                                         iLogWriter.WriteLogFormattedLocalized(1,
                                             Properties.Resources.ChecksumOfBlockAtOffsetNotOK,
                                             finfo.FullName, index * b.Length);
+
                                         iLogWriter.WriteLog(true, 1, finfo.FullName,
                                             ": checksum of block at offset ",
                                             index * b.Length, " not OK");
+
                                         readableButNotAccepted[index] = true;
                                     }
                                 }
@@ -213,13 +238,17 @@ namespace SyncFoldersApi
                         catch (System.IO.IOException ex)
                         {
                             bAllBlocksOK = false;
-                            iLogWriter.WriteLogFormattedLocalized(1, Properties.Resources.IOErrorReadingFileOffset,
+                            iLogWriter.WriteLogFormattedLocalized(1, 
+                                Properties.Resources.IOErrorReadingFileOffset,
                                 finfo.FullName, index * b.Length, ex.Message);
+
                             iLogWriter.WriteLog(true, 1, "I/O Error reading file: \"",
                                 finfo.FullName, "\", offset ",
                                 index * b.Length, ": " + ex.Message);
+
                             if ((index + 1) * b.Length >= s.Length)
                                 break;
+
                             s.Seek((index + 1) * b.Length,
                                 System.IO.SeekOrigin.Begin);
                         }
@@ -240,9 +269,11 @@ namespace SyncFoldersApi
                         iLogWriter.WriteLogFormattedLocalized(0,
                             Properties.Resources.SavedInfoHasBeenDamagedNeedsRecreation,
                             strPathSavedInfoFile, strPathFile);
+
                         iLogWriter.WriteLog(true, 0, "Saved info file \"", strPathSavedInfoFile,
                             "\" has been damaged and needs to be recreated from \"",
                             strPathFile, "\"");
+
                         bForceCreateInfo = true;
                     }
                     else
@@ -254,10 +285,13 @@ namespace SyncFoldersApi
             }
             catch (System.IO.IOException ex)
             {
-                iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.IOErrorReadingFile,
+                iLogWriter.WriteLogFormattedLocalized(0, 
+                    Properties.Resources.IOErrorReadingFile,
                     finfo.FullName, ex.Message);
+
                 iLogWriter.WriteLog(true, 0, "I/O Error reading file: \"",
                     finfo.FullName, "\": " + ex.Message);
+
                 return false;
             }
 
@@ -288,19 +322,26 @@ namespace SyncFoldersApi
                                         iLogWriter.WriteLogFormattedLocalized(1,
                                             Properties.Resources.KeepingReadableButNotRecoverableBlockAtOffset,
                                             ri.Position);
-                                        iLogWriter.WriteLog(true, 1, "Keeping readable but not recoverable block at offset ",
+
+                                        iLogWriter.WriteLog(true, 1, 
+                                            "Keeping readable but not recoverable block at offset ",
                                             ri.Position, ", checksum indicates the block is wrong");
                                     }
                                     else
                                     {
                                         s.Seek(ri.Position, System.IO.SeekOrigin.Begin);
-                                        iLogWriter.WriteLogFormattedLocalized(1, Properties.Resources.FillingNotRecoverableAtOffsetWithDummy,
+
+                                        iLogWriter.WriteLogFormattedLocalized(1,
+                                            Properties.Resources.FillingNotRecoverableAtOffsetWithDummy,
                                             ri.Position);
+
                                         iLogWriter.WriteLog(true, 1, "Filling not recoverable block at offset ",
                                             ri.Position, " with a dummy block");
+
                                         int lengthToWrite = (int)(si.Length - ri.Position >= ri.Data.Length ?
                                             ri.Data.Length :
                                             si.Length - ri.Position);
+
                                         if (lengthToWrite > 0)
                                             ri.Data.WriteTo(s, lengthToWrite);
                                     }
@@ -309,13 +350,18 @@ namespace SyncFoldersApi
                                 else
                                 {
                                     s.Seek(ri.Position, System.IO.SeekOrigin.Begin);
-                                    iLogWriter.WriteLogFormattedLocalized(1, Properties.Resources.RecoveringBlockAtOffsetOfFile,
+
+                                    iLogWriter.WriteLogFormattedLocalized(1,
+                                        Properties.Resources.RecoveringBlockAtOffsetOfFile,
                                         ri.Position, finfo.FullName);
+
                                     iLogWriter.WriteLog(true, 1, "Recovering block at offset ",
                                         ri.Position, " of the file ", finfo.FullName);
+
                                     int lengthToWrite = (int)(si.Length - ri.Position >= ri.Data.Length ?
                                         ri.Data.Length :
                                         si.Length - ri.Position);
+
                                     if (lengthToWrite > 0)
                                         ri.Data.WriteTo(s, lengthToWrite);
                                 }
@@ -330,16 +376,20 @@ namespace SyncFoldersApi
                 {
                     if (rinfos.Count > 1)
                     {
-                        iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.ThereAreBadBlocksNonRestorableCantBeBackup,
+                        iLogWriter.WriteLogFormattedLocalized(0,
+                            Properties.Resources.ThereAreBadBlocksNonRestorableCantBeBackup,
                             rinfos.Count, finfo.FullName, nonRestoredSize);
+
                         iLogWriter.WriteLog(true, 0, "There are ", rinfos.Count,
                             " bad blocks in the file ", finfo.FullName,
                             ", non-restorable parts: ", nonRestoredSize, " bytes, file can't be used as backup");
                     }
                     else if (rinfos.Count > 0)
                     {
-                        iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.ThereIsBadBlockNonRestorableCantBeBackup,
+                        iLogWriter.WriteLogFormattedLocalized(0,
+                            Properties.Resources.ThereIsBadBlockNonRestorableCantBeBackup,
                             finfo.FullName, nonRestoredSize);
+
                         iLogWriter.WriteLog(true, 0, "There is one bad block in the file ", finfo.FullName,
                             " and it can't be restored: ", nonRestoredSize, " bytes, file can't be used as backup");
                     }
@@ -350,16 +400,20 @@ namespace SyncFoldersApi
                 {
                     if (rinfos.Count > 1)
                     {
-                        iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.ThereWereBadBlocksInFileNotRestoredParts,
+                        iLogWriter.WriteLogFormattedLocalized(0,
+                            Properties.Resources.ThereWereBadBlocksInFileNotRestoredParts,
                             rinfos.Count, finfo.FullName, nonRestoredSize);
+
                         iLogWriter.WriteLog(true, 0, "There were ", rinfos.Count,
                             " bad blocks in the file ", finfo.FullName,
                             ", not restored parts: ", nonRestoredSize, " bytes");
                     }
                     else if (rinfos.Count > 0)
                     {
-                        iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.ThereWasBadBlockInFileNotRestoredParts,
+                        iLogWriter.WriteLogFormattedLocalized(0,
+                            Properties.Resources.ThereWasBadBlockInFileNotRestoredParts,
                             finfo.FullName, nonRestoredSize);
+
                         iLogWriter.WriteLog(true, 0, "There was one bad block in the file ", finfo.FullName,
                             ", not restored parts: ", nonRestoredSize, " bytes");
                     }
@@ -371,9 +425,11 @@ namespace SyncFoldersApi
                             iLogWriter.WriteLogFormattedLocalized(0,
                                 Properties.Resources.SavedInfoHasBeenDamagedNeedsRecreation,
                                 strPathSavedInfoFile, strPathFile);
+
                             iLogWriter.WriteLog(true, 0, "Saved info file \"", strPathSavedInfoFile,
                                 "\" has been damaged and needs to be recreated from \"",
                                 strPathFile, "\"");
+
                             bForceCreateInfo = true;
                         }
                         else
@@ -398,9 +454,13 @@ namespace SyncFoldersApi
             }
             catch (System.IO.IOException ex)
             {
-                iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.IOErrorWritingFile,
+                iLogWriter.WriteLogFormattedLocalized(0, 
+                    Properties.Resources.IOErrorWritingFile,
                     finfo.FullName, ex.Message);
-                iLogWriter.WriteLog(true, 0, "I/O Error writing file: \"", finfo.FullName, "\": " + ex.Message);
+
+                iLogWriter.WriteLog(true, 0, "I/O Error writing file: \"", 
+                    finfo.FullName, "\": " + ex.Message);
+
                 finfo.LastWriteTimeUtc = prevLastWriteTime;
                 return false;
             }
@@ -421,6 +481,9 @@ namespace SyncFoldersApi
         /// time the original file has been tested or copied and skip physical test, if possible</param>
         /// <param name="bCreateConfirmationFile">If test succeeds then information about succeeded
         /// test is saved in file system</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         /// <returns>true iff the test succeeded</returns>
         //===================================================================================================
         public bool TestSingleFile(
@@ -458,6 +521,9 @@ namespace SyncFoldersApi
         /// not only the copy</param>
         /// <param name="bFailOnNonRecoverable">If there are non-recoverable blocks and this flag
         /// is set to true, then method throws an exception, instead of continuing</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         /// <returns>true iff copy succeeded</returns>
         //===================================================================================================
         public bool CopyRepairSingleFile(
@@ -494,11 +560,15 @@ namespace SyncFoldersApi
                         }
                         else
                         {
-                            string strMessage = string.Format(Properties.Resources.ErrorWhileTestingFile, strPathFile);
+                            string strMessage = string.Format(
+                                Properties.Resources.ErrorWhileTestingFile, strPathFile);
+
                             iLogWriter.WriteLog(false, 1, strMessage);
                             iLogWriter.WriteLog(true, 1, "Error while testing file ", strPathFile);
+
                             if (bFailOnNonRecoverable)
                                 throw new Exception(strMessage);
+
                             return false;
                         }
                     }
@@ -529,24 +599,30 @@ namespace SyncFoldersApi
                 }
                 catch (System.IO.IOException ex)
                 {
-                    iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.IOErrorReadingFile,
+                    iLogWriter.WriteLogFormattedLocalized(0, 
+                        Properties.Resources.IOErrorReadingFile,
                         strPathSavedInfoFile, ex.Message);
+
                     iLogWriter.WriteLog(true, 0, "I/O Error reading file: \"",
                         strPathSavedInfoFile, "\": " + ex.Message);
+
                     bNotReadableSi = true;
                 }
             }
 
             if (bNotReadableSi || si.Length != finfo.Length ||
-                !(iSettings.IgnoreTimeDifferencesBetweenDataAndSaveInfo || Utils.FileTimesEqual(si.TimeStamp, finfo.LastWriteTimeUtc)))
+                !(iSettings.IgnoreTimeDifferencesBetweenDataAndSaveInfo ||
+                Utils.FileTimesEqual(si.TimeStamp, finfo.LastWriteTimeUtc)))
             {
                 bool bAllBlocksOk = true;
                 bForceCreateInfo = true;
 
                 if (!bNotReadableSi)
                 {
-                    iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.SavedInfoFileCantBeUsedForTesting,
+                    iLogWriter.WriteLogFormattedLocalized(0, 
+                        Properties.Resources.SavedInfoFileCantBeUsedForTesting,
                         strPathSavedInfoFile, strPathFile);
+
                     iLogWriter.WriteLog(true, 0, "RestoreInfo file \"", strPathSavedInfoFile,
                         "\" can't be used for restoring file \"",
                         strPathFile, "\": it was created for another version of the file");
@@ -569,8 +645,10 @@ namespace SyncFoldersApi
                                 try
                                 {
                                     int lengthToWrite = b.ReadFrom(s);
+
                                     if (lengthToWrite > 0)
                                         b.WriteTo(s2, lengthToWrite);
+
                                     if (lengthToWrite != b.Length)
                                         break;
                                 }
@@ -579,16 +657,21 @@ namespace SyncFoldersApi
                                     if (bFailOnNonRecoverable)
                                         throw;
 
-                                    iLogWriter.WriteLogFormattedLocalized(1, Properties.Resources.IOErrorWhileReadingPositionFillDummyWhileCopy,
+                                    iLogWriter.WriteLogFormattedLocalized(1,
+                                        Properties.Resources.IOErrorWhileReadingPositionFillDummyWhileCopy,
                                         finfo.FullName, index * b.Length, ex.Message);
+
                                     iLogWriter.WriteLog(true, 1, "I/O Error while reading file ",
                                         finfo.FullName, " position ", index * b.Length, ": ",
                                         ex.Message, ". Block will be replaced with a dummy during copy.");
+
                                     int lengthToWrite = (int)(finfo.Length - index * b.Length > b.Length ?
                                         b.Length :
                                         finfo.Length - index * b.Length);
+
                                     if (lengthToWrite > 0)
                                         b.WriteTo(s2, lengthToWrite);
+
                                     bAllBlocksOk = false;
                                     ++countErrors;
 
@@ -626,15 +709,19 @@ namespace SyncFoldersApi
 
                         if (!bAllBlocksOk)
                         {
-                            iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.WarningCopiedToWithErrors,
+                            iLogWriter.WriteLogFormattedLocalized(0, 
+                                Properties.Resources.WarningCopiedToWithErrors,
                                 strPathFile, strPathTargetFile, strReasonTranslated);
+
                             iLogWriter.WriteLog(true, 0, "Warning: copied ", strPathFile, " to ",
                                 strPathTargetFile, " ", strReasonEn, " with errors");
                         }
                         else
                         {
-                            iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.CopiedFromToReason,
+                            iLogWriter.WriteLogFormattedLocalized(0, 
+                                Properties.Resources.CopiedFromToReason,
                                 strPathFile, strPathTargetFile, strReasonTranslated);
+
                             iLogWriter.WriteLog(true, 0, "Copied ", strPathFile, " to ",
                                 strPathTargetFile, " ", strReasonEn);
                         }
@@ -673,11 +760,15 @@ namespace SyncFoldersApi
                                 if (!bBlockOk)
                                 {
                                     bAllBlocksOK = false;
-                                    iLogWriter.WriteLogFormattedLocalized(2, Properties.Resources.ChecksumOfBlockAtOffsetNotOK,
+
+                                    iLogWriter.WriteLogFormattedLocalized(2,
+                                        Properties.Resources.ChecksumOfBlockAtOffsetNotOK,
                                         finfo.FullName, index * b.Length);
+
                                     iLogWriter.WriteLog(true, 2, finfo.FullName,
                                         ": checksum of block at offset ",
                                         index * b.Length, " not OK");
+
                                     readableButNotAccepted[index] = true;
                                 }
                             }
@@ -693,11 +784,15 @@ namespace SyncFoldersApi
                                     if (!bBlockOk)
                                     {
                                         bAllBlocksOK = false;
-                                        iLogWriter.WriteLogFormattedLocalized(2, Properties.Resources.ChecksumOfBlockAtOffsetNotOK,
+
+                                        iLogWriter.WriteLogFormattedLocalized(2,
+                                            Properties.Resources.ChecksumOfBlockAtOffsetNotOK,
                                             finfo.FullName, index * b.Length);
+
                                         iLogWriter.WriteLog(true, 2, finfo.FullName,
                                             ": checksum of block at offset ",
                                             index * b.Length, " not OK");
+
                                         readableButNotAccepted[index] = true;
                                     }
                                 }
@@ -707,11 +802,14 @@ namespace SyncFoldersApi
                         catch (System.IO.IOException ex)
                         {
                             bAllBlocksOK = false;
-                            iLogWriter.WriteLogFormattedLocalized(2, Properties.Resources.IOErrorReadingFileOffset,
+                            iLogWriter.WriteLogFormattedLocalized(2, 
+                                Properties.Resources.IOErrorReadingFileOffset,
                                 finfo.FullName, index * b.Length, ex.Message);
+
                             iLogWriter.WriteLog(true, 2, "I/O Error reading file: \"",
                                 finfo.FullName, "\", offset ",
                                 index * b.Length, ": " + ex.Message);
+
                             s.Seek((index + 1) * b.Length,
                                 System.IO.SeekOrigin.Begin);
                         }
@@ -720,11 +818,9 @@ namespace SyncFoldersApi
                             throw new OperationCanceledException();
 
                     }
-                    ;
 
                     s.Close();
                 }
-                ;
 
 
                 if (bAllBlocksOK)
@@ -733,20 +829,25 @@ namespace SyncFoldersApi
                     // the file itself, or if they have been corrupted somehow
                     if (!si.VerifyIntegrityAfterRestoreTest())
                     {
-                        iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.SavedInfoHasBeenDamagedNeedsRecreation,
+                        iLogWriter.WriteLogFormattedLocalized(0,
+                            Properties.Resources.SavedInfoHasBeenDamagedNeedsRecreation,
                             strPathSavedInfoFile, strPathFile);
+
                         iLogWriter.WriteLog(true, 0, "Saved info file \"",
                             strPathSavedInfoFile,
                             "\" has been damaged and needs to be recreated from \"",
                             strPathFile, "\"");
+
                         bForceCreateInfo = true;
                     }
                 }
             }
             catch (System.IO.IOException ex)
             {
-                iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.IOErrorReadingFile,
+                iLogWriter.WriteLogFormattedLocalized(0, 
+                    Properties.Resources.IOErrorReadingFile,
                     finfo.FullName, ex.Message);
+
                 iLogWriter.WriteLog(true, 0, "I/O Error reading file: \"",
                     finfo.FullName, "\": " + ex.Message);
 
@@ -767,12 +868,15 @@ namespace SyncFoldersApi
                 {
                     if (bFailOnNonRecoverable)
                     {
-                        iLogWriter.WriteLogFormattedLocalized(1, Properties.Resources.ThereAreBadBlocksInNonRestorableMayRetryLater,
+                        iLogWriter.WriteLogFormattedLocalized(1,
+                            Properties.Resources.ThereAreBadBlocksInNonRestorableMayRetryLater,
                             rinfos.Count, finfo.FullName, nonRestoredSize);
+
                         iLogWriter.WriteLog(true, 1, "There are ", rinfos.Count,
                             " bad blocks in the file ", finfo.FullName,
                             ", non-restorable parts: ", nonRestoredSize,
                             " bytes. Can't proceed there because of non-recoverable, may retry later.");
+
                         throw new IOException("Non-recoverable blocks discovered, failing");
                     }
                     else
@@ -786,6 +890,7 @@ namespace SyncFoldersApi
                             (bApplyRepairsToSrc ? "" :
                              Properties.Resources.TheFileCantBeModifiedMissingRepairApplyToCopy),
                         rinfos.Count, finfo.FullName, nonRestoredSize);
+
                     iLogWriter.WriteLog(true, 1, "There are ", rinfos.Count,
                         " bad blocks in the file ", finfo.FullName,
                         ", non-restorable parts: ", nonRestoredSize, " bytes. " +
@@ -801,6 +906,7 @@ namespace SyncFoldersApi
                            (bApplyRepairsToSrc ? "" :
                            Properties.Resources.TheFileCantBeModifiedMissingRepairApplyToCopy),
                        finfo.FullName, nonRestoredSize);
+
                     iLogWriter.WriteLog(true, 1, "There is one bad block in the file ", finfo.FullName,
                        ", non-restorable parts: ", nonRestoredSize, " bytes. " +
                        (bApplyRepairsToSrc ? "" :
@@ -836,9 +942,12 @@ namespace SyncFoldersApi
                                         {
                                             if (readableButNotAccepted.ContainsKey(ri.Position / blockSize))
                                             {
-                                                iLogWriter.WriteLogFormattedLocalized(1, Properties.Resources.KeepingReadableNonRecovBBlockAtAlsoInCopy,
+                                                iLogWriter.WriteLogFormattedLocalized(1,
+                                                    Properties.Resources.KeepingReadableNonRecovBBlockAtAlsoInCopy,
                                                     ri.Position, finfo.FullName, strPathTargetFile);
-                                                iLogWriter.WriteLog(true, 1, "Keeping readable but not recoverable block at offset ",
+
+                                                iLogWriter.WriteLog(true, 1, 
+                                                    "Keeping readable but not recoverable block at offset ",
                                                     ri.Position, " of original file ", finfo.FullName,
                                                     " also in copy ", strPathTargetFile,
                                                     ", checksum indicates the block is wrong");
@@ -847,7 +956,8 @@ namespace SyncFoldersApi
                                             {
                                                 s2.Seek(ri.Position + ri.Data.Length, System.IO.SeekOrigin.Begin);
 
-                                                iLogWriter.WriteLogFormattedLocalized(1, Properties.Resources.FillingNotRecoverableAtOffsetOfCopyWithDummy,
+                                                iLogWriter.WriteLogFormattedLocalized(1,
+                                                    Properties.Resources.FillingNotRecoverableAtOffsetOfCopyWithDummy,
                                                     ri.Position, strPathTargetFile);
 
                                                 iLogWriter.WriteLog(true, 1, "Filling not recoverable block at offset ",
@@ -864,23 +974,31 @@ namespace SyncFoldersApi
                                         }
                                         else
                                         {
-                                            iLogWriter.WriteLogFormattedLocalized(1, Properties.Resources.RecoveringBlockAtOfCopiedFile,
+                                            iLogWriter.WriteLogFormattedLocalized(1,
+                                                Properties.Resources.RecoveringBlockAtOfCopiedFile,
                                                 ri.Position, strPathTargetFile);
+
                                             iLogWriter.WriteLog(true, 1, "Recovering block at offset ",
                                                 ri.Position, " of copied file ", strPathTargetFile);
+
                                             int lengthToWrite = (int)(si.Length - ri.Position >= ri.Data.Length ?
                                                 ri.Data.Length :
                                                 si.Length - ri.Position);
+
                                             if (lengthToWrite > 0)
                                                 ri.Data.WriteTo(s, lengthToWrite);
 
                                             if (bApplyRepairsToSrc)
                                             {
-                                                iLogWriter.WriteLogFormattedLocalized(1, Properties.Resources.RecoveringBlockAtOffsetOfFile,
+                                                iLogWriter.WriteLogFormattedLocalized(1,
+                                                    Properties.Resources.RecoveringBlockAtOffsetOfFile,
                                                     ri.Position, finfo.FullName);
+
                                                 iLogWriter.WriteLog(true, 1, "Recovering block at offset ",
                                                     ri.Position, " of file ", finfo.FullName);
+
                                                 s2.Seek(ri.Position, System.IO.SeekOrigin.Begin);
+
                                                 if (lengthToWrite > 0)
                                                     ri.Data.WriteTo(s2, lengthToWrite);
                                             }
@@ -930,8 +1048,10 @@ namespace SyncFoldersApi
                 IFileInfo finfo2 = iFileSystem.GetFileInfo(strPathTargetFile);
                 if (rinfos.Count > 1)
                 {
-                    iLogWriter.WriteLogFormattedLocalized(1, Properties.Resources.OutOfBadBlocksNotRestoredInCopyBytes,
+                    iLogWriter.WriteLogFormattedLocalized(1, 
+                        Properties.Resources.OutOfBadBlocksNotRestoredInCopyBytes,
                         rinfos.Count, finfo2.FullName, nonRestoredSize);
+
                     iLogWriter.WriteLog(true, 1, "Out of ", rinfos.Count,
                         " bad blocks in the original file not restored parts in the copy ",
                         finfo2.FullName, ": ", nonRestoredSize, " bytes.");
@@ -939,8 +1059,10 @@ namespace SyncFoldersApi
                 else
                     if (rinfos.Count > 0)
                 {
-                    iLogWriter.WriteLogFormattedLocalized(1, Properties.Resources.ThereWasBadBlockNotRestoredInCopyBytes,
+                    iLogWriter.WriteLogFormattedLocalized(1,
+                        Properties.Resources.ThereWasBadBlockNotRestoredInCopyBytes,
                         finfo2.FullName, nonRestoredSize);
+
                     iLogWriter.WriteLog(true, 1, "There was one bad block in the original file, " +
                         "not restored parts in the copy ", finfo2.FullName, ": ",
                         nonRestoredSize, " bytes.");
@@ -997,6 +1119,9 @@ namespace SyncFoldersApi
         /// <param name="strPathSavedInfo1">Saved info of the first file</param>
         /// <param name="strPathSavedInfo2">Saved info of the second file</param>
         /// <param name="bForceCreateInfo">If saved info needs to be updated then method sets given 
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         /// var to true</param>
         //===================================================================================================
         public void TestAndRepairSecondFile(
@@ -1026,13 +1151,15 @@ namespace SyncFoldersApi
 
             bool bSaveInfo1Present = false;
             if (fiSavedInfo1.Exists &&
-                (iSettings.IgnoreTimeDifferencesBetweenDataAndSaveInfo || fiSavedInfo1.LastWriteTimeUtc == fi1.LastWriteTimeUtc))
+                (iSettings.IgnoreTimeDifferencesBetweenDataAndSaveInfo ||
+                fiSavedInfo1.LastWriteTimeUtc == fi1.LastWriteTimeUtc))
             {
                 using (IFile s = iFileSystem.OpenRead(fiSavedInfo1.FullName))
                 {
                     si1.ReadFrom(s);
                     bSaveInfo1Present = si1.Length == fi1.Length &&
-                        (iSettings.IgnoreTimeDifferencesBetweenDataAndSaveInfo || Utils.FileTimesEqual(si1.TimeStamp, fi1.LastWriteTimeUtc));
+                        (iSettings.IgnoreTimeDifferencesBetweenDataAndSaveInfo ||
+                        Utils.FileTimesEqual(si1.TimeStamp, fi1.LastWriteTimeUtc));
                     if (!bSaveInfo1Present)
                     {
                         si1 = new SavedInfo();
@@ -1048,14 +1175,16 @@ namespace SyncFoldersApi
             }
 
             if (fiSavedInfo2.Exists &&
-                (iSettings.IgnoreTimeDifferencesBetweenDataAndSaveInfo || fiSavedInfo2.LastWriteTimeUtc == fi2.LastWriteTimeUtc))
+                (iSettings.IgnoreTimeDifferencesBetweenDataAndSaveInfo ||
+                fiSavedInfo2.LastWriteTimeUtc == fi2.LastWriteTimeUtc))
             {
                 using (IFile s = iFileSystem.OpenRead(fiSavedInfo2.FullName))
                 {
                     SavedInfo si3 = new SavedInfo();
                     si3.ReadFrom(s);
                     if (si3.Length == fi2.Length &&
-                        (iSettings.IgnoreTimeDifferencesBetweenDataAndSaveInfo || Utils.FileTimesEqual(si3.TimeStamp, fi2.LastWriteTimeUtc)))
+                        (iSettings.IgnoreTimeDifferencesBetweenDataAndSaveInfo ||
+                        Utils.FileTimesEqual(si3.TimeStamp, fi2.LastWriteTimeUtc)))
                     {
                         si2 = si3;
                         if (!bSaveInfo1Present)
@@ -1127,9 +1256,12 @@ namespace SyncFoldersApi
                             }
                             catch (System.IO.IOException ex)
                             {
-                                iLogWriter.WriteLogFormattedLocalized(2, Properties.Resources.IOErrorReadingFile,
+                                iLogWriter.WriteLogFormattedLocalized(2, 
+                                    Properties.Resources.IOErrorReadingFile,
                                     strPathFile1, ex.Message);
-                                iLogWriter.WriteLog(true, 2, "I/O error while reading file \"", strPathFile1, "\": ", ex.Message);
+
+                                iLogWriter.WriteLog(true, 2, "I/O error while reading file \"",
+                                strPathFile1, "\": ", ex.Message);
                                 s1.Seek((index + 1) * b1.Length, System.IO.SeekOrigin.Begin);
                             }
 
@@ -1155,10 +1287,13 @@ namespace SyncFoldersApi
                             }
                             catch (System.IO.IOException ex)
                             {
-                                iLogWriter.WriteLogFormattedLocalized(2, Properties.Resources.IOErrorReadingFile,
+                                iLogWriter.WriteLogFormattedLocalized(2, 
+                                    Properties.Resources.IOErrorReadingFile,
                                     strPathFile2, ex.Message);
+
                                 iLogWriter.WriteLog(true, 2, "I/O error while reading file \"",
                                     strPathFile2, "\": ", ex.Message);
+
                                 s2.Seek((index + 1) * b2.Length, System.IO.SeekOrigin.Begin);
                             }
 
@@ -1166,10 +1301,13 @@ namespace SyncFoldersApi
                             {
                                 if (si2.AnalyzeForTestOrRestore(b1, index))
                                 {
-                                    iLogWriter.WriteLogFormattedLocalized(1, Properties.Resources.BlockOfAtPositionWillBeRestoredFrom,
+                                    iLogWriter.WriteLogFormattedLocalized(1,
+                                        Properties.Resources.BlockOfAtPositionWillBeRestoredFrom,
                                         fi2.FullName, index * b1.Length, fi1.FullName);
+
                                     iLogWriter.WriteLog(true, 1, "Block of ", fi2.FullName, " position ",
                                         index * b1.Length, " will be restored from ", fi1.FullName);
+
                                     restore2.Add(new RestoreInfo(index * b1.Length, b1, false));
                                 }
                             }
@@ -1179,8 +1317,11 @@ namespace SyncFoldersApi
                                 if (si1.AnalyzeForTestOrRestore(b2, index))
                                 {
                                     restore1.Add(new RestoreInfo(index * b1.Length, b2, false));
-                                    iLogWriter.WriteLogFormattedLocalized(1, Properties.Resources.BlockOfAtPositionWillBeRestoredFrom,
+
+                                    iLogWriter.WriteLogFormattedLocalized(1,
+                                        Properties.Resources.BlockOfAtPositionWillBeRestoredFrom,
                                         fi1.FullName, index * b1.Length, fi2.FullName);
+
                                     iLogWriter.WriteLog(true, 1, "Block of ", fi1.FullName, " position ", index *
                                         b1.Length, " could be restored from ", fi2.FullName,
                                         " but it is not possible to write to the first folder");
@@ -1208,10 +1349,13 @@ namespace SyncFoldersApi
                                 {
                                     if (si2.AnalyzeForTestOrRestore(b1, index))
                                     {
-                                        iLogWriter.WriteLogFormattedLocalized(1, Properties.Resources.BlockOfAtPositionWillBeRestoredFrom,
+                                        iLogWriter.WriteLogFormattedLocalized(1,
+                                            Properties.Resources.BlockOfAtPositionWillBeRestoredFrom,
                                             fi2.FullName, index * b1.Length, fi1.FullName);
+
                                         iLogWriter.WriteLog(true, 1, "Block of ", fi2.FullName, " at position ",
                                             index * b1.Length, " will be restored from ", fi1.FullName);
+
                                         restore2.Add(new RestoreInfo(index * b1.Length, b1, false));
                                     }
                                 }
@@ -1223,11 +1367,13 @@ namespace SyncFoldersApi
                                 // equal blocks could have higher priority compared to their checksums and saved infos
                                 bool bDifferent = false;
                                 for (int i = b1.Length - 1; i >= 0; --i)
+                                {
                                     if (b1[i] != b2[i])
                                     {
                                         bDifferent = true;
                                         break;
                                     }
+                                }
 
                                 if (!bDifferent)
                                 {
@@ -1295,21 +1441,27 @@ namespace SyncFoldersApi
                         foreach (RestoreInfo ri2 in restore2)
                         {
                             if (ri2.NotRecoverableArea ||
-                                (iSettings.PreferPhysicalCopies && equalBlocks.ContainsKey(ri2.Position / ri2.Data.Length)))
+                                (iSettings.PreferPhysicalCopies &&
+                                    equalBlocks.ContainsKey(ri2.Position / ri2.Data.Length)))
                                 ; // bForceCreateInfoBecauseDamaged = true;
                             else
                             {
-                                iLogWriter.WriteLogFormattedLocalized(1, Properties.Resources.RecoveringBlockAtOffsetOfFile,
+                                iLogWriter.WriteLogFormattedLocalized(1,
+                                    Properties.Resources.RecoveringBlockAtOffsetOfFile,
                                     ri2.Position, fi2.FullName);
+
                                 iLogWriter.WriteLog(true, 1, "Recovering block of ",
                                     fi2.FullName, " at position ", ri2.Position);
+
                                 s1.Seek(ri2.Position, System.IO.SeekOrigin.Begin);
 
                                 int lengthToWrite = (int)(si2.Length - ri2.Position >= ri2.Data.Length ?
                                     ri2.Data.Length :
                                     si2.Length - ri2.Position);
+
                                 if (lengthToWrite > 0)
                                     ri2.Data.WriteTo(s2, lengthToWrite);
+
                                 // we assume the block is readbable now
                                 readableBlocks2[ri2.Position / ri2.Data.Length] = true;
                             }
@@ -1317,7 +1469,8 @@ namespace SyncFoldersApi
 
 
 
-                        // let'oInputStream try to copy non-recoverable blocks from one file to another, whenever possible
+                        // let's try to copy non-recoverable blocks from one file to
+                        // another, whenever possible
                         foreach (RestoreInfo ri2 in restore2)
                         {
                             if (ri2.NotRecoverableArea &&
@@ -1328,9 +1481,11 @@ namespace SyncFoldersApi
                                 iLogWriter.WriteLogFormattedLocalized(1,
                                     Properties.Resources.BlockOfAtPositionWillBeCopiedFromNoMatterChecksum,
                                     fi2.FullName, ri2.Position, fi1.FullName);
+
                                 iLogWriter.WriteLog(true, 1, "Block of ", fi2.FullName, " at position ",
                                     ri2.Position, " will be copied from ",
                                     fi1.FullName, " even if checksum indicates the block is wrong");
+
                                 s1.Seek(ri2.Position, System.IO.SeekOrigin.Begin);
                                 s2.Seek(ri2.Position, System.IO.SeekOrigin.Begin);
 
@@ -1348,8 +1503,10 @@ namespace SyncFoldersApi
                                 !equalBlocks.ContainsKey(ri2.Position / ri2.Data.Length) &&
                                 !readableBlocks2.ContainsKey(ri2.Position / ri2.Data.Length))
                             {
-                                iLogWriter.WriteLogFormattedLocalized(1, Properties.Resources.BlockOfAtPositionNotRecoverableFillDumy,
+                                iLogWriter.WriteLogFormattedLocalized(1,
+                                    Properties.Resources.BlockOfAtPositionNotRecoverableFillDumy,
                                     fi2.FullName, ri2.Position);
+
                                 iLogWriter.WriteLog(true, 1, "Block of ", fi2.FullName, " position ",
                                     ri2.Position, " is not recoverable and will be filled with a dummy");
 
@@ -1358,8 +1515,10 @@ namespace SyncFoldersApi
                                 int lengthToWrite = (int)(si2.Length - ri2.Position >= ri2.Data.Length ?
                                     ri2.Data.Length :
                                     si2.Length - ri2.Position);
+
                                 if (lengthToWrite > 0)
                                     ri2.Data.WriteTo(s2, lengthToWrite);
+
                                 notRestoredSize2 += lengthToWrite;
                             }
                         }
@@ -1384,9 +1543,11 @@ namespace SyncFoldersApi
                     iLogWriter.WriteLogFormattedLocalized(0,
                         Properties.Resources.ThereRemainBadBlocksInBecauseReadOnly,
                         restore1.Count, fi1.FullName);
+
                     iLogWriter.WriteLog(true, 0, "There remain ", restore1.Count,
                         " bad blocks in ", fi1.FullName,
                         ", because it can't be modified ");
+
                 }
                 fi2.LastWriteTimeUtc = prevLastWriteTime;
 
@@ -1395,14 +1556,15 @@ namespace SyncFoldersApi
             {
                 System.DateTime prevLastWriteTime = fi1.LastWriteTimeUtc;
 
-                // let'oInputStream read both copies of the 
+                // let's read both copies of the 
                 // file that obviously are both present, without saved info
                 List<RestoreInfo> restore2 = new List<RestoreInfo>();
 
-                // now let'oInputStream try to read the files and compare 
+                // now let's' try to read the files and compare 
                 long notRestoredSize2 = 0;
                 long badBlocks2 = 0;
                 long badBlocks1 = 0;
+
                 using (IFile s1 =
                     iFileSystem.OpenRead(strPathFile1))
                 {
@@ -1425,10 +1587,15 @@ namespace SyncFoldersApi
                             catch (System.IO.IOException ex)
                             {
                                 ++badBlocks1;
-                                iLogWriter.WriteLogFormattedLocalized(2, Properties.Resources.IOErrorReadingFile,
+
+                                iLogWriter.WriteLogFormattedLocalized(2, 
+                                    Properties.Resources.IOErrorReadingFile,
                                     strPathFile1, ex.Message, ex.Message);
-                                iLogWriter.WriteLog(true, 2, "I/O error while reading file \"",
+
+                                iLogWriter.WriteLog(true, 2, 
+                                    "I/O error while reading file \"",
                                     strPathFile1, "\": ", ex.Message);
+
                                 s1.Seek((index + 1) * b1.Length,
                                     System.IO.SeekOrigin.Begin);
                             }
@@ -1444,30 +1611,40 @@ namespace SyncFoldersApi
                             catch (System.IO.IOException ex)
                             {
                                 ++badBlocks2;
-                                iLogWriter.WriteLogFormattedLocalized(2, Properties.Resources.IOErrorReadingFile,
+
+                                iLogWriter.WriteLogFormattedLocalized(2, 
+                                    Properties.Resources.IOErrorReadingFile,
                                     strPathFile2, ex.Message);
 
-                                iLogWriter.WriteLog(true, 2, "I/O error while reading file \"",
+                                iLogWriter.WriteLog(true, 2, 
+                                    "I/O error while reading file \"",
                                     strPathFile2, "\": ", ex.Message);
+
                                 s2.Seek((index + 1) * b2.Length,
                                     System.IO.SeekOrigin.Begin);
                             }
 
                             if (b1Present && !b2Present)
                             {
-                                iLogWriter.WriteLogFormattedLocalized(1, Properties.Resources.BlockOfAtPositionWillBeRestoredFrom,
+                                iLogWriter.WriteLogFormattedLocalized(1,
+                                Properties.Resources.BlockOfAtPositionWillBeRestoredFrom,
                                     fi2.FullName, index * b1.Length, fi1.FullName);
+
                                 iLogWriter.WriteLog(true, 1, "Block of ", fi2.FullName, " position ",
                                     index * b1.Length, " will be restored from ", fi1.FullName);
+
                                 restore2.Add(new RestoreInfo(index * b1.Length, b1, false));
                             }
                             else
                             if (!b1Present && !b2Present)
                             {
-                                iLogWriter.WriteLogFormattedLocalized(1, Properties.Resources.BlockOfAtPositionNotRecoverableFillDumy,
+                                iLogWriter.WriteLogFormattedLocalized(1,
+                                Properties.Resources.BlockOfAtPositionNotRecoverableFillDumy,
                                     fi2.FullName, index * b1.Length);
+
                                 iLogWriter.WriteLog(true, 1, "Block of ", fi2.FullName, " at position ",
                                     index * b1.Length, " is not recoverable and will be filled with a dummy block");
+
                                 restore2.Add(new RestoreInfo(index * b1.Length, b1, true));
                             }
 
@@ -1497,6 +1674,7 @@ namespace SyncFoldersApi
                         int lengthToWrite = (int)(si2.Length - ri2.Position >= ri2.Data.Length ?
                             ri2.Data.Length :
                             si2.Length - ri2.Position);
+
                         if (lengthToWrite > 0)
                             ri2.Data.WriteTo(s2, lengthToWrite);
                     }
@@ -1507,6 +1685,7 @@ namespace SyncFoldersApi
                     iLogWriter.WriteLogFormattedLocalized(0,
                         Properties.Resources.ThereWereBadBlocksInFileNotRestoredParts,
                         badBlocks2, fi2.FullName, notRestoredSize2);
+
                     iLogWriter.WriteLog(true, 0, "There were ", badBlocks2, " bad blocks in ",
                         fi2.FullName, " not restored bytes: ", notRestoredSize2);
                 }
@@ -1515,6 +1694,7 @@ namespace SyncFoldersApi
                     iLogWriter.WriteLogFormattedLocalized(0,
                         Properties.Resources.ThereRemainBadBlocksInBecauseReadOnly,
                         badBlocks1, fi1.FullName);
+
                     iLogWriter.WriteLog(true, 0, "There remain ", badBlocks1, " bad blocks in ",
                         fi1.FullName, ", because it can't be modified ");
                 }
@@ -1531,6 +1711,9 @@ namespace SyncFoldersApi
         /// </summary>
         /// <param name="strPathFile">Path of the original file</param>
         /// <param name="strPathSavedChkInfoFile">The target path for .CHK file</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         /// <returns>true iff the operation succeeded</returns>
         //===================================================================================================
         public bool CreateSavedInfo(
@@ -1553,6 +1736,9 @@ namespace SyncFoldersApi
         /// <param name="strPathFile">Path of the original file</param>
         /// <param name="strPathSavedChkInfoFile">The target path for .CHK file</param>
         /// <param name="bForceSecondBlocks">Indicates that a second row of blocks must be created</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         /// <returns>true iff the operation succeeded</returns>
         //===================================================================================================
         public bool CreateSavedInfo(
@@ -1576,6 +1762,9 @@ namespace SyncFoldersApi
         /// <param name="strPathSavedChkInfoFile">The target path for .CHK file</param>
         /// <param name="nVersion">The version to save supported values: 0, 1</param>
         /// <param name="bForceSecondBlocks">Indicates that a second row of blocks must be created</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         /// <returns>true iff the operation succeeded</returns>
         //===================================================================================================
         public bool CreateSavedInfo(
@@ -1630,8 +1819,10 @@ namespace SyncFoldersApi
             {
                 iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.IOErrorReadingFile,
                     finfo.FullName, ex.Message);
+
                 iLogWriter.WriteLog(true, 0, "I/O Error reading file: \"",
                     finfo.FullName, "\": " + ex.Message);
+
                 return false;
             }
 
@@ -1640,6 +1831,7 @@ namespace SyncFoldersApi
                 IDirectoryInfo di = iFileSystem.GetDirectoryInfo(
                     strPathSavedChkInfoFile.Substring(0,
                     strPathSavedChkInfoFile.LastIndexOfAny(new char[] { '\\', '/' })));
+
                 if (!di.Exists)
                 {
                     di.Create();
@@ -1704,6 +1896,8 @@ namespace SyncFoldersApi
         /// <param name="strTargetPath">target path</param>
         /// <param name="strReasonEn">The reason of copy for messages</param>
         /// <param name="strReasonTranslated">The reason of copy for messages, localized</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         //===================================================================================================
         public void CopyFileSafely(
             IFileInfo fi,
@@ -1724,7 +1918,8 @@ namespace SyncFoldersApi
 
                 IFileInfo fi2tmp = iFileSystem.GetFileInfo(strTargetPath2);
                 fi2tmp.MoveTo(strTargetPath);
-                iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.FileCopied, fi.FullName,
+                iLogWriter.WriteLogFormattedLocalized(0, 
+                    Properties.Resources.FileCopied, fi.FullName,
                     strTargetPath, strReasonTranslated);
                 iLogWriter.WriteLog(true, 0, "Copied ", fi.FullName, " to ",
                     strTargetPath, " ", strReasonEn);
@@ -1757,6 +1952,9 @@ namespace SyncFoldersApi
         /// <param name="strPathSavedInfoFile">The path of saved info (.chk)</param>
         /// <param name="bForceCreateInfo">If saved info needs to be updated then method sets given 
         /// var to true</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         /// <returns>true iff the file is healthy or can be restored</returns>
         //===================================================================================================
         public bool TestSingleFileHealthyOrCanRepair(
@@ -1783,6 +1981,9 @@ namespace SyncFoldersApi
         /// <param name="strPathSavedInfo1">The path of saved info for first file</param>
         /// <param name="strPathSavedInfo2">The path of saved info for second file</param>
         /// <param name="bForceCreateInfo">If saved info needs to be updated then method sets given 
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         /// var to true</param>
         //===================================================================================================
         public void TestAndRepairTwoFiles(
@@ -1919,18 +2120,25 @@ namespace SyncFoldersApi
 
                                 if (!b1Ok)
                                 {
-                                    iLogWriter.WriteLogFormattedLocalized(2, Properties.Resources.ChecksumOfBlockAtOffsetNotOK,
+                                    iLogWriter.WriteLogFormattedLocalized(2,
+                                        Properties.Resources.ChecksumOfBlockAtOffsetNotOK,
                                         strPathFile1, index * b1.Length);
-                                    iLogWriter.WriteLog(true, 2, strPathFile1, ": checksum of block at offset ",
+
+                                    iLogWriter.WriteLog(true, 2, strPathFile1, 
+                                        ": checksum of block at offset ",
                                         index * b1.Length, " not OK");
                                 }
                             }
                             catch (System.IO.IOException ex)
                             {
-                                iLogWriter.WriteLogFormattedLocalized(2, Properties.Resources.IOErrorReadingFile,
+                                iLogWriter.WriteLogFormattedLocalized(2, 
+                                    Properties.Resources.IOErrorReadingFile,
                                     strPathFile1, ex.Message);
-                                iLogWriter.WriteLog(true, 2, "I/O exception while reading file \"",
+
+                                iLogWriter.WriteLog(true, 2, 
+                                    "I/O exception while reading file \"",
                                     strPathFile1, "\": ", ex.Message);
+
                                 s1.Seek((index + 1) * b1.Length,
                                     System.IO.SeekOrigin.Begin);
                             }
@@ -1955,6 +2163,7 @@ namespace SyncFoldersApi
                                         // fill the rest with zeros
                                         while (nRead < b2.Length)
                                             b2[nRead++] = 0;
+
                                         b2Ok = si2.AnalyzeForTestOrRestore(b2, index);
                                         readableBlocks2[index] = true;
                                         b2Present = true;
@@ -1963,18 +2172,25 @@ namespace SyncFoldersApi
 
                                 if (!b2Ok)
                                 {
-                                    iLogWriter.WriteLogFormattedLocalized(2, Properties.Resources.ChecksumOfBlockAtOffsetNotOK,
+                                    iLogWriter.WriteLogFormattedLocalized(2,
+                                        Properties.Resources.ChecksumOfBlockAtOffsetNotOK,
                                         strPathFile2, index * b2.Length);
-                                    iLogWriter.WriteLog(true, 2, strPathFile2, ": checksum of block at offset ",
+
+                                    iLogWriter.WriteLog(true, 2, strPathFile2, 
+                                        ": checksum of block at offset ",
                                         index * b2.Length, " not OK");
                                 }
                             }
                             catch (System.IO.IOException ex)
                             {
-                                iLogWriter.WriteLogFormattedLocalized(2, Properties.Resources.IOErrorReadingFile,
+                                iLogWriter.WriteLogFormattedLocalized(2, 
+                                    Properties.Resources.IOErrorReadingFile,
                                     strPathFile2, ex.Message);
-                                iLogWriter.WriteLog(true, 2, "I/O exception while reading file \"",
+
+                                iLogWriter.WriteLog(true, 2, 
+                                    "I/O exception while reading file \"",
                                     strPathFile2, "\": ", ex.Message);
+
                                 s2.Seek((index + 1) * b2.Length,
                                     System.IO.SeekOrigin.Begin);
                             }
@@ -1983,8 +2199,10 @@ namespace SyncFoldersApi
                             {
                                 if (si2.AnalyzeForTestOrRestore(b1, index))
                                 {
-                                    iLogWriter.WriteLogFormattedLocalized(1, Properties.Resources.BlockOfAtPositionWillBeRestoredFrom,
+                                    iLogWriter.WriteLogFormattedLocalized(1,
+                                        Properties.Resources.BlockOfAtPositionWillBeRestoredFrom,
                                         fi2.FullName, index * b1.Length, fi1.FullName);
+
                                     iLogWriter.WriteLog(true, 1, "Block of ", fi2.FullName,
                                         " position ", index * b1.Length,
                                         " will be restored from ", fi1.FullName);
@@ -1996,11 +2214,14 @@ namespace SyncFoldersApi
                             {
                                 if (si1.AnalyzeForTestOrRestore(b2, index))
                                 {
-                                    iLogWriter.WriteLogFormattedLocalized(1, Properties.Resources.BlockOfAtPositionWillBeRestoredFrom,
+                                    iLogWriter.WriteLogFormattedLocalized(1,
+                                        Properties.Resources.BlockOfAtPositionWillBeRestoredFrom,
                                         fi1.FullName, index * b1.Length, fi2.FullName);
+
                                     iLogWriter.WriteLog(true, 1, "Block of ", fi1.FullName,
                                         " position ", index * b1.Length,
                                         " will be restored from ", fi2.FullName);
+
                                     restore1.Add(new RestoreInfo(index * b1.Length, b2, false));
                                 }
                             }
@@ -2010,11 +2231,14 @@ namespace SyncFoldersApi
                                 {
                                     if (si1.AnalyzeForTestOrRestore(b2, index))
                                     {
-                                        iLogWriter.WriteLogFormattedLocalized(1, Properties.Resources.BlockOfAtPositionWillBeRestoredFrom,
+                                        iLogWriter.WriteLogFormattedLocalized(1,
+                                            Properties.Resources.BlockOfAtPositionWillBeRestoredFrom,
                                             fi1.FullName, index * b1.Length, fi2.FullName);
+
                                         iLogWriter.WriteLog(true, 1, "Block of ", fi1.FullName,
                                             " position ", index * b1.Length,
                                             " will be restored from ", fi2.FullName);
+
                                         restore1.Add(new RestoreInfo(index * b1.Length, b2, false));
                                     }
                                 }
@@ -2024,11 +2248,14 @@ namespace SyncFoldersApi
                                 {
                                     if (si2.AnalyzeForTestOrRestore(b1, index))
                                     {
-                                        iLogWriter.WriteLogFormattedLocalized(1, Properties.Resources.BlockOfAtPositionWillBeRestoredFrom,
+                                        iLogWriter.WriteLogFormattedLocalized(1,
+                                            Properties.Resources.BlockOfAtPositionWillBeRestoredFrom,
                                             fi2.FullName, index * b1.Length, fi1.FullName);
+
                                         iLogWriter.WriteLog(true, 1, "Block of ", fi2.FullName,
                                             " position ", index * b1.Length,
                                             " will be restored from ", fi1.FullName);
+
                                         restore2.Add(new RestoreInfo(index * b1.Length, b1, false));
                                     }
                                 }
@@ -2092,22 +2319,27 @@ namespace SyncFoldersApi
                                 if (ri2.Position == ri1.Position)
                                     if (ri2.NotRecoverableArea && !ri1.NotRecoverableArea)
                                     {
-                                        iLogWriter.WriteLogFormattedLocalized(1, Properties.Resources.BlockOfAtPositionWillBeRestoredFrom,
+                                        iLogWriter.WriteLogFormattedLocalized(1,
+                                            Properties.Resources.BlockOfAtPositionWillBeRestoredFrom,
                                             fi2.FullName, ri2.Position, fi1.FullName);
+
                                         iLogWriter.WriteLog(true, 1, "Block of ", fi2.FullName,
                                             " position ", ri2.Position,
                                             " will be restored from ", fi1.FullName);
+
                                         ri2.Data = ri1.Data;
                                         ri2.NotRecoverableArea = false;
                                     }
-                                    else
-                                        if (ri1.NotRecoverableArea && !ri2.NotRecoverableArea)
+                                    else  if (ri1.NotRecoverableArea && !ri2.NotRecoverableArea)
                                     {
-                                        iLogWriter.WriteLogFormattedLocalized(1, Properties.Resources.BlockOfAtPositionWillBeRestoredFrom,
+                                        iLogWriter.WriteLogFormattedLocalized(1,
+                                            Properties.Resources.BlockOfAtPositionWillBeRestoredFrom,
                                             fi1.FullName, ri1.Position, fi2.FullName);
+
                                         iLogWriter.WriteLog(true, 1, "Block of ", fi1.FullName,
                                             " position ", ri1.Position,
                                             " will be restored from ", fi2.FullName);
+
                                         ri1.Data = ri2.Data;
                                         ri1.NotRecoverableArea = false;
                                     }
@@ -2119,21 +2351,27 @@ namespace SyncFoldersApi
                         foreach (RestoreInfo ri1 in restore1)
                         {
                             if (ri1.NotRecoverableArea ||
-                                (iSettings.PreferPhysicalCopies && equalBlocks.ContainsKey(ri1.Position / ri1.Data.Length)))
+                                (iSettings.PreferPhysicalCopies &&
+                                    equalBlocks.ContainsKey(ri1.Position / ri1.Data.Length)))
                                 ;// bForceCreateInfoBecauseDamaged = true;
                             else
                             {
-                                iLogWriter.WriteLogFormattedLocalized(1, Properties.Resources.RecoveringBlockAtOffsetOfFile,
+                                iLogWriter.WriteLogFormattedLocalized(1,
+                                    Properties.Resources.RecoveringBlockAtOffsetOfFile,
                                     ri1.Position, fi1.FullName);
+
                                 iLogWriter.WriteLog(true, 1, "Recovering block of ", fi1.FullName,
                                     " at position ", ri1.Position);
+
                                 s1.Seek(ri1.Position, System.IO.SeekOrigin.Begin);
 
                                 int lengthToWrite = (int)(si1.Length - ri1.Position >= ri1.Data.Length ?
                                     ri1.Data.Length :
                                     si1.Length - ri1.Position);
+
                                 if (lengthToWrite > 0)
                                     ri1.Data.WriteTo(s1, lengthToWrite);
+
                                 // we assume the block is readbable now
                                 readableBlocks1[ri1.Position / ri1.Data.Length] = true;
                             }
@@ -2144,27 +2382,31 @@ namespace SyncFoldersApi
                         foreach (RestoreInfo ri2 in restore2)
                         {
                             if (ri2.NotRecoverableArea ||
-                                (iSettings.PreferPhysicalCopies && equalBlocks.ContainsKey(ri2.Position / ri2.Data.Length)))
+                                (iSettings.PreferPhysicalCopies &&
+                                    equalBlocks.ContainsKey(ri2.Position / ri2.Data.Length)))
                                 ; // bForceCreateInfoBecauseDamaged = true;
                             else
                             {
-                                iLogWriter.WriteLogFormattedLocalized(1, Properties.Resources.RecoveringBlockAtOffsetOfFile,
+                                iLogWriter.WriteLogFormattedLocalized(1,
+                                    Properties.Resources.RecoveringBlockAtOffsetOfFile,
                                     ri2.Position, fi2.FullName);
+
                                 iLogWriter.WriteLog(true, 1, "Recovering block of ", fi2.FullName,
                                     " at position ", ri2.Position);
+
                                 s2.Seek(ri2.Position, System.IO.SeekOrigin.Begin);
 
                                 int lengthToWrite = (int)(si2.Length - ri2.Position >= ri2.Data.Length ?
                                     ri2.Data.Length :
                                     si2.Length - ri2.Position);
+
                                 if (lengthToWrite > 0)
                                     ri2.Data.WriteTo(s2, lengthToWrite);
+
                                 // we assume the block is readbable now
                                 readableBlocks2[ri2.Position / ri2.Data.Length] = true;
                             }
                         }
-                        ;
-
 
 
                         // let'oInputStream try to copy non-recoverable 
@@ -2175,8 +2417,10 @@ namespace SyncFoldersApi
                                 readableBlocks2.ContainsKey(ri1.Position / ri1.Data.Length) &&
                                 !readableBlocks1.ContainsKey(ri1.Position / ri1.Data.Length))
                             {
-                                iLogWriter.WriteLogFormattedLocalized(1, Properties.Resources.BlockOfAtPositionWillBeCopiedFromNoMatterChecksum,
+                                iLogWriter.WriteLogFormattedLocalized(1,
+                                    Properties.Resources.BlockOfAtPositionWillBeCopiedFromNoMatterChecksum,
                                     fi1.FullName, ri1.Position, fi2.FullName);
+
                                 iLogWriter.WriteLog(true, 1, "Block of ", fi1.FullName, " position ",
                                     ri1.Position, " will be copied from ",
                                     fi2.FullName, " even if checksum indicates the block is wrong");
@@ -2200,8 +2444,10 @@ namespace SyncFoldersApi
                                 !readableBlocks2.ContainsKey(ri2.Position / ri2.Data.Length))
 
                             {
-                                iLogWriter.WriteLogFormattedLocalized(1, Properties.Resources.BlockOfAtPositionWillBeCopiedFromNoMatterChecksum,
+                                iLogWriter.WriteLogFormattedLocalized(1,
+                                    Properties.Resources.BlockOfAtPositionWillBeCopiedFromNoMatterChecksum,
                                     fi2.FullName, ri2.Position, fi1.FullName);
+
                                 iLogWriter.WriteLog(true, 1, "Block of ", fi2.FullName, " position ",
                                     ri2.Position, " will be copied from ", fi1.FullName,
                                     " even if checksum indicates the block is wrong");
@@ -2223,8 +2469,10 @@ namespace SyncFoldersApi
                             if (ri1.NotRecoverableArea && !equalBlocks.ContainsKey(ri1.Position / ri1.Data.Length) &&
                                 !readableBlocks1.ContainsKey(ri1.Position / ri1.Data.Length))
                             {
-                                iLogWriter.WriteLogFormattedLocalized(1, Properties.Resources.BlockOfAtPositionNotRecoverableFillDumy,
+                                iLogWriter.WriteLogFormattedLocalized(1,
+                                    Properties.Resources.BlockOfAtPositionNotRecoverableFillDumy,
                                     fi1.FullName, ri1.Position);
+
                                 iLogWriter.WriteLog(true, 1, "Block of ", fi1.FullName, " position ",
                                     ri1.Position, " is not recoverable and will be filled with a dummy");
 
@@ -2233,6 +2481,7 @@ namespace SyncFoldersApi
                                 int lengthToWrite = (int)(si1.Length - ri1.Position >= ri1.Data.Length ?
                                     ri1.Data.Length :
                                     si1.Length - ri1.Position);
+
                                 if (lengthToWrite > 0)
                                     ri1.Data.WriteTo(s1, lengthToWrite);
                             }
@@ -2246,8 +2495,10 @@ namespace SyncFoldersApi
                                 !equalBlocks.ContainsKey(ri2.Position / ri2.Data.Length) &&
                                 !readableBlocks2.ContainsKey(ri2.Position / ri2.Data.Length))
                             {
-                                iLogWriter.WriteLogFormattedLocalized(1, Properties.Resources.BlockOfAtPositionNotRecoverableFillDumy,
+                                iLogWriter.WriteLogFormattedLocalized(1,
+                                    Properties.Resources.BlockOfAtPositionNotRecoverableFillDumy,
                                     fi2.FullName, ri2.Position);
+
                                 iLogWriter.WriteLog(true, 1, "Block of ", fi2.FullName,
                                     " position ", ri2.Position,
                                     " is not recoverable and will be filled with a dummy");
@@ -2257,6 +2508,7 @@ namespace SyncFoldersApi
                                 int lengthToWrite = (int)(si2.Length - ri2.Position >= ri2.Data.Length ?
                                     ri2.Data.Length :
                                     si2.Length - ri2.Position);
+
                                 if (lengthToWrite > 0)
                                     ri2.Data.WriteTo(s2, lengthToWrite);
                             }
@@ -2273,15 +2525,18 @@ namespace SyncFoldersApi
 
                 if (restore1.Count > 0)
                 {
-                    iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.ThereWereBadBlocksInFileNotRestoredParts,
+                    iLogWriter.WriteLogFormattedLocalized(0,
+                        Properties.Resources.ThereWereBadBlocksInFileNotRestoredParts,
                         restore1.Count, fi1.FullName, notRestoredSize1);
+
                     iLogWriter.WriteLog(true, 0, "There were ", restore1.Count,
                         " bad blocks in ", fi1.FullName,
                         " not restored bytes: ", notRestoredSize1);
                 }
                 if (restore2.Count > 0)
                 {
-                    iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.ThereWereBadBlocksInFileNotRestoredParts,
+                    iLogWriter.WriteLogFormattedLocalized(0,
+                        Properties.Resources.ThereWereBadBlocksInFileNotRestoredParts,
                         restore2.Count, fi2.FullName, notRestoredSize2);
 
                     iLogWriter.WriteLog(true, 0, "There were ", restore2.Count,
@@ -2340,12 +2595,16 @@ namespace SyncFoldersApi
                             }
                             catch (System.IO.IOException ex)
                             {
-                                iLogWriter.WriteLogFormattedLocalized(2, Properties.Resources.IOErrorWritingFile,
+                                iLogWriter.WriteLogFormattedLocalized(2,
+                                    Properties.Resources.IOErrorWritingFile,
                                     strPathFile1, ex.Message);
+
                                 iLogWriter.WriteLog(true, 2, "I/O exception while reading file \"",
                                     strPathFile1, "\": ", ex.Message);
+
                                 s1.Seek((index + 1) * b1.Length,
                                     System.IO.SeekOrigin.Begin);
+
                                 ++badBlocks1;
                             }
 
@@ -2360,45 +2619,60 @@ namespace SyncFoldersApi
                             }
                             catch (System.IO.IOException ex)
                             {
-                                iLogWriter.WriteLogFormattedLocalized(2, Properties.Resources.IOErrorReadingFile,
+                                iLogWriter.WriteLogFormattedLocalized(2, 
+                                    Properties.Resources.IOErrorReadingFile,
                                     strPathFile2, ex.Message);
-                                iLogWriter.WriteLog(true, 2, "I/O exception while reading file \"",
+
+                                iLogWriter.WriteLog(true, 2, 
+                                    "I/O exception while reading file \"",
                                     strPathFile2, "\": ", ex.Message);
+
                                 s2.Seek((index + 1) * b2.Length,
                                     System.IO.SeekOrigin.Begin);
                             }
 
                             if (b1Present && !b2Present)
                             {
-                                iLogWriter.WriteLogFormattedLocalized(1, Properties.Resources.BlockOfAtPositionWillBeRestoredFrom,
+                                iLogWriter.WriteLogFormattedLocalized(1,
+                                    Properties.Resources.BlockOfAtPositionWillBeRestoredFrom,
                                     fi2.FullName, index * b1.Length, fi1.FullName);
+
                                 iLogWriter.WriteLog(true, 1, "Block of ", fi2.FullName,
                                     " position ", index * b1.Length,
                                     " will be restored from ", fi1.FullName);
+
                                 restore2.Add(new RestoreInfo(index * b1.Length, b1, false));
                             }
                             else
                             if (b2Present && !b1Present)
                             {
-                                iLogWriter.WriteLogFormattedLocalized(1, Properties.Resources.BlockOfAtPositionWillBeRestoredFrom,
+                                iLogWriter.WriteLogFormattedLocalized(1,
+                                    Properties.Resources.BlockOfAtPositionWillBeRestoredFrom,
                                     fi1.FullName, index * b1.Length, fi2.FullName);
+
                                 iLogWriter.WriteLog(true, 1, "Block of ", fi1.FullName,
                                     " position ", index * b1.Length,
                                     " will be restored from ", fi2.FullName);
+
                                 restore1.Add(new RestoreInfo(index * b2.Length, b2, false));
                             }
                             else
                             if (!b1Present && !b2Present)
                             {
                                 Block b = new Block();
-                                iLogWriter.WriteLogFormattedLocalized(1, Properties.Resources.BlocksOfAndAtPositionNonRecoverableFillDummy,
+
+                                iLogWriter.WriteLogFormattedLocalized(1,
+                                    Properties.Resources.BlocksOfAndAtPositionNonRecoverableFillDummy,
                                     fi1.FullName, fi2.FullName, index * b1.Length);
+
                                 iLogWriter.WriteLog(true, 1, "Blocks of ", fi1.FullName,
                                     " and ", fi2.FullName, " at position ",
                                     index * b1.Length,
                                     " are not recoverable and will be filled with a dummy block");
+
                                 restore1.Add(new RestoreInfo(index * b1.Length, b1, true));
                                 restore2.Add(new RestoreInfo(index * b2.Length, b2, true));
+
                                 notRestoredSize1 += b1.Length;
                                 notRestoredSize2 += b2.Length;
                             }
@@ -2429,6 +2703,7 @@ namespace SyncFoldersApi
                         int lengthToWrite = (int)(si1.Length - ri1.Position >= ri1.Data.Length ?
                             ri1.Data.Length :
                             si1.Length - ri1.Position);
+
                         if (lengthToWrite > 0)
                             ri1.Data.WriteTo(s1, lengthToWrite);
                     }
@@ -2439,8 +2714,10 @@ namespace SyncFoldersApi
 
                 if (badBlocks1 > 0)
                 {
-                    iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.ThereWereBadBlocksInFileNotRestoredParts,
+                    iLogWriter.WriteLogFormattedLocalized(0,
+                        Properties.Resources.ThereWereBadBlocksInFileNotRestoredParts,
                         badBlocks1, fi1.FullName, notRestoredSize1);
+
                     iLogWriter.WriteLog(true, 0, "There were ", badBlocks1,
                         " bad blocks in ", fi1.FullName,
                         " not restored bytes: ", notRestoredSize1);
@@ -2458,6 +2735,7 @@ namespace SyncFoldersApi
                         int lengthToWrite = (int)(si2.Length - ri2.Position >= ri2.Data.Length ?
                             ri2.Data.Length :
                             si2.Length - ri2.Position);
+
                         if (lengthToWrite > 0)
                             ri2.Data.WriteTo(s2, lengthToWrite);
                     }
@@ -2466,8 +2744,10 @@ namespace SyncFoldersApi
                 fi2.LastWriteTimeUtc = prevLastWriteTime;
                 if (badBlocks2 > 0)
                 {
-                    iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.ThereWereBadBlocksInFileNotRestoredParts,
+                    iLogWriter.WriteLogFormattedLocalized(0,
+                        Properties.Resources.ThereWereBadBlocksInFileNotRestoredParts,
                         badBlocks2, fi2.FullName, notRestoredSize2);
+
                     iLogWriter.WriteLog(true, 0, "There were ", badBlocks2,
                         " bad blocks in ", fi2.FullName,
                         " not restored bytes: ", notRestoredSize2);
@@ -2499,6 +2779,9 @@ namespace SyncFoldersApi
         /// <param name="strPathSavedInfoFile">The target path for saved info</param>
         /// <param name="strReasonEn">The reason of copy for messages</param>
         /// <param name="strReasonTranslated">The reason of copy for messages, localized</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         /// <returns>true iff the operation succeeded</returns>
         //===================================================================================================
         public bool CreateSavedInfoAndCopy(
@@ -2553,6 +2836,7 @@ namespace SyncFoldersApi
 
 
                             s2.Close();
+
                             IFileInfo fi2tmp = iFileSystem.GetFileInfo(pathFileCopy);
                             fi2tmp.LastWriteTimeUtc = finfo.LastWriteTimeUtc;
 
@@ -2562,9 +2846,12 @@ namespace SyncFoldersApi
 
                             fi2tmp.MoveTo(strTargetPath);
 
-                            iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.CopiedFromToReason,
+                            iLogWriter.WriteLogFormattedLocalized(0, 
+                                Properties.Resources.CopiedFromToReason,
                                 strPathFile, strTargetPath, strReasonTranslated);
-                            iLogWriter.WriteLog(true, 0, "Copied ", strPathFile, " to ", strTargetPath, " ", strReasonEn);
+
+                            iLogWriter.WriteLog(true, 0, "Copied ", strPathFile, " to ",
+                                strTargetPath, " ", strReasonEn);
                         }
                     }
                     catch
@@ -2572,7 +2859,9 @@ namespace SyncFoldersApi
                         try
                         {
                             System.Threading.Thread.Sleep(100);
+
                             IFileInfo finfoCopy = iFileSystem.GetFileInfo(pathFileCopy);
+
                             if (finfoCopy.Exists)
                                 iFileSystem.Delete(finfoCopy);
                         }
@@ -2589,10 +2878,13 @@ namespace SyncFoldersApi
             }
             catch (System.IO.IOException ex)
             {
-                iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.WarningIOErrorWhileCopyingToReason,
+                iLogWriter.WriteLogFormattedLocalized(0, 
+                    Properties.Resources.WarningIOErrorWhileCopyingToReason,
                     finfo.FullName, strTargetPath, ex.Message);
+
                 iLogWriter.WriteLog(true, 0, "Warning: I/O Error while copying file: \"",
                     finfo.FullName, "\" to \"", strTargetPath, "\": " + ex.Message);
+
                 return false;
             }
 
@@ -2601,12 +2893,14 @@ namespace SyncFoldersApi
                 IDirectoryInfo di = iFileSystem.GetDirectoryInfo(
                     strPathSavedInfoFile.Substring(0,
                     strPathSavedInfoFile.LastIndexOfAny(new char[] { '\\', '/' })));
+
                 if (!di.Exists)
                 {
                     di.Create();
                     di = iFileSystem.GetDirectoryInfo(
                         strPathSavedInfoFile.Substring(0,
                         strPathSavedInfoFile.LastIndexOfAny(new char[] { '\\', '/' })));
+
                     di.Attributes = di.Attributes | System.IO.FileAttributes.Hidden
                         | System.IO.FileAttributes.System;
                 }
@@ -2618,19 +2912,27 @@ namespace SyncFoldersApi
 
                 // save last write time also at the time of the .chk file
                 IFileInfo fiSavedInfo = iFileSystem.GetFileInfo(strPathSavedInfoFile);
+
                 fiSavedInfo.LastWriteTimeUtc = finfo.LastWriteTimeUtc;
-                fiSavedInfo.Attributes = fiSavedInfo.Attributes | System.IO.FileAttributes.Hidden |
+                fiSavedInfo.Attributes =  fiSavedInfo.Attributes | 
+                    System.IO.FileAttributes.Hidden |
                     System.IO.FileAttributes.System;
 
             }
             catch (System.IO.IOException ex)
             {
-                iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.IOErrorWritingFile, strPathSavedInfoFile, ex.Message);
-                iLogWriter.WriteLog(true, 0, "I/O Error writing file: \"", strPathSavedInfoFile, "\": " + ex.Message);
+                iLogWriter.WriteLogFormattedLocalized(0, 
+                    Properties.Resources.IOErrorWritingFile,
+                    strPathSavedInfoFile, ex.Message);
+
+                iLogWriter.WriteLog(true, 0, "I/O Error writing file: \"", 
+                    strPathSavedInfoFile, "\": " + ex.Message);
+
                 return false;
             }
 
-            // we just created the file, so assume we checked everything, no need to double-check immediately
+            // we just created the file, so assume we checked everything,
+            // no need to double-check immediately
             CreateOrUpdateFileChecked(strPathSavedInfoFile,
                 iFileSystem, iLogWriter);
 
@@ -2658,6 +2960,9 @@ namespace SyncFoldersApi
         /// <param name="bReturnFalseIfNonRecoverableNotIfDamaged">Usually a test returns true if
         /// the file is healthy, but if this flag is set to true then method will also return true, 
         /// if the file can be completely restored using saved info</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         /// <returns>true iff the test succeeded</returns>
         //===================================================================================================
         public bool TestSingleFile2(
@@ -2686,10 +2991,12 @@ namespace SyncFoldersApi
                 {
                     IFileInfo fichecked =
                         iFileSystem.GetFileInfo(strPathSavedInfoFile + "ed");
+
                     // this randomly skips testing of files,
                     // so the user doesn't have to wait long, when performing checks annually:
                     // 100% of files are skipped within first 2 years after last check
                     // 0% after 7 years after last check
+
                     if (fichecked.Exists && finfo.Exists &&
                         (!fiSavedInfo.Exists || fiSavedInfo.LastWriteTimeUtc == finfo.LastWriteTimeUtc) &&
                         fichecked.LastWriteTimeUtc.CompareTo(finfo.LastWriteTimeUtc) > 0 &&
@@ -2703,8 +3010,10 @@ namespace SyncFoldersApi
             }
             catch (Exception ex)
             {
-                iLogWriter.WriteLogFormattedLocalized(1, Properties.Resources.WarningWhileDiscoveringIfNeedsToBeRechecked,
+                iLogWriter.WriteLogFormattedLocalized(1,
+                    Properties.Resources.WarningWhileDiscoveringIfNeedsToBeRechecked,
                     ex.Message, strPathFile);
+
                 iLogWriter.WriteLog(true, 1, "Warning: ", ex.Message,
                     " while discovering, if ", strPathFile,
                     " needs to be rechecked.");
@@ -2739,10 +3048,13 @@ namespace SyncFoldersApi
                     }
                     catch (System.IO.IOException ex)
                     {
-                        iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.IOErrorReadingFile,
+                        iLogWriter.WriteLogFormattedLocalized(0, 
+                            Properties.Resources.IOErrorReadingFile,
                             strPathSavedInfoFile, ex.Message);
+
                         iLogWriter.WriteLog(true, 0, "I/O Error reading file: \"",
                             strPathSavedInfoFile, "\": " + ex.Message);
+
                         bSaveInfoUnreadable = true;
                         bForceCreateInfo = true;
                         bForcePhysicalTest = true;
@@ -2760,8 +3072,10 @@ namespace SyncFoldersApi
                 if (!bSaveInfoUnreadable)
                     if (bNeedsMessageAboutOldSavedInfo)
                     {
-                        iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.SavedInfoFileCantBeUsedForTesting,
+                        iLogWriter.WriteLogFormattedLocalized(0, 
+                            Properties.Resources.SavedInfoFileCantBeUsedForTesting,
                             strPathSavedInfoFile, strPathFile);
+
                         iLogWriter.WriteLog(true, 0, "Saved info file \"", strPathSavedInfoFile,
                             "\" can't be used for testing file \"", strPathFile,
                             "\": it was created for another version of the file");
@@ -2803,7 +3117,8 @@ namespace SyncFoldersApi
                             }
                             catch (System.IO.IOException ex)
                             {
-                                iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.IOErrorReadingFileOffset,
+                                iLogWriter.WriteLogFormattedLocalized(0, 
+                                    Properties.Resources.IOErrorReadingFileOffset,
                                     finfo.FullName, index * b.Length, ex.Message);
                                 iLogWriter.WriteLog(true, 0, "I/O Error reading file: \"",
                                     finfo.FullName, "\", offset ",
@@ -2916,22 +3231,28 @@ namespace SyncFoldersApi
 
                             bAllBlocksOK = false;
 
-                            iLogWriter.WriteLogFormattedLocalized(1, Properties.Resources.IOErrorReadingFileOffset,
+                            iLogWriter.WriteLogFormattedLocalized(1, 
+                                Properties.Resources.IOErrorReadingFileOffset,
                                 finfo.FullName, index * b.Length, ex.Message);
+
                             iLogWriter.WriteLog(true, 1, "I/O Error reading file: \"",
                                 finfo.FullName, "\", offset ",
                                 index * b.Length, ": " + ex.Message);
+
                             s.Seek((index + 1) * b.Length,
                                 System.IO.SeekOrigin.Begin);
                         }
                     }
-                    ;
 
-                    List<RestoreInfo> ri = si.EndRestore(out nonRestoredSize, fiSavedInfo.FullName, iLogWriter);
+                    List<RestoreInfo> ri = si.EndRestore(
+                        out nonRestoredSize, fiSavedInfo.FullName, iLogWriter);
+
                     if (ri.Count > 1)
                     {
-                        iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.ThereAreBadBlocksNonRestorableOnlyTested,
+                        iLogWriter.WriteLogFormattedLocalized(0,
+                        Properties.Resources.ThereAreBadBlocksNonRestorableOnlyTested,
                             ri.Count, finfo.FullName, nonRestoredSize);
+
                         iLogWriter.WriteLog(true, 0, "There are ", ri.Count, " bad blocks in the file ",
                             finfo.FullName, ", non-restorable parts: ", nonRestoredSize,
                             " bytes, file remains unchanged, it was only tested");
@@ -2939,8 +3260,10 @@ namespace SyncFoldersApi
                     else
                         if (ri.Count > 0)
                     {
-                        iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.ThereIsOneBadBlockNonRestorableOnlyTested,
+                        iLogWriter.WriteLogFormattedLocalized(0,
+                        Properties.Resources.ThereIsOneBadBlockNonRestorableOnlyTested,
                             finfo.FullName, nonRestoredSize);
+
                         iLogWriter.WriteLog(true, 0, "There is one bad block in the file ", finfo.FullName,
                             ", non-restorable parts: ", nonRestoredSize,
                             " bytes, file remains unchanged, it was only tested");
@@ -2958,8 +3281,10 @@ namespace SyncFoldersApi
                     {
                         if (bNeedsMessageAboutOldSavedInfo)
                         {
-                            iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.SavedInfoHasBeenDamagedNeedsRecreation,
+                            iLogWriter.WriteLogFormattedLocalized(0,
+                            Properties.Resources.SavedInfoHasBeenDamagedNeedsRecreation,
                                 strPathSavedInfoFile, strPathFile);
+
                             iLogWriter.WriteLog(true, 0, "Saved info file \"", strPathSavedInfoFile,
                                 "\" has been damaged and needs to be recreated from \"",
                                 strPathFile, "\"");
@@ -2981,10 +3306,13 @@ namespace SyncFoldersApi
             }
             catch (System.IO.IOException ex)
             {
-                iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.IOErrorReadingFile,
+                iLogWriter.WriteLogFormattedLocalized(0, 
+                    Properties.Resources.IOErrorReadingFile,
                     finfo.FullName, ex.Message);
+
                 iLogWriter.WriteLog(true, 0, "I/O Error reading file: \"",
                     finfo.FullName, "\": " + ex.Message);
+
                 return false;
             }
         }
@@ -2994,6 +3322,8 @@ namespace SyncFoldersApi
         /// Saves information, when the original file has been last read completely
         /// </summary>
         /// <param name="strPathSavedInfoFile">The path of restore info file (not original file)</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         //===================================================================================================
         public void CreateOrUpdateFileChecked(
             string strPathSavedInfoFile,
@@ -3023,14 +3353,16 @@ namespace SyncFoldersApi
                     ;
                 }
 
-                iFileSystem.SetAttributes(
-                    strPath, System.IO.FileAttributes.Hidden | System.IO.FileAttributes.System);
+                iFileSystem.SetAttributes( strPath, 
+                    System.IO.FileAttributes.Hidden | System.IO.FileAttributes.System);
             }
-            catch (Exception ex)
+            catch (Exception oEx)
             {
-                iLogWriter.WriteLogFormattedLocalized(1, Properties.Resources.WarningWhileCreating,
-                    ex.Message, strPath);
-                iLogWriter.WriteLog(true, 1, "Warning: ", ex.Message,
+                iLogWriter.WriteLogFormattedLocalized(1, 
+                    Properties.Resources.WarningWhileCreating,
+                    oEx.Message, strPath);
+
+                iLogWriter.WriteLog(true, 1, "Warning: ", oEx.Message,
                     " while creating ", strPath);
             }
         }

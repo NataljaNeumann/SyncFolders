@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace SyncFoldersApi
 {
+    //*******************************************************************************************************
+    /// <summary>
+    /// Utils for the API
+    /// </summary>
+    //*******************************************************************************************************
     public class Utils
     {
+        //===================================================================================================
         /// <summary>
         /// This is used for randomization of recently tested files
         /// </summary>
@@ -15,6 +21,11 @@ namespace SyncFoldersApi
             * (DateTime.Now.Second + 60 * (DateTime.Now.Minute + 60
             * (DateTime.Now.Hour + 24 * DateTime.Now.DayOfYear)))));
 
+
+        //===================================================================================================
+        /// <summary>
+        /// This is used for randomization of recently tested files
+        /// </summary>
         public static Random RandomForRecentlyChecked
         {
             get => s_oRandomForRecentlyChecked;                

@@ -234,6 +234,9 @@ namespace SyncFolders
             {
                 try
                 {
+// disabling warnings. This code can only be executed during builds.
+// we expect the developer will fix it, if something happens
+#pragma warning disable CS8604, CS8602, CS8600
                     StringBuilder strMd = new StringBuilder();
                     StringBuilder strTxt = new StringBuilder();
 
@@ -534,6 +537,7 @@ namespace SyncFolders
                             }
                         }
                     }
+#pragma warning restore CS8604, CS8602, CS8600
 
 
                     int nPrevLength = 0;

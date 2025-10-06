@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 
 namespace SyncFoldersApi
 {
+    //*******************************************************************************************************
+    /// <summary>
+    /// Objects that implement this interface provide implementation of basic steps for copying, testing
+    /// and repairing files
+    /// </summary>
+    //*******************************************************************************************************
     public interface IFilePairSteps
     {
         //===================================================================================================
@@ -16,6 +22,11 @@ namespace SyncFoldersApi
         /// <param name="strPathSavedInfoFile">The path of saved info (.chk)</param>
         /// <param name="bForceCreateInfo">If saved info needs to be updated then method sets given 
         /// var to true</param>
+        /// <param name="bOnlyIfCompletelyRecoverable">Indicates that the operation shall be done
+        /// only if the file is healthy or completely recoverable </param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         /// <returns>true iff the test or restore succeeded</returns>
         //===================================================================================================
         public bool TestAndRepairSingleFile(
@@ -43,6 +54,9 @@ namespace SyncFoldersApi
         /// time the original file has been tested or copied and skip physical test, if possible</param>
         /// <param name="bCreateConfirmationFile">If test succeeds then information about succeeded
         /// test is saved in file system</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         /// <returns>true iff the test succeeded</returns>
         //===================================================================================================
         public bool TestSingleFile(
@@ -63,6 +77,9 @@ namespace SyncFoldersApi
         /// </summary>
         /// <param name="strPathFile">Path of the original file</param>
         /// <param name="strPathSavedChkInfoFile">The target path for .CHK file</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         /// <returns>true iff the operation succeeded</returns>
         //===================================================================================================
         bool CreateSavedInfo(
@@ -80,6 +97,9 @@ namespace SyncFoldersApi
         /// <param name="strPathFile">Path of the original file</param>
         /// <param name="strPathSavedChkInfoFile">The target path for .CHK file</param>
         /// <param name="bForceSecondBlocks">Indicates that a second row of blocks must be created</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         /// <returns>true iff the operation succeeded</returns>
         //===================================================================================================
         bool CreateSavedInfo(
@@ -99,6 +119,9 @@ namespace SyncFoldersApi
         /// <param name="strPathSavedChkInfoFile">The target path for .CHK file</param>
         /// <param name="nVersion">The version to save supported values: 0, 1</param>
         /// <param name="bForceSecondBlocks">Indicates that a second row of blocks must be created</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         /// <returns>true iff the operation succeeded</returns>
         //===================================================================================================
         bool CreateSavedInfo(
@@ -129,6 +152,9 @@ namespace SyncFoldersApi
         /// not only the copy</param>
         /// <param name="bFailOnNonRecoverable">If there are non-recoverable blocks and this flag
         /// is set to true, then method throws an exception, instead of continuing</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         /// <returns>true iff copy succeeded</returns>
         //===================================================================================================
         bool CopyRepairSingleFile(
@@ -154,6 +180,9 @@ namespace SyncFoldersApi
         /// <param name="strPathSavedInfo1">Saved info of the first file</param>
         /// <param name="strPathSavedInfo2">Saved info of the second file</param>
         /// <param name="bForceCreateInfo">If saved info needs to be updated then method sets given 
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         /// var to true</param>
         //===================================================================================================
         void TestAndRepairSecondFile(
@@ -179,6 +208,8 @@ namespace SyncFoldersApi
         /// <param name="strTargetPath">target path</param>
         /// <param name="strReasonEn">The reason of copy for messages</param>
         /// <param name="strReasonTranslated">The reason of copy for messages, localized</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         //===================================================================================================
         void CopyFileSafely(
             IFileInfo fi,
@@ -198,6 +229,9 @@ namespace SyncFoldersApi
         /// <param name="strPathSavedInfoFile">The path of saved info (.chk)</param>
         /// <param name="bForceCreateInfo">If saved info needs to be updated then method sets given 
         /// var to true</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         /// <returns>true iff the file is healthy or can be restored</returns>
         //===================================================================================================
         bool TestSingleFileHealthyOrCanRepair(
@@ -221,6 +255,9 @@ namespace SyncFoldersApi
         /// <param name="strPathSavedInfo2">The path of saved info for second file</param>
         /// <param name="bForceCreateInfo">If saved info needs to be updated then method sets given 
         /// var to true</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         //===================================================================================================
         void TestAndRepairTwoFiles(
             string strPathFile1,
@@ -244,6 +281,9 @@ namespace SyncFoldersApi
         /// <param name="strPathSavedInfoFile">The target path for saved info</param>
         /// <param name="strReasonEn">The reason of copy for messages</param>
         /// <param name="strReasonTranslated">The reason of copy for messages, localized</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         /// <returns>true iff the operation succeeded</returns>
         //===================================================================================================
         bool CreateSavedInfoAndCopy(
@@ -275,6 +315,9 @@ namespace SyncFoldersApi
         /// <param name="bReturnFalseIfNonRecoverableNotIfDamaged">Usually a test returns true if
         /// the file is healthy, but if this flag is set to true then method will also return true, 
         /// if the file can be completely restored using saved info</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         /// <returns>true iff the test succeeded</returns>
         //===================================================================================================
         bool TestSingleFile2(
@@ -296,6 +339,8 @@ namespace SyncFoldersApi
         /// Saves information, when the original file has been last read completely
         /// </summary>
         /// <param name="strPathSavedInfoFile">The path of restore info file (not original file)</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         //===================================================================================================
         void CreateOrUpdateFileChecked(
             string strPathSavedInfoFile,

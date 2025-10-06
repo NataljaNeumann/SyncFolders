@@ -64,6 +64,7 @@ namespace SyncFoldersApi
         /// </summary>
         /// <param name="strPath">Path of the file</param>
         /// <param name="oStream">File stream</param>
+        /// <param name="oFS">Filesystem object to use</param>
         //===================================================================================================
         public InMemoryFileInfo(string strPath, MemoryStream? oStream, InMemoryFileSystem oFS)
         {

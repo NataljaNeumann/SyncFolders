@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Resources;
@@ -8,6 +8,12 @@ using SyncFoldersApi.Localization;
 
 namespace SyncFoldersApi
 {
+    //*******************************************************************************************************
+    /// <summary>
+    /// This class implements the direction logic: given a situation, it decides which basic
+    /// test, copy and restore steps need to be done for transferring files in this situation
+    /// </summary>
+    //*******************************************************************************************************
     public class FilePairStepsDirectionLogic: IFilePairStepsDirectionLogic
     {
         /// <summary>
@@ -22,10 +28,14 @@ namespace SyncFoldersApi
         /// This method processes a file pair in first-to-second folder mode, in case user specified
         /// that first folder is read-only and only second file exists
         /// </summary>
-        /// <param name="strFilePath1">first file</param>
-        /// <param name="strFilePath2">second file</param>
-        /// <param name="fi1">The file information about first file</param>
-        /// <param name="fi2">The file information about second file</param>
+        /// <param name="strFilePath1">Path of first file</param>
+        /// <param name="strFilePath2">Path of second file</param>
+        /// <param name="fi1">Information about the first file</param>
+        /// <param name="fi2">Information about the first file</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iStepsImpl">Implementation of the actual file steps</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         //===================================================================================================
         public void ProcessFilePair_FirstToSecond_FirstReadonly_SecondExists(
             string strFilePath1,
@@ -43,12 +53,17 @@ namespace SyncFoldersApi
                 IFileInfo fiSavedInfo2 =
                     iFileSystem.GetFileInfo(Utils.CreatePathOfChkFile(
                         fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
+
                 if (fiSavedInfo2.Exists)
                     iFileSystem.Delete(fiSavedInfo2);
+
                 iFileSystem.Delete(fi2);
-                iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.DeletedFileNotPresentIn,
+
+                iLogWriter.WriteLogFormattedLocalized(0,
+                    Properties.Resources.DeletedFileNotPresentIn,
                     fi2.FullName,
                     fi1.Directory.FullName);
+
                 iLogWriter.WriteLog(true, 0, "Deleted file ", fi2.FullName,
                     " that is not present in ", fi1.Directory.FullName, " anymore");
             }
@@ -61,12 +76,19 @@ namespace SyncFoldersApi
                             fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
                     bool bForceCreateInfo = false;
                     if (iSettings.RepairFiles)
-                        iStepsImpl.TestAndRepairSingleFile(fi2.FullName, fiSavedInfo2.FullName, ref bForceCreateInfo, false,
+                    {
+                        iStepsImpl.TestAndRepairSingleFile(
+                            fi2.FullName, fiSavedInfo2.FullName,
+                            ref bForceCreateInfo, false,
                             iFileSystem, iSettings, iLogWriter);
+                    }
                     else
+                    {
                         iStepsImpl.TestSingleFile(fi2.FullName, fiSavedInfo2.FullName,
-                            ref bForceCreateInfo, true, !iSettings.TestFilesSkipRecentlyTested, true,
+                            ref bForceCreateInfo, true,
+                            !iSettings.TestFilesSkipRecentlyTested, true,
                             iFileSystem, iSettings, iLogWriter);
+                    }
 
                     if (iSettings.CreateInfo && (!fiSavedInfo2.Exists || bForceCreateInfo))
                     {
@@ -83,10 +105,14 @@ namespace SyncFoldersApi
         /// This method processes a file pair in first-to-second folder mode, in case user specified
         /// that first folder is read-only and only first file exists
         /// </summary>
-        /// <param name="strFilePath1">first file</param>
-        /// <param name="strFilePath2">second file</param>
-        /// <param name="fi1">The file information about first file</param>
-        /// <param name="fi2">The file information about second file</param>
+        /// <param name="strFilePath1">Path of first file</param>
+        /// <param name="strFilePath2">Path of second file</param>
+        /// <param name="fi1">Information about the first file</param>
+        /// <param name="fi2">Information about the first file</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iStepsImpl">Implementation of the actual file steps</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         //===================================================================================================
         public void ProcessFilePair_FirstToSecond_FirstReadonly_FirstExists(
             string strFilePath1,
@@ -158,10 +184,14 @@ namespace SyncFoldersApi
         /// This method processes a file pair in first-to-second folder mode, in case user specified
         /// that first folder is read-only, both files exist and first needs to be copied over second file
         /// </summary>
-        /// <param name="strFilePath1">first file</param>
-        /// <param name="strFilePath2">second file</param>
-        /// <param name="fi1">The file information about first file</param>
-        /// <param name="fi2">The file information about second file</param>
+        /// <param name="strFilePath1">Path of first file</param>
+        /// <param name="strFilePath2">Path of second file</param>
+        /// <param name="fi1">Information about the first file</param>
+        /// <param name="fi2">Information about the first file</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iStepsImpl">Implementation of the actual file steps</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         //===================================================================================================
         public void ProcessFilePair_FirstToSecond_FirstReadonly_BothExist_NeedToCopy(
             string strFilePath1,
@@ -209,8 +239,10 @@ namespace SyncFoldersApi
                 if (iSettings.CreateInfo || fiSavedInfo2.Exists || fiSavedInfo1.Exists)
                 {
                     if (bForceCreateInfo)
+                    {
                         iStepsImpl.CreateSavedInfo(fi2.FullName, fiSavedInfo2.FullName,
                             iFileSystem, iSettings, iLogWriter);
+                    }
                     else
                     {
                         try
@@ -231,6 +263,7 @@ namespace SyncFoldersApi
             {
                 iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.FirstFileHasBadBlocks,
                     strFilePath1, strFilePath2);
+
                 iLogWriter.WriteLog(true, 0, "Warning: First file ", strFilePath1,
                     " has bad blocks, overwriting file ", strFilePath2,
                     " has been skipped, so the it remains as backup");
@@ -242,10 +275,14 @@ namespace SyncFoldersApi
         /// This method processes a file pair in first-to-second folder mode, in case user specified
         /// that first folder is read-only, both files exist and there is no obvious neeed to copy anything
         /// </summary>
-        /// <param name="strFilePath1">first file</param>
-        /// <param name="strFilePath2">second file</param>
-        /// <param name="fi1">The file information about first file</param>
-        /// <param name="fi2">The file information about second file</param>
+        /// <param name="strFilePath1">Path of first file</param>
+        /// <param name="strFilePath2">Path of second file</param>
+        /// <param name="fi1">Information about the first file</param>
+        /// <param name="fi2">Information about the first file</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iStepsImpl">Implementation of the actual file steps</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         //===================================================================================================
         public void ProcessFilePair_FirstToSecond_FirstReadonly_BothExist_NoNeedToCopy(
             string strFilePath1,
@@ -290,16 +327,22 @@ namespace SyncFoldersApi
 
                 bool bForceCreateInfoBecauseDamaged = false;
                 if (iSettings.TestFiles)
+                {
                     if (iSettings.RepairFiles)
+                    {
                         iStepsImpl.TestAndRepairSecondFile(fi1.FullName, fi2.FullName,
                             fiSavedInfo1.FullName, fiSavedInfo2.FullName,
                             ref bForceCreateInfoBecauseDamaged,
                             iFileSystem, iSettings, iLogWriter);
+                    }
                     else
+                    {
                         iStepsImpl.TestSingleFile(fi2.FullName, fiSavedInfo2.FullName,
                             ref bForceCreateInfoBecauseDamaged, true,
                             !iSettings.TestFilesSkipRecentlyTested, true,
                             iFileSystem, iSettings, iLogWriter);
+                    }
+                }
 
 
                 if (iSettings.CreateInfo &&
@@ -347,15 +390,20 @@ namespace SyncFoldersApi
 
                     // test or repair second file, which is different from first
                     if (iSettings.RepairFiles)
+                    {
                         iStepsImpl.TestAndRepairSingleFile(strFilePath2, Utils.CreatePathOfChkFile(
                             fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"),
                             ref bForceCreateInfoBecauseDamaged, false,
                             iFileSystem, iSettings, iLogWriter);
+                    }
                     else
+                    {
                         bOK = iStepsImpl.TestSingleFile(strFilePath2, Utils.CreatePathOfChkFile(
                             fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"),
-                            ref bForceCreateInfoBecauseDamaged, true, !iSettings.TestFilesSkipRecentlyTested, true,
+                            ref bForceCreateInfoBecauseDamaged, true, 
+                            !iSettings.TestFilesSkipRecentlyTested, true,
                             iFileSystem, iSettings, iLogWriter);
+                    }
 
                     if (bOK && iSettings.CreateInfo &&
                         (!fiSavedInfo2.Exists || bForceCreateInfoBecauseDamaged))
@@ -372,10 +420,14 @@ namespace SyncFoldersApi
         /// This method processes a file pair in first-to-second folder mode, in case user specified
         /// that first folder can be written to and only file in second folder exists
         /// </summary>
-        /// <param name="strFilePath1">first file</param>
-        /// <param name="strFilePath2">second file</param>
-        /// <param name="fi1">The file information about first file</param>
-        /// <param name="fi2">The file information about second file</param>
+        /// <param name="strFilePath1">Path of first file</param>
+        /// <param name="strFilePath2">Path of second file</param>
+        /// <param name="fi1">Information about the first file</param>
+        /// <param name="fi2">Information about the first file</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iStepsImpl">Implementation of the actual file steps</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         //===================================================================================================
         public void ProcessFilePair_FirstToSecond_FirstReadWrite_SecondExists(
             string strFilePath1,
@@ -393,11 +445,15 @@ namespace SyncFoldersApi
                 IFileInfo fiSavedInfo2 =
                     iFileSystem.GetFileInfo(Utils.CreatePathOfChkFile(
                         fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
+
                 if (fiSavedInfo2.Exists)
                     iFileSystem.Delete(fiSavedInfo2);
+
                 iFileSystem.Delete(fi2);
+
                 iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.DeletedFileNotPresentIn,
                     fi2.FullName, fi1.Directory.FullName);
+
                 iLogWriter.WriteLog(true, 0, "Deleted file ", fi2.FullName,
                     " that is not present in ", fi1.Directory.FullName, " anymore");
             }
@@ -410,17 +466,22 @@ namespace SyncFoldersApi
                     IFileInfo fiSavedInfo2 =
                         iFileSystem.GetFileInfo(Utils.CreatePathOfChkFile(
                             fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
+
                     bool bForceCreateInfo = false;
                     bool bOK = true;
 
                     if (iSettings.RepairFiles)
+                    {
                         iStepsImpl.TestAndRepairSingleFile(fi2.FullName, fiSavedInfo2.FullName,
                             ref bForceCreateInfo, false,
                             iFileSystem, iSettings, iLogWriter);
+                    }
                     else
+                    {
                         bOK = iStepsImpl.TestSingleFile(fi2.FullName, fiSavedInfo2.FullName,
                             ref bForceCreateInfo, true, !iSettings.TestFilesSkipRecentlyTested, true,
                             iFileSystem, iSettings, iLogWriter);
+                    }
 
                     if (bOK && iSettings.CreateInfo &&
                         (!fiSavedInfo2.Exists || bForceCreateInfo))
@@ -437,10 +498,14 @@ namespace SyncFoldersApi
         /// This method processes a file pair in first-to-second folder mode, in case user specified
         /// that first folder can be written to and only file in first folder exists
         /// </summary>
-        /// <param name="strFilePath1">first file</param>
-        /// <param name="strFilePath2">second file</param>
-        /// <param name="fi1">The file information about first file</param>
-        /// <param name="fi2">The file information about second file</param>
+        /// <param name="strFilePath1">Path of first file</param>
+        /// <param name="strFilePath2">Path of second file</param>
+        /// <param name="fi1">Information about the first file</param>
+        /// <param name="fi2">Information about the first file</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iStepsImpl">Implementation of the actual file steps</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         //===================================================================================================
         public void ProcessFilePair_FirstToSecond_FirstReadWrite_FirstExists(
             string strFilePath1,
@@ -464,10 +529,14 @@ namespace SyncFoldersApi
         /// that first folder can be written to, both files exist and there is no obvious reason for
         /// copying anything
         /// </summary>
-        /// <param name="strFilePath1">first file</param>
-        /// <param name="strFilePath2">second file</param>
-        /// <param name="fi1">The file information about first file</param>
-        /// <param name="fi2">The file information about second file</param>
+        /// <param name="strFilePath1">Path of first file</param>
+        /// <param name="strFilePath2">Path of second file</param>
+        /// <param name="fi1">Information about the first file</param>
+        /// <param name="fi2">Information about the first file</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iStepsImpl">Implementation of the actual file steps</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         //===================================================================================================
         public void ProcessFilePair_FirstToSecond_FirstReadWrite_BothExist_NoNeedToCopy(
             string strFilePath1,
@@ -504,6 +573,7 @@ namespace SyncFoldersApi
                         fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"),
                         ref bForceCreateInfo, true, !iSettings.TestFilesSkipRecentlyTested, true,
                             iFileSystem, iSettings, iLogWriter);
+
                     if (!bOK && iSettings.RepairFiles)
                     {
                         // first try to repair second file internally
@@ -530,15 +600,24 @@ namespace SyncFoldersApi
                         // if it didn't work, then try to repair using first file
                         if (!bOK)
                         {
-                            bOK = iStepsImpl.TestSingleFile(strFilePath1, Utils.CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"), ref bForceCreateInfo, true, true, true,
+                            bOK = iStepsImpl.TestSingleFile(strFilePath1,
+                                Utils.CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name,
+                                    ".chk"), ref bForceCreateInfo, true, true, true,
                                 iFileSystem, iSettings, iLogWriter);
+
                             if (!bOK)
-                                bOK = iStepsImpl.TestAndRepairSingleFile(strFilePath1, Utils.CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"), ref bForceCreateInfo, true,
-                                        iFileSystem, iSettings, iLogWriter);
+                            {
+                                bOK = iStepsImpl.TestAndRepairSingleFile(strFilePath1,
+                                    Utils.CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo",
+                                        fi1.Name, ".chk"), ref bForceCreateInfo, true,
+                                    iFileSystem, iSettings, iLogWriter);
+                            }
 
                             if (bOK && bForceCreateInfo)
                             {
-                                bOK = iStepsImpl.CreateSavedInfo(strFilePath1, Utils.CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"),
+                                bOK = iStepsImpl.CreateSavedInfo(strFilePath1,
+                                    Utils.CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo",
+                                        fi1.Name, ".chk"),
                                     iFileSystem, iSettings, iLogWriter);
                                 bForceCreateInfo = false;
                             }
@@ -546,13 +625,16 @@ namespace SyncFoldersApi
                             if (bOK)
                             {
                                 if (fi1.LastWriteTimeUtc.Year > 1975)
+                                {
                                     iStepsImpl.CopyFileSafely(fi1, strFilePath2,
                                         "(file was healthy, or repaired)",
                                         Properties.Resources.FileHealthyOrRepaired,
                                         iFileSystem, iLogWriter);
+                                }
                                 else
                                 {
-                                    iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.CouldntUseOutdatedFileForRestoringOther,
+                                    iLogWriter.WriteLogFormattedLocalized(0,
+                                        Properties.Resources.CouldntUseOutdatedFileForRestoringOther,
                                         strFilePath1, strFilePath2);
                                     iLogWriter.WriteLog(true, 0, "Warning: couldn't use outdated file ",
                                         strFilePath1, " with year 1975 or earlier for restoring ",
@@ -571,7 +653,9 @@ namespace SyncFoldersApi
 
                         if (!bOK && iSettings.RepairFiles)
                         {
-                            if (iStepsImpl.TestAndRepairSingleFile(strFilePath1, Utils.CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"), ref bForceCreateInfo, true,
+                            if (iStepsImpl.TestAndRepairSingleFile(strFilePath1,
+                                Utils.CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name,
+                                    ".chk"), ref bForceCreateInfo, true,
                                 iFileSystem, iSettings, iLogWriter))
                             {
                                 bOK = true;
@@ -581,22 +665,30 @@ namespace SyncFoldersApi
                             {
                                 iStepsImpl.CreateSavedInfo(strFilePath1, Utils.CreatePathOfChkFile(
                                     fi1.DirectoryName, "RestoreInfo", fi2.Name, ".chk"),
-                                    iFileSystem, iSettings, iLogWriter);
+                                iFileSystem, iSettings, iLogWriter);
                             }
                             bForceCreateInfo = false;
 
                             // if it didn't work, then try to repair using second file
                             if (!bOK)
                             {
-                                bOK = iStepsImpl.TestSingleFile(strFilePath2, Utils.CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"), ref bForceCreateInfo, true, true, true,
+                                bOK = iStepsImpl.TestSingleFile(strFilePath2,
+                                    Utils.CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo",
+                                        fi2.Name, ".chk"), ref bForceCreateInfo, true, true, true,
                                     iFileSystem, iSettings, iLogWriter);
                                 if (!bOK)
-                                    bOK = iStepsImpl.TestAndRepairSingleFile(strFilePath2, Utils.CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"), ref bForceCreateInfo, true,
-                            iFileSystem, iSettings, iLogWriter);
+                                {
+                                    bOK = iStepsImpl.TestAndRepairSingleFile(strFilePath2,
+                                    Utils.CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo",
+                                        fi2.Name, ".chk"), ref bForceCreateInfo, true,
+                                    iFileSystem, iSettings, iLogWriter);
+                                }
 
                                 if (bOK && bForceCreateInfo)
                                 {
-                                    bOK = iStepsImpl.CreateSavedInfo(strFilePath2, Utils.CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"), 
+                                    bOK = iStepsImpl.CreateSavedInfo(strFilePath2,
+                                        Utils.CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo",
+                                            fi2.Name, ".chk"),
                                         iFileSystem, iSettings, iLogWriter);
                                     bForceCreateInfo = false;
                                 }
@@ -611,9 +703,12 @@ namespace SyncFoldersApi
                                     }
                                     else
                                     {
-                                        iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.CouldntUseOutdatedFileForRestoringOther,
+                                        iLogWriter.WriteLogFormattedLocalized(0,
+                                            Properties.Resources.CouldntUseOutdatedFileForRestoringOther,
                                             strFilePath2, strFilePath1);
-                                        iLogWriter.WriteLog(true, 0, "Warning: couldn't use outdated file ", strFilePath2,
+
+                                        iLogWriter.WriteLog(true, 0, 
+                                            "Warning: couldn't use outdated file ", strFilePath2,
                                             " with year 1975 or earlier for restoring ",
                                             strFilePath1, ", signaling this was a last chance restore");
                                     }
@@ -631,10 +726,14 @@ namespace SyncFoldersApi
         /// This method processes a file pair in bidirectional folder mode (default), in case only first of
         /// the two files exists
         /// </summary>
-        /// <param name="strFilePath1">first file</param>
-        /// <param name="strFilePath2">second file</param>
-        /// <param name="fi1">The file information about first file</param>
-        /// <param name="fi2">The file information about second file</param>
+        /// <param name="strFilePath1">Path of first file</param>
+        /// <param name="strFilePath2">Path of second file</param>
+        /// <param name="fi1">Information about the first file</param>
+        /// <param name="fi2">Information about the first file</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iStepsImpl">Implementation of the actual file steps</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         //===================================================================================================
         public void ProcessFilePair_Bidirectionally_FirstExists(
             string strFilePath1,
@@ -677,16 +776,19 @@ namespace SyncFoldersApi
                             ref bForceCreateInfo2, "(file was new)",
                             Properties.Resources.FileWasNew, false, false,
                             iFileSystem, iSettings, iLogWriter);
+
                         iStepsImpl.CreateSavedInfo(strFilePath2,
                             Utils.CreatePathOfChkFile(fi2.DirectoryName,
                             "RestoreInfo", fi2.Name, ".chk"),
                             iFileSystem, iSettings, iLogWriter);
+
                         return;
                     }
 
                     fiSavedInfo1 = iFileSystem.GetFileInfo(
                         Utils.CreatePathOfChkFile(fi1.DirectoryName,
                         "RestoreInfo", fi1.Name, ".chk"));
+
                     bForceCreateInfo = false;
                 }
                 else
@@ -694,30 +796,45 @@ namespace SyncFoldersApi
                     try
                     {
                         if (iSettings.TestFiles)
+                        {
                             iStepsImpl.CopyRepairSingleFile(strFilePath2, fi1.FullName,
                                 fiSavedInfo1.FullName, ref bForceCreateInfo, ref bForceCreateInfo2,
-                                "(file was new)", Properties.Resources.FileWasNew, true, iSettings.RepairFiles,
+                                "(file was new)", Properties.Resources.FileWasNew, 
+                                true, iSettings.RepairFiles,
                                 iFileSystem, iSettings, iLogWriter);
+                        }
                         else
-                            iStepsImpl.CopyFileSafely(fi1, strFilePath2, "(file was new)", Properties.Resources.FileWasNew,
+                        {
+                            iStepsImpl.CopyFileSafely(fi1, strFilePath2, "(file was new)",
+                                Properties.Resources.FileWasNew,
                                 iFileSystem, iLogWriter);
+                        }
                     }
                     catch (Exception)
                     {
-                        iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.EncounteredErrorWhileCopyingTryingToRepair,
+                        iLogWriter.WriteLogFormattedLocalized(0,
+                            Properties.Resources.EncounteredErrorWhileCopyingTryingToRepair,
                             fi1.FullName);
+
                         iLogWriter.WriteLog(true, 0, "Warning: Encountered error while copying ",
                             fi1.FullName, ", trying to automatically repair");
+
                         if (iSettings.TestFiles && iSettings.RepairFiles)
+                        {
                             iStepsImpl.TestAndRepairSingleFile(fi1.FullName,
                                 fiSavedInfo1.FullName, ref bForceCreateInfo, false,
                                 iFileSystem, iSettings, iLogWriter);
+                        }
+
                         if (bInTheEndOK)
+                        {
                             bInTheEndOK = iStepsImpl.CopyRepairSingleFile(strFilePath2,
                                 fi1.FullName, fiSavedInfo1.FullName,
                                 ref bForceCreateInfo, ref bForceCreateInfo2,
-                                "(file was new)", Properties.Resources.FileWasNew, false, iSettings.TestFiles && iSettings.RepairFiles,
+                                "(file was new)", Properties.Resources.FileWasNew, false,
+                                iSettings.TestFiles && iSettings.RepairFiles,
                                 iFileSystem, iSettings, iLogWriter);
+                        }
                     }
                 }
 
@@ -733,6 +850,7 @@ namespace SyncFoldersApi
                                 Utils.CreatePathOfChkFile(fi1.DirectoryName,
                                 "RestoreInfo", fi1.Name, ".chk"),
                                  iFileSystem, iSettings, iLogWriter);
+
                             fiSavedInfo1 = iFileSystem.GetFileInfo(
                                 Utils.CreatePathOfChkFile(fi1.DirectoryName,
                                 "RestoreInfo", fi1.Name, ".chk"));
@@ -782,10 +900,14 @@ namespace SyncFoldersApi
         /// This method processes a file pair in bidirectional folder mode (default), in case only second of
         /// the two files exists
         /// </summary>
-        /// <param name="strFilePath1">first file</param>
-        /// <param name="strFilePath2">second file</param>
-        /// <param name="fi1">The file information about first file</param>
-        /// <param name="fi2">The file information about second file</param>
+        /// <param name="strFilePath1">Path of first file</param>
+        /// <param name="strFilePath2">Path of second file</param>
+        /// <param name="fi1">Information about the first file</param>
+        /// <param name="fi2">Information about the first file</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iStepsImpl">Implementation of the actual file steps</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         //===================================================================================================
         public void ProcessFilePair_Bidirectionally_SecondExists(
             string strFilePath1,
@@ -810,10 +932,16 @@ namespace SyncFoldersApi
         /// This method processes a file pair in bidirectional folder mode (default), in case both files
         /// exist and first file has a more recent date
         /// </summary>
-        /// <param name="strFilePath1">first file</param>
-        /// <param name="strFilePath2">second file</param>
-        /// <param name="fi1">The file information about first file</param>
-        /// <param name="fi2">The file information about second file</param>
+        /// <param name="strFilePath1">Path of first file</param>
+        /// <param name="strFilePath2">Path of second file</param>
+        /// <param name="fi1">Information about the first file</param>
+        /// <param name="fi2">Information about the first file</param>
+        /// <param name="strReasonEn">The reason, in english language (hardcoded)</param>
+        /// <param name="strReasonTranslated">The reason, localized in user language</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iStepsImpl">Implementation of the actual file steps</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         //===================================================================================================
         public void ProcessFilePair_Bidirectionally_BothExist_FirstNewer(
             string strFilePath1,
@@ -869,13 +997,20 @@ namespace SyncFoldersApi
                     try
                     {
                         if (iSettings.TestFiles)
-                            iStepsImpl.CopyRepairSingleFile(strFilePath2, fi1.FullName, fiSavedInfo1.FullName,
+                        {
+                            iStepsImpl.CopyRepairSingleFile(
+                                strFilePath2, fi1.FullName, fiSavedInfo1.FullName,
                                 ref bForceCreateInfo1, ref bForceCreateInfo2,
-                                "(file was new)", Properties.Resources.FileWasNew, true, iSettings.RepairFiles,
+                                "(file was new)", Properties.Resources.FileWasNew,
+                                true, iSettings.RepairFiles,
                                 iFileSystem, iSettings, iLogWriter);
+                        }
                         else
-                            iStepsImpl.CopyFileSafely(fi1, strFilePath2, strReasonEn, strReasonTranslated,
+                        {
+                            iStepsImpl.CopyFileSafely(fi1, strFilePath2,
+                                strReasonEn, strReasonTranslated,
                                 iFileSystem, iLogWriter);
+                        }
                     }
                     catch (Exception)
                     {
@@ -887,38 +1022,50 @@ namespace SyncFoldersApi
                 {
                     if (!iSettings.TestFiles || !iSettings.RepairFiles)
                     {
-                        iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.RunningWithoutRepairOptionUndecided,
+                        iLogWriter.WriteLogFormattedLocalized(0,
+                            Properties.Resources.RunningWithoutRepairOptionUndecided,
                             fi1.FullName, fi2.FullName);
+
                         iLogWriter.WriteLog(true, 0, "Running without repair option, "
                         + "so couldn't decide, if the file ",
                         fi1.FullName, " can be restored using ", fi2.FullName);
+
                         // first failed,  still need to test the second
                         if (iSettings.TestFiles)
                         {
-                            iStepsImpl.TestSingleFileHealthyOrCanRepair(strFilePath2, fiSavedInfo2.FullName, ref bForceCreateInfo2,
+                            iStepsImpl.TestSingleFileHealthyOrCanRepair(strFilePath2,
+                                fiSavedInfo2.FullName, ref bForceCreateInfo2,
                                 iFileSystem, iSettings, iLogWriter);
                         }
                         return;
                     }
 
                     // first try to copy the first/needed file, if it can be restored
-                    if (iStepsImpl.TestSingleFileHealthyOrCanRepair(strFilePath1, fiSavedInfo1.FullName, ref bForceCreateInfo1,
+                    if (iStepsImpl.TestSingleFileHealthyOrCanRepair(strFilePath1,
+                            fiSavedInfo1.FullName, ref bForceCreateInfo1,
                             iFileSystem, iSettings, iLogWriter) &&
-                        iStepsImpl.TestAndRepairSingleFile(strFilePath1, fiSavedInfo1.FullName, ref bForceCreateInfo1, true,
+                        iStepsImpl.TestAndRepairSingleFile(
+                            strFilePath1, fiSavedInfo1.FullName, 
+                            ref bForceCreateInfo1, true,
                             iFileSystem, iSettings, iLogWriter))
                     {
                         if (bForceCreateInfo1)
                         {
                             bCopied1To2 = iStepsImpl.CreateSavedInfoAndCopy(
-                                fi1.FullName, fiSavedInfo1.FullName, fi2.FullName, strReasonEn, strReasonTranslated,
+                                fi1.FullName, fiSavedInfo1.FullName, fi2.FullName,
+                                strReasonEn, strReasonTranslated,
                                 iFileSystem, iSettings, iLogWriter);
+
                             fiSavedInfo1 = iFileSystem.GetFileInfo(
-                                Utils.CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
+                                Utils.CreatePathOfChkFile(fi1.DirectoryName, 
+                                    "RestoreInfo", fi1.Name, ".chk"));
+
                             bForceCreateInfo1 = false;
                         }
                         else
                         {
-                            iStepsImpl.CopyFileSafely(fi1, strFilePath2, strReasonEn, strReasonTranslated,
+                            iStepsImpl.CopyFileSafely(fi1, strFilePath2, 
+                                strReasonEn, strReasonTranslated,
                                 iFileSystem, iLogWriter);
                             bCopied1To2 = true;
                         }
@@ -926,33 +1073,51 @@ namespace SyncFoldersApi
 
                     if (!bCopied1To2)
                     {
-                        // well, then try the second, older file. Let's see if it is OK, or can be restored in place
-                        if (iStepsImpl.TestAndRepairSingleFile(strFilePath2, fiSavedInfo2.FullName, ref bForceCreateInfo2, true,
+                        // well, then try the second, older file. Let's see if it is OK,
+                        // or can be restored in place
+                        if (iStepsImpl.TestAndRepairSingleFile(
+                            strFilePath2, fiSavedInfo2.FullName,
+                            ref bForceCreateInfo2, true,
                             iFileSystem, iSettings, iLogWriter)
                              && fi2.LastWriteTimeUtc.Year > 1975)
                         {
-                            iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.EncounteredErrorOlderOk,
+                            iLogWriter.WriteLogFormattedLocalized(0, 
+                                Properties.Resources.EncounteredErrorOlderOk,
                                 fi1.FullName, strFilePath2);
-                            iLogWriter.WriteLog(true, 0, "Warning: Encountered I/O error while copying ",
-                                fi1.FullName, ". The older file ", strFilePath2, " seems to be OK");
+
+                            iLogWriter.WriteLog(true, 0, 
+                                "Warning: Encountered I/O error while copying ",
+                                fi1.FullName, ". The older file ", strFilePath2, 
+                                " seems to be OK");
+
                             bCopied1To2 = false;
                             bCopy2To1 = true;
                         }
                         else
                         {
-                            iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.EncounteredErrorOtherBadToo,
+                            iLogWriter.WriteLogFormattedLocalized(0, 
+                                Properties.Resources.EncounteredErrorOtherBadToo,
                                 fi1.FullName, strFilePath2);
-                            iLogWriter.WriteLog(true, 0, "Warning: Encountered I/O error while copying ", fi1.FullName,
+
+                            iLogWriter.WriteLog(true, 0, 
+                                "Warning: Encountered I/O error while copying ", fi1.FullName,
                                 ". Other file has errors as well: ", strFilePath2,
                                 ", or is a product of last chance restore, trying to automatically repair ",
                                 strFilePath1);
-                            iStepsImpl.TestAndRepairSingleFile(fi1.FullName, fiSavedInfo1.FullName, ref bForceCreateInfo1, false,
+
+                            iStepsImpl.TestAndRepairSingleFile(
+                                fi1.FullName, fiSavedInfo1.FullName,
+                                ref bForceCreateInfo1, false,
                                 iFileSystem, iSettings, iLogWriter);
+
                             bForceCreateInfo2 = false;
 
-                            iStepsImpl.CopyRepairSingleFile(strFilePath2, fi1.FullName, fiSavedInfo1.FullName,
-                                ref bForceCreateInfo1, ref bForceCreateInfo2, strReasonEn, strReasonTranslated, false, true,
+                            iStepsImpl.CopyRepairSingleFile(
+                                strFilePath2, fi1.FullName, fiSavedInfo1.FullName,
+                                ref bForceCreateInfo1, ref bForceCreateInfo2, strReasonEn,
+                                strReasonTranslated, false, true,
                                 iFileSystem, iSettings, iLogWriter);
+
                             bCopied1To2 = true;
                         }
                     }
@@ -968,6 +1133,7 @@ namespace SyncFoldersApi
                         iStepsImpl.CreateSavedInfo(strFilePath1,
                             Utils.CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"),
                             iFileSystem, iSettings, iLogWriter);
+
                         fiSavedInfo1 = iFileSystem.GetFileInfo(
                             Utils.CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
                     }
@@ -977,8 +1143,9 @@ namespace SyncFoldersApi
                         if (bForceCreateInfo2)
                         {
                             if (iSettings.CreateInfo || fiSavedInfo2.Exists)
-                                iStepsImpl.CreateSavedInfo(strFilePath2, Utils.CreatePathOfChkFile(
-                                    fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"),
+                                iStepsImpl.CreateSavedInfo(strFilePath2, 
+                                    Utils.CreatePathOfChkFile(
+                                        fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"),
                                     iFileSystem, iSettings, iLogWriter);
                         }
                         else
@@ -995,16 +1162,21 @@ namespace SyncFoldersApi
 
                 if (!iSettings.TestFiles || !iSettings.RepairFiles)
                 {
-                    iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.RunningWithoutRepairOptionUndecided,
+                    iLogWriter.WriteLogFormattedLocalized(0,
+                        Properties.Resources.RunningWithoutRepairOptionUndecided,
                         fi1.FullName, fi2.FullName);
-                    iLogWriter.WriteLog(true, 0, "Running without repair option, so couldn't decide, " +
-                    "if the file ", fi1.FullName, " can be restored using ", fi2.FullName);
+                    iLogWriter.WriteLog(true, 0, 
+                        "Running without repair option, so couldn't decide, " +
+                        "if the file ", fi1.FullName, 
+                        " can be restored using ", fi2.FullName);
                     return;
                 }
 
-                // there we try to restore the older file 2, since it seems to be OK, while newer file 1 failed.
+                // there we try to restore the older file 2, since it seems to be OK,
+                // while newer file 1 failed.
                 fiSavedInfo2 = iFileSystem.GetFileInfo(
                     Utils.CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
+
                 bForceCreateInfo2 = false;
 
                 if (iSettings.CreateInfo &&
@@ -1016,18 +1188,22 @@ namespace SyncFoldersApi
                         fi2.FullName, fiSavedInfo2.FullName, strFilePath1,
                         "(file was healthy)", Properties.Resources.FileWasHealthy,
                         iFileSystem, iSettings, iLogWriter);
+
                     fiSavedInfo2 = iFileSystem.GetFileInfo(
-                        Utils.CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
+                        Utils.CreatePathOfChkFile(fi2.DirectoryName, 
+                            "RestoreInfo", fi2.Name, ".chk"));
 
                     if (bCopied2To1)
                         bForceCreateInfo2 = false;
                     else
                     {
                         // should actually never happen, since we go there only if file 2 could be restored above
-                        iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.InternalErrorCouldntRestoreAny,
+                        iLogWriter.WriteLogFormattedLocalized(0, 
+                            Properties.Resources.InternalErrorCouldntRestoreAny,
                             fi1.FullName, fi2.FullName);
                         iLogWriter.WriteLog(true, 0, "Internal error: Couldn't " +
-                            "restore any of the copies of the file ", fi1.FullName, ", ", fi2.FullName);
+                            "restore any of the copies of the file ", 
+                            fi1.FullName, ", ", fi2.FullName);
                         return;
                     }
                 }
@@ -1035,19 +1211,24 @@ namespace SyncFoldersApi
                 {
                     try
                     {
-                        iStepsImpl.CopyRepairSingleFile(strFilePath1, strFilePath2, fiSavedInfo2.FullName,
+                        iStepsImpl.CopyRepairSingleFile(
+                            strFilePath1, strFilePath2, fiSavedInfo2.FullName,
                             ref bForceCreateInfo2, ref bForceCreateInfo1,
-                            "(file was healthy or repaired)", Properties.Resources.FileHealthyOrRepaired, true, true,
+                            "(file was healthy or repaired)", 
+                            Properties.Resources.FileHealthyOrRepaired, true, true,
                             iFileSystem, iSettings, iLogWriter);
                     }
                     catch (Exception)
                     {
-                        // should actually never happen, since we go there only if file 2 could be restored above
-                        iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.InternalErrorCouldntRestoreAny,
+                        // should actually never happen, since we go there only
+                        // if file 2 could be restored above
+                        iLogWriter.WriteLogFormattedLocalized(0, 
+                            Properties.Resources.InternalErrorCouldntRestoreAny,
                             fi1.FullName, fi2.FullName);
 
                         iLogWriter.WriteLog(true, 0, "Internal error: Couldn't " +
-                        "restore any of the copies of the file ", fi1.FullName, ", ", fi2.FullName);
+                        "restore any of the copies of the file ", 
+                        fi1.FullName, ", ", fi2.FullName);
                         return;
                     }
                 }
@@ -1060,6 +1241,7 @@ namespace SyncFoldersApi
                     iStepsImpl.CreateSavedInfo(strFilePath2,
                         Utils.CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"),
                         iFileSystem, iSettings, iLogWriter);
+
                     fiSavedInfo2 = iFileSystem.GetFileInfo(
                         Utils.CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
                 }
@@ -1089,10 +1271,14 @@ namespace SyncFoldersApi
         /// This method processes a file pair in bidirectional folder mode (default), in case both files
         /// exist and second file has a more recent date
         /// </summary>
-        /// <param name="strFilePath1">first file</param>
-        /// <param name="strFilePath2">second file</param>
-        /// <param name="fi1">The file information about first file</param>
-        /// <param name="fi2">The file information about second file</param>
+        /// <param name="strFilePath1">Path of first file</param>
+        /// <param name="strFilePath2">Path of second file</param>
+        /// <param name="fi1">Information about the first file</param>
+        /// <param name="fi2">Information about the first file</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iStepsImpl">Implementation of the actual file steps</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         //===================================================================================================
         public void ProcessFilePair_Bidirectionally_BothExist_SecondNewer(
             string strFilePath1,
@@ -1116,10 +1302,14 @@ namespace SyncFoldersApi
         /// This method processes a file pair in bidirectional folder mode (default), in case both files
         /// exist and seem to have same last-write-time and length
         /// </summary>
-        /// <param name="strFilePath1">first file</param>
-        /// <param name="strFilePath2">second file</param>
-        /// <param name="fi1">The file information about first file</param>
-        /// <param name="fi2">The file information about second file</param>
+        /// <param name="strFilePath1">Path of first file</param>
+        /// <param name="strFilePath2">Path of second file</param>
+        /// <param name="fi1">Information about the first file</param>
+        /// <param name="fi2">Information about the first file</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iStepsImpl">Implementation of the actual file steps</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         //===================================================================================================
         public void ProcessFilePair_Bidirectionally_BothExist_AssumingBothEqual(
             string strFilePath1,
@@ -1196,21 +1386,43 @@ namespace SyncFoldersApi
                     bool bTotalResultOk = true;
                     if (bFirstOrSecond)
                     {
-                        bTotalResultOk = iStepsImpl.TestSingleFile2(fi1.FullName, fiSavedInfo1.FullName, ref bCreateInfo1, true, !iSettings.TestFilesSkipRecentlyTested, true, true, false,
+                        bTotalResultOk = iStepsImpl.TestSingleFile2(fi1.FullName,
+                            fiSavedInfo1.FullName, ref bCreateInfo1, true,
+                            !iSettings.TestFilesSkipRecentlyTested, true, true, false,
                             iFileSystem, iSettings, iLogWriter);
-                        if (!string.Equals(fi1.FullName, fi2.FullName, StringComparison.CurrentCultureIgnoreCase))
-                            bTotalResultOk = bTotalResultOk && iStepsImpl.TestSingleFile2(fi2.FullName, fiSavedInfo2.FullName, ref bCreateInfo2, true, !iSettings.TestFilesSkipRecentlyTested, true, true, false,
+
+                        if (!string.Equals(fi1.FullName, fi2.FullName,
+                            StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            bTotalResultOk = bTotalResultOk &&
+                            iStepsImpl.TestSingleFile2(
+                                fi2.FullName, fiSavedInfo2.FullName,
+                                ref bCreateInfo2, true,
+                                !iSettings.TestFilesSkipRecentlyTested,
+                                true, true, false,
                                 iFileSystem, iSettings, iLogWriter);
+                        }
                         else
                             bCreateInfo2 = false;
                     }
                     else
                     {
-                        bTotalResultOk = iStepsImpl.TestSingleFile2(fi2.FullName, fiSavedInfo2.FullName, ref bCreateInfo2, true, !iSettings.TestFilesSkipRecentlyTested, true, true, false,
+                        bTotalResultOk = iStepsImpl.TestSingleFile2(fi2.FullName,
+                            fiSavedInfo2.FullName, ref bCreateInfo2, true,
+                            !iSettings.TestFilesSkipRecentlyTested, true, true, false,
                             iFileSystem, iSettings, iLogWriter);
-                        if (!string.Equals(fi1.FullName, fi2.FullName, StringComparison.CurrentCultureIgnoreCase))
-                            bTotalResultOk = bTotalResultOk && iStepsImpl.TestSingleFile2(fi1.FullName, fiSavedInfo1.FullName, ref bCreateInfo1, true, !iSettings.TestFilesSkipRecentlyTested, true, true, false,
+
+                        if (!string.Equals(fi1.FullName, fi2.FullName,
+                            StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            bTotalResultOk = bTotalResultOk &&
+                            iStepsImpl.TestSingleFile2(
+                                fi1.FullName, fiSavedInfo1.FullName, 
+                                ref bCreateInfo1, true, 
+                                !iSettings.TestFilesSkipRecentlyTested, 
+                                true, true, false,
                                 iFileSystem, iSettings, iLogWriter);
+                        }
                         else
                         {
                             bCreateInfo1 = bCreateInfo2;
@@ -1220,7 +1432,8 @@ namespace SyncFoldersApi
 
                     if (!bTotalResultOk)
                     {
-                        iStepsImpl.TestAndRepairTwoFiles(fi1.FullName, fi2.FullName, fiSavedInfo1.FullName, fiSavedInfo2.FullName, ref bCreateInfo,
+                        iStepsImpl.TestAndRepairTwoFiles(fi1.FullName, fi2.FullName,
+                            fiSavedInfo1.FullName, fiSavedInfo2.FullName, ref bCreateInfo,
                             iFileSystem, iSettings, iLogWriter);
                         bCreateInfo1 = bCreateInfo;
                         bCreateInfo2 = bCreateInfo;
@@ -1230,21 +1443,43 @@ namespace SyncFoldersApi
                 {
                     if (bFirstOrSecond)
                     {
-                        iStepsImpl.TestSingleFile2(fi1.FullName, fiSavedInfo1.FullName, ref bCreateInfo1, true, !iSettings.TestFilesSkipRecentlyTested, true, false, false,
+                        iStepsImpl.TestSingleFile2(
+                            fi1.FullName, fiSavedInfo1.FullName, 
+                            ref bCreateInfo1, true, 
+                            !iSettings.TestFilesSkipRecentlyTested, 
+                            true, false, false,
                             iFileSystem, iSettings, iLogWriter);
+
                         if (!string.Equals(fi1.FullName, fi2.FullName, StringComparison.CurrentCultureIgnoreCase))
-                            iStepsImpl.TestSingleFile2(fi2.FullName, fiSavedInfo2.FullName, ref bCreateInfo2, true, !iSettings.TestFilesSkipRecentlyTested, true, false, false,
+                        {
+                            iStepsImpl.TestSingleFile2(
+                                fi2.FullName, fiSavedInfo2.FullName, 
+                                ref bCreateInfo2, true, 
+                                !iSettings.TestFilesSkipRecentlyTested, 
+                                true, false, false,
                                 iFileSystem, iSettings, iLogWriter);
+                        }
                         else
                             bCreateInfo2 = false;
                     }
                     else
                     {
-                        iStepsImpl.TestSingleFile2(fi2.FullName, fiSavedInfo2.FullName, ref bCreateInfo2, true, !iSettings.TestFilesSkipRecentlyTested, true, false, false,
+                        iStepsImpl.TestSingleFile2(
+                            fi2.FullName, fiSavedInfo2.FullName, 
+                            ref bCreateInfo2, true, 
+                            !iSettings.TestFilesSkipRecentlyTested, 
+                            true, false, false,
                             iFileSystem, iSettings, iLogWriter);
+
                         if (!string.Equals(fi1.FullName, fi2.FullName, StringComparison.CurrentCultureIgnoreCase))
-                            iStepsImpl.TestSingleFile2(fi1.FullName, fiSavedInfo1.FullName, ref bCreateInfo1, true, !iSettings.TestFilesSkipRecentlyTested, true, false, false,
+                        {
+                            iStepsImpl.TestSingleFile2(
+                                fi1.FullName, fiSavedInfo1.FullName,
+                                ref bCreateInfo1, true, 
+                                !iSettings.TestFilesSkipRecentlyTested, 
+                                true, false, false,
                                 iFileSystem, iSettings, iLogWriter);
+                        }
                         else
                             bCreateInfo1 = false;
                     }
@@ -1256,15 +1491,19 @@ namespace SyncFoldersApi
                 }
             }
 
-            if (iSettings.CreateInfo && (!fiSavedInfo1.Exists || fiSavedInfo1.LastWriteTimeUtc != fi1.LastWriteTimeUtc || bCreateInfo1))
+            if (iSettings.CreateInfo && (!fiSavedInfo1.Exists || fiSavedInfo1.LastWriteTimeUtc !=
+                                        fi1.LastWriteTimeUtc || bCreateInfo1))
             {
                 iStepsImpl.CreateSavedInfo(fi1.FullName, fiSavedInfo1.FullName,
                             iFileSystem, iSettings, iLogWriter);
                 if (fiSavedInfo1.FullName.Equals(fiSavedInfo2.FullName, StringComparison.InvariantCultureIgnoreCase))
-                    fiSavedInfo2 = iFileSystem.GetFileInfo(Utils.CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
+                    fiSavedInfo2 = iFileSystem.GetFileInfo(
+                        Utils.CreatePathOfChkFile(fi2.DirectoryName,
+                            "RestoreInfo", fi2.Name, ".chk"));
             }
 
-            if (iSettings.CreateInfo && (!fiSavedInfo2.Exists || fiSavedInfo2.LastWriteTimeUtc != fi2.LastWriteTimeUtc || bCreateInfo2))
+            if (iSettings.CreateInfo && (!fiSavedInfo2.Exists || fiSavedInfo2.LastWriteTimeUtc !=
+            fi2.LastWriteTimeUtc || bCreateInfo2))
             {
                 iStepsImpl.CreateSavedInfo(fi2.FullName, fiSavedInfo2.FullName,
                     iFileSystem, iSettings, iLogWriter);

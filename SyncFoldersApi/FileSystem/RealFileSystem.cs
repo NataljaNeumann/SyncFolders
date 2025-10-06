@@ -42,10 +42,10 @@ namespace SyncFoldersApi
         /// <returns>File access object</returns>
         //===================================================================================================
         public IFile OpenRead(
-            string strPathstrPath
+            string strPath
             )
         {
-            var oStream = File.OpenRead(strPathstrPath);
+            var oStream = File.OpenRead(strPath);
             return new RealFile(oStream);
         }
 
@@ -210,6 +210,7 @@ namespace SyncFoldersApi
         /// Creates buffered stream object, if in real file, or does nothing for in-memory file
         /// </summary>
         /// <param name="iFile">IFile object</param>
+        /// <param name="nBufferLength">Specifies the length of buffer</param>
         /// <returns>IFile object</returns>
         //===================================================================================================
         public IFile CreateBufferedStream(

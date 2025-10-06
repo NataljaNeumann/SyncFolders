@@ -15,15 +15,16 @@ namespace SyncFoldersApi
     {
         //===================================================================================================
         /// <summary>
-        /// Decides the step to execute
+        /// Decides which step to execute for a given pair of files and performs it
+        /// using the provided IStepsImpl implementation.
         /// </summary>
-        /// <param name="strFilePath1">Path to first file</param>
-        /// <param name="strFilePath2">Path to second file</param>
-        /// <param name="iFileSystem">File system for performing operations</param>
-        /// <param name="iSettings">Settings for operations</param>
-        /// <param name="iLogic">Implementation of logic</param>
-        /// <param name="iStepsImpl">Implementation of steps</param>
-        /// <param name="iLogWriter">Log writer</param>
+        /// <param name="strFilePath1">Path to the first file</param>
+        /// <param name="strFilePath2">Path to the second file</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iLogic">Logic implementation determining actions</param>
+        /// <param name="iStepsImpl">Implementation of the actual file steps</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         //===================================================================================================
         public void ProcessFilePair(
             string strFilePath1,

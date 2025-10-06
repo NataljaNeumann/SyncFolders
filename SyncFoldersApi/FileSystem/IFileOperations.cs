@@ -169,6 +169,7 @@ namespace SyncFoldersApi
         /// Creates buffered stream object, if in real file, or does nothing for in-memory file
         /// </summary>
         /// <param name="iFile">IFile object</param>
+        /// <param name="nBufferLength">Specifies the length of buffer to allocate</param>
         /// <returns>IFile object</returns>
         //===================================================================================================
         IFile CreateBufferedStream(

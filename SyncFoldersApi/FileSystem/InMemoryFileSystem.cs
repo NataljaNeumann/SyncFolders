@@ -761,6 +761,8 @@ namespace SyncFoldersApi
         /// <param name="aErasedBlockPositions">Positions of erased blocks</param>
         /// <param name="aReadErrorsFile">The simulated read errors for the main file</param>
         /// <param name="aReadErrorsSavedInfo">The simlated read errors for the saved info</param>
+        /// <param name="bCreateRestoreInfoDir">Specifies, if RestoreInfo dir shall be forcibly
+        /// created</param>
         //===================================================================================================
         public void CreateTestFile(
             string strPath, 

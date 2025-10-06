@@ -117,8 +117,11 @@ namespace SyncFoldersApi
         }
 
 
-
-        // Finalizer: Returns the byte array to the pool when the object is garbage collected
+        //===================================================================================================
+        /// <summary>
+        /// Finalizer: Returns the byte array to the pool when the object is garbage collected
+        /// </summary>
+        //===================================================================================================
         ~Block()
         {
             if (m_aData != null)
@@ -269,7 +272,7 @@ namespace SyncFoldersApi
         /// Reads first part of a block from given stream
         /// </summary>
         /// <param name="s">Stream to read from</param>
-        /// <<param name="nCount">Number of bytes to read</param>
+        /// <param name="nCount">Number of bytes to read</param>
         /// <returns>The number of bytes read</returns>
         //===================================================================================================
         public int ReadFirstPartFrom(System.IO.Stream s, int nCount)
@@ -283,7 +286,7 @@ namespace SyncFoldersApi
         /// Reads first part of a block from given stream
         /// </summary>
         /// <param name="s">Stream to read from</param>
-        /// <<param name="nCount">Number of bytes to read</param>
+        /// <param name="nCount">Number of bytes to read</param>
         /// <returns>The number of bytes read</returns>
         //===================================================================================================
         public int ReadLastPartFrom(System.IO.Stream s, int nCount)
@@ -310,7 +313,7 @@ namespace SyncFoldersApi
         /// Reads first part of a block from given stream
         /// </summary>
         /// <param name="s">Stream to read from</param>
-        /// <<param name="nCount">Number of bytes to read</param>
+        /// <param name="nCount">Number of bytes to read</param>
         /// <returns>The number of bytes read</returns>
         //===================================================================================================
         public int ReadFirstPartFrom(IFile s, int nCount)
@@ -324,7 +327,7 @@ namespace SyncFoldersApi
         /// Reads first part of a block from given stream
         /// </summary>
         /// <param name="s">Stream to read from</param>
-        /// <<param name="nCount">Number of bytes to read</param>
+        /// <param name="nCount">Number of bytes to read</param>
         /// <returns>The number of bytes read</returns>
         //===================================================================================================
         public int ReadLastPartFrom(IFile s, int nCount)
