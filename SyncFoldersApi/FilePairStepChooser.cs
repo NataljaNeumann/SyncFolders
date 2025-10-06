@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Resources;
@@ -10,22 +10,24 @@ namespace SyncFoldersApi
 {
     //*******************************************************************************************************
     /// <summary>
-    /// This class provides means for choosing steps regarding a pair of files
+    /// This class provides methods for choosing and executing the appropriate
+    /// synchronization steps for a pair of files.
     /// </summary>
     //*******************************************************************************************************
-    public class FilePairStepChooser: IFilePairStepChooser
+    public class FilePairStepChooser : IFilePairStepChooser
     {
         //===================================================================================================
         /// <summary>
-        /// Decides the step to execute and executes it on IStepsImpl
+        /// Decides which step to execute for a given pair of files and performs it
+        /// using the provided IStepsImpl implementation.
         /// </summary>
-        /// <param name="strFilePath1">Path to first file</param>
-        /// <param name="strFilePath2">Path to second file</param>
-        /// <param name="iFileSystem">File system for performing operations</param>
-        /// <param name="iSettings">Settings for operations</param>
-        /// <param name="iLogic">Implementation of steps logic</param>
-        /// <param name="iStepsImpl">Implementation of steps</param>
-        /// <param name="iLogWriter">Log writer</param>
+        /// <param name="strFilePath1">Path to the first file</param>
+        /// <param name="strFilePath2">Path to the second file</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iLogic">Logic implementation determining actions</param>
+        /// <param name="iStepsImpl">Implementation of the actual file steps</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
         //===================================================================================================
         public void ProcessFilePair(
             string strFilePath1,
@@ -36,7 +38,7 @@ namespace SyncFoldersApi
             IFilePairSteps iStepsImpl,
             ILogWriter iLogWriter)
         {
-
+            // Retrieve file info objects for both files
             IFileInfo fi1 = iFileSystem.GetFileInfo(strFilePath1);
             IFileInfo fi2 = iFileSystem.GetFileInfo(strFilePath2);
 
@@ -78,25 +80,44 @@ namespace SyncFoldersApi
                 fi2.Name.Equals("SyncFolders-Don't-Delete.txt",
                     StringComparison.InvariantCultureIgnoreCase))
             {
-                iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.SkippingFilePairDontDelete,
-                    fi1.FullName, fi2.FullName);
-                iLogWriter.WriteLog(true, 0, "Skipping file pair ", fi1.FullName,
-                    ", ", fi2.FullName,
-                    ". Special file prevents usage of delete option at wrong root folder.");
+                iLogWriter.WriteLogFormattedLocalized(
+                    0,
+                    Properties.Resources.SkippingFilePairDontDelete,
+                    fi1.FullName,
+                    fi2.FullName
+                );
+
+                iLogWriter.WriteLog(
+                    true, 0, "Skipping file pair ",
+                    fi1.FullName, ", ", fi2.FullName,
+                    ". Special file prevents usage of delete option at wrong root folder."
+                );
+
                 return;
             }
 
+            // Determine which synchronization mode to use
             if (iSettings.FirstToSecond)
-                ProcessFilePair_FirstToSecond(strFilePath1, strFilePath2, fi1, fi2, 
-                    iFileSystem, iSettings, iLogic, iStepsImpl, iLogWriter);
+            {
+                ProcessFilePair_FirstToSecond(
+                    strFilePath1, strFilePath2,
+                    fi1, fi2,
+                    iFileSystem, iSettings, iLogic, iStepsImpl, iLogWriter
+                );
+            }
             else
-                ProcessFilePair_Bidirectionally(strFilePath1, strFilePath2, fi1, fi2
-                    , iFileSystem, iSettings, iLogic, iStepsImpl, iLogWriter);
+            {
+                ProcessFilePair_Bidirectionally(
+                    strFilePath1, strFilePath2,
+                    fi1, fi2,
+                    iFileSystem, iSettings, iLogic, iStepsImpl, iLogWriter
+                );
+            }
         }
 
         //===================================================================================================
         /// <summary>
-        /// This method processes a file pair in first-to-second folder mode
+        /// Processes a file pair in "first-to-second" folder mode.
         /// </summary>
         /// <param name="strFilePath1">first file</param>
         /// <param name="strFilePath2">second file</param>
@@ -110,17 +131,25 @@ namespace SyncFoldersApi
             IFilePairStepsSettings iSettings,
             IFilePairStepsDirectionLogic iLogic,
             IFilePairSteps iStepsImpl,
-            ILogWriter iLogWriter
-            )
+            ILogWriter iLogWriter)
         {
+            // Choose behavior depending on whether the first folder is read-only
             if (iSettings.FirstReadOnly)
+            {
                 ProcessFilePair_FirstToSecond_FirstReadonly(
-                    strFilePath1, strFilePath2, fi1, fi2,
-                    iFileSystem, iSettings, iLogic, iStepsImpl, iLogWriter);
+                    strFilePath1, strFilePath2,
+                    fi1, fi2,
+                    iFileSystem, iSettings, iLogic, iStepsImpl, iLogWriter
+                );
+            }
             else
+            {
                 ProcessFilePair_FirstToSecond_FirstReadWrite(
-                    strFilePath1, strFilePath2, fi1, fi2,
-                    iFileSystem, iSettings, iLogic, iStepsImpl, iLogWriter);
+                    strFilePath1, strFilePath2,
+                    fi1, fi2,
+                    iFileSystem, iSettings, iLogic, iStepsImpl, iLogWriter
+                );
+            }
         }
 
         //===================================================================================================
@@ -142,12 +171,10 @@ namespace SyncFoldersApi
             IFilePairStepsSettings iSettings,
             IFilePairStepsDirectionLogic iLogic,
             IFilePairSteps iStepsImpl,
-            ILogWriter iLogWriter
-            )
+            ILogWriter iLogWriter)
         {
-            // special case: both exist and both zero length
-            if (fi1.Exists && fi2.Exists &&
-                fi1.Length == 0 && fi2.Length == 0)
+            // Handle special case: both files exist but have zero length
+            if (fi1.Exists && fi2.Exists && fi1.Length == 0 && fi2.Length == 0)
             {
                 if (Utils.CheckIfZeroLengthIsInteresting(strFilePath2))
                 {
@@ -171,6 +198,7 @@ namespace SyncFoldersApi
             }
             else
             {
+                // Handle if only one file exists or has zero length
                 if (fi1.Exists && fi1.Length == 0 && Utils.CheckIfZeroLengthIsInteresting(strFilePath1))
                 {
                     iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.FileHasZeroLength,
@@ -195,21 +223,26 @@ namespace SyncFoldersApi
                 if (fi2.Exists && (!fi1.Exists || fi1.Length == 0))
                 {
                     iLogic.ProcessFilePair_FirstToSecond_FirstReadonly_SecondExists(
-                        strFilePath1, strFilePath2, fi1, fi2,
-                        iFileSystem, iSettings, iStepsImpl, iLogWriter);
+                        strFilePath1, strFilePath2,
+                        fi1, fi2,
+                        iFileSystem, iSettings, iStepsImpl, iLogWriter
+                    );
+                }
+                else if (fi1.Exists && (!fi2.Exists || fi2.Length == 0))
+                {
+                    iLogic.ProcessFilePair_FirstToSecond_FirstReadonly_FirstExists(
+                        strFilePath1, strFilePath2,
+                        fi1, fi2,
+                        iFileSystem, iSettings, iStepsImpl, iLogWriter
+                    );
                 }
                 else
                 {
-                    if (fi1.Exists && (!fi2.Exists || fi2.Length == 0))
-                    {
-                        iLogic.ProcessFilePair_FirstToSecond_FirstReadonly_FirstExists(
-                            strFilePath1, strFilePath2, fi1, fi2,
-                            iFileSystem, iSettings, iStepsImpl, iLogWriter);
-                    }
-                    else
-                        ProcessFilePair_FirstToSecond_FirstReadonly_BothExist(
-                            strFilePath1, strFilePath2, fi1, fi2,
-                            iFileSystem, iSettings, iLogic, iStepsImpl, iLogWriter);
+                    ProcessFilePair_FirstToSecond_FirstReadonly_BothExist(
+                        strFilePath1, strFilePath2,
+                        fi1, fi2,
+                        iFileSystem, iSettings, iLogic, iStepsImpl, iLogWriter
+                    );
                 }
             }
         }
@@ -236,19 +269,25 @@ namespace SyncFoldersApi
             IFilePairStepsSettings iSettings,
             IFilePairStepsDirectionLogic iLogic,
             IFilePairSteps iStepsImpl,
-            ILogWriter iLogWriter
-            )
+            ILogWriter iLogWriter)
         {
+            // Compare modification times and lengths
             if (!iSettings.FirstToSecondSyncMode ? (!Utils.FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) || (fi1.Length != fi2.Length)) :
                            ((!Utils.FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) && (fi1.LastWriteTimeUtc > fi2.LastWriteTimeUtc)) || (Utils.FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) && fi1.Length > fi2.Length))
                 )
+            {
                 iLogic.ProcessFilePair_FirstToSecond_FirstReadonly_BothExist_NeedToCopy(
-                    strFilePath1, strFilePath2, fi1, fi2,
+                    strFilePath1, strFilePath2,
+                    fi1, fi2,
                     iFileSystem, iSettings, iStepsImpl, iLogWriter);
+            }
             else
+            {
                 iLogic.ProcessFilePair_FirstToSecond_FirstReadonly_BothExist_NoNeedToCopy(
-                    strFilePath1, strFilePath2, fi1, fi2,
+                    strFilePath1, strFilePath2,
+                    fi1, fi2,
                     iFileSystem, iSettings, iStepsImpl, iLogWriter);
+            }
         }
 
 
@@ -305,7 +344,7 @@ namespace SyncFoldersApi
                         strFilePath1);
                     iLogWriter.WriteLog(true, 0, "Warning: file has zero length, " +
                         "indicating a failed copy operation in the past: ", strFilePath1);
-                };
+                }
 
                 if ((fi2.Exists && fi2.Length == 0) && Utils.CheckIfZeroLengthIsInteresting(strFilePath2))
                 {
@@ -313,7 +352,7 @@ namespace SyncFoldersApi
                         strFilePath2);
                     iLogWriter.WriteLog(true, 0, "Warning: file has zero length, " +
                         "indicating a failed copy operation in the past: ", strFilePath2);
-                };
+                }
 
                 if (fi2.Exists && (!fi1.Exists || fi1.Length == 0))
                 {
@@ -409,7 +448,7 @@ namespace SyncFoldersApi
 
         //===================================================================================================
         /// <summary>
-        /// This method processes a file pair in bidirectional folder mode (default)
+        /// Processes a file pair bidirectionally (default mode).
         /// </summary>
         /// <param name="strFilePath1">first file</param>
         /// <param name="strFilePath2">second file</param>
@@ -427,9 +466,8 @@ namespace SyncFoldersApi
             IFilePairSteps iStepsImpl,
             ILogWriter iLogWriter)
         {
-            // special case: both exist and both zero length
-            if (fi1.Exists && fi2.Exists &&
-                fi1.Length == 0 && fi2.Length == 0)
+            // Handle missing or zero-length files first
+            if (fi1.Exists && fi2.Exists && fi1.Length == 0 && fi2.Length == 0)
             {
                 if (Utils.CheckIfZeroLengthIsInteresting(strFilePath2))
                 {
@@ -467,21 +505,29 @@ namespace SyncFoldersApi
                 if (fi1.Exists && (!fi2.Exists || fi2.Length == 0))
                 {
                     iLogic.ProcessFilePair_Bidirectionally_FirstExists(
-                        strFilePath1, strFilePath2, fi1, fi2,
-                        iFileSystem, iSettings, iStepsImpl, iLogWriter);
+                        strFilePath1, strFilePath2,
+                        fi1, fi2,
+                        iFileSystem, iSettings, iStepsImpl, iLogWriter
+                    );
                 }
                 else
                 {
                     if (fi2.Exists && (!fi1.Exists || fi1.Length == 0))
                     {
                         iLogic.ProcessFilePair_Bidirectionally_SecondExists(
-                            strFilePath1, strFilePath2, fi1, fi2,
-                        iFileSystem, iSettings, iStepsImpl, iLogWriter);
+                            strFilePath1, strFilePath2,
+                            fi1, fi2,
+                            iFileSystem, iSettings, iStepsImpl, iLogWriter
+                        );
                     }
                     else
+                    {
                         ProcessFilePair_Bidirectionally_BothExist(
-                            strFilePath1, strFilePath2, fi1, fi2,
-                        iFileSystem, iSettings, iLogic, iStepsImpl, iLogWriter);
+                            strFilePath1, strFilePath2,
+                            fi1, fi2,
+                            iFileSystem, iSettings, iLogic, iStepsImpl, iLogWriter
+                        );
+                    }
                 }
             }
         }
@@ -508,8 +554,7 @@ namespace SyncFoldersApi
             IFilePairStepsSettings iSettings,
             IFilePairStepsDirectionLogic iLogic,
             IFilePairSteps iStepsImpl,
-            ILogWriter iLogWriter
-            )
+            ILogWriter iLogWriter)
         {
             // bidirectionally path
             if ((!Utils.FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) && (fi1.LastWriteTimeUtc > fi2.LastWriteTimeUtc)) ||
@@ -529,6 +574,8 @@ namespace SyncFoldersApi
                         iFileSystem, iSettings, iStepsImpl, iLogWriter);
             }
         }
+
+
 
 
 

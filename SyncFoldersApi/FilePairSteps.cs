@@ -1314,7 +1314,6 @@ namespace SyncFoldersApi
                                 readableBlocks2[ri2.Position / ri2.Data.Length] = true;
                             }
                         }
-                        ;
 
 
 
@@ -1341,7 +1340,6 @@ namespace SyncFoldersApi
                                 readableBlocks2[ri2.Position / ri2.Data.Length] = true;
                             }
                         }
-                        ;
 
                         // after all fill non-readable blocks with zeroes
                         foreach (RestoreInfo ri2 in restore2)
@@ -1365,7 +1363,6 @@ namespace SyncFoldersApi
                                 notRestoredSize2 += lengthToWrite;
                             }
                         }
-                        ;
 
                         s2.Close();
                     }
@@ -1503,7 +1500,6 @@ namespace SyncFoldersApi
                         if (lengthToWrite > 0)
                             ri2.Data.WriteTo(s2, lengthToWrite);
                     }
-                    ;
                 }
 
                 if (badBlocks2 > 0)
@@ -2554,7 +2550,6 @@ namespace SyncFoldersApi
                                     break;
                                 }
                             }
-                            ;
 
 
                             s2.Close();
