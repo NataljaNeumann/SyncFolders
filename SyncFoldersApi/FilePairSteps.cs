@@ -1173,8 +1173,9 @@ namespace SyncFoldersApi
         {
             // if we can skip repairs, then try to test first and repair only in case there are some errors.
             if (iSettings.TestFilesSkipRecentlyTested &&
-                TestSingleFile(strPathFile2, strPathSavedInfo2, ref bForceCreateInfo, false, false, true,
-                        iFileSystem, iSettings, iLogWriter))
+                TestSingleFile(strPathFile2, strPathSavedInfo2, 
+                    ref bForceCreateInfo, false, false, true,
+                    iFileSystem, iSettings, iLogWriter))
             {
                 return;
             }
@@ -1270,14 +1271,14 @@ namespace SyncFoldersApi
                         oSavedInfo1.StartRestore();
                         oSavedInfo2.StartRestore();
 
+                        Block oBlock1 = new Block();
+                        Block oBlock2 = new Block();
+
                         for (long lIndex = 0; ; ++lIndex)
                         {
-                            Block oBlock1 = new Block();
-                            Block oBlock2 = new Block();
 
                             bool bBlock1Present = false;
                             bool bBlockStream1Ok = false;
-                            bool bStream1Continues = false;
 
                             try
                             {
@@ -1286,7 +1287,6 @@ namespace SyncFoldersApi
                                 if ((nReadCount = oBlock1.ReadFrom(s1)) == oBlock1.Length)
                                 {
                                     bBlockStream1Ok = oSavedInfo1.AnalyzeForTestOrRestore(oBlock1, lIndex);
-                                    bStream1Continues = true;
                                 }
                                 else
                                 {
@@ -1299,8 +1299,8 @@ namespace SyncFoldersApi
                                     }
                                 }
 
-                                oReadableBlocks1[lIndex] = true;
-                                bBlock1Present = true;
+                                oReadableBlocks1[lIndex] = nReadCount>0;
+                                bBlock1Present = nReadCount>0;
                             }
                             catch (System.IO.IOException oEx)
                             {
@@ -1315,7 +1315,6 @@ namespace SyncFoldersApi
 
                             bool bBlock2Present = false;
                             bool bBlock2Ok = false;
-                            bool bStream2Continues = false;
 
                             try
                             {
@@ -1323,7 +1322,6 @@ namespace SyncFoldersApi
                                 if ((nReadCount = oBlock2.ReadFrom(s2)) == oBlock2.Length)
                                 {
                                     bBlock2Ok = oSavedInfo2.AnalyzeForTestOrRestore(oBlock2, lIndex);
-                                    bStream2Continues = true;
                                 }
                                 else
                                 {
@@ -1333,8 +1331,8 @@ namespace SyncFoldersApi
                                     bBlock2Ok = oSavedInfo2.AnalyzeForTestOrRestore(oBlock2, lIndex);
                                 }
 
-                                oReadableBlocks2[lIndex] = true;
-                                bBlock2Present = true;
+                                oReadableBlocks2[lIndex] = nReadCount>0;
+                                bBlock2Present = nReadCount>0;
                             }
                             catch (System.IO.IOException oEx)
                             {
@@ -1366,7 +1364,7 @@ namespace SyncFoldersApi
                             {
                                 if (oSavedInfo1.AnalyzeForTestOrRestore(oBlock2, lIndex))
                                 {
-                                    aRestore1.Add(new RestoreInfo(lIndex * oBlock1.Length, oBlock2, false));
+                                    aRestore1.Add(new RestoreInfo(lIndex * oBlock2.Length, oBlock2, false));
 
                                     iLogWriter.WriteLogFormattedLocalized(1,
                                         Properties.Resources.BlockOfAtPositionWillBeRestoredFrom,
@@ -1432,7 +1430,7 @@ namespace SyncFoldersApi
                                 }
                             }
 
-                            if (!bStream1Continues && !bStream2Continues)
+                            if (s1.Position >= s1.Length && s2.Position >= s2.Length)
                                 break;
 
                             if (iSettings.CancelClicked)
@@ -1491,7 +1489,7 @@ namespace SyncFoldersApi
                             }
                         }
 
-                        // let'oInputStream apply the definitive improvements
+                        // let's apply the definitive improvements
                         foreach (RestoreInfo oRestoreInfo2 in aRestore2)
                         {
                             if (oRestoreInfo2.NotRecoverableArea ||
@@ -1507,14 +1505,14 @@ namespace SyncFoldersApi
                                 iLogWriter.WriteLog(true, 1, "Recovering block of ",
                                     fi2.FullName, " at position ", oRestoreInfo2.Position);
 
-                                s1.Seek(oRestoreInfo2.Position, System.IO.SeekOrigin.Begin);
+                                s2.Seek(oRestoreInfo2.Position, System.IO.SeekOrigin.Begin);
 
-                                int lengthToWrite = (int)(oSavedInfo2.Length - oRestoreInfo2.Position >= oRestoreInfo2.Data.Length ?
+                                int nLengthToWrite = (int)(oSavedInfo2.Length - oRestoreInfo2.Position >= oRestoreInfo2.Data.Length ?
                                     oRestoreInfo2.Data.Length :
                                     oSavedInfo2.Length - oRestoreInfo2.Position);
 
-                                if (lengthToWrite > 0)
-                                    oRestoreInfo2.Data.WriteTo(s2, lengthToWrite);
+                                if (nLengthToWrite > 0)
+                                    oRestoreInfo2.Data.WriteTo(s2, nLengthToWrite);
 
                                 // we assume the block is readbable now
                                 oReadableBlocks2[oRestoreInfo2.Position / oRestoreInfo2.Data.Length] = true;
@@ -1604,10 +1602,22 @@ namespace SyncFoldersApi
                     iLogWriter.WriteLog(true, 0, "There remain ", aRestore1.Count,
                         " bad blocks in ", fi1.FullName,
                         ", because it can't be modified ");
-
                 }
 
-                fi2.LastWriteTimeUtc = dtmPrevLastWriteTime;
+                if (lNotRestoredSize2 > 0)
+                {
+                    int nCountErrors = (int)(lNotRestoredSize2 / (new Block().Length));
+
+                    fi2.LastWriteTimeUtc = new DateTime(1975, 9, 24 - nCountErrors / 60 / 24, 23 -
+                        (nCountErrors / 60) % 24, 59 - nCountErrors % 60, 0);
+
+                    bForceCreateInfo = true;
+                }
+                else
+                {
+                    fi2.LastWriteTimeUtc = dtmPrevLastWriteTime;
+                }
+
             }
             else
             {
@@ -1628,20 +1638,26 @@ namespace SyncFoldersApi
                     using (IFile s2 =
                         iFileSystem.OpenRead(strPathFile2))
                     {
+                        Block oBlock1 = new Block();
+                        Block oBlock2 = new Block();
+
                         for (long lIndex = 0; ; ++lIndex)
                         {
-                            Block oBlock1 = new Block();
-                            Block oBlock2 = new Block();
 
                             bool bBlock1Present = false;
-                            bool bStream1Continues = false;
+                            bool bStillCreateEmptyBlock = false;
 
                             try
                             {
-                                if (oBlock1.ReadFrom(s1) == oBlock1.Length)
-                                    bStream1Continues = true;
+                                int nReadCount = oBlock1.ReadFrom(s1);
 
-                                bBlock1Present = true;
+                                if (nReadCount > 0)
+                                {
+                                    for (int i = oBlock1.Length - 1; i >= nReadCount; --i)
+                                        oBlock1[i] = 0;
+
+                                    bBlock1Present = true;
+                                }
                             }
                             catch (System.IO.IOException oEx)
                             {
@@ -1657,20 +1673,30 @@ namespace SyncFoldersApi
 
                                 s1.Seek((lIndex + 1) * oBlock1.Length,
                                     System.IO.SeekOrigin.Begin);
+
+                                // fill the block with zeros, so dummy block is empty, just in case
+                                for (int i = oBlock1.Length - 1; i >= 0; --i)
+                                    oBlock1[i] = 0;
                             }
 
                             bool bBlock2Present = false;
-                            bool bStream2Continues = false;
 
                             try
                             {
-                                if (oBlock2.ReadFrom(s2) == oBlock2.Length)
-                                    bStream2Continues = true;
+                                int nReadCount = oBlock2.ReadFrom(s2);
 
-                                bBlock2Present = true;
+                                if (nReadCount > 0)
+                                {
+                                    for (int i = oBlock2.Length - 1; i >= nReadCount; --i)
+                                        oBlock2[i] = 0;
+
+                                    bBlock2Present = true;
+                                }
                             }
                             catch (System.IO.IOException oEx)
                             {
+                                bStillCreateEmptyBlock = true;
+
                                 ++lBadBlocks2;
 
                                 iLogWriter.WriteLogFormattedLocalized(2, 
@@ -1696,7 +1722,7 @@ namespace SyncFoldersApi
 
                                 aRestore2.Add(new RestoreInfo(lIndex * oBlock1.Length, oBlock1, false));
                             }
-                            else if (!bBlock1Present && !bBlock2Present)
+                            else if (!bBlock1Present && !bBlock2Present && bStillCreateEmptyBlock)
                             {
                                 iLogWriter.WriteLogFormattedLocalized(1,
                                     Properties.Resources.BlockOfAtPositionNotRecoverableFillDumy,
@@ -1708,8 +1734,7 @@ namespace SyncFoldersApi
                                 aRestore2.Add(new RestoreInfo(lIndex * oBlock1.Length, oBlock1, true));
                             }
 
-
-                            if (!bStream1Continues && !bStream2Continues)
+                            if (s1.Position >= s1.Length && s2.Position>=s2.Length)
                                 break;
 
                             if (iSettings.CancelClicked)
@@ -1732,12 +1757,16 @@ namespace SyncFoldersApi
                     {
                         s2.Seek(oRestoreInfo2.Position, System.IO.SeekOrigin.Begin);
 
-                        int nLengthToWrite = (int)(oSavedInfo2.Length - oRestoreInfo2.Position >= oRestoreInfo2.Data.Length ?
+                        int nLengthToWrite = (int)(s2.Length - oRestoreInfo2.Position >= oRestoreInfo2.Data.Length ?
                             oRestoreInfo2.Data.Length :
-                            oSavedInfo2.Length - oRestoreInfo2.Position);
+                            s2.Length - oRestoreInfo2.Position);
 
                         if (nLengthToWrite > 0)
                             oRestoreInfo2.Data.WriteTo(s2, nLengthToWrite);
+
+                        if (oRestoreInfo2.NotRecoverableArea)
+                            lNotRestoredSize2 += nLengthToWrite;
+
                     }
                 }
 
@@ -1761,7 +1790,20 @@ namespace SyncFoldersApi
                         fi1.FullName, ", because it can't be modified ");
                 }
 
-                fi2.LastWriteTimeUtc = dtmPrevLastWriteTime;
+
+                if (lNotRestoredSize2 > 0)
+                {
+                    int nCountErrors = (int)(lNotRestoredSize2 / (new Block().Length));
+
+                    fi2.LastWriteTimeUtc = new DateTime(1975, 9, 24 - nCountErrors / 60 / 24, 23 -
+                        (nCountErrors / 60) % 24, 59 - nCountErrors % 60, 0);
+
+                    bForceCreateInfo = true;
+                }
+                else
+                {
+                    fi2.LastWriteTimeUtc = dtmPrevLastWriteTime;
+                }
 
             }
         }
@@ -2173,7 +2215,6 @@ namespace SyncFoldersApi
 
                             bool bBlock1Present = false;
                             bool bBlock1Ok = false;
-                            bool bStream1Continues = false;
 
                             try
                             {
@@ -2182,7 +2223,6 @@ namespace SyncFoldersApi
                                 if ((nRead = oBlock1.ReadFrom(s1)) == oBlock1.Length)
                                 {
                                     bBlock1Ok = si1.AnalyzeForTestOrRestore(oBlock1, lIndex);
-                                    bStream1Continues = true;
                                     oReadableBlocks1[lIndex] = true;
                                     bBlock1Present = true;
                                 }
@@ -2227,7 +2267,6 @@ namespace SyncFoldersApi
 
                             bool bBlock2Present = false;
                             bool bBlock2Ok = false;
-                            bool bStream2Continues = false;
 
                             try
                             {
@@ -2235,7 +2274,6 @@ namespace SyncFoldersApi
                                 if ((nRead = oBlock2.ReadFrom(s2)) == oBlock2.Length)
                                 {
                                     bBlock2Ok = si2.AnalyzeForTestOrRestore(oBlock2, lIndex);
-                                    bStream2Continues = true;
                                     oReadableBlocks2[lIndex] = true;
                                     bBlock2Present = true;
                                 }
@@ -2361,7 +2399,7 @@ namespace SyncFoldersApi
                                 }
                             }
 
-                            if (!bStream1Continues && !bStream2Continues)
+                            if (s1.Position >= s1.Length && s2.Position >= s2.Length)
                                 break;
 
                             if (iSettings.CancelClicked)
@@ -2660,17 +2698,21 @@ namespace SyncFoldersApi
                     using (IFile s2 =
                         iFileSystem.OpenRead(strPathFile2))
                     {
+                        Block oBlock1 = new Block();
+                        Block oBlock2 = new Block();
+
                         for (long lIndex = 0; ; ++lIndex)
                         {
-                            Block oBlock1 = new Block();
-                            Block oBlock2 = new Block();
 
                             bool bBlock1Present = false;
-                            bool bStream1Continues = false;
                             try
                             {
-                                if (oBlock1.ReadFrom(s1) == oBlock1.Length)
-                                    bStream1Continues = true;
+                                int nReadCount = 0;
+                                if ((nReadCount = oBlock1.ReadFrom(s1)) < oBlock1.Length)
+                                {
+                                    for (int i = oBlock1.Length - 1; i >= nReadCount; --i)
+                                        oBlock1[i] = 0;
+                                }
 
                                 bBlock1Present = true;
                             }
@@ -2690,12 +2732,15 @@ namespace SyncFoldersApi
                             }
 
                             bool bBlock2Present = false;
-                            bool bStream2Continues = false;
 
                             try
                             {
-                                if (oBlock2.ReadFrom(s2) == oBlock2.Length)
-                                    bStream2Continues = true;
+                                int nReadCount = 0;
+                                if ((nReadCount = oBlock2.ReadFrom(s2)) < oBlock2.Length)
+                                {
+                                    for (int i = oBlock2.Length - 1; i >= nReadCount; --i)
+                                        oBlock2[i] = 0;
+                                }
 
                                 bBlock2Present = true;
                             }
@@ -2759,7 +2804,7 @@ namespace SyncFoldersApi
                                 lNotRestoredSize2 += oBlock2.Length;
                             }
 
-                            if (!bStream1Continues && !bStream2Continues)
+                            if (s1.Position >= s1.Length && s2.Position >= s2.Length)
                                 break;
 
                             if (iSettings.CancelClicked)
@@ -2783,9 +2828,9 @@ namespace SyncFoldersApi
                     {
                         s1.Seek(oRestoreInfo1.Position, System.IO.SeekOrigin.Begin);
 
-                        int nLengthToWrite = (int)(si1.Length - oRestoreInfo1.Position >= oRestoreInfo1.Data.Length ?
+                        int nLengthToWrite = (int)(s1.Length - oRestoreInfo1.Position >= oRestoreInfo1.Data.Length ?
                             oRestoreInfo1.Data.Length :
-                            si1.Length - oRestoreInfo1.Position);
+                            s1.Length - oRestoreInfo1.Position);
 
                         if (nLengthToWrite > 0)
                             oRestoreInfo1.Data.WriteTo(s1, nLengthToWrite);
@@ -2814,9 +2859,9 @@ namespace SyncFoldersApi
                     {
                         s2.Seek(oRestoreInfo2.Position, System.IO.SeekOrigin.Begin);
 
-                        int lengthToWrite = (int)(si2.Length - oRestoreInfo2.Position >= oRestoreInfo2.Data.Length ?
+                        int lengthToWrite = (int)(s2.Length - oRestoreInfo2.Position >= oRestoreInfo2.Data.Length ?
                             oRestoreInfo2.Data.Length :
-                            si2.Length - oRestoreInfo2.Position);
+                            s2.Length - oRestoreInfo2.Position);
 
                         if (lengthToWrite > 0)
                             oRestoreInfo2.Data.WriteTo(s2, lengthToWrite);
