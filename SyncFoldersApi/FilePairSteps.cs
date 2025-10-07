@@ -2784,6 +2784,7 @@ namespace SyncFoldersApi
                                     " position ", lIndex * oBlock1.Length,
                                     " will be restored from ", fi1.FullName);
 
+
                                 aRestore2.Add(new RestoreInfo(lIndex * oBlock1.Length, oBlock1, false));
                             }
                             else
@@ -2810,6 +2811,11 @@ namespace SyncFoldersApi
                                     " and ", fi2.FullName, " at position ",
                                     lIndex * oBlock1.Length,
                                     " are not recoverable and will be filled with a dummy block");
+
+                                for (int i=oBlock1.Length-1;i>=0;--i)
+                                {
+                                    oBlock1[i] = oBlock2[i] = 0;
+                                }
 
                                 aRestore1.Add(new RestoreInfo(lIndex * oBlock1.Length, oBlock1, true));
                                 aRestore2.Add(new RestoreInfo(lIndex * oBlock2.Length, oBlock2, true));

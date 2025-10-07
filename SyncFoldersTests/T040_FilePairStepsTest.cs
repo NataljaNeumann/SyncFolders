@@ -609,7 +609,7 @@ namespace SyncFoldersTests
 
         //===================================================================================================
         /// <summary>
-        /// Tests TestAndRepairSeconddFile
+        /// Tests CreateSavedInfoAndCopy
         /// </summary>
         //===================================================================================================
         [Test]
@@ -697,6 +697,143 @@ namespace SyncFoldersTests
                         null));
                 }
             }
+        }
+
+
+        //===================================================================================================
+        /// <summary>
+        /// Tests TestAndRepairTwoFiles
+        /// </summary>
+        //===================================================================================================
+        [Test]
+        public void Test07_TestAndRepairTwoFiles()
+        {
+            int nTotalCores = Environment.ProcessorCount;
+            var options = new ParallelOptions
+            {
+                MaxDegreeOfParallelism = nTotalCores - 1
+            };
+            //Parallel.For(0, 1024, options, nConfiguration =>
+            for (int nConfiguration = 0; nConfiguration < 4; ++nConfiguration)
+            {
+                SettingsAndEnvironment oSettings = new SettingsAndEnvironment(
+                    false,
+                    false,
+                    false,
+                    false,
+                    true,
+                    true,
+                    true,
+                    true,
+                    (nConfiguration & 1) != 0,
+                    (nConfiguration & 2) != 0);
+
+                DateTime dtmToUse = DateTime.Now;
+
+                for (int nLengthKB = 31; nLengthKB <= 32; ++nLengthKB)
+                {
+                    for (int nFailingBlockConfig = 0; nFailingBlockConfig <= 2; ++nFailingBlockConfig)
+                    {
+                        // the first, the middle or the last
+                        int nFailingBlock = 7 * nFailingBlockConfig / 2;
+
+                        for (int nSavedInfoConfig = 0; nSavedInfoConfig <= 4; ++nSavedInfoConfig)
+                        {
+                            for (int bSwitchParams = 0; bSwitchParams <= 1; ++bSwitchParams)
+                            {
+                                InMemoryFileSystem oFS = new InMemoryFileSystem();
+
+                                string strPath1 = $@"c:\temp\TestAndRepairTwoFiles{nLengthKB}_{nFailingBlock}_{nSavedInfoConfig}.dat";
+                                string strPathSavedInfo1 = $@"c:\temp\RestoreInfo\TestAndRepairTwoFiles{nLengthKB}_{nFailingBlock}_{nSavedInfoConfig}.dat.chk";
+                                string strPath2 = $@"c:\temp2\TestAndRepairTwoFiles{nLengthKB}_{nFailingBlock}_{nSavedInfoConfig}.dat";
+                                string strPathSavedInfo2 = $@"c:\temp2\RestoreInfo\TestAndRepairTwoFiles{nLengthKB}_{nFailingBlock}_{nSavedInfoConfig}.dat.chk";
+
+                                FilePairSteps oStepsImpl = new FilePairSteps();
+                                HashSetLog oLog = new HashSetLog();
+
+
+                                List<long> aListOfReadErrorsInFile2 = new List<long>();
+                                aListOfReadErrorsInFile2.Add(nFailingBlock * 4096);
+
+                                List<long> aListOfReadErrorsInFile1 = new List<long>();
+
+                                // the block of second file will be non-recoverable using block from first file
+                                if (nSavedInfoConfig >= 1)
+                                    aListOfReadErrorsInFile1.Add(nFailingBlock * 4096);
+
+                                List<long> aListOfReadErrorsInSavedInfo = new List<long>();
+                                if (nSavedInfoConfig == 2 || nSavedInfoConfig == 3)
+                                {
+                                    // the block of second file will be recoverable using saved info
+                                    aListOfReadErrorsInSavedInfo.Add(((nFailingBlock + 1) % 4) * 4096);
+                                }
+                                else if (nSavedInfoConfig == 4)
+                                {
+                                    // the bloc of second file will be non-recoverable using saved info
+                                    aListOfReadErrorsInSavedInfo.Add(((nFailingBlock) % 4) * 4096);
+                                }
+
+
+                                oLog.Log.Clear();
+                                oLog.LocalizedLog.Clear();
+
+
+                                oFS.CreateTestFile(strPath1, 0,
+                                    nLengthKB * 1024, dtmToUse,
+                                    nSavedInfoConfig == 2, false, null,
+                                    nSavedInfoConfig >= 1 ? new List<long>(aListOfReadErrorsInFile1) : null,
+                                    nSavedInfoConfig == 2 ? new List<long>(aListOfReadErrorsInSavedInfo) : null,
+                                    false);
+
+                                oFS.CreateTestFile(strPath2, 0,
+                                    nLengthKB * 1024, dtmToUse,
+                                    nSavedInfoConfig >= 3, false, null,
+                                    new List<long>(aListOfReadErrorsInFile2),
+                                    nSavedInfoConfig >= 3 ? new List<long>(aListOfReadErrorsInSavedInfo) : null,
+                                    true);
+
+                                bool bForceCreateInfo = false;
+
+                                if (bSwitchParams != 0)
+                                {
+                                    // this is the repair of first from second
+                                    oStepsImpl.TestAndRepairTwoFiles(strPath1, strPath2,
+                                        strPathSavedInfo1, strPathSavedInfo2,
+                                        ref bForceCreateInfo, oFS, oSettings, oLog);
+                                }
+                                else
+                                {
+                                    // this is the repair of second from first (shoul be symmetric)
+                                    oStepsImpl.TestAndRepairTwoFiles(strPath2, strPath1,
+                                        strPathSavedInfo2, strPathSavedInfo1,
+                                        ref bForceCreateInfo, oFS, oSettings, oLog);
+                                }
+
+                                Assert.True(oFS.IsTestFile(strPath1, 0,
+                                    nLengthKB * 1024,
+                                    (nSavedInfoConfig == 1 || nSavedInfoConfig == 4) ? null : dtmToUse,
+                                    nSavedInfoConfig == 2, false,
+                                    (nSavedInfoConfig == 1 || nSavedInfoConfig == 4) ? new List<long>(aListOfReadErrorsInFile1) : null,
+                                    null,
+                                    nSavedInfoConfig == 2 ? new List<long>(aListOfReadErrorsInSavedInfo) : null));
+
+                                Assert.True(oFS.IsTestFile(strPath2, 0,
+                                    nLengthKB * 1024,
+                                    (nSavedInfoConfig == 1 || nSavedInfoConfig == 4) ? null : dtmToUse,
+                                    nSavedInfoConfig >= 3, false,
+                                    (nSavedInfoConfig == 1 || nSavedInfoConfig == 4) ? new List<long>(aListOfReadErrorsInFile1) : null,
+                                    null,
+                                    nSavedInfoConfig >= 3 ? new List<long>(aListOfReadErrorsInSavedInfo) : null));
+                            }
+
+
+                        }
+                    }
+
+                }
+            }
+            //);
+
         }
 
     }
