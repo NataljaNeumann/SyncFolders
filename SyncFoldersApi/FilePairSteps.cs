@@ -26,7 +26,7 @@ namespace SyncFoldersApi
         /// <param name="bOnlyIfCompletelyRecoverable">Indicates, if the operation shall be performmed
         /// only if the file is healthy or completely recoverable</param>
         /// <param name="iFileSystem">File system abstraction for performing operations</param>
-        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iCancelable">Settings defining synchronization mode and behavior</param>
         /// <param name="iLogWriter">Logger used for outputting messages</param>
         /// <returns>true iff the test or restore succeeded</returns>
         //===================================================================================================
@@ -36,7 +36,7 @@ namespace SyncFoldersApi
             ref bool bForceCreateInfo,
             bool bOnlyIfCompletelyRecoverable,
             IFileOperations iFileSystem,
-            IFilePairStepsSettings iSettings,
+            ICancelable iCancelable,
             ILogWriter iLogWriter
             )
         {
@@ -88,6 +88,7 @@ namespace SyncFoldersApi
                 !Utils.FileTimesEqual(si.TimeStamp, finfo.LastWriteTimeUtc))
             {
                 bool bAllBlocksOk = true;
+
                 if (fiSavedInfo.Exists)
                     bForceCreateInfo = true;
 
@@ -107,6 +108,7 @@ namespace SyncFoldersApi
                     System.IO.FileShare.Read))
                 {
                     Block oBlock = new Block();
+
                     for (long lIndex = 0; ; lIndex++)
                     {
                         try
@@ -179,7 +181,9 @@ namespace SyncFoldersApi
                     iFileSystem.OpenRead(finfo.FullName))
                 {
                     si.StartRestore();
+
                     Block oBlock = new Block();
+
                     for (long lIndex = 0; ; lIndex++)
                     {
 
@@ -233,7 +237,7 @@ namespace SyncFoldersApi
                                 break;
                             }
 
-                            if (iSettings.CancelClicked)
+                            if (iCancelable.CancelClicked)
                                 throw new OperationCanceledException();
 
                         }
@@ -651,9 +655,10 @@ namespace SyncFoldersApi
                             strPathTargetFile + ".tmp", System.IO.FileMode.Create,
                             System.IO.FileAccess.Write, System.IO.FileShare.None))
                         {
+                            Block oBlock = new Block();
+
                             for (long lIndex = 0; ; lIndex++)
                             {
-                                Block oBlock = new Block();
                                 try
                                 {
                                     int nLengthToWrite = oBlock.ReadFrom(s);
@@ -682,7 +687,12 @@ namespace SyncFoldersApi
                                         finfo.Length - lIndex * oBlock.Length);
 
                                     if (nLengthToWrite > 0)
+                                    {
+                                        for (int i = nLengthToWrite-1; i >= 0; --i)
+                                            oBlock[i] = 0;
+
                                         oBlock.WriteTo(s2, nLengthToWrite);
+                                    }
 
                                     bAllBlocksOk = false;
                                     ++nCountErrors;
@@ -691,6 +701,7 @@ namespace SyncFoldersApi
                                         break;
 
                                     s.Seek(lIndex * oBlock.Length + nLengthToWrite, System.IO.SeekOrigin.Begin);
+
                                 }
                             }
 
@@ -764,7 +775,8 @@ namespace SyncFoldersApi
                     iFileSystem.OpenRead(finfo.FullName))
                 {
                     oSavedInfo.StartRestore();
-                    Block b = new Block();
+
+                    Block oBlock = new Block();
 
                     for (long lIndex = 0; ; lIndex++)
                     {
@@ -773,9 +785,9 @@ namespace SyncFoldersApi
                             bool bBlockOk = true;
                             int nRead = 0;
 
-                            if ((nRead = b.ReadFrom(s)) == b.Length)
+                            if ((nRead = oBlock.ReadFrom(s)) == oBlock.Length)
                             {
-                                bBlockOk = oSavedInfo.AnalyzeForTestOrRestore(b, lIndex);
+                                bBlockOk = oSavedInfo.AnalyzeForTestOrRestore(oBlock, lIndex);
 
                                 if (!bBlockOk)
                                 {
@@ -783,11 +795,11 @@ namespace SyncFoldersApi
 
                                     iLogWriter.WriteLogFormattedLocalized(2,
                                         Properties.Resources.ChecksumOfBlockAtOffsetNotOK,
-                                        finfo.FullName, lIndex * b.Length);
+                                        finfo.FullName, lIndex * oBlock.Length);
 
                                     iLogWriter.WriteLog(true, 2, finfo.FullName,
                                         ": checksum of block at offset ",
-                                        lIndex * b.Length, " not OK");
+                                        lIndex * oBlock.Length, " not OK");
 
                                     oReadableButNotAccepted[lIndex] = true;
                                 }
@@ -797,10 +809,10 @@ namespace SyncFoldersApi
                                 if (nRead > 0)
                                 {
                                     //  fill the rest with zeros
-                                    while (nRead < b.Length)
-                                        b[nRead++] = 0;
+                                    while (nRead < oBlock.Length)
+                                        oBlock[nRead++] = 0;
 
-                                    bBlockOk = oSavedInfo.AnalyzeForTestOrRestore(b, lIndex);
+                                    bBlockOk = oSavedInfo.AnalyzeForTestOrRestore(oBlock, lIndex);
 
                                     if (!bBlockOk)
                                     {
@@ -808,11 +820,11 @@ namespace SyncFoldersApi
 
                                         iLogWriter.WriteLogFormattedLocalized(2,
                                             Properties.Resources.ChecksumOfBlockAtOffsetNotOK,
-                                            finfo.FullName, lIndex * b.Length);
+                                            finfo.FullName, lIndex * oBlock.Length);
 
                                         iLogWriter.WriteLog(true, 2, finfo.FullName,
                                             ": checksum of block at offset ",
-                                            lIndex * b.Length, " not OK");
+                                            lIndex * oBlock.Length, " not OK");
 
                                         oReadableButNotAccepted[lIndex] = true;
                                     }
@@ -826,13 +838,13 @@ namespace SyncFoldersApi
 
                             iLogWriter.WriteLogFormattedLocalized(2, 
                                 Properties.Resources.IOErrorReadingFileOffset,
-                                finfo.FullName, lIndex * b.Length, oEx.Message);
+                                finfo.FullName, lIndex * oBlock.Length, oEx.Message);
 
                             iLogWriter.WriteLog(true, 2, "I/O Error reading file: \"",
                                 finfo.FullName, "\", offset ",
-                                lIndex * b.Length, ": " + oEx.Message);
+                                lIndex * oBlock.Length, ": " + oEx.Message);
 
-                            s.Seek((lIndex + 1) * b.Length,
+                            s.Seek((lIndex + 1) * oBlock.Length,
                                 System.IO.SeekOrigin.Begin);
                         }
 
@@ -951,7 +963,8 @@ namespace SyncFoldersApi
                             strPathTargetFile + ".tmp", System.IO.FileMode.Create,
                             System.IO.FileAccess.Write, System.IO.FileShare.None))
                         {
-                            int nBlockSize = new Block().Length;
+                            Block oBlock = new Block();
+                            int nBlockSize = oBlock.Length;
 
                             for (long lPosition = 0; lPosition < finfo.Length; lPosition += nBlockSize)
                             {
@@ -1007,9 +1020,9 @@ namespace SyncFoldersApi
                                             iLogWriter.WriteLog(true, 1, "Recovering block at offset ",
                                                 oRestoreInfo.Position, " of copied file ", strPathTargetFile);
 
-                                            int nLengthToWrite = (int)(oSavedInfo.Length - oRestoreInfo.Position >= oRestoreInfo.Data.Length ?
+                                            int nLengthToWrite = (int)(finfo.Length - oRestoreInfo.Position >= oRestoreInfo.Data.Length ?
                                                 oRestoreInfo.Data.Length :
-                                                oSavedInfo.Length - oRestoreInfo.Position);
+                                                finfo.Length - oRestoreInfo.Position);
 
                                             if (nLengthToWrite > 0)
                                                 oRestoreInfo.Data.WriteTo(s, nLengthToWrite);
@@ -1029,8 +1042,10 @@ namespace SyncFoldersApi
                                                     oRestoreInfo.Data.WriteTo(s2, nLengthToWrite);
                                             }
                                             else
+                                            {
                                                 s2.Seek(oRestoreInfo.Position + nLengthToWrite,
                                                     System.IO.SeekOrigin.Begin);
+                                            }
                                         }
                                         break;
                                     }
@@ -1040,7 +1055,6 @@ namespace SyncFoldersApi
                                 {
                                     // there we land in case we didn't overwrite the block with restore info,
                                     // so read from source and write to destination
-                                    Block oBlock = new Block();
                                     int nLengthToWrite = oBlock.ReadFrom(s2);
                                     oBlock.WriteTo(s, nLengthToWrite);
                                 }
@@ -1541,9 +1555,9 @@ namespace SyncFoldersApi
                                 s1.Seek(oRestoreInfo2.Position, System.IO.SeekOrigin.Begin);
                                 s2.Seek(oRestoreInfo2.Position, System.IO.SeekOrigin.Begin);
 
-                                Block temp = new Block();
-                                int length = temp.ReadFrom(s1);
-                                temp.WriteTo(s2, length);
+                                Block oTempBlock = new Block();
+                                int nLength = oTempBlock.ReadFrom(s1);
+                                oTempBlock.WriteTo(s2, nLength);
 
                                 oReadableBlocks2[oRestoreInfo2.Position / oRestoreInfo2.Data.Length] = true;
                             }
@@ -1890,30 +1904,30 @@ namespace SyncFoldersApi
                     iFileSystem.CreateBufferedStream(iFileSystem.OpenRead(finfo.FullName),
                         (int)Math.Min(finfo.Length + 1, 64 * 1024 * 1024)))
                 {
-                    Block b = new Block();
+                    Block oBlock = new Block();
 
                     for (long lIndex = 0; ; lIndex++)
                     {
                         int nReadCount = 0;
-                        if ((nReadCount = b.ReadFrom(s)) == b.Length)
+                        if ((nReadCount = oBlock.ReadFrom(s)) == oBlock.Length)
                         {
-                            si.AnalyzeForInfoCollection(b, lIndex);
+                            si.AnalyzeForInfoCollection(oBlock, lIndex);
                         }
                         else
                         {
                             if (nReadCount > 0)
                             {
                                 // fill remaining part with zeros
-                                for (int i = b.Length - 1; i >= nReadCount; --i)
-                                    b[i] = 0;
+                                for (int i = oBlock.Length - 1; i >= nReadCount; --i)
+                                    oBlock[i] = 0;
 
-                                si.AnalyzeForInfoCollection(b, lIndex);
+                                si.AnalyzeForInfoCollection(oBlock, lIndex);
                             }
                             break;
                         }
+
                         if (iSettings.CancelClicked)
                             throw new OperationCanceledException();
-
                     }
 
 
@@ -2908,7 +2922,7 @@ namespace SyncFoldersApi
         /// <param name="strReasonEn">The reason of copy for messages</param>
         /// <param name="strReasonTranslated">The reason of copy for messages, localized</param>
         /// <param name="iFileSystem">File system abstraction for performing operations</param>
-        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iCancelable">Settings defining synchronization mode and behavior</param>
         /// <param name="iLogWriter">Logger used for outputting messages</param>
         /// <returns>true iff the operation succeeded</returns>
         //===================================================================================================
@@ -2919,7 +2933,7 @@ namespace SyncFoldersApi
             string strReasonEn,
             string strReasonTranslated,
             IFileOperations iFileSystem,
-            IFilePairStepsSettings iSettings,
+            ICancelable iCancelable,
             ILogWriter iLogWriter)
         {
             string strPathTmpFileCopy = strTargetPath + ".tmp";
@@ -2931,13 +2945,13 @@ namespace SyncFoldersApi
             {
                 using (IFile s =
                     iFileSystem.CreateBufferedStream(iFileSystem.OpenRead(finfo.FullName),
-                        (int)Math.Min(finfo.Length + 1, 64 * 1024 * 1024)))
+                        (int)Math.Min(finfo.Length + 1, 16 * 1024 * 1024)))
                 {
                     try
                     {
                         using (IFile s2 =
                             iFileSystem.CreateBufferedStream(iFileSystem.Create(strPathTmpFileCopy),
-                            (int)Math.Min(finfo.Length + 1, 64 * 1024 * 1024)))
+                            (int)Math.Min(finfo.Length + 1, 16 * 1024 * 1024)))
                         {
                             Block oBlock = new Block();
 
@@ -2961,6 +2975,9 @@ namespace SyncFoldersApi
                                     }
                                     break;
                                 }
+
+                                if (iCancelable.CancelClicked)
+                                    throw new OperationCanceledException();
                             }
 
 
@@ -2990,10 +3007,10 @@ namespace SyncFoldersApi
                         {
                             System.Threading.Thread.Sleep(100);
 
-                            IFileInfo finfoCopy = iFileSystem.GetFileInfo(strPathTmpFileCopy);
+                            IFileInfo fiTmpCopy = iFileSystem.GetFileInfo(strPathTmpFileCopy);
 
-                            if (finfoCopy.Exists)
-                                iFileSystem.Delete(finfoCopy);
+                            if (fiTmpCopy.Exists)
+                                iFileSystem.Delete(fiTmpCopy);
                         }
                         catch
                         {
@@ -3261,6 +3278,9 @@ namespace SyncFoldersApi
                                     System.IO.SeekOrigin.Begin);
 
                                 bAllBlocksOK = false;
+
+                                if ((lIndex + 1) * oBlock.Length > s.Length)
+                                    break;
                             }
                         }
                         s.Close();
@@ -3294,7 +3314,9 @@ namespace SyncFoldersApi
                 using (s)
                 {
                     oSavedInfo.StartRestore();
-                    Block b = new Block();
+
+                    Block oBlock = new Block();
+
                     for (long lIndex = 0; ; lIndex++)
                     {
 
@@ -3303,9 +3325,9 @@ namespace SyncFoldersApi
                             bool bBlockOk = true;
                             int nRead = 0;
 
-                            if ((nRead = b.ReadFrom(s)) == b.Length)
+                            if ((nRead = oBlock.ReadFrom(s)) == oBlock.Length)
                             {
-                                bBlockOk = oSavedInfo.AnalyzeForTestOrRestore(b, lIndex);
+                                bBlockOk = oSavedInfo.AnalyzeForTestOrRestore(oBlock, lIndex);
 
                                 if (!bBlockOk)
                                 {
@@ -3315,11 +3337,11 @@ namespace SyncFoldersApi
                                     iLogWriter.WriteLogFormattedLocalized(1,
                                         Properties.Resources.ChecksumOfBlockAtOffsetNotOK,
                                         finfo.FullName,
-                                        lIndex * b.Length);
+                                        lIndex * oBlock.Length);
 
                                     iLogWriter.WriteLog(true, 1, finfo.FullName,
                                         ": checksum of block at offset ",
-                                        lIndex * b.Length, " not OK");
+                                        lIndex * oBlock.Length, " not OK");
 
                                     bAllBlocksOK = false;
                                 }
@@ -3328,10 +3350,10 @@ namespace SyncFoldersApi
                             {
                                 if (nRead > 0)
                                 {
-                                    while (nRead < b.Length)
-                                        b[nRead++] = 0;
+                                    while (nRead < oBlock.Length)
+                                        oBlock[nRead++] = 0;
 
-                                    bBlockOk = oSavedInfo.AnalyzeForTestOrRestore(b, lIndex);
+                                    bBlockOk = oSavedInfo.AnalyzeForTestOrRestore(oBlock, lIndex);
 
                                     if (!bBlockOk)
                                     {
@@ -3341,11 +3363,11 @@ namespace SyncFoldersApi
                                         iLogWriter.WriteLogFormattedLocalized(1,
                                             Properties.Resources.ChecksumOfBlockAtOffsetNotOK,
                                             finfo.FullName,
-                                            lIndex * b.Length);
+                                            lIndex * oBlock.Length);
 
                                         iLogWriter.WriteLog(true, 1, finfo.FullName,
                                             ": checksum of block at offset ",
-                                            lIndex * b.Length, " not OK");
+                                            lIndex * oBlock.Length, " not OK");
 
                                         bAllBlocksOK = false;
                                     }
@@ -3377,13 +3399,13 @@ namespace SyncFoldersApi
 
                             iLogWriter.WriteLogFormattedLocalized(1, 
                                 Properties.Resources.IOErrorReadingFileOffset,
-                                finfo.FullName, lIndex * b.Length, oEx.Message);
+                                finfo.FullName, lIndex * oBlock.Length, oEx.Message);
 
                             iLogWriter.WriteLog(true, 1, "I/O Error reading file: \"",
                                 finfo.FullName, "\", offset ",
-                                lIndex * b.Length, ": " + oEx.Message);
+                                lIndex * oBlock.Length, ": " + oEx.Message);
 
-                            s.Seek((lIndex + 1) * b.Length,
+                            s.Seek((lIndex + 1) * oBlock.Length,
                                 System.IO.SeekOrigin.Begin);
                         }
                     }

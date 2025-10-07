@@ -25,7 +25,7 @@ namespace SyncFoldersApi
         /// <param name="bOnlyIfCompletelyRecoverable">Indicates that the operation shall be done
         /// only if the file is healthy or completely recoverable </param>
         /// <param name="iFileSystem">File system abstraction for performing operations</param>
-        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iCancelable">Settings defining synchronization mode and behavior</param>
         /// <param name="iLogWriter">Logger used for outputting messages</param>
         /// <returns>true iff the test or restore succeeded</returns>
         //===================================================================================================
@@ -35,7 +35,7 @@ namespace SyncFoldersApi
             ref bool bForceCreateInfo,
             bool bOnlyIfCompletelyRecoverable,
             IFileOperations iFileSystem,
-            IFilePairStepsSettings iSettings,
+            ICancelable iCancelable,
             ILogWriter iLogWriter
             );
 
@@ -282,7 +282,7 @@ namespace SyncFoldersApi
         /// <param name="strReasonEn">The reason of copy for messages</param>
         /// <param name="strReasonTranslated">The reason of copy for messages, localized</param>
         /// <param name="iFileSystem">File system abstraction for performing operations</param>
-        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iCancelable">Settings defining synchronization mode and behavior</param>
         /// <param name="iLogWriter">Logger used for outputting messages</param>
         /// <returns>true iff the operation succeeded</returns>
         //===================================================================================================
@@ -293,7 +293,7 @@ namespace SyncFoldersApi
             string strReasonEn,
             string strReasonTranslated,
             IFileOperations iFileSystem,
-            IFilePairStepsSettings iSettings,
+            ICancelable iCancelable,
             ILogWriter iLogWriter);
 
 

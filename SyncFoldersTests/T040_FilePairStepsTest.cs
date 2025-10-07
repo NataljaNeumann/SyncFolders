@@ -605,5 +605,99 @@ namespace SyncFoldersTests
             //);
 
         }
+
+
+        //===================================================================================================
+        /// <summary>
+        /// Tests TestAndRepairSeconddFile
+        /// </summary>
+        //===================================================================================================
+        [Test]
+        public void Test06_CreateSavedInfoAndCopy()
+        {
+            // we actually don't need anything from configuration, but need to provide one
+            SettingsAndEnvironment oSettings = new SettingsAndEnvironment(
+                false, false, false, false, false, false, false, false, false, false);
+
+            DateTime dtmToUse = DateTime.Now;
+
+            InMemoryFileSystem oFS = new InMemoryFileSystem();
+
+            for (int nLengthKB = 31; nLengthKB <= 64; ++nLengthKB)
+            {
+
+                string strPath1 = $@"c:\temp\CreateSavedInfoAndCopy{nLengthKB}.dat";
+                string strPathSavedInfo1 = $@"c:\temp\RestoreInfo\CreateSavedInfoAndCopy{nLengthKB}.dat.chk";
+                string strPath2 = $@"c:\temp2\CreateSavedInfoAndCopy{nLengthKB}.dat";
+                string strPathSavedInfo2 = $@"c:\temp2\RestoreInfo\CreateSavedInfoAndCopy{nLengthKB}.dat.chk";
+
+                FilePairSteps oStepsImpl = new FilePairSteps();
+                HashSetLog oLog = new HashSetLog();
+
+
+                if (nLengthKB == 33)
+                {
+                    List<long> aListOfReadErrorsInFile1 = new List<long>();
+                    aListOfReadErrorsInFile1.Add(0);
+
+                    oFS.CreateTestFile(strPath1, nLengthKB,
+                        nLengthKB * 1024, dtmToUse,
+                        false, false, null,
+                        new List<long>(aListOfReadErrorsInFile1),
+                        null,
+                        false);
+
+                    oFS.CreateTestFile(strPath2, 0,
+                        1, dtmToUse,
+                        false, false, null,
+                        null,
+                        null,
+                        true);
+
+                    Assert.IsFalse(oStepsImpl.CreateSavedInfoAndCopy(
+                        strPath1, strPathSavedInfo2, strPath2, "(testing)", "(testing)", oFS, oSettings, oLog));
+
+                    Assert.IsTrue(oFS.IsTestFile(strPath1, nLengthKB,
+                        nLengthKB * 1024, dtmToUse,
+                        false, false, null,
+                        new List<long>(aListOfReadErrorsInFile1),
+                        null));
+
+                    Assert.IsTrue(oFS.IsTestFile(strPath2, 0,
+                        1, dtmToUse,
+                        false, false, null,
+                        null,
+                        null));
+                } else
+                {
+
+                    oFS.CreateTestFile(strPath1, nLengthKB,
+                        nLengthKB * 1024, dtmToUse,
+                        false, false, null,
+                        null,
+                        null,
+                        true);
+
+                    // ensure dest directory exists
+                    oFS.GetFileInfo(strPath2).Directory.Create();
+
+                    Assert.IsTrue(oStepsImpl.CreateSavedInfoAndCopy(
+                        strPath1, strPathSavedInfo1, strPath2, "(testing)", "(testing)", oFS, oSettings, oLog));
+
+                    Assert.IsTrue(oFS.IsTestFile(strPath1, nLengthKB,
+                        nLengthKB * 1024, dtmToUse,
+                        true, false, null,
+                        null,
+                        null));
+
+                    Assert.IsTrue(oFS.IsTestFile(strPath2, nLengthKB,
+                        nLengthKB * 1024, dtmToUse,
+                        false, false, null,
+                        null,
+                        null));
+                }
+            }
+        }
+
     }
 }
