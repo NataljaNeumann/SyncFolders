@@ -12,7 +12,7 @@ namespace SyncFoldersApi
     /// API functions
     /// </summary>
     //*******************************************************************************************************
-    public interface IFilePairStepsSettings
+    public interface IFilePairStepsSettings: ICancelable
     {
         //===================================================================================================
         /// <summary>
@@ -87,14 +87,6 @@ namespace SyncFoldersApi
             get;
         }
 
-        //===================================================================================================
-        /// <summary>
-        /// Indicates, if canclel has been clicked
-        /// </summary>
-        public bool CancelClicked
-        {
-            get; set;
-        }
 
         //===================================================================================================
         /// <summary>
