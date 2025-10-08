@@ -254,6 +254,24 @@ namespace SyncFoldersApi
                 m_aData[i] = (byte)(m_aData[i] ^ other.m_aData[i]);
         }
 
+
+        //===================================================================================================
+        /// <summary>
+        /// Bitwise XOR block from buffer into this block
+        /// </summary>
+        /// <param name="aData">Buffer, read from stream, filled with trailing zeros</param>
+        /// <param name="nStart">Start of the block inside buffer data</param>
+        //===================================================================================================
+        public void DoXor(byte[]aData, int nStart)
+        {
+            for (int i = m_aData.Length - 1,
+                     j = nStart + m_aData.Length - 1;
+                 i >= 0; --i, --j)
+            {
+                m_aData[i] = (byte)(m_aData[i] ^ aData[j]);
+            }
+        }
+
         //===================================================================================================
         /// <summary>
         /// Reads a block from given stream
