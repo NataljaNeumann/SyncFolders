@@ -1911,23 +1911,30 @@ namespace SyncFolders
 
 
                     // sort the list, so it is in a defined order
-                    SortedDictionary<string, string> sorted = new SortedDictionary<string, string>();
+                    SortedDictionary<string, string> oSorted = new SortedDictionary<string, string>();
                     foreach (KeyValuePair<string, string> pathPair in m_aFilePairs)
                     {
                         if (!m_oSettings.FirstToSecond)
                         {
-                            if (string.Compare(pathPair.Key, pathPair.Value, 
+                            if (string.Compare(pathPair.Key, pathPair.Value,
                                 StringComparison.InvariantCultureIgnoreCase) < 0)
-                                sorted[pathPair.Key] = pathPair.Value;
+                            {
+                                oSorted[pathPair.Key] = pathPair.Value;
+                            }
                             else
-                                sorted[pathPair.Value] = pathPair.Key;
+                            {
+                                oSorted[pathPair.Value] = pathPair.Key;
+                            }
                         }
                         else
-                            sorted[pathPair.Key] = pathPair.Value;
+                        {
+                            oSorted[pathPair.Key] = pathPair.Value;
+                        }
                     }
 
+
                     // start processing file pairs, one by one
-                    foreach (KeyValuePair<string, string> pathPair in sorted)
+                    foreach (KeyValuePair<string, string> oPathPair in oSorted)
                     {
 
                         //*
@@ -1939,10 +1946,10 @@ namespace SyncFolders
                             break;
                         }
 
-                        System.Threading.Thread worker = new System.Threading.Thread(FilePairWorker);
-                        Program.SetCultureForThread(worker);
-                        worker.Priority = System.Threading.ThreadPriority.Lowest;
-                        worker.Start(pathPair);
+                        System.Threading.Thread oWorker = new System.Threading.Thread(FilePairWorker);
+                        Program.SetCultureForThread(oWorker);
+                        oWorker.Priority = System.Threading.ThreadPriority.Lowest;
+                        oWorker.Start(oPathPair);
 
                         /*/
 
@@ -1959,7 +1966,7 @@ namespace SyncFolders
                         //*/
 
                         m_nCurrentFile = currentFile;
-                        m_strCurrentPath = pathPair.Key;
+                        m_strCurrentPath = oPathPair.Key;
 
 
                         // update progress bar
@@ -1971,7 +1978,7 @@ namespace SyncFolders
                                 Invoke(new EventHandler(delegate(object? sender, EventArgs args)
                                 {
                                     m_ctlProgressBar.Value = currentFile;
-                                    m_lblProgress.Text = pathPair.Key;
+                                    m_lblProgress.Text = oPathPair.Key;
 
                                     // task bar
                                     if (m_oTaskbarProgress != null)
@@ -1981,7 +1988,7 @@ namespace SyncFolders
                             else
                             {
                                 m_ctlProgressBar.Value = currentFile;
-                                m_lblProgress.Text = pathPair.Key;
+                                m_lblProgress.Text = oPathPair.Key;
 
                                 // task bar
                                 if (m_oTaskbarProgress != null)
@@ -2633,7 +2640,9 @@ namespace SyncFolders
                 (KeyValuePair<string, string>)oFilePair;
             try
             {
-                ProcessFilePair(pathPair.Key, pathPair.Value);
+                m_iFileStepChooser.ProcessFilePair(
+                    pathPair.Key, pathPair.Value, m_iFileSystem,
+                    m_oSettings, m_iFileStepLogic, m_iStepsImpl, this);
             }
             catch (OperationCanceledException oEx)
             {
@@ -2660,24 +2669,6 @@ namespace SyncFolders
         }
 
 
-
-
-        //===================================================================================================
-        /// <summary>
-        /// This method processes a file pair
-        /// </summary>
-        /// <param name="strFilePath1">first file</param>
-        /// <param name="strFilePath2">second file</param>
-        //===================================================================================================
-        void ProcessFilePair(
-            string strFilePath1,
-            string strFilePath2
-            )
-        {
-            m_iFileStepChooser.ProcessFilePair(
-                strFilePath1, strFilePath2, m_iFileSystem, 
-                m_oSettings, m_iFileStepLogic, m_iStepsImpl, this);
-        }
 
 
         System.Text.StringBuilder m_oLogToShow = new StringBuilder();
