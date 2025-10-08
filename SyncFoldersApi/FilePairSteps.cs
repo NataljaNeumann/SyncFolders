@@ -2479,7 +2479,7 @@ namespace SyncFoldersApi
                         }
 
 
-                        // let'oInputStream apply the definitive improvements
+                        // let's apply the definitive improvements
                         foreach (RestoreInfo oRestoreInfo1 in aRestore1)
                         {
                             if (oRestoreInfo1.NotRecoverableArea ||
