@@ -52,13 +52,18 @@ namespace SyncFoldersApi
                 // then the difference should be within five seconds
                 TimeSpan oTimeSpanDifference =
                     new TimeSpan(Math.Abs(dtmTime1.Ticks - dtmTime2.Ticks));
-                bool bResult = oTimeSpanDifference.TotalSeconds < 5;
+                bool bResult = Math.Abs(oTimeSpanDifference.TotalSeconds) < 5;
                 return bResult;
             }
             else
+            {
                 // if both times are with milliseconds or both are without 
-                // then simply compare the times
-                return dtmTime1 == dtmTime2;
+                // then the difference shall be under 1 millisecond
+                TimeSpan oTimeSpanDifference =
+                    new TimeSpan(Math.Abs(dtmTime1.Ticks - dtmTime2.Ticks));
+                bool bResult = Math.Abs(oTimeSpanDifference.TotalMilliseconds) < 1;
+                return bResult;
+            }
         }
 
 
