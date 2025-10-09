@@ -748,6 +748,8 @@ namespace SyncFoldersApi
         {
             IFileInfo fiSavedInfo1 = iFileSystem.GetFileInfo(
                 Utils.CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
+            IFileInfo fiSavedInfo2 = iFileSystem.GetFileInfo(
+                Utils.CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
 
             bool bForceCreateInfo = false;
             bool bForceCreateInfo2 = false;
@@ -765,9 +767,9 @@ namespace SyncFoldersApi
                         fiSavedInfo1.LastWriteTimeUtc != fi1.LastWriteTimeUtc ||
                         bForceCreateInfo))
                 {
-                    if (!iStepsImpl.CreateSavedInfoAndCopy(
+                    if (!iStepsImpl.Create2SavedInfosAndCopy(
                         fi1.FullName, fiSavedInfo1.FullName,
-                        fi2.FullName, "(file was new)",
+                        fi2.FullName, fiSavedInfo2.FullName, "(file was new)",
                         Properties.Resources.FileWasNew,
                         iFileSystem, iSettings, iLogWriter))
                     {
@@ -788,6 +790,10 @@ namespace SyncFoldersApi
                     fiSavedInfo1 = iFileSystem.GetFileInfo(
                         Utils.CreatePathOfChkFile(fi1.DirectoryName,
                         "RestoreInfo", fi1.Name, ".chk"));
+
+                    fiSavedInfo2 = iFileSystem.GetFileInfo(
+                        Utils.CreatePathOfChkFile(fi2.DirectoryName,
+                        "RestoreInfo", fi2.Name, ".chk"));
 
                     bForceCreateInfo = false;
                 }
@@ -850,40 +856,15 @@ namespace SyncFoldersApi
                                 Utils.CreatePathOfChkFile(fi1.DirectoryName,
                                 "RestoreInfo", fi1.Name, ".chk"),
                                  iFileSystem, iSettings, iLogWriter);
-
-                            fiSavedInfo1 = iFileSystem.GetFileInfo(
-                                Utils.CreatePathOfChkFile(fi1.DirectoryName,
-                                "RestoreInfo", fi1.Name, ".chk"));
                         }
 
                         if (bForceCreateInfo2)
+                        {
                             iStepsImpl.CreateSavedInfo(strFilePath2,
                                 Utils.CreatePathOfChkFile(fi2.DirectoryName,
                                 "RestoreInfo", fi2.Name, ".chk"),
                                 iFileSystem, iSettings, iLogWriter);
-                        else
-                            if (fiSavedInfo1.Exists)
-                        {
-                            try
-                            {
-                                iFileSystem.CopyTo(
-                                    fiSavedInfo1, Utils.CreatePathOfChkFile(
-                                    fi2.DirectoryName, "RestoreInfo",
-                                    fi2.Name, ".chk"), true);
-                            }
-                            catch (System.IO.IOException)
-                            {
-                                iStepsImpl.CreateSavedInfo(strFilePath1,
-                                    Utils.CreatePathOfChkFile(
-                                    fi1.DirectoryName, "RestoreInfo",
-                                    fi1.Name, ".chk"),
-                                    iFileSystem, iSettings, iLogWriter);
-                                iStepsImpl.CreateSavedInfo(strFilePath2,
-                                    Utils.CreatePathOfChkFile(
-                                    fi2.DirectoryName, "RestoreInfo",
-                                    fi2.Name, ".chk"),
-                                    iFileSystem, iSettings, iLogWriter);
-                            }
+
                         }
                     }
                 }
@@ -981,16 +962,24 @@ namespace SyncFoldersApi
                         fiSavedInfo1.LastWriteTimeUtc != fi1.LastWriteTimeUtc ||
                         bForceCreateInfo1))
                 {
-                    bCopied1To2 = iStepsImpl.CreateSavedInfoAndCopy(
-                        fi1.FullName, fiSavedInfo1.FullName, fi2.FullName,
+                    bCopied1To2 = iStepsImpl.Create2SavedInfosAndCopy(
+                        fi1.FullName, fiSavedInfo1.FullName, 
+                        fi2.FullName, fiSavedInfo2.FullName,
                         strReasonEn, strReasonTranslated,
                         iFileSystem, iSettings, iLogWriter);
+
                     fiSavedInfo1 = iFileSystem.GetFileInfo(
+                        Utils.CreatePathOfChkFile(fi1.DirectoryName,
+                        "RestoreInfo", fi1.Name, ".chk"));
+                    fiSavedInfo2 = iFileSystem.GetFileInfo(
                         Utils.CreatePathOfChkFile(fi1.DirectoryName,
                         "RestoreInfo", fi1.Name, ".chk"));
 
                     if (bCopied1To2)
+                    {
                         bForceCreateInfo1 = false;
+                        bForceCreateInfo2 = false;
+                    }
                 }
                 else
                 {
@@ -1051,16 +1040,24 @@ namespace SyncFoldersApi
                     {
                         if (bForceCreateInfo1)
                         {
-                            bCopied1To2 = iStepsImpl.CreateSavedInfoAndCopy(
-                                fi1.FullName, fiSavedInfo1.FullName, fi2.FullName,
+                            bCopied1To2 = iStepsImpl.Create2SavedInfosAndCopy(
+                                fi1.FullName, fiSavedInfo1.FullName, 
+                                fi2.FullName, fiSavedInfo2.FullName,
                                 strReasonEn, strReasonTranslated,
                                 iFileSystem, iSettings, iLogWriter);
 
                             fiSavedInfo1 = iFileSystem.GetFileInfo(
-                                Utils.CreatePathOfChkFile(fi1.DirectoryName, 
-                                    "RestoreInfo", fi1.Name, ".chk"));
+                                Utils.CreatePathOfChkFile(fi1.DirectoryName,
+                                "RestoreInfo", fi1.Name, ".chk"));
+                            fiSavedInfo2 = iFileSystem.GetFileInfo(
+                                Utils.CreatePathOfChkFile(fi1.DirectoryName,
+                                "RestoreInfo", fi1.Name, ".chk"));
 
-                            bForceCreateInfo1 = false;
+                            if (bCopied1To2)
+                            {
+                                bForceCreateInfo1 = false;
+                                bForceCreateInfo2 = false;
+                            }
                         }
                         else
                         {
@@ -1184,25 +1181,32 @@ namespace SyncFoldersApi
                         fiSavedInfo2.LastWriteTimeUtc != fi2.LastWriteTimeUtc ||
                         bForceCreateInfo2))
                 {
-                    bCopied2To1 = iStepsImpl.CreateSavedInfoAndCopy(
-                        fi2.FullName, fiSavedInfo2.FullName, strFilePath1,
+                    bCopied2To1 = iStepsImpl.Create2SavedInfosAndCopy(
+                        fi2.FullName, fiSavedInfo2.FullName, 
+                        strFilePath1, fiSavedInfo1.FullName,
                         "(file was healthy)", Properties.Resources.FileWasHealthy,
                         iFileSystem, iSettings, iLogWriter);
 
+                    fiSavedInfo1 = iFileSystem.GetFileInfo(
+                        Utils.CreatePathOfChkFile(fi1.DirectoryName,
+                        "RestoreInfo", fi1.Name, ".chk"));
                     fiSavedInfo2 = iFileSystem.GetFileInfo(
-                        Utils.CreatePathOfChkFile(fi2.DirectoryName, 
-                            "RestoreInfo", fi2.Name, ".chk"));
+                        Utils.CreatePathOfChkFile(fi1.DirectoryName,
+                        "RestoreInfo", fi1.Name, ".chk"));
 
                     if (bCopied2To1)
+                    {
                         bForceCreateInfo2 = false;
+                        bForceCreateInfo1 = false;
+                    }
                     else
                     {
                         // should actually never happen, since we go there only if file 2 could be restored above
-                        iLogWriter.WriteLogFormattedLocalized(0, 
+                        iLogWriter.WriteLogFormattedLocalized(0,
                             Properties.Resources.InternalErrorCouldntRestoreAny,
                             fi1.FullName, fi2.FullName);
                         iLogWriter.WriteLog(true, 0, "Internal error: Couldn't " +
-                            "restore any of the copies of the file ", 
+                            "restore any of the copies of the file ",
                             fi1.FullName, ", ", fi2.FullName);
                         return;
                     }
@@ -1491,24 +1495,23 @@ namespace SyncFoldersApi
                 }
             }
 
-            if (iSettings.CreateInfo && (!fiSavedInfo1.Exists || fiSavedInfo1.LastWriteTimeUtc !=
-                                        fi1.LastWriteTimeUtc || bCreateInfo1))
+            if ((iSettings.CreateInfo && (!fiSavedInfo1.Exists || fiSavedInfo1.LastWriteTimeUtc !=
+                                    fi1.LastWriteTimeUtc || bCreateInfo1)) ||
+                (iSettings.CreateInfo && (!fiSavedInfo2.Exists || fiSavedInfo2.LastWriteTimeUtc !=
+                                    fi2.LastWriteTimeUtc || bCreateInfo2)))
             {
-                iStepsImpl.CreateSavedInfo(fi1.FullName, fiSavedInfo1.FullName,
-                            iFileSystem, iSettings, iLogWriter);
+                // if at least one of the saved info files needs to be created, then create both at once
                 if (fiSavedInfo1.FullName.Equals(fiSavedInfo2.FullName, StringComparison.InvariantCultureIgnoreCase))
-                    fiSavedInfo2 = iFileSystem.GetFileInfo(
-                        Utils.CreatePathOfChkFile(fi2.DirectoryName,
-                            "RestoreInfo", fi2.Name, ".chk"));
+                {
+                    iStepsImpl.CreateSavedInfo(fi1.FullName, fiSavedInfo1.FullName,
+                        iFileSystem, iSettings, iLogWriter);
+                } else
+                {
+                    iStepsImpl.Create2SavedInfos(fi1.FullName,
+                        fiSavedInfo1.FullName, fiSavedInfo2.FullName,
+                        iFileSystem, iSettings, iLogWriter);
+                }
             }
-
-            if (iSettings.CreateInfo && (!fiSavedInfo2.Exists || fiSavedInfo2.LastWriteTimeUtc !=
-            fi2.LastWriteTimeUtc || bCreateInfo2))
-            {
-                iStepsImpl.CreateSavedInfo(fi2.FullName, fiSavedInfo2.FullName,
-                    iFileSystem, iSettings, iLogWriter);
-            }
-
 
             fiSavedInfo2 = iFileSystem.GetFileInfo(
                 Utils.CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
