@@ -118,8 +118,8 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="label1.Text" xml:space="preserve">
-    <value>SyncFolders v1.5
-Авторски права (C) 2024-2025 NataljaNeumann@gmx.de
+    <value>SyncFolders v1.6
+Авторски права © 2024-2025 NataljaNeumann@gmx.de
 
 Оваа програма е бесплатен софтвер; можете да го редистрибуирате и/или да го менувате според условите на GNU Општата јавна лиценца објавена од Free Software Foundation; или верзија 2 на лиценцата, или (по ваша желба) која било подоцнежна верзија.
 
