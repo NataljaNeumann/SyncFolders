@@ -86,7 +86,7 @@ namespace SyncFoldersApi
             string strPathFile,
             string strPathSavedChkInfoFile,
             IFileOperations iFileSystem,
-            IFilePairStepsSettings iSettings,
+            ICancelable iSettings,
             ILogWriter iLogWriter
             );
 
@@ -107,7 +107,7 @@ namespace SyncFoldersApi
             string strPathSavedChkInfoFile,
             bool bForceSecondBlocks,
             IFileOperations iFileSystem,
-            IFilePairStepsSettings iSettings,
+            ICancelable iSettings,
             ILogWriter iLogWriter
             );
 
@@ -130,7 +130,7 @@ namespace SyncFoldersApi
             int nVersion,
             bool bForceSecondBlocks,
             IFileOperations iFileSystem,
-            IFilePairStepsSettings iSettings,
+            ICancelable iSettings,
             ILogWriter iLogWriter
             );
 
@@ -296,6 +296,55 @@ namespace SyncFoldersApi
             ICancelable iCancelable,
             ILogWriter iLogWriter);
 
+
+
+        //===================================================================================================
+        /// <summary>
+        /// This method combines copying of a file with creation of SavedInfo (.chk) file. So there is no
+        /// need to read a big data file twice.
+        /// </summary>
+        /// <param name="strPathFile">The source path for copy</param>
+        /// <param name="strTargetPath">The target path for copy</param>
+        /// <param name="strPathSavedInfoFile">The target path for saved info</param>
+        /// <param name="strPathSavedInfoFile2">The target path for second saved info</param>
+        /// <param name="strReasonEn">The reason of copy for messages</param>
+        /// <param name="strReasonTranslated">The reason of copy for messages, localized</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iCancelable">Settings defining synchronization mode and behavior</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
+        /// <returns>true iff the operation succeeded</returns>
+        //===================================================================================================
+        public bool Create2SavedInfosAndCopy(
+            string strPathFile,
+            string strPathSavedInfoFile,
+            string strTargetPath,
+            string strPathSavedInfoFile2,
+            string strReasonEn,
+            string strReasonTranslated,
+            IFileOperations iFileSystem,
+            ICancelable iCancelable,
+            ILogWriter iLogWriter);
+
+
+        //===================================================================================================
+        /// <summary>
+        /// This method creates 2 different SavedInfo (.chk) files without copying anything
+        /// </summary>
+        /// <param name="strPathFile">The source path for copy</param>
+        /// <param name="strPathSavedInfoFile">The target path for saved info</param>
+        /// <param name="strPathSavedInfoFile2">The target path for second saved info</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iCancelable">Settings defining synchronization mode and behavior</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
+        /// <returns>true iff the operation succeeded</returns>
+        //===================================================================================================
+        public bool Create2SavedInfos(
+            string strPathFile,
+            string strPathSavedInfoFile,
+            string strPathSavedInfoFile2,
+            IFileOperations iFileSystem,
+            ICancelable iCancelable,
+            ILogWriter iLogWriter);
 
         //===================================================================================================
         /// <summary>

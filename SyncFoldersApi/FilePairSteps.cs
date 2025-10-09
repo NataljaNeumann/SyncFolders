@@ -1838,7 +1838,7 @@ namespace SyncFoldersApi
             string strPathFile,
             string strPathSavedChkInfoFile,
             IFileOperations iFileSystem,
-            IFilePairStepsSettings iSettings,
+            ICancelable iSettings,
             ILogWriter iLogWriter
             )
         {
@@ -1864,7 +1864,7 @@ namespace SyncFoldersApi
             string strPathSavedChkInfoFile,
             bool bForceSecondBlocks,
             IFileOperations iFileSystem,
-            IFilePairStepsSettings iSettings,
+            ICancelable iSettings,
             ILogWriter iLogWriter
             )
         {
@@ -1891,7 +1891,7 @@ namespace SyncFoldersApi
             int nVersion,
             bool bForceSecondBlocks,
             IFileOperations iFileSystem,
-            IFilePairStepsSettings iSettings,
+            ICancelable iSettings,
             ILogWriter iLogWriter
             )
         {
@@ -2942,6 +2942,12 @@ namespace SyncFoldersApi
             ICancelable iCancelable,
             ILogWriter iLogWriter)
         {
+            // if by any means we get the same file, then just create saved info
+            if (strPathFile.Equals(strTargetPath, StringComparison.InvariantCultureIgnoreCase))
+            {
+                return !CreateSavedInfo(strTargetPath, strPathSavedInfoFile, iFileSystem, iCancelable, iLogWriter);
+            };
+
             string strPathTmpFileCopy = strTargetPath + ".tmp";
 
             IFileInfo finfo = iFileSystem.GetFileInfo(strPathFile);
@@ -3092,6 +3098,417 @@ namespace SyncFoldersApi
         }
 
 
+
+        //===================================================================================================
+        /// <summary>
+        /// This method combines copying of a file with creation of SavedInfo (.chk) file. So there is no
+        /// need to read a big data file twice.
+        /// </summary>
+        /// <param name="strPathFile">The source path for copy</param>
+        /// <param name="strTargetPath">The target path for copy</param>
+        /// <param name="strPathSavedInfoFile">The target path for saved info</param>
+        /// <param name="strPathSavedInfoFile2">The target path for second saved info</param>
+        /// <param name="strReasonEn">The reason of copy for messages</param>
+        /// <param name="strReasonTranslated">The reason of copy for messages, localized</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iCancelable">Settings defining synchronization mode and behavior</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
+        /// <returns>true iff the operation succeeded</returns>
+        //===================================================================================================
+        public bool Create2SavedInfosAndCopy(
+            string strPathFile,
+            string strPathSavedInfoFile,
+            string strTargetPath,
+            string strPathSavedInfoFile2,
+            string strReasonEn,
+            string strReasonTranslated,
+            IFileOperations iFileSystem,
+            ICancelable iCancelable,
+            ILogWriter iLogWriter)
+        {
+            // if by any means we get the same file, then just create saved info
+            if (strPathFile.Equals(strTargetPath, StringComparison.InvariantCultureIgnoreCase))
+            {
+                return !CreateSavedInfo(strTargetPath, strPathSavedInfoFile, iFileSystem, iCancelable, iLogWriter);
+            }
+
+            string strPathTmpFileCopy = strTargetPath + ".tmp";
+
+            IFileInfo finfo = iFileSystem.GetFileInfo(strPathFile);
+            SavedInfo si1, si2;
+            SavedInfo.Create2DifferentSavedInfos(out si1, out si2, finfo.Length, finfo.LastWriteTimeUtc);
+
+            try
+            {
+                using (IFile s =
+                    iFileSystem.CreateBufferedStream(iFileSystem.OpenRead(finfo.FullName),
+                        (int)Math.Min(finfo.Length + 1, 16 * 1024 * 1024)))
+                {
+                    try
+                    {
+                        using (IFile s2 =
+                            iFileSystem.CreateBufferedStream(iFileSystem.Create(strPathTmpFileCopy),
+                            (int)Math.Min(finfo.Length + 1, 16 * 1024 * 1024)))
+                        {
+                            Block oBlock = new Block();
+
+                            for (long lIndex = 0; ; lIndex++)
+                            {
+                                int nReadCount = 0;
+                                if ((nReadCount = oBlock.ReadFrom(s)) == oBlock.Length)
+                                {
+                                    oBlock.WriteTo(s2);
+                                    si1.AnalyzeForInfoCollection(oBlock, lIndex);
+                                    si2.AnalyzeForInfoCollection(oBlock, lIndex);
+                                }
+                                else
+                                {
+                                    if (nReadCount > 0)
+                                    {
+                                        for (int i = oBlock.Length - 1; i >= nReadCount; --i)
+                                            oBlock[i] = 0;
+
+                                        oBlock.WriteTo(s2, nReadCount);
+                                        si1.AnalyzeForInfoCollection(oBlock, lIndex);
+                                        si2.AnalyzeForInfoCollection(oBlock, lIndex);
+                                    }
+                                    break;
+                                }
+
+                                if (iCancelable.CancelClicked)
+                                    throw new OperationCanceledException();
+                            }
+
+
+                            s2.Close();
+
+                            IFileInfo fi2tmp = iFileSystem.GetFileInfo(strPathTmpFileCopy);
+                            fi2tmp.LastWriteTimeUtc = finfo.LastWriteTimeUtc;
+
+                            IFileInfo fi2 = iFileSystem.GetFileInfo(strTargetPath);
+
+                            if (fi2.Exists)
+                                iFileSystem.Delete(fi2);
+
+                            fi2tmp.MoveTo(strTargetPath);
+
+                            iLogWriter.WriteLogFormattedLocalized(0,
+                                Properties.Resources.CopiedFromToReason,
+                                strPathFile, strTargetPath, strReasonTranslated);
+
+                            iLogWriter.WriteLog(true, 0, "Copied ", strPathFile, " to ",
+                                strTargetPath, " ", strReasonEn);
+                        }
+                    }
+                    catch
+                    {
+                        try
+                        {
+                            System.Threading.Thread.Sleep(100);
+
+                            IFileInfo fiTmpCopy = iFileSystem.GetFileInfo(strPathTmpFileCopy);
+
+                            if (fiTmpCopy.Exists)
+                                iFileSystem.Delete(fiTmpCopy);
+                        }
+                        catch
+                        {
+                            // ignore
+                        }
+                        throw;
+                    }
+
+                    s.Close();
+                }
+            }
+            catch (System.IO.IOException oEx)
+            {
+                iLogWriter.WriteLogFormattedLocalized(0,
+                    Properties.Resources.WarningIOErrorWhileCopyingToReason,
+                    finfo.FullName, strTargetPath, oEx.Message);
+
+                iLogWriter.WriteLog(true, 0, "Warning: I/O Error while copying file: \"",
+                    finfo.FullName, "\" to \"", strTargetPath, "\": " + oEx.Message);
+
+                return false;
+            }
+
+            // saving first saved info
+            try
+            {
+                IDirectoryInfo di = iFileSystem.GetDirectoryInfo(
+                    strPathSavedInfoFile.Substring(0,
+                    strPathSavedInfoFile.LastIndexOfAny(new char[] { '\\', '/' })));
+
+                if (!di.Exists)
+                {
+                    di.Create();
+                    di = iFileSystem.GetDirectoryInfo(
+                        strPathSavedInfoFile.Substring(0,
+                        strPathSavedInfoFile.LastIndexOfAny(new char[] { '\\', '/' })));
+
+                    di.Attributes = di.Attributes | System.IO.FileAttributes.Hidden
+                        | System.IO.FileAttributes.System;
+                }
+
+                using (IFile s = iFileSystem.Create(strPathSavedInfoFile))
+                {
+                    si1.SaveTo(s);
+                    s.Close();
+                }
+
+                // save last write time also at the time of the .chk file
+                IFileInfo fiSavedInfo = iFileSystem.GetFileInfo(strPathSavedInfoFile);
+
+                fiSavedInfo.LastWriteTimeUtc = finfo.LastWriteTimeUtc;
+                fiSavedInfo.Attributes = fiSavedInfo.Attributes |
+                    System.IO.FileAttributes.Hidden |
+                    System.IO.FileAttributes.System;
+            }
+            catch (System.IO.IOException oEx)
+            {
+                iLogWriter.WriteLogFormattedLocalized(0,
+                    Properties.Resources.IOErrorWritingFile,
+                    strPathSavedInfoFile, oEx.Message);
+
+                iLogWriter.WriteLog(true, 0, "I/O Error writing file: \"",
+                    strPathSavedInfoFile, "\": " + oEx.Message);
+
+                return false;
+            }
+
+
+            // saving second saved info
+            try
+            {
+                IDirectoryInfo di = iFileSystem.GetDirectoryInfo(
+                    strPathSavedInfoFile2.Substring(0,
+                    strPathSavedInfoFile2.LastIndexOfAny(new char[] { '\\', '/' })));
+
+                if (!di.Exists)
+                {
+                    di.Create();
+                    di = iFileSystem.GetDirectoryInfo(
+                        strPathSavedInfoFile2.Substring(0,
+                        strPathSavedInfoFile2.LastIndexOfAny(new char[] { '\\', '/' })));
+
+                    di.Attributes = di.Attributes | System.IO.FileAttributes.Hidden
+                        | System.IO.FileAttributes.System;
+                }
+
+                using (IFile s = iFileSystem.Create(strPathSavedInfoFile2))
+                {
+                    si2.SaveTo(s);
+                    s.Close();
+                }
+
+                // save last write time also at the time of the .chk file
+                IFileInfo fiSavedInfo = iFileSystem.GetFileInfo(strPathSavedInfoFile2);
+
+                fiSavedInfo.LastWriteTimeUtc = finfo.LastWriteTimeUtc;
+                fiSavedInfo.Attributes = fiSavedInfo.Attributes |
+                    System.IO.FileAttributes.Hidden |
+                    System.IO.FileAttributes.System;
+            }
+            catch (System.IO.IOException oEx)
+            {
+                iLogWriter.WriteLogFormattedLocalized(0,
+                    Properties.Resources.IOErrorWritingFile,
+                    strPathSavedInfoFile2, oEx.Message);
+
+                iLogWriter.WriteLog(true, 0, "I/O Error writing file: \"",
+                    strPathSavedInfoFile2, "\": " + oEx.Message);
+
+                return false;
+            }
+
+            // we just created the file, so assume we checked everything,
+            // no need to double-check immediately
+            CreateOrUpdateFileChecked(strPathSavedInfoFile,
+                iFileSystem, iLogWriter);
+            CreateOrUpdateFileChecked(strPathSavedInfoFile2,
+                iFileSystem, iLogWriter);
+
+            return true;
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// This method combines copying of a file with creation of SavedInfo (.chk) file. So there is no
+        /// need to read a big data file twice.
+        /// </summary>
+        /// <param name="strPathFile">The source path for copy</param>
+        /// <param name="strPathSavedInfoFile">The target path for saved info</param>
+        /// <param name="strPathSavedInfoFile2">The target path for second saved info</param>
+        /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iCancelable">Settings defining synchronization mode and behavior</param>
+        /// <param name="iLogWriter">Logger used for outputting messages</param>
+        /// <returns>true iff the operation succeeded</returns>
+        //===================================================================================================
+        public bool Create2SavedInfos(
+            string strPathFile,
+            string strPathSavedInfoFile,
+            string strPathSavedInfoFile2,
+            IFileOperations iFileSystem,
+            ICancelable iCancelable,
+            ILogWriter iLogWriter)
+        {
+            // if by any means we get the same file, then just create saved info
+            if (strPathSavedInfoFile2.Equals(strPathSavedInfoFile, StringComparison.InvariantCultureIgnoreCase))
+            {
+                return !CreateSavedInfo(strPathFile, strPathSavedInfoFile, iFileSystem, iCancelable, iLogWriter);
+            }
+
+            IFileInfo finfo = iFileSystem.GetFileInfo(strPathFile);
+            SavedInfo si1, si2;
+            SavedInfo.Create2DifferentSavedInfos(out si1, out si2, finfo.Length, finfo.LastWriteTimeUtc);
+
+            try
+            {
+                using (IFile s =
+                    iFileSystem.CreateBufferedStream(iFileSystem.OpenRead(finfo.FullName),
+                        (int)Math.Min(finfo.Length + 1, 16 * 1024 * 1024)))
+                {
+
+                    Block oBlock = new Block();
+
+                    for (long lIndex = 0; ; lIndex++)
+                    {
+                        int nReadCount = 0;
+                        if ((nReadCount = oBlock.ReadFrom(s)) == oBlock.Length)
+                        {
+                            si1.AnalyzeForInfoCollection(oBlock, lIndex);
+                            si2.AnalyzeForInfoCollection(oBlock, lIndex);
+                        }
+                        else
+                        {
+                            if (nReadCount > 0)
+                            {
+                                for (int i = oBlock.Length - 1; i >= nReadCount; --i)
+                                    oBlock[i] = 0;
+
+                                si1.AnalyzeForInfoCollection(oBlock, lIndex);
+                                si2.AnalyzeForInfoCollection(oBlock, lIndex);
+                            }
+                            break;
+                        }
+
+                        if (iCancelable.CancelClicked)
+                            throw new OperationCanceledException();
+                    }
+
+                    s.Close();
+                }
+            }
+            catch (System.IO.IOException oEx)
+            {
+                iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.IOErrorReadingFile,
+                    finfo.FullName, oEx.Message);
+
+                iLogWriter.WriteLog(true, 0, "I/O Error reading file: \"",
+                    finfo.FullName, "\": " + oEx.Message);
+
+                return false;
+            }
+
+            // saving first saved info
+            try
+            {
+                IDirectoryInfo di = iFileSystem.GetDirectoryInfo(
+                    strPathSavedInfoFile.Substring(0,
+                    strPathSavedInfoFile.LastIndexOfAny(new char[] { '\\', '/' })));
+
+                if (!di.Exists)
+                {
+                    di.Create();
+                    di = iFileSystem.GetDirectoryInfo(
+                        strPathSavedInfoFile.Substring(0,
+                        strPathSavedInfoFile.LastIndexOfAny(new char[] { '\\', '/' })));
+
+                    di.Attributes = di.Attributes | System.IO.FileAttributes.Hidden
+                        | System.IO.FileAttributes.System;
+                }
+
+                using (IFile s = iFileSystem.Create(strPathSavedInfoFile))
+                {
+                    si1.SaveTo(s);
+                    s.Close();
+                }
+
+                // save last write time also at the time of the .chk file
+                IFileInfo fiSavedInfo = iFileSystem.GetFileInfo(strPathSavedInfoFile);
+
+                fiSavedInfo.LastWriteTimeUtc = finfo.LastWriteTimeUtc;
+                fiSavedInfo.Attributes = fiSavedInfo.Attributes |
+                    System.IO.FileAttributes.Hidden |
+                    System.IO.FileAttributes.System;
+            }
+            catch (System.IO.IOException oEx)
+            {
+                iLogWriter.WriteLogFormattedLocalized(0,
+                    Properties.Resources.IOErrorWritingFile,
+                    strPathSavedInfoFile, oEx.Message);
+
+                iLogWriter.WriteLog(true, 0, "I/O Error writing file: \"",
+                    strPathSavedInfoFile, "\": " + oEx.Message);
+
+                return false;
+            }
+
+
+            // saving second saved info
+            try
+            {
+                IDirectoryInfo di = iFileSystem.GetDirectoryInfo(
+                    strPathSavedInfoFile2.Substring(0,
+                    strPathSavedInfoFile2.LastIndexOfAny(new char[] { '\\', '/' })));
+
+                if (!di.Exists)
+                {
+                    di.Create();
+                    di = iFileSystem.GetDirectoryInfo(
+                        strPathSavedInfoFile2.Substring(0,
+                        strPathSavedInfoFile2.LastIndexOfAny(new char[] { '\\', '/' })));
+
+                    di.Attributes = di.Attributes | System.IO.FileAttributes.Hidden
+                        | System.IO.FileAttributes.System;
+                }
+
+                using (IFile s = iFileSystem.Create(strPathSavedInfoFile2))
+                {
+                    si2.SaveTo(s);
+                    s.Close();
+                }
+
+                // save last write time also at the time of the .chk file
+                IFileInfo fiSavedInfo = iFileSystem.GetFileInfo(strPathSavedInfoFile2);
+
+                fiSavedInfo.LastWriteTimeUtc = finfo.LastWriteTimeUtc;
+                fiSavedInfo.Attributes = fiSavedInfo.Attributes |
+                    System.IO.FileAttributes.Hidden |
+                    System.IO.FileAttributes.System;
+            }
+            catch (System.IO.IOException oEx)
+            {
+                iLogWriter.WriteLogFormattedLocalized(0,
+                    Properties.Resources.IOErrorWritingFile,
+                    strPathSavedInfoFile2, oEx.Message);
+
+                iLogWriter.WriteLog(true, 0, "I/O Error writing file: \"",
+                    strPathSavedInfoFile2, "\": " + oEx.Message);
+
+                return false;
+            }
+
+            // we just created the file, so assume we checked everything,
+            // no need to double-check immediately
+            CreateOrUpdateFileChecked(strPathSavedInfoFile,
+                iFileSystem, iLogWriter);
+            CreateOrUpdateFileChecked(strPathSavedInfoFile2,
+                iFileSystem, iLogWriter);
+
+            return true;
+        }
 
 
         //===================================================================================================
