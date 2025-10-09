@@ -19,8 +19,9 @@
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 using SyncFoldersApi;
+using System.Data.SqlTypes;
 
-#pragma warning disable NUnit2005
+#pragma warning disable NUnit2005, NUnit2006
 
 namespace SyncFoldersTests
 {
@@ -808,6 +809,53 @@ namespace SyncFoldersTests
             Assert.AreEqual(si.m_aBlocks, si2.m_aBlocks);
             Assert.AreEqual(si2.m_aBlocks[0], b1);
             Assert.AreEqual(si2.m_aBlocks[1], b2);
+        }
+
+
+        //===================================================================================================
+        /// <summary>
+        /// Tests that 2 saved infos are really different
+        /// </summary>
+        //===================================================================================================
+        [Test]
+        public void TwoSavedInfosReallyDifferent()
+        {
+
+            for (int nFileSize = 16 * 1024; nFileSize < 1024 * 1024; nFileSize += 4096)
+            {
+
+                SavedInfo si1, si2;
+                SavedInfo.Create2DifferentSavedInfos(out si1, out si2, nFileSize, DateTime.Now);
+                Assert.AreNotEqual(si1.m_aBlocks.Count, si2.m_aBlocks.Count);
+                if (si1.m_aOtherBlocks.Count>0)
+                    Assert.AreNotEqual(si1.m_aOtherBlocks.Count, si2.m_aOtherBlocks.Count);
+                Assert.AreNotEqual(si1.m_aBlocks.Count, si2.m_aOtherBlocks.Count);
+                Assert.AreNotEqual(si2.m_aBlocks.Count, si1.m_aOtherBlocks.Count);
+            }
+
+            for (int nFileSize = 16 * 1024*1024; nFileSize < 16 * 1024 * 1024 + 128 * 1024; nFileSize += 4096)
+            {
+
+                SavedInfo si1, si2;
+                SavedInfo.Create2DifferentSavedInfos(out si1, out si2, nFileSize, DateTime.Now);
+                Assert.AreNotEqual(si1.m_aBlocks.Count, si2.m_aBlocks.Count);
+                Assert.AreNotEqual(si1.m_aOtherBlocks.Count, si2.m_aOtherBlocks.Count);
+                Assert.AreNotEqual(si1.m_aBlocks.Count, si2.m_aOtherBlocks.Count);
+                Assert.AreNotEqual(si2.m_aBlocks.Count, si1.m_aOtherBlocks.Count);
+            }
+
+
+            for (int nFileSize = 200 * 1024 * 1024; nFileSize < 200 * 1024 * 1024 + 128 * 1024; nFileSize += 4096)
+            {
+
+                SavedInfo si1, si2;
+                SavedInfo.Create2DifferentSavedInfos(out si1, out si2, nFileSize, DateTime.Now);
+                Assert.AreNotEqual(si1.m_aBlocks.Count, si2.m_aBlocks.Count);
+                Assert.AreNotEqual(si1.m_aOtherBlocks.Count, si2.m_aOtherBlocks.Count);
+                Assert.AreNotEqual(si1.m_aBlocks.Count, si2.m_aOtherBlocks.Count);
+                Assert.AreNotEqual(si2.m_aBlocks.Count, si1.m_aOtherBlocks.Count);
+            }
+
         }
 
     }
