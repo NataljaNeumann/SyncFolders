@@ -71,7 +71,7 @@ namespace SyncFoldersApi
         /// <summary>
         /// Holds second row of blocks for restoring single block failures
         /// </summary>
-        List<Block?> m_aOtherBlocks = new List<Block?>();
+        public List<Block?> m_aOtherBlocks = new List<Block?>();
         /// <summary>
         /// Simple checksums of the blocks of the original file
         /// </summary>
@@ -180,7 +180,7 @@ namespace SyncFoldersApi
 
 
             // if there are really many blocks
-            if ((nMaxBlocks * (long)nMaxBlocks) > lFileLength / oTestBlock.Length)
+            if (nMaxBlocks > 16 && (nMaxBlocks * (long)nMaxBlocks) > lFileLength / oTestBlock.Length)
             {
                 nMaxBlocks = (int)Math.Round(Math.Sqrt(lFileLength / oTestBlock.Length));
                 nMaxBlocks = FindNextPrime(nMaxBlocks);
@@ -275,7 +275,7 @@ namespace SyncFoldersApi
 
                 for (int j = 1; j<oFoundPrimes.Count; ++j)
                 {
-                    if ((i%j) == 0)
+                    if ((i% oFoundPrimes[j]) == 0)
                     {
                         bPrime = false;
                         break;
@@ -294,7 +294,7 @@ namespace SyncFoldersApi
 
         //===================================================================================================
         /// <summary>
-        /// Constructs a new SavedInfo with data
+        /// Constructs two SavedInfo objects with different data, increasing chance of restore
         /// </summary>
         /// <param name="lFileLength">The length of the file</param>
         /// <param name="dtmFileTimestampUtc">The UTC timestamp of the file</param>
@@ -359,7 +359,7 @@ namespace SyncFoldersApi
 
 
             // if there are really many blocks
-            if ((nMaxBlocks * (long)nMaxBlocks) > lFileLength  / oTestBlock.Length)
+            if (nMaxBlocks > 16 && (nMaxBlocks * (long)nMaxBlocks) > lFileLength  / oTestBlock.Length)
             {
                 nMaxBlocks = (int)Math.Round(Math.Sqrt(lFileLength / oTestBlock.Length));
                 nMaxBlocks = FindNextPrime(nMaxBlocks);
