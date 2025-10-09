@@ -607,19 +607,25 @@ namespace SyncFoldersApi
             // bidirectionally path
             if ((!Utils.FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) && (fi1.LastWriteTimeUtc > fi2.LastWriteTimeUtc)) ||
                 (Utils.FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) && fi1.Length > fi2.Length))
+            {
                 iLogic.ProcessFilePair_Bidirectionally_BothExist_FirstNewer(strFilePath1, strFilePath2, fi1, fi2,
                     "(file newer or bigger)", Properties.Resources.FileWasNewer,
                     iFileSystem, iSettings, iStepsImpl, iLogWriter);
+            }
             else
             {
                 // bidirectionally path
                 if ((!Utils.FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) && (fi2.LastWriteTimeUtc > fi1.LastWriteTimeUtc)) ||
                     (Utils.FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) && fi2.Length > fi1.Length))
+                {
                     iLogic.ProcessFilePair_Bidirectionally_BothExist_SecondNewer(strFilePath1, strFilePath2, fi1, fi2,
                         iFileSystem, iSettings, iStepsImpl, iLogWriter);
+                }
                 else
+                {
                     iLogic.ProcessFilePair_Bidirectionally_BothExist_AssumingBothEqual(strFilePath1, strFilePath2, fi1, fi2,
                         iFileSystem, iSettings, iStepsImpl, iLogWriter);
+                }
             }
         }
 
