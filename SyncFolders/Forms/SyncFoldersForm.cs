@@ -158,7 +158,7 @@ namespace SyncFolders
             TestIfRunningFromReadonnly();
 
             // Add header image
-            ReadyToUseImageInjection("SyncFoldersHeader.jpg");
+            ReadyToUseImageInjection($"Images{Path.DirectorySeparatorChar}SyncFoldersHeader.jpg");
 
 
             // Init progress in task bar, if at least windows 7
