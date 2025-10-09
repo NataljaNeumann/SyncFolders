@@ -137,8 +137,10 @@ namespace SyncFoldersApi
             m_aListOfBlocksToRestore = new List<long>();
 
             Block oTestBlock = new Block();
+
             // maxblocks is at least 0.5 per cent of the file or at least 64K in 64K steps
-            int nMaxBlocks = ((int)(lFileLength / 200)) / (1024 * 64) * (1024 * 64) / oTestBlock.Length;
+            int nMaxBlocks = ((int)(lFileLength / 200) / (1024 * 64) * (1024 * 64) / oTestBlock.Length);
+
             if (nMaxBlocks < 1024 * 64 / oTestBlock.Length)
                 nMaxBlocks = 1024 * 64 / oTestBlock.Length;
 
@@ -164,49 +166,85 @@ namespace SyncFoldersApi
 
             // if file empty then no blocks
             if (lFileLength == 0)
-                nMaxBlocks = 0;
+            {
+                // init checksums
+                m_aChecksums = new List<byte[]>();
+                return;
+            }
+
+
+            // calculate the length of the second row: Total number of blocks ~ 1% in
+            // both rows
+            int nMaxOtherBlocks = (int)(lFileLength / 100
+                / oTestBlock.Length - nMaxBlocks);
+
+
+            // if there are really many blocks
+            if ((nMaxBlocks * (long)nMaxBlocks) > lFileLength / oTestBlock.Length)
+            {
+                nMaxBlocks = (int)Math.Round(Math.Sqrt(lFileLength / oTestBlock.Length));
+                nMaxBlocks = FindNextPrime(nMaxBlocks);
+                nMaxOtherBlocks = FindNextPrime(nMaxBlocks + (1024 * 64) / oTestBlock.Length);
+
+                // fill first row of the blocks
+                for (int i = nMaxBlocks - 1; i >= 0; --i)
+                    m_aBlocks.Add(new Block());
+
+                // fill second row of blocks
+                for (int i = nMaxOtherBlocks - 1; i >= 0; --i)
+                    m_aOtherBlocks.Add(new Block());
+
+                // init checksums
+                m_aChecksums = new List<byte[]>();
+
+                return;
+            }
 
             // fill first row of the blocks
             for (int i = nMaxBlocks - 1; i >= 0; --i)
                 m_aBlocks.Add(new Block());
 
-            // calculate the length of the second row: Total number of blocks ~ 1% in
-            // both rows
-            int nMaxOtherBlocks = ((int)(lFileLength / 100)) / (1024 * 64) * (1024 * 64) 
-                / oTestBlock.Length - nMaxBlocks;
 
             // if the original file is too small for two rows then no second row
-            if ( (nMaxOtherBlocks < 1024 * 64 / oTestBlock.Length) && !bForceOtherBlocks)
+            if ( (nMaxOtherBlocks <  3) && !bForceOtherBlocks)
                 nMaxOtherBlocks = 0;
             else
             {
+                // make the second number of blocks odd
+                if ((nMaxOtherBlocks & 1) == 0)
+                {
+                    nMaxOtherBlocks--;
+                }
+
                 // if there are many blocks
                 if (nMaxBlocks >= 48)
                 {
                     // default: one block more
                     nMaxOtherBlocks = nMaxBlocks + 1;
+
                     // try to find a length of at least 17 blocks
                     // so there is a chance for restoring two different 16K ranges
-                    for (int i = 17; i*2<nMaxBlocks; i+=2)
+                    for (int i = 17; i * 2 < nMaxBlocks; i += 2)
+                    {
                         if ((nMaxBlocks % i) != 0)
                         {
                             nMaxOtherBlocks = nMaxBlocks - i;
                             break;
                         }
-                }
-                else
-                    // same procedure for 32K, 16K, 8K
-                    if (nMaxBlocks >= 24 && ( (nMaxBlocks%9) != 0) )
+                    }
+                } else if (bForceOtherBlocks && nMaxOtherBlocks< (1024 * 64) / oTestBlock.Length)
+                {
+                    // same procedure for 32K
+                    if (nMaxBlocks >= 24 && ((nMaxBlocks % 9) != 0))
                         nMaxOtherBlocks = nMaxBlocks - 9;
+                    else if (nMaxBlocks >= 12 && ((nMaxBlocks % 5) != 0))
+                        nMaxOtherBlocks = nMaxBlocks - 5;
+                    else if (nMaxBlocks >= 6 && ((nMaxBlocks % 3) != 0))
+                        nMaxOtherBlocks = nMaxBlocks - 3;
                     else
-                        if (nMaxBlocks >= 12 && ((nMaxBlocks % 5) != 0)  )
-                            nMaxOtherBlocks = nMaxBlocks - 5;
-                        else
-                            if (nMaxBlocks >= 6 && ((nMaxBlocks % 3) != 0) )
-                                nMaxOtherBlocks = nMaxBlocks - 3;
-                            else
-                                // default: one block more
-                                nMaxOtherBlocks = nMaxBlocks + 1;
+                        // default: one block more
+                        nMaxOtherBlocks = nMaxBlocks + 1;
+                }
             }
 
             // fill second row of blocks
@@ -216,6 +254,206 @@ namespace SyncFoldersApi
             // init checksums
             m_aChecksums = new List<byte[]>();
         }
+
+
+        //===================================================================================================
+        /// <summary>
+        /// Searches next prime number
+        /// </summary>
+        /// <param name="nStartWith"></param>
+        /// <returns>Next prime number bigger than given parameter</returns>
+        //===================================================================================================
+        private static int FindNextPrime(
+            int nStartWith
+            )
+        {
+            List<int> oFoundPrimes = new List<int>();
+            oFoundPrimes.Add(2);
+            for (int i = 3; ; i+=2)
+            {
+                bool bPrime = true;
+
+                for (int j = 1; j<oFoundPrimes.Count; ++j)
+                {
+                    if ((i%j) == 0)
+                    {
+                        bPrime = false;
+                        break;
+                    }
+                }
+
+                if (bPrime)
+                {
+                    if (i > nStartWith)
+                        return i;
+
+                    oFoundPrimes.Add(i);
+                }
+            }
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// Constructs a new SavedInfo with data
+        /// </summary>
+        /// <param name="lFileLength">The length of the file</param>
+        /// <param name="dtmFileTimestampUtc">The UTC timestamp of the file</param>
+        /// <param name="si1">Saved info 1</param>
+        /// <param name="si2">Saved info 2</param>
+        //===================================================================================================
+        public static void Create2DifferentSavedInfos(
+            out SavedInfo si1, 
+            out SavedInfo si2, 
+            long lFileLength,
+            DateTime dtmFileTimestampUtc)
+        {
+            si1 = new SavedInfo();
+            si2 = new SavedInfo();
+
+            si1.m_lFileLength = lFileLength;
+            si1.m_dtmFileTimestampUtc = dtmFileTimestampUtc;
+            si1.m_aListOfBlocksToRestore = new List<long>();
+
+            si2.m_lFileLength = lFileLength;
+            si2.m_dtmFileTimestampUtc = dtmFileTimestampUtc;
+            si2.m_aListOfBlocksToRestore = new List<long>();
+
+            Block oTestBlock = new Block();
+
+            // maxblocks is at least 0.5 per cent of the file or at least 64K in 64K steps
+            // maxblocks is at least 0.5 per cent of the file or at least 64K in 64K steps
+            int nMaxBlocks = ((int)(lFileLength / 200) / (1024 * 64) * (1024 * 64) / oTestBlock.Length);
+
+            if (nMaxBlocks < 1024 * 64 / oTestBlock.Length)
+                nMaxBlocks = 1024 * 64 / oTestBlock.Length;
+
+            // no more blocks than half original file, if the file is small
+            if (nMaxBlocks > (lFileLength + oTestBlock.Length - 1) / oTestBlock.Length / 2)
+            {
+                // small release files don't need more than one block
+                if (Properties.Resources.CreateRelease && lFileLength < 300 * 1024)
+                {
+                    nMaxBlocks = 1;
+                }
+                else
+                {
+                    // standard: half the size of the original file for small files
+                    nMaxBlocks = Math.Max(1, (int)((lFileLength + oTestBlock.Length - 1) / oTestBlock.Length / 2));
+                }
+            }
+
+
+            // if file empty then no blocks
+            if (lFileLength == 0)
+            {
+                // init checksums
+                si1.m_aChecksums = new List<byte[]>();
+                si2.m_aChecksums = new List<byte[]>();
+                return;
+            }
+
+            // calculate the length of the second row: Total number of blocks ~ 1% in
+            // both rows
+            int nMaxOtherBlocks = (int)(lFileLength / 100
+                / oTestBlock.Length - nMaxBlocks);
+
+
+            // if there are really many blocks
+            if ((nMaxBlocks * (long)nMaxBlocks) > lFileLength  / oTestBlock.Length)
+            {
+                nMaxBlocks = (int)Math.Round(Math.Sqrt(lFileLength / oTestBlock.Length));
+                nMaxBlocks = FindNextPrime(nMaxBlocks);
+                int nMaxBlocks2 = FindNextPrime(nMaxBlocks + (1024 * 64) / oTestBlock.Length);
+                nMaxOtherBlocks = FindNextPrime(nMaxBlocks2);
+                int nMaxOtherBlocks2 = FindNextPrime(nMaxOtherBlocks + (1024 * 64) / oTestBlock.Length);
+
+                // fill first row of the blocks
+                for (int i = nMaxBlocks - 1; i >= 0; --i)
+                    si1.m_aBlocks.Add(new Block());
+
+                for (int i = nMaxBlocks2 - 1; i >= 0; --i)
+                    si2.m_aBlocks.Add(new Block());
+
+                // fill second row of blocks
+                for (int i = nMaxOtherBlocks - 1; i >= 0; --i)
+                    si1.m_aOtherBlocks.Add(new Block());
+
+                for (int i = nMaxOtherBlocks2 - 1; i >= 0; --i)
+                    si2.m_aOtherBlocks.Add(new Block());
+
+                // init checksums
+                si1.m_aChecksums = new List<byte[]>();
+                si2.m_aChecksums = new List<byte[]>();
+
+                return;
+            }
+
+            // fill first row of the blocks
+            for (int i = nMaxBlocks - 1; i >= 0; --i)
+                si1.m_aBlocks.Add(new Block());
+
+
+            // if the original file is too small for two rows then no second row
+            if ((nMaxOtherBlocks < 3))
+                nMaxOtherBlocks = 0;
+            else
+            {
+                // make the second number of blocks odd
+                if ((nMaxOtherBlocks & 1) == 0)
+                {
+                    nMaxOtherBlocks--;
+                }
+
+                // if there are many blocks
+                if (nMaxBlocks >= 48)
+                {
+                    // default: one block more
+                    nMaxOtherBlocks = nMaxBlocks + 1;
+
+                    // try to find a length of at least 17 blocks
+                    // so there is a chance for restoring two different 16K ranges
+                    for (int i = 17; i * 2 < nMaxBlocks; i += 2)
+                        if ((nMaxBlocks % i) != 0)
+                        {
+                            nMaxOtherBlocks = nMaxBlocks - i;
+                            break;
+                        }
+                }
+            }
+
+            // fill second row of blocks
+            for (int i = nMaxOtherBlocks - 1; i >= 0; --i)
+                si1.m_aOtherBlocks.Add(new Block());
+
+            // init checksums
+            si1.m_aChecksums = new List<byte[]>();
+
+            int nMaxBlocks3 = nMaxBlocks + 1;
+            int nMaxOtherBlocks3 = nMaxOtherBlocks - 1;
+
+            if (nMaxBlocks3 == nMaxOtherBlocks)
+            {
+                nMaxOtherBlocks3++;
+                nMaxOtherBlocks3--;
+            }
+
+            if (nMaxOtherBlocks3 <= 0)
+            {
+                nMaxOtherBlocks3 = 0;
+            }
+
+            // fill first row of the blocks
+            for (int i = nMaxBlocks3 - 1; i >= 0; --i)
+                si2.m_aBlocks.Add(new Block());
+
+            // fill second row of blocks
+            for (int i = nMaxOtherBlocks3 - 1; i >= 0; --i)
+                si2.m_aOtherBlocks.Add(new Block());
+
+            // init checksums
+            si2.m_aChecksums = new List<byte[]>();
+        }
+
 
         //***************************************************************************************************
         /// <summary>
@@ -1332,6 +1570,7 @@ namespace SyncFoldersApi
                 m_aChecksums[(int)lBlockIndex] = checksum;
             }
         }
+
 
         /// <summary>
         /// Last analyzed block for restore
