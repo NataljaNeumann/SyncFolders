@@ -29,7 +29,7 @@ namespace SyncFoldersTests
     /// This class tests utils
     /// </summary>
     //*******************************************************************************************************
-    public class T0000_UtilsTests
+    public class T000_UtilsTests
     {
         [SetUp]
         public void Setup()
