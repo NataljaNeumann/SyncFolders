@@ -63,6 +63,7 @@ namespace SyncFoldersApi
                 {
                     try
                     {
+                        /* TODO: this block isn't hit by any unit tests */
                         using (IFile s =
                             iFileSystem.OpenRead(strPathSavedInfoFile))
                         {
@@ -87,6 +88,7 @@ namespace SyncFoldersApi
                 si.Length != finfo.Length ||
                 !Utils.FileTimesEqual(si.TimeStamp, finfo.LastWriteTimeUtc))
             {
+                /* TODO: this block isn't hit by any unit tests */
                 bool bAllBlocksOk = true;
 
                 if (fiSavedInfo.Exists)
@@ -197,6 +199,7 @@ namespace SyncFoldersApi
                                 bBlockOk = si.AnalyzeForTestOrRestore(oBlock, lIndex);
                                 if (!bBlockOk)
                                 {
+                                    /* TODO: this block isn't hit by any unit tests */
                                     bAllBlocksOK = false;
 
                                     iLogWriter.WriteLogFormattedLocalized(1,
@@ -269,6 +272,7 @@ namespace SyncFoldersApi
 
                 if (bAllBlocksOK)
                 {
+                    /* TODO: this block isn't hit by any unit tests */
                     // check also, if the contents of the checksum file 
                     // match the file itself, or if they have been corrupted somehow
                     if (!si.VerifyIntegrityAfterRestoreTest() || si.NeedsRebuild())
@@ -292,6 +296,7 @@ namespace SyncFoldersApi
             }
             catch (System.IO.IOException oEx)
             {
+                /* TODO: this block isn't hit by any unit tests */
                 iLogWriter.WriteLogFormattedLocalized(0, 
                     Properties.Resources.IOErrorReadingFile,
                     finfo.FullName, oEx.Message);
@@ -327,6 +332,7 @@ namespace SyncFoldersApi
                                 {
                                     if (oReadableButNotAccepted.ContainsKey(oRestoreInfo.Position / oRestoreInfo.Data.Length))
                                     {
+                                        /* TODO: this block isn't hit by any unit tests */
                                         iLogWriter.WriteLogFormattedLocalized(1,
                                             Properties.Resources.KeepingReadableButNotRecoverableBlockAtOffset,
                                             oRestoreInfo.Position);
@@ -384,6 +390,7 @@ namespace SyncFoldersApi
                 {
                     if (aResoreInfos.Count > 1)
                     {
+                        /* TODO: this block isn't hit by any unit tests */
                         iLogWriter.WriteLogFormattedLocalized(0,
                             Properties.Resources.ThereAreBadBlocksNonRestorableCantBeBackup,
                             aResoreInfos.Count, finfo.FullName, lNonRestoredSize);
@@ -408,6 +415,7 @@ namespace SyncFoldersApi
                 {
                     if (aResoreInfos.Count > 1)
                     {
+                        /* TODO: this block isn't hit by any unit tests */
                         iLogWriter.WriteLogFormattedLocalized(0,
                             Properties.Resources.ThereWereBadBlocksInFileNotRestoredParts,
                             aResoreInfos.Count, finfo.FullName, lNonRestoredSize);
@@ -466,6 +474,7 @@ namespace SyncFoldersApi
             }
             catch (System.IO.IOException oEx)
             {
+                /* TODO: this block isn't hit by any unit tests */
                 iLogWriter.WriteLogFormattedLocalized(0, 
                     Properties.Resources.IOErrorWritingFile,
                     finfo.FullName, oEx.Message);
@@ -557,6 +566,7 @@ namespace SyncFoldersApi
             if (string.Equals(strPathTargetFile, strPathFile,
                 StringComparison.InvariantCultureIgnoreCase))
             {
+                /* TODO: this block isn't hit by any unit tests */
                 if (iSettings.TestFiles && iSettings.RepairFiles)
                 {
                     return TestAndRepairSingleFile(strPathFile, strPathSavedInfoFile,
@@ -614,6 +624,7 @@ namespace SyncFoldersApi
                 }
                 catch (System.IO.IOException oEx)
                 {
+                    /* TODO: this block isn't hit by any unit tests */
                     iLogWriter.WriteLogFormattedLocalized(0, 
                         Properties.Resources.IOErrorReadingFile,
                         strPathSavedInfoFile, oEx.Message);
@@ -634,6 +645,7 @@ namespace SyncFoldersApi
 
                 if (!bNotReadableSi)
                 {
+                    /* TODO: this block isn't hit by any unit tests */
                     iLogWriter.WriteLogFormattedLocalized(0, 
                         Properties.Resources.SavedInfoFileCantBeUsedForTesting,
                         strPathSavedInfoFile, strPathFile);
@@ -712,13 +724,17 @@ namespace SyncFoldersApi
                         IFileInfo fi2 = iFileSystem.GetFileInfo(strPathTargetFile);
 
                         if (fi2.Exists)
+                        {
+                            /* TODO: this block isn't hit by any unit tests */
                             iFileSystem.Delete(fi2);
+                        }
 
                         // and replace it with the new one
                         IFileInfo fi2tmp = iFileSystem.GetFileInfo(strPathTargetFile + ".tmp");
 
                         if (bAllBlocksOk)
                         {
+                            /* TODO: this block isn't hit by any unit tests */
                             // if everything OK set original time
                             fi2tmp.LastWriteTimeUtc = dtmOriginalTime;
                         }
@@ -745,6 +761,7 @@ namespace SyncFoldersApi
                         }
                         else
                         {
+                            /* TODO: this block isn't hit by any unit tests */
                             iLogWriter.WriteLogFormattedLocalized(0, 
                                 Properties.Resources.CopiedFromToReason,
                                 strPathFile, strPathTargetFile, strReasonTranslated);
@@ -791,6 +808,7 @@ namespace SyncFoldersApi
 
                                 if (!bBlockOk)
                                 {
+                                    /* TODO: this block isn't hit by any unit tests */
                                     bAllBlocksOK = false;
 
                                     iLogWriter.WriteLogFormattedLocalized(2,
@@ -816,6 +834,7 @@ namespace SyncFoldersApi
 
                                     if (!bBlockOk)
                                     {
+                                        /* TODO: this block isn't hit by any unit tests */
                                         bAllBlocksOK = false;
 
                                         iLogWriter.WriteLogFormattedLocalized(2,
@@ -859,6 +878,7 @@ namespace SyncFoldersApi
 
                 if (bAllBlocksOK)
                 {
+                    /* TODO: this block isn't hit by any unit tests */
                     // check also, if the contents of the checksum file match 
                     // the file itself, or if they have been corrupted somehow
                     if (!oSavedInfo.VerifyIntegrityAfterRestoreTest())
@@ -878,6 +898,7 @@ namespace SyncFoldersApi
             }
             catch (System.IO.IOException oEx)
             {
+                /* TODO: this block isn't hit by any unit tests */
                 iLogWriter.WriteLogFormattedLocalized(0, 
                     Properties.Resources.IOErrorReadingFile,
                     finfo.FullName, oEx.Message);
@@ -920,6 +941,7 @@ namespace SyncFoldersApi
 
                 if (aRestoreInfos.Count > 1)
                 {
+                    /* TODO: this block isn't hit by any unit tests */
                     iLogWriter.WriteLogFormattedLocalized(1,
                         Properties.Resources.ThereAreBadBlocksInFileNonRestorableParts +
                             (bApplyRepairsToSrc ? "" :
@@ -980,6 +1002,7 @@ namespace SyncFoldersApi
                                         {
                                             if (oReadableButNotAccepted.ContainsKey(oRestoreInfo.Position / nBlockSize))
                                             {
+                                                /* TODO: this block isn't hit by any unit tests */
                                                 iLogWriter.WriteLogFormattedLocalized(1,
                                                     Properties.Resources.KeepingReadableNonRecovBBlockAtAlsoInCopy,
                                                     oRestoreInfo.Position, finfo.FullName, strPathTargetFile);
@@ -1091,6 +1114,7 @@ namespace SyncFoldersApi
                 IFileInfo finfo2 = iFileSystem.GetFileInfo(strPathTargetFile);
                 if (aRestoreInfos.Count > 1)
                 {
+                    /* TODO: this block isn't hit by any unit tests */
                     iLogWriter.WriteLogFormattedLocalized(1, 
                         Properties.Resources.OutOfBadBlocksNotRestoredInCopyBytes,
                         aRestoreInfos.Count, finfo2.FullName, lNonRestoredSize);
@@ -1150,6 +1174,7 @@ namespace SyncFoldersApi
                 if (bFailOnNonRecoverable)
                     throw;
 
+                /* TODO: this block isn't hit by any unit tests */
                 iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.IOErrorDuringRepairCopyOf,
                     strPathTargetFile, oEx.Message);
 
@@ -1191,6 +1216,7 @@ namespace SyncFoldersApi
                     ref bForceCreateInfo, false, false, true,
                     iFileSystem, iSettings, iLogWriter))
             {
+                /* TODO: this block isn't hit by any unit tests */
                 return;
             }
 
@@ -1218,6 +1244,7 @@ namespace SyncFoldersApi
 
                     if (!bSaveInfo1Present)
                     {
+                        /* TODO: this block isn't hit by any unit tests */
                         oSavedInfo1 = new SavedInfo();
                         bForceCreateInfo = true;
                     }
@@ -1253,6 +1280,7 @@ namespace SyncFoldersApi
                     }
                     else
                     {
+                        /* TODO: this block isn't hit by any unit tests */
                         bForceCreateInfo = true;
                     }
                     s.Close();
@@ -1362,6 +1390,7 @@ namespace SyncFoldersApi
 
                             if (bBlock1Present && !bBlock2Present)
                             {
+                                /* TODO: this block isn't hit by any unit tests */
                                 if (oSavedInfo2.AnalyzeForTestOrRestore(oBlock1, lIndex))
                                 {
                                     iLogWriter.WriteLogFormattedLocalized(1,
@@ -1376,6 +1405,7 @@ namespace SyncFoldersApi
                             }
                             else if (bBlock2Present && !bBlock1Present)
                             {
+                                /* TODO: this block isn't hit by any unit tests */
                                 if (oSavedInfo1.AnalyzeForTestOrRestore(oBlock2, lIndex))
                                 {
                                     aRestore1.Add(new RestoreInfo(lIndex * oBlock2.Length, oBlock2, false));
@@ -1393,6 +1423,7 @@ namespace SyncFoldersApi
                             {
                                 if (bBlock2Present && !bBlockStream1Ok)
                                 {
+                                    /* TODO: this block isn't hit by any unit tests */
                                     if (oSavedInfo1.AnalyzeForTestOrRestore(oBlock2, lIndex))
                                     {
                                         iLogWriter.WriteLogFormattedLocalized(1,
@@ -1409,6 +1440,7 @@ namespace SyncFoldersApi
 
                                 if (bBlock1Present && !bBlock2Ok)
                                 {
+                                    /* TODO: this block isn't hit by any unit tests */
                                     if (oSavedInfo2.AnalyzeForTestOrRestore(oBlock1, lIndex))
                                     {
                                         iLogWriter.WriteLogFormattedLocalized(1,
@@ -1433,6 +1465,7 @@ namespace SyncFoldersApi
                                 {
                                     if (oBlock1[i] != oBlock2[i])
                                     {
+                                        /* TODO: this block isn't hit by any unit tests */
                                         bDifferent = true;
                                         break;
                                     }
@@ -1489,6 +1522,7 @@ namespace SyncFoldersApi
                                     oRestoreInfo2.NotRecoverableArea &&
                                     !oRestoreInfo1.NotRecoverableArea)
                                 {
+                                    /* TODO: this block isn't hit by any unit tests */
                                     iLogWriter.WriteLogFormattedLocalized(1,
                                         Properties.Resources.BlockOfAtPositionWillBeRestoredFrom,
                                         fi2.FullName, oRestoreInfo2.Position, fi1.FullName);
@@ -1544,6 +1578,7 @@ namespace SyncFoldersApi
                                 oReadableBlocks1.ContainsKey(oRestoreInfo2.Position / oRestoreInfo2.Data.Length) &&
                                 !oReadableBlocks2.ContainsKey(oRestoreInfo2.Position / oRestoreInfo2.Data.Length))
                             {
+                                /* TODO: this block isn't hit by any unit tests */
                                 iLogWriter.WriteLogFormattedLocalized(1,
                                     Properties.Resources.BlockOfAtPositionWillBeCopiedFromNoMatterChecksum,
                                     fi2.FullName, oRestoreInfo2.Position, fi1.FullName);
@@ -1842,6 +1877,7 @@ namespace SyncFoldersApi
             ILogWriter iLogWriter
             )
         {
+            /* TODO: this block isn't hit by any unit tests */
             return CreateSavedInfo(strPathFile, strPathSavedChkInfoFile, 1, false,
                 iFileSystem, iSettings, iLogWriter);
         }
@@ -1868,6 +1904,7 @@ namespace SyncFoldersApi
             ILogWriter iLogWriter
             )
         {
+            /* TODO: this block isn't hit by any unit tests */
             return CreateSavedInfo(strPathFile, strPathSavedChkInfoFile, 1, bForceSecondBlocks,
                 iFileSystem, iSettings, iLogWriter);
         }
@@ -1895,6 +1932,7 @@ namespace SyncFoldersApi
             ILogWriter iLogWriter
             )
         {
+            /* TODO: this block isn't hit by any unit tests */
             IFileInfo finfo = iFileSystem.GetFileInfo(strPathFile);
             SavedInfo si = new SavedInfo(finfo.Length, finfo.LastWriteTimeUtc, bForceSecondBlocks);
 
@@ -2062,7 +2100,10 @@ namespace SyncFoldersApi
                     IFileInfo fi2 = iFileSystem.GetFileInfo(strTargetPath2);
 
                     if (fi2.Exists)
+                    {
+                        /* TODO: this block isn't hit by any unit tests */
                         iFileSystem.Delete(fi2);
+                    }
                 }
                 catch
                 {
@@ -2097,6 +2138,7 @@ namespace SyncFoldersApi
             ILogWriter iLogWriter
             )
         {
+            /* TODO: this block isn't hit by any unit tests */
             return TestSingleFile2(strPathFile, strPathSavedInfoFile,
                 ref bForceCreateInfo, true, true, true, false, true,
                 iFileSystem, iSettings, iLogWriter);
@@ -2150,6 +2192,7 @@ namespace SyncFoldersApi
 
                     if (!bSaveInfo1Present)
                     {
+                        /* TODO: this block isn't hit by any unit tests */
                         si1 = new SavedInfo();
                         bForceCreateInfo = true;
                     }
@@ -2184,6 +2227,7 @@ namespace SyncFoldersApi
                     }
                     else
                     {
+                        /* TODO: this block isn't hit by any unit tests */
                         bForceCreateInfo = true;
                     }
                     s.Close();
@@ -2256,6 +2300,7 @@ namespace SyncFoldersApi
 
                                 if (!bBlock1Ok)
                                 {
+                                    /* TODO: this block isn't hit by any unit tests */
                                     iLogWriter.WriteLogFormattedLocalized(2,
                                         Properties.Resources.ChecksumOfBlockAtOffsetNotOK,
                                         strPathFile1, lIndex * oBlock1.Length);
@@ -2307,6 +2352,7 @@ namespace SyncFoldersApi
 
                                 if (!bBlock2Ok)
                                 {
+                                    /* TODO: this block isn't hit by any unit tests */
                                     iLogWriter.WriteLogFormattedLocalized(2,
                                         Properties.Resources.ChecksumOfBlockAtOffsetNotOK,
                                         strPathFile2, lIndex * oBlock2.Length);
@@ -2332,6 +2378,7 @@ namespace SyncFoldersApi
 
                             if (bBlock1Present && !bBlock2Present)
                             {
+                                /* TODO: this block isn't hit by any unit tests */
                                 if (si2.AnalyzeForTestOrRestore(oBlock1, lIndex))
                                 {
                                     iLogWriter.WriteLogFormattedLocalized(1,
@@ -2346,6 +2393,7 @@ namespace SyncFoldersApi
                             }
                             else if (bBlock2Present && !bBlock1Present)
                             {
+                                /* TODO: this block isn't hit by any unit tests */
                                 if (si1.AnalyzeForTestOrRestore(oBlock2, lIndex))
                                 {
                                     iLogWriter.WriteLogFormattedLocalized(1,
@@ -2363,6 +2411,7 @@ namespace SyncFoldersApi
                             {
                                 if (bBlock2Present && !bBlock1Ok)
                                 {
+                                    /* TODO: this block isn't hit by any unit tests */
                                     if (si1.AnalyzeForTestOrRestore(oBlock2, lIndex))
                                     {
                                         iLogWriter.WriteLogFormattedLocalized(1,
@@ -2379,6 +2428,7 @@ namespace SyncFoldersApi
 
                                 if (bBlock1Present && !bBlock2Ok)
                                 {
+                                    /* TODO: this block isn't hit by any unit tests */
                                     if (si2.AnalyzeForTestOrRestore(oBlock1, lIndex))
                                     {
                                         iLogWriter.WriteLogFormattedLocalized(1,
@@ -2403,6 +2453,7 @@ namespace SyncFoldersApi
                                 for (int i = oBlock1.Length - 1; i >= 0; --i)
                                     if (oBlock1[i] != oBlock2[i])
                                     {
+                                        /* TODO: this block isn't hit by any unit tests */
                                         bDifferent = true;
                                         break;
                                     }
@@ -2451,6 +2502,7 @@ namespace SyncFoldersApi
                                 if (oRestoreInfo2.Position == oRestoreInfo1.Position)
                                     if (oRestoreInfo2.NotRecoverableArea && !oRestoreInfo1.NotRecoverableArea)
                                     {
+                                        /* TODO: this block isn't hit by any unit tests */
                                         iLogWriter.WriteLogFormattedLocalized(1,
                                             Properties.Resources.BlockOfAtPositionWillBeRestoredFrom,
                                             fi2.FullName, oRestoreInfo2.Position, fi1.FullName);
@@ -2464,6 +2516,7 @@ namespace SyncFoldersApi
                                     }
                                     else  if (oRestoreInfo1.NotRecoverableArea && !oRestoreInfo2.NotRecoverableArea)
                                     {
+                                        /* TODO: this block isn't hit by any unit tests */
                                         iLogWriter.WriteLogFormattedLocalized(1,
                                             Properties.Resources.BlockOfAtPositionWillBeRestoredFrom,
                                             fi1.FullName, oRestoreInfo1.Position, fi2.FullName);
@@ -2549,6 +2602,7 @@ namespace SyncFoldersApi
                                 oReadableBlocks2.ContainsKey(oRestoreInfo1.Position / oRestoreInfo1.Data.Length) &&
                                 !oReadableBlocks1.ContainsKey(oRestoreInfo1.Position / oRestoreInfo1.Data.Length))
                             {
+                                /* TODO: this block isn't hit by any unit tests */
                                 iLogWriter.WriteLogFormattedLocalized(1,
                                     Properties.Resources.BlockOfAtPositionWillBeCopiedFromNoMatterChecksum,
                                     fi1.FullName, oRestoreInfo1.Position, fi2.FullName);
@@ -2577,6 +2631,7 @@ namespace SyncFoldersApi
                                 !oReadableBlocks2.ContainsKey(oRestoreInfo2.Position / oRestoreInfo2.Data.Length))
 
                             {
+                                /* TODO: this block isn't hit by any unit tests */
                                 iLogWriter.WriteLogFormattedLocalized(1,
                                     Properties.Resources.BlockOfAtPositionWillBeCopiedFromNoMatterChecksum,
                                     fi2.FullName, oRestoreInfo2.Position, fi1.FullName);
@@ -2686,6 +2741,7 @@ namespace SyncFoldersApi
 
                 if (lNotRestoredSize2 == 0 && aRestore2.Count == 0)
                 {
+                    /* TODO: this block isn't hit by any unit tests */
                     CreateOrUpdateFileChecked(strPathSavedInfo2,
                         iFileSystem, iLogWriter);
                 }
@@ -2787,8 +2843,7 @@ namespace SyncFoldersApi
 
                                 aRestore2.Add(new RestoreInfo(lIndex * oBlock1.Length, oBlock1, false));
                             }
-                            else
-                            if (bBlock2Present && !bBlock1Present)
+                            else if (bBlock2Present && !bBlock1Present)
                             {
                                 iLogWriter.WriteLogFormattedLocalized(1,
                                     Properties.Resources.BlockOfAtPositionWillBeRestoredFrom,
@@ -2945,6 +3000,7 @@ namespace SyncFoldersApi
             // if by any means we get the same file, then just create saved info
             if (strPathFile.Equals(strTargetPath, StringComparison.InvariantCultureIgnoreCase))
             {
+                /* TODO: this block isn't hit by any unit tests */
                 return !CreateSavedInfo(strTargetPath, strPathSavedInfoFile, iFileSystem, iCancelable, iLogWriter);
             };
 
@@ -3001,7 +3057,10 @@ namespace SyncFoldersApi
                             IFileInfo fi2 = iFileSystem.GetFileInfo(strTargetPath);
 
                             if (fi2.Exists)
+                            {
+                                /* TODO: this block isn't hit by any unit tests */
                                 iFileSystem.Delete(fi2);
+                            }
 
                             fi2tmp.MoveTo(strTargetPath);
 
@@ -3054,6 +3113,7 @@ namespace SyncFoldersApi
 
                 if (!di.Exists)
                 {
+                    /* TODO: this block isn't hit by any unit tests */
                     di.Create();
                     di = iFileSystem.GetDirectoryInfo(
                         strPathSavedInfoFile.Substring(0,
@@ -3079,6 +3139,7 @@ namespace SyncFoldersApi
             }
             catch (System.IO.IOException oEx)
             {
+                /* TODO: this block isn't hit by any unit tests */
                 iLogWriter.WriteLogFormattedLocalized(0, 
                     Properties.Resources.IOErrorWritingFile,
                     strPathSavedInfoFile, oEx.Message);
@@ -3126,6 +3187,7 @@ namespace SyncFoldersApi
             ICancelable iCancelable,
             ILogWriter iLogWriter)
         {
+            /* TODO: this block isn't hit by any unit tests */
             // if by any means we get the same file, then just create saved info
             if (strPathFile.Equals(strTargetPath, StringComparison.InvariantCultureIgnoreCase))
             {
@@ -3353,6 +3415,8 @@ namespace SyncFoldersApi
             ICancelable iCancelable,
             ILogWriter iLogWriter)
         {
+            /* TODO: this block isn't hit by any unit tests */
+
             // if by any means we get the same file, then just create saved info
             if (strPathSavedInfoFile2.Equals(strPathSavedInfoFile, StringComparison.InvariantCultureIgnoreCase))
             {
@@ -3575,12 +3639,14 @@ namespace SyncFoldersApi
                             - fichecked.LastWriteTimeUtc.Year * 366 - fichecked.LastWriteTimeUtc.DayOfYear)
                         < 366 * 2.2 + 366 * 4.6 * Utils.RandomForRecentlyChecked.NextDouble())
                     {
+                        /* TODO: this block isn't hit by any unit tests */
                         return true;
                     }
                 }
             }
             catch (Exception oEx)
             {
+                /* TODO: this block isn't hit by any unit tests */
                 iLogWriter.WriteLogFormattedLocalized(1,
                     Properties.Resources.WarningWhileDiscoveringIfNeedsToBeRechecked,
                     oEx.Message, strPathFile);
@@ -3610,6 +3676,7 @@ namespace SyncFoldersApi
                 {
                     try
                     {
+                        /* TODO: this block isn't hit by any unit tests */
                         using (IFile s =
                             iFileSystem.OpenRead(strPathSavedInfoFile))
                         {
@@ -3619,6 +3686,7 @@ namespace SyncFoldersApi
                     }
                     catch (System.IO.IOException ex)
                     {
+                        /* TODO: this block isn't hit by any unit tests */
                         iLogWriter.WriteLogFormattedLocalized(0, 
                             Properties.Resources.IOErrorReadingFile,
                             strPathSavedInfoFile, ex.Message);
@@ -3643,6 +3711,7 @@ namespace SyncFoldersApi
 
                 if (!bSaveInfoUnreadable && bNeedsMessageAboutOldSavedInfo)
                 {
+                    /* TODO: this block isn't hit by any unit tests */
                     iLogWriter.WriteLogFormattedLocalized(0, 
                         Properties.Resources.SavedInfoFileCantBeUsedForTesting,
                         strPathSavedInfoFile, strPathFile);
@@ -3664,18 +3733,29 @@ namespace SyncFoldersApi
                         for (long lIndex = 0; ; lIndex++)
                         {
                             if (oBlock.ReadFrom(s) != oBlock.Length)
+                            {
+                                /* TODO: this block isn't hit by any unit tests */
                                 break;
+                            }
                         }
+
+                        /* TODO: this block isn't hit by any unit tests */
                         s.Close();
                     }
                 }
                 catch // in case there are any errors simply switch to unbuffered, so we have authentic results
                 {
                     if (bFailASAPwoMessage)
+                    {
+                        /* TODO: this block isn't hit by any unit tests */
                         return false;
+                    }
 
                     if (bReturnFalseIfNonRecoverableNotIfDamaged)
+                    {
+                        /* TODO: this block isn't hit by any unit tests */
                         return false;
+                    }
 
                     using (IFile s =
                         iFileSystem.OpenRead(finfo.FullName))
@@ -3712,6 +3792,7 @@ namespace SyncFoldersApi
 
                 if (bAllBlocksOK && bCreateConfirmationFile)
                 {
+                    /* TODO: this block isn't hit by any unit tests */
                     CreateOrUpdateFileChecked(strPathSavedInfoFile,
                         iFileSystem, iLogWriter);
                 }
@@ -3754,6 +3835,7 @@ namespace SyncFoldersApi
 
                                 if (!bBlockOk)
                                 {
+                                    /* TODO: this block isn't hit by any unit tests */
                                     if (bFailASAPwoMessage)
                                         return false;
 
@@ -3780,6 +3862,7 @@ namespace SyncFoldersApi
 
                                     if (!bBlockOk)
                                     {
+                                        /* TODO: this block isn't hit by any unit tests */
                                         if (bFailASAPwoMessage)
                                             return false;
 
@@ -3805,7 +3888,10 @@ namespace SyncFoldersApi
                         catch (System.IO.IOException oEx)
                         {
                             if (bFailASAPwoMessage)
+                            {
+                                /* TODO: this block isn't hit by any unit tests */
                                 return false;
+                            }
 
                             if (!bSkipBufferedFile)
                             {
@@ -3813,9 +3899,14 @@ namespace SyncFoldersApi
                                 bSkipBufferedFile = true;
 
                                 if (!iSettings.CancelClicked)
-                                    goto repeat;
+                                {
+                                    goto repeat; 
+                                }
                                 else
+                                {
+                                    /* TODO: this block isn't hit by any unit tests */
                                     throw;
+                                }
                             }
 
                             bAllBlocksOK = false;
@@ -3838,6 +3929,7 @@ namespace SyncFoldersApi
 
                     if (oRestoreInfo.Count > 1)
                     {
+                        /* TODO: this block isn't hit by any unit tests */
                         iLogWriter.WriteLogFormattedLocalized(0,
                             Properties.Resources.ThereAreBadBlocksNonRestorableOnlyTested,
                             oRestoreInfo.Count, finfo.FullName, lNonRestoredSize);
@@ -3862,6 +3954,8 @@ namespace SyncFoldersApi
 
                 if (bAllBlocksOK)
                 {
+                    /* TODO: this block isn't hit by any unit tests */
+
                     // check also, if the contents of the checksum file 
                     // match the file itself, or if they have been corrupted somehow
                     if (!oSavedInfo.VerifyIntegrityAfterRestoreTest())
@@ -3882,17 +3976,24 @@ namespace SyncFoldersApi
 
                 if (bAllBlocksOK && bCreateConfirmationFile)
                 {
+                    /* TODO: this block isn't hit by any unit tests */
                     CreateOrUpdateFileChecked(strPathSavedInfoFile,
                         iFileSystem, iLogWriter);
                 }
 
                 if (bReturnFalseIfNonRecoverableNotIfDamaged)
+                {
+                    /* TODO: this block isn't hit by any unit tests */
                     return lNonRestoredSize == 0;
+                }
                 else
+                {
                     return bAllBlocksOK;
+                }
             }
             catch (System.IO.IOException oEx)
             {
+                /* TODO: this block isn't hit by any unit tests */
                 if (bFailASAPwoMessage)
                     throw;
 
@@ -3931,6 +4032,7 @@ namespace SyncFoldersApi
             {
                 if (iFileSystem.Exists(strPathCheckedTime))
                 {
+                    /* TODO: this block isn't hit by any unit tests */
                     iFileSystem.SetLastWriteTimeUtc(strPathCheckedTime, DateTime.UtcNow);
                 }
                 else
