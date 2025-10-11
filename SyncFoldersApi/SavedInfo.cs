@@ -1393,31 +1393,18 @@ namespace SyncFoldersApi
 
             // save the blocks in first row, first block only partly, so
             // all other blocks are correctly alligned at physical blocks
-            Block? oBlock0 = m_aBlocks[0];
-
-            // are we trying to save info of a non-restored file?
-            if (oBlock0 == null)
-                throw new InvalidOperationException();
-
-            oBlock0.WriteFirstPartTo(oOutputStream, oBlock0.Length-28-32-nTotalRows*8);
-            for (int i = 1; i < m_aBlocks.Count; ++i)
+            if (m_aBlocks.Count > 0)
             {
-                Block? oBlock = m_aBlocks[i];
+                Block? oBlock0 = m_aBlocks[0];
 
                 // are we trying to save info of a non-restored file?
-                if (oBlock == null)
+                if (oBlock0 == null)
                     throw new InvalidOperationException();
 
-                oBlock.WriteTo(oOutputStream);
-            }
-
-
-            if (m_aOtherBlocks.Count > 0)
-            {
-                // save the blocks in second row
-                for (int i = 0; i < m_aOtherBlocks.Count; ++i)
+                oBlock0.WriteFirstPartTo(oOutputStream, oBlock0.Length - 28 - 32 - nTotalRows * 8);
+                for (int i = 1; i < m_aBlocks.Count; ++i)
                 {
-                    Block? oBlock = m_aOtherBlocks[i];
+                    Block? oBlock = m_aBlocks[i];
 
                     // are we trying to save info of a non-restored file?
                     if (oBlock == null)
@@ -1425,12 +1412,28 @@ namespace SyncFoldersApi
 
                     oBlock.WriteTo(oOutputStream);
                 }
-            }
 
-            // after all blocks have been written at correct block offsets
-            // write the rest of the first block. So the first block is split
-            // for putting all other blocks at physical block boundaries
-            oBlock0.WriteLastPartTo(oOutputStream, 28 + 32 + nTotalRows * 8);
+
+                if (m_aOtherBlocks.Count > 0)
+                {
+                    // save the blocks in second row
+                    for (int i = 0; i < m_aOtherBlocks.Count; ++i)
+                    {
+                        Block? oBlock = m_aOtherBlocks[i];
+
+                        // are we trying to save info of a non-restored file?
+                        if (oBlock == null)
+                            throw new InvalidOperationException();
+
+                        oBlock.WriteTo(oOutputStream);
+                    }
+                }
+
+                // after all blocks have been written at correct block offsets
+                // write the rest of the first block. So the first block is split
+                // for putting all other blocks at physical block boundaries
+                oBlock0.WriteLastPartTo(oOutputStream, 28 + 32 + nTotalRows * 8);
+            }
 
             CheckSumCalculator oChecksumOfChecksums = new CheckSumCalculator();
 
