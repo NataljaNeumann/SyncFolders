@@ -132,6 +132,9 @@ namespace SyncFoldersApi
             DateTime dtmFileTimestampUtc, 
             bool bForceOtherBlocks)
         {
+            if (Properties.Resources == null)
+                throw new ArgumentNullException(nameof(Properties.Resources));
+
             m_lFileLength = lFileLength;
             m_dtmFileTimestampUtc = dtmFileTimestampUtc;
             m_aListOfBlocksToRestore = new List<long>();
@@ -307,6 +310,9 @@ namespace SyncFoldersApi
             long lFileLength,
             DateTime dtmFileTimestampUtc)
         {
+            if (Properties.Resources == null)
+                throw new ArgumentNullException(nameof(Properties.Resources));
+
             si1 = new SavedInfo();
             si2 = new SavedInfo();
 
@@ -522,9 +528,11 @@ namespace SyncFoldersApi
         /// Reads information about an original file from stream, containg saved info in version 0
         /// </summary>
         /// <param name="oInputStream">The stream to read from</param>
-        //===================================================================================================
+        /// <param name="bThrowOnError">Indicates if I/O errors shall lead to failure</param>
+        /// //===================================================================================================
         private void ReadFrom_v0(
-            IFile oInputStream
+            IFile oInputStream,
+            bool bThrowOnError
             )
         {
             CheckSumCalculator oMetadataChecksum = new CheckSumCalculator();
@@ -597,6 +605,9 @@ namespace SyncFoldersApi
                 }
                 catch (System.IO.IOException)
                 {
+                    if (bThrowOnError)
+                        throw;
+
                     // we don't expect the restore file to be perfect
                     // add a null block for failed reads
                     m_aBlocks.Add(null);
@@ -625,6 +636,9 @@ namespace SyncFoldersApi
                 }
                 catch (System.IO.IOException)
                 {
+                    if (bThrowOnError)
+                        throw;
+
                     // we don't expect the restore file to be perfect
                     // add a null block for failed reads
                     m_aOtherBlocks.Add(null);
@@ -695,9 +709,11 @@ namespace SyncFoldersApi
         /// Reads information about an original file from stream, containg saved info
         /// </summary>
         /// <param name="oInputStream">The stream to read from</param>
+        /// <param name="bThrowOnError">Indicates if I/O errors shall lead to failure</param>
         //===================================================================================================
         public void ReadFrom(
-            IFile oInputStream
+            IFile oInputStream,
+            bool bThrowOnError
             )
         {
             Block oBlockForLength = new Block();
@@ -732,7 +748,7 @@ namespace SyncFoldersApi
                     // version 0
                     bVersion0 = true;
                     //oInputStream.Seek(0, System.IO.SeekOrigin.Begin);
-                    ReadFrom_v0(oInputStream);
+                    ReadFrom_v0(oInputStream, bThrowOnError);
                     return;
                 }
 
@@ -846,6 +862,10 @@ namespace SyncFoldersApi
             }
             catch (Exception)
             {
+                // if caller specified - forward the exception
+                if (bThrowOnError)
+                    throw;
+
                 // if the exception comes from the innner call, then re-throw
                 if (bVersion0)
                     throw;
@@ -1036,6 +1056,10 @@ namespace SyncFoldersApi
                 }
                 catch (System.IO.IOException)
                 {
+                    // if caller specified - forward the exception
+                    if (bThrowOnError)
+                        throw;
+
                     // we don't expect the restore file to be perfect
                     // add a null block for failed reads
                     m_aBlocks.Add(null);
@@ -1064,6 +1088,10 @@ namespace SyncFoldersApi
                 }
                 catch (System.IO.IOException)
                 {
+                    // if caller specified - forward the exception
+                    if (bThrowOnError)
+                        throw;
+
                     // we don't expect the restore file to be perfect
                     // add a null block for failed reads
                     m_aOtherBlocks.Add(null);
@@ -1091,6 +1119,10 @@ namespace SyncFoldersApi
                 }
                 catch (System.IO.IOException)
                 {
+                    // if caller specified - forward the exception
+                    if (bThrowOnError)
+                        throw;
+
                     m_aBlocks[0] = null;
                 }
             };
@@ -1143,6 +1175,10 @@ namespace SyncFoldersApi
             }
             catch (System.IO.IOException)
             {
+                // if caller specified - forward the exception
+                if (bThrowOnError)
+                    throw;
+
                 // error while reading checksums? clear checksums
                 m_aChecksums.Clear();
             }
@@ -1696,6 +1732,9 @@ namespace SyncFoldersApi
             string strCurrentFile, 
             ILogWriter iLogWriter)
         {
+            if (Properties.Resources == null)
+                throw new ArgumentNullException(nameof(Properties.Resources));
+
             // add the missing blocks at the end of file
             Block oTestBlock = new Block();
             while (++m_lCurrentlyRestoredBlock < 

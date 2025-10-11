@@ -48,6 +48,9 @@ namespace SyncFoldersApi
             ILogWriter iLogWriter
             )
         {
+            if (Properties.Resources == null)
+                throw new ArgumentNullException(nameof(Properties.Resources));
+
             if (iSettings.FirstToSecondDeleteInSecond)
             {
                 IFileInfo fiSavedInfo2 =
@@ -125,6 +128,9 @@ namespace SyncFoldersApi
             ILogWriter iLogWriter
             )
         {
+            if (Properties.Resources == null)
+                throw new ArgumentNullException(nameof(Properties.Resources));
+
             IFileInfo fiSavedInfo1 = iFileSystem.GetFileInfo(
                 Utils.CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
             IFileInfo fiSavedInfo2 = iFileSystem.GetFileInfo(
@@ -204,6 +210,9 @@ namespace SyncFoldersApi
             ILogWriter iLogWriter
             )
         {
+            if (Properties.Resources == null)
+                throw new ArgumentNullException(nameof(Properties.Resources));
+
             IFileInfo fiSavedInfo1 = iFileSystem.GetFileInfo(
                 Utils.CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
             IFileInfo fiSavedInfo2 = iFileSystem.GetFileInfo(
@@ -440,6 +449,9 @@ namespace SyncFoldersApi
             ILogWriter iLogWriter
             )
         {
+            if (Properties.Resources == null)
+                throw new ArgumentNullException(nameof(Properties.Resources));
+
             if (iSettings.FirstToSecondDeleteInSecond)
             {
                 IFileInfo fiSavedInfo2 =
@@ -549,6 +561,9 @@ namespace SyncFoldersApi
             ILogWriter iLogWriter
             )
         {
+            if (Properties.Resources == null)
+                throw new ArgumentNullException(nameof(Properties.Resources));
+
             // both files are present and have same modification date
             IFileInfo fiSavedInfo2 = iFileSystem.GetFileInfo(
                 Utils.CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
@@ -746,6 +761,9 @@ namespace SyncFoldersApi
             ILogWriter iLogWriter
             )
         {
+            if (Properties.Resources == null)
+                throw new ArgumentNullException(nameof(Properties.Resources));
+
             IFileInfo fiSavedInfo1 = iFileSystem.GetFileInfo(
                 Utils.CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
             IFileInfo fiSavedInfo2 = iFileSystem.GetFileInfo(
@@ -937,6 +955,9 @@ namespace SyncFoldersApi
             ILogWriter iLogWriter
             )
         {
+            if (Properties.Resources == null)
+                throw new ArgumentNullException(nameof(Properties.Resources));
+
             IFileInfo fiSavedInfo1 =
                 iFileSystem.GetFileInfo(Utils.CreatePathOfChkFile(
                     fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
@@ -1295,6 +1316,9 @@ namespace SyncFoldersApi
             ILogWriter iLogWriter
             )
         {
+            if (Properties.Resources == null)
+                throw new ArgumentNullException(nameof(Properties.Resources));
+
             ProcessFilePair_Bidirectionally_BothExist_FirstNewer(
                 strFilePath2, strFilePath1, fi2, fi1,
                 "(file was newer or bigger)", Properties.Resources.FileWasNewer,

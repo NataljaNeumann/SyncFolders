@@ -146,6 +146,9 @@ namespace SyncFoldersApi
             long lLength
             )
         {
+            if (Properties.Resources == null)
+                throw new ArgumentNullException(nameof(Properties.Resources));
+
             // we compare in upper case
             string strFilePathUpper = strFilePath.ToUpper();
             if (m_oSimulatedReadErrors.ContainsKey(strFilePathUpper))
@@ -1124,6 +1127,9 @@ namespace SyncFoldersApi
             //===============================================================================================
             public override int Read(byte[] aArray, int nOffset, int nCount)
             {
+                if (Properties.Resources == null)
+                    throw new ArgumentNullException(nameof(Properties.Resources));
+
                 // simulate reading errors
                 if (m_aListOfReadErrors.Count > 0)
                 {
@@ -1150,6 +1156,9 @@ namespace SyncFoldersApi
             //===============================================================================================
             public override int ReadByte()
             {
+                if (Properties.Resources == null)
+                    throw new ArgumentNullException(nameof(Properties.Resources));
+
                 // simulate reading errors
                 if (m_aListOfReadErrors.Count > 0)
                 {

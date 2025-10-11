@@ -38,6 +38,9 @@ namespace SyncFoldersApi
             IFilePairSteps iStepsImpl,
             ILogWriter iLogWriter)
         {
+            if (Properties.Resources == null)
+                throw new ArgumentNullException(nameof(Properties.Resources));
+
             // Retrieve file info objects for both files
             IFileInfo fi1 = iFileSystem.GetFileInfo(strFilePath1);
             IFileInfo fi2 = iFileSystem.GetFileInfo(strFilePath2);
@@ -185,6 +188,9 @@ namespace SyncFoldersApi
             IFilePairSteps iStepsImpl,
             ILogWriter iLogWriter)
         {
+            if (Properties.Resources == null)
+                throw new ArgumentNullException(nameof(Properties.Resources));
+
             // Handle special case: both files exist but have zero length
             if (fi1.Exists && fi2.Exists && fi1.Length == 0 && fi2.Length == 0)
             {
@@ -339,6 +345,9 @@ namespace SyncFoldersApi
             ILogWriter iLogWriter
             )
         {
+            if (Properties.Resources == null)
+                throw new ArgumentNullException(nameof(Properties.Resources));
+
             // special case: both exist and both zero length
             if (fi2.Exists && fi1.Exists && fi1.Length == 0 && fi2.Length == 0)
             {
@@ -475,6 +484,9 @@ namespace SyncFoldersApi
             ILogWriter iLogWriter
             )
         {
+            if (Properties.Resources == null)
+                throw new ArgumentNullException(nameof(Properties.Resources));
+
             iLogic.ProcessFilePair_Bidirectionally_BothExist_FirstNewer(strFilePath1, strFilePath2, fi1, fi2,
                 iSettings.FirstToSecondSyncMode ? "(file was newer or bigger)" : "(file has a different date or length)",
                 iSettings.FirstToSecondSyncMode ? Properties.Resources.FileWasNewer : Properties.Resources.FileHasDifferentTime,
@@ -509,6 +521,9 @@ namespace SyncFoldersApi
             IFilePairSteps iStepsImpl,
             ILogWriter iLogWriter)
         {
+            if (Properties.Resources == null)
+                throw new ArgumentNullException(nameof(Properties.Resources));
+
             // Handle missing or zero-length files first
             if (fi1.Exists && fi2.Exists && fi1.Length == 0 && fi2.Length == 0)
             {
@@ -604,6 +619,9 @@ namespace SyncFoldersApi
             IFilePairSteps iStepsImpl,
             ILogWriter iLogWriter)
         {
+            if (Properties.Resources == null)
+                throw new ArgumentNullException(nameof(Properties.Resources));
+
             // bidirectionally path
             if ((!Utils.FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) && (fi1.LastWriteTimeUtc > fi2.LastWriteTimeUtc)) ||
                 (Utils.FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) && fi1.Length > fi2.Length))

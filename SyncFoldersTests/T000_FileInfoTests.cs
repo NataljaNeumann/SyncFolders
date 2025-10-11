@@ -19,6 +19,7 @@
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 using SyncFoldersApi;
+using SyncFoldersApi.Localization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -72,6 +73,9 @@ namespace SyncFoldersTests
 
             m_strFilePath = Path.Combine(m_strTempDir, "test.txt");
             m_oFileSystem.WriteAllText(m_strFilePath, "Hello World");
+
+            // setup resources
+            Properties.Resources = new SyncFoldersApiResources();
         }
 
         //===================================================================================================

@@ -664,7 +664,7 @@ namespace SyncFoldersTests
 
                 SavedInfo si2 = new SavedInfo();
                 oFile.Position = 0;
-                si2.ReadFrom(oFile);
+                si2.ReadFrom(oFile, true);
 
                 Assert.AreEqual(new DateTime(1975, 9, 24), si2.TimeStamp);
                 Assert.AreEqual(16384, si2.Length );
@@ -705,7 +705,7 @@ namespace SyncFoldersTests
 
                 SavedInfo si2 = new SavedInfo();
                 oFile.Position = 0;
-                si2.ReadFrom(oFile);
+                si2.ReadFrom(oFile , true);
 
                 Assert.AreEqual(new DateTime(1975, 9, 25), si2.TimeStamp);
                 Assert.AreEqual(16384, si2.Length);
@@ -755,7 +755,7 @@ namespace SyncFoldersTests
 
             SavedInfo si2 = new SavedInfo();
             oFile.Position = 0;
-            si2.ReadFrom(oFile);
+            si2.ReadFrom(oFile, true);
 
             Assert.AreEqual(si.TimeStamp, si2.TimeStamp);
             Assert.AreEqual(si.Length, si2.Length);
@@ -802,7 +802,7 @@ namespace SyncFoldersTests
 
             SavedInfo si2 = new SavedInfo();
             oFile.Position = 0;
-            si2.ReadFrom(oFile);
+            si2.ReadFrom(oFile, true);
 
             Assert.AreEqual(si.TimeStamp, si2.TimeStamp);
             Assert.AreEqual(si.Length, si2.Length);
@@ -858,6 +858,74 @@ namespace SyncFoldersTests
 
         }
 
+        //===================================================================================================
+        /// <summary>
+        /// Tests that a read error leads to throwing an exception. This is crucial because we sometimes
+        /// use buffered stream and need to fall back to simple streams, so the errors are localized on
+        /// true error positions.
+        /// </summary>
+        //===================================================================================================
+        [Test]
+        public void HandlingOfReadErrors()
+        {
+            for (int nVersion = 0; nVersion <= 2; nVersion += 2)
+            {
+                int nFileSize = 64 * 1024;
+                InMemoryFileSystem oFs = new InMemoryFileSystem();
+                HashSetLog oLog = new HashSetLog();
+
+                string strPathChkFile = $"c:\\temp\\RestoreInfo\\testfile_v{nVersion}.dat.chk";
+
+                oFs.CreateTestFile($"c:\\temp\\testfile_v{nVersion}.dat", 1, nFileSize, DateTime.Now, 
+                    true, nVersion==0, null, null, null, true);
+
+                long lSavedInfoFileLength = oFs.GetFileInfo(strPathChkFile).Length;
+
+                using (IFile s = oFs.OpenRead(strPathChkFile))
+                {
+                    SavedInfo oSi = new SavedInfo();
+
+                    // should not throw
+                    oSi.ReadFrom(s, true);
+                }
+
+                // test failure in every single block of the chk file
+                for (long lPos = 0; lPos < lSavedInfoFileLength; lPos += 4096)
+                {
+                    List<long> oReadErrors = new List<long>();
+                    oReadErrors.Add(lPos);
+                    oFs.SetSimulatedReadError(strPathChkFile, oReadErrors);
+
+                    using (IFile s = oFs.OpenRead(strPathChkFile))
+                    {
+                        SavedInfo oSi = new SavedInfo();
+
+                        // should not throw
+                        oSi.ReadFrom(s, false);
+                    }
+
+                    try
+                    {
+                        using (IFile s = oFs.OpenRead(strPathChkFile))
+                        {
+                            SavedInfo oSi2 = new SavedInfo();
+
+                            // should throw
+                            oSi2.ReadFrom(s, true);
+                        }
+
+                        // should be unreachable
+                        Assert.Fail();
+
+                    }
+                    catch (System.IO.IOException)
+                    {
+
+                    }
+
+                }
+            }
+        }
     }
 
 }
