@@ -3439,13 +3439,13 @@ namespace SyncFoldersApi
             ICancelable iCancelable,
             ILogWriter iLogWriter)
         {
-            /* TODO: this line of code isn't hit by any unit tests */
             if (Properties.Resources == null)
                 throw new ArgumentNullException(nameof(Properties.Resources));
 
             // if by any means we get the same file, then just create saved info
             if (strPathSavedInfoFile2.Equals(strPathSavedInfoFile, StringComparison.InvariantCultureIgnoreCase))
             {
+                /* TODO: this line of code isn't hit by any unit tests */
                 return !CreateSavedInfo(strPathFile, strPathSavedInfoFile, iFileSystem, iCancelable, iLogWriter);
             }
 
