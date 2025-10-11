@@ -1519,21 +1519,46 @@ namespace SyncFoldersApi
                 }
             }
 
+            // if at least one of the saved info files needs to be created, then create both at once
             if ((iSettings.CreateInfo && (!fiSavedInfo1.Exists || fiSavedInfo1.LastWriteTimeUtc !=
                                     fi1.LastWriteTimeUtc || bCreateInfo1)) ||
                 (iSettings.CreateInfo && (!fiSavedInfo2.Exists || fiSavedInfo2.LastWriteTimeUtc !=
                                     fi2.LastWriteTimeUtc || bCreateInfo2)))
             {
-                // if at least one of the saved info files needs to be created, then create both at once
                 if (fiSavedInfo1.FullName.Equals(fiSavedInfo2.FullName, StringComparison.InvariantCultureIgnoreCase))
                 {
+                    // in this case it is the same chk file
                     iStepsImpl.CreateSavedInfo(fi1.FullName, fiSavedInfo1.FullName,
                         iFileSystem, iSettings, iLogWriter);
                 } else
                 {
-                    iStepsImpl.Create2SavedInfos(fi1.FullName,
-                        fiSavedInfo1.FullName, fiSavedInfo2.FullName,
-                        iFileSystem, iSettings, iLogWriter);
+                    // use sometimes first folder, sometimes second for reading the original data file
+                    if (m_bRandomOrder)
+                    {
+                        m_bRandomOrder = false;
+                        if (!iStepsImpl.Create2SavedInfos(fi2.FullName,
+                                fiSavedInfo1.FullName, fiSavedInfo2.FullName,
+                                iFileSystem, iSettings, iLogWriter))
+                        {
+                            // fallback to the other, if first try failed
+                            iStepsImpl.Create2SavedInfos(fi1.FullName,
+                                fiSavedInfo1.FullName, fiSavedInfo2.FullName,
+                                iFileSystem, iSettings, iLogWriter);
+                        }
+                    }
+                    else
+                    {
+                        m_bRandomOrder= true;
+                        if (!iStepsImpl.Create2SavedInfos(fi1.FullName,
+                                fiSavedInfo1.FullName, fiSavedInfo2.FullName,
+                                iFileSystem, iSettings, iLogWriter))
+                        {
+                            // fallback to the other, if first try failed
+                            iStepsImpl.Create2SavedInfos(fi2.FullName,
+                                fiSavedInfo1.FullName, fiSavedInfo2.FullName,
+                                iFileSystem, iSettings, iLogWriter);
+                        }
+                    }
                 }
             }
 
