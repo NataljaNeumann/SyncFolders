@@ -283,12 +283,13 @@ namespace SyncFoldersTests
                 oFS.EnsureDirectoryExists(c_strDir1);
                 oFS.EnsureDirectoryExists(c_strDir2);
                 oFS.WriteAllText(c_strFile1, "Test");
+                oFS.WriteAllText(c_strFile2, "Test");
 
                 HashSet<string> oMessages = new HashSet<string>();
                 HashSet<string> oLocalized = new HashSet<string>();
                 SettingsAndEnvironment oSettings;
 
-                ChosenStepType eStep = RunConfiguration(oFS, nConfig, oMessages, oLocalized, out oSettings, c_strFile1, c_strFile1);
+                ChosenStepType eStep = RunConfiguration(oFS, nConfig, oMessages, oLocalized, out oSettings, c_strFile1, c_strFile2);
 
                 if (oSettings.FirstToSecond)
                 {

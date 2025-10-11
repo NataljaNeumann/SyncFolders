@@ -41,6 +41,13 @@ namespace SyncFoldersApi
             if (Properties.Resources == null)
                 throw new ArgumentNullException(nameof(Properties.Resources));
 
+            if (strFilePath1.Equals(strFilePath2, StringComparison.CurrentCultureIgnoreCase) &&
+                iSettings.TestFiles && iSettings.RepairFiles && iSettings.FirstToSecond && iSettings.FirstReadOnly)
+            {
+                // don't repair files, if first is read-only and it is the same file.
+                throw new InvalidOperationException("Repair and read-only on a single file");
+            }
+
             // Retrieve file info objects for both files
             IFileInfo fi1 = iFileSystem.GetFileInfo(strFilePath1);
             IFileInfo fi2 = iFileSystem.GetFileInfo(strFilePath2);
