@@ -880,33 +880,31 @@ namespace SyncFoldersApi
         /// <summary>
         /// Tests, if a file matches specification
         /// </summary>
-        /// <param name="strPath">Path of the file to create, will also create directory</param>
+        /// <param name="aExpectedFileContent">Out: the expected content of the file</param>
+        /// <param name="strPath">Path of the file to test</param>
         /// <param name="nId">Id of the file, so we can distinguish between files</param>
         /// <param name="nLength">Length of the file</param>
         /// <param name="dtmLastWriteTimeUtc">Date and time that the file shall have</param>
-        /// <param name="bWithSavedInfo">Indicates, if saved info needs to be created, too</param>
-        /// <param name="bV0">Indicates if saved info needs to be in version 0</param>
         /// <param name="aErasedBlockPositions">Positions of erased blocks</param>
         /// <param name="aReadErrorsFile">The simulated read errors for the main file</param>
-        /// <param name="aReadErrorsSavedInfo">The simlated read errors for the saved info</param>
         //===================================================================================================
-        public bool IsTestFile(
+        protected bool IsTestFileWithoutChecksum(
+            out byte[]? aExpectedFileContent,
             string strPath,
             int nId,
             int nLength,
             DateTime? dtmLastWriteTimeUtc,
-            bool bWithSavedInfo,
-            bool bV0,
-            List<long>? aErasedBlockPositions = null,
-            List<long>? aReadErrorsFile = null,
-            List<long>? aReadErrorsSavedInfo = null
+            List<long>? aErasedBlockPositions,
+            List<long>? aReadErrorsFile
             )
         {
+            aExpectedFileContent = null;
+
             IFileInfo fi = GetFileInfo(strPath);
             if (!fi.Exists)
                 return false;
 
-            if (fi.Length!=nLength)
+            if (fi.Length != nLength)
                 return false;
 
             if (dtmLastWriteTimeUtc.HasValue)
@@ -915,7 +913,7 @@ namespace SyncFoldersApi
                     return false;
             }
 
-            byte[] aExpectedFileContent = new byte[nLength];
+            aExpectedFileContent = new byte[nLength];
             for (int i = nLength - 1; i >= 0; --i)
             {
                 switch (i % 4)
@@ -955,7 +953,7 @@ namespace SyncFoldersApi
                     return false;
             }
 
-            if (aReadErrorsFile != null && aReadErrorsFile.Count>0)
+            if (aReadErrorsFile != null && aReadErrorsFile.Count > 0)
             {
                 // test that errors exist and the count is equal
                 if (!m_oSimulatedReadErrors.ContainsKey(strPath.ToUpper())
@@ -976,7 +974,42 @@ namespace SyncFoldersApi
                     return false;
             }
 
-            string strPathInfo = Utils.CreatePathOfChkFile(fi.Directory.FullName, "RestoreInfo", fi.Name, ".chk");
+            return true;
+        }
+
+
+        //===================================================================================================
+        /// <summary>
+        /// Tests, if a chk file matches specification
+        /// </summary>
+        /// <param name="aExpectedFileContent">Expected content of the original file</param>
+        /// <param name="oInfoExpected">An object with initial blocks but without real content,
+        /// The method will fill the block arrays from aExpectedFileContent for testing correctness</param>
+        /// <param name="strPath">Path of the main data file</param>
+        /// <param name="nId">Id of the file, so we can distinguish between files</param>
+        /// <param name="nLength">Length of the file</param>
+        /// <param name="dtmLastWriteTimeUtc">Date and time that the file shall have</param>
+        /// <param name="bWithSavedInfo">Indicates, if saved info needs to be created, too</param>
+        /// <param name="bV0">Indicates if saved info needs to be in version 0</param>
+        /// <param name="aReadErrorsSavedInfo">The simlated read errors for the saved info</param>
+        //===================================================================================================
+        protected bool IsTestChkFile(
+            byte[] aExpectedFileContent,
+            SavedInfo oInfoExpected,
+            string strPath,
+            int nId,
+            int nLength,
+            DateTime? dtmLastWriteTimeUtc,
+            bool bWithSavedInfo,
+            bool bV0,
+            List<long>? aReadErrorsSavedInfo
+            )
+        {
+            IFileInfo fi = GetFileInfo(strPath);
+
+            string strPathInfo = Utils.CreatePathOfChkFile(
+                fi.Directory.FullName, "RestoreInfo", fi.Name, ".chk");
+
             if (bWithSavedInfo)
             {
                 IFileInfo finfo = GetFileInfo(strPathInfo);
@@ -995,7 +1028,6 @@ namespace SyncFoldersApi
                     byte[] aFileContentInfoActual = oStreamInfo.ToArray();
 
 
-                    SavedInfo oInfoExpected = new SavedInfo(nLength, fi.LastWriteTimeUtc, false);
                     Block b = new Block();
                     int nCurrentPos = 0;
                     int nCurrentBlock = 0;
@@ -1069,6 +1101,127 @@ namespace SyncFoldersApi
             }
 
             return true;
+        }
+
+
+        //===================================================================================================
+        /// <summary>
+        /// Tests, if a chk file matches specification
+        /// </summary>
+        /// <param name="strPath">Path of the file to test</param>
+        /// <param name="nId">Id of the file, so we can distinguish between files</param>
+        /// <param name="nLength">Length of the file</param>
+        /// <param name="dtmLastWriteTimeUtc">Date and time that the file shall have</param>
+        /// <param name="bWithSavedInfo">Indicates, if saved info needs to be created, too</param>
+        /// <param name="bV0">Indicates if saved info needs to be in version 0</param>
+        /// <param name="aErasedBlockPositions">Positions of erased blocks</param>
+        /// <param name="aReadErrorsFile">The simulated read errors for the main file</param>
+        /// <param name="aReadErrorsSavedInfo">The simlated read errors for the saved info</param>
+        //===================================================================================================
+        public bool IsTestFile(
+            string strPath,
+            int nId,
+            int nLength,
+            DateTime? dtmLastWriteTimeUtc,
+            bool bWithSavedInfo,
+            bool bV0,
+            List<long>? aErasedBlockPositions = null,
+            List<long>? aReadErrorsFile = null,
+            List<long>? aReadErrorsSavedInfo = null
+            )
+        {
+            byte[]? aExpectedFileContent = null;
+
+            // first test that the file matches
+            if (IsTestFileWithoutChecksum(out aExpectedFileContent, strPath, nId, nLength,
+                dtmLastWriteTimeUtc, aErasedBlockPositions, aReadErrorsFile))
+            {
+                if (aExpectedFileContent == null)
+                    throw new Exception("Internal error: expected data not returned");
+
+                IFileInfo fi = GetFileInfo(strPath);
+
+                SavedInfo oInfoExpected = new SavedInfo(nLength, fi.LastWriteTimeUtc, false);
+
+                // then also the checksum
+                return IsTestChkFile(aExpectedFileContent, oInfoExpected, strPath, nId, nLength,
+                    dtmLastWriteTimeUtc, bWithSavedInfo, bV0, aReadErrorsSavedInfo);
+            } else
+            {
+                return false;
+            }
+        }
+
+
+
+        //===================================================================================================
+        /// <summary>
+        /// Tests, if a chk file matches specification
+        /// </summary>
+        /// <param name="strPath">Path of the first file to test</param>
+        /// <param name="nId">Id of the file, so we can distinguish between files</param>
+        /// <param name="nLength">Length of the file</param>
+        /// <param name="dtmLastWriteTimeUtc">Date and time that the file shall have</param>
+        /// <param name="bWithSavedInfo">Indicates, if saved info needs to be created, too</param>
+        /// <param name="aErasedBlockPositions">Positions of erased blocks</param>
+        /// <param name="aReadErrorsFile">The simulated read errors for the main file</param>
+        /// <param name="aReadErrorsSavedInfo">The simlated read errors for the saved info</param>
+        /// <param name="strPath2">Path of the file second file to test</param>
+        /// <param name="bWithSavedInfo2">Indicates, if saved info needs to be created, too</param>
+        /// <param name="aErasedBlockPositions2">Positions of erased blocks</param>
+        /// <param name="aReadErrorsFile2">The simulated read errors for the main file</param>
+        /// <param name="aReadErrorsSavedInfo2">The simlated read errors for the saved info</param>
+        //===================================================================================================
+        public bool AreTwoTestFiles(
+            string strPath,
+            int nId,
+            int nLength,
+            DateTime? dtmLastWriteTimeUtc,
+            bool bWithSavedInfo,
+            List<long>? aErasedBlockPositions,
+            List<long>? aReadErrorsFile,
+            List<long>? aReadErrorsSavedInfo,
+
+
+            string strPath2,
+            bool bWithSavedInfo2,
+            List<long>? aErasedBlockPositions2,
+            List<long>? aReadErrorsFile2,
+            List<long>? aReadErrorsSavedInfo2
+            )
+        {
+            byte[]? aExpectedFileContent = null;
+            byte[]? aExpectedFileContent2 = null;
+
+            // first test that the file matches
+            if (!IsTestFileWithoutChecksum(out aExpectedFileContent, strPath, nId, nLength,
+                dtmLastWriteTimeUtc, aErasedBlockPositions, aReadErrorsFile))
+                return false;
+
+            if (aExpectedFileContent == null)
+                throw new Exception("Internal error: expected data not returned");
+
+            if (!IsTestFileWithoutChecksum(out aExpectedFileContent2, strPath2, nId, nLength,
+                dtmLastWriteTimeUtc, aErasedBlockPositions2, aReadErrorsFile2))
+                return false;
+
+            if (aExpectedFileContent2 == null)
+                throw new Exception("Internal error: expected data not returned");
+
+            // create 2 different saved infos
+            IFileInfo fi = GetFileInfo(strPath);
+            SavedInfo oSavedInfo1, oSavedInfo2;
+            SavedInfo.Create2DifferentSavedInfos(out oSavedInfo1, out oSavedInfo2, nLength, fi.LastWriteTimeUtc);
+
+            // test both
+            if (!IsTestChkFile(aExpectedFileContent, oSavedInfo1, strPath, nId, nLength,
+                    dtmLastWriteTimeUtc, bWithSavedInfo, false, aReadErrorsSavedInfo))
+            {
+                return false;
+            }
+
+            return IsTestChkFile(aExpectedFileContent2, oSavedInfo2, strPath2, nId, nLength,
+                dtmLastWriteTimeUtc, bWithSavedInfo2, false, aReadErrorsSavedInfo2);
         }
 
 
