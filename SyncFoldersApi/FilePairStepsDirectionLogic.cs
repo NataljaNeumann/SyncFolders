@@ -346,6 +346,16 @@ namespace SyncFoldersApi
                     }
                     else
                     {
+                        if (!fi1.FullName.Equals(fi2.FullName, StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            // also test first file
+                            bool bDummy = false;
+                            iStepsImpl.TestSingleFile(fi1.FullName, fiSavedInfo1.FullName,
+                                ref bDummy, true,
+                                !iSettings.TestFilesSkipRecentlyTested, true,
+                                iFileSystem, iSettings, iLogWriter);
+                        }
+
                         iStepsImpl.TestSingleFile(fi2.FullName, fiSavedInfo2.FullName,
                             ref bForceCreateInfoBecauseDamaged, true,
                             !iSettings.TestFilesSkipRecentlyTested, true,
@@ -359,8 +369,12 @@ namespace SyncFoldersApi
                         fiSavedInfo2.LastWriteTimeUtc != fi2.LastWriteTimeUtc ||
                         bForceCreateInfoBecauseDamaged))
                 {
-                    iStepsImpl.CreateSavedInfo(fi2.FullName, fiSavedInfo2.FullName,
+                    if (!fi1.FullName.Equals(fi2.FullName, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        // create info only if first and second files aren't the same
+                        iStepsImpl.CreateSavedInfo(fi2.FullName, fiSavedInfo2.FullName,
                         iFileSystem, iSettings, iLogWriter);
+                    }
                 }
 
                 fiSavedInfo2 = iFileSystem.GetFileInfo(Utils.CreatePathOfChkFile(
@@ -389,6 +403,7 @@ namespace SyncFoldersApi
             {
                 bool bForceCreateInfoBecauseDamaged = false;
                 bool bOK = true;
+
                 if (iSettings.TestFiles)
                 {
                     // test first file
@@ -1354,7 +1369,7 @@ namespace SyncFoldersApi
             // both files are present and have same modification date
             IFileInfo fiSavedInfo2 =
                 iFileSystem.GetFileInfo(Utils.CreatePathOfChkFile(
-                    fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk")); ;
+                    fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
             IFileInfo fiSavedInfo1 =
                 iFileSystem.GetFileInfo(Utils.CreatePathOfChkFile(
                     fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
