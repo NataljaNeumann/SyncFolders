@@ -4,8 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-// resources must be set by user, null-reference ignored.
-#pragma warning disable CS8618
 
 namespace SyncFoldersApi.Localization
 {
@@ -21,7 +19,7 @@ namespace SyncFoldersApi.Localization
         /// Resources for similar access
         /// </summary>
         //===================================================================================================
-        public static ILocalizedStrings Resources
+        public static ILocalizedStrings? Resources
         {
             get; set;
         }
