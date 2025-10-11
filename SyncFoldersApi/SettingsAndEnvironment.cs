@@ -168,5 +168,26 @@ namespace SyncFoldersApi
         {
             get; set;
         }
+
+        //===================================================================================================
+        /// <summary>
+        /// Converts to string, showing the configuration
+        /// </summary>
+        /// <returns>String representation</returns>
+        //===================================================================================================
+        public override string ToString()
+        {
+            return string.Join('-',
+                    FirstToSecond ? "FirstToSecond" : "",
+                    FirstReadOnly ? "FirstReadOnly" : "",
+                    FirstToSecondDeleteInSecond ? "DeleteInSecond" : "",
+                    TestFiles ? "Test" : "",
+                    TestFilesSkipRecentlyTested ? "SkipRecentlyTested" : "",
+                    RepairFiles ? "Repair" : "",
+                    CreateInfo ? "CreateInfo" : "",
+                    IgnoreTimeDifferencesBetweenDataAndSaveInfo ? "IgnoreTD" : "",
+                    PreferPhysicalCopies ? "PreferPhysical" : ""
+                );
+        }
     }
 }
