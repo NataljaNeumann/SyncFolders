@@ -53,6 +53,11 @@ namespace SyncFoldersApi
         /// Indicates if file has been closed
         /// </summary>
         private bool m_bClosed;
+        //===================================================================================================
+        /// <summary>
+        /// Holds the position inside the file
+        /// </summary>
+        private long m_lPosition;
 
         //===================================================================================================
         /// <summary>
@@ -68,7 +73,7 @@ namespace SyncFoldersApi
             string strPath)
         {
             m_oStream = oStream;
-            m_oStream.Seek(0, SeekOrigin.Begin);
+            m_lPosition = 0;
             m_oFileWriteTimes = oFileWriteTimes;
             m_strPath = strPath;
         }
@@ -87,7 +92,7 @@ namespace SyncFoldersApi
                     throw new ObjectDisposedException(m_strPath);
                 }
 
-                return m_oStream.Position;
+                return m_lPosition;
             }
             set
             {
@@ -97,6 +102,7 @@ namespace SyncFoldersApi
                 }
 
                 m_oStream.Position = value;
+                m_lPosition = m_oStream.Position;
             }
         }
 
@@ -119,8 +125,17 @@ namespace SyncFoldersApi
                 throw new ObjectDisposedException(m_strPath);
             }
 
-            m_oStream.Write(aBuffer, nOffset, nCount);
-            m_oFileWriteTimes[m_strPath] = DateTime.UtcNow;
+            m_oStream.Position = m_lPosition;
+            try
+            {
+                m_oStream.Write(aBuffer, nOffset, nCount);
+                m_oFileWriteTimes[m_strPath] = DateTime.UtcNow;
+            }
+            finally
+            {
+                m_lPosition = m_oStream.Position;
+            }
+
         }
 
 
@@ -139,8 +154,16 @@ namespace SyncFoldersApi
                 throw new ObjectDisposedException(m_strPath);
             }
 
-            m_oStream.WriteByte(by);
-            m_oFileWriteTimes[m_strPath] = DateTime.UtcNow;
+            m_oStream.Position = m_lPosition;
+            try
+            {
+                m_oStream.WriteByte(by);
+                m_oFileWriteTimes[m_strPath] = DateTime.UtcNow;
+            }
+            finally
+            {
+                m_lPosition = m_oStream.Position;
+            }
         }
 
         //===================================================================================================
@@ -162,7 +185,15 @@ namespace SyncFoldersApi
                 throw new ObjectDisposedException(m_strPath);
             }
 
-            return m_oStream.Read(aBuffer, nOffset, nCount);
+            m_oStream.Position = m_lPosition;
+            try
+            {
+                return m_oStream.Read(aBuffer, nOffset, nCount);
+            }
+            finally
+            {
+                m_lPosition = m_oStream.Position;
+            }
         }
 
 
@@ -178,7 +209,15 @@ namespace SyncFoldersApi
                 throw new ObjectDisposedException(m_strPath);
             }
 
-            return m_oStream.ReadByte();
+            m_oStream.Position = m_lPosition;
+            try
+            {
+                return m_oStream.ReadByte();
+            }
+            finally
+            {
+                m_lPosition = m_oStream.Position;
+            }
         }
 
         //===================================================================================================
@@ -197,7 +236,14 @@ namespace SyncFoldersApi
                 throw new ObjectDisposedException(m_strPath);
             }
 
-            m_oStream.Seek(lOffset, eOrigin);
+            try
+            {
+                m_oStream.Seek(lOffset, eOrigin);
+            }
+            finally
+            {
+                m_lPosition = m_oStream.Position;
+            }
         }
 
         //===================================================================================================
