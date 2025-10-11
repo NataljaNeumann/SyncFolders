@@ -824,7 +824,7 @@ namespace SyncFoldersTests
                                 }
                                 else
                                 {
-                                    // this is the repair of second from first (shoul be symmetric)
+                                    // this is the repair of second from first (should be symmetric)
                                     oStepsImpl.TestAndRepairTwoFiles(strPath2, strPath1,
                                         strPathSavedInfo2, strPathSavedInfo1,
                                         ref bForceCreateInfo, oFS, oSettings, oLog);
@@ -863,7 +863,7 @@ namespace SyncFoldersTests
         /// </summary>
         //===================================================================================================
         [Test]
-        public void Test08_Create2SavedsInfosAndCopy()
+        public void Test08_Create2SavedInfosAndCopy()
         {
             // we actually don't need anything from configuration, but need to provide one
             SettingsAndEnvironment oSettings = new SettingsAndEnvironment(
@@ -876,10 +876,10 @@ namespace SyncFoldersTests
             for (int nLengthKB = 31; nLengthKB <= 64; ++nLengthKB)
             {
 
-                string strPath1 = $@"c:\temp\Create2SavedsInfosAndCopy{nLengthKB}.dat";
-                string strPathSavedInfo1 = $@"c:\temp\RestoreInfo\Create2SavedsInfosAndCopy{nLengthKB}.dat.chk";
-                string strPath2 = $@"c:\temp2\Create2SavedsInfosAndCopy{nLengthKB}.dat";
-                string strPathSavedInfo2 = $@"c:\temp2\RestoreInfo\Create2SavedsInfosAndCopy{nLengthKB}.dat.chk";
+                string strPath1 = $@"c:\temp\Create2SavedInfosAndCopy{nLengthKB}.dat";
+                string strPathSavedInfo1 = $@"c:\temp\RestoreInfo\Create2SavedInfosAndCopy{nLengthKB}.dat.chk";
+                string strPath2 = $@"c:\temp2\Create2SavedInfosAndCopy{nLengthKB}.dat";
+                string strPathSavedInfo2 = $@"c:\temp2\RestoreInfo\Create2SavedInfosAndCopy{nLengthKB}.dat.chk";
 
                 FilePairSteps oStepsImpl = new FilePairSteps();
                 HashSetLog oLog = new HashSetLog();
@@ -959,7 +959,7 @@ namespace SyncFoldersTests
         /// </summary>
         //===================================================================================================
         [Test]
-        public void Test09_Create2SavedsInfos()
+        public void Test09_Create2SavedInfos()
         {
             // we actually don't need anything from configuration, but need to provide one
             SettingsAndEnvironment oSettings = new SettingsAndEnvironment(
@@ -972,10 +972,10 @@ namespace SyncFoldersTests
             for (int nLengthKB = 31; nLengthKB <= 64; ++nLengthKB)
             {
 
-                string strPath1 = $@"c:\temp\Create2SavedsInfosAndCopy{nLengthKB}.dat";
-                string strPathSavedInfo1 = $@"c:\temp\RestoreInfo\Create2SavedsInfosAndCopy{nLengthKB}.dat.chk";
-                string strPath2 = $@"c:\temp2\Create2SavedsInfosAndCopy{nLengthKB}.dat";
-                string strPathSavedInfo2 = $@"c:\temp2\RestoreInfo\Create2SavedsInfosAndCopy{nLengthKB}.dat.chk";
+                string strPath1 = $@"c:\temp\Create2SavedInfos{nLengthKB}.dat";
+                string strPathSavedInfo1 = $@"c:\temp\RestoreInfo\Create2SavedInfos{nLengthKB}.dat.chk";
+                string strPath2 = $@"c:\temp2\Create2SavedInfos{nLengthKB}.dat";
+                string strPathSavedInfo2 = $@"c:\temp2\RestoreInfo\Create2SavedInfos{nLengthKB}.dat.chk";
 
                 FilePairSteps oStepsImpl = new FilePairSteps();
                 HashSetLog oLog = new HashSetLog();
