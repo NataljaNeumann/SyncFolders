@@ -99,6 +99,8 @@ namespace SyncFoldersApi
         //===================================================================================================
         /// <summary>
         /// Indicates, if first-to-second shall delete files of second folder that aren't present in first
+        /// Plese note that the file that prevents deletion of file is crrently evaluated only by the 
+        /// application, not by API
         /// </summary>
         public bool FirstToSecondDeleteInSecond
         {
