@@ -1184,6 +1184,7 @@ namespace SyncFoldersApi
 
 
             string strPath2,
+            int nId2,
             bool bWithSavedInfo2,
             List<long>? aErasedBlockPositions2,
             List<long>? aReadErrorsFile2,
@@ -1201,7 +1202,7 @@ namespace SyncFoldersApi
             if (aExpectedFileContent == null)
                 throw new Exception("Internal error: expected data not returned");
 
-            if (!IsTestFileWithoutChecksum(out aExpectedFileContent2, strPath2, nId, nLength,
+            if (!IsTestFileWithoutChecksum(out aExpectedFileContent2, strPath2, nId2, nLength,
                 dtmLastWriteTimeUtc, aErasedBlockPositions2, aReadErrorsFile2))
                 return false;
 
@@ -1220,7 +1221,7 @@ namespace SyncFoldersApi
                 return false;
             }
 
-            return IsTestChkFile(aExpectedFileContent2, oSavedInfo2, strPath2, nId, nLength,
+            return IsTestChkFile(aExpectedFileContent2, oSavedInfo2, strPath2, nId2, nLength,
                 dtmLastWriteTimeUtc, bWithSavedInfo2, false, aReadErrorsSavedInfo2);
         }
 

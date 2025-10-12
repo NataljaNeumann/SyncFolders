@@ -944,6 +944,7 @@ namespace SyncFoldersTests
                         null, null,
 
                         strPath2,
+                        nLengthKB,
                         true,
                         null,
                         null,  null)
@@ -1047,6 +1048,7 @@ namespace SyncFoldersTests
                         null, null,
 
                         strPath2,
+                        nLengthKB,
                         true,
                         null,
                         null, null)

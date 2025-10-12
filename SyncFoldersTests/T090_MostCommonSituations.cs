@@ -135,7 +135,9 @@ namespace SyncFoldersTests
                         if (nFileSizeKB > 0)
                         {
                             List<long> oErrors = new List<long>();
-                            oErrors.Add(nFileSizeKB <= 4096 ? 0 : (bProcessLastBlock ? nFileSizeKB / 4096 * 4096 : 0));
+
+                            oErrors.Add(nFileSizeKB <= 4096 ? 0 :
+                                (bProcessLastBlock ? (nFileSizeKB * 1024 - 1) / 4096 * 4096 : 0));
 
                             oFs.SetSimulatedReadError(strPath1, new List<long>(oErrors));
 
@@ -282,7 +284,10 @@ namespace SyncFoldersTests
                         {
 
                             List<long> oErrors = new List<long>();
-                            oErrors.Add(nFileSizeKB <= 4096 ? 0 : (bProcessLastBlock ? nFileSizeKB / 4096 * 4096 : 0));
+
+                            oErrors.Add(nFileSizeKB <= 4096 ? 0 :
+                                (bProcessLastBlock ? (nFileSizeKB * 1023 - 1) / 4096 * 4096 : 0));
+
                             oFs.SetSimulatedReadError(strPath2, new List<long>(oErrors));
 
                             Assert.IsTrue(oFs.IsTestFile(strPath2, 1, nFileSizeKB * 1024, dtmTimeToUse,
@@ -336,7 +341,7 @@ namespace SyncFoldersTests
                             strPath1, 1, nFileSizeKB * 1024,
                             dtmTimeToUse, oSettings.CreateInfo, null, null, null,
 
-                            strPath2, oSettings.CreateInfo, null, null, null));
+                            strPath2, 1, oSettings.CreateInfo, null, null, null));
 
                         if (nFileSizeKB > 0)
                         {
@@ -350,7 +355,7 @@ namespace SyncFoldersTests
                                 strPath1, 1, nFileSizeKB * 1024,
                                 dtmTimeToUse, oSettings.CreateInfo, null, null, null,
 
-                                strPath2, oSettings.CreateInfo, null, new List<long>(oErrors), null)); 
+                                strPath2, 1, oSettings.CreateInfo, null, new List<long>(oErrors), null)); 
                             
                             oLog.Log.Clear();
                             oLog.LocalizedLog.Clear();
@@ -366,7 +371,7 @@ namespace SyncFoldersTests
                                         strPath1, 1, nFileSizeKB * 1024,
                                         dtmTimeToUse, oSettings.CreateInfo, null, null, null,
 
-                                        strPath2, oSettings.CreateInfo, null, new List<long>(oErrors), null));
+                                        strPath2, 1, oSettings.CreateInfo, null, new List<long>(oErrors), null));
                                 }
                                 else
                                 {
@@ -377,7 +382,7 @@ namespace SyncFoldersTests
                                         strPath1, 1, nFileSizeKB * 1024,
                                         dtmTimeToUse, oSettings.CreateInfo, null, null, null,
 
-                                        strPath2, oSettings.CreateInfo, null, null, null));
+                                        strPath2, 1, oSettings.CreateInfo, null, null, null));
                                 }
                             }
                             else
@@ -387,7 +392,7 @@ namespace SyncFoldersTests
                                     strPath1, 1, nFileSizeKB * 1024,
                                     dtmTimeToUse, oSettings.CreateInfo, null, null, null,
 
-                                    strPath2, oSettings.CreateInfo, null, new List<long>(oErrors), null));
+                                    strPath2, 1, oSettings.CreateInfo, null, new List<long>(oErrors), null));
                             }
                         }
                     }
