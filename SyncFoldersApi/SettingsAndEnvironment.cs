@@ -181,6 +181,7 @@ namespace SyncFoldersApi
         {
             return string.Join('-',
                     FirstToSecond ? "FirstToSecond" : "",
+                    FirstToSecond ? (FirstToSecondSyncMode ? "SyncMode" : "OverwriteMode") : "",
                     FirstReadOnly ? "FirstReadOnly" : "",
                     FirstToSecondDeleteInSecond ? "DeleteInSecond" : "",
                     TestFiles ? "Test" : "",
