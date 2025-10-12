@@ -568,170 +568,166 @@ namespace SyncFoldersApi
             IFileInfo fiSavedInfo1 = iFileSystem.GetFileInfo(
                 Utils.CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
 
-            // first to second, but first can be written to
-            if (Utils.FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) &&
-                fi1.Length == fi2.Length)
+            if (fi1.Exists && fi2.Exists && fi1.Length == fi2.Length &&
+                Utils.FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc))
             {
                 ProcessFilePair_Bidirectionally_BothExist_AssumingBothEqual(
-                    strFilePath1, strFilePath2, fi1, fi2,
+                    strFilePath1, strFilePath2,
+                    fi1, fi2,
                     iFileSystem, iSettings, iStepsImpl, iLogWriter);
+                return;
+            }
+
+            if (!iSettings.TestFiles)
+            {
+                return;
+            }
+
+            bool bForceCreateInfo = false;
+            bool bOK = true;
+
+            bOK = iStepsImpl.TestSingleFile(strFilePath2, Utils.CreatePathOfChkFile(
+                fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"),
+                ref bForceCreateInfo, true, !iSettings.TestFilesSkipRecentlyTested, true,
+                    iFileSystem, iSettings, iLogWriter);
+
+            if (!bOK && iSettings.RepairFiles)
+            {
+                // first try to repair second file internally
+                if (iStepsImpl.TestSingleFileHealthyOrCanRepair(strFilePath2,
+                    fiSavedInfo2.FullName, ref bForceCreateInfo,
+                    iFileSystem, iSettings, iLogWriter))
+                {
+                    bOK = iStepsImpl.TestAndRepairSingleFile(strFilePath2, 
+                        fiSavedInfo2.FullName,
+                        ref bForceCreateInfo, false,
+                        iFileSystem, iSettings, iLogWriter);
+                }
+
+                if (bOK && bForceCreateInfo)
+                {
+                    iStepsImpl.CreateSavedInfo(strFilePath2,
+                        fiSavedInfo2.FullName,
+                        iFileSystem, iSettings, iLogWriter);
+                }
+                bForceCreateInfo = false;
+
+                // if it didn't work, then try to repair using first file
+                if (!bOK)
+                {
+                    bOK = iStepsImpl.TestSingleFile(strFilePath1,
+                        fiSavedInfo1.FullName, ref bForceCreateInfo, true, true, true,
+                        iFileSystem, iSettings, iLogWriter);
+
+                    if (!bOK)
+                    {
+                        bOK = iStepsImpl.TestAndRepairSingleFile(strFilePath1,
+                            fiSavedInfo1.FullName, ref bForceCreateInfo, true,
+                            iFileSystem, iSettings, iLogWriter);
+                    }
+
+                    if (bOK && bForceCreateInfo)
+                    {
+                        bOK = iStepsImpl.CreateSavedInfo(strFilePath1,
+                            fiSavedInfo1.FullName,
+                            iFileSystem, iSettings, iLogWriter);
+                        bForceCreateInfo = false;
+                    }
+
+                    if (bOK)
+                    {
+                        if (fi1.LastWriteTimeUtc.Year > 1975)
+                        {
+                            iStepsImpl.CopyFileSafely(fi1, strFilePath2,
+                                "(file was healthy, or repaired)",
+                                Properties.Resources.FileHealthyOrRepaired,
+                                iFileSystem, iLogWriter);
+                        }
+                        else
+                        {
+                            iLogWriter.WriteLogFormattedLocalized(0,
+                                Properties.Resources.CouldntUseOutdatedFileForRestoringOther,
+                                strFilePath1, strFilePath2);
+                            iLogWriter.WriteLog(true, 0, "Warning: couldn't use outdated file ",
+                                strFilePath1, " with year 1975 or earlier for restoring ",
+                                strFilePath2, ", signaling this was a last chance restore");
+                        }
+                    }
+                }
             }
             else
             {
-                bool bForceCreateInfo = false;
-                bool bOK = true;
-                if (iSettings.TestFiles)
-                {
-                    bOK = iStepsImpl.TestSingleFile(strFilePath2, Utils.CreatePathOfChkFile(
-                        fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"),
-                        ref bForceCreateInfo, true, !iSettings.TestFilesSkipRecentlyTested, true,
-                            iFileSystem, iSettings, iLogWriter);
+                // second file was OK, or no repair option, still need to process first file
+                bOK = iStepsImpl.TestSingleFile(strFilePath1, 
+                    fiSavedInfo1.FullName,
+                    ref bForceCreateInfo, true, true, true,
+                    iFileSystem, iSettings, iLogWriter);
 
-                    if (!bOK && iSettings.RepairFiles)
+                if (!bOK && iSettings.RepairFiles)
+                {
+                    if (iStepsImpl.TestAndRepairSingleFile(strFilePath1,
+                        fiSavedInfo1.FullName, ref bForceCreateInfo, true,
+                        iFileSystem, iSettings, iLogWriter))
                     {
-                        // first try to repair second file internally
-                        if (iStepsImpl.TestSingleFileHealthyOrCanRepair(strFilePath2,
-                            Utils.CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo",
-                            fi2.Name, ".chk"), ref bForceCreateInfo,
-                            iFileSystem, iSettings, iLogWriter))
+                        bOK = true;
+                    }
+
+                    if (bOK && bForceCreateInfo)
+                    {
+                        bOK = iStepsImpl.CreateSavedInfo(strFilePath1, 
+                            fiSavedInfo1.FullName,
+                            iFileSystem, iSettings, iLogWriter);
+                    }
+                    bForceCreateInfo = false;
+
+                    // if it didn't work, then try to repair using second file
+                    if (!bOK)
+                    {
+                        bOK = iStepsImpl.TestSingleFile(strFilePath2,
+                            fiSavedInfo2.FullName, ref bForceCreateInfo, true, true, true,
+                            iFileSystem, iSettings, iLogWriter);
+                        if (!bOK)
                         {
-                            bOK = iStepsImpl.TestAndRepairSingleFile(strFilePath2, Utils.CreatePathOfChkFile(
-                                fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"),
-                                ref bForceCreateInfo, false,
+                            bOK = iStepsImpl.TestAndRepairSingleFile(strFilePath2,
+                                fiSavedInfo2.FullName, ref bForceCreateInfo, true,
                                 iFileSystem, iSettings, iLogWriter);
                         }
 
                         if (bOK && bForceCreateInfo)
                         {
-                            iStepsImpl.CreateSavedInfo(strFilePath2,
-                                Utils.CreatePathOfChkFile(
-                                fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"),
-                                iFileSystem, iSettings, iLogWriter);
-                        }
-                        bForceCreateInfo = false;
-
-                        // if it didn't work, then try to repair using first file
-                        if (!bOK)
-                        {
-                            bOK = iStepsImpl.TestSingleFile(strFilePath1,
-                                Utils.CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name,
-                                    ".chk"), ref bForceCreateInfo, true, true, true,
+                            bOK = iStepsImpl.CreateSavedInfo(strFilePath2,
+                                fiSavedInfo2.FullName,
                                 iFileSystem, iSettings, iLogWriter);
 
-                            if (!bOK)
-                            {
-                                bOK = iStepsImpl.TestAndRepairSingleFile(strFilePath1,
-                                    Utils.CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo",
-                                        fi1.Name, ".chk"), ref bForceCreateInfo, true,
-                                    iFileSystem, iSettings, iLogWriter);
-                            }
-
-                            if (bOK && bForceCreateInfo)
-                            {
-                                bOK = iStepsImpl.CreateSavedInfo(strFilePath1,
-                                    Utils.CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo",
-                                        fi1.Name, ".chk"),
-                                    iFileSystem, iSettings, iLogWriter);
-                                bForceCreateInfo = false;
-                            }
-
-                            if (bOK)
-                            {
-                                if (fi1.LastWriteTimeUtc.Year > 1975)
-                                {
-                                    iStepsImpl.CopyFileSafely(fi1, strFilePath2,
-                                        "(file was healthy, or repaired)",
-                                        Properties.Resources.FileHealthyOrRepaired,
-                                        iFileSystem, iLogWriter);
-                                }
-                                else
-                                {
-                                    iLogWriter.WriteLogFormattedLocalized(0,
-                                        Properties.Resources.CouldntUseOutdatedFileForRestoringOther,
-                                        strFilePath1, strFilePath2);
-                                    iLogWriter.WriteLog(true, 0, "Warning: couldn't use outdated file ",
-                                        strFilePath1, " with year 1975 or earlier for restoring ",
-                                        strFilePath2, ", signaling this was a last chance restore");
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        // second file was OK, or no repair option, still need to process first file
-                        bOK = iStepsImpl.TestSingleFile(strFilePath1, Utils.CreatePathOfChkFile(
-                            fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"),
-                            ref bForceCreateInfo, true, true, true,
-                            iFileSystem, iSettings, iLogWriter);
-
-                        if (!bOK && iSettings.RepairFiles)
-                        {
-                            if (iStepsImpl.TestAndRepairSingleFile(strFilePath1,
-                                Utils.CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name,
-                                    ".chk"), ref bForceCreateInfo, true,
-                                iFileSystem, iSettings, iLogWriter))
-                            {
-                                bOK = true;
-                            }
-
-                            if (bOK && bForceCreateInfo)
-                            {
-                                iStepsImpl.CreateSavedInfo(strFilePath1, Utils.CreatePathOfChkFile(
-                                    fi1.DirectoryName, "RestoreInfo", fi2.Name, ".chk"),
-                                iFileSystem, iSettings, iLogWriter);
-                            }
                             bForceCreateInfo = false;
+                        }
 
-                            // if it didn't work, then try to repair using second file
-                            if (!bOK)
+                        if (bOK)
+                        {
+                            if (fi2.LastWriteTimeUtc.Year > 1975)
                             {
-                                bOK = iStepsImpl.TestSingleFile(strFilePath2,
-                                    Utils.CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo",
-                                        fi2.Name, ".chk"), ref bForceCreateInfo, true, true, true,
-                                    iFileSystem, iSettings, iLogWriter);
-                                if (!bOK)
-                                {
-                                    bOK = iStepsImpl.TestAndRepairSingleFile(strFilePath2,
-                                    Utils.CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo",
-                                        fi2.Name, ".chk"), ref bForceCreateInfo, true,
-                                    iFileSystem, iSettings, iLogWriter);
-                                }
+                                iStepsImpl.CopyFileSafely(fi2, strFilePath1, "(file was healthy, or repaired)",
+                                    Properties.Resources.FileHealthyOrRepaired,
+                                    iFileSystem, iLogWriter);
+                            }
+                            else
+                            {
+                                iLogWriter.WriteLogFormattedLocalized(0,
+                                    Properties.Resources.CouldntUseOutdatedFileForRestoringOther,
+                                    strFilePath2, strFilePath1);
 
-                                if (bOK && bForceCreateInfo)
-                                {
-                                    bOK = iStepsImpl.CreateSavedInfo(strFilePath2,
-                                        Utils.CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo",
-                                            fi2.Name, ".chk"),
-                                        iFileSystem, iSettings, iLogWriter);
-                                    bForceCreateInfo = false;
-                                }
-
-                                if (bOK)
-                                {
-                                    if (fi2.LastWriteTimeUtc.Year > 1975)
-                                    {
-                                        iStepsImpl.CopyFileSafely(fi2, strFilePath1, "(file was healthy, or repaired)",
-                                            Properties.Resources.FileHealthyOrRepaired,
-                                            iFileSystem, iLogWriter);
-                                    }
-                                    else
-                                    {
-                                        iLogWriter.WriteLogFormattedLocalized(0,
-                                            Properties.Resources.CouldntUseOutdatedFileForRestoringOther,
-                                            strFilePath2, strFilePath1);
-
-                                        iLogWriter.WriteLog(true, 0, 
-                                            "Warning: couldn't use outdated file ", strFilePath2,
-                                            " with year 1975 or earlier for restoring ",
-                                            strFilePath1, ", signaling this was a last chance restore");
-                                    }
-                                }
+                                iLogWriter.WriteLog(true, 0,
+                                    "Warning: couldn't use outdated file ", strFilePath2,
+                                    " with year 1975 or earlier for restoring ",
+                                    strFilePath1, ", signaling this was a last chance restore");
                             }
                         }
                     }
                 }
             }
         }
+        
+
 
 
         //===================================================================================================
@@ -1141,8 +1137,9 @@ namespace SyncFoldersApi
                             }
                         }
                         else
-                            iFileSystem.CopyTo(fiSavedInfo1, Utils.CreatePathOfChkFile(
-                                fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"), true);
+                        {
+                            iFileSystem.CopyTo(fiSavedInfo1, fiSavedInfo2.FullName, true);
+                        }
                     }
 
                     return;
@@ -1257,12 +1254,13 @@ namespace SyncFoldersApi
                     {
                         if (iSettings.CreateInfo || fiSavedInfo1.Exists)
                             iStepsImpl.CreateSavedInfo(strFilePath1,
-                                Utils.CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"),
+                                fiSavedInfo1.FullName,
                                 iFileSystem, iSettings, iLogWriter);
                     }
                     else
-                        iFileSystem.CopyTo(fiSavedInfo2,
-                            Utils.CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"), true);
+                    {
+                        iFileSystem.CopyTo(fiSavedInfo2, fiSavedInfo1.FullName, true);
+                    }
                 }
             }
             finally
