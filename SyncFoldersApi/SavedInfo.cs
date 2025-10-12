@@ -47,7 +47,7 @@ namespace SyncFoldersApi
     /// 
     /// Having two rows of blocks with different lengths improves the probability
     /// of restoring single block failures (e.g. if length of m_aBlocks is 16 and
-    /// length of m_aOtherBlocks is 17 then non restorable single blocks will be
+    /// length of m_aOtherBlocks is 17 then non-restorable single blocks will be
     /// every 16*17 = 272 blocks, not every 16+17=33 blocks) but it reduces the
     /// maximum number of blocks that can be restored in a continuous range by half.
     /// </summary>
@@ -400,7 +400,7 @@ namespace SyncFoldersApi
 
 
             // if the original file is too small for two rows then no second row
-            if ((nMaxOtherBlocks < 3))
+            if (nMaxOtherBlocks < 3)
                 nMaxOtherBlocks = 0;
             else
             {
@@ -419,11 +419,13 @@ namespace SyncFoldersApi
                     // try to find a length of at least 17 blocks
                     // so there is a chance for restoring two different 16K ranges
                     for (int i = 17; i * 2 < nMaxBlocks; i += 2)
+                    {
                         if ((nMaxBlocks % i) != 0)
                         {
                             nMaxOtherBlocks = nMaxBlocks - i;
                             break;
                         }
+                    }
                 }
             }
 
@@ -439,8 +441,11 @@ namespace SyncFoldersApi
 
             if (nMaxBlocks3 == nMaxOtherBlocks)
             {
-                nMaxOtherBlocks3++;
-                nMaxOtherBlocks3--;
+                if (nMaxBlocks3 * oTestBlock.Length < lFileLength)
+                {
+                    nMaxBlocks3++;
+                    nMaxOtherBlocks3--;
+                }
             }
 
             if (nMaxOtherBlocks3 <= 0)
