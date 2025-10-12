@@ -619,9 +619,24 @@ namespace SyncFoldersApi
                 /* TODO: this line of code isn't hit by any unit tests */
                 if (iSettings.TestFiles && iSettings.RepairFiles)
                 {
-                    return TestAndRepairSingleFile(strPathFile, strPathSavedInfoFile,
-                        ref bForceCreateInfo, false,
-                        iFileSystem, iSettings, iLogWriter);
+                    if (!TestAndRepairSingleFile(strPathFile, strPathSavedInfoFile,
+                        ref bForceCreateInfo, !bFailOnNonRecoverable,
+                        iFileSystem, iSettings, iLogWriter))
+                    {
+                        string strMessage = string.Format(
+                            Properties.Resources.ErrorWhileTestingFile, strPathFile);
+
+                        iLogWriter.WriteLog(false, 1, strMessage);
+                        iLogWriter.WriteLog(true, 1, "Error while testing file ", strPathFile);
+
+                        if (bFailOnNonRecoverable)
+                            throw new IOException(strMessage);
+
+                        return false;
+                    } else
+                    {
+                        return true;
+                    }
                 }
                 else
                 {
@@ -642,7 +657,7 @@ namespace SyncFoldersApi
                             iLogWriter.WriteLog(true, 1, "Error while testing file ", strPathFile);
 
                             if (bFailOnNonRecoverable)
-                                throw new Exception(strMessage);
+                                throw new IOException(strMessage);
 
                             return false;
                         }

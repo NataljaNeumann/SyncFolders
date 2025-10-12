@@ -151,8 +151,7 @@ namespace SyncFoldersApi
 
             bool bForceCreatInfo = false;
             bool bForceCreatInfo2 = false;
-            if (iSettings.CancelClicked)
-                return;
+
             try
             {
                 //TODO: reactivate semaphores m_oSemaphoreCopyFiles.WaitOne();
@@ -192,8 +191,10 @@ namespace SyncFoldersApi
                     }
                 }
                 else
+                {
                     iStepsImpl.CreateSavedInfo(fi2.FullName, fiSavedInfo2.FullName,
                             iFileSystem, iSettings, iLogWriter);
+                }
             }
         }
 
@@ -238,7 +239,7 @@ namespace SyncFoldersApi
 
                 if (iSettings.CreateInfo)
                 {
-                    if (fiSavedInfo1.Exists ||
+                    if ((fiSavedInfo1.Exists && fiSavedInfo1.LastWriteTimeUtc == fi1.LastWriteTimeUtc) ||
                         !iStepsImpl.CreateSavedInfoAndCopy(strFilePath1, fiSavedInfo2.FullName,
                             strFilePath2, "(file newer or bigger)", Properties.Resources.FileWasNewer,
                             iFileSystem, iSettings, iLogWriter))
@@ -269,7 +270,7 @@ namespace SyncFoldersApi
 
                             iLogWriter.WriteLog(true, 0, "Warning: First file ", strFilePath1,
                                 " has bad blocks, overwriting file ", strFilePath2,
-                                " has been skipped, so the it remains as backup");
+                                " has been skipped, so it remains as backup");
                         }
                     } else
                     {
@@ -287,7 +288,7 @@ namespace SyncFoldersApi
 
                         try
                         {
-                            if (fiSavedInfo1.Exists)
+                            if (fiSavedInfo1.Exists && fiSavedInfo1.LastWriteTimeUtc == fi1.LastWriteTimeUtc)
                             {
                                 iFileSystem.CopyFile(fiSavedInfo1.FullName, fiSavedInfo2.FullName);
                             }
@@ -498,71 +499,8 @@ namespace SyncFoldersApi
             ILogWriter iLogWriter
             )
         {
-            if (Properties.Resources == null)
-                throw new ArgumentNullException(nameof(Properties.Resources));
-
-            if (iSettings.FirstToSecondDeleteInSecond)
-            {
-                IFileInfo fiSavedInfo2 =
-                    iFileSystem.GetFileInfo(Utils.CreatePathOfChkFile(
-                        fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
-
-                if (fiSavedInfo2.Exists)
-                    iFileSystem.Delete(fiSavedInfo2);
-
-                iFileSystem.Delete(fi2);
-
-                iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.DeletedFileNotPresentIn,
-                    fi2.FullName, fi1.Directory.FullName);
-
-                iLogWriter.WriteLog(true, 0, "Deleted file ", fi2.FullName,
-                    " that is not present in ", fi1.Directory.FullName, " anymore");
-            }
-            else
-            {
-
-
-                if (iSettings.TestFiles)
-                {
-                    IFileInfo fiSavedInfo2 =
-                        iFileSystem.GetFileInfo(Utils.CreatePathOfChkFile(
-                            fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
-
-                    bool bForceCreateInfo = false;
-                    bool bOK = true;
-
-                    if (iSettings.RepairFiles)
-                    {
-                        iStepsImpl.TestAndRepairSingleFile(fi2.FullName, fiSavedInfo2.FullName,
-                            ref bForceCreateInfo, false,
-                            iFileSystem, iSettings, iLogWriter);
-                    }
-                    else
-                    {
-                        bOK = iStepsImpl.TestSingleFile(fi2.FullName, fiSavedInfo2.FullName,
-                            ref bForceCreateInfo, true, !iSettings.TestFilesSkipRecentlyTested, true,
-                            iFileSystem, iSettings, iLogWriter);
-                    }
-
-                    if (bOK && iSettings.CreateInfo &&
-                        (!fiSavedInfo2.Exists || bForceCreateInfo))
-                    {
-                        iStepsImpl.CreateSavedInfo(fi2.FullName, fiSavedInfo2.FullName, 
-                            iFileSystem, iSettings, iLogWriter  );
-                    }
-                } else if (iSettings.CreateInfo)
-                {
-                    IFileInfo fiSavedInfo2 =
-                        iFileSystem.GetFileInfo(Utils.CreatePathOfChkFile(
-                            fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
-
-                    if (!fiSavedInfo2.Exists)
-                    {
-                        iStepsImpl.CreateSavedInfo(strFilePath2, fiSavedInfo2.FullName,
-                            iFileSystem, iSettings, iLogWriter);
-                    }
-                }
-            }
+            ProcessFilePair_FirstToSecond_FirstReadonly_SecondExists(strFilePath1, strFilePath2,
+                fi1, fi2, iFileSystem, iSettings, iStepsImpl, iLogWriter);
         }
 
         //===================================================================================================
@@ -842,8 +780,7 @@ namespace SyncFoldersApi
 
                 if (iSettings.CreateInfo &&
                     (!fiSavedInfo1.Exists ||
-                        fiSavedInfo1.LastWriteTimeUtc != fi1.LastWriteTimeUtc ||
-                        bForceCreateInfo))
+                        fiSavedInfo1.LastWriteTimeUtc != fi1.LastWriteTimeUtc))
                 {
                     if (!iStepsImpl.Create2SavedInfosAndCopy(
                         fi1.FullName, fiSavedInfo1.FullName,
@@ -894,7 +831,7 @@ namespace SyncFoldersApi
                                 iFileSystem, iLogWriter);
                         }
                     }
-                    catch (Exception)
+                    catch (IOException)
                     {
                         iLogWriter.WriteLogFormattedLocalized(0,
                             Properties.Resources.EncounteredErrorWhileCopyingTryingToRepair,
@@ -1254,6 +1191,12 @@ namespace SyncFoldersApi
 
                     if (bCopied2To1)
                     {
+                        iStepsImpl.CreateOrUpdateFileChecked(fiSavedInfo1.FullName,
+                            iFileSystem, iLogWriter);
+
+                        iStepsImpl.CreateOrUpdateFileChecked(fiSavedInfo2.FullName,
+                            iFileSystem, iLogWriter);
+
                         bForceCreateInfo2 = false;
                         bForceCreateInfo1 = false;
                     }
@@ -1280,7 +1223,7 @@ namespace SyncFoldersApi
                             Properties.Resources.FileHealthyOrRepaired, true, true,
                             iFileSystem, iSettings, iLogWriter);
                     }
-                    catch (Exception)
+                    catch (IOException)
                     {
                         // should actually never happen, since we go there only
                         // if file 2 could be restored above
