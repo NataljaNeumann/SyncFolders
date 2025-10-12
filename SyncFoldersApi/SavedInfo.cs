@@ -316,6 +316,11 @@ namespace SyncFoldersApi
             si1 = new SavedInfo();
             si2 = new SavedInfo();
 
+            si1.m_aBlocks.Clear();
+            si2.m_aBlocks.Clear();
+            si1.m_aOtherBlocks.Clear();
+            si2.m_aOtherBlocks.Clear();
+
             si1.m_lFileLength = lFileLength;
             si1.m_dtmFileTimestampUtc = dtmFileTimestampUtc;
             si1.m_aListOfBlocksToRestore = new List<long>();
