@@ -2189,17 +2189,17 @@ namespace SyncFoldersApi
             if (Properties.Resources == null)
                 throw new ArgumentNullException(nameof(Properties.Resources));
 
-            string strTargetPath2 = strTargetPath + ".tmp";
+            string strTempTargetPath = strTargetPath + ".tmp";
             try
             {
-                iFileSystem.CopyTo(fi, strTargetPath2, true);
+                iFileSystem.CopyTo(fi, strTempTargetPath, true);
 
                 IFileInfo fi2 = iFileSystem.GetFileInfo(strTargetPath);
 
                 if (fi2.Exists)
                     iFileSystem.Delete(fi2);
 
-                IFileInfo fi2tmp = iFileSystem.GetFileInfo(strTargetPath2);
+                IFileInfo fi2tmp = iFileSystem.GetFileInfo(strTempTargetPath);
                 fi2tmp.MoveTo(strTargetPath);
 
                 iLogWriter.WriteLogFormattedLocalized(0, 
@@ -2214,7 +2214,7 @@ namespace SyncFoldersApi
                 try
                 {
                     // System.Threading.Thread.Sleep(100);
-                    IFileInfo fi2 = iFileSystem.GetFileInfo(strTargetPath2);
+                    IFileInfo fi2 = iFileSystem.GetFileInfo(strTempTargetPath);
 
                     if (fi2.Exists)
                     {
