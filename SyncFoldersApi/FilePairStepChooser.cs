@@ -411,9 +411,11 @@ namespace SyncFoldersApi
                             iFileSystem, iSettings, iStepsImpl, iLogWriter);
                     }
                     else
+                    {
                         ProcessFilePair_FirstToSecond_FirstReadWrite_BothExist(
                             strFilePath1, strFilePath2, fi1, fi2,
                             iFileSystem, iSettings, iLogic, iStepsImpl, iLogWriter);
+                    }
                 }
             }
         }
@@ -447,19 +449,23 @@ namespace SyncFoldersApi
             )
         {
             // first to second, but first can be written to
-            if (!iSettings.FirstToSecondSyncMode ? 
-                    (!Utils.FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) || (fi1.Length != fi2.Length)) 
+            if (!iSettings.FirstToSecondSyncMode ?
+                    (!Utils.FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) || (fi1.Length != fi2.Length))
                     :
-                    ((!Utils.FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) && fi1.LastWriteTimeUtc > fi2.LastWriteTimeUtc) 
+                    ((!Utils.FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) && fi1.LastWriteTimeUtc > fi2.LastWriteTimeUtc)
                         || (Utils.FileTimesEqual(fi1.LastWriteTimeUtc, fi2.LastWriteTimeUtc) && (fi1.Length != fi2.Length)))
                )
+            {
                 ProcessFilePair_FirstToSecond_FirstReadWrite_BothExist_NeedToCopy(
                     strFilePath1, strFilePath2, fi1, fi2,
                     iFileSystem, iSettings, iLogic, iStepsImpl, iLogWriter);
+            }
             else
+            {
                 iLogic.ProcessFilePair_FirstToSecond_FirstReadWrite_BothExist_NoNeedToCopy(
                     strFilePath1, strFilePath2, fi1, fi2,
                     iFileSystem, iSettings, iStepsImpl, iLogWriter);
+            }
         }
 
 
