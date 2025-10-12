@@ -571,7 +571,7 @@ namespace SyncFolders
 
 
                     using (System.IO.StreamWriter oMdWriter = new System.IO.StreamWriter(
-                        System.IO.Path.Combine(Application.StartupPath, "..\\..\\..\\Readme.md"), 
+                        System.IO.Path.Combine(Application.StartupPath, "..\\..\\..\\..\\Readme.md"), 
                         false, Encoding.UTF8))
                     {
                         oMdWriter.WriteLine(strMd.ToString());
