@@ -1222,6 +1222,7 @@ namespace SyncFoldersApi
         /// <param name="aReadErrorsFile">The simulated read errors for the main file</param>
         /// <param name="aReadErrorsSavedInfo">The simlated read errors for the saved info</param>
         /// <param name="strPath2">Path of the file second file to test</param>
+        /// <param name="nId2">The ID of the second file</param>
         /// <param name="bWithSavedInfo2">Indicates, if saved info needs to be created, too</param>
         /// <param name="aErasedBlockPositions2">Positions of erased blocks</param>
         /// <param name="aReadErrorsFile2">The simulated read errors for the main file</param>
