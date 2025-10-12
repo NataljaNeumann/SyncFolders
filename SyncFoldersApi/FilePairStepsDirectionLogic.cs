@@ -247,23 +247,26 @@ namespace SyncFoldersApi
                         bool bForceCreateInfo = false;
                         bool bForceCreateInfoTarget = false;
 
-                        if (iStepsImpl.CopyRepairSingleFile(strFilePath2, strFilePath1, fiSavedInfo1.FullName,
-                            ref bForceCreateInfo, ref bForceCreateInfoTarget, "(file newer or bigger)",
-                            Properties.Resources.FileWasNewer, true, false, iFileSystem, iSettings, iLogWriter))
+                        try
                         {
-                            if (bForceCreateInfo || bForceCreateInfoTarget)
+                            if (iStepsImpl.CopyRepairSingleFile(strFilePath2, strFilePath1, fiSavedInfo1.FullName,
+                                ref bForceCreateInfo, ref bForceCreateInfoTarget, "(file newer or bigger)",
+                                Properties.Resources.FileWasNewer, true, false, iFileSystem, iSettings, iLogWriter))
                             {
-                                iStepsImpl.CreateSavedInfo(strFilePath2, fiSavedInfo2.FullName, iFileSystem,
-                                    iSettings, iLogWriter);
-                            }
-                            else
-                            {
-                                iFileSystem.CopyFile(fiSavedInfo1.FullName, fiSavedInfo2.FullName);
+                                if (bForceCreateInfo || bForceCreateInfoTarget)
+                                {
+                                    iStepsImpl.CreateSavedInfo(strFilePath2, fiSavedInfo2.FullName, iFileSystem,
+                                        iSettings, iLogWriter);
+                                }
+                                else
+                                {
+                                    iFileSystem.CopyFile(fiSavedInfo1.FullName, fiSavedInfo2.FullName);
+                                }
+
+                                iStepsImpl.CreateOrUpdateFileChecked(fiSavedInfo2.FullName, iFileSystem, iLogWriter);
                             }
 
-                            iStepsImpl.CreateOrUpdateFileChecked(fiSavedInfo2.FullName, iFileSystem, iLogWriter);
-                        }
-                        else
+                        } catch (IOException)
                         {
                             iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.FirstFileHasBadBlocks,
                                 strFilePath1, strFilePath2);
