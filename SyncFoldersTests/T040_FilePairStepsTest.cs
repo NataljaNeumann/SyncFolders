@@ -401,19 +401,34 @@ namespace SyncFoldersTests
                                    bool bForceCreateInfo = false;
                                    bool bForceCreateInfoTarget = false;
 
-                                   if ((nSavedInfoConfig == 3 || nSavedInfoConfig == 0) && bFailOnNonrecoverable != 0)
-                                       Assert.Throws<IOException>(() =>
-                                           oStepsImpl.CopyRepairSingleFile(strPath2, strPath1,
-                                               strPathSavedInfo1, ref bForceCreateInfo,
-                                               ref bForceCreateInfoTarget, "(testing)", "(testing)",
-                                               bFailOnNonrecoverable != 0, bApplyRepairToSrc != 0,
-                                               oFS, oSettings, oLog));
-                                   else
-                                       oStepsImpl.CopyRepairSingleFile(strPath2, strPath1,
-                                           strPathSavedInfo1, ref bForceCreateInfo,
-                                           ref bForceCreateInfoTarget, "(testing)", "(testing)",
-                                           bFailOnNonrecoverable != 0, bApplyRepairToSrc != 0,
-                                           oFS, oSettings, oLog);
+                                    if ((nSavedInfoConfig == 3 || nSavedInfoConfig == 0) && bFailOnNonrecoverable != 0)
+                                    {
+                                        try
+                                        {
+                                            oStepsImpl.CopyRepairSingleFile(strPath2, strPath1,
+                                                strPathSavedInfo1, ref bForceCreateInfo,
+                                                ref bForceCreateInfoTarget, "(testing)", "(testing)",
+                                                bFailOnNonrecoverable != 0, bApplyRepairToSrc != 0,
+                                                oFS, oSettings, oLog);
+
+                                            Assert.Fail("The call should throw an IOException, which it didn't do");
+
+                                        } catch(IOException)
+                                        {
+
+                                        }
+                                    }
+                                    else
+                                    {
+                                        bool bResult = oStepsImpl.CopyRepairSingleFile(strPath2, strPath1,
+                                            strPathSavedInfo1, ref bForceCreateInfo,
+                                            ref bForceCreateInfoTarget, "(testing)", "(testing)",
+                                            bFailOnNonrecoverable != 0, bApplyRepairToSrc != 0,
+                                            oFS, oSettings, oLog);
+
+                                        Assert.AreEqual(nSavedInfoConfig != 3 && nSavedInfoConfig != 0,
+                                            bResult);
+                                    }
 
 
                                    if (bApplyRepairToSrc != 0 && nSavedInfoConfig >= 1 && nSavedInfoConfig <= 2)
