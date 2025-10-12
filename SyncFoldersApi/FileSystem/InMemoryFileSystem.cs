@@ -902,15 +902,24 @@ namespace SyncFoldersApi
 
             IFileInfo fi = GetFileInfo(strPath);
             if (!fi.Exists)
+            {
+                System.Console.WriteLine(strPath + " doesn't exist");
                 return false;
+            }
 
             if (fi.Length != nLength)
+            {
+                System.Console.WriteLine("Lenth of " + strPath + " doesn't match: expected: "+nLength+" got "+fi.Length);
                 return false;
+            }
 
             if (dtmLastWriteTimeUtc.HasValue)
             {
                 if (fi.LastWriteTimeUtc != dtmLastWriteTimeUtc)
+                {
+                    System.Console.WriteLine("Date and time of " + strPath + " don't match: expected "+dtmLastWriteTimeUtc+" got " + fi.LastWriteTimeUtc);
                     return false;
+                }
             }
 
             aExpectedFileContent = new byte[nLength];
@@ -950,7 +959,11 @@ namespace SyncFoldersApi
             for (int i = aFileContent.Length - 1; i >= 0; --i)
             {
                 if (aFileContent[i] != aExpectedFileContent[i])
+                {
+                    System.Console.WriteLine("Contents of " + strPath + " don't match: e.g. at position " + i +
+                        "expected " + aExpectedFileContent[i] + " got " + aFileContent[i]);
                     return false;
+                }
             }
 
             if (aReadErrorsFile != null && aReadErrorsFile.Count > 0)
@@ -958,20 +971,31 @@ namespace SyncFoldersApi
                 // test that errors exist and the count is equal
                 if (!m_oSimulatedReadErrors.ContainsKey(strPath.ToUpper())
                     || m_oSimulatedReadErrors[strPath.ToUpper()].Count != aReadErrorsFile.Count)
+                {
+                    System.Console.WriteLine("Count of simulated errors of " + strPath + " doesn't match");
                     return false;
+                }
 
                 // it is enough to test that all from one side are in the other
                 // no need to test in both directions
                 foreach (long lPos in m_oSimulatedReadErrors[strPath.ToUpper()])
                 {
                     if (!aReadErrorsFile.Contains(lPos))
+                    {
+                        System.Console.WriteLine("Simulated errors of " + strPath + 
+                            " don't match, got " + lPos + " that was not expected");
                         return false;
+                    }
                 }
             } else
             {
                 if (m_oSimulatedReadErrors.ContainsKey(strPath.ToUpper()) &&
                     m_oSimulatedReadErrors[strPath.ToUpper()].Count > 0)
+                {
+                    System.Console.WriteLine("Count of simulated errors of " + strPath + " doesn't match: "+
+                        "expected 0 got "+ m_oSimulatedReadErrors[strPath.ToUpper()].Count);
                     return false;
+                }
             }
 
             return true;
@@ -1014,13 +1038,22 @@ namespace SyncFoldersApi
             {
                 IFileInfo finfo = GetFileInfo(strPathInfo);
                 if (!finfo.Exists)
+                {
+                    System.Console.WriteLine(strPathInfo + " doesn't exist");
                     return false;
+                }
 
                 if (finfo.Length == 0)
+                {
+                    System.Console.WriteLine(strPathInfo + " has a length of zero");
                     return false;
+                }
 
                 if (finfo.LastWriteTimeUtc != fi.LastWriteTimeUtc && dtmLastWriteTimeUtc.HasValue)
+                {
+                    System.Console.WriteLine("Date and time of " + strPathInfo + " don't match: expected " + fi.LastWriteTimeUtc + " got " + finfo.LastWriteTimeUtc);
                     return false;
+                }
 
                 if (dtmLastWriteTimeUtc.HasValue)
                 {
@@ -1064,12 +1097,20 @@ namespace SyncFoldersApi
                     Delete(strPathInfo + ".tmp");
 
                     if (aFileContentInfoActual.Length != aFileContentInfoExpected.Length)
+                    {
+                        System.Console.WriteLine("Length of saved info " + strPathInfo + " doesn't match: " +
+                            "expectedd " + aFileContentInfoExpected.Length + " got " + aFileContentInfoActual.Length);
                         return false;
+                    }
 
                     for (int i = aFileContentInfoExpected.Length - 1; i >= 0; --i)
                     {
                         if (aFileContentInfoExpected[i] != aFileContentInfoActual[i])
+                        {
+                            System.Console.WriteLine("Contents of " + strPathInfo + " don't match: e.g. at position " + i +
+                                "expected " + aFileContentInfoExpected[i] + " got " + aFileContentInfoActual[i]);
                             return false;
+                        }
                     }
 
                     if (aReadErrorsSavedInfo != null)
@@ -1077,27 +1118,41 @@ namespace SyncFoldersApi
                         // test that errors exist and the count is equal
                         if (!m_oSimulatedReadErrors.ContainsKey(strPathInfo.ToUpper())
                             || m_oSimulatedReadErrors[strPathInfo.ToUpper()].Count != aReadErrorsSavedInfo.Count)
+                        {
+                            System.Console.WriteLine("Count of simulated errors of " + strPathInfo + " doesn't match");
                             return false;
+                        }
 
                         // it is enough to test that all from one side are in the other
                         // no need to test in both directions
                         foreach (long lPos in m_oSimulatedReadErrors[strPathInfo.ToUpper()])
                         {
                             if (!aReadErrorsSavedInfo.Contains(lPos))
+                            {
+                                System.Console.WriteLine("Simulated errors of " + strPathInfo +
+                                    " don't match, got " + lPos + " that was not expected");
                                 return false;
+                            }
                         }
                     }
                     else
                     {
                         if (m_oSimulatedReadErrors.ContainsKey(strPathInfo.ToUpper()) &&
                             m_oSimulatedReadErrors[strPathInfo.ToUpper()].Count > 0)
+                        {
+                            System.Console.WriteLine("Count of simulated errors of " + strPathInfo + " doesn't match: " +
+                                "expected 0 got " + m_oSimulatedReadErrors[strPathInfo.ToUpper()].Count);
                             return false;
+                        }
                     }
                 }
             } else
             {
                 if (Exists(strPathInfo))
+                {
+                    System.Console.WriteLine("An unexpected " + strPathInfo + " exists, seems to be wrong");
                     return false;
+                }
             }
 
             return true;
