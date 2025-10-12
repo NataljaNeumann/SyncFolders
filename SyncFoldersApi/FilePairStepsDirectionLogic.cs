@@ -445,23 +445,23 @@ namespace SyncFoldersApi
                 if (iSettings.TestFiles)
                 {
                     // test first file
-                    iStepsImpl.TestSingleFile(strFilePath1, Utils.CreatePathOfChkFile(
-                        fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"),
+                    iStepsImpl.TestSingleFile(strFilePath1,
+                        fiSavedInfo1.FullName,
                         ref bForceCreateInfoBecauseDamaged, true, !iSettings.TestFilesSkipRecentlyTested, true,
                         iFileSystem, iSettings, iLogWriter);
 
                     // test or repair second file, which is different from first
                     if (iSettings.RepairFiles)
                     {
-                        iStepsImpl.TestAndRepairSingleFile(strFilePath2, Utils.CreatePathOfChkFile(
-                            fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"),
+                        iStepsImpl.TestAndRepairSingleFile(strFilePath2, 
+                            fiSavedInfo2.FullName,
                             ref bForceCreateInfoBecauseDamaged, false,
                             iFileSystem, iSettings, iLogWriter);
                     }
                     else
                     {
-                        bOK = iStepsImpl.TestSingleFile(strFilePath2, Utils.CreatePathOfChkFile(
-                            fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"),
+                        bOK = iStepsImpl.TestSingleFile(strFilePath2, 
+                            fiSavedInfo2.FullName,
                             ref bForceCreateInfoBecauseDamaged, true, 
                             !iSettings.TestFilesSkipRecentlyTested, true,
                             iFileSystem, iSettings, iLogWriter);
@@ -470,8 +470,23 @@ namespace SyncFoldersApi
                     if (bOK && iSettings.CreateInfo &&
                         (!fiSavedInfo2.Exists || bForceCreateInfoBecauseDamaged))
                     {
-                        iStepsImpl.CreateSavedInfo(fi2.FullName, fiSavedInfo2.FullName,
-                            iFileSystem, iSettings, iLogWriter);
+                        if (iStepsImpl.CreateSavedInfo(fi2.FullName, fiSavedInfo2.FullName,
+                            iFileSystem, iSettings, iLogWriter))
+                        {
+                            iStepsImpl.CreateOrUpdateFileChecked(fiSavedInfo2.FullName,
+                                iFileSystem, iLogWriter);
+                        }
+                    }
+                } else if (iSettings.CreateInfo)
+                {
+                    if (!fiSavedInfo2.Exists || fiSavedInfo2.LastWriteTimeUtc != fi2.LastWriteTimeUtc)
+                    {
+                        if (iStepsImpl.CreateSavedInfo(fi2.FullName, fiSavedInfo2.FullName,
+                            iFileSystem, iSettings, iLogWriter))
+                        {
+                            iStepsImpl.CreateOrUpdateFileChecked(fiSavedInfo2.FullName,
+                                iFileSystem, iLogWriter);
+                        }
                     }
                 }
             }
@@ -583,6 +598,28 @@ namespace SyncFoldersApi
 
             if (!iSettings.TestFiles)
             {
+                if (iSettings.CreateInfo)
+                {
+                    if (!fiSavedInfo1.Exists || fiSavedInfo1.LastWriteTimeUtc != fi1.LastWriteTimeUtc)
+                    {
+                        if (iStepsImpl.CreateSavedInfo(strFilePath1, fiSavedInfo1.FullName,
+                            iFileSystem, iSettings, iLogWriter))
+                        {
+                            iStepsImpl.CreateOrUpdateFileChecked(
+                                fiSavedInfo1.FullName, iFileSystem, iLogWriter);
+                        }
+                    }
+
+                    if (!fiSavedInfo2.Exists || fiSavedInfo2.LastWriteTimeUtc != fi2.LastWriteTimeUtc)
+                    {
+                        if (iStepsImpl.CreateSavedInfo(strFilePath2, fiSavedInfo2.FullName,
+                            iFileSystem, iSettings, iLogWriter))
+                        {
+                            iStepsImpl.CreateOrUpdateFileChecked(
+                                fiSavedInfo2.FullName, iFileSystem, iLogWriter);
+                        }
+                    }
+                }
                 return;
             }
 
@@ -660,6 +697,17 @@ namespace SyncFoldersApi
             }
             else
             {
+                if (iSettings.CreateInfo &&
+                    (!fiSavedInfo2.Exists || fiSavedInfo2.LastWriteTimeUtc!=fi2.LastWriteTimeUtc))
+                {
+                    if (iStepsImpl.CreateSavedInfo(strFilePath2, fiSavedInfo2.FullName,
+                        iFileSystem, iSettings, iLogWriter))
+                    {
+                        iStepsImpl.CreateOrUpdateFileChecked(
+                            fiSavedInfo2.FullName, iFileSystem, iLogWriter);
+                    }
+                }
+
                 // second file was OK, or no repair option, still need to process first file
                 bOK = iStepsImpl.TestSingleFile(strFilePath1, 
                     fiSavedInfo1.FullName,
@@ -724,6 +772,18 @@ namespace SyncFoldersApi
                                     " with year 1975 or earlier for restoring ",
                                     strFilePath1, ", signaling this was a last chance restore");
                             }
+                        }
+                    }
+                } else
+                {
+                    if (iSettings.CreateInfo &&
+                        (!fiSavedInfo1.Exists || fiSavedInfo1.LastWriteTimeUtc != fi1.LastWriteTimeUtc))
+                    {
+                        if (iStepsImpl.CreateSavedInfo(strFilePath1, fiSavedInfo1.FullName,
+                            iFileSystem, iSettings, iLogWriter))
+                        {
+                            iStepsImpl.CreateOrUpdateFileChecked(
+                                fiSavedInfo1.FullName, iFileSystem, iLogWriter);
                         }
                     }
                 }
