@@ -99,6 +99,19 @@ namespace SyncFoldersApi
                             iFileSystem, iSettings, iLogWriter);
                     }
                 }
+                else if (iSettings.CreateInfo)
+                {
+                    IFileInfo fiSavedInfo2 =
+                        iFileSystem.GetFileInfo(Utils.CreatePathOfChkFile(
+                            fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
+
+                    if (!fiSavedInfo2.Exists)
+                    {
+                        iStepsImpl.CreateSavedInfo(strFilePath2, fiSavedInfo2.FullName,
+                            iFileSystem, iSettings, iLogWriter);
+                    }
+                }
+
             }
         }
 
@@ -515,6 +528,17 @@ namespace SyncFoldersApi
                     {
                         iStepsImpl.CreateSavedInfo(fi2.FullName, fiSavedInfo2.FullName, 
                             iFileSystem, iSettings, iLogWriter  );
+                    }
+                } else if (iSettings.CreateInfo)
+                {
+                    IFileInfo fiSavedInfo2 =
+                        iFileSystem.GetFileInfo(Utils.CreatePathOfChkFile(
+                            fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
+
+                    if (!fiSavedInfo2.Exists)
+                    {
+                        iStepsImpl.CreateSavedInfo(strFilePath2, fiSavedInfo2.FullName,
+                            iFileSystem, iSettings, iLogWriter);
                     }
                 }
             }
