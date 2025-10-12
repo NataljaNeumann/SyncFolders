@@ -58,6 +58,11 @@ namespace SyncFoldersApi
         /// Holds the position inside the file
         /// </summary>
         private long m_lPosition;
+        //===================================================================================================
+        /// <summary>
+        /// Indicates if the file has been opened read-only
+        /// </summary>
+        private bool m_bReadOnly;
 
         //===================================================================================================
         /// <summary>
@@ -66,16 +71,19 @@ namespace SyncFoldersApi
         /// <param name="oStream">In-Memory stream of the file</param>
         /// <param name="oFileWriteTimes">Information about file write times from file system</param>
         /// <param name="strPath">Path of this file</param>
+        /// <param name="bReadOnly">Indicates if the file shall be opened read-only</param>
         //===================================================================================================
         public InMemoryFile(
             MemoryStream oStream, 
             Dictionary<string, DateTime> oFileWriteTimes, 
-            string strPath)
+            string strPath, 
+            bool bReadOnly)
         {
             m_oStream = oStream;
             m_lPosition = 0;
             m_oFileWriteTimes = oFileWriteTimes;
             m_strPath = strPath;
+            m_bReadOnly = bReadOnly;
         }
 
         //===================================================================================================
@@ -125,6 +133,11 @@ namespace SyncFoldersApi
                 throw new ObjectDisposedException(m_strPath);
             }
 
+            if (m_bReadOnly)
+            {
+                throw new IOException("File has been opened in read-only mode");
+            }
+
             m_oStream.Position = m_lPosition;
             try
             {
@@ -152,6 +165,11 @@ namespace SyncFoldersApi
             if (m_bClosed)
             {
                 throw new ObjectDisposedException(m_strPath);
+            }
+
+            if (m_bReadOnly)
+            {
+                throw new IOException("File has been opened in read-only mode");
             }
 
             m_oStream.Position = m_lPosition;
@@ -261,16 +279,6 @@ namespace SyncFoldersApi
             m_bClosed = true;
             // does nothing
             //m_oStream.Close();
-        }
-
-        //===================================================================================================
-        /// <summary>
-        /// Reopens the file. It is expected that only one will access file at a time.
-        /// </summary>
-        //===================================================================================================
-        public void Reopen()
-        {
-            m_bClosed = false;
         }
 
         //===================================================================================================

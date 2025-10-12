@@ -193,6 +193,7 @@ namespace SyncFoldersApi
         //===================================================================================================
         public void Create()
         {
+            m_oFs.ThrowIfReadOnly(m_strPath);
             m_oFs.EnsureDirectoryExists(m_strPath);
             m_bExists = true;
         }
@@ -207,17 +208,23 @@ namespace SyncFoldersApi
             bool bIncludingContents
             )
         {
+            m_oFs.ThrowIfReadOnly(m_strPath);
+
             IFileInfo[] aFiles = GetFiles();
             if (bIncludingContents)
             {
+                foreach (IDirectoryInfo di in GetDirectories())
+                    di.Delete(true);
+
                 foreach (IFileInfo fi in aFiles)
                     fi.Delete();
             }
             else
             {
-                if (aFiles.Length > 0)
+                if (aFiles.Length > 0 || GetDirectories().Length > 0)
                     throw new IOException("Directory not empty");
             }
+
             m_oFs.m_oDirectories.Remove(m_strPath);
             m_bExists = false;
         }
@@ -235,6 +242,8 @@ namespace SyncFoldersApi
             }
             set
             {
+                m_oFs.ThrowIfReadOnly(m_strPath);
+
                 m_eAttributes = FileAttributes.Directory | value;
             }
         }

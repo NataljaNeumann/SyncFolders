@@ -60,6 +60,12 @@ namespace SyncFoldersApi
 
         //===================================================================================================
         /// <summary>
+        /// Holds attributes
+        /// </summary>
+        FileAttributes m_eAttributes;
+
+        //===================================================================================================
+        /// <summary>
         /// Constructs a new in-memory file info
         /// </summary>
         /// <param name="strPath">Path of the file</param>
@@ -72,11 +78,14 @@ namespace SyncFoldersApi
             m_oFs = oFS;
             lock (m_oFs.m_oFileWriteTimes)
                 m_bExists = m_oFs.m_oFileWriteTimes.ContainsKey(strPath);
-            if (m_bExists)
-                Attributes = FileAttributes.Archive;
-            m_lLength = oStream?.Length??0;
 
             m_strFullName = strPath;
+            if (m_bExists && ((FileAttributes.Archive & Attributes) != FileAttributes.Archive))
+            {
+                m_eAttributes = FileAttributes.Archive;
+            }
+            m_lLength = oStream?.Length??0;
+
         }
 
         //===================================================================================================
@@ -92,6 +101,8 @@ namespace SyncFoldersApi
             }
             set
             {
+                m_oFs.ThrowIfReadOnly(m_strFullName);
+
                 lock (m_oFs.m_oFileWriteTimes)
                     if (m_oFs.m_oFileWriteTimes.ContainsKey(FullName))
                     {
@@ -147,6 +158,8 @@ namespace SyncFoldersApi
         //===================================================================================================
         public void Delete()
         {
+            m_oFs.ThrowIfReadOnly(m_strFullName);
+
             m_oFs.Delete(this);
 
             m_bExists = false;
@@ -162,6 +175,10 @@ namespace SyncFoldersApi
             string strNewPath
             )
         {
+            m_oFs.ThrowIfReadOnly(m_strFullName);
+            m_oFs.ThrowIfReadOnly(strNewPath);
+
+
             m_oFs.Move(FullName, strNewPath);
             m_strFullName = strNewPath;
         }
@@ -178,10 +195,13 @@ namespace SyncFoldersApi
             bool bOverwrite
             )
         {
+            m_oFs.ThrowIfReadOnly(strDestPath);
+
             if (!bOverwrite)
                 lock (m_oFs.m_oFiles)
                     if (m_oFs.m_oFiles.ContainsKey(strDestPath))
                         throw new System.IO.IOException("File " + strDestPath + " already present in memory");
+
             m_oFs.CopyFile(FullName, strDestPath);
             return m_oFs.GetFileInfo(strDestPath);
         }
@@ -262,8 +282,15 @@ namespace SyncFoldersApi
         //===================================================================================================
         public FileAttributes Attributes
         {
-            get;
-            set;
+            get
+            {
+                return m_eAttributes;
+            }
+            set
+            {
+                m_oFs.ThrowIfReadOnly(m_strFullName);
+                m_eAttributes = value;
+            }
         }
 
     }

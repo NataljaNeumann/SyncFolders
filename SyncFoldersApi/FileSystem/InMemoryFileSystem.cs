@@ -2,7 +2,7 @@
     e.g. keeping one as a backup with your family photos. Optionally, 
     some information for restoring of files can be added
  
-    Copyright (C) 2024-2025 NataljaNeumann@gmx.de
+    Copyright (C) 2024-2025 NataljaNeumann@gmx.deSet
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -41,11 +41,13 @@ namespace SyncFoldersApi
         /// </summary>
         public Dictionary<string, MemoryStreamWithErrors> m_oFiles = 
             new Dictionary<string, MemoryStreamWithErrors>();
+
         //===================================================================================================
         /// <summary>
         /// File write times UTC
         /// </summary>
         public Dictionary<string, DateTime> m_oFileWriteTimes = new Dictionary<string, DateTime>();
+
         //===================================================================================================
         /// <summary>
         /// Directories in file system
@@ -57,6 +59,12 @@ namespace SyncFoldersApi
         /// Contains list of errors to simulate
         /// </summary>
         private Dictionary<string, List<long>> m_oSimulatedReadErrors = new Dictionary<string, List<long>>();
+
+        //===================================================================================================
+        /// <summary>
+        /// Holds information about read-only pathes
+        /// </summary>
+        private Dictionary<string, bool> m_oReadOnly = new Dictionary<string, bool>();
 
 
         //===================================================================================================
@@ -199,6 +207,7 @@ namespace SyncFoldersApi
         public IFile OpenWrite(string strPath)
         {
             TestDirectoryExists(Path.GetDirectoryName(strPath));
+            ThrowIfReadOnly(strPath);
             lock (m_oFiles)
             {
                 if (!m_oFiles.ContainsKey(strPath))
@@ -206,7 +215,7 @@ namespace SyncFoldersApi
                     m_oFiles[strPath] = new MemoryStreamWithErrors(new List<long>());
                     m_oFileWriteTimes[strPath] = DateTime.UtcNow;
                 }
-                return new InMemoryFile(m_oFiles[strPath], m_oFileWriteTimes, strPath);
+                return new InMemoryFile(m_oFiles[strPath], m_oFileWriteTimes, strPath, false);
             }
         }
 
@@ -221,6 +230,8 @@ namespace SyncFoldersApi
         //===================================================================================================
         public IFile Create(string strPath)
         {
+            ThrowIfReadOnly(strPath);
+
             lock (m_oFiles)
             {
                 // if there is already a file, then dispose it
@@ -231,7 +242,7 @@ namespace SyncFoldersApi
                 m_oFiles[strPath] = new MemoryStreamWithErrors(new List<long>());
                 m_oFileWriteTimes[strPath] = DateTime.UtcNow;
             }
-            return new InMemoryFile(m_oFiles[strPath], m_oFileWriteTimes, strPath);
+            return new InMemoryFile(m_oFiles[strPath], m_oFileWriteTimes, strPath, false);
         }
 
 
@@ -248,7 +259,7 @@ namespace SyncFoldersApi
             {
                 throw new FileNotFoundException("File not found in memory.");
             }
-            return new InMemoryFile(m_oFiles[strPath], m_oFileWriteTimes, strPath);
+            return new InMemoryFile(m_oFiles[strPath], m_oFileWriteTimes, strPath, true);
         }
 
 
@@ -261,6 +272,8 @@ namespace SyncFoldersApi
         //===================================================================================================
         public void CopyFile(string strSourcePath, string strDestinationPath)
         {
+            ThrowIfReadOnly(strDestinationPath);
+
             TestDirectoryExists(Path.GetDirectoryName(strDestinationPath));
             if (m_oFiles.ContainsKey(strSourcePath))
             {
@@ -288,6 +301,8 @@ namespace SyncFoldersApi
         //===================================================================================================
         public void CopyFileFromReal(string strSourcePath, string strDestinationPath)
         {
+            ThrowIfReadOnly(strDestinationPath);
+
             TestDirectoryExists(Path.GetDirectoryName(strDestinationPath));
             using (FileStream s = File.OpenRead(strSourcePath))
             {
@@ -329,6 +344,7 @@ namespace SyncFoldersApi
         public void WriteAllText(string strPath, string strContent)
         {
             TestDirectoryExists(Path.GetDirectoryName(strPath));
+            ThrowIfReadOnly(strPath);
 
             MemoryStreamWithErrors oStream = new MemoryStreamWithErrors(new List<long>());
 
@@ -386,6 +402,9 @@ namespace SyncFoldersApi
         public void Move(string strOldPath, string strNewPath)
         {
             TestDirectoryExists(Path.GetDirectoryName(strNewPath));
+            ThrowIfReadOnly(strOldPath);
+            ThrowIfReadOnly(strNewPath);
+
             lock (m_oFiles)
             if (m_oFiles.ContainsKey(strOldPath))
             {
@@ -399,6 +418,8 @@ namespace SyncFoldersApi
                     m_oFileWriteTimes[strNewPath] = m_oFileWriteTimes[strOldPath];
                     m_oFileWriteTimes.Remove(strOldPath);
                 }
+
+                SetAttributes(strNewPath, GetAttributes(strOldPath));
             }
             else
             {
@@ -468,6 +489,8 @@ namespace SyncFoldersApi
             if (strPath == null) 
                 return;
 
+            ThrowIfReadOnly(strPath);
+
             string[] astrDirectories = strPath.Split(new[] { '\\' }, StringSplitOptions.RemoveEmptyEntries);
             string strCurrentPath = "";
             if (strPath.StartsWith("\\\\"))
@@ -526,8 +549,9 @@ namespace SyncFoldersApi
             string strDestFileName
             )
         {
+            ThrowIfReadOnly(strDestFileName);
             ThrowSimulatedReadErrorIfNeeded(fi, 0, fi.Exists ? fi.Length : 0);
-            return fi.CopyTo(strDestFileName);
+            return fi.CopyTo(strDestFileName);            
         }
 
         //===================================================================================================
@@ -544,6 +568,7 @@ namespace SyncFoldersApi
             bool bOverwrite
             )
         {
+            ThrowIfReadOnly(strDestFileName);
             return fi.CopyTo(strDestFileName, bOverwrite);
         }
 
@@ -564,6 +589,7 @@ namespace SyncFoldersApi
             switch (eMode)
             {
                 case FileMode.Append:
+                    ThrowIfReadOnly(strPath);
                     {
                         IFile s = OpenWrite(strPath);
                         s.Seek(0, SeekOrigin.End);
@@ -571,12 +597,15 @@ namespace SyncFoldersApi
                     }
 
                 case FileMode.Create:
+                    ThrowIfReadOnly(strPath);
                     return Create(strPath);
 
                 case FileMode.CreateNew:
+                    ThrowIfReadOnly(strPath);
                     return Create(strPath);
 
                 case FileMode.Truncate:
+                    ThrowIfReadOnly(strPath);
                     return Create(strPath);
 
                 case FileMode.Open:
@@ -584,6 +613,7 @@ namespace SyncFoldersApi
 
                 default:
                 case FileMode.OpenOrCreate:
+                    ThrowIfReadOnly(strPath);
                     return OpenWrite(strPath);
             }
         }
@@ -603,6 +633,14 @@ namespace SyncFoldersApi
             FileAccess eAccess
             )
         {
+            if (eAccess == FileAccess.ReadWrite || eAccess == FileAccess.Write)
+            {
+                ThrowIfReadOnly(strPath);
+
+                if (eMode == FileMode.Open)
+                    return OpenWrite(strPath);
+            }
+
             return Open(strPath, eMode);
         }
 
@@ -623,6 +661,14 @@ namespace SyncFoldersApi
             FileShare eShare
             )
         {
+            if (eAccess == FileAccess.ReadWrite || eAccess == FileAccess.Write)
+            {
+                ThrowIfReadOnly(strPath);
+
+                if (eMode == FileMode.Open)
+                    return OpenWrite(strPath);
+            }
+
             return Open(strPath, eMode);
         }
 
@@ -637,7 +683,9 @@ namespace SyncFoldersApi
         public void Delete(
             string strFilePath
             )
-        {
+        {   
+            ThrowIfReadOnly(strFilePath);
+
             lock (m_oFiles)
             {
                 m_oFiles.Remove(strFilePath);
@@ -659,6 +707,8 @@ namespace SyncFoldersApi
             IFileInfo fi
             )
         {
+            ThrowIfReadOnly(fi.FullName);
+
             lock (m_oFiles)
             {
                 m_oFiles.Remove(fi.FullName);
@@ -686,6 +736,8 @@ namespace SyncFoldersApi
             DateTime dtmLastWriteTimeUtc
             )
         {
+            ThrowIfReadOnly(strPath);
+
             m_oFileWriteTimes[strPath] = dtmLastWriteTimeUtc;
         }
 
@@ -748,8 +800,12 @@ namespace SyncFoldersApi
             FileAttributes eNewAttributes
             )
         {
+            ThrowIfReadOnly(strPath);
+
             // ignore
         }
+
+
 
         //===================================================================================================
         /// <summary>
@@ -824,6 +880,8 @@ namespace SyncFoldersApi
             if (aReadErrorsFile != null)
                 SetSimulatedReadError(strPath, aReadErrorsFile);
 
+            SetAttributes(strPath, FileAttributes.Archive);
+
             SetLastWriteTimeUtc(strPath, dtmLastWriteTimeUtc);
 
 
@@ -872,6 +930,7 @@ namespace SyncFoldersApi
                     SetSimulatedReadError(strPathInfo, aReadErrorsSavedInfo);
 
                 SetLastWriteTimeUtc(strPathInfo, dtmLastWriteTimeUtc);
+                SetAttributes(strPathInfo, FileAttributes.Archive);
             }
         }
 
@@ -1279,6 +1338,73 @@ namespace SyncFoldersApi
 
             return IsTestChkFile(aExpectedFileContent2, oSavedInfo2, strPath2, nId2, nLength,
                 dtmLastWriteTimeUtc, bWithSavedInfo2, false, aReadErrorsSavedInfo2);
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// Sets a particular folder read-only for tests
+        /// </summary>
+        /// <param name="strPath">Path of the folder</param>
+        /// <param name="bReadOnly">Indication, if it shall be considered read-only</param>
+        //===================================================================================================
+        public void SetFolderReadonly(
+            string strPath, 
+            bool bReadOnly
+            )
+        {
+            if (!strPath.EndsWith(Path.DirectorySeparatorChar))
+                strPath = strPath + Path.DirectorySeparatorChar;
+
+            if (bReadOnly)
+            {
+                m_oReadOnly[strPath] = true;
+            }
+            else if (m_oReadOnly.ContainsKey(strPath))
+            {
+                m_oReadOnly[strPath] = false;
+            }
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// Gets information, if a path is read-only
+        /// </summary>
+        /// <param name="strPath">Path to test</param>
+        /// <returns>true iff the path shall be considered read-only</returns>
+        //===================================================================================================
+        public bool IsReadOnly(
+            string strPath
+            )
+        {
+            if (!strPath.EndsWith(Path.DirectorySeparatorChar))
+                strPath = strPath + Path.DirectorySeparatorChar;
+
+            if (m_oReadOnly.ContainsKey(strPath))
+            {
+                return m_oReadOnly[strPath];
+            }
+            else
+            {
+                foreach(KeyValuePair<string, bool> oPair in m_oReadOnly)
+                {
+                    if (oPair.Value && strPath.StartsWith(oPair.Key))
+                        return true;
+                }
+                return false;
+            }
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// Throws an I/O exception, if a particular path is on a read-only path
+        /// </summary>
+        /// <param name="strPath">Path to test</param>
+        /// <exception cref="IOException">Thrown, if path is read-only</exception>
+        //===================================================================================================
+        public void ThrowIfReadOnly(string strPath)
+        {
+            if (IsReadOnly(strPath))
+                throw new IOException("The given simulated path is read-only: " + strPath);
         }
 
 
