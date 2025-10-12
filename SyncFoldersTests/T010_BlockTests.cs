@@ -88,7 +88,7 @@ namespace SyncFoldersTests
             oStream.Position = 0;
             Dictionary<string, DateTime> oDic = new Dictionary<string, DateTime>();
             oDic["MockFile"] = DateTime.UtcNow;
-            return new InMemoryFile(oStream, oDic, "MockFile");
+            return new InMemoryFile(oStream, oDic, "MockFile", false);
         }
 
         //===================================================================================================

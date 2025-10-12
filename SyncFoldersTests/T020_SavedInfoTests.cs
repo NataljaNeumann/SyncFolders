@@ -660,7 +660,7 @@ namespace SyncFoldersTests
 
                 Dictionary<string, DateTime> oDic = new Dictionary<string, DateTime>();
                 oDic["Test"] = DateTime.UtcNow;
-                InMemoryFile oFile = new InMemoryFile(oStream, oDic, "Test");
+                InMemoryFile oFile = new InMemoryFile(oStream, oDic, "Test", true);
 
                 SavedInfo si2 = new SavedInfo();
                 oFile.Position = 0;
@@ -701,7 +701,7 @@ namespace SyncFoldersTests
 
                 Dictionary<string, DateTime> oDic = new Dictionary<string, DateTime>();
                 oDic["Test"] = DateTime.UtcNow;
-                InMemoryFile oFile = new InMemoryFile(oStream, oDic, "Test");
+                InMemoryFile oFile = new InMemoryFile(oStream, oDic, "Test", true);
 
                 SavedInfo si2 = new SavedInfo();
                 oFile.Position = 0;
@@ -750,7 +750,7 @@ namespace SyncFoldersTests
 
             Dictionary<string, DateTime> oDic = new Dictionary<string, DateTime>();
             oDic["Test"] = DateTime.UtcNow;
-            InMemoryFile oFile = new InMemoryFile(oStream, oDic, "Test");
+            InMemoryFile oFile = new InMemoryFile(oStream, oDic, "Test", false);
             si.SaveTo_v0(oFile);
 
             SavedInfo si2 = new SavedInfo();
@@ -797,7 +797,7 @@ namespace SyncFoldersTests
 
             Dictionary<string, DateTime> oDic = new Dictionary<string, DateTime>();
             oDic["Test"] = DateTime.UtcNow;
-            InMemoryFile oFile = new InMemoryFile(oStream, oDic, "Test");
+            InMemoryFile oFile = new InMemoryFile(oStream, oDic, "Test", false);
             si.SaveTo(oFile);
 
             SavedInfo si2 = new SavedInfo();

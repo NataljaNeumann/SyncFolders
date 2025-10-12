@@ -106,6 +106,9 @@ namespace SyncFoldersTests
                     FilePairSteps oSteps = new FilePairSteps();
                     HashSetLog oLog = new HashSetLog();
 
+                    if (oSettings.FirstToSecond && oSettings.FirstReadOnly)
+                        oFs.SetFolderReadonly(strDir, true);
+
                     if (oSettings.TestFiles && oSettings.RepairFiles && oSettings.FirstToSecond && oSettings.FirstReadOnly)
                     {
                         try
@@ -262,6 +265,9 @@ namespace SyncFoldersTests
                     FilePairStepsDirectionLogic oLogic = new FilePairStepsDirectionLogic();
                     FilePairSteps oSteps = new FilePairSteps();
                     HashSetLog oLog = new HashSetLog();
+
+                    if (oSettings.FirstToSecond && oSettings.FirstReadOnly)
+                        oFs.SetFolderReadonly(strDir1, true);
 
                     oAlgorithm.ProcessFilePair(strPath1, strPath2,
                         oFs, oSettings, oLogic, oSteps, oLog);
@@ -460,6 +466,9 @@ namespace SyncFoldersTests
                     FilePairStepsDirectionLogic oLogic = new FilePairStepsDirectionLogic();
                     FilePairSteps oSteps = new FilePairSteps();
                     HashSetLog oLog = new HashSetLog();
+
+                    if (oSettings.FirstToSecond && oSettings.FirstReadOnly)
+                        oFs.SetFolderReadonly(strDir1, true);
 
                     oAlgorithm.ProcessFilePair(strPath1, strPath2,
                         oFs, oSettings, oLogic, oSteps, oLog);

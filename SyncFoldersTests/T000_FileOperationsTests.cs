@@ -357,6 +357,32 @@ namespace SyncFoldersTests
 
         }
 
+        //===================================================================================================
+        /// <summary>
+        /// Tests read-only functionality
+        /// </summary>
+        //===================================================================================================
+        [Test]
+        public void ReadOnlyPathes()
+        {
+            InMemoryFileSystem oFs = (InMemoryFileSystem)m_oFileSystem;
+            Assert.IsFalse(oFs.IsReadOnly("c:\\temp"));
+            oFs.SetFolderReadonly("c:\\temp", true);
+            Assert.IsTrue(oFs.IsReadOnly("c:\\temp"));
+            Assert.IsFalse(oFs.IsReadOnly("c:\\temp2"));
+            Assert.IsTrue(oFs.IsReadOnly("c:\\temp\\RestoreInfo"));
+            Assert.IsTrue(oFs.IsReadOnly("c:\\temp\\RestoreInfo\\test.dat.chk"));
+            oFs.SetFolderReadonly("c:\\temp", false);
+            Assert.IsFalse(oFs.IsReadOnly("c:\\temp"));
+            Assert.IsFalse(oFs.IsReadOnly("c:\\temp2"));
+            Assert.IsFalse(oFs.IsReadOnly("c:\\temp\\RestoreInfo"));
+            Assert.IsFalse(oFs.IsReadOnly("c:\\temp\\RestoreInfo\\test.dat.chk"));
+            oFs.SetFolderReadonly("c:\\temp", true);
+            Assert.IsTrue(oFs.IsReadOnly("c:\\temp"));
+            Assert.IsFalse(oFs.IsReadOnly("c:\\temp2"));
+            Assert.IsTrue(oFs.IsReadOnly("c:\\temp\\RestoreInfo"));
+            Assert.IsTrue(oFs.IsReadOnly("c:\\temp\\RestoreInfo\\test.dat.chk"));
+        }
     }
 
 
