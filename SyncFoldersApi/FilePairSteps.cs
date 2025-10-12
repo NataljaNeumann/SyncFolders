@@ -3207,7 +3207,6 @@ namespace SyncFoldersApi
 
                             if (fi2.Exists)
                             {
-                                /* TODO: this line of code isn't hit by any unit tests */
                                 iFileSystem.Delete(fi2);
                             }
 
