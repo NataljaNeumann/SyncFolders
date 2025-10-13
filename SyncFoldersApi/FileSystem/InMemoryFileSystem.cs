@@ -1404,7 +1404,7 @@ namespace SyncFoldersApi
         public void ThrowIfReadOnly(string strPath)
         {
             if (IsReadOnly(strPath))
-                throw new IOException("The given simulated path is read-only: " + strPath);
+                throw new InvalidOperationException("The given simulated path is read-only: " + strPath);
         }
 
 
