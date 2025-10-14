@@ -2521,7 +2521,6 @@ namespace SyncFoldersApi
                             }
                             else if (bBlock2Present && !bBlock1Present)
                             {
-                                /* TODO: this line of code isn't hit by any unit tests */
                                 if (si1.AnalyzeForTestOrRestore(oBlock2, lIndex))
                                 {
                                     iLogWriter.WriteLogFormattedLocalized(1,
@@ -2869,7 +2868,6 @@ namespace SyncFoldersApi
 
                 if (lNotRestoredSize2 == 0 && aRestore2.Count == 0)
                 {
-                    /* TODO: this line of code isn't hit by any unit tests */
                     CreateOrUpdateFileChecked(strPathSavedInfo2,
                         iFileSystem, iLogWriter);
                 }

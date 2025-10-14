@@ -640,10 +640,10 @@ namespace SyncFoldersTests
                             oErrors.Add(nFileSizeKB <= 4096 ? 0 :
                                 (bProcessLastBlock ? (nFileSizeKB * 1023 - 1) / 4096 * 4096 : 0));
 
-                            oFs.SetSimulatedReadError(strPath2, new List<long>(oErrors));
+                            oFs.SetSimulatedReadError(strPath1, new List<long>(oErrors));
 
-                            Assert.IsTrue(oFs.IsTestFile(strPath2, 1, nFileSizeKB * 1024, dtmTimeToUse,
-                                oSettings.CreateInfo,
+                            Assert.IsTrue(oFs.IsTestFile(strPath1, 1, nFileSizeKB * 1024, dtmTimeToUse,
+                                false,
                                 false, null, new List<long>(oErrors), null
                                 ));
 
@@ -653,39 +653,17 @@ namespace SyncFoldersTests
                             oAlgorithm.ProcessFilePair(strPath1, strPath2,
                                 oFs, oSettings, oLogic, oSteps, oLog);
 
-                            if (oSettings.TestFilesSkipRecentlyTested)
+                            if (oSettings.TestFilesSkipRecentlyTested || (oSettings.FirstToSecond && oSettings.FirstReadOnly)) 
                             {
                                 // nothing should have changed
-                                Assert.IsTrue(oFs.IsTestFile(strPath2, 1, nFileSizeKB * 1024, dtmTimeToUse,
-                                    oSettings.CreateInfo,
+                                Assert.IsTrue(oFs.IsTestFile(strPath1, 1, nFileSizeKB * 1024, dtmTimeToUse,
+                                    false,
                                     false, null, new List<long>(oErrors), null
                                     ));
                             }
                             else
                             {
-                                // there it is expected that the first file should remained the same
-                                Assert.IsTrue(oFs.IsTestFile(
-                                    strPath1, 1, nFileSizeKB * 1024, dtmTimeToUse, false, false,
-                                    null, null, null
-                                    ));
-
-                                if (oSettings.TestFiles && oSettings.RepairFiles)
-                                {
-                                    // and the second file shold have been repaired
-                                    Assert.IsTrue(oFs.IsTestFile(strPath2, 1, nFileSizeKB * 1024, dtmTimeToUse,
-                                        oSettings.CreateInfo,
-                                        false, null,
-                                        null, null
-                                        ));
-                                }
-                                else
-                                {
-                                    // or maybe not
-                                    Assert.IsTrue(oFs.IsTestFile(strPath2, 1, nFileSizeKB * 1024, dtmTimeToUse,
-                                        oSettings.CreateInfo,
-                                        false, null, new List<long>(oErrors), null
-                                        ));
-                                }
+                                Assert.Fail("Should never happen");
                             }
                         }
                     }
@@ -703,14 +681,14 @@ namespace SyncFoldersTests
 
                             List<long> oErrors = new List<long>();
                             oErrors.Add(nFileSizeKB <= 4096 ? 0 : (bProcessLastBlock ? nFileSizeKB / 4096 * 4096 : 0));
-                            oFs.SetSimulatedReadError(strPath2, new List<long>(oErrors));
+                            oFs.SetSimulatedReadError(strPath1, new List<long>(oErrors));
 
 
                             Assert.IsTrue(oFs.AreTwoTestFiles(
                                 strPath1, 1, nFileSizeKB * 1024,
-                                dtmTimeToUse, oSettings.CreateInfo, null, null, null,
+                                dtmTimeToUse, oSettings.CreateInfo, null, new List<long>(oErrors), null,
 
-                                strPath2, 1, oSettings.CreateInfo, null, new List<long>(oErrors), null));
+                                strPath2, 1, oSettings.CreateInfo, null, null, null));
 
                             oLog.Log.Clear();
                             oLog.LocalizedLog.Clear();
@@ -724,9 +702,9 @@ namespace SyncFoldersTests
                                 {
                                     Assert.IsTrue(oFs.AreTwoTestFiles(
                                         strPath1, 1, nFileSizeKB * 1024,
-                                        dtmTimeToUse, oSettings.CreateInfo, null, null, null,
+                                        dtmTimeToUse, oSettings.CreateInfo, null, new List<long>(oErrors), null,
 
-                                        strPath2, 1, oSettings.CreateInfo, null, new List<long>(oErrors), null));
+                                        strPath2, 1, oSettings.CreateInfo, null, null, null));
                                 }
                                 else
                                 {
@@ -745,9 +723,9 @@ namespace SyncFoldersTests
                                 // or maybe not
                                 Assert.IsTrue(oFs.AreTwoTestFiles(
                                     strPath1, 1, nFileSizeKB * 1024,
-                                    dtmTimeToUse, oSettings.CreateInfo, null, null, null,
+                                    dtmTimeToUse, oSettings.CreateInfo, null, new List<long>(oErrors), null,
 
-                                    strPath2, 1, oSettings.CreateInfo, null, new List<long>(oErrors), null));
+                                    strPath2, 1, oSettings.CreateInfo, null, null, null));
                             }
                         }
                     }
@@ -880,14 +858,14 @@ namespace SyncFoldersTests
 
                             List<long> oErrors = new List<long>();
                             oErrors.Add(nFileSizeKB <= 4096 ? 0 : (bProcessLastBlock ? nFileSizeKB / 4096 * 4096 : 0));
-                            oFs.SetSimulatedReadError(strPath2, new List<long>(oErrors));
+                            oFs.SetSimulatedReadError(strPath1, new List<long>(oErrors));
 
 
                             Assert.IsTrue(oFs.AreTwoTestFiles(
                                 strPath2, 2, nFileSizeKB * 1024,
-                                dtmTimeToUse, oSettings.CreateInfo, null, new List<long>(oErrors), null,
+                                dtmTimeToUse, oSettings.CreateInfo, null, null, null,
 
-                                strPath1, 2, oSettings.CreateInfo, null, null, null));
+                                strPath1, 2, oSettings.CreateInfo, null, new List<long>(oErrors), null));
 
                             oLog.Log.Clear();
                             oLog.LocalizedLog.Clear();
@@ -901,9 +879,9 @@ namespace SyncFoldersTests
                                 {
                                     Assert.IsTrue(oFs.AreTwoTestFiles(
                                         strPath2, 2, nFileSizeKB * 1024,
-                                        dtmTimeToUse, oSettings.CreateInfo, null, new List<long>(oErrors), null,
+                                        dtmTimeToUse, oSettings.CreateInfo, null, null, null,
 
-                                        strPath1, 2, oSettings.CreateInfo, null, null, null));
+                                        strPath1, 2, oSettings.CreateInfo, null, new List<long>(oErrors), null));
                                 }
                                 else
                                 {
@@ -922,9 +900,9 @@ namespace SyncFoldersTests
                                 // or maybe not
                                 Assert.IsTrue(oFs.AreTwoTestFiles(
                                     strPath2, 2, nFileSizeKB * 1024,
-                                    dtmTimeToUse, oSettings.CreateInfo, null, new List<long>(oErrors), null,
+                                    dtmTimeToUse, oSettings.CreateInfo, null, null, null,
 
-                                    strPath1, 2, oSettings.CreateInfo, null, null, null));
+                                    strPath1, 2, oSettings.CreateInfo, null, new List<long>(oErrors), null));
                             }
                         }
                     }
