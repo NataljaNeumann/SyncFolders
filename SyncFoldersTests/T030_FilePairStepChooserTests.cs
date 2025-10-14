@@ -276,33 +276,52 @@ namespace SyncFoldersTests
         [Test]
         public void Test03_EqualFiles()
         {
-            for (int nConfig = 0; nConfig < 1024; ++nConfig)
+            for (int bCompleteTime = 0; bCompleteTime <= 1; ++bCompleteTime)
             {
-                InMemoryFileSystem oFS = new InMemoryFileSystem();
-
-                oFS.EnsureDirectoryExists(c_strDir1);
-                oFS.EnsureDirectoryExists(c_strDir2);
-                oFS.WriteAllText(c_strFile1, "Test");
-                oFS.WriteAllText(c_strFile2, "Test");
-
-                HashSet<string> oMessages = new HashSet<string>();
-                HashSet<string> oLocalized = new HashSet<string>();
-                SettingsAndEnvironment oSettings;
-
-                ChosenStepType eStep = RunConfiguration(oFS, nConfig, oMessages, oLocalized, out oSettings, c_strFile1, c_strFile2);
-
-                if (oSettings.FirstToSecond)
+                for (int nConfig = 0; nConfig < 1024; ++nConfig)
                 {
-                    if (oSettings.FirstReadOnly)
-                        Assert.AreEqual(ChosenStepType.eProcessFilePair_FirstToSecond_FirstReadonly_BothExist_NoNeedToCopy, eStep);
-                    else
-                        Assert.AreEqual(ChosenStepType.eProcessFilePair_FirstToSecond_FirstReadWrite_BothExist_NoNeedToCopy, eStep);
-                }
-                else
-                    Assert.AreEqual(ChosenStepType.eProcessFilePair_Bidirectionally_BothExist_AssumingBothEqual, eStep);
+                    InMemoryFileSystem oFS = new InMemoryFileSystem();
 
-                Assert.AreEqual(0, oMessages.Count);
-                Assert.AreEqual(0, oLocalized.Count);
+                    oFS.EnsureDirectoryExists(c_strDir1);
+                    oFS.EnsureDirectoryExists(c_strDir2);
+
+                    oFS.WriteAllText(c_strFile1, "Test");
+                    oFS.WriteAllText(c_strFile2, "Test");
+
+                    DateTime dtmNow = DateTime.UtcNow;
+
+                    if (bCompleteTime != 0)
+                    {
+                        oFS.SetLastWriteTimeUtc(c_strFile1, dtmNow);
+                        oFS.SetLastWriteTimeUtc(c_strFile2, dtmNow);
+
+                    }
+                    else
+                    {
+                        oFS.SetLastWriteTimeUtc(c_strFile1, new DateTime(dtmNow.Year, dtmNow.Month, dtmNow.Day, dtmNow.Hour, dtmNow.Minute, dtmNow.Second));
+                        oFS.SetLastWriteTimeUtc(c_strFile2, new DateTime(dtmNow.Year, dtmNow.Month, dtmNow.Day, dtmNow.Hour, dtmNow.Minute, dtmNow.Second));
+                    }
+
+
+                    HashSet<string> oMessages = new HashSet<string>();
+                    HashSet<string> oLocalized = new HashSet<string>();
+                    SettingsAndEnvironment oSettings;
+
+                    ChosenStepType eStep = RunConfiguration(oFS, nConfig, oMessages, oLocalized, out oSettings, c_strFile1, c_strFile2);
+
+                    if (oSettings.FirstToSecond)
+                    {
+                        if (oSettings.FirstReadOnly)
+                            Assert.AreEqual(ChosenStepType.eProcessFilePair_FirstToSecond_FirstReadonly_BothExist_NoNeedToCopy, eStep);
+                        else
+                            Assert.AreEqual(ChosenStepType.eProcessFilePair_FirstToSecond_FirstReadWrite_BothExist_NoNeedToCopy, eStep);
+                    }
+                    else
+                        Assert.AreEqual(ChosenStepType.eProcessFilePair_Bidirectionally_BothExist_AssumingBothEqual, eStep);
+
+                    Assert.AreEqual(0, oMessages.Count);
+                    Assert.AreEqual(0, oLocalized.Count);
+                }
             }
         }
 
