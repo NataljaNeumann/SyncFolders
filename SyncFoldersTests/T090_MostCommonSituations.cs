@@ -910,5 +910,225 @@ namespace SyncFoldersTests
             }
         }
 
+
+        //===================================================================================================
+        /// <summary>
+        /// This test tests a restore of damaged file in 1 from a backup in 2
+        /// </summary>
+        //===================================================================================================
+        [Test]
+        public void Test06_Restore1_FromBackup_In2()
+        {
+            Random oRandom = new Random((int)DateTime.UtcNow.Ticks);
+            foreach (int nFileSizeKB in new int[] {
+                1, 4, 16, 17,
+                6 * 1024,   6 * 1024 + 1,
+                200 * 1024, 200 * 1024 + 1})
+            {
+                for (int nConfiguration = 0; nConfiguration < 1024; ++nConfiguration)
+                {
+                    // skip testing all configurations for big files 
+                    if (nConfiguration > 0 && nFileSizeKB > 32)
+                        continue;
+
+                    bool bProcessLastBlock = (oRandom.Next() & 1) != 0;
+
+                    SettingsAndEnvironment oSettings = new SettingsAndEnvironment(
+                        (nConfiguration & 1) != 0,
+                        (nConfiguration & 2) != 0,
+                        (nConfiguration & 4) != 0,
+                        (nConfiguration & 8) != 0,
+                        (nConfiguration & 16) != 0,
+                        (nConfiguration & 32) != 0,
+                        (nConfiguration & 64) != 0,
+                        (nConfiguration & 128) != 0,
+                        (nConfiguration & 256) != 0,
+                        (nConfiguration & 512) != 0);
+
+                    string strGuid = Guid.NewGuid().ToString();
+                    string strDir1 = Path.Combine(Path.GetTempPath(), strGuid + Path.DirectorySeparatorChar + "Dir1");
+                    string strDir2 = Path.Combine(Path.GetTempPath(), strGuid + Path.DirectorySeparatorChar + "Dir2");
+
+                    string strPath1 = Path.Combine(strDir1, $@"Restore1_FromBackup_In2_{nFileSizeKB}K-{oSettings}.dat");
+                    string strPathSavedInfo1 = Path.Combine(strDir1,
+                        $@"RestoreInfo{Path.DirectorySeparatorChar}Restore1_FromBackup_In2_{nFileSizeKB}K-{oSettings}.dat.chk");
+                    string strPath2 = Path.Combine(strDir2, $@"Restore1_FromBackup_In2_{nFileSizeKB}K-{oSettings}.dat");
+                    string strPathSavedInfo2 = Path.Combine(strDir2,
+                        $@"RestoreInfo{Path.DirectorySeparatorChar}Restore1_FromBackup_In2_{nFileSizeKB}K-{oSettings}.dat.chk");
+
+                    DateTime dtmTimeToUse = DateTime.UtcNow;
+                    DateTime dtmTimeToUse2 = DateTime.UtcNow.AddDays(-1);
+
+                    InMemoryFileSystem oFs = new InMemoryFileSystem();
+                    oFs.GetDirectoryInfo(Path.Combine(strDir1, "RestoreInfo")).Create();
+                    oFs.GetDirectoryInfo(Path.Combine(strDir2, "RestoreInfo")).Create();
+
+                    oFs.CreateTestFile(strPath1, 1, nFileSizeKB * 1024, dtmTimeToUse, false, false,
+                        null, null, null, true);
+                    oFs.CreateTestFile(strPath2, 2, nFileSizeKB * 1024, dtmTimeToUse2, false, false,
+                        null, null, null, true);
+
+
+                    // there we introduce an error into the newer file (1)
+                    List<long> oErrors = new List<long>();
+                    oErrors.Add(nFileSizeKB <= 4096 ? 0 : (bProcessLastBlock ? nFileSizeKB / 4096 * 4096 : 0));
+                    oFs.SetSimulatedReadError(strPath1, new List<long>(oErrors));
+
+
+
+                    FilePairStepChooser oAlgorithm = new FilePairStepChooser();
+                    FilePairStepsDirectionLogic oLogic = new FilePairStepsDirectionLogic();
+                    FilePairSteps oSteps = new FilePairSteps();
+                    HashSetLog oLog = new HashSetLog();
+
+                    if (oSettings.FirstToSecond && oSettings.FirstReadOnly)
+                        oFs.SetFolderReadonly(strDir1, true);
+
+                    oAlgorithm.ProcessFilePair(strPath1, strPath2,
+                        oFs, oSettings, oLogic, oSteps, oLog);
+
+                    if ((oSettings.FirstToSecond && oSettings.FirstReadOnly) ||
+                        (!oSettings.TestFiles || !oSettings.RepairFiles))
+                    {
+
+                        Assert.IsTrue(
+                            oFs.IsTestFile(strPath1, 1, nFileSizeKB * 1024, dtmTimeToUse, false, false,
+                                null, new List<long>(oErrors), null));
+
+                        Assert.IsTrue(
+                            oFs.IsTestFile(strPath2, 2, nFileSizeKB * 1024, dtmTimeToUse2, 
+                            oSettings.CreateInfo, false,
+                                null, null, null));
+                    }
+                    else
+                    {
+                        Assert.IsTrue(oFs.AreTwoTestFiles(
+                        strPath2, 2, nFileSizeKB * 1024,
+                        dtmTimeToUse2, oSettings.CreateInfo, null, null, null,
+
+                        strPath1, 2, oSettings.CreateInfo, null, null, null));
+                    }
+                }
+            }
+        }
+
+
+        //===================================================================================================
+        /// <summary>
+        /// This test tests restore of a damaged file in 2 from a backup in 1
+        /// </summary>
+        //===================================================================================================
+        [Test]
+        public void Test07_Restore2_FromBackup_In1()
+        {
+            Random oRandom = new Random((int)DateTime.UtcNow.Ticks);
+            foreach (int nFileSizeKB in new int[] {
+                1, 4, 16, 17,
+                6 * 1024,   6 * 1024 + 1,
+                200 * 1024, 200 * 1024 + 1})
+            {
+                for (int nConfiguration = 0; nConfiguration < 1024; ++nConfiguration)
+                {
+                    // skip testing all configurations for big files 
+                    if (nConfiguration > 0 && nFileSizeKB > 32)
+                        continue;
+
+                    bool bProcessLastBlock = (oRandom.Next() & 1) != 0;
+
+                    SettingsAndEnvironment oSettings = new SettingsAndEnvironment(
+                        (nConfiguration & 1) != 0,
+                        (nConfiguration & 2) != 0,
+                        (nConfiguration & 4) != 0,
+                        (nConfiguration & 8) != 0,
+                        (nConfiguration & 16) != 0,
+                        (nConfiguration & 32) != 0,
+                        (nConfiguration & 64) != 0,
+                        (nConfiguration & 128) != 0,
+                        (nConfiguration & 256) != 0,
+                        (nConfiguration & 512) != 0);
+
+                    string strGuid = Guid.NewGuid().ToString();
+                    string strDir1 = Path.Combine(Path.GetTempPath(), strGuid + Path.DirectorySeparatorChar + "Dir1");
+                    string strDir2 = Path.Combine(Path.GetTempPath(), strGuid + Path.DirectorySeparatorChar + "Dir2");
+
+                    string strPath1 = Path.Combine(strDir1, $@"Restore2_FromBackup_In1_{nFileSizeKB}K-{oSettings}.dat");
+                    string strPathSavedInfo1 = Path.Combine(strDir1,
+                        $@"RestoreInfo{Path.DirectorySeparatorChar}Restore2_FromBackup_In1_{nFileSizeKB}K-{oSettings}.dat.chk");
+                    string strPath2 = Path.Combine(strDir2, $@"Restore2_FromBackup_In1_{nFileSizeKB}K-{oSettings}.dat");
+                    string strPathSavedInfo2 = Path.Combine(strDir2,
+                        $@"RestoreInfo{Path.DirectorySeparatorChar}Restore2_FromBackup_In1_{nFileSizeKB}K-{oSettings}.dat.chk");
+
+                    DateTime dtmTimeToUse = DateTime.UtcNow;
+                    DateTime dtmTimeToUse2 = DateTime.UtcNow.AddDays(-1);
+
+                    InMemoryFileSystem oFs = new InMemoryFileSystem();
+                    oFs.GetDirectoryInfo(Path.Combine(strDir1, "RestoreInfo")).Create();
+                    oFs.GetDirectoryInfo(Path.Combine(strDir2, "RestoreInfo")).Create();
+
+                    oFs.CreateTestFile(strPath1, 1, nFileSizeKB * 1024, dtmTimeToUse2, false, false,
+                        null, null, null, true);
+                    oFs.CreateTestFile(strPath2, 2, nFileSizeKB * 1024, dtmTimeToUse, false, false,
+                        null, null, null, true);
+
+
+                    // there we introduce an error into the newer file (1)
+                    List<long> oErrors = new List<long>();
+                    oErrors.Add(nFileSizeKB <= 4096 ? 0 : (bProcessLastBlock ? nFileSizeKB / 4096 * 4096 : 0));
+                    oFs.SetSimulatedReadError(strPath2, new List<long>(oErrors));
+
+
+
+                    FilePairStepChooser oAlgorithm = new FilePairStepChooser();
+                    FilePairStepsDirectionLogic oLogic = new FilePairStepsDirectionLogic();
+                    FilePairSteps oSteps = new FilePairSteps();
+                    HashSetLog oLog = new HashSetLog();
+
+                    //if (oSettings.FirstToSecond && oSettings.FirstReadOnly)
+                    //    oFs.SetFolderReadonly(strDir1, true);
+
+                    oAlgorithm.ProcessFilePair(strPath1, strPath2,
+                        oFs, oSettings, oLogic, oSteps, oLog);
+
+                    if ((oSettings.FirstToSecond && !oSettings.FirstToSecondSyncMode) ||
+                        (oSettings.TestFiles && oSettings.RepairFiles))
+                    {
+                        if (oSettings.FirstToSecond && oSettings.FirstReadOnly)
+                        {
+                            // first should have remained unchanged
+                            Assert.IsTrue(
+                                oFs.IsTestFile(strPath1, 1, nFileSizeKB * 1024, dtmTimeToUse2, false, false,
+                                    null, null, null));
+
+                            // second from first, and maybe saved info.
+                            Assert.IsTrue(
+                                oFs.IsTestFile(strPath2, 1, nFileSizeKB * 1024, dtmTimeToUse2, oSettings.CreateInfo, false,
+                                    null, null, null));
+                        }
+                        else
+                        { 
+                            Assert.IsTrue(oFs.AreTwoTestFiles(
+                            strPath1, 1, nFileSizeKB * 1024,
+                            dtmTimeToUse2, oSettings.CreateInfo, null, null, null,
+
+                            strPath2, 1, oSettings.CreateInfo, null, null, null));
+
+                        }
+                    } else
+                    {
+
+                        Assert.IsTrue(
+                            oFs.IsTestFile(strPath1, 1, nFileSizeKB * 1024, dtmTimeToUse2, 
+                                oSettings.CreateInfo && (!oSettings.FirstToSecond || !oSettings.FirstReadOnly), 
+                                false, null, null, null));
+
+
+                        Assert.IsTrue(
+                            oFs.IsTestFile(strPath2, 2, nFileSizeKB * 1024, dtmTimeToUse, false, false,
+                                null, new List<long>(oErrors), null));
+                    }
+                }
+            }
+        }
+
     }
 }

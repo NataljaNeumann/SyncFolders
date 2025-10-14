@@ -274,6 +274,41 @@ namespace SyncFoldersApi
                             iLogWriter.WriteLog(true, 0, "Warning: First file ", strFilePath1,
                                 " has bad blocks, overwriting file ", strFilePath2,
                                 " has been skipped, so it remains as backup");
+
+                            bool bForceCreateInfo2 = false;
+                            if (iSettings.TestFiles)
+                            {
+                                // first failed still need to test second
+                                if (iStepsImpl.TestSingleFile(strFilePath2, fiSavedInfo2.FullName, ref bForceCreateInfo2, true, false,
+                                    true, iFileSystem, iSettings, iLogWriter))
+                                {
+                                    if (iSettings.CreateInfo &&
+                                        (!fiSavedInfo2.Exists || fiSavedInfo2.LastWriteTimeUtc != fi2.LastWriteTimeUtc || bForceCreateInfo2))
+                                    {
+                                        if (iStepsImpl.CreateSavedInfo(strFilePath2, fiSavedInfo2.FullName, iFileSystem,
+                                            iSettings, iLogWriter))
+                                        {
+                                            iStepsImpl.CreateOrUpdateFileChecked(fiSavedInfo2.FullName, iFileSystem, iLogWriter);
+                                        }
+
+                                    }
+
+                                }
+                            }
+                            else
+                            {
+                                // no need to test, but maybe still need to create info?
+                                if (iSettings.CreateInfo &&
+                                    (!fiSavedInfo2.Exists || fiSavedInfo2.LastWriteTimeUtc != fi2.LastWriteTimeUtc))
+                                {
+                                    if (iStepsImpl.CreateSavedInfo(strFilePath2, fiSavedInfo2.FullName, iFileSystem,
+                                        iSettings, iLogWriter))
+                                    {
+                                        iStepsImpl.CreateOrUpdateFileChecked(fiSavedInfo2.FullName, iFileSystem, iLogWriter);
+                                    }
+
+                                }
+                            }
                         }
                     } else
                     {
@@ -342,6 +377,9 @@ namespace SyncFoldersApi
             ILogWriter iLogWriter
             )
         {
+            if (Properties.Resources == null)
+                throw new ArgumentNullException(nameof(Properties.Resources));
+
             IFileInfo fiSavedInfo2 = iFileSystem.GetFileInfo(
                 Utils.CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
             IFileInfo fiSavedInfo1 = iFileSystem.GetFileInfo(
@@ -415,10 +453,8 @@ namespace SyncFoldersApi
                     }
                 }
 
-                fiSavedInfo2 = iFileSystem.GetFileInfo(Utils.CreatePathOfChkFile(
-                    fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
-                fiSavedInfo1 = iFileSystem.GetFileInfo(Utils.CreatePathOfChkFile(
-                    fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
+                fiSavedInfo2 = iFileSystem.GetFileInfo(fiSavedInfo2.FullName);
+                fiSavedInfo1 = iFileSystem.GetFileInfo(fiSavedInfo1.FullName);
 
                 // if one of the files is missing or has wrong date, 
                 // but the other is OK then copy the one to the other
@@ -444,31 +480,70 @@ namespace SyncFoldersApi
 
                 if (iSettings.TestFiles)
                 {
-                    // test first file
-                    iStepsImpl.TestSingleFile(strFilePath1,
-                        fiSavedInfo1.FullName,
+                    // test second file
+                    bOK = iStepsImpl.TestSingleFile(strFilePath2,
+                        fiSavedInfo2.FullName,
                         ref bForceCreateInfoBecauseDamaged, true, !iSettings.TestFilesSkipRecentlyTested, true,
                         iFileSystem, iSettings, iLogWriter);
 
-                    // test or repair second file, which is different from first
-                    if (iSettings.RepairFiles)
+                    if (!bOK)
                     {
-                        iStepsImpl.TestAndRepairSingleFile(strFilePath2, 
-                            fiSavedInfo2.FullName,
-                            ref bForceCreateInfoBecauseDamaged, false,
-                            iFileSystem, iSettings, iLogWriter);
-                    }
-                    else
-                    {
-                        bOK = iStepsImpl.TestSingleFile(strFilePath2, 
-                            fiSavedInfo2.FullName,
-                            ref bForceCreateInfoBecauseDamaged, true, 
-                            !iSettings.TestFilesSkipRecentlyTested, true,
-                            iFileSystem, iSettings, iLogWriter);
+                        if (iSettings.RepairFiles)
+                        {
+                            if (iSettings.CreateInfo)
+                            {
+                                if (iStepsImpl.CreateSavedInfoAndCopy(strFilePath1, fiSavedInfo2.FullName, strFilePath2,
+                                     "(file was healthy)", Properties.Resources.FileWasHealthy,
+                                     iFileSystem, iSettings, iLogWriter))
+                                {
+                                    iStepsImpl.CreateOrUpdateFileChecked(fiSavedInfo2.FullName,
+                                        iFileSystem, iLogWriter);
+
+                                    return;
+                                }
+                            }
+
+                            bool bForceCreateSavedInfo = false;
+                            try
+                            {
+                                iStepsImpl.CopyRepairSingleFile(strFilePath2, strFilePath1, fiSavedInfo1.FullName,
+                                    ref bForceCreateSavedInfo, ref bForceCreateSavedInfo,
+                                    "(file was healthy or repaired)", Properties.Resources.FileHealthyOrRepaired,
+                                    true, false, iFileSystem, iSettings, iLogWriter);
+                            } catch (IOException)
+                            {
+                                iStepsImpl.CopyRepairSingleFile(strFilePath2, strFilePath1, fiSavedInfo1.FullName,
+                                    ref bForceCreateSavedInfo, ref bForceCreateSavedInfo,
+                                    "(file had a different time or length)", Properties.Resources.FileHasDifferentTime,
+                                    false, false, iFileSystem, iSettings, iLogWriter);
+                            }
+
+
+                            try
+                            {
+                                if (fiSavedInfo1.Exists && !bForceCreateSavedInfo)
+                                    iFileSystem.CopyFile(fiSavedInfo1.FullName, fiSavedInfo2.FullName);
+                            } catch (IOException)
+                            {
+                                // ignore
+                            }
+
+                            iStepsImpl.CreateOrUpdateFileChecked(fiSavedInfo2.FullName,
+                                iFileSystem, iLogWriter);
+
+                            return;
+                        }
                     }
 
-                    if (bOK && iSettings.CreateInfo &&
-                        (!fiSavedInfo2.Exists || bForceCreateInfoBecauseDamaged))
+                    bool bDummy = false;
+                    // still need to test first file
+                    iStepsImpl.TestSingleFile(strFilePath1,
+                        fiSavedInfo1.FullName,
+                        ref bDummy, true, !iSettings.TestFilesSkipRecentlyTested, false,
+                        iFileSystem, iSettings, iLogWriter);
+
+
+                    if (iSettings.CreateInfo && (!fiSavedInfo2.Exists || bForceCreateInfoBecauseDamaged))
                     {
                         if (iStepsImpl.CreateSavedInfo(fi2.FullName, fiSavedInfo2.FullName,
                             iFileSystem, iSettings, iLogWriter))
@@ -477,6 +552,7 @@ namespace SyncFoldersApi
                                 iFileSystem, iLogWriter);
                         }
                     }
+
                 } else if (iSettings.CreateInfo)
                 {
                     if (!fiSavedInfo2.Exists || fiSavedInfo2.LastWriteTimeUtc != fi2.LastWriteTimeUtc)
@@ -666,8 +742,27 @@ namespace SyncFoldersApi
                             iFileSystem, iSettings, iLogWriter);
                     }
 
-                    if (bOK && bForceCreateInfo)
+                    if (bOK && (bForceCreateInfo || iSettings.CreateInfo))
                     {
+                        if (fi1.LastWriteTimeUtc.Year > 1975)
+                        {
+                            bOK = iStepsImpl.Create2SavedInfosAndCopy(strFilePath1, fiSavedInfo1.FullName,
+                                strFilePath2, fiSavedInfo2.FullName, "(file was healthy, or repaired)",
+                                        Properties.Resources.FileHealthyOrRepaired,
+                                        iFileSystem, iSettings, iLogWriter);
+
+                            if (bOK)
+                            {
+                                iStepsImpl.CreateOrUpdateFileChecked(
+                                    fiSavedInfo1.FullName, iFileSystem, iLogWriter);
+
+                                iStepsImpl.CreateOrUpdateFileChecked(
+                                    fiSavedInfo2.FullName, iFileSystem, iLogWriter);
+
+                                return;
+                            }
+                        }
+
                         bOK = iStepsImpl.CreateSavedInfo(strFilePath1,
                             fiSavedInfo1.FullName,
                             iFileSystem, iSettings, iLogWriter);
@@ -1025,7 +1120,7 @@ namespace SyncFoldersApi
             bool bForceCreateInfo2 = false;
             bool bCopied2To1 = false;
             bool bCopy2To1 = false;
-            bool bCopied1To2 = true;
+            bool bCopied1To2 = false;
 
             try
             {
@@ -1119,6 +1214,18 @@ namespace SyncFoldersApi
                                 fiSavedInfo2.FullName, ref bForceCreateInfo2,
                                 iFileSystem, iSettings, iLogWriter);
                         }
+
+                        if (iSettings.CreateInfo && (!fiSavedInfo2.Exists || 
+                            fiSavedInfo2.LastWriteTimeUtc != fi2.LastWriteTimeUtc))
+                        {
+                            if (iStepsImpl.CreateSavedInfo(strFilePath2, fiSavedInfo2.FullName,
+                                iFileSystem, iSettings, iLogWriter))
+                            {
+                                iStepsImpl.CreateOrUpdateFileChecked(fiSavedInfo2.FullName,
+                                    iFileSystem, iLogWriter);
+                            }
+                        }
+                        
                         return;
                     }
 
@@ -1246,7 +1353,7 @@ namespace SyncFoldersApi
                         Utils.CreatePathOfChkFile(fi1.DirectoryName,
                         "RestoreInfo", fi1.Name, ".chk"));
                     fiSavedInfo2 = iFileSystem.GetFileInfo(
-                        Utils.CreatePathOfChkFile(fi1.DirectoryName,
+                        Utils.CreatePathOfChkFile(fi2.DirectoryName,
                         "RestoreInfo", fi1.Name, ".chk"));
 
                     if (bCopied2To1)
@@ -1311,20 +1418,6 @@ namespace SyncFoldersApi
                         Utils.CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
                 }
 
-                if (fiSavedInfo2.Exists)
-                {
-                    if (bForceCreateInfo1)
-                    {
-                        if (iSettings.CreateInfo || fiSavedInfo1.Exists)
-                            iStepsImpl.CreateSavedInfo(strFilePath1,
-                                fiSavedInfo1.FullName,
-                                iFileSystem, iSettings, iLogWriter);
-                    }
-                    else
-                    {
-                        iFileSystem.CopyTo(fiSavedInfo2, fiSavedInfo1.FullName, true);
-                    }
-                }
             }
             finally
             {
