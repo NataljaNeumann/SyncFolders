@@ -2083,14 +2083,13 @@ namespace SyncFoldersApi
                     s.Close();
                 }
             }
-            catch (System.IO.IOException ex)
+            catch (System.IO.IOException oEx)
             {
-                /* TODO: this line of code isn't hit by any unit tests */
                 iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.IOErrorReadingFile,
-                    finfo.FullName, ex.Message);
+                    finfo.FullName, oEx.Message);
 
                 iLogWriter.WriteLog(true, 0, "I/O Error reading file: \"",
-                    finfo.FullName, "\": " + ex.Message);
+                    finfo.FullName, "\": " + oEx.Message);
 
                 return false;
             }
@@ -2255,7 +2254,6 @@ namespace SyncFoldersApi
             ILogWriter iLogWriter
             )
         {
-            /* TODO: this line of code isn't hit by any unit tests */
             return TestSingleFile2(strPathFile, strPathSavedInfoFile,
                 ref bForceCreateInfo, true, true, true, false, true,
                 iFileSystem, iSettings, iLogWriter);
@@ -3919,7 +3917,6 @@ namespace SyncFoldersApi
 
                     if (bReturnFalseIfNonRecoverableNotIfDamaged)
                     {
-                        /* TODO: this line of code isn't hit by any unit tests */
                         return false;
                     }
 
