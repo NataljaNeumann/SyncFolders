@@ -245,12 +245,12 @@ namespace SyncFoldersTests
                     string strDir1 = Path.Combine(Path.GetTempPath(), strGuid + Path.DirectorySeparatorChar + "Dir1");
                     string strDir2 = Path.Combine(Path.GetTempPath(), strGuid + Path.DirectorySeparatorChar + "Dir2");
 
-                    string strPath1 = Path.Combine(strDir1, $@"TestSingleFile{nFileSizeKB}K-{oSettings}.dat");
+                    string strPath1 = Path.Combine(strDir1, $@"NewFileTwoFolders_FileIn1_{nFileSizeKB}K-{oSettings}.dat");
                     string strPathSavedInfo1 = Path.Combine(strDir1,
-                        $@"RestoreInfo{Path.DirectorySeparatorChar}TestSingleFile{nFileSizeKB}K-{oSettings}.dat.chk");
-                    string strPath2 = Path.Combine(strDir2, $@"TestSingleFile{nFileSizeKB}K-{oSettings}.dat");
+                        $@"RestoreInfo{Path.DirectorySeparatorChar}NewFileTwoFolders_FileIn1_{nFileSizeKB}K-{oSettings}.dat.chk");
+                    string strPath2 = Path.Combine(strDir2, $@"NewFileTwoFolders_FileIn1_{nFileSizeKB}K-{oSettings}.dat");
                     string strPathSavedInfo2 = Path.Combine(strDir2,
-                        $@"RestoreInfo{Path.DirectorySeparatorChar}TestSingleFile{nFileSizeKB}K-{oSettings}.dat.chk");
+                        $@"RestoreInfo{Path.DirectorySeparatorChar}NewFileTwoFolders_FileIn1_{nFileSizeKB}K-{oSettings}.dat.chk");
 
                     DateTime dtmTimeToUse = DateTime.UtcNow;
 
@@ -446,12 +446,12 @@ namespace SyncFoldersTests
                     string strDir1 = Path.Combine(Path.GetTempPath(), strGuid + Path.DirectorySeparatorChar + "Dir1");
                     string strDir2 = Path.Combine(Path.GetTempPath(), strGuid + Path.DirectorySeparatorChar + "Dir2");
 
-                    string strPath1 = Path.Combine(strDir1, $@"TestSingleFile{nFileSizeKB}K-{oSettings}.dat");
+                    string strPath1 = Path.Combine(strDir1, $@"NewFileTwoFolders_FileIn2_{nFileSizeKB}K-{oSettings}.dat");
                     string strPathSavedInfo1 = Path.Combine(strDir1,
-                        $@"RestoreInfo{Path.DirectorySeparatorChar}TestSingleFile{nFileSizeKB}K-{oSettings}.dat.chk");
-                    string strPath2 = Path.Combine(strDir2, $@"TestSingleFile{nFileSizeKB}K-{oSettings}.dat");
+                        $@"RestoreInfo{Path.DirectorySeparatorChar}NewFileTwoFolders_FileIn2_{nFileSizeKB}K-{oSettings}.dat.chk");
+                    string strPath2 = Path.Combine(strDir2, $@"NewFileTwoFolders_FileIn2_{nFileSizeKB}K-{oSettings}.dat");
                     string strPathSavedInfo2 = Path.Combine(strDir2,
-                        $@"RestoreInfo{Path.DirectorySeparatorChar}TestSingleFile{nFileSizeKB}K-{oSettings}.dat.chk");
+                        $@"RestoreInfo{Path.DirectorySeparatorChar}NewFileTwoFolders_FileIn2_{nFileSizeKB}K-{oSettings}.dat.chk");
 
                     DateTime dtmTimeToUse = DateTime.UtcNow;
 
@@ -589,12 +589,12 @@ namespace SyncFoldersTests
                     string strDir1 = Path.Combine(Path.GetTempPath(), strGuid + Path.DirectorySeparatorChar + "Dir1");
                     string strDir2 = Path.Combine(Path.GetTempPath(), strGuid + Path.DirectorySeparatorChar + "Dir2");
 
-                    string strPath1 = Path.Combine(strDir1, $@"TestSingleFile{nFileSizeKB}K-{oSettings}.dat");
+                    string strPath1 = Path.Combine(strDir1, $@"NewerFile_In1_{nFileSizeKB}K-{oSettings}.dat");
                     string strPathSavedInfo1 = Path.Combine(strDir1,
-                        $@"RestoreInfo{Path.DirectorySeparatorChar}TestSingleFile{nFileSizeKB}K-{oSettings}.dat.chk");
-                    string strPath2 = Path.Combine(strDir2, $@"TestSingleFile{nFileSizeKB}K-{oSettings}.dat");
+                        $@"RestoreInfo{Path.DirectorySeparatorChar}NewerFile_In1_{nFileSizeKB}K-{oSettings}.dat.chk");
+                    string strPath2 = Path.Combine(strDir2, $@"NewerFile_In1_{nFileSizeKB}K-{oSettings}.dat");
                     string strPathSavedInfo2 = Path.Combine(strDir2,
-                        $@"RestoreInfo{Path.DirectorySeparatorChar}TestSingleFile{nFileSizeKB}K-{oSettings}.dat.chk");
+                        $@"RestoreInfo{Path.DirectorySeparatorChar}NewerFile_In1_{nFileSizeKB}K-{oSettings}.dat.chk");
 
                     DateTime dtmTimeToUse = DateTime.UtcNow;
                     DateTime dtmTimeToUse2 = DateTime.UtcNow.AddDays(-1);
@@ -772,12 +772,12 @@ namespace SyncFoldersTests
                     string strDir1 = Path.Combine(Path.GetTempPath(), strGuid + Path.DirectorySeparatorChar + "Dir1");
                     string strDir2 = Path.Combine(Path.GetTempPath(), strGuid + Path.DirectorySeparatorChar + "Dir2");
 
-                    string strPath1 = Path.Combine(strDir1, $@"TestSingleFile{nFileSizeKB}K-{oSettings}.dat");
+                    string strPath1 = Path.Combine(strDir1, $@"NewerFile_In2_{nFileSizeKB}K-{oSettings}.dat");
                     string strPathSavedInfo1 = Path.Combine(strDir1,
-                        $@"RestoreInfo{Path.DirectorySeparatorChar}TestSingleFile{nFileSizeKB}K-{oSettings}.dat.chk");
-                    string strPath2 = Path.Combine(strDir2, $@"TestSingleFile{nFileSizeKB}K-{oSettings}.dat");
+                        $@"RestoreInfo{Path.DirectorySeparatorChar}NewerFile_In2_{nFileSizeKB}K-{oSettings}.dat.chk");
+                    string strPath2 = Path.Combine(strDir2, $@"NewerFile_In2_{nFileSizeKB}K-{oSettings}.dat");
                     string strPathSavedInfo2 = Path.Combine(strDir2,
-                        $@"RestoreInfo{Path.DirectorySeparatorChar}TestSingleFile{nFileSizeKB}K-{oSettings}.dat.chk");
+                        $@"RestoreInfo{Path.DirectorySeparatorChar}NewerFile_In2_{nFileSizeKB}K-{oSettings}.dat.chk");
 
                     DateTime dtmTimeToUse = DateTime.UtcNow;
                     DateTime dtmTimeToUse2 = DateTime.UtcNow.AddDays(-1);
