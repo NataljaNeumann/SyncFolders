@@ -3874,7 +3874,7 @@ namespace SyncFoldersApi
             {
                 bool bAllBlocksOK = true;
 
-                bForceCreateInfo = true;
+                bForceCreateInfo = fiSavedInfo.Exists;
 
                 if (!bSaveInfoUnreadable && bNeedsMessageAboutOldSavedInfo)
                 {
@@ -3908,7 +3908,7 @@ namespace SyncFoldersApi
                         s.Close();
                     }
                 }
-                catch // in case there are any errors simply switch to unbuffered, so we have authentic results
+                catch (IOException)// in case there are any errors simply switch to unbuffered, so we have authentic results
                 {
                     if (bFailASAPwoMessage)
                     {
