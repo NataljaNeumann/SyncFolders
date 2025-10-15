@@ -163,6 +163,8 @@ namespace SyncFoldersApi
                     ref bForceCreatInfo, ref bForceCreatInfo2, "(file was new)",
                     Properties.Resources.FileWasNew, false, false,
                     iFileSystem, iSettings, iLogWriter);
+
+                iStepsImpl.CreateOrUpdateFileChecked(fiSavedInfo2.FullName, iFileSystem, iLogWriter);
             }
             finally
             {
@@ -415,10 +417,27 @@ namespace SyncFoldersApi
                 {
                     if (iSettings.RepairFiles)
                     {
-                        iStepsImpl.TestAndRepairSecondFile(fi1.FullName, fi2.FullName,
-                            fiSavedInfo1.FullName, fiSavedInfo2.FullName,
-                            ref bForceCreateInfoBecauseDamaged,
-                            iFileSystem, iSettings, iLogWriter);
+                        // first simply test, it may skip files...
+                        if (iSettings.TestFilesSkipRecentlyTested &&
+                            iStepsImpl.TestSingleFile(strFilePath2, fiSavedInfo2.FullName, ref bForceCreateInfoBecauseDamaged, true,
+                            !iSettings.TestFilesSkipRecentlyTested, true, iFileSystem, iSettings, iLogWriter))
+                        {
+                            // well, we tested it
+                        }
+                        else
+                        {
+                            iStepsImpl.TestAndRepairSecondFile(fi1.FullName, fi2.FullName,
+                                fiSavedInfo1.FullName, fiSavedInfo2.FullName,
+                                ref bForceCreateInfoBecauseDamaged,
+                                iFileSystem, iSettings, iLogWriter);
+
+                            if (bForceCreateInfoBecauseDamaged || (iSettings.CreateInfo &&
+                                (!fiSavedInfo2.Exists || fiSavedInfo2.LastWriteTimeUtc != fi2.LastWriteTimeUtc)))
+                            {
+                                iStepsImpl.CreateSavedInfo(strFilePath2, fiSavedInfo2.FullName,
+                                    iFileSystem, iSettings, iLogWriter);
+                            }
+                        }
                     }
                     else
                     {
@@ -956,13 +975,8 @@ namespace SyncFoldersApi
                         return;
                     }
 
-                    fiSavedInfo1 = iFileSystem.GetFileInfo(
-                        Utils.CreatePathOfChkFile(fi1.DirectoryName,
-                        "RestoreInfo", fi1.Name, ".chk"));
-
-                    fiSavedInfo2 = iFileSystem.GetFileInfo(
-                        Utils.CreatePathOfChkFile(fi2.DirectoryName,
-                        "RestoreInfo", fi2.Name, ".chk"));
+                    fiSavedInfo1 = iFileSystem.GetFileInfo(fiSavedInfo1.FullName);
+                    fiSavedInfo2 = iFileSystem.GetFileInfo(fiSavedInfo2.FullName);
 
                     bForceCreateInfo = false;
                 }
@@ -977,12 +991,65 @@ namespace SyncFoldersApi
                                 "(file was new)", Properties.Resources.FileWasNew, 
                                 true, iSettings.RepairFiles,
                                 iFileSystem, iSettings, iLogWriter);
+
+                            fi2 = iFileSystem.GetFileInfo(fi2.FullName);
+
+                            try
+                            {
+                                if (fiSavedInfo1.Exists && fiSavedInfo1.LastWriteTimeUtc == fi1.LastWriteTimeUtc)
+                                {
+                                    iFileSystem.CopyFile(fiSavedInfo1.FullName, fiSavedInfo2.FullName);
+                                    fiSavedInfo2 = iFileSystem.GetFileInfo(fiSavedInfo2.FullName);
+                                }
+                            } catch (Exception oEx)
+                            {
+                                bForceCreateInfo = true;
+                            }
+
+                            if (bForceCreateInfo || iSettings.CreateInfo)
+                            {
+                                if (bForceCreateInfo || !fiSavedInfo1.Exists ||
+                                    fiSavedInfo1.LastWriteTimeUtc != fi1.LastWriteTimeUtc)
+                                {
+                                    iStepsImpl.Create2SavedInfos(strFilePath2, fiSavedInfo1.FullName,
+                                        fiSavedInfo2.FullName, iFileSystem, iSettings, iLogWriter);
+                                } else
+                                {
+                                    iFileSystem.CopyFile(fiSavedInfo1.FullName, fiSavedInfo2.FullName);
+                                    fiSavedInfo2 = iFileSystem.GetFileInfo(fiSavedInfo2.FullName);
+                                }
+                            }
+
+
+                            iStepsImpl.CreateOrUpdateFileChecked(fiSavedInfo1.FullName, iFileSystem, iLogWriter);
+                            iStepsImpl.CreateOrUpdateFileChecked(fiSavedInfo2.FullName, iFileSystem, iLogWriter);
+
                         }
                         else
                         {
                             iStepsImpl.CopyFileSafely(fi1, strFilePath2, "(file was new)",
                                 Properties.Resources.FileWasNew,
                                 iFileSystem, iLogWriter);
+
+                            if (iSettings.CreateInfo || (fiSavedInfo1.Exists &&
+                                    fiSavedInfo1.LastWriteTimeUtc == fi1.LastWriteTimeUtc))
+                            {
+                                if (!fiSavedInfo1.Exists ||
+                                    fiSavedInfo1.LastWriteTimeUtc != fi1.LastWriteTimeUtc)
+                                {
+                                    iStepsImpl.Create2SavedInfos(strFilePath2, fiSavedInfo1.FullName,
+                                        fiSavedInfo2.FullName, iFileSystem, iSettings, iLogWriter);
+                                }
+                                else
+                                {
+                                    iFileSystem.CopyFile(fiSavedInfo1.FullName, fiSavedInfo2.FullName);
+                                    fiSavedInfo2 = iFileSystem.GetFileInfo(fiSavedInfo2.FullName);
+                                }
+                            }
+
+                            iStepsImpl.CreateOrUpdateFileChecked(fiSavedInfo1.FullName, iFileSystem, iLogWriter);
+                            iStepsImpl.CreateOrUpdateFileChecked(fiSavedInfo2.FullName, iFileSystem, iLogWriter);
+
                         }
                     }
                     catch (IOException)
