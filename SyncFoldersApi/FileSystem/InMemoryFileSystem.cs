@@ -69,6 +69,13 @@ namespace SyncFoldersApi
 
         //===================================================================================================
         /// <summary>
+        /// Temporary dir, so we are sure that we can create files
+        /// </summary>
+        private const string c_strDirForTests = "C:\\";
+
+
+        //===================================================================================================
+        /// <summary>
         /// Constructs a new In-Memory File System
         /// </summary>
         //===================================================================================================
@@ -1088,6 +1095,8 @@ namespace SyncFoldersApi
             List<long>? aReadErrorsSavedInfo
             )
         {
+            EnsureDirectoryExists(c_strDirForTests);
+
             IFileInfo fi = GetFileInfo(strPath);
 
             string strPathInfo = Utils.CreatePathOfChkFile(
@@ -1141,8 +1150,8 @@ namespace SyncFoldersApi
                         oInfoExpected.AnalyzeForInfoCollection(b, nCurrentBlock++);
                     }
 
-                    string strPathInfoExpected = strPathInfo + ".tmp";
-                    using (IFile iFile = Create(strPathInfo + ".tmp"))
+                    string strPathInfoExpected = c_strDirForTests + "TemporarySavedInfo.tmp";
+                    using (IFile iFile = Create(strPathInfoExpected))
                     {
                         if (bV0)
                             oInfoExpected.SaveTo_v0(iFile);
@@ -1153,7 +1162,7 @@ namespace SyncFoldersApi
                     MemoryStreamWithErrors oStreamInfoExpected = m_oFiles[strPathInfoExpected];
                     byte[] aFileContentInfoExpected = oStreamInfoExpected.ToArray();
 
-                    Delete(strPathInfo + ".tmp");
+                    Delete(strPathInfoExpected);
 
                     if (aFileContentInfoActual.Length != aFileContentInfoExpected.Length)
                     {
@@ -1205,7 +1214,8 @@ namespace SyncFoldersApi
                         }
                     }
                 }
-            } else
+            }
+            else
             {
                 if (Exists(strPathInfo))
                 {
@@ -1215,6 +1225,7 @@ namespace SyncFoldersApi
             }
 
             return true;
+            
         }
 
 
