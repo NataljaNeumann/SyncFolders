@@ -1113,29 +1113,32 @@ namespace SyncFoldersApi
                 };
             };
 
-            // read the end of first block
-            Block? oBlock0 = m_aBlocks[0];
-            if (m_aBlocks.Count > 0 && oBlock0 != null)
+            if (m_aBlocks.Count > 0)
             {
-                try
+                // read the end of first block
+                Block? oBlock0 = m_aBlocks[0];
+                if (m_aBlocks.Count > 0 && oBlock0 != null)
                 {
-                    if (oBlock0.ReadLastPartFrom(oInputStream,
-                        (int)(28 + 32 + lTotalRows * 8)) !=
-                              28 + 32 + lTotalRows * 8)
+                    try
                     {
-                        m_aBlocks.Clear();
-                        m_aOtherBlocks.Clear();
+                        if (oBlock0.ReadLastPartFrom(oInputStream,
+                            (int)(28 + 32 + lTotalRows * 8)) !=
+                                  28 + 32 + lTotalRows * 8)
+                        {
+                            m_aBlocks.Clear();
+                            m_aOtherBlocks.Clear();
+                        }
+                    }
+                    catch (System.IO.IOException)
+                    {
+                        // if caller specified - forward the exception
+                        if (bThrowOnError)
+                            throw;
+
+                        m_aBlocks[0] = null;
                     }
                 }
-                catch (System.IO.IOException)
-                {
-                    // if caller specified - forward the exception
-                    if (bThrowOnError)
-                        throw;
-
-                    m_aBlocks[0] = null;
-                }
-            };
+            }
 
             // seek position after all rows of blocks
             oInputStream.Seek(28 + 32 + lTotalRows * 8 +
