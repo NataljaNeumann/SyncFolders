@@ -297,12 +297,12 @@ namespace SyncFoldersApi
                 
 
                 if (bAllBlocksOK)
-                {
-                    /* TODO: this line of code isn't hit by any unit tests */
+                { 
                     // check also, if the contents of the checksum file 
                     // match the file itself, or if they have been corrupted somehow
                     if (!si.VerifyIntegrityAfterRestoreTest() || si.NeedsRebuild())
                     {
+                        /* TODO: this line of code isn't hit by any unit tests */
                         iLogWriter.WriteLogFormattedLocalized(0,
                             Properties.Resources.SavedInfoHasBeenDamagedNeedsRecreation,
                             strPathSavedInfoFile, strPathFile);
@@ -706,11 +706,11 @@ namespace SyncFoldersApi
                 Utils.FileTimesEqual(oSavedInfo.TimeStamp, finfo.LastWriteTimeUtc)))
             {
                 bool bAllBlocksOk = true;
-                bForceCreateInfo = true;
 
                 if (!bNotReadableSi)
                 {
                     /* TODO: this line of code isn't hit by any unit tests */
+                    bForceCreateInfo = true;
                     iLogWriter.WriteLogFormattedLocalized(0, 
                         Properties.Resources.SavedInfoFileCantBeUsedForTesting,
                         strPathSavedInfoFile, strPathFile);
@@ -983,11 +983,11 @@ namespace SyncFoldersApi
 
                 if (bAllBlocksOK)
                 {
-                    /* TODO: this line of code isn't hit by any unit tests */
                     // check also, if the contents of the checksum file match 
                     // the file itself, or if they have been corrupted somehow
                     if (!oSavedInfo.VerifyIntegrityAfterRestoreTest())
                     {
+                        /* TODO: this line of code isn't hit by any unit tests */
                         iLogWriter.WriteLogFormattedLocalized(0,
                             Properties.Resources.SavedInfoHasBeenDamagedNeedsRecreation,
                             strPathSavedInfoFile, strPathFile);
