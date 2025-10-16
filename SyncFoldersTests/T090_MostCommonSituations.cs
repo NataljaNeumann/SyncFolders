@@ -21,7 +21,7 @@
 
 using SyncFoldersApi;
 using SyncFoldersApi.Localization;
-using System.Security.Cryptography;
+
 
 #pragma warning disable NUnit2005 
 
@@ -292,7 +292,7 @@ namespace SyncFoldersTests
                             List<long> oErrors = new List<long>();
 
                             oErrors.Add(nFileSizeKB <= 4096 ? 0 :
-                                (bProcessLastBlock ? (nFileSizeKB * 1023 - 1) / 4096 * 4096 : 0));
+                                (bProcessLastBlock ? (nFileSizeKB * 1024 - 1) / 4096 * 4096 : 0));
 
                             oFs.SetSimulatedReadError(strPath2, new List<long>(oErrors));
 
@@ -638,7 +638,7 @@ namespace SyncFoldersTests
                             List<long> oErrors = new List<long>();
 
                             oErrors.Add(nFileSizeKB <= 4096 ? 0 :
-                                (bProcessLastBlock ? (nFileSizeKB * 1023 - 1) / 4096 * 4096 : 0));
+                                (bProcessLastBlock ? (nFileSizeKB * 1024 - 1) / 4096 * 4096 : 0));
 
                             oFs.SetSimulatedReadError(strPath1, new List<long>(oErrors));
 
@@ -1217,7 +1217,7 @@ namespace SyncFoldersTests
                             List<long> oErrors = new List<long>();
 
                             oErrors.Add(nFileSizeKB <= 4096 ? 0 :
-                                (bProcessLastBlock ? (nFileSizeKB * 1023 - 1) / 4096 * 4096 : 0));
+                                (bProcessLastBlock ? (nFileSizeKB * 1024 - 1) / 4096 * 4096 : 0));
 
                             oFs.SetSimulatedReadError(strPath2, new List<long>(oErrors));
 
@@ -1522,6 +1522,8 @@ namespace SyncFoldersTests
                 }
             }
         }
+
+
 
     }
 }
