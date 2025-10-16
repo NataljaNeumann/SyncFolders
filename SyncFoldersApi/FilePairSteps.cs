@@ -1212,7 +1212,7 @@ namespace SyncFoldersApi
                     if ((!iSettings.FirstToSecond || !iSettings.FirstReadOnly) && aRestoreInfos.Count == 0)
                         bForceCreateInfo = true;
 
-                    bForceCreateInfoTarget = true;
+                    bForceCreateInfoTarget = bForceCreateInfoTarget || iSettings.CreateInfo;
                 }
 
 
@@ -3839,11 +3839,10 @@ namespace SyncFoldersApi
                         s.Close();
                     }
                 }
-                catch // in case of any errors we switch to the unbuffered I/O
+                catch (IOException) // in case of any errors we switch to the unbuffered I/O
                 {
                     try
                     {
-                        /* TODO: this line of code isn't hit by any unit tests */
                         using (IFile s =
                             iFileSystem.OpenRead(strPathSavedInfoFile))
                         {
@@ -3851,15 +3850,15 @@ namespace SyncFoldersApi
                             s.Close();
                         }
                     }
-                    catch (System.IO.IOException ex)
+                    catch (System.IO.IOException oEx)
                     {
                         /* TODO: this line of code isn't hit by any unit tests */
                         iLogWriter.WriteLogFormattedLocalized(0, 
                             Properties.Resources.IOErrorReadingFile,
-                            strPathSavedInfoFile, ex.Message);
+                            strPathSavedInfoFile, oEx.Message);
 
                         iLogWriter.WriteLog(true, 0, "I/O Error reading file: \"",
-                            strPathSavedInfoFile, "\": " + ex.Message);
+                            strPathSavedInfoFile, "\": " + oEx.Message);
 
                         bSaveInfoUnreadable = true;
                         bForceCreateInfo = true;

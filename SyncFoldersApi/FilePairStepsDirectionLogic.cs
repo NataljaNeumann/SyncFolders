@@ -182,10 +182,13 @@ namespace SyncFoldersApi
                         //CopyFileSafely(fiSavedInfo1, fiSavedInfo2.FullName);
                         iFileSystem.CopyTo(fiSavedInfo1, fiSavedInfo2.FullName, true);
                     }
-                    catch
+                    catch (IOException)
                     {
-                        iStepsImpl.CreateSavedInfo(fi2.FullName, fiSavedInfo2.FullName,
-                            iFileSystem, iSettings, iLogWriter);
+                        if (iSettings.CreateInfo)
+                        {
+                            iStepsImpl.CreateSavedInfo(fi2.FullName, fiSavedInfo2.FullName,
+                                iFileSystem, iSettings, iLogWriter);
+                        }
                     }
                     finally
                     {
@@ -403,6 +406,14 @@ namespace SyncFoldersApi
                         //TODO: reactivate semaphores m_oSemaphoreCopyFiles.WaitOne();
                         iFileSystem.CopyTo(fiSavedInfo1, fiSavedInfo2.FullName, true);
                     }
+                    catch (IOException)
+                    {
+                        if (iSettings.CreateInfo)
+                        {
+                            iStepsImpl.CreateSavedInfo(fi2.FullName, fiSavedInfo2.FullName,
+                                iFileSystem, iSettings, iLogWriter);
+                        }
+                    }
                     finally
                     {
                         //TODO: reactivate semaphores m_oSemaphoreCopyFiles.Release();
@@ -418,7 +429,7 @@ namespace SyncFoldersApi
                     if (iSettings.RepairFiles)
                     {
                         // first simply test, it may skip files...
-                        if (iSettings.TestFilesSkipRecentlyTested &&
+                        if (iSettings.TestFilesSkipRecentlyTested && fi2.Exists &&
                             iStepsImpl.TestSingleFile(strFilePath2, fiSavedInfo2.FullName, ref bForceCreateInfoBecauseDamaged, true,
                             !iSettings.TestFilesSkipRecentlyTested, true, iFileSystem, iSettings, iLogWriter))
                         {
@@ -486,6 +497,14 @@ namespace SyncFoldersApi
                         //TODO: reactivate semaphores m_oSemaphoreCopyFiles.WaitOne();
                         iFileSystem.CopyTo(fiSavedInfo1, fiSavedInfo2.FullName, true);
                     }
+                    catch (IOException)
+                    {
+                        if (iSettings.CreateInfo)
+                        {
+                            iStepsImpl.CreateSavedInfo(fi2.FullName, fiSavedInfo2.FullName,
+                                iFileSystem, iSettings, iLogWriter);
+                        }
+                    }
                     finally
                     {
                         //TODO: reactivate semaphores m_oSemaphoreCopyFiles.Release();
@@ -542,10 +561,16 @@ namespace SyncFoldersApi
                             {
                                 if (fiSavedInfo1.Exists && !bForceCreateSavedInfo)
                                     iFileSystem.CopyFile(fiSavedInfo1.FullName, fiSavedInfo2.FullName);
-                            } catch (IOException)
-                            {
-                                // ignore
                             }
+                            catch (IOException)
+                            {
+                                if (iSettings.CreateInfo)
+                                {
+                                    iStepsImpl.CreateSavedInfo(fi2.FullName, fiSavedInfo2.FullName,
+                                        iFileSystem, iSettings, iLogWriter);
+                                }
+                            }
+
 
                             iStepsImpl.CreateOrUpdateFileChecked(fiSavedInfo2.FullName,
                                 iFileSystem, iLogWriter);
@@ -979,6 +1004,8 @@ namespace SyncFoldersApi
                     fiSavedInfo2 = iFileSystem.GetFileInfo(fiSavedInfo2.FullName);
 
                     bForceCreateInfo = false;
+
+                    return;
                 }
                 else
                 {
@@ -986,37 +1013,59 @@ namespace SyncFoldersApi
                     {
                         if (iSettings.TestFiles)
                         {
-                            iStepsImpl.CopyRepairSingleFile(strFilePath2, fi1.FullName,
-                                fiSavedInfo1.FullName, ref bForceCreateInfo, ref bForceCreateInfo2,
-                                "(file was new)", Properties.Resources.FileWasNew, 
-                                true, iSettings.RepairFiles,
-                                iFileSystem, iSettings, iLogWriter);
-
-                            fi2 = iFileSystem.GetFileInfo(fi2.FullName);
-
-                            try
+                            if (iSettings.TestFilesSkipRecentlyTested && fi2.Exists &&
+                                iStepsImpl.TestSingleFile(strFilePath2, fiSavedInfo2.FullName, ref bForceCreateInfo2, true,
+                                !iSettings.TestFilesSkipRecentlyTested, true, iFileSystem, iSettings, iLogWriter))
                             {
-                                if (fiSavedInfo1.Exists && fiSavedInfo1.LastWriteTimeUtc == fi1.LastWriteTimeUtc)
-                                {
-                                    iFileSystem.CopyFile(fiSavedInfo1.FullName, fiSavedInfo2.FullName);
-                                    fiSavedInfo2 = iFileSystem.GetFileInfo(fiSavedInfo2.FullName);
-                                }
-                            } catch (Exception oEx)
-                            {
-                                bForceCreateInfo = true;
+                                // nothing to do
                             }
-
-                            if (bForceCreateInfo || iSettings.CreateInfo)
+                            else
                             {
-                                if (bForceCreateInfo || !fiSavedInfo1.Exists ||
-                                    fiSavedInfo1.LastWriteTimeUtc != fi1.LastWriteTimeUtc)
+                                iStepsImpl.CopyRepairSingleFile(strFilePath2, fi1.FullName,
+                                    fiSavedInfo1.FullName, ref bForceCreateInfo, ref bForceCreateInfo2,
+                                    "(file was new)", Properties.Resources.FileWasNew,
+                                    true, iSettings.RepairFiles,
+                                    iFileSystem, iSettings, iLogWriter);
+
+                                fi2 = iFileSystem.GetFileInfo(fi2.FullName);
+
+                                try
                                 {
-                                    iStepsImpl.Create2SavedInfos(strFilePath2, fiSavedInfo1.FullName,
-                                        fiSavedInfo2.FullName, iFileSystem, iSettings, iLogWriter);
-                                } else
+                                    if (!bForceCreateInfo && fiSavedInfo1.Exists && fiSavedInfo1.LastWriteTimeUtc == fi1.LastWriteTimeUtc)
+                                    {
+                                        iFileSystem.CopyFile(fiSavedInfo1.FullName, fiSavedInfo2.FullName);
+                                        fiSavedInfo2 = iFileSystem.GetFileInfo(fiSavedInfo2.FullName);
+                                        bForceCreateInfo2 = false;
+                                    }
+                                }
+                                catch (IOException)
                                 {
-                                    iFileSystem.CopyFile(fiSavedInfo1.FullName, fiSavedInfo2.FullName);
-                                    fiSavedInfo2 = iFileSystem.GetFileInfo(fiSavedInfo2.FullName);
+                                    if (iSettings.CreateInfo)
+                                    {
+                                        iStepsImpl.CreateSavedInfo(fi2.FullName, fiSavedInfo2.FullName,
+                                            iFileSystem, iSettings, iLogWriter);
+                                        bForceCreateInfo2 = false;
+
+                                        iFileSystem.CopyFile(fiSavedInfo2.FullName, fiSavedInfo1.FullName);
+                                        fiSavedInfo1 = iFileSystem.GetFileInfo(fiSavedInfo1.FullName);
+                                        bForceCreateInfo = false;
+                                    }
+                                }
+
+
+                                if (bForceCreateInfo || iSettings.CreateInfo)
+                                {
+                                    if (bForceCreateInfo || !fiSavedInfo1.Exists ||
+                                        fiSavedInfo1.LastWriteTimeUtc != fi1.LastWriteTimeUtc)
+                                    {
+                                        iStepsImpl.Create2SavedInfos(strFilePath2, fiSavedInfo1.FullName,
+                                            fiSavedInfo2.FullName, iFileSystem, iSettings, iLogWriter);
+                                    }
+                                    else
+                                    {
+                                        iFileSystem.CopyFile(fiSavedInfo1.FullName, fiSavedInfo2.FullName);
+                                        fiSavedInfo2 = iFileSystem.GetFileInfo(fiSavedInfo2.FullName);
+                                    }
                                 }
                             }
 
@@ -1076,6 +1125,12 @@ namespace SyncFoldersApi
                                 "(file was new)", Properties.Resources.FileWasNew, false,
                                 iSettings.TestFiles && iSettings.RepairFiles,
                                 iFileSystem, iSettings, iLogWriter);
+
+                            if (bInTheEndOK)
+                            {
+                                iStepsImpl.CreateOrUpdateFileChecked(fiSavedInfo2.FullName,
+                                    iFileSystem, iLogWriter);
+                            }
                         }
                     }
                 }
@@ -1089,19 +1144,56 @@ namespace SyncFoldersApi
                             fiSavedInfo1.LastWriteTimeUtc != fi1.LastWriteTimeUtc)
                         {
                             iStepsImpl.CreateSavedInfo(strFilePath1,
-                                Utils.CreatePathOfChkFile(fi1.DirectoryName,
-                                "RestoreInfo", fi1.Name, ".chk"),
+                                fiSavedInfo1.FullName,
                                  iFileSystem, iSettings, iLogWriter);
+                            fiSavedInfo1 = iFileSystem.GetFileInfo(fiSavedInfo1.FullName);
                         }
 
                         if (bForceCreateInfo2)
                         {
                             iStepsImpl.CreateSavedInfo(strFilePath2,
-                                Utils.CreatePathOfChkFile(fi2.DirectoryName,
-                                "RestoreInfo", fi2.Name, ".chk"),
+                                fiSavedInfo2.FullName,
                                 iFileSystem, iSettings, iLogWriter);
-
+                            fiSavedInfo2 = iFileSystem.GetFileInfo(fiSavedInfo1.FullName);
                         }
+
+                        if (fiSavedInfo1.Exists && fiSavedInfo1.LastWriteTimeUtc == fi1.LastWriteTimeUtc &&
+                                (!fiSavedInfo2.Exists || fiSavedInfo2.LastWriteTimeUtc != fi2.LastWriteTimeUtc))
+                        {
+                            try
+                            {
+                                //TODO: reactivate semaphores m_oSemaphoreCopyFiles.WaitOne();
+                                iFileSystem.CopyTo(fiSavedInfo1, fiSavedInfo2.FullName, true);
+                            }
+                            catch (IOException)
+                            {
+                                if (iSettings.CreateInfo)
+                                {
+                                    iStepsImpl.CreateSavedInfo(strFilePath2, fiSavedInfo2.FullName,
+                                        iFileSystem, iSettings, iLogWriter);
+                                    iFileSystem.CopyTo(fiSavedInfo2, fiSavedInfo1.FullName, true);
+                                }
+                            }
+                        }
+                        else if (fiSavedInfo2.Exists && fiSavedInfo2.LastWriteTimeUtc == fi2.LastWriteTimeUtc &&
+                                (!fiSavedInfo1.Exists || fiSavedInfo1.LastWriteTimeUtc != fi1.LastWriteTimeUtc))
+                        {
+                            try
+                            {
+                                //TODO: reactivate semaphores m_oSemaphoreCopyFiles.WaitOne();
+                                iFileSystem.CopyTo(fiSavedInfo2, fiSavedInfo1.FullName, true);
+                            }
+                            catch (IOException)
+                            {
+                                if (iSettings.CreateInfo)
+                                {
+                                    iStepsImpl.CreateSavedInfo(strFilePath1, fiSavedInfo1.FullName,
+                                        iFileSystem, iSettings, iLogWriter);
+                                    iFileSystem.CopyTo(fiSavedInfo1, fiSavedInfo2.FullName, true);
+                                }
+                            }
+                        }
+
                     }
                 }
             }
@@ -1571,6 +1663,14 @@ namespace SyncFoldersApi
                     //TODO: reactivate semaphores m_oSemaphoreCopyFiles.WaitOne();
                     iFileSystem.CopyTo(fiSavedInfo1, fiSavedInfo2.FullName, true);
                 }
+                catch (IOException)
+                {
+                    if (iSettings.CreateInfo)
+                    {
+                        iStepsImpl.CreateSavedInfo(strFilePath2, fiSavedInfo2.FullName,
+                            iFileSystem, iSettings, iLogWriter);
+                    }
+                }
                 finally
                 {
                     //TODO: reactivate semaphores m_oSemaphoreCopyFiles.Release();
@@ -1589,6 +1689,15 @@ namespace SyncFoldersApi
                     //TODO: reactivate semaphores m_oSemaphoreCopyFiles.WaitOne();
                     iFileSystem.CopyTo(fiSavedInfo2, fiSavedInfo1.FullName, true);
                 }
+                catch (IOException)
+                {
+                    if (iSettings.CreateInfo)
+                    {
+                        iStepsImpl.CreateSavedInfo(strFilePath1, fiSavedInfo1.FullName,
+                            iFileSystem, iSettings, iLogWriter);
+                    }
+                }
+
                 finally
                 {
                     //TODO: reactivate semaphores m_oSemaphoreCopyFiles.Release();
@@ -1761,32 +1870,35 @@ namespace SyncFoldersApi
                         }
                     }
                 }
-            }
+            } 
+            
 
             fiSavedInfo2 = iFileSystem.GetFileInfo(
-                Utils.CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
+                        Utils.CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
             fiSavedInfo1 = iFileSystem.GetFileInfo(
                 Utils.CreatePathOfChkFile(fi1.DirectoryName, "RestoreInfo", fi1.Name, ".chk"));
 
             // if one of the files is missing or has wrong date, but the 
             // other is OK then copy the one to the other
-            if (fiSavedInfo1.Exists &&
-                fiSavedInfo1.LastWriteTimeUtc == fi1.LastWriteTimeUtc &&
-                (!fiSavedInfo2.Exists || fiSavedInfo2.LastWriteTimeUtc != fi2.LastWriteTimeUtc))
+            if (fiSavedInfo1.Exists && fiSavedInfo1.LastWriteTimeUtc == fi1.LastWriteTimeUtc &&
+                    (!fiSavedInfo2.Exists || fiSavedInfo2.LastWriteTimeUtc != fi2.LastWriteTimeUtc))
             {
                 try
                 {
                     //TODO: reactivate semaphores m_oSemaphoreCopyFiles.WaitOne();
                     iFileSystem.CopyTo(fiSavedInfo1, fiSavedInfo2.FullName, true);
                 }
-                finally
+                catch (IOException)
                 {
-                    //TODO: reactivate semaphores m_oSemaphoreCopyFiles.Release();
+                    if (iSettings.CreateInfo)
+                    {
+                        iStepsImpl.CreateSavedInfo(strFilePath2, fiSavedInfo2.FullName,
+                            iFileSystem, iSettings, iLogWriter);
+                        iFileSystem.CopyTo(fiSavedInfo2, fiSavedInfo1.FullName, true);
+                    }
                 }
             }
-            else
-                if (fiSavedInfo2.Exists &&
-                    fiSavedInfo2.LastWriteTimeUtc == fi2.LastWriteTimeUtc &&
+            else if (fiSavedInfo2.Exists && fiSavedInfo2.LastWriteTimeUtc == fi2.LastWriteTimeUtc &&
                     (!fiSavedInfo1.Exists || fiSavedInfo1.LastWriteTimeUtc != fi1.LastWriteTimeUtc))
             {
                 try
@@ -1794,9 +1906,14 @@ namespace SyncFoldersApi
                     //TODO: reactivate semaphores m_oSemaphoreCopyFiles.WaitOne();
                     iFileSystem.CopyTo(fiSavedInfo2, fiSavedInfo1.FullName, true);
                 }
-                finally
+                catch (IOException)
                 {
-                    //TODO: reactivate semaphores m_oSemaphoreCopyFiles.Release();
+                    if (iSettings.CreateInfo)
+                    {
+                        iStepsImpl.CreateSavedInfo(strFilePath1, fiSavedInfo1.FullName,
+                            iFileSystem, iSettings, iLogWriter);
+                        iFileSystem.CopyTo(fiSavedInfo1, fiSavedInfo2.FullName, true);
+                    }
                 }
             }
         }
