@@ -374,9 +374,9 @@ namespace SyncFoldersApi
             {
                 nMaxBlocks = (int)Math.Round(Math.Sqrt(lFileLength / oTestBlock.Length));
                 nMaxBlocks = FindNextPrime(nMaxBlocks);
-                int nMaxBlocks2 = FindNextPrime(nMaxBlocks + (1024 * 64) / oTestBlock.Length);
-                nMaxOtherBlocks = FindNextPrime(nMaxBlocks2);
+                int nMaxBlocks2 = FindNextPrime(nMaxBlocks);
                 int nMaxOtherBlocks2 = FindNextPrime(nMaxOtherBlocks + (1024 * 64) / oTestBlock.Length);
+                nMaxOtherBlocks = FindNextPrime(nMaxBlocks2);
 
                 // fill first row of the blocks
                 for (int i = nMaxBlocks - 1; i >= 0; --i)
