@@ -1117,7 +1117,7 @@ namespace SyncFoldersApi
             {
                 // read the end of first block
                 Block? oBlock0 = m_aBlocks[0];
-                if (m_aBlocks.Count > 0 && oBlock0 != null)
+                if (oBlock0 != null)
                 {
                     try
                     {
@@ -1135,7 +1135,20 @@ namespace SyncFoldersApi
                         if (bThrowOnError)
                             throw;
 
-                        m_aBlocks[0] = null;
+                        // if length of the file is smaller or equal to the length of loaded part
+                        if (m_lFileLength <= oBlock0.Length - (28 + 32 + lTotalRows * 8))
+                        {
+                            // then the file has been restored, just from a part of the first block
+                            // clear the rest of the block
+                            for (int i = oBlock0.Length - (int)(28 + 32 + lTotalRows * 8); i < oBlock0.Length; ++i)
+                                oBlock0.m_aData[i] = 0;
+                        }
+                        else
+                        {
+                            // we don't expect the restore file to be perfect
+                            // remove the first block, because we couldn't read it completely
+                            m_aBlocks[0] = null;
+                        }
                     }
                 }
             }
