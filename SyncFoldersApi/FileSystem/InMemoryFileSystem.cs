@@ -1217,9 +1217,11 @@ namespace SyncFoldersApi
             }
             else
             {
-                if (Exists(strPathInfo))
+                if (Exists(strPathInfo) && 
+                    GetFileInfo(strPathInfo).LastWriteTimeUtc == 
+                    GetFileInfo(strPathInfo.Replace($"{Path.DirectorySeparatorChar}RestoreInfo","").Replace(".chk","")).LastWriteTimeUtc)
                 {
-                    System.Console.WriteLine("An unexpected " + strPathInfo + " exists, seems to be wrong");
+                    System.Console.WriteLine("An unexpected " + strPathInfo + " exists with appropriate date, seems to be wrong");
                     return false;
                 }
             }
