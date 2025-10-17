@@ -266,7 +266,7 @@ namespace SyncFoldersApi
                                 }
                                 else
                                 {
-                                    iFileSystem.CopyFile(fiSavedInfo1.FullName, fiSavedInfo2.FullName);
+                                    fiSavedInfo1.CopyTo(fiSavedInfo2.FullName, true);
                                 }
 
                                 iStepsImpl.CreateOrUpdateFileChecked(fiSavedInfo2.FullName, iFileSystem, iLogWriter);
@@ -334,7 +334,7 @@ namespace SyncFoldersApi
                         {
                             if (fiSavedInfo1.Exists && fiSavedInfo1.LastWriteTimeUtc == fi1.LastWriteTimeUtc)
                             {
-                                iFileSystem.CopyFile(fiSavedInfo1.FullName, fiSavedInfo2.FullName);
+                                fiSavedInfo1.CopyTo(fiSavedInfo2.FullName, true);
                             }
                         } catch (IOException)
                         {
@@ -561,7 +561,9 @@ namespace SyncFoldersApi
                             try
                             {
                                 if (fiSavedInfo1.Exists && !bForceCreateSavedInfo)
-                                    iFileSystem.CopyFile(fiSavedInfo1.FullName, fiSavedInfo2.FullName);
+                                {
+                                    fiSavedInfo1.CopyTo(fiSavedInfo2.FullName, true);
+                                }
                             }
                             catch (IOException)
                             {
@@ -1034,7 +1036,7 @@ namespace SyncFoldersApi
                                 {
                                     if (!bForceCreateInfo && fiSavedInfo1.Exists && fiSavedInfo1.LastWriteTimeUtc == fi1.LastWriteTimeUtc)
                                     {
-                                        iFileSystem.CopyFile(fiSavedInfo1.FullName, fiSavedInfo2.FullName);
+                                        fiSavedInfo1.CopyTo(fiSavedInfo2.FullName, true);
                                         fiSavedInfo2 = iFileSystem.GetFileInfo(fiSavedInfo2.FullName);
                                         bForceCreateInfo2 = false;
                                     }
@@ -1047,7 +1049,7 @@ namespace SyncFoldersApi
                                             iFileSystem, iSettings, iLogWriter);
                                         bForceCreateInfo2 = false;
 
-                                        iFileSystem.CopyFile(fiSavedInfo2.FullName, fiSavedInfo1.FullName);
+                                        fiSavedInfo2.CopyTo(fiSavedInfo1.FullName, true);
                                         fiSavedInfo1 = iFileSystem.GetFileInfo(fiSavedInfo1.FullName);
                                         bForceCreateInfo = false;
                                     }
@@ -1064,7 +1066,7 @@ namespace SyncFoldersApi
                                     }
                                     else
                                     {
-                                        iFileSystem.CopyFile(fiSavedInfo1.FullName, fiSavedInfo2.FullName);
+                                        fiSavedInfo1.CopyTo(fiSavedInfo2.FullName, true);
                                         fiSavedInfo2 = iFileSystem.GetFileInfo(fiSavedInfo2.FullName);
                                     }
                                 }
@@ -1092,7 +1094,7 @@ namespace SyncFoldersApi
                                 }
                                 else
                                 {
-                                    iFileSystem.CopyFile(fiSavedInfo1.FullName, fiSavedInfo2.FullName);
+                                    fiSavedInfo1.CopyTo(fiSavedInfo2.FullName, true);
                                     fiSavedInfo2 = iFileSystem.GetFileInfo(fiSavedInfo2.FullName);
                                 }
                             }
