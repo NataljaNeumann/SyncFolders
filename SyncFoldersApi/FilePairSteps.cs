@@ -462,7 +462,7 @@ namespace SyncFoldersApi
                 {
                     if (aResoreInfos.Count > 1)
                     {
-                        /* TODO: this line of code isn't hit by any unit tests */
+
                         iLogWriter.WriteLogFormattedLocalized(0,
                             Properties.Resources.ThereWereBadBlocksInFileNotRestoredParts,
                             aResoreInfos.Count, finfo.FullName, lNonRestoredSize);
@@ -2376,7 +2376,7 @@ namespace SyncFoldersApi
                 List<RestoreInfo> aRestore1 = new List<RestoreInfo>();
                 List<RestoreInfo> aRestore2 = new List<RestoreInfo>();
 
-                // now let'oInputStream try to read the files and compare 
+                // now let's try to read the files and compare 
                 using (IFile s1 =
                     iFileSystem.OpenRead(strPathFile1))
                 {
@@ -2603,10 +2603,114 @@ namespace SyncFoldersApi
                     s1.Close();
                 }
 
-                long lNotRestoredSize1 = 0;
-                aRestore1.AddRange(si1.EndRestore(out lNotRestoredSize1, fiSavedInfo1.FullName, iLogWriter));
-                long lNotRestoredSize2 = 0;
-                aRestore2.AddRange(si2.EndRestore(out lNotRestoredSize2, fiSavedInfo2.FullName, iLogWriter));
+                bool bRepeat;
+                SortedDictionary<long, RestoreInfo> oRestoreDic1 = new SortedDictionary<long, RestoreInfo>();
+                SortedDictionary<long, RestoreInfo> oRestoreDic2 = new SortedDictionary<long, RestoreInfo>();
+                long lNotRestoredSize1;
+                long lNotRestoredSize2;
+                do
+                {
+                    lNotRestoredSize1 = 0;
+                    lNotRestoredSize2 = 0;
+
+                    bRepeat = false;
+
+                    foreach (RestoreInfo ri1 in si1.EndRestore(out lNotRestoredSize1, fiSavedInfo1.FullName, iLogWriter))
+                    {
+                        if (!oRestoreDic1.ContainsKey(ri1.Position) ||
+                            oRestoreDic1[ri1.Position].NotRecoverableArea)
+                        {
+                            oRestoreDic1[ri1.Position] = ri1;
+                        }
+
+                    }
+
+                    foreach (RestoreInfo ri2 in si2.EndRestore(out lNotRestoredSize2, fiSavedInfo2.FullName, iLogWriter))
+                    {
+                        if (!oRestoreDic2.ContainsKey(ri2.Position) ||
+                            oRestoreDic2[ri2.Position].NotRecoverableArea)
+                        {
+                            oRestoreDic2[ri2.Position] = ri2;
+                        }
+                    }
+
+
+                    // let's apply improvements of one file 
+                    // to the list of the other, whenever possible
+                    foreach (RestoreInfo oRestoreInfo1 in oRestoreDic1.Values)
+                    {
+                        if (oRestoreDic2.ContainsKey(oRestoreInfo1.Position))
+                        {
+                            RestoreInfo oRestoreInfo2 = oRestoreDic2[oRestoreInfo1.Position];
+
+                            if (oRestoreInfo2.NotRecoverableArea && !oRestoreInfo1.NotRecoverableArea)
+                            {
+                                iLogWriter.WriteLogFormattedLocalized(1,
+                                    Properties.Resources.BlockOfAtPositionWillBeRestoredFrom,
+                                    fi2.FullName, oRestoreInfo2.Position, fi1.FullName);
+
+                                iLogWriter.WriteLog(true, 1, "Block of ", fi2.FullName,
+                                    " position ", oRestoreInfo2.Position,
+                                    " will be restored from ", fi1.FullName);
+
+                                oRestoreInfo2.Data = oRestoreInfo1.Data;
+                                oRestoreInfo2.NotRecoverableArea = false;
+
+                                si2.AnalyzeForTestOrRestore(oRestoreInfo2.Data,
+                                    oRestoreInfo2.Position / oRestoreInfo2.Data.Length);
+
+                                bRepeat = true;
+                            }
+                        }
+                    }
+
+                    foreach (RestoreInfo oRestoreInfo2 in oRestoreDic2.Values)
+                    {
+                        if (oRestoreDic1.ContainsKey(oRestoreInfo2.Position))
+                        {
+                            RestoreInfo oRestoreInfo1 = oRestoreDic1[oRestoreInfo2.Position];
+
+                            if (oRestoreInfo1.NotRecoverableArea && !oRestoreInfo2.NotRecoverableArea)
+                            {
+                                iLogWriter.WriteLogFormattedLocalized(1,
+                                    Properties.Resources.BlockOfAtPositionWillBeRestoredFrom,
+                                    fi1.FullName, oRestoreInfo1.Position, fi2.FullName);
+
+                                iLogWriter.WriteLog(true, 1, "Block of ", fi1.FullName,
+                                    " position ", oRestoreInfo1.Position,
+                                    " will be restored from ", fi2.FullName);
+
+                                oRestoreInfo1.Data = oRestoreInfo2.Data;
+                                oRestoreInfo1.NotRecoverableArea = false;
+
+                                si1.AnalyzeForTestOrRestore(oRestoreInfo1.Data,
+                                    oRestoreInfo1.Position / oRestoreInfo1.Data.Length);
+
+                                bRepeat = true;
+                            }
+                        }
+                    }
+
+                    if (bRepeat)
+                    {
+                        iLogWriter.WriteLog(true, 1, "Found some cross-restores between files, repeating the process");
+                    }
+
+                } while (bRepeat);
+
+                lNotRestoredSize1 = 0;
+                lNotRestoredSize2 = 0;
+
+                // transfer to arrays
+                foreach (var oPair in oRestoreDic1)
+                {
+                    aRestore1.Add(oPair.Value);
+                }
+
+                foreach (var oPair in oRestoreDic2)
+                {
+                    aRestore2.Add(oPair.Value);
+                }
 
                 // now we've got the list of improvements for both files
                 using (IFile s1 = iFileSystem.Open(
@@ -2618,44 +2722,6 @@ namespace SyncFoldersApi
                         strPathFile2, System.IO.FileMode.Open,
                         System.IO.FileAccess.ReadWrite, System.IO.FileShare.Read))
                     {
-                        // let's apply improvements of one file 
-                        // to the list of the other, whenever possible
-                        foreach (RestoreInfo oRestoreInfo1 in aRestore1)
-                        {
-                            foreach (RestoreInfo oRestoreInfo2 in aRestore2)
-                            {
-                                if (oRestoreInfo2.Position == oRestoreInfo1.Position)
-                                    if (oRestoreInfo2.NotRecoverableArea && !oRestoreInfo1.NotRecoverableArea)
-                                    {
-                                        /* TODO: this line of code isn't hit by any unit tests */
-                                        iLogWriter.WriteLogFormattedLocalized(1,
-                                            Properties.Resources.BlockOfAtPositionWillBeRestoredFrom,
-                                            fi2.FullName, oRestoreInfo2.Position, fi1.FullName);
-
-                                        iLogWriter.WriteLog(true, 1, "Block of ", fi2.FullName,
-                                            " position ", oRestoreInfo2.Position,
-                                            " will be restored from ", fi1.FullName);
-
-                                        oRestoreInfo2.Data = oRestoreInfo1.Data;
-                                        oRestoreInfo2.NotRecoverableArea = false;
-                                    }
-                                    else  if (oRestoreInfo1.NotRecoverableArea && !oRestoreInfo2.NotRecoverableArea)
-                                    {
-                                        /* TODO: this line of code isn't hit by any unit tests */
-                                        iLogWriter.WriteLogFormattedLocalized(1,
-                                            Properties.Resources.BlockOfAtPositionWillBeRestoredFrom,
-                                            fi1.FullName, oRestoreInfo1.Position, fi2.FullName);
-
-                                        iLogWriter.WriteLog(true, 1, "Block of ", fi1.FullName,
-                                            " position ", oRestoreInfo1.Position,
-                                            " will be restored from ", fi2.FullName);
-
-                                        oRestoreInfo1.Data = oRestoreInfo2.Data;
-                                        oRestoreInfo1.NotRecoverableArea = false;
-                                    }
-                            }
-                        }
-
 
                         // let's apply the definitive improvements
                         foreach (RestoreInfo oRestoreInfo1 in aRestore1)
