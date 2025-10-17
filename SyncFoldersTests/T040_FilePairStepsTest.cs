@@ -1073,5 +1073,219 @@ namespace SyncFoldersTests
         }
 
 
+
+        //===================================================================================================
+        /// <summary>
+        /// Verifies the one row and two rows of blocks logic for recovery
+        /// </summary>
+        //===================================================================================================
+        [Test]
+        public void Test10_MinRecoverableLengthWithOneChkFile()
+        {
+            // the called method uses only CancelClicked... no need to test all configs
+            SettingsAndEnvironment oConfig = new SettingsAndEnvironment(
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false
+                );
+
+            DateTime dtmToUse = DateTime.Now;
+
+            FilePairSteps oStepsImpl = new FilePairSteps();
+            HashSetLog oLog = new HashSetLog();
+
+            foreach (int nLengthKB in new int[] { 33, 6 * 1024, 12 * 1024, 200 * 1024 })
+            {
+                InMemoryFileSystem oFS = new InMemoryFileSystem();
+
+                string strPath = $@"c:\temp\test_{nLengthKB}K.dat";
+                string strPathSavedInfo = $@"c:\temp\RestoreInfo\test_{nLengthKB}K.dat.chk";
+
+                oFS.CreateTestFile(strPath, 1, nLengthKB * 1024, dtmToUse,
+                    true, false, null, null, null, true);
+
+                SavedInfo si = new SavedInfo();
+
+                using (IFile s = oFS.OpenRead(strPathSavedInfo))
+                {
+                    si.ReadFrom(s, true);
+                    s.Close();
+                }
+
+                Assert.IsTrue(oFS.IsTestFile(strPath, 1, nLengthKB * 1024, dtmToUse,
+                    true, false, null, null, null));
+
+                int nMaxRestorable;
+                if (si.m_aBlocks.Count > 0 && si.m_aOtherBlocks.Count > 0)
+                {
+                    if (si.m_aBlocks.Count >= si.m_aOtherBlocks.Count)
+                        if (si.m_aOtherBlocks.Count * 2 > si.m_aBlocks.Count)
+                            nMaxRestorable = si.m_aOtherBlocks.Count * 2;
+                        else
+                            nMaxRestorable = si.m_aBlocks.Count;
+                    else
+                        if (si.m_aBlocks.Count * 2 > si.m_aOtherBlocks.Count)
+                            nMaxRestorable = si.m_aBlocks.Count * 2;
+                        else
+                            nMaxRestorable = si.m_aOtherBlocks.Count;
+                }
+                else
+                {
+                    if (si.m_aBlocks.Count > 0)
+                        nMaxRestorable = si.m_aBlocks.Count;
+                    else
+                        nMaxRestorable = si.m_aOtherBlocks.Count;
+                }
+
+                List<long> oErrorsInFile = new List<long>(
+                        Enumerable.Range(0, nMaxRestorable).Select(i => (long)i*4096).ToArray());
+
+                oFS.SetSimulatedReadError(strPath, new List<long>(oErrorsInFile));
+
+                Assert.IsTrue(oFS.IsTestFile(strPath, 1, nLengthKB * 1024, dtmToUse,
+                    true, false, null, new List<long>(oErrorsInFile), null));
+
+                oLog.Log.Clear();
+                oLog.LocalizedLog.Clear();
+
+                bool bDummy = false;
+                oStepsImpl.TestAndRepairSingleFile(strPath, strPathSavedInfo, ref bDummy, false,
+                    oFS, oConfig, oLog);
+
+                // should have been restored
+                Assert.IsTrue(oFS.IsTestFile(strPath, 1, nLengthKB * 1024, dtmToUse,
+                    true, false, null, null, null));
+            }
+        }
+
+
+
+        //===================================================================================================
+        /// <summary>
+        /// Verifies the one row and two rows of blocks logic for recovery
+        /// </summary>
+        //===================================================================================================
+        [Test]
+        public void Test11_MinRecoverableLengthWithTwoChkFiles()
+        {
+            // predefined configuration for repairs
+            SettingsAndEnvironment oSettings = new SettingsAndEnvironment(
+                false,
+                false,
+                false,
+                false,
+                true,
+                false,
+                true,
+                false,
+                false,
+                false);
+
+
+            DateTime dtmToUse = DateTime.Now;
+
+            FilePairSteps oStepsImpl = new FilePairSteps();
+            HashSetLog oLog = new HashSetLog();
+
+            foreach (int nLengthKB in new int[] { 33, 6 * 1024, 12 * 1024, 200 * 1024 })
+            {
+                InMemoryFileSystem oFS = new InMemoryFileSystem();
+
+                string strPath = $@"c:\temp\test_{nLengthKB}K.dat";
+                string strPathSavedInfo = $@"c:\temp\RestoreInfo\test_{nLengthKB}K.dat.chk";
+                string strPath2 = $@"c:\temp2\test_{nLengthKB}K.dat";
+                string strPathSavedInfo2 = $@"c:\temp2\RestoreInfo\test_{nLengthKB}K.dat.chk";
+
+                oFS.CreateTestFile(strPath, 1, nLengthKB * 1024, dtmToUse,
+                    false, false, null, null, null, true);
+                oFS.CreateTestFile(strPath2, 1, nLengthKB * 1024, dtmToUse,
+                    false, false, null, null, null, true);
+
+                // create two saved infos
+                oStepsImpl.Create2SavedInfos(strPath, strPathSavedInfo, strPathSavedInfo2,
+                    oFS, oSettings, oLog);
+
+                SavedInfo si = new SavedInfo();
+
+                using (IFile s = oFS.OpenRead(strPathSavedInfo))
+                {
+                    si.ReadFrom(s, true);
+                    s.Close();
+                }
+
+                SavedInfo si2 = new SavedInfo();
+
+                using (IFile s2 = oFS.OpenRead(strPathSavedInfo2))
+                {
+                    si2.ReadFrom(s2, true);
+                    s2.Close();
+                }
+
+                Assert.IsTrue(oFS.AreTwoTestFiles(strPath, 1, nLengthKB * 1024, dtmToUse,
+                    true, null, null, null,                    
+                    strPath2, 1, true, null, null, null));
+
+                int nMaxRestorable = int.MinValue;
+                SortedList<int, bool> oConts = new SortedList<int, bool>();
+                if (si.m_aBlocks.Count > 0 && !oConts.ContainsKey(si.m_aBlocks.Count))
+                    oConts[si.m_aBlocks.Count] = true;
+                if (si2.m_aBlocks.Count > 0 && !oConts.ContainsKey(si2.m_aBlocks.Count))
+                    oConts[si2.m_aBlocks.Count] = true;
+                if (si.m_aOtherBlocks.Count > 0 && !oConts.ContainsKey(si.m_aOtherBlocks.Count))
+                    oConts[si.m_aOtherBlocks.Count] = true;
+                if (si2.m_aOtherBlocks.Count > 0 && !oConts.ContainsKey(si2.m_aOtherBlocks.Count))
+                    oConts[si2.m_aOtherBlocks.Count] = true;
+
+                int nTemp = oConts.First().Key;
+
+                // we need to get the second last
+                foreach (int i in oConts.Keys)
+                {
+                    nMaxRestorable = nTemp;
+                    nTemp = i;
+                }
+
+
+                if (nTemp != nMaxRestorable)
+                {
+                    if (nMaxRestorable * 2 > nTemp)
+                        nMaxRestorable = nMaxRestorable * 2;
+                }
+
+                List<long> oErrorsInFile = new List<long>(
+                        Enumerable.Range(0, nMaxRestorable).Select(i => (long)i * 4096).ToArray());
+
+                oFS.SetSimulatedReadError(strPath, new List<long>(oErrorsInFile));
+                oFS.SetSimulatedReadError(strPath2, new List<long>(oErrorsInFile));
+
+
+                Assert.IsTrue(oFS.AreTwoTestFiles(strPath, 1, nLengthKB * 1024, dtmToUse,
+                    true, null, new List<long>(oErrorsInFile), null,
+                    strPath2, 1, true, null, new List<long>(oErrorsInFile), null));
+
+
+                oLog.Log.Clear();
+                oLog.LocalizedLog.Clear();
+
+                bool bDummy = false;
+                oStepsImpl.TestAndRepairTwoFiles(strPath, strPath2, strPathSavedInfo, strPathSavedInfo2, ref bDummy, 
+                    oFS, oSettings, oLog);
+
+                // should have been restored
+                Assert.IsTrue(oFS.AreTwoTestFiles(strPath, 1, nLengthKB * 1024, dtmToUse,
+                    true, null, null, null,
+                    strPath2, 1, true, null, null, null));
+            }
+        }
+
+
+
     }
 }
