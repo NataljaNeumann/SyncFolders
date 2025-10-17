@@ -590,11 +590,14 @@ namespace SyncFoldersTests
             Assert.Zero(b1[b1.Length - 1]);
             b1[0] = 1;
             b1[b1.Length - 1] = 1;
+            Assert.AreEqual(1, b1[0]);
             Block b2 = new Block();
+            Assert.AreEqual(1, b1[0]);
             Assert.Zero(b2[0]);
             Assert.Zero(b2[1]);
             Assert.Zero(b2[b2.Length - 1]);
             b2 = b2 | b1;
+            Assert.AreEqual(1, b1[0]);
             Assert.AreEqual(1, b2[0]);
             Assert.Zero(b2[1]);
             Assert.AreEqual(1, b2[b2.Length - 1]);
@@ -603,10 +606,13 @@ namespace SyncFoldersTests
             Assert.Zero(b3[1]);
             Assert.AreEqual(1, b3[b3.Length - 1]);
             Block b4 = ~b3;
+            Assert.AreEqual(1, b3[0]);
             Assert.AreEqual(254, b4[0]);
             Assert.AreEqual(255, b4[1]);
             Assert.AreEqual(254, b4[b4.Length - 1]);
             Block b5 = b3 ^ b4;
+            Assert.AreEqual(1, b3[0]);
+            Assert.AreEqual(254, b4[0]);
             Assert.AreEqual(255, b5[0]);
             Assert.AreEqual(255, b5[1]);
             Assert.AreEqual(255, b5[b5.Length - 1]);
@@ -622,12 +628,12 @@ namespace SyncFoldersTests
         public void MultithreadedBlockCreationAndUsage()
         {
             int nTotalCores = Environment.ProcessorCount;
-            var options = new ParallelOptions
+            var oOptions = new ParallelOptions
             {
                 MaxDegreeOfParallelism = nTotalCores - 1
             };
 
-            Parallel.For(0, 1000, options, i =>
+            Parallel.For(0, 10000, oOptions, i =>
             {
                 BlockUsageFunction();
 
@@ -637,10 +643,10 @@ namespace SyncFoldersTests
                     System.Threading.Thread.Sleep(100);
             });
 
-            var block = new Block();
-            Assert.AreEqual(BlockSize, block.Length);
-            for (int i = block.Length - 1; i >= 0; --i)
-                Assert.Zero(block[i]);
+            var oBlock = new Block();
+            Assert.AreEqual(BlockSize, oBlock.Length);
+            for (int i = oBlock.Length - 1; i >= 0; --i)
+                Assert.Zero(oBlock[i]);
         }
 
     }
