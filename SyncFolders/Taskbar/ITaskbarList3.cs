@@ -68,7 +68,3 @@ interface ITaskbarList3
         );
 }
 
-
-namespace SyncFolders.Taskbar
-{
-}
