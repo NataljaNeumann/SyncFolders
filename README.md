@@ -2,13 +2,16 @@
 ‎
 # Sync Folders
 
-[Latest SyncFolders Sources and Packages](https://github.com/NataljaNeumann/SyncFolders)  
+[Latest sources and releases](https://github.com/NataljaNeumann/SyncFolders)  
 
 
-![SyncFolders-1-Arrow](https://github.com/user-attachments/assets/9a7ad087-7cd5-4ced-ae4d-be2445be90b9)  
+![SyncFolders-v1.6-With-Arrow](https://github.com/user-attachments/assets/fc102daa-1a46-44e0-ba83-a985a3d2f561)
 
 ‎[English](#en), [Français](#fr), [Español](#es), [Português](#pt), [Italiano](#it), [Deutsch](#de), [По русски](#ru), [Polski](#pl), [Στα ελληνικά](#gr), 
 [Nederlands](#nl), [Dansk](#da), [Suomeksi](#fi), [Svenska](#sv), [Türkçe](#tr), [中文文本](#chs), [中文文字](#cht), [日本語](#ja), [한국인](#ko), [भारतीय में](#hi), [باللغة العربية](#ar), [עִברִית](#he)
+
+[![Download](https://img.shields.io/badge/Download-blue?style=flat)](https://github.com/NataljaNeumann/SyncFolders/releases)
+
 ‎
 # English
 <a name="en"></a>
@@ -1053,4 +1056,5 @@ Windows יבקש ממך בסופו של דבר להתקין ‎.NET-Framework‏
 
 
 [^1]: SyncFolders-Don't-Delete.txt
+
 
