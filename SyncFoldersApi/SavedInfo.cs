@@ -1737,11 +1737,19 @@ namespace SyncFoldersApi
                         oBlockOfRow2.DoXor(oBlock);
                 }
 
-                // analyze which blocks have been skipped
-                while (++m_lCurrentlyRestoredBlock < index)
+                if (m_lCurrentlyRestoredBlock >= index)
                 {
-                    m_aListOfBlocksToRestore.Add(m_lCurrentlyRestoredBlock);
-                };
+                    // there we are post-processing blocks from another restored copy
+                    m_aListOfBlocksToRestore.Remove(index);
+                }
+                else
+                {
+                    // analyze which blocks have been skipped
+                    while (++m_lCurrentlyRestoredBlock < index)
+                    {
+                        m_aListOfBlocksToRestore.Add(m_lCurrentlyRestoredBlock);
+                    }
+                }
 
                 return true;
             }
