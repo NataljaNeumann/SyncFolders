@@ -93,7 +93,8 @@ namespace SyncFoldersApi
                             iFileSystem, iSettings, iLogWriter);
                     }
 
-                    if (iSettings.CreateInfo && (!fiSavedInfo2.Exists || bForceCreateInfo))
+                    if (bForceCreateInfo ||
+                        (iSettings.CreateInfo && (!fiSavedInfo2.Exists || fiSavedInfo2.LastWriteTimeUtc!=fi2.LastWriteTimeUtc)))
                     {
                         iStepsImpl.CreateSavedInfo(fi2.FullName, fiSavedInfo2.FullName,
                             iFileSystem, iSettings, iLogWriter);
