@@ -637,16 +637,19 @@ namespace SyncFoldersTests
             {
                 BlockUsageFunction();
 
+                var oBlock = new Block();
+                Assert.AreEqual(BlockSize, oBlock.Length);
+
+
                 // collect garbage and start from the beginning
                 GC.Collect();
                 if ((i/10)%10 == 0)
                     System.Threading.Thread.Sleep(100);
+
+                for (int j = oBlock.Length - 1; j >= 0; --j)
+                    Assert.Zero(oBlock[j]);
             });
 
-            var oBlock = new Block();
-            Assert.AreEqual(BlockSize, oBlock.Length);
-            for (int i = oBlock.Length - 1; i >= 0; --i)
-                Assert.Zero(oBlock[i]);
         }
 
     }
