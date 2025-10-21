@@ -1570,7 +1570,7 @@ namespace SyncFolders
                     m_tbxFirstFolder.Text, "TestPicture1.jpg")))
             {
                 s.Seek(163840, System.IO.SeekOrigin.Begin);
-                s.Write(b.m_aData, 0, b.Length);
+                b.WriteTo(s);
                 s.Flush();
                 s.Close();
             }
@@ -1599,7 +1599,7 @@ namespace SyncFolders
                 m_tbxFirstFolder.Text, "TestPicture2.jpg")))
             {
                 s.Seek(81920 + 2048, System.IO.SeekOrigin.Begin);
-                s.Write(b.m_aData, 0, b.Length);
+                b.WriteTo(s);
                 s.Flush();
                 s.Close();
             }
@@ -1611,7 +1611,7 @@ namespace SyncFolders
                 m_tbxSecondFolder.Text, "TestPicture2.jpg")))
             {
                 s.Seek(81920 + 4096 + 2048, System.IO.SeekOrigin.Begin);
-                s.Write(b.m_aData, 0, b.Length);
+                b.WriteTo(s);
                 s.Close();
             }
             m_iFileSystem.SetLastWriteTimeUtc(
