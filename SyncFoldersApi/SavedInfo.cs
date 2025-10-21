@@ -76,6 +76,12 @@ namespace SyncFoldersApi
         /// Simple checksums of the blocks of the original file
         /// </summary>
         List<byte[]> m_aChecksums = new List<byte[]>();
+        //===================================================================================================
+        /// <summary>
+        /// List of found primes
+        /// </summary>
+        static List<int> s_oFoundPrimes = new List<int>(1000);
+
 
         //===================================================================================================
         /// <summary>
@@ -270,27 +276,46 @@ namespace SyncFoldersApi
             int nStartWith
             )
         {
-            List<int> oFoundPrimes = new List<int>();
-            oFoundPrimes.Add(2);
-            for (int i = 3; ; i+=2)
+            lock (s_oFoundPrimes)
             {
-                bool bPrime = true;
-
-                for (int j = 1; j<oFoundPrimes.Count; ++j)
+                // add first 2 primes
+                if (s_oFoundPrimes.Count == 0)
                 {
-                    if ((i% oFoundPrimes[j]) == 0)
-                    {
-                        bPrime = false;
-                        break;
-                    }
+                    s_oFoundPrimes.Add(2);
+                    s_oFoundPrimes.Add(3);
                 }
 
-                if (bPrime)
+                int nLastFound = s_oFoundPrimes[s_oFoundPrimes.Count - 1];
+                // if we already calculated the needed number of primes
+                if (nLastFound > nStartWith)
                 {
-                    if (i > nStartWith)
-                        return i;
+                    // then just find the needed one
+                    for (int i = 0; i < s_oFoundPrimes.Count - 1; ++i)
+                        if (s_oFoundPrimes[i] > nStartWith)
+                            return s_oFoundPrimes[i];
+                };
 
-                    oFoundPrimes.Add(i);
+                // continue searching after the end of the last found prime
+                for (int i = nLastFound + 2; ; i += 2)
+                {
+                    bool bPrime = true;
+
+                    for (int j = 1; j < s_oFoundPrimes.Count; ++j)
+                    {
+                        if ((i % s_oFoundPrimes[j]) == 0)
+                        {
+                            bPrime = false;
+                            break;
+                        }
+                    }
+
+                    if (bPrime)
+                    {
+                        s_oFoundPrimes.Add(i);
+
+                        if (i > nStartWith)
+                            return i;
+                    }
                 }
             }
         }
