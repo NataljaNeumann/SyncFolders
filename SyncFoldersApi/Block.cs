@@ -27,12 +27,10 @@
 //
 // #define USE_BLOCK_POOL
 
-// This works, but is in unit test slower than simply using new[]
-// #define USE_BLOCK_POOL_PER_THREAD
 
 using System;
 using System.Collections.Generic;
-using System.Text;
+
 
 namespace SyncFoldersApi
 {
@@ -54,7 +52,7 @@ namespace SyncFoldersApi
         /// <summary>
         /// The data of the block
         /// </summary>
-        public byte[] m_aData;
+        internal byte[] m_aData;
 
 #if USE_BLOCK_POOL
         //===================================================================================================
@@ -62,20 +60,7 @@ namespace SyncFoldersApi
         /// Holds a pool of byte arrays for reusing
         /// </summary>
         static Stack<byte[]> s_oFreeBlocks = new Stack<byte[]>();
-
-        //===================================================================================================
-        /// <summary>
-        /// Mutex for synchronization
-        /// </summary>
-        static Mutex s_oMutex = new Mutex();
-
-
-
-        //===================================================================================================
-        /// <summary>
-        /// An creator of arrays in a separate thread, so all arrays are created in a separate heap
-        /// </summary>
-        //static ThreadBoundArrayFactory<byte> s_oArrayCreator = new ThreadBoundArrayFactory<byte>(s_nLength);
+        static List<byte[]> s_oAllBlocks = new List<byte[]>();
 
 
         //===================================================================================================
@@ -85,168 +70,9 @@ namespace SyncFoldersApi
         //===================================================================================================
         public static void FreeMemory()
         {
-
-            try
+            lock(s_oFreeBlocks)
             {
-                if (!s_oMutex.WaitOne(100, false))
-                {
-                    while (!s_oMutex.WaitOne(100, true))
-                    {
-                        // we are waiting
-                    }
-                }
-            s_oFreeBlocks.Clear();
-            } finally
-            {
-                s_oMutex.ReleaseMutex();
-            }
-        }
-
-
-        //===================================================================================================
-        /// <summary>
-        /// Constructs a new block and inits it with zeros
-        /// </summary>
-        //===================================================================================================
-        public Block()
-        {
-
-            try
-            {
-                if (!s_oMutex.WaitOne(100, false))
-                {
-                    while (!s_oMutex.WaitOne(100, true))
-                    {
-                        // we are waiting
-                    }
-                }
-
-                if (s_oFreeBlocks.Count > 0)
-                    m_aData = s_oFreeBlocks.Pop();
-                else
-                {
-                    // new array will init it with zeros
-                    m_aData = s_oArrayCreator.Create();
-                    return;
-                }
-
-            } finally
-            {
-                s_oMutex.ReleaseMutex();
-            }
-
-            // there we pulled array out of the pool and need to init it.
-            // we do it outside of the lock for possibly better concurrency
-            byte[] aData = m_aData;
-            for (int i = aData.Length - 1; i >= 0; --i)
-                aData[i] = 0;
-
-        }
-
-
-        //===================================================================================================
-        /// <summary>
-        /// Constructs a new block
-        /// </summary>
-        /// <param name="bInit">Indicates, if it needs to be initialized</param>
-        //===================================================================================================
-        protected Block(bool bInit)
-        {
-            try
-            {
-                if (!s_oMutex.WaitOne(100, false))
-                {
-                    while (!s_oMutex.WaitOne(100, true))
-                    {
-                        // we are waiting
-                    }
-                }
-
-                if (s_oFreeBlocks.Count > 0)
-                    m_aData = s_oFreeBlocks.Pop();
-                else
-                {
-                    // new array will init it with zeros
-                    m_aData = s_oArrayCreator.Create();
-                    return;
-                }
-            } finally
-            {
-                s_oMutex.ReleaseMutex();
-            }
-
-            if (bInit)
-            {
-                // there we pulled array out of the pool and need to init it.
-                // we do it outside of the lock for possibly better concurrency
-                byte[] aData = m_aData;
-                for (int i = aData.Length - 1; i >= 0; --i)
-                    aData[i] = 0;
-            }
-        }
-
-
-        //===================================================================================================
-        /// <summary>
-        /// Finalizer: Returns the byte array to the pool when the object is garbage collected
-        /// </summary>
-        //===================================================================================================
-        ~Block()
-        {
-            if (m_aData != null)
-            {
-                try
-                {
-                    if (!s_oMutex.WaitOne(100, false))
-                    {
-                        while (!s_oMutex.WaitOne(100, true))
-                        {
-                            // we are waiting
-                        }
-                    }
-
-                    s_oFreeBlocks.Push(m_aData); // Return the block to the pool
-
-                } finally
-                {
-                    s_oMutex.ReleaseMutex();
-                }
-
-                // we are in finalizer
-                // there should be no more references of
-                // the object, still we want to ensure thate
-                // the array is not referenced anywhere
-                // after we put it back to the pool
-#pragma warning disable CS8625
-                m_aData = null; // Mark the data as unused
-#pragma warning restore CS8625
-            }
-        }
-
-#elif USE_BLOCK_POOL_PER_THREAD
-
-        //===================================================================================================
-        /// <summary>
-        /// Holds a pool of byte arrays for reusing
-        /// </summary>
-        static Dictionary<int,Stack<byte[]>> s_oFreeBlocks = new Dictionary<int, Stack<byte[]>>();
-
-        //===================================================================================================
-        /// <summary>
-        /// Object for synchronization
-        /// </summary>
-        static object s_oLock = new object();
-
-
-        //===================================================================================================
-        /// <summary>
-        /// Frees memory, eventually used by the pool
-        /// </summary>
-        //===================================================================================================
-        public static void FreeMemory()
-        {
-            lock (s_oLock)
-            {
+                s_oAllBlocks.Clear();
                 s_oFreeBlocks.Clear();
             }
         }
@@ -259,34 +85,23 @@ namespace SyncFoldersApi
         //===================================================================================================
         public Block()
         {
-            Stack<byte[]> oFreeBlocks;
-            lock (s_oLock)
+
+            lock (s_oFreeBlocks)
             {
-                int nThreadId = System.Threading.Thread.CurrentThread.ManagedThreadId;
-                if (!s_oFreeBlocks.TryGetValue( nThreadId, out Stack<byte[]>? value))
+                if (s_oFreeBlocks.Count > 0)
+                    m_aData = s_oFreeBlocks.Pop();
+                else
                 {
-                    s_oFreeBlocks[System.Threading.Thread.CurrentThread.ManagedThreadId] =
-                        oFreeBlocks = new Stack<byte[]>();
-                } else
-                {
-                    oFreeBlocks = value;
+                    // new array will init it with zeros
+                    m_aData = new byte[s_nLength];
+                    s_oAllBlocks.Add(m_aData);
+                    return;
                 }
             }
 
-            if (oFreeBlocks.Count > 0)
-            {
-                byte[] aData = m_aData = oFreeBlocks.Pop();
-                
-                // there we pulled array out of the pool and need to init it.
-                // we do it outside of the lock for possibly better concurrency
-                for (int i = aData.Length - 1; i >= 0; --i)
-                    aData[i] = 0;
-            }
-            else
-            {
-                // new array will init it with zeros
-                m_aData = new byte[s_nLength];
-            }
+            // there we pulled array out of the pool and need to init it.
+            // we do it outside of the lock for possibly better concurrency
+            Array.Fill<byte>(m_aData, 0);
         }
 
 
@@ -298,40 +113,25 @@ namespace SyncFoldersApi
         //===================================================================================================
         protected Block(bool bInit)
         {
-            Stack<byte[]> oFreeBlocks;
-            lock (s_oLock)
+            lock (s_oFreeBlocks)
             {
-                int nThreadId = System.Threading.Thread.CurrentThread.ManagedThreadId;
-                if (!s_oFreeBlocks.TryGetValue(nThreadId, out Stack<byte[]>? value))
-                {
-                    s_oFreeBlocks[System.Threading.Thread.CurrentThread.ManagedThreadId] =
-                        oFreeBlocks = new Stack<byte[]>();
-                }
+
+                if (s_oFreeBlocks.Count > 0)
+                    m_aData = s_oFreeBlocks.Pop();
                 else
                 {
-                    oFreeBlocks = value;
+                    // new array will init it with zeros
+                    m_aData = new byte[s_nLength];
+                    s_oAllBlocks.Add(m_aData);
+                    return;
                 }
             }
 
-
-            if (oFreeBlocks.Count > 0)
+            if (bInit)
             {
-                m_aData = oFreeBlocks.Pop();
-
-                if (bInit)
-                {
-
-                    // there we pulled array out of the pool and need to init it.
-                    // we do it outside of the lock for possibly better concurrency
-                    byte[] aData = m_aData;
-                    for (int i = aData.Length - 1; i >= 0; --i)
-                        aData[i] = 0;
-                }
-            }
-            else
-            {
-                // new array will init it with zeros
-                m_aData = new byte[s_nLength];
+                // there we pulled array out of the pool and need to init it.
+                // we do it outside of the lock for possibly better concurrency
+                Array.Fill<byte>(m_aData, 0);
             }
         }
 
@@ -345,35 +145,16 @@ namespace SyncFoldersApi
         {
             if (m_aData != null)
             {
-                Stack<byte[]> oFreeBlocks;
-                lock (s_oLock)
+                lock (s_oFreeBlocks)
                 {
-                    int nThreadId = System.Threading.Thread.CurrentThread.ManagedThreadId;
-                    if (!s_oFreeBlocks.TryGetValue(nThreadId, out Stack<byte[]>? value))
-                    {
-                        s_oFreeBlocks[System.Threading.Thread.CurrentThread.ManagedThreadId] =
-                            oFreeBlocks = new Stack<byte[]>();
-                    }
-                    else
-                    {
-                        oFreeBlocks = value;
-                    }
+                    s_oFreeBlocks.Push(m_aData); // Return the block to the pool
                 }
-
-
-                oFreeBlocks.Push(m_aData); // Return the block to the pool
-
-                // we are in finalizer
-                // there should be no more references of
-                // the object, still we want to ensure thate
-                // the array is not referenced anywhere
-                // after we put it back to the pool
-#pragma warning disable CS8625
-                m_aData = null; // Mark the data as unused
-#pragma warning restore CS8625
             }
         }
+
 #else
+
+
         //===================================================================================================
         /// <summary>
         /// Frees memory, eventually used by the pool
@@ -802,5 +583,9 @@ namespace SyncFoldersApi
             return oNewBlock; 
         }
 
+        public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
