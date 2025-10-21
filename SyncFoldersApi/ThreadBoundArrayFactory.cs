@@ -109,8 +109,12 @@ namespace SyncFoldersApi
                 // Create the object and notify the requesting thread
                 if (oRequest != null)
                 {
-                    oRequest.CreatedArray = new T[m_nLength];
-                    oRequest.DoneEvent.Set();
+                    lock (oRequest)
+                    {
+                        oRequest.CreatedArray = new T[m_nLength];
+
+                        oRequest.DoneEvent.Set();
+                    }
                 }
             }
         }
@@ -127,14 +131,17 @@ namespace SyncFoldersApi
 
             do
             {
-                // Enqueue the request
-                lock (m_oLock)
+                lock (oRequest)
                 {
-                    m_oRequestQueue.Enqueue(oRequest);
-                }
+                    // Enqueue the request
+                    lock (m_oLock)
+                    {
+                        m_oRequestQueue.Enqueue(oRequest);
 
-                // Signal the worker thread to process the request
-                m_oRequestSignal.Set();
+                        // Signal the worker thread to process the request
+                        m_oRequestSignal.Set();
+                    }
+                }
 
                 // Wait until the object is created
                 oRequest.DoneEvent.WaitOne();
