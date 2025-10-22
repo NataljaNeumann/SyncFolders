@@ -56,10 +56,12 @@ namespace SyncFoldersTests
         //===================================================================================================
         private Block CreateBlock(params byte[] data)
         {
-            var block = new Block();
-            for (int i= data.Length-1; i>=0; --i)
-                block[i] = data[i];
-            return block;
+            var oBlock = new Block();
+
+            for (int i = data.Length - 1; i >= 0; --i)
+                oBlock[i] = data[i];
+
+            return oBlock;
         }
 
         //===================================================================================================
@@ -643,14 +645,80 @@ namespace SyncFoldersTests
 
                 // collect garbage and start from the beginning
                 GC.Collect();
-                if ((i/10)%10 == 0)
+                if ((i / 10) % 10 == 0)
                     System.Threading.Thread.Sleep(100);
 
                 for (int j = oBlock.Length - 1; j >= 0; --j)
                     Assert.Zero(oBlock[j]);
             });
-
         }
 
+        //===================================================================================================
+        /// <summary>
+        /// Tests that Block.Erase() works correctly
+        /// </summary>
+        //===================================================================================================
+        [Test]
+        public void Erase_FillsBlockWithZeros()
+        {
+            var oBlock = new Block();
+            for (int i = 0; i < oBlock.Length; i++)
+                oBlock[i] = 0xFF;
+
+            oBlock.Erase();
+
+            for (int i = 0; i < oBlock.Length; i++)
+                Assert.AreEqual(0, oBlock[i]);
+        }
+
+
+        //===================================================================================================
+        /// <summary>
+        /// Tests that Block.EraseFrom works correctly
+        /// </summary>
+        //===================================================================================================
+        [Test]
+        public void EraseFrom_FillsFromPositionWithZeros()
+        {
+            var oBlock = new Block();
+            for (int nStartPos = 0; nStartPos < oBlock.Length; nStartPos += 1024)
+            {
+                for (int i = 0; i < oBlock.Length; i++)
+                    oBlock[i] = 0xFF;
+
+                oBlock.EraseFrom(nStartPos);
+
+                for (int i = 0; i < nStartPos; i++)
+                    Assert.AreEqual(0xFF, oBlock[i]);
+
+                for (int i = nStartPos; i < oBlock.Length; i++)
+                    Assert.AreEqual(0, oBlock[i]);
+            }
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// Tests that Block.EraseTo works correctly
+        /// </summary>
+        //===================================================================================================
+        [Test]
+        public void EraseTo_FillsToPositionWithZeros()
+        {
+            var oBlock = new Block();
+            for (int nEndPos = 0; nEndPos < oBlock.Length; nEndPos += 1024)
+            {
+                for (int i = 0; i < oBlock.Length; i++)
+                    oBlock[i] = 0xFF;
+
+                oBlock.EraseTo(nEndPos);
+
+                for (int i = 0; i < nEndPos; i++)
+                    Assert.AreEqual(0, oBlock[i]);
+
+                for (int i = nEndPos; i < oBlock.Length; i++)
+                    Assert.AreEqual(0xFF, oBlock[i]);
+            }
+        }
     }
 }
+
