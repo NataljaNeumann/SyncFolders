@@ -17,13 +17,13 @@ namespace SyncFoldersApi
     {
         //===================================================================================================
         /// <summary>
-        /// This method tests a single file, and repairs it, if there are read or checkum errors
+        /// This method tests a single file, and repairs it, if there are read or checksum errors
         /// </summary>
         /// <param name="strPathFile">The path of original file</param>
         /// <param name="strPathSavedInfoFile">The path of saved info (.chk)</param>
         /// <param name="bForceCreateInfo">If saved info needs to be updated then method sets given 
         /// var to true</param>
-        /// <param name="bOnlyIfCompletelyRecoverable">Indicates, if the operation shall be performmed
+        /// <param name="bOnlyIfCompletelyRecoverable">Indicates, if the operation shall be performed
         /// only if the file is healthy or completely recoverable</param>
         /// <param name="iFileSystem">File system abstraction for performing operations</param>
         /// <param name="iCancelable">Settings defining synchronization mode and behavior</param>
@@ -40,15 +40,19 @@ namespace SyncFoldersApi
             ILogWriter iLogWriter
             )
         {
+            // Check if resources are available
             if (Properties.Resources == null)
                 throw new ArgumentNullException(nameof(Properties.Resources));
 
+            // Get file info objects for the original file and its saved info
             IFileInfo finfo = iFileSystem.GetFileInfo(strPathFile);
             IFileInfo fiSavedInfo = iFileSystem.GetFileInfo(strPathSavedInfoFile);
 
+            // Create a new SavedInfo object
             SavedInfo si = new SavedInfo();
             bool bNotReadableSi = !fiSavedInfo.Exists;
 
+            // Try to read the saved info file, first buffered, then unbuffered if needed
             if (!bNotReadableSi)
             {
                 try
@@ -62,7 +66,7 @@ namespace SyncFoldersApi
                         s.Close();
                     }
                 }
-                catch // in case of any errors we switch to the unbuffered I/O
+                catch (IOException) // in case of any errors we switch to the unbuffered I/O
                 {
                     try
                     {
@@ -75,6 +79,7 @@ namespace SyncFoldersApi
                     }
                     catch (System.IO.IOException oEx)
                     {
+                        // Log error and mark saved info as unreadable
                         iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.IOErrorReadingFile,
                             strPathSavedInfoFile, oEx.Message);
 
@@ -86,17 +91,21 @@ namespace SyncFoldersApi
                 }
             }
 
+            // Store previous last write time for possible restoration
             System.DateTime dtmPrevLastWriteTime = finfo.LastWriteTimeUtc;
 
+            // If saved info is not readable, or does not match file length/timestamp, do a block-level test/repair
             if (bNotReadableSi ||
                 si.Length != finfo.Length ||
                 !Utils.FileTimesEqual(si.TimeStamp, finfo.LastWriteTimeUtc))
             {
                 bool bAllBlocksOk = true;
 
+                // If saved info exists, mark that it needs to be recreated
                 if (fiSavedInfo.Exists)
                     bForceCreateInfo = true;
 
+                // Log that saved info can't be used for testing
                 if (!bNotReadableSi)
                 {
                     iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.SavedInfoFileCantBeUsedForTesting,
@@ -110,7 +119,7 @@ namespace SyncFoldersApi
                 int nCountErrors = 0;
                 try
                 {
-                   
+                    // Open the file for reading or read/write depending on recoverability
                     using (IFile s = iFileSystem.Open(
                         finfo.FullName, System.IO.FileMode.Open,
                         bOnlyIfCompletelyRecoverable ? System.IO.FileAccess.Read : System.IO.FileAccess.ReadWrite,
@@ -118,11 +127,12 @@ namespace SyncFoldersApi
                     {
                         Block oBlock = new Block();
 
+                        // Read blocks sequentially
                         for (long lIndex = 0; ; lIndex++)
                         {
                             try
                             {
-                                // we simply read to end, no need in content
+                                // Read block, break if end of file
                                 if (oBlock.ReadFrom(s) != oBlock.Length)
                                     break;
                             }
@@ -130,9 +140,8 @@ namespace SyncFoldersApi
                             {
                                 nCountErrors++;
 
-                                // fill bad block with zeros
-                                for (int i = oBlock.Length - 1; i >= 0; --i)
-                                    oBlock[i] = 0;
+                                // Fill bad block with zeros
+                                oBlock.Erase();
 
                                 int nLengthToWrite =
                                     (int)(finfo.Length - lIndex * oBlock.Length > oBlock.Length ?
@@ -141,7 +150,7 @@ namespace SyncFoldersApi
 
                                 if (bOnlyIfCompletelyRecoverable)
                                 {
-                                    // we can't recover, so put only messages, don't write to file
+                                    // Log error, skip writing
                                     iLogWriter.WriteLogFormattedLocalized(1, Properties.Resources.IOErrorReadingFileOffset,
                                         finfo.FullName, lIndex * oBlock.Length, oEx.Message);
 
@@ -152,6 +161,7 @@ namespace SyncFoldersApi
                                 }
                                 else
                                 {
+                                    // Log error and write dummy block
                                     iLogWriter.WriteLogFormattedLocalized(0,
                                         Properties.Resources.ErrorReadingPositionWillFillWithDummy,
                                         finfo.FullName, lIndex * oBlock.Length, oEx.Message);
@@ -172,6 +182,7 @@ namespace SyncFoldersApi
                         s.Close();
                     }
 
+                    // If all blocks are OK, update checked info
                     if (bAllBlocksOk)
                     {
                         CreateOrUpdateFileChecked(strPathSavedInfoFile,
@@ -179,6 +190,7 @@ namespace SyncFoldersApi
                     }
                 } finally
                 {
+                    // If not completely recoverable, update last write time based on errors
                     if (!bOnlyIfCompletelyRecoverable)
                     {
                         if (nCountErrors > 0)
@@ -198,8 +210,7 @@ namespace SyncFoldersApi
                 return bAllBlocksOk;
             }
 
-
-
+            // Dictionary to track readable but not accepted blocks
             Dictionary<long, bool> oReadableButNotAccepted =
                 new Dictionary<long, bool>();
             try
@@ -212,9 +223,9 @@ namespace SyncFoldersApi
 
                     Block oBlock = new Block();
 
+                    // Read and analyze each block
                     for (long lIndex = 0; ; lIndex++)
                     {
-
                         try
                         {
                             bool bBlockOk = true;
@@ -225,7 +236,7 @@ namespace SyncFoldersApi
                                 bBlockOk = si.AnalyzeForTestOrRestore(oBlock, lIndex);
                                 if (!bBlockOk)
                                 {
-                                    /* TODO: this line of code isn't hit by any unit tests */
+                                    // Log checksum error
                                     bAllBlocksOK = false;
 
                                     iLogWriter.WriteLogFormattedLocalized(1,
@@ -243,8 +254,8 @@ namespace SyncFoldersApi
                             {
                                 if (nReadCount > 0)
                                 {
-                                    for (int i = oBlock.Length - 1; i >= nReadCount; --i)
-                                        oBlock[i] = 0;
+                                    // Fill the rest of the block with zeros
+                                    oBlock.EraseFrom(nReadCount);
 
                                     bBlockOk = si.AnalyzeForTestOrRestore(oBlock, lIndex);
 
@@ -266,15 +277,17 @@ namespace SyncFoldersApi
                                 break;
                             }
 
+                            // Check for cancellation
                             if (iCancelable.CancelClicked)
                                 throw new OperationCanceledException();
 
                         }
                         catch (System.IO.IOException ex)
                         {
+                            // Log I/O error and skip to next block
                             bAllBlocksOK = false;
 
-                            iLogWriter.WriteLogFormattedLocalized(1, 
+                            iLogWriter.WriteLogFormattedLocalized(1,
                                 Properties.Resources.IOErrorReadingFileOffset,
                                 finfo.FullName, lIndex * oBlock.Length, ex.Message);
 
@@ -290,19 +303,17 @@ namespace SyncFoldersApi
                         }
 
                     }
-                    
 
                     s.Close();
                 }
-                
 
+                // If all blocks are OK, verify integrity and possibly update checked info
                 if (bAllBlocksOK)
-                { 
-                    // check also, if the contents of the checksum file 
-                    // match the file itself, or if they have been corrupted somehow
+                {
                     if (!si.VerifyIntegrityAfterRestoreTest() || si.NeedsRebuild())
                     {
                         /* TODO: this line of code isn't hit by any unit tests */
+                        // Log that saved info is damaged and needs recreation
                         iLogWriter.WriteLogFormattedLocalized(0,
                             Properties.Resources.SavedInfoHasBeenDamagedNeedsRecreation,
                             strPathSavedInfoFile, strPathFile);
@@ -322,8 +333,8 @@ namespace SyncFoldersApi
             }
             catch (System.IO.IOException oEx)
             {
-                /* TODO: this line of code isn't hit by any unit tests */
-                iLogWriter.WriteLogFormattedLocalized(0, 
+                // Log I/O error and return false
+                iLogWriter.WriteLogFormattedLocalized(0,
                     Properties.Resources.IOErrorReadingFile,
                     finfo.FullName, oEx.Message);
 
@@ -337,6 +348,7 @@ namespace SyncFoldersApi
             {
                 long lNonRestoredSize = 0;
 
+                // Get restore info for blocks that need to be restored
                 List<RestoreInfo> aResoreInfos = si.EndRestore(
                     out lNonRestoredSize, fiSavedInfo.FullName, iLogWriter);
 
@@ -347,6 +359,7 @@ namespace SyncFoldersApi
                         bForceCreateInfo = true;
                     }
 
+                    // If all non-restored size is zero or not strictly requiring complete recovery, restore blocks
                     if (lNonRestoredSize == 0 || !bOnlyIfCompletelyRecoverable)
                     {
                         try
@@ -358,6 +371,7 @@ namespace SyncFoldersApi
                                 {
                                     if (oRestoreInfo.NotRecoverableArea)
                                     {
+                                        // If block is readable but not accepted, keep it, else fill with dummy
                                         if (oReadableButNotAccepted.ContainsKey(oRestoreInfo.Position / oRestoreInfo.Data.Length))
                                         {
                                             /* TODO: this line of code isn't hit by any unit tests */
@@ -391,6 +405,7 @@ namespace SyncFoldersApi
                                     }
                                     else
                                     {
+                                        // Restore block from saved info
                                         s.Seek(oRestoreInfo.Position, System.IO.SeekOrigin.Begin);
 
                                         iLogWriter.WriteLogFormattedLocalized(1,
@@ -413,6 +428,7 @@ namespace SyncFoldersApi
                             }
                         } finally
                         {
+                            // If not completely recoverable, update last write time based on errors
                             if (!bOnlyIfCompletelyRecoverable)
                             {
                                 if (lNonRestoredSize > 0)
@@ -433,6 +449,7 @@ namespace SyncFoldersApi
                     }
                 }
 
+                // If file is not completely recoverable, log and restore last write time
                 if (bOnlyIfCompletelyRecoverable && lNonRestoredSize != 0)
                 {
                     if (aResoreInfos.Count > 1)
@@ -460,9 +477,9 @@ namespace SyncFoldersApi
                 }
                 else
                 {
+                    // Log summary of bad blocks and update checked info if needed
                     if (aResoreInfos.Count > 1)
                     {
-
                         iLogWriter.WriteLogFormattedLocalized(0,
                             Properties.Resources.ThereWereBadBlocksInFileNotRestoredParts,
                             aResoreInfos.Count, finfo.FullName, lNonRestoredSize);
@@ -517,16 +534,18 @@ namespace SyncFoldersApi
                     }
                 }
 
+                // Return true if all blocks restored
                 return lNonRestoredSize == 0;
             }
             catch (System.IO.IOException oEx)
             {
                 /* TODO: this line of code isn't hit by any unit tests */
-                iLogWriter.WriteLogFormattedLocalized(0, 
+                // Log I/O error during writing and restore last write time
+                iLogWriter.WriteLogFormattedLocalized(0,
                     Properties.Resources.IOErrorWritingFile,
                     finfo.FullName, oEx.Message);
 
-                iLogWriter.WriteLog(true, 0, "I/O Error writing file: \"", 
+                iLogWriter.WriteLog(true, 0, "I/O Error writing file: \"",
                     finfo.FullName, "\": " + oEx.Message);
 
                 finfo.LastWriteTimeUtc = dtmPrevLastWriteTime;
