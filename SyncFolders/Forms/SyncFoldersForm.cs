@@ -1653,14 +1653,14 @@ namespace SyncFolders
             //---------------------------------
             // restore older repairable from backup
             string strPathOfTestFile4 = CreateSelfTestFile(m_tbxFirstFolder.Text,
-                "RestoreOldFromBackupWithRepairingBackup.dat", 2, false,
+                "RestoreOldFromBackupWithRepairingBackup.dat", 4, false,
                 dtmTimeForFile, dtmTimeForFile);
 
             // add simulated read errors for this file
             oSimulatedReadErrors[strPathOfTestFile4] = new List<long>(new long[] { 0 });
 
             strPathOfTestFile4 = CreateSelfTestFile(m_tbxSecondFolder.Text,
-                "RestoreOldFromBackupWithRepairingBackup.dat", 2, true,
+                "RestoreOldFromBackupWithRepairingBackup.dat", 4, true,
                 dtmTimeForFile.AddDays(-1), dtmTimeForFile.AddDays(-1));
 
             oSimulatedReadErrors[strPathOfTestFile4] = new List<long>(new long[] { 4096 });
@@ -2847,9 +2847,23 @@ namespace SyncFolders
                         }
                     }
 
-                    string s = string.Format(strFormat, aParams);
-                    m_oLogToShow.Append(s);
-                    m_oLogFileLocalized.Write(s);
+                    try
+                    {
+                        string s = string.Format(strFormat, aParams);
+                        m_oLogToShow.Append(s);
+                        m_oLogFileLocalized.Write(s);
+                    }
+                    catch (Exception oEx)
+                    {
+                        string s = oEx.Message + ": Format \"" + strFormat + 
+                            "\" - Count: " + aParams.Length + ": " + string.Join(" - ",aParams);
+
+                        m_oLogToShow.Append(s);
+                        m_oLogFileLocalized.Write(s);
+                        // make an extra free line for the internal error
+                        m_oLogToShow.Append(Environment.NewLine);
+                        m_oLogFileLocalized.Write(Environment.NewLine);
+                    }
 
                     m_oLogToShow.Append(Environment.NewLine);
                     m_oLogFileLocalized.Write(Environment.NewLine);
