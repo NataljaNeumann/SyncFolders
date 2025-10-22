@@ -1008,7 +1008,7 @@ namespace SyncFolders
             else
                 m_oLogFileLocalized.Write((char)0x200E);
 
- 
+            m_oLogFile.WriteLine("          Version: " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version);
             m_oLogFile.WriteLine("     First2Second: " + (m_oSettings.FirstToSecond ? "yes" : "no"));
             m_oLogFileLocalized.WriteLine(m_cbFirstToSecond.Text + ": " + (m_oSettings.FirstToSecond ? Resources.Yes : Resources.No));
             if (m_oSettings.FirstToSecond)
@@ -1034,6 +1034,9 @@ namespace SyncFolders
 
             if (m_oSettings.TestFiles)
             {
+                m_oLogFile.WriteLine("Skip rectnl.tsted: " + (m_oSettings.TestFilesSkipRecentlyTested ? "yes" : "no"));
+                m_oLogFileLocalized.WriteLine(m_cbSkipRecentlyTested.Text + ": " + (m_oSettings.TestFilesSkipRecentlyTested ? Resources.Yes : Resources.No));
+
                 m_oLogFile.WriteLine("      RepairFiles: " + (m_oSettings.RepairFiles ? "yes" : "no"));
                 m_oLogFileLocalized.WriteLine(m_cbRepairBlockFailures.Text + ": " + (m_oSettings.RepairFiles ? Resources.Yes : Resources.No));
                 if (m_oSettings.RepairFiles)
