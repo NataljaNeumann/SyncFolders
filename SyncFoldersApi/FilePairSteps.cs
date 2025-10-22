@@ -1320,6 +1320,9 @@ namespace SyncFoldersApi
                 return false;
             }
         }
+
+
+
         //===================================================================================================
         /// <summary>
         /// This method tests and repairs the second file with all available means
@@ -1345,18 +1348,20 @@ namespace SyncFoldersApi
             ILogWriter iLogWriter
             )
         {
+            // Check if resources are available
             if (Properties.Resources == null)
                 throw new ArgumentNullException(nameof(Properties.Resources));
 
-            // if we can skip repairs, then try to test first and repair only in case there are some errors.
+            // If we can skip repairs, then try to test first and repair only in case there are some errors.
             if (iSettings.TestFilesSkipRecentlyTested &&
-                TestSingleFile(strPathFile2, strPathSavedInfo2, 
+                TestSingleFile(strPathFile2, strPathSavedInfo2,
                     ref bForceCreateInfo, false, false, true,
                     iFileSystem, iSettings, iLogWriter))
             {
                 return;
             }
 
+            // Get file info objects for both files and their saved info
             IFileInfo fi1 = iFileSystem.GetFileInfo(strPathFile1);
             IFileInfo fi2 = iFileSystem.GetFileInfo(strPathFile2);
             IFileInfo fiSavedInfo1 = iFileSystem.GetFileInfo(strPathSavedInfo1);
@@ -1367,6 +1372,7 @@ namespace SyncFoldersApi
 
             bool bSaveInfo1Present = false;
 
+            // Try to read saved info for file 1 and validate it
             if (fiSavedInfo1.Exists &&
                 (iSettings.IgnoreTimeDifferencesBetweenDataAndSaveInfo ||
                 fiSavedInfo1.LastWriteTimeUtc == fi1.LastWriteTimeUtc))
@@ -1382,11 +1388,13 @@ namespace SyncFoldersApi
                     if (!bSaveInfo1Present)
                     {
                         /* TODO: this line of code isn't hit by any unit tests */
+                        // Saved info 1 is not valid, reset and mark for recreation
                         oSavedInfo1 = new SavedInfo();
                         bForceCreateInfo = true;
                     }
                     else
                     {
+                        // If valid, try to read saved info 2 from same stream
                         s.Seek(0, System.IO.SeekOrigin.Begin);
                         oSavedInfo2.ReadFrom(s, false);
                     }
@@ -1394,6 +1402,7 @@ namespace SyncFoldersApi
                 }
             }
 
+            // Try to read saved info for file 2 and validate it
             if (fiSavedInfo2.Exists &&
                 (iSettings.IgnoreTimeDifferencesBetweenDataAndSaveInfo ||
                 fiSavedInfo2.LastWriteTimeUtc == fi2.LastWriteTimeUtc))
@@ -1410,6 +1419,7 @@ namespace SyncFoldersApi
                         oSavedInfo2 = oSavedInfo2_1;
                         if (!bSaveInfo1Present)
                         {
+                            // If saved info 1 not present, try to read it from same stream
                             s.Seek(0, System.IO.SeekOrigin.Begin);
                             oSavedInfo1.ReadFrom(s, false);
                             bSaveInfo1Present = true;
@@ -1418,21 +1428,21 @@ namespace SyncFoldersApi
                     else
                     {
                         /* TODO: this line of code isn't hit by any unit tests */
+                        // Saved info 2 is not valid, mark for recreation
                         bForceCreateInfo = true;
                     }
                     s.Close();
                 }
             }
 
-
             if (bSaveInfo1Present)
             {
+                // If we have valid saved info for file 1, try to improve both saved infos
                 System.DateTime dtmPrevLastWriteTime = fi1.LastWriteTimeUtc;
 
-                // improve the available saved infos, if needed 
                 oSavedInfo1.ImproveThisAndOther(oSavedInfo2);
 
-                // the list of equal blocks, so we don't overwrite obviously correct blocks
+                // Dictionaries to track block status
                 Dictionary<long, bool> oEqualBlocks = new Dictionary<long, bool>();
                 Dictionary<long, bool> oReadableBlocks1 = new Dictionary<long, bool>();
                 Dictionary<long, bool> oReadableBlocks2 = new Dictionary<long, bool>();
@@ -1440,7 +1450,7 @@ namespace SyncFoldersApi
                 List<RestoreInfo> aRestore1 = new List<RestoreInfo>();
                 List<RestoreInfo> aRestore2 = new List<RestoreInfo>();
 
-                // now let'oInputStream try to read the files and compare 
+                // Read and compare blocks from both files
                 using (IFile s1 =
                     iFileSystem.OpenRead(strPathFile1))
                 {
@@ -1457,44 +1467,47 @@ namespace SyncFoldersApi
                         {
 
                             bool bBlock1Present = false;
-                            bool bBlockStream1Ok = false;
+                            bool bBlock1Ok = false;
 
+                            // Read block from file 1 and analyze
                             try
                             {
                                 int nReadCount = 0;
 
                                 if ((nReadCount = oBlock1.ReadFrom(s1)) == oBlock1.Length)
                                 {
-                                    bBlockStream1Ok = oSavedInfo1.AnalyzeForTestOrRestore(oBlock1, lIndex);
+                                    bBlock1Ok = oSavedInfo1.AnalyzeForTestOrRestore(oBlock1, lIndex);
                                 }
                                 else
                                 {
                                     if (nReadCount > 0)
                                     {
-                                        for (int i = oBlock1.Length - 1; i >= nReadCount; --i)
-                                            oBlock1[i] = 0;
+                                        // Fill the rest with zeros
+                                        oBlock1.EraseFrom(nReadCount);
 
-                                        bBlockStream1Ok = oSavedInfo1.AnalyzeForTestOrRestore(oBlock1, lIndex);
+                                        bBlock1Ok = oSavedInfo1.AnalyzeForTestOrRestore(oBlock1, lIndex);
                                     }
                                 }
 
-                                oReadableBlocks1[lIndex] = nReadCount>0;
-                                bBlock1Present = nReadCount>0;
+                                oReadableBlocks1[lIndex] = nReadCount > 0;
+                                bBlock1Present = nReadCount > 0;
                             }
                             catch (System.IO.IOException oEx)
                             {
-                                iLogWriter.WriteLogFormattedLocalized(2, 
+                                // Log error and skip to next block
+                                iLogWriter.WriteLogFormattedLocalized(2,
                                     Properties.Resources.IOErrorReadingFile,
                                     strPathFile1, oEx.Message);
 
                                 iLogWriter.WriteLog(true, 2, "I/O error while reading file \"",
                                     strPathFile1, "\": ", oEx.Message);
-                                    s1.Seek((lIndex + 1) * oBlock1.Length, System.IO.SeekOrigin.Begin);
+                                s1.Seek((lIndex + 1) * oBlock1.Length, System.IO.SeekOrigin.Begin);
                             }
 
                             bool bBlock2Present = false;
                             bool bBlock2Ok = false;
 
+                            // Read block from file 2 and analyze
                             try
                             {
                                 int nReadCount = 0;
@@ -1504,18 +1517,19 @@ namespace SyncFoldersApi
                                 }
                                 else
                                 {
-                                    for (int i = oBlock2.Length - 1; i >= nReadCount; --i)
-                                        oBlock2[i] = 0;
+                                    // Fill the rest with zeros
+                                    oBlock2.EraseFrom(nReadCount);
 
                                     bBlock2Ok = oSavedInfo2.AnalyzeForTestOrRestore(oBlock2, lIndex);
                                 }
 
-                                oReadableBlocks2[lIndex] = nReadCount>0;
-                                bBlock2Present = nReadCount>0;
+                                oReadableBlocks2[lIndex] = nReadCount > 0;
+                                bBlock2Present = nReadCount > 0;
                             }
                             catch (System.IO.IOException oEx)
                             {
-                                iLogWriter.WriteLogFormattedLocalized(2, 
+                                // Log error and skip to next block of file
+                                iLogWriter.WriteLogFormattedLocalized(2,
                                     Properties.Resources.IOErrorReadingFile,
                                     strPathFile2, oEx.Message);
 
@@ -1525,8 +1539,10 @@ namespace SyncFoldersApi
                                 s2.Seek((lIndex + 1) * oBlock2.Length, System.IO.SeekOrigin.Begin);
                             }
 
+                            // Decide how to restore blocks based on their status
                             if (bBlock1Present && !bBlock2Present)
                             {
+                                // Block present in file 1, missing in file 2, try to restore
                                 if (oSavedInfo2.AnalyzeForTestOrRestore(oBlock1, lIndex))
                                 {
                                     iLogWriter.WriteLogFormattedLocalized(1,
@@ -1542,6 +1558,7 @@ namespace SyncFoldersApi
                             else if (bBlock2Present && !bBlock1Present)
                             {
                                 /* TODO: this line of code isn't hit by any unit tests */
+                                // Block present in file 2, missing in file 1, try to restore
                                 if (oSavedInfo1.AnalyzeForTestOrRestore(oBlock2, lIndex))
                                 {
                                     aRestore1.Add(new RestoreInfo(lIndex * oBlock2.Length, oBlock2, false));
@@ -1557,7 +1574,8 @@ namespace SyncFoldersApi
                             }
                             else
                             {
-                                if (bBlock2Present && !bBlockStream1Ok)
+                                // Handle cases where blocks are present but not accepted
+                                if (bBlock2Present && !bBlock1Ok)
                                 {
                                     /* TODO: this line of code isn't hit by any unit tests */
                                     if (oSavedInfo1.AnalyzeForTestOrRestore(oBlock2, lIndex))
@@ -1591,6 +1609,7 @@ namespace SyncFoldersApi
                                 }
                             }
 
+                            // If both blocks are present, compare their contents
                             if (bBlock1Present && bBlock2Present)
                             {
                                 // if both blocks are present we'll compare their contents
@@ -1613,9 +1632,11 @@ namespace SyncFoldersApi
                                 }
                             }
 
+                            // Break if end of both files reached
                             if (s1.Position >= s1.Length && s2.Position >= s2.Length)
                                 break;
 
+                            // Check for cancellation
                             if (iSettings.CancelClicked)
                                 throw new OperationCanceledException();
 
@@ -1627,6 +1648,7 @@ namespace SyncFoldersApi
                     s1.Close();
                 }
 
+                // Finalize restore info for both files
                 long lNotRestoredSize1 = 0;
                 aRestore1.AddRange(oSavedInfo1.EndRestore(
                     out lNotRestoredSize1, fiSavedInfo1.FullName, iLogWriter));
@@ -1637,7 +1659,7 @@ namespace SyncFoldersApi
                     out lNotRestoredSize2, fiSavedInfo2.FullName, iLogWriter));
                 lNotRestoredSize2 = 0;
 
-                // now we've got the list of improvements for both files
+                // Apply improvements to file 2 (read/write), file 1 is read-only
                 using (IFile s1 = iFileSystem.Open(
                     strPathFile1, System.IO.FileMode.Open,
                     System.IO.FileAccess.Read, System.IO.FileShare.Read))
@@ -1648,8 +1670,8 @@ namespace SyncFoldersApi
                         System.IO.FileAccess.ReadWrite, System.IO.FileShare.Read))
                     {
 
-                        // let's apply improvements of one file to the list 
-                        // of the other, whenever possible (we are in first folder readonly case)
+                        // Apply improvements from file 1 to file 2
+                        // (we are in first folder readonly case)
                         foreach (RestoreInfo oRestoreInfo1 in aRestore1)
                         {
                             foreach (RestoreInfo oRestoreInfo2 in aRestore2)
@@ -1673,13 +1695,15 @@ namespace SyncFoldersApi
                             }
                         }
 
-                        // let's apply the definitive improvements
+                        // Apply definitive improvements to file 2
                         foreach (RestoreInfo oRestoreInfo2 in aRestore2)
                         {
                             if (oRestoreInfo2.NotRecoverableArea ||
                                 (iSettings.PreferPhysicalCopies &&
                                     oEqualBlocks.ContainsKey(oRestoreInfo2.Position / oRestoreInfo2.Data.Length)))
-                                ; // bForceCreateInfoBecauseDamaged = true;
+                            {
+                                ; // Block not recoverable or prefer physical copy, skip
+                            }
                             else
                             {
                                 iLogWriter.WriteLogFormattedLocalized(1,
@@ -1698,15 +1722,14 @@ namespace SyncFoldersApi
                                 if (nLengthToWrite > 0)
                                     oRestoreInfo2.Data.WriteTo(s2, nLengthToWrite);
 
-                                // we assume the block is readbable now
+                                // Mark block as readable now
                                 oReadableBlocks2[oRestoreInfo2.Position / oRestoreInfo2.Data.Length] = true;
                             }
                         }
 
 
 
-                        // let's try to copy non-recoverable blocks from one file to
-                        // another, whenever possible
+                        // Try to copy non-recoverable blocks from file 1 to file 2 if possible
                         foreach (RestoreInfo oRestoreInfo2 in aRestore2)
                         {
                             if (oRestoreInfo2.NotRecoverableArea &&
@@ -1734,7 +1757,7 @@ namespace SyncFoldersApi
                             }
                         }
 
-                        // after all fill non-readable blocks with zeroes
+                        // Fill non-readable blocks with zeroes in file 2
                         foreach (RestoreInfo oRestoreInfo2 in aRestore2)
                         {
                             if (oRestoreInfo2.NotRecoverableArea &&
@@ -1767,6 +1790,7 @@ namespace SyncFoldersApi
                     s1.Close();
                 }
 
+                // Log summary of bad blocks in file 2
                 if (aRestore2.Count > 0)
                 {
                     iLogWriter.WriteLogFormattedLocalized(0,
@@ -1778,6 +1802,7 @@ namespace SyncFoldersApi
                         " not restored bytes: ", lNotRestoredSize2);
                 }
 
+                // Log summary of bad blocks in file 1 (read-only)
                 if (aRestore1.Count > 0)
                 {
                     iLogWriter.WriteLogFormattedLocalized(0,
@@ -1789,6 +1814,7 @@ namespace SyncFoldersApi
                         ", because it can't be modified ");
                 }
 
+                // Update last write time and saved info for file 2
                 if (lNotRestoredSize2 > 0)
                 {
                     int nCountErrors = (int)(lNotRestoredSize2 / (new Block().Length));
@@ -1808,13 +1834,11 @@ namespace SyncFoldersApi
             }
             else
             {
+                // If no valid saved info, compare blocks directly between files
                 System.DateTime dtmPrevLastWriteTime = fi1.LastWriteTimeUtc;
 
-                // let's read both copies of the 
-                // file that obviously are both present, without saved info
                 List<RestoreInfo> aRestore2 = new List<RestoreInfo>();
 
-                // now let's' try to read the files and compare 
                 long lNotRestoredSize2 = 0;
                 long lBadBlocks2 = 0;
                 long lBadBlocks1 = 0;
@@ -1828,20 +1852,22 @@ namespace SyncFoldersApi
                         Block oBlock1 = new Block();
                         Block oBlock2 = new Block();
 
+                        // Read all blocks paralelly
                         for (long lIndex = 0; ; ++lIndex)
                         {
 
                             bool bBlock1Present = false;
                             bool bStillCreateEmptyBlock = false;
 
+                            // Read block from file 1
                             try
                             {
                                 int nReadCount = oBlock1.ReadFrom(s1);
 
                                 if (nReadCount > 0)
                                 {
-                                    for (int i = oBlock1.Length - 1; i >= nReadCount; --i)
-                                        oBlock1[i] = 0;
+                                    // Fill the rest with zeros
+                                    oBlock1.EraseFrom(nReadCount);
 
                                     bBlock1Present = true;
                                 }
@@ -1850,32 +1876,32 @@ namespace SyncFoldersApi
                             {
                                 ++lBadBlocks1;
 
-                                iLogWriter.WriteLogFormattedLocalized(2, 
+                                iLogWriter.WriteLogFormattedLocalized(2,
                                     Properties.Resources.IOErrorReadingFile,
                                     strPathFile1, oEx.Message, oEx.Message);
 
-                                iLogWriter.WriteLog(true, 2, 
+                                iLogWriter.WriteLog(true, 2,
                                     "I/O error while reading file \"",
                                     strPathFile1, "\": ", oEx.Message);
 
                                 s1.Seek((lIndex + 1) * oBlock1.Length,
                                     System.IO.SeekOrigin.Begin);
 
-                                // fill the block with zeros, so dummy block is empty, just in case
-                                for (int i = oBlock1.Length - 1; i >= 0; --i)
-                                    oBlock1[i] = 0;
+                                // Fill the block with zeros, so dummy block is empty, just in case
+                                oBlock1.Erase();
                             }
 
                             bool bBlock2Present = false;
 
+                            // Read block from file 2
                             try
                             {
                                 int nReadCount = oBlock2.ReadFrom(s2);
 
                                 if (nReadCount > 0)
                                 {
-                                    for (int i = oBlock2.Length - 1; i >= nReadCount; --i)
-                                        oBlock2[i] = 0;
+                                    // Fill the rest with zeros
+                                    oBlock2.EraseFrom(nReadCount);
 
                                     bBlock2Present = true;
                                 }
@@ -1886,11 +1912,11 @@ namespace SyncFoldersApi
 
                                 ++lBadBlocks2;
 
-                                iLogWriter.WriteLogFormattedLocalized(2, 
+                                iLogWriter.WriteLogFormattedLocalized(2,
                                     Properties.Resources.IOErrorReadingFile,
                                     strPathFile2, oEx.Message);
 
-                                iLogWriter.WriteLog(true, 2, 
+                                iLogWriter.WriteLog(true, 2,
                                     "I/O error while reading file \"",
                                     strPathFile2, "\": ", oEx.Message);
 
@@ -1898,6 +1924,7 @@ namespace SyncFoldersApi
                                     System.IO.SeekOrigin.Begin);
                             }
 
+                            // Restore blocks in file 2 based on file 1
                             if (bBlock1Present && !bBlock2Present)
                             {
                                 iLogWriter.WriteLogFormattedLocalized(1,
@@ -1909,6 +1936,8 @@ namespace SyncFoldersApi
 
                                 aRestore2.Add(new RestoreInfo(lIndex * oBlock1.Length, oBlock1, false));
                             }
+                            // Non-recoverable in file 2, but there is still a block in 1
+                            // so need to overwrite
                             else if (!bBlock1Present && !bBlock2Present && bStillCreateEmptyBlock)
                             {
                                 iLogWriter.WriteLogFormattedLocalized(1,
@@ -1921,9 +1950,11 @@ namespace SyncFoldersApi
                                 aRestore2.Add(new RestoreInfo(lIndex * oBlock1.Length, oBlock1, true));
                             }
 
-                            if (s1.Position >= s1.Length && s2.Position>=s2.Length)
+                            // Break if end of both files reached
+                            if (s1.Position >= s1.Length && s2.Position >= s2.Length)
                                 break;
 
+                            // Check for cancellation
                             if (iSettings.CancelClicked)
                                 throw new OperationCanceledException();
 
@@ -1935,7 +1966,7 @@ namespace SyncFoldersApi
                     s1.Close();
                 }
 
-
+                // Write restored blocks to file 2
                 using (IFile s2 = iFileSystem.Open(
                     strPathFile2, System.IO.FileMode.Open,
                     System.IO.FileAccess.ReadWrite, System.IO.FileShare.Read))
@@ -1957,6 +1988,7 @@ namespace SyncFoldersApi
                     }
                 }
 
+                // Log summary of bad blocks in file 2
                 if (lBadBlocks2 > 0)
                 {
                     iLogWriter.WriteLogFormattedLocalized(0,
@@ -1967,6 +1999,7 @@ namespace SyncFoldersApi
                         fi2.FullName, " not restored bytes: ", lNotRestoredSize2);
                 }
 
+                // Log summary of bad blocks in file 1 (read-only)
                 if (lBadBlocks1 > 0)
                 {
                     iLogWriter.WriteLogFormattedLocalized(0,
@@ -1977,7 +2010,7 @@ namespace SyncFoldersApi
                         fi1.FullName, ", because it can't be modified ");
                 }
 
-
+                // Update last write time and saved info for file 2
                 if (lNotRestoredSize2 > 0)
                 {
                     int nCountErrors = (int)(lNotRestoredSize2 / (new Block().Length));
