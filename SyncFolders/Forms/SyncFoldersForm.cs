@@ -1035,7 +1035,7 @@ namespace SyncFolders
             if (m_oSettings.TestFiles)
             {
                 m_oLogFile.WriteLine("      RepairFiles: " + (m_oSettings.RepairFiles ? "yes" : "no"));
-                m_oLogFileLocalized.WriteLine(m_cbRepairBlockFailures + ": " + (m_oSettings.RepairFiles ? Resources.Yes : Resources.No));
+                m_oLogFileLocalized.WriteLine(m_cbRepairBlockFailures.Text + ": " + (m_oSettings.RepairFiles ? Resources.Yes : Resources.No));
                 if (m_oSettings.RepairFiles)
                 {
                     m_oLogFile.WriteLine("     PreferCopies: " + (m_oSettings.PreferPhysicalCopies ? "yes" : "no"));
