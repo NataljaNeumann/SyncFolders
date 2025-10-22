@@ -2344,7 +2344,7 @@ namespace SyncFoldersApi
 
         //===================================================================================================
         /// <summary>
-        /// This method bidirectionylly tests and/or repairs two original files, together with two saved 
+        /// This method bidirectionally tests and/or repairs two original files, together with two saved 
         /// info files
         /// </summary>
         /// <param name="strPathFile1">The path of first original file</param>
@@ -2352,10 +2352,10 @@ namespace SyncFoldersApi
         /// <param name="strPathSavedInfo1">The path of saved info for first file</param>
         /// <param name="strPathSavedInfo2">The path of saved info for second file</param>
         /// <param name="bForceCreateInfo">If saved info needs to be updated then method sets given 
+        /// var to true</param>
         /// <param name="iFileSystem">File system abstraction for performing operations</param>
         /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
         /// <param name="iLogWriter">Logger used for outputting messages</param>
-        /// var to true</param>
         //===================================================================================================
         public void TestAndRepairTwoFiles(
             string strPathFile1,
@@ -2367,17 +2367,20 @@ namespace SyncFoldersApi
             IFilePairStepsSettings iSettings,
             ILogWriter iLogWriter)
         {
+            // Check if resources are present
             if (Properties.Resources == null)
                 throw new ArgumentNullException(nameof(Properties.Resources));
 
-            // if it is only a single file, then fallback to the single file method
+            // If both paths are the same, fallback to single file repair
             if (strPathFile1.Equals(strPathFile2, StringComparison.InvariantCultureIgnoreCase))
             {
-                TestAndRepairSingleFile(strPathFile1, strPathSavedInfo1, ref bForceCreateInfo, false, 
+                TestAndRepairSingleFile(strPathFile1, strPathSavedInfo1, ref bForceCreateInfo, false,
                     iFileSystem, iSettings, iLogWriter);
+
                 return;
             }
 
+            // Get file info about the original files and about saved info for both files
             IFileInfo fi1 = iFileSystem.GetFileInfo(strPathFile1);
             IFileInfo fi2 = iFileSystem.GetFileInfo(strPathFile2);
             IFileInfo fiSavedInfo1 = iFileSystem.GetFileInfo(strPathSavedInfo1);
@@ -2388,6 +2391,7 @@ namespace SyncFoldersApi
 
             bool bSaveInfo1Present = false;
 
+            // Try to read and validate saved info for file 1
             if (fiSavedInfo1.Exists &&
                 fiSavedInfo1.LastWriteTimeUtc == fi1.LastWriteTimeUtc)
             {
@@ -2407,6 +2411,7 @@ namespace SyncFoldersApi
                     }
                     else
                     {
+                        // If valid, try to read saved info 2 from same stream
                         s.Seek(0, System.IO.SeekOrigin.Begin);
                         si2.ReadFrom(s, false);
                     }
@@ -2414,6 +2419,7 @@ namespace SyncFoldersApi
                 }
             }
 
+            // Try to read and validate saved info for file 2
             if (fiSavedInfo2.Exists &&
                 fiSavedInfo2.LastWriteTimeUtc == fi2.LastWriteTimeUtc)
             {
@@ -2443,15 +2449,14 @@ namespace SyncFoldersApi
                 }
             }
 
-
             if (bSaveInfo1Present)
             {
+                // If valid saved info is present, try to improve both saved infos
                 System.DateTime dtmPrevLastWriteTime = fi1.LastWriteTimeUtc;
 
-                // improve the available saved infos, if needed 
                 si1.ImproveThisAndOther(si2);
 
-                // the list of equal blocks, so we don't overwrite obviously correct blocks
+                // Dictionaries to track block status
                 Dictionary<long, bool> oEqualBlocks = new Dictionary<long, bool>();
                 Dictionary<long, bool> oReadableBlocks1 = new Dictionary<long, bool>();
                 Dictionary<long, bool> oReadableBlocks2 = new Dictionary<long, bool>();
@@ -2459,7 +2464,7 @@ namespace SyncFoldersApi
                 List<RestoreInfo> aRestore1 = new List<RestoreInfo>();
                 List<RestoreInfo> aRestore2 = new List<RestoreInfo>();
 
-                // now let's try to read the files and compare 
+                // Read and compare blocks from both files
                 using (IFile s1 =
                     iFileSystem.OpenRead(strPathFile1))
                 {
@@ -2474,12 +2479,7 @@ namespace SyncFoldersApi
 
                         for (long lIndex = 0; ; ++lIndex)
                         {
-                            //for (int i = oBlock1.Length - 1; i >= 0; --i)
-                            //{
-                            //    oBlock1[i] = 0;
-                            //    oBlock2[i] = 0;
-                            //}
-
+                            // Read block from file 1 and analyze
                             bool bBlock1Present = false;
                             bool bBlock1Ok = false;
 
@@ -2497,9 +2497,8 @@ namespace SyncFoldersApi
                                 {
                                     if (nRead > 0)
                                     {
-                                        // fill the rest with zeros
-                                        while (nRead < oBlock1.Length)
-                                            oBlock1[nRead++] = 0;
+                                        // Fill the rest with zeros
+                                        oBlock1.EraseFrom(nRead);
 
                                         bBlock1Ok = si1.AnalyzeForTestOrRestore(oBlock1, lIndex);
                                         oReadableBlocks1[lIndex] = true;
@@ -2514,18 +2513,18 @@ namespace SyncFoldersApi
                                         Properties.Resources.ChecksumOfBlockAtOffsetNotOK,
                                         strPathFile1, lIndex * oBlock1.Length);
 
-                                    iLogWriter.WriteLog(true, 2, strPathFile1, 
+                                    iLogWriter.WriteLog(true, 2, strPathFile1,
                                         ": checksum of block at offset ",
                                         lIndex * oBlock1.Length, " not OK");
                                 }
                             }
                             catch (System.IO.IOException oEx)
                             {
-                                iLogWriter.WriteLogFormattedLocalized(2, 
+                                iLogWriter.WriteLogFormattedLocalized(2,
                                     Properties.Resources.IOErrorReadingFile,
                                     strPathFile1, oEx.Message);
 
-                                iLogWriter.WriteLog(true, 2, 
+                                iLogWriter.WriteLog(true, 2,
                                     "I/O exception while reading file \"",
                                     strPathFile1, "\": ", oEx.Message);
 
@@ -2533,6 +2532,7 @@ namespace SyncFoldersApi
                                     System.IO.SeekOrigin.Begin);
                             }
 
+                            // Read block from file 2 and analyze
                             bool bBlock2Present = false;
                             bool bBlock2Ok = false;
 
@@ -2549,9 +2549,8 @@ namespace SyncFoldersApi
                                 {
                                     if (nRead > 0)
                                     {
-                                        // fill the rest with zeros
-                                        while (nRead < oBlock2.Length)
-                                            oBlock2[nRead++] = 0;
+                                        // Fill the rest with zeros
+                                        oBlock2.EraseFrom(nRead);
 
                                         bBlock2Ok = si2.AnalyzeForTestOrRestore(oBlock2, lIndex);
                                         oReadableBlocks2[lIndex] = true;
@@ -2566,18 +2565,18 @@ namespace SyncFoldersApi
                                         Properties.Resources.ChecksumOfBlockAtOffsetNotOK,
                                         strPathFile2, lIndex * oBlock2.Length);
 
-                                    iLogWriter.WriteLog(true, 2, strPathFile2, 
+                                    iLogWriter.WriteLog(true, 2, strPathFile2,
                                         ": checksum of block at offset ",
                                         lIndex * oBlock2.Length, " not OK");
                                 }
                             }
                             catch (System.IO.IOException oEx)
                             {
-                                iLogWriter.WriteLogFormattedLocalized(2, 
+                                iLogWriter.WriteLogFormattedLocalized(2,
                                     Properties.Resources.IOErrorReadingFile,
                                     strPathFile2, oEx.Message);
 
-                                iLogWriter.WriteLog(true, 2, 
+                                iLogWriter.WriteLog(true, 2,
                                     "I/O exception while reading file \"",
                                     strPathFile2, "\": ", oEx.Message);
 
@@ -2585,6 +2584,7 @@ namespace SyncFoldersApi
                                     System.IO.SeekOrigin.Begin);
                             }
 
+                            // Decide how to restore blocks based on their status
                             if (bBlock1Present && !bBlock2Present)
                             {
                                 if (si2.AnalyzeForTestOrRestore(oBlock1, lIndex))
@@ -2617,6 +2617,7 @@ namespace SyncFoldersApi
                             }
                             else
                             {
+                                // Handle cases where blocks are present but not accepted
                                 if (bBlock2Present && !bBlock1Ok)
                                 {
                                     /* TODO: this line of code isn't hit by any unit tests */
@@ -2652,10 +2653,10 @@ namespace SyncFoldersApi
                                 }
                             }
 
+                            // If both blocks are present, compare their contents
                             if (bBlock1Present && bBlock2Present)
                             {
-                                // if both blocks are present we'll compare their contents
-                                // equal blocks have higher priority compared to their checksums and saved infos
+                                // If both blocks are present, compare their contents for equality
                                 bool bDifferent = false;
 
                                 for (int i = oBlock1.Length - 1; i >= 0; --i)
@@ -2672,9 +2673,11 @@ namespace SyncFoldersApi
                                 }
                             }
 
+                            // Break if end of both files reached
                             if (s1.Position >= s1.Length && s2.Position >= s2.Length)
                                 break;
 
+                            // Check for cancellation
                             if (iSettings.CancelClicked)
                                 throw new OperationCanceledException();
 
@@ -2686,6 +2689,7 @@ namespace SyncFoldersApi
                     s1.Close();
                 }
 
+                // Repeat cross-restores until no further improvements
                 bool bRepeat;
                 SortedDictionary<long, RestoreInfo> oRestoreDic1 = new SortedDictionary<long, RestoreInfo>();
                 SortedDictionary<long, RestoreInfo> oRestoreDic2 = new SortedDictionary<long, RestoreInfo>();
@@ -2698,6 +2702,7 @@ namespace SyncFoldersApi
 
                     bRepeat = false;
 
+                    // Collect restore info for file 1
                     foreach (RestoreInfo ri1 in si1.EndRestore(out lNotRestoredSize1, fiSavedInfo1.FullName, iLogWriter))
                     {
                         if (!oRestoreDic1.ContainsKey(ri1.Position) ||
@@ -2708,6 +2713,7 @@ namespace SyncFoldersApi
 
                     }
 
+                    // Collect restore info for file 2
                     foreach (RestoreInfo ri2 in si2.EndRestore(out lNotRestoredSize2, fiSavedInfo2.FullName, iLogWriter))
                     {
                         if (!oRestoreDic2.ContainsKey(ri2.Position) ||
@@ -2717,9 +2723,7 @@ namespace SyncFoldersApi
                         }
                     }
 
-
-                    // let's apply improvements of one file 
-                    // to the list of the other, whenever possible
+                    // Apply improvements from file 1 to file 2
                     foreach (RestoreInfo oRestoreInfo1 in oRestoreDic1.Values)
                     {
                         if (oRestoreDic2.ContainsKey(oRestoreInfo1.Position))
@@ -2747,6 +2751,7 @@ namespace SyncFoldersApi
                         }
                     }
 
+                    // Apply improvements from file 2 to file 1
                     foreach (RestoreInfo oRestoreInfo2 in oRestoreDic2.Values)
                     {
                         if (oRestoreDic1.ContainsKey(oRestoreInfo2.Position))
@@ -2784,7 +2789,7 @@ namespace SyncFoldersApi
                 lNotRestoredSize1 = 0;
                 lNotRestoredSize2 = 0;
 
-                // transfer to arrays
+                // Transfer restore info to arrays that we will use later in code
                 foreach (var oPair in oRestoreDic1)
                 {
                     aRestore1.Add(oPair.Value);
@@ -2795,217 +2800,256 @@ namespace SyncFoldersApi
                     aRestore2.Add(oPair.Value);
                 }
 
-                // now we've got the list of improvements for both files
-                using (IFile s1 = iFileSystem.Open(
-                    strPathFile1, System.IO.FileMode.Open,
-                    System.IO.FileAccess.ReadWrite, System.IO.FileShare.Read))
+                try
                 {
-
-                    using (IFile s2 = iFileSystem.Open(
-                        strPathFile2, System.IO.FileMode.Open,
+                    // Apply definitive improvements to both files
+                    using (IFile s1 = iFileSystem.Open(
+                        strPathFile1, System.IO.FileMode.Open,
                         System.IO.FileAccess.ReadWrite, System.IO.FileShare.Read))
                     {
 
-                        // let's apply the definitive improvements
-                        foreach (RestoreInfo oRestoreInfo1 in aRestore1)
+                        using (IFile s2 = iFileSystem.Open(
+                            strPathFile2, System.IO.FileMode.Open,
+                            System.IO.FileAccess.ReadWrite, System.IO.FileShare.Read))
                         {
-                            if (oRestoreInfo1.NotRecoverableArea ||
-                                (iSettings.PreferPhysicalCopies &&
-                                    oEqualBlocks.ContainsKey(oRestoreInfo1.Position / oRestoreInfo1.Data.Length)))
-                                ;// bForceCreateInfoBecauseDamaged = true;
-                            else
+
+                            // Apply improvements to file 1
+                            foreach (RestoreInfo oRestoreInfo1 in aRestore1)
                             {
-                                iLogWriter.WriteLogFormattedLocalized(1,
-                                    Properties.Resources.RecoveringBlockAtOffsetOfFile,
-                                    oRestoreInfo1.Position, fi1.FullName);
+                                if (oRestoreInfo1.NotRecoverableArea ||
+                                    (iSettings.PreferPhysicalCopies &&
+                                        oEqualBlocks.ContainsKey(oRestoreInfo1.Position / oRestoreInfo1.Data.Length)))
+                                {
+                                    ;// bForceCreateInfoBecauseDamaged = true;
+                                }
+                                else
+                                {
+                                    iLogWriter.WriteLogFormattedLocalized(1,
+                                        Properties.Resources.RecoveringBlockAtOffsetOfFile,
+                                        oRestoreInfo1.Position, fi1.FullName);
 
-                                iLogWriter.WriteLog(true, 1, "Recovering block of ", fi1.FullName,
-                                    " at position ", oRestoreInfo1.Position);
+                                    iLogWriter.WriteLog(true, 1, "Recovering block of ", fi1.FullName,
+                                        " at position ", oRestoreInfo1.Position);
 
-                                s1.Seek(oRestoreInfo1.Position, System.IO.SeekOrigin.Begin);
+                                    s1.Seek(oRestoreInfo1.Position, System.IO.SeekOrigin.Begin);
 
-                                int nLengthToWrite = (int)(si1.Length - oRestoreInfo1.Position >= oRestoreInfo1.Data.Length ?
-                                    oRestoreInfo1.Data.Length :
-                                    si1.Length - oRestoreInfo1.Position);
+                                    int nLengthToWrite = (int)(si1.Length - oRestoreInfo1.Position >= oRestoreInfo1.Data.Length ?
+                                        oRestoreInfo1.Data.Length :
+                                        si1.Length - oRestoreInfo1.Position);
 
-                                if (nLengthToWrite > 0)
-                                    oRestoreInfo1.Data.WriteTo(s1, nLengthToWrite);
+                                    if (nLengthToWrite > 0)
+                                        oRestoreInfo1.Data.WriteTo(s1, nLengthToWrite);
 
-                                // we assume the block is readbable now
-                                oReadableBlocks1[oRestoreInfo1.Position / oRestoreInfo1.Data.Length] = true;
+                                    // Mark block as readable now
+                                    oReadableBlocks1[oRestoreInfo1.Position / oRestoreInfo1.Data.Length] = true;
+                                }
                             }
+
+                            // Apply improvements to file 2
+                            foreach (RestoreInfo oRestoredInfo2 in aRestore2)
+                            {
+                                if (oRestoredInfo2.NotRecoverableArea ||
+                                    (iSettings.PreferPhysicalCopies &&
+                                        oEqualBlocks.ContainsKey(oRestoredInfo2.Position / oRestoredInfo2.Data.Length)))
+                                {
+                                    ; // bForceCreateInfoBecauseDamaged = true;
+                                }
+                                else
+                                {
+                                    iLogWriter.WriteLogFormattedLocalized(1,
+                                        Properties.Resources.RecoveringBlockAtOffsetOfFile,
+                                        oRestoredInfo2.Position, fi2.FullName);
+
+                                    iLogWriter.WriteLog(true, 1, "Recovering block of ", fi2.FullName,
+                                        " at position ", oRestoredInfo2.Position);
+
+                                    s2.Seek(oRestoredInfo2.Position, System.IO.SeekOrigin.Begin);
+
+                                    int nLengthToWrite = (int)(si2.Length - oRestoredInfo2.Position >= oRestoredInfo2.Data.Length ?
+                                        oRestoredInfo2.Data.Length :
+                                        si2.Length - oRestoredInfo2.Position);
+
+                                    if (nLengthToWrite > 0)
+                                        oRestoredInfo2.Data.WriteTo(s2, nLengthToWrite);
+
+                                    // Mark block as readable now
+                                    oReadableBlocks2[oRestoredInfo2.Position / oRestoredInfo2.Data.Length] = true;
+                                }
+                            }
+
+                            // Try to copy non-recoverable blocks from one file to another, whenever possible
+                            foreach (RestoreInfo oRestoreInfo1 in aRestore1)
+                            {
+                                if (oRestoreInfo1.NotRecoverableArea &&
+                                    !oEqualBlocks.ContainsKey(oRestoreInfo1.Position / oRestoreInfo1.Data.Length) &&
+                                    oReadableBlocks2.ContainsKey(oRestoreInfo1.Position / oRestoreInfo1.Data.Length) &&
+                                    !oReadableBlocks1.ContainsKey(oRestoreInfo1.Position / oRestoreInfo1.Data.Length))
+                                {
+                                    /* TODO: this line of code isn't hit by any unit tests */
+                                    iLogWriter.WriteLogFormattedLocalized(1,
+                                        Properties.Resources.BlockOfAtPositionWillBeCopiedFromNoMatterChecksum,
+                                        fi1.FullName, oRestoreInfo1.Position, fi2.FullName);
+
+                                    iLogWriter.WriteLog(true, 1, "Block of ", fi1.FullName, " position ",
+                                        oRestoreInfo1.Position, " will be copied from ",
+                                        fi2.FullName, " even if checksum indicates the block is wrong");
+
+                                    s1.Seek(oRestoreInfo1.Position, System.IO.SeekOrigin.Begin);
+                                    s2.Seek(oRestoreInfo1.Position, System.IO.SeekOrigin.Begin);
+
+                                    Block oTempBlock = new Block();
+                                    int nLength = oTempBlock.ReadFrom(s2);
+                                    oTempBlock.WriteTo(s1, nLength);
+
+                                    oReadableBlocks1[oRestoreInfo1.Position / oRestoreInfo1.Data.Length] = true;
+                                }
+                            }
+
+
+                            foreach (RestoreInfo oRestoreInfo2 in aRestore2)
+                            {
+                                if (oRestoreInfo2.NotRecoverableArea &&
+                                    !oEqualBlocks.ContainsKey(oRestoreInfo2.Position / oRestoreInfo2.Data.Length) &&
+                                    oReadableBlocks1.ContainsKey(oRestoreInfo2.Position / oRestoreInfo2.Data.Length) &&
+                                    !oReadableBlocks2.ContainsKey(oRestoreInfo2.Position / oRestoreInfo2.Data.Length))
+
+                                {
+                                    /* TODO: this line of code isn't hit by any unit tests */
+                                    iLogWriter.WriteLogFormattedLocalized(1,
+                                        Properties.Resources.BlockOfAtPositionWillBeCopiedFromNoMatterChecksum,
+                                        fi2.FullName, oRestoreInfo2.Position, fi1.FullName);
+
+                                    iLogWriter.WriteLog(true, 1, "Block of ", fi2.FullName, " position ",
+                                        oRestoreInfo2.Position, " will be copied from ", fi1.FullName,
+                                        " even if checksum indicates the block is wrong");
+
+                                    s1.Seek(oRestoreInfo2.Position, System.IO.SeekOrigin.Begin);
+                                    s2.Seek(oRestoreInfo2.Position, System.IO.SeekOrigin.Begin);
+
+                                    Block oTempBlock = new Block();
+                                    int nLength = oTempBlock.ReadFrom(s1);
+                                    oTempBlock.WriteTo(s2, nLength);
+
+                                    oReadableBlocks2[oRestoreInfo2.Position / oRestoreInfo2.Data.Length] = true;
+                                }
+                            }
+
+                            // Fill non-readable blocks with zeroes in both files
+                            foreach (RestoreInfo oRestoreInfo1 in aRestore1)
+                            {
+                                if (oRestoreInfo1.NotRecoverableArea &&
+                                    !oEqualBlocks.ContainsKey(oRestoreInfo1.Position / oRestoreInfo1.Data.Length) &&
+                                    !oReadableBlocks1.ContainsKey(oRestoreInfo1.Position / oRestoreInfo1.Data.Length))
+                                {
+                                    iLogWriter.WriteLogFormattedLocalized(1,
+                                        Properties.Resources.BlockOfAtPositionNotRecoverableFillDumy,
+                                        fi1.FullName, oRestoreInfo1.Position);
+
+                                    iLogWriter.WriteLog(true, 1, "Block of ", fi1.FullName, " position ",
+                                        oRestoreInfo1.Position, " is not recoverable and will be filled with a dummy");
+
+                                    s1.Seek(oRestoreInfo1.Position, System.IO.SeekOrigin.Begin);
+
+                                    int nLengthToWrite = (int)(si1.Length - oRestoreInfo1.Position >= oRestoreInfo1.Data.Length ?
+                                        oRestoreInfo1.Data.Length :
+                                        si1.Length - oRestoreInfo1.Position);
+
+                                    if (nLengthToWrite > 0)
+                                        oRestoreInfo1.Data.WriteTo(s1, nLengthToWrite);
+                                }
+                            }
+
+
+                            foreach (RestoreInfo oRestoreInfo2 in aRestore2)
+                            {
+                                if (oRestoreInfo2.NotRecoverableArea &&
+                                    !oEqualBlocks.ContainsKey(oRestoreInfo2.Position / oRestoreInfo2.Data.Length) &&
+                                    !oReadableBlocks2.ContainsKey(oRestoreInfo2.Position / oRestoreInfo2.Data.Length))
+                                {
+                                    iLogWriter.WriteLogFormattedLocalized(1,
+                                        Properties.Resources.BlockOfAtPositionNotRecoverableFillDumy,
+                                        fi2.FullName, oRestoreInfo2.Position);
+
+                                    iLogWriter.WriteLog(true, 1, "Block of ", fi2.FullName,
+                                        " position ", oRestoreInfo2.Position,
+                                        " is not recoverable and will be filled with a dummy");
+
+                                    s2.Seek(oRestoreInfo2.Position, System.IO.SeekOrigin.Begin);
+
+                                    int nLengthToWrite = (int)(si2.Length - oRestoreInfo2.Position >= oRestoreInfo2.Data.Length ?
+                                        oRestoreInfo2.Data.Length :
+                                        si2.Length - oRestoreInfo2.Position);
+
+                                    if (nLengthToWrite > 0)
+                                        oRestoreInfo2.Data.WriteTo(s2, nLengthToWrite);
+                                }
+                            }
+
+                            s2.Close();
                         }
 
-
-                        foreach (RestoreInfo oRestoredInfo2 in aRestore2)
-                        {
-                            if (oRestoredInfo2.NotRecoverableArea ||
-                                (iSettings.PreferPhysicalCopies &&
-                                    oEqualBlocks.ContainsKey(oRestoredInfo2.Position / oRestoredInfo2.Data.Length)))
-                                ; // bForceCreateInfoBecauseDamaged = true;
-                            else
-                            {
-                                iLogWriter.WriteLogFormattedLocalized(1,
-                                    Properties.Resources.RecoveringBlockAtOffsetOfFile,
-                                    oRestoredInfo2.Position, fi2.FullName);
-
-                                iLogWriter.WriteLog(true, 1, "Recovering block of ", fi2.FullName,
-                                    " at position ", oRestoredInfo2.Position);
-
-                                s2.Seek(oRestoredInfo2.Position, System.IO.SeekOrigin.Begin);
-
-                                int nLengthToWrite = (int)(si2.Length - oRestoredInfo2.Position >= oRestoredInfo2.Data.Length ?
-                                    oRestoredInfo2.Data.Length :
-                                    si2.Length - oRestoredInfo2.Position);
-
-                                if (nLengthToWrite > 0)
-                                    oRestoredInfo2.Data.WriteTo(s2, nLengthToWrite);
-
-                                // we assume the block is readbable now
-                                oReadableBlocks2[oRestoredInfo2.Position / oRestoredInfo2.Data.Length] = true;
-                            }
-                        }
-
-
-                        // let's try to copy non-recoverable 
-                        // blocks from one file to another, whenever possible
-                        foreach (RestoreInfo oRestoreInfo1 in aRestore1)
-                        {
-                            if (oRestoreInfo1.NotRecoverableArea && 
-                                !oEqualBlocks.ContainsKey(oRestoreInfo1.Position / oRestoreInfo1.Data.Length) &&
-                                oReadableBlocks2.ContainsKey(oRestoreInfo1.Position / oRestoreInfo1.Data.Length) &&
-                                !oReadableBlocks1.ContainsKey(oRestoreInfo1.Position / oRestoreInfo1.Data.Length))
-                            {
-                                /* TODO: this line of code isn't hit by any unit tests */
-                                iLogWriter.WriteLogFormattedLocalized(1,
-                                    Properties.Resources.BlockOfAtPositionWillBeCopiedFromNoMatterChecksum,
-                                    fi1.FullName, oRestoreInfo1.Position, fi2.FullName);
-
-                                iLogWriter.WriteLog(true, 1, "Block of ", fi1.FullName, " position ",
-                                    oRestoreInfo1.Position, " will be copied from ",
-                                    fi2.FullName, " even if checksum indicates the block is wrong");
-
-                                s1.Seek(oRestoreInfo1.Position, System.IO.SeekOrigin.Begin);
-                                s2.Seek(oRestoreInfo1.Position, System.IO.SeekOrigin.Begin);
-
-                                Block oTempBlock = new Block();
-                                int nLength = oTempBlock.ReadFrom(s2);
-                                oTempBlock.WriteTo(s1, nLength);
-
-                                oReadableBlocks1[oRestoreInfo1.Position / oRestoreInfo1.Data.Length] = true;
-                            }
-                        }
-
-
-                        foreach (RestoreInfo oRestoreInfo2 in aRestore2)
-                        {
-                            if (oRestoreInfo2.NotRecoverableArea && 
-                                !oEqualBlocks.ContainsKey(oRestoreInfo2.Position / oRestoreInfo2.Data.Length) &&
-                                oReadableBlocks1.ContainsKey(oRestoreInfo2.Position / oRestoreInfo2.Data.Length) &&
-                                !oReadableBlocks2.ContainsKey(oRestoreInfo2.Position / oRestoreInfo2.Data.Length))
-
-                            {
-                                /* TODO: this line of code isn't hit by any unit tests */
-                                iLogWriter.WriteLogFormattedLocalized(1,
-                                    Properties.Resources.BlockOfAtPositionWillBeCopiedFromNoMatterChecksum,
-                                    fi2.FullName, oRestoreInfo2.Position, fi1.FullName);
-
-                                iLogWriter.WriteLog(true, 1, "Block of ", fi2.FullName, " position ",
-                                    oRestoreInfo2.Position, " will be copied from ", fi1.FullName,
-                                    " even if checksum indicates the block is wrong");
-
-                                s1.Seek(oRestoreInfo2.Position, System.IO.SeekOrigin.Begin);
-                                s2.Seek(oRestoreInfo2.Position, System.IO.SeekOrigin.Begin);
-
-                                Block oTempBlock = new Block();
-                                int nLength = oTempBlock.ReadFrom(s1);
-                                oTempBlock.WriteTo(s2, nLength);
-
-                                oReadableBlocks2[oRestoreInfo2.Position / oRestoreInfo2.Data.Length] = true;
-                            }
-                        }
-
-                        // after all fill non-readable blocks with zeroes
-                        foreach (RestoreInfo oRestoreInfo1 in aRestore1)
-                        {
-                            if (oRestoreInfo1.NotRecoverableArea && 
-                                !oEqualBlocks.ContainsKey(oRestoreInfo1.Position / oRestoreInfo1.Data.Length) &&
-                                !oReadableBlocks1.ContainsKey(oRestoreInfo1.Position / oRestoreInfo1.Data.Length))
-                            {
-                                iLogWriter.WriteLogFormattedLocalized(1,
-                                    Properties.Resources.BlockOfAtPositionNotRecoverableFillDumy,
-                                    fi1.FullName, oRestoreInfo1.Position);
-
-                                iLogWriter.WriteLog(true, 1, "Block of ", fi1.FullName, " position ",
-                                    oRestoreInfo1.Position, " is not recoverable and will be filled with a dummy");
-
-                                s1.Seek(oRestoreInfo1.Position, System.IO.SeekOrigin.Begin);
-
-                                int nLengthToWrite = (int)(si1.Length - oRestoreInfo1.Position >= oRestoreInfo1.Data.Length ?
-                                    oRestoreInfo1.Data.Length :
-                                    si1.Length - oRestoreInfo1.Position);
-
-                                if (nLengthToWrite > 0)
-                                    oRestoreInfo1.Data.WriteTo(s1, nLengthToWrite);
-                            }
-                        }
-
-
-                        foreach (RestoreInfo oRestoreInfo2 in aRestore2)
-                        {
-                            if (oRestoreInfo2.NotRecoverableArea &&
-                                !oEqualBlocks.ContainsKey(oRestoreInfo2.Position / oRestoreInfo2.Data.Length) &&
-                                !oReadableBlocks2.ContainsKey(oRestoreInfo2.Position / oRestoreInfo2.Data.Length))
-                            {
-                                iLogWriter.WriteLogFormattedLocalized(1,
-                                    Properties.Resources.BlockOfAtPositionNotRecoverableFillDumy,
-                                    fi2.FullName, oRestoreInfo2.Position);
-
-                                iLogWriter.WriteLog(true, 1, "Block of ", fi2.FullName,
-                                    " position ", oRestoreInfo2.Position,
-                                    " is not recoverable and will be filled with a dummy");
-
-                                s2.Seek(oRestoreInfo2.Position, System.IO.SeekOrigin.Begin);
-
-                                int nLengthToWrite = (int)(si2.Length - oRestoreInfo2.Position >= oRestoreInfo2.Data.Length ?
-                                    oRestoreInfo2.Data.Length :
-                                    si2.Length - oRestoreInfo2.Position);
-
-                                if (nLengthToWrite > 0)
-                                    oRestoreInfo2.Data.WriteTo(s2, nLengthToWrite);
-                            }
-                        }
-
-                        s2.Close();
+                        s1.Close();
                     }
 
-                    s1.Close();
-                }
+                    // Log summary of bad blocks in file 1
+                    if (aRestore1.Count > 0)
+                    {
+                        iLogWriter.WriteLogFormattedLocalized(0,
+                            Properties.Resources.ThereWereBadBlocksInFileNotRestoredParts,
+                            aRestore1.Count, fi1.FullName, lNotRestoredSize1);
 
-                if (aRestore1.Count > 0)
+                        iLogWriter.WriteLog(true, 0, "There were ", aRestore1.Count,
+                            " bad blocks in ", fi1.FullName,
+                            " not restored bytes: ", lNotRestoredSize1);
+                    }
+
+                    // Log summary of bad blocks in file 2
+                    if (aRestore2.Count > 0)
+                    {
+                        iLogWriter.WriteLogFormattedLocalized(0,
+                            Properties.Resources.ThereWereBadBlocksInFileNotRestoredParts,
+                            aRestore2.Count, fi2.FullName, lNotRestoredSize2);
+
+                        iLogWriter.WriteLog(true, 0, "There were ", aRestore2.Count,
+                            " bad blocks in ", fi2.FullName,
+                            " not restored bytes: ", lNotRestoredSize2);
+                    }
+
+                }
+                finally
                 {
-                    iLogWriter.WriteLogFormattedLocalized(0,
-                        Properties.Resources.ThereWereBadBlocksInFileNotRestoredParts,
-                        aRestore1.Count, fi1.FullName, lNotRestoredSize1);
+                    // Restore last write time and update checked info if all blocks restored
+                    if (lNotRestoredSize1 > 0)
+                    {
+                        Block oTmpBlock = new Block();
+                        int nCountErrors = (int)(lNotRestoredSize1 / oTmpBlock.Length);
 
-                    iLogWriter.WriteLog(true, 0, "There were ", aRestore1.Count,
-                        " bad blocks in ", fi1.FullName,
-                        " not restored bytes: ", lNotRestoredSize1);
+                        fi1.LastWriteTimeUtc = new DateTime(1975, 9, 24 - nCountErrors / 60 / 24, 23 -
+                            (nCountErrors / 60) % 24, 59 - nCountErrors % 60, 0);
+
+                        bForceCreateInfo = true;
+                    }
+                    else
+                    {
+                        fi1.LastWriteTimeUtc = dtmPrevLastWriteTime;
+                    }
+
+                    if (lNotRestoredSize2 > 0)
+                    {
+                        Block oTmpBlock = new Block();
+                        int nCountErrors = (int)(lNotRestoredSize2 / oTmpBlock.Length);
+
+                        fi2.LastWriteTimeUtc = new DateTime(1975, 9, 24 - nCountErrors / 60 / 24, 23 -
+                            (nCountErrors / 60) % 24, 59 - nCountErrors % 60, 0);
+
+                        bForceCreateInfo = true;
+                    }
+                    else
+                    {
+                        fi2.LastWriteTimeUtc = dtmPrevLastWriteTime;
+                    }
                 }
 
-                if (aRestore2.Count > 0)
-                {
-                    iLogWriter.WriteLogFormattedLocalized(0,
-                        Properties.Resources.ThereWereBadBlocksInFileNotRestoredParts,
-                        aRestore2.Count, fi2.FullName, lNotRestoredSize2);
-
-                    iLogWriter.WriteLog(true, 0, "There were ", aRestore2.Count,
-                        " bad blocks in ", fi2.FullName,
-                        " not restored bytes: ", lNotRestoredSize2);
-                }
-
-                fi1.LastWriteTimeUtc = dtmPrevLastWriteTime;
-                fi2.LastWriteTimeUtc = dtmPrevLastWriteTime;
 
                 if (lNotRestoredSize1 == 0 && aRestore1.Count == 0)
                 {
@@ -3022,14 +3066,12 @@ namespace SyncFoldersApi
             }
             else
             {
+                // If no valid saved info, compare blocks directly between files
                 System.DateTime prevLastWriteTime = fi1.LastWriteTimeUtc;
 
-                // let's read both copies of the file 
-                // that obviously are both present, without saved info
                 List<RestoreInfo> aRestore1 = new List<RestoreInfo>();
                 List<RestoreInfo> aRestore2 = new List<RestoreInfo>();
 
-                // now let's try to read the files and compare 
                 long lNotRestoredSize1 = 0;
                 long lNotRestoredSize2 = 0;
                 long lBadBlocks1 = 0;
@@ -3055,11 +3097,11 @@ namespace SyncFoldersApi
                                 int nReadCount = 0;
                                 if ((nReadCount = oBlock1.ReadFrom(s1)) < oBlock1.Length)
                                 {
-                                    for (int i = oBlock1.Length - 1; i >= nReadCount; --i)
-                                        oBlock1[i] = 0;
+                                    // erase the remaining part
+                                    oBlock1.EraseFrom(nReadCount);
                                 }
 
-                                bBlock1Present = nReadCount>0;
+                                bBlock1Present = nReadCount > 0;
                             }
                             catch (System.IO.IOException oEx)
                             {
@@ -3083,19 +3125,19 @@ namespace SyncFoldersApi
                                 int nReadCount = 0;
                                 if ((nReadCount = oBlock2.ReadFrom(s2)) < oBlock2.Length)
                                 {
-                                    for (int i = oBlock2.Length - 1; i >= nReadCount; --i)
-                                        oBlock2[i] = 0;
+                                    // erase the remaining part
+                                    oBlock2.EraseFrom(nReadCount);
                                 }
 
-                                bBlock2Present = nReadCount>0;
+                                bBlock2Present = nReadCount > 0;
                             }
                             catch (System.IO.IOException oEx)
                             {
-                                iLogWriter.WriteLogFormattedLocalized(2, 
+                                iLogWriter.WriteLogFormattedLocalized(2,
                                     Properties.Resources.IOErrorReadingFile,
                                     strPathFile2, oEx.Message);
 
-                                iLogWriter.WriteLog(true, 2, 
+                                iLogWriter.WriteLog(true, 2,
                                     "I/O exception while reading file \"",
                                     strPathFile2, "\": ", oEx.Message);
 
@@ -3105,6 +3147,7 @@ namespace SyncFoldersApi
                                 ++lBadBlocks2;
                             }
 
+                            // Restore blocks in file 2 based on file 1
                             if (bBlock1Present && !bBlock2Present)
                             {
                                 iLogWriter.WriteLogFormattedLocalized(1,
@@ -3114,7 +3157,6 @@ namespace SyncFoldersApi
                                 iLogWriter.WriteLog(true, 1, "Block of ", fi2.FullName,
                                     " position ", lIndex * oBlock1.Length,
                                     " will be restored from ", fi1.FullName);
-
 
                                 aRestore2.Add(new RestoreInfo(lIndex * oBlock1.Length, oBlock1, false));
                             }
@@ -3142,10 +3184,8 @@ namespace SyncFoldersApi
                                     lIndex * oBlock1.Length,
                                     " are not recoverable and will be filled with a dummy block");
 
-                                for (int i=oBlock1.Length-1;i>=0;--i)
-                                {
-                                    oBlock1[i] = oBlock2[i] = 0;
-                                }
+                                oBlock1.Erase();
+                                oBlock2.Erase();
 
                                 aRestore1.Add(new RestoreInfo(lIndex * oBlock1.Length, oBlock1, true));
                                 aRestore2.Add(new RestoreInfo(lIndex * oBlock2.Length, oBlock2, true));
@@ -3154,7 +3194,7 @@ namespace SyncFoldersApi
                                 lNotRestoredSize2 += oBlock2.Length;
                             }
 
-
+                            // Check for cancellation
                             if (iSettings.CancelClicked)
                                 throw new OperationCanceledException();
 
@@ -3166,8 +3206,7 @@ namespace SyncFoldersApi
                     s1.Close();
                 }
 
-
-                // now we've got the list of improvements for both files
+                // Write restored blocks to file 1
                 try
                 {
                     using (IFile s1 = iFileSystem.Open(
@@ -3189,6 +3228,7 @@ namespace SyncFoldersApi
                 }
                 finally
                 {
+                    // Update last write time based on errors
                     if (lNotRestoredSize1 > 0)
                     {
                         int nCountErrors = (int)(lNotRestoredSize1 / (new Block().Length));
@@ -3204,6 +3244,7 @@ namespace SyncFoldersApi
                     }
                 }
 
+                // Log summary of bad blocks in file 1
                 if (lBadBlocks1 > 0)
                 {
                     iLogWriter.WriteLogFormattedLocalized(0,
@@ -3215,6 +3256,7 @@ namespace SyncFoldersApi
                         " not restored bytes: ", lNotRestoredSize1);
                 }
 
+                // Write restored blocks to file 2
                 try
                 {
                     using (IFile s2 = iFileSystem.Open(
@@ -3235,6 +3277,7 @@ namespace SyncFoldersApi
                     }
                 } finally
                 {
+                    // Update last write time based on errors
                     if (lNotRestoredSize2 > 0)
                     {
                         int nCountErrors = (int)(lNotRestoredSize2 / (new Block().Length));
@@ -3250,7 +3293,7 @@ namespace SyncFoldersApi
                     }
                 }
 
-
+                // Log summary of bad blocks in file 2
                 if (lBadBlocks2 > 0)
                 {
                     iLogWriter.WriteLogFormattedLocalized(0,
@@ -3262,6 +3305,7 @@ namespace SyncFoldersApi
                         " not restored bytes: ", lNotRestoredSize2);
                 }
 
+                // Update checked info if all blocks restored
                 if (lNotRestoredSize1 == 0 && aRestore1.Count == 0)
                 {
                     CreateOrUpdateFileChecked(strPathSavedInfo1,
@@ -3276,7 +3320,6 @@ namespace SyncFoldersApi
 
             }
         }
-
 
         //===================================================================================================
         /// <summary>
