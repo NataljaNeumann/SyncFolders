@@ -628,14 +628,16 @@ namespace SyncFoldersApi
             IFilePairStepsSettings iSettings,
             ILogWriter iLogWriter)
         {
+            // Check if resources are available
             if (Properties.Resources == null)
                 throw new ArgumentNullException(nameof(Properties.Resources));
 
-            // if same file then try to repair in place
+            // If source and target are the same file, try to repair in place
             if (string.Equals(strPathTargetFile, strPathFile,
                 StringComparison.InvariantCultureIgnoreCase))
             {
                 /* TODO: this line of code isn't hit by any unit tests */
+                // If both test and repair are enabled, test and repair the file
                 if (iSettings.TestFiles && iSettings.RepairFiles)
                 {
                     if (!TestAndRepairSingleFile(strPathFile, strPathSavedInfoFile,
@@ -659,6 +661,7 @@ namespace SyncFoldersApi
                 }
                 else
                 {
+                    // If only test is enabled, test the file
                     if (iSettings.TestFiles)
                     {
                         if (TestSingleFile2(strPathFile, strPathSavedInfoFile,
@@ -686,12 +689,13 @@ namespace SyncFoldersApi
                 }
             }
 
-
+            // Get file info objects for source and saved info
             IFileInfo finfo = iFileSystem.GetFileInfo(strPathFile);
             IFileInfo fiSavedInfo = iFileSystem.GetFileInfo(strPathSavedInfoFile);
 
             DateTime dtmOriginalTime = finfo.LastWriteTimeUtc;
 
+            // Try to read saved info file
             SavedInfo oSavedInfo = new SavedInfo();
             bool bNotReadableSi = !fiSavedInfo.Exists;
 
@@ -709,7 +713,8 @@ namespace SyncFoldersApi
                 catch (System.IO.IOException oEx)
                 {
                     /* TODO: this line of code isn't hit by any unit tests */
-                    iLogWriter.WriteLogFormattedLocalized(0, 
+                    // Log error and mark saved info as unreadable
+                    iLogWriter.WriteLogFormattedLocalized(0,
                         Properties.Resources.IOErrorReadingFile,
                         strPathSavedInfoFile, oEx.Message);
 
@@ -720,6 +725,7 @@ namespace SyncFoldersApi
                 }
             }
 
+            // If saved info is not readable or does not match file length/timestamp, do block-level copy/repair
             if (bNotReadableSi || oSavedInfo.Length != finfo.Length ||
                 !(iSettings.IgnoreTimeDifferencesBetweenDataAndSaveInfo ||
                 Utils.FileTimesEqual(oSavedInfo.TimeStamp, finfo.LastWriteTimeUtc)))
@@ -729,8 +735,9 @@ namespace SyncFoldersApi
                 if (!bNotReadableSi)
                 {
                     /* TODO: this line of code isn't hit by any unit tests */
+                    // Mark that saved info needs to be recreated and log message
                     bForceCreateInfo = true;
-                    iLogWriter.WriteLogFormattedLocalized(0, 
+                    iLogWriter.WriteLogFormattedLocalized(0,
                         Properties.Resources.SavedInfoFileCantBeUsedForTesting,
                         strPathSavedInfoFile, strPathFile);
 
@@ -741,19 +748,19 @@ namespace SyncFoldersApi
 
                 try
                 {
-                    // first try to copy. It is buffered and thus should be faster
-                    CopyFileSafely(finfo, strPathTargetFile, 
-                        strReasonEn, strReasonTranslated, 
+                    // Try to copy file safely (buffered copy)
+                    CopyFileSafely(finfo, strPathTargetFile,
+                        strReasonEn, strReasonTranslated,
                         iFileSystem, iLogWriter);
 
                     // update information that we just tested the two files
                     IFileInfo fi2 = iFileSystem.GetFileInfo(strPathTargetFile);
 
-                    CreateOrUpdateFileChecked( Utils.CreatePathOfChkFile(
-                            fi2.Directory.FullName, "RestoreInfo", fi2.Name,".chk"),
+                    CreateOrUpdateFileChecked(Utils.CreatePathOfChkFile(
+                            fi2.Directory.FullName, "RestoreInfo", fi2.Name, ".chk"),
                         iFileSystem, iLogWriter);
 
-
+                    // If saved info does not exist, create it if allowed
                     if (!fiSavedInfo.Exists)
                     {
                         if (!iSettings.FirstToSecond || !iSettings.FirstReadOnly)
@@ -766,152 +773,151 @@ namespace SyncFoldersApi
 
                 } catch (IOException)
                 {
-                    // let's continue with copy-repair, if simple copy failed
+                    // If simple copy failed, continue with block-level copy/repair
                 }
 
+                // Open source file for reading
                 using (IFile s = iFileSystem.Open(
                     finfo.FullName, System.IO.FileMode.Open,
                     System.IO.FileAccess.Read, System.IO.FileShare.Read))
                 {
-                    try
+
+                    int nCountErrors = 0;
+
+                    // Open target file for writing (as .tmp)
+                    using (IFile s2 = iFileSystem.Open(
+                        strPathTargetFile + ".tmp", System.IO.FileMode.Create,
+                        System.IO.FileAccess.Write, System.IO.FileShare.None))
                     {
-                        int nCountErrors = 0;
+                        Block oBlock = new Block();
 
-                        using (IFile s2 = iFileSystem.Open(
-                            strPathTargetFile + ".tmp", System.IO.FileMode.Create,
-                            System.IO.FileAccess.Write, System.IO.FileShare.None))
+                        for (long lIndex = 0; ; lIndex++)
                         {
-                            Block oBlock = new Block();
-
-                            for (long lIndex = 0; ; lIndex++)
+                            try
                             {
-                                try
-                                {
-                                    int nLengthToWrite = oBlock.ReadFrom(s);
+                                int nLengthToWrite = oBlock.ReadFrom(s);
 
-                                    if (nLengthToWrite > 0)
-                                        oBlock.WriteTo(s2, nLengthToWrite);
+                                if (nLengthToWrite > 0)
+                                    oBlock.WriteTo(s2, nLengthToWrite);
 
-                                    if (nLengthToWrite != oBlock.Length)
-                                        break;
-                                }
-                                catch (System.IO.IOException oEx)
-                                {
-                                    if (bFailOnNonRecoverable)
-                                        throw;
-
-                                    iLogWriter.WriteLogFormattedLocalized(1,
-                                        Properties.Resources.IOErrorWhileReadingPositionFillDummyWhileCopy,
-                                        finfo.FullName, lIndex * oBlock.Length, oEx.Message);
-
-                                    iLogWriter.WriteLog(true, 1, "I/O Error while reading file ",
-                                        finfo.FullName, " position ", lIndex * oBlock.Length, ": ",
-                                        oEx.Message, ". Block will be replaced with a dummy during copy.");
-
-                                    int nLengthToWrite = (int)(finfo.Length - lIndex * oBlock.Length > oBlock.Length ?
-                                        oBlock.Length :
-                                        finfo.Length - lIndex * oBlock.Length);
-
-                                    if (nLengthToWrite > 0)
-                                    {
-                                        for (int i = nLengthToWrite-1; i >= 0; --i)
-                                            oBlock[i] = 0;
-
-                                        oBlock.WriteTo(s2, nLengthToWrite);
-                                    }
-
-                                    bAllBlocksOk = false;
-                                    ++nCountErrors;
-
-                                    if (nLengthToWrite != oBlock.Length)
-                                        break;
-
-                                    s.Seek(lIndex * oBlock.Length + nLengthToWrite, System.IO.SeekOrigin.Begin);
-
-                                }
+                                if (nLengthToWrite != oBlock.Length)
+                                    break;
                             }
-
-                            s2.Close();
-                        }
-
-                        // after the file has been copied to a ".tmp" delete old one
-                        IFileInfo fi2 = iFileSystem.GetFileInfo(strPathTargetFile);
-
-                        if (fi2.Exists)
-                        {
-                            iFileSystem.Delete(fi2);
-                        }
-
-                        // and replace it with the new one
-                        IFileInfo fi2tmp = iFileSystem.GetFileInfo(strPathTargetFile + ".tmp");
-
-                        if (bAllBlocksOk)
-                        {
-                            // if everything OK set original time
-                            fi2tmp.LastWriteTimeUtc = dtmOriginalTime;
-
-                            // update information that we just tested the two files
-                            CreateOrUpdateFileChecked(Utils.CreatePathOfChkFile(
-                                    fi2.Directory.FullName, "RestoreInfo", fi2.Name, ".chk"),
-                                iFileSystem, iLogWriter);
-
-                            if (!fiSavedInfo.Exists)
+                            catch (System.IO.IOException oEx)
                             {
-                                if (!iSettings.FirstToSecond || !iSettings.FirstReadOnly)
+                                // If non-recoverable blocks are not allowed, throw
+                                if (bFailOnNonRecoverable)
+                                    throw;
+
+                                // Log error and fill block with zeros
+                                iLogWriter.WriteLogFormattedLocalized(1,
+                                    Properties.Resources.IOErrorWhileReadingPositionFillDummyWhileCopy,
+                                    finfo.FullName, lIndex * oBlock.Length, oEx.Message);
+
+                                iLogWriter.WriteLog(true, 1, "I/O Error while reading file ",
+                                    finfo.FullName, " position ", lIndex * oBlock.Length, ": ",
+                                    oEx.Message, ". Block will be replaced with a dummy during copy.");
+
+                                int nLengthToWrite = (int)(finfo.Length - lIndex * oBlock.Length > oBlock.Length ?
+                                    oBlock.Length :
+                                    finfo.Length - lIndex * oBlock.Length);
+
+                                if (nLengthToWrite > 0)
                                 {
-                                    CreateOrUpdateFileChecked(fiSavedInfo.FullName, iFileSystem, iLogWriter);
+                                    // Erase the beginning of the block that we need to write
+                                    oBlock.EraseTo(nLengthToWrite - 1);
+                                    
+                                    oBlock.WriteTo(s2, nLengthToWrite);
                                 }
+
+                                bAllBlocksOk = false;
+                                ++nCountErrors;
+
+                                if (nLengthToWrite != oBlock.Length)
+                                    break;
+
+                                s.Seek(lIndex * oBlock.Length + nLengthToWrite, System.IO.SeekOrigin.Begin);
+
                             }
                         }
-                        else
-                        {
-                            // set the time to very old, so any existing newer or with less errors appears to be better.
-                            fi2tmp.LastWriteTimeUtc = new DateTime(1975, 9, 24 - nCountErrors / 60 / 24,
-                                23 - (nCountErrors / 60) % 24, 59 - nCountErrors % 60, 0);
 
-                            bForceCreateInfoTarget = true;
-                        }
-
-                        //fi2tmp.LastWriteTimeUtc = finfo.LastWriteTimeUtc;
-                        fi2tmp.MoveTo(strPathTargetFile);
-
-                        if (!bAllBlocksOk)
-                        {
-                            iLogWriter.WriteLogFormattedLocalized(0, 
-                                Properties.Resources.WarningCopiedToWithErrors,
-                                strPathFile, strPathTargetFile, strReasonTranslated);
-
-                            iLogWriter.WriteLog(true, 0, "Warning: copied ", strPathFile, " to ",
-                                strPathTargetFile, " ", strReasonEn, " with errors");
-                        }
-                        else
-                        {
-                            iLogWriter.WriteLogFormattedLocalized(0, 
-                                Properties.Resources.CopiedFromToReason,
-                                strPathFile, strPathTargetFile, strReasonTranslated);
-
-                            iLogWriter.WriteLog(true, 0, "Copied ", strPathFile, " to ",
-                                strPathTargetFile, " ", strReasonEn);
-                        }
-
+                        s2.Close();
                     }
-                    catch
+
+                    // After copying to .tmp, delete old target file
+                    IFileInfo fi2 = iFileSystem.GetFileInfo(strPathTargetFile);
+
+                    if (fi2.Exists)
                     {
-                        // System.Threading.Thread.Sleep(100);
-
-                        throw;
+                        iFileSystem.Delete(fi2);
                     }
+
+                    // Replace target file with new .tmp file
+                    IFileInfo fi2tmp = iFileSystem.GetFileInfo(strPathTargetFile + ".tmp");
+
+                    if (bAllBlocksOk)
+                    {
+                        // If all blocks OK, set original time
+                        fi2tmp.LastWriteTimeUtc = dtmOriginalTime;
+
+                        // Update information that we just tested the two files
+                        CreateOrUpdateFileChecked(Utils.CreatePathOfChkFile(
+                                fi2.Directory.FullName, "RestoreInfo", fi2.Name, ".chk"),
+                            iFileSystem, iLogWriter);
+
+                        if (!fiSavedInfo.Exists)
+                        {
+                            if (!iSettings.FirstToSecond || !iSettings.FirstReadOnly)
+                            {
+                                CreateOrUpdateFileChecked(fiSavedInfo.FullName, iFileSystem, iLogWriter);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // If errors, set time to very old so newer files are preferred
+                        fi2tmp.LastWriteTimeUtc = new DateTime(1975, 9, 24 - nCountErrors / 60 / 24,
+                            23 - (nCountErrors / 60) % 24, 59 - nCountErrors % 60, 0);
+
+                        bForceCreateInfoTarget = true;
+                    }
+
+                    fi2tmp.MoveTo(strPathTargetFile);
+
+                    // Log result
+                    if (!bAllBlocksOk)
+                    {
+                        iLogWriter.WriteLogFormattedLocalized(0,
+                            Properties.Resources.WarningCopiedToWithErrors,
+                            strPathFile, strPathTargetFile, strReasonTranslated);
+
+                        iLogWriter.WriteLog(true, 0, "Warning: copied ", strPathFile, " to ",
+                            strPathTargetFile, " ", strReasonEn, " with errors");
+                    }
+                    else
+                    {
+                        iLogWriter.WriteLogFormattedLocalized(0,
+                            Properties.Resources.CopiedFromToReason,
+                            strPathFile, strPathTargetFile, strReasonTranslated);
+
+                        iLogWriter.WriteLog(true, 0, "Copied ", strPathFile, " to ",
+                            strPathTargetFile, " ", strReasonEn);
+                    }
+
+
                     s.Close();
                 }
 
                 return bAllBlocksOk;
             }
 
+            // Dictionary to track readable but not accepted blocks
             Dictionary<long, bool> oReadableButNotAccepted = new Dictionary<long, bool>();
             try
             {
                 bool bAllBlocksOK = true;
 
+                // Read and analyze each block from source file
                 using (IFile s =
                     iFileSystem.OpenRead(finfo.FullName))
                 {
@@ -933,6 +939,7 @@ namespace SyncFoldersApi
                                 if (!bBlockOk)
                                 {
                                     /* TODO: this line of code isn't hit by any unit tests */
+                                    // Log checksum error
                                     bAllBlocksOK = false;
 
                                     iLogWriter.WriteLogFormattedLocalized(2,
@@ -950,9 +957,8 @@ namespace SyncFoldersApi
                             {
                                 if (nRead > 0)
                                 {
-                                    //  fill the rest with zeros
-                                    while (nRead < oBlock.Length)
-                                        oBlock[nRead++] = 0;
+                                    // Fill the rest of the block with zeros
+                                    oBlock.EraseFrom(nRead);
 
                                     bBlockOk = oSavedInfo.AnalyzeForTestOrRestore(oBlock, lIndex);
 
@@ -977,9 +983,10 @@ namespace SyncFoldersApi
                         }
                         catch (System.IO.IOException oEx)
                         {
+                            // Log I/O error and skip to next block
                             bAllBlocksOK = false;
 
-                            iLogWriter.WriteLogFormattedLocalized(2, 
+                            iLogWriter.WriteLogFormattedLocalized(2,
                                 Properties.Resources.IOErrorReadingFileOffset,
                                 finfo.FullName, lIndex * oBlock.Length, oEx.Message);
 
@@ -991,6 +998,7 @@ namespace SyncFoldersApi
                                 System.IO.SeekOrigin.Begin);
                         }
 
+                        // Check for cancellation
                         if (iSettings.CancelClicked)
                             throw new OperationCanceledException();
 
@@ -999,10 +1007,11 @@ namespace SyncFoldersApi
                     s.Close();
                 }
 
-
+                // If all blocks are OK
                 if (bAllBlocksOK)
                 {
-                    // check also, if the contents of the checksum file match 
+                    // Verify integrity of save into,
+                    // if the contents of the checksum file match 
                     // the file itself, or if they have been corrupted somehow
                     if (!oSavedInfo.VerifyIntegrityAfterRestoreTest())
                     {
@@ -1023,7 +1032,8 @@ namespace SyncFoldersApi
             catch (System.IO.IOException oEx)
             {
                 /* TODO: this line of code isn't hit by any unit tests */
-                iLogWriter.WriteLogFormattedLocalized(0, 
+                // Log I/O error and return false
+                iLogWriter.WriteLogFormattedLocalized(0,
                     Properties.Resources.IOErrorReadingFile,
                     finfo.FullName, oEx.Message);
 
@@ -1041,9 +1051,11 @@ namespace SyncFoldersApi
             {
                 long lNonRestoredSize = 0;
 
+                // Get restore info for blocks that need to be restored
                 List<RestoreInfo> aRestoreInfos = oSavedInfo.EndRestore(
                     out lNonRestoredSize, strPathSavedInfoFile, iLogWriter);
 
+                // If there are non-restorable blocks, handle according to flag
                 if (lNonRestoredSize > 0)
                 {
                     if (bFailOnNonRecoverable)
@@ -1063,6 +1075,7 @@ namespace SyncFoldersApi
                         bForceCreateInfoTarget = true;
                 }
 
+                // Log summary of bad blocks
                 if (aRestoreInfos.Count > 1)
                 {
                     /* TODO: this line of code isn't hit by any unit tests */
@@ -1094,7 +1107,7 @@ namespace SyncFoldersApi
                            "the restore process will be applied to copy."));
                 }
 
-                //bool bNonRecoverablePresent = false;
+                // Open source and target files for restore/copy
                 try
                 {
                     using (IFile s2 =
@@ -1131,7 +1144,7 @@ namespace SyncFoldersApi
                                                     Properties.Resources.KeepingReadableNonRecovBBlockAtAlsoInCopy,
                                                     oRestoreInfo.Position, finfo.FullName, strPathTargetFile);
 
-                                                iLogWriter.WriteLog(true, 1, 
+                                                iLogWriter.WriteLog(true, 1,
                                                     "Keeping readable but not recoverable block at offset ",
                                                     oRestoreInfo.Position, " of original file ", finfo.FullName,
                                                     " also in copy ", strPathTargetFile,
@@ -1148,7 +1161,6 @@ namespace SyncFoldersApi
                                                 iLogWriter.WriteLog(true, 1, "Filling not recoverable block at offset ",
                                                     oRestoreInfo.Position, " of copied file ", strPathTargetFile, " with a dummy");
 
-                                                //bNonRecoverablePresent = true;
                                                 int nLengthToWrite = (int)(finfo.Length - lPosition > nBlockSize ?
                                                     nBlockSize :
                                                     finfo.Length - lPosition);
@@ -1200,8 +1212,7 @@ namespace SyncFoldersApi
 
                                 if (!bBlockWritten)
                                 {
-                                    // there we land in case we didn't overwrite the block with restore info,
-                                    // so read from source and write to destination
+                                    // If no restore info, copy block from source to destination
                                     int nLengthToWrite = oBlock.ReadFrom(s2);
                                     oBlock.WriteTo(s, nLengthToWrite);
                                 }
@@ -1215,17 +1226,19 @@ namespace SyncFoldersApi
                 }
                 finally
                 {
-                    // if we applied some repairs to the source, then restore its timestamp
+                    // If repairs applied to source, restore its timestamp
                     if (bApplyRepairsToSrc && (aRestoreInfos.Count > 0))
                         finfo.LastWriteTimeUtc = dtmOriginalTime;
                 }
                 IFileInfo finfoTmp = iFileSystem.GetFileInfo(strPathTargetFile + ".tmp");
 
+                // Replace target file with .tmp file
                 if (iFileSystem.Exists(strPathTargetFile))
                     iFileSystem.Delete(strPathTargetFile);
 
                 finfoTmp.MoveTo(strPathTargetFile);
 
+                // If saved info needs rebuild, set flags
                 if (oSavedInfo.NeedsRebuild())
                 {
                     if ((!iSettings.FirstToSecond || !iSettings.FirstReadOnly) && aRestoreInfos.Count == 0)
@@ -1234,12 +1247,11 @@ namespace SyncFoldersApi
                     bForceCreateInfoTarget = bForceCreateInfoTarget || iSettings.CreateInfo;
                 }
 
-
+                // Log summary of bad blocks in copy
                 IFileInfo finfo2 = iFileSystem.GetFileInfo(strPathTargetFile);
                 if (aRestoreInfos.Count > 1)
                 {
-                    /* TODO: this line of code isn't hit by any unit tests */
-                    iLogWriter.WriteLogFormattedLocalized(1, 
+                    iLogWriter.WriteLogFormattedLocalized(1,
                         Properties.Resources.OutOfBadBlocksNotRestoredInCopyBytes,
                         aRestoreInfos.Count, finfo2.FullName, lNonRestoredSize);
 
@@ -1258,6 +1270,7 @@ namespace SyncFoldersApi
                         lNonRestoredSize, " bytes.");
                 }
 
+                // Set last write time of target file based on errors
                 if (lNonRestoredSize > 0)
                 {
                     int countErrors = (int)(lNonRestoredSize / (new Block().Length));
@@ -1272,6 +1285,7 @@ namespace SyncFoldersApi
                     finfo2.LastWriteTimeUtc = dtmOriginalTime;
                 }
 
+                // Log final result
                 if (lNonRestoredSize != 0)
                 {
                     iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.WarningCopiedToWithErrors,
@@ -1289,8 +1303,6 @@ namespace SyncFoldersApi
                         strPathTargetFile, " ", strReasonEn);
                 }
 
-                //finfo2.LastWriteTimeUtc = prevLastWriteTime;
-
                 return lNonRestoredSize == 0;
             }
             catch (System.IO.IOException oEx)
@@ -1298,7 +1310,7 @@ namespace SyncFoldersApi
                 if (bFailOnNonRecoverable)
                     throw;
 
-                /* TODO: this line of code isn't hit by any unit tests */
+                // Log I/O error during repair/copy
                 iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.IOErrorDuringRepairCopyOf,
                     strPathTargetFile, oEx.Message);
 
@@ -1308,7 +1320,6 @@ namespace SyncFoldersApi
                 return false;
             }
         }
-
         //===================================================================================================
         /// <summary>
         /// This method tests and repairs the second file with all available means
