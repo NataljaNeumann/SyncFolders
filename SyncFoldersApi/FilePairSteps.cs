@@ -2261,22 +2261,28 @@ namespace SyncFoldersApi
             IFileOperations iFileSystem,
             ILogWriter iLogWriter)
         {
+            // Check if resources are present
             if (Properties.Resources == null)
                 throw new ArgumentNullException(nameof(Properties.Resources));
 
             string strTempTargetPath = strTargetPath + ".tmp";
             try
             {
+                // Copy to target destination as .tmp
                 iFileSystem.CopyTo(fi, strTempTargetPath, true);
 
+                // Get informatio about target file exists
                 IFileInfo fi2 = iFileSystem.GetFileInfo(strTargetPath);
 
+                // If it exists - delete it
                 if (fi2.Exists)
                     iFileSystem.Delete(fi2);
 
+                // Then rename the copied .tmp file as target
                 IFileInfo fi2tmp = iFileSystem.GetFileInfo(strTempTargetPath);
                 fi2tmp.MoveTo(strTargetPath);
 
+                // Add log message about the copy
                 iLogWriter.WriteLogFormattedLocalized(0, 
                     Properties.Resources.FileCopied, fi.FullName,
                     strTargetPath, strReasonTranslated);
@@ -2301,6 +2307,7 @@ namespace SyncFoldersApi
                 {
                     // ignore additional exceptions
                 }
+
                 throw;
             }
         }
