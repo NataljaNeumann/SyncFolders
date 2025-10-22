@@ -2104,50 +2104,57 @@ namespace SyncFoldersApi
             ILogWriter iLogWriter
             )
         {
+            // Check if resources are available
             if (Properties.Resources == null)
                 throw new ArgumentNullException(nameof(Properties.Resources));
 
+            // Get file info and create SavedInfo object
             IFileInfo finfo = iFileSystem.GetFileInfo(strPathFile);
-            SavedInfo si = new SavedInfo(finfo.Length, finfo.LastWriteTimeUtc, bForceSecondBlocks);
+            SavedInfo si = new SavedInfo(finfo.Length, 
+                finfo.LastWriteTimeUtc, bForceSecondBlocks);
 
             try
             {
+                // Open the file for reading with buffering
                 using (IFile s =
                     iFileSystem.CreateBufferedStream(iFileSystem.OpenRead(finfo.FullName),
                         (int)Math.Min(finfo.Length + 1, 64 * 1024 * 1024)))
                 {
                     Block oBlock = new Block();
 
+                    // Read blocks sequentially from the file
                     for (long lIndex = 0; ; lIndex++)
                     {
                         int nReadCount = 0;
                         if ((nReadCount = oBlock.ReadFrom(s)) == oBlock.Length)
                         {
+                            // Analyze block for info collection
                             si.AnalyzeForInfoCollection(oBlock, lIndex);
                         }
                         else
                         {
                             if (nReadCount > 0)
                             {
-                                // fill remaining part with zeros
-                                for (int i = oBlock.Length - 1; i >= nReadCount; --i)
-                                    oBlock[i] = 0;
+                                // Fill remaining part with zeros
+                                oBlock.EraseFrom(nReadCount);
 
+                                // Analyze last block
                                 si.AnalyzeForInfoCollection(oBlock, lIndex);
                             }
                             break;
                         }
 
+                        // Check for cancellation
                         if (iSettings.CancelClicked)
                             throw new OperationCanceledException();
                     }
-
 
                     s.Close();
                 }
             }
             catch (System.IO.IOException oEx)
             {
+                // Log I/O error during reading
                 iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.IOErrorReadingFile,
                     finfo.FullName, oEx.Message);
 
@@ -2159,6 +2166,7 @@ namespace SyncFoldersApi
 
             try
             {
+                // Ensure target directory exists and set attributes
                 IDirectoryInfo di = iFileSystem.GetDirectoryInfo(
                     strPathSavedChkInfoFile.Substring(0,
                     strPathSavedChkInfoFile.LastIndexOfAny(new char[] { '\\', '/' })));
@@ -2176,6 +2184,7 @@ namespace SyncFoldersApi
                         System.IO.FileAttributes.System;
                 }
 
+                // Delete existing .chk file if present
                 IFileInfo fiSavedInfo = iFileSystem.GetFileInfo(strPathSavedChkInfoFile);
 
                 if (fiSavedInfo.Exists)
@@ -2183,7 +2192,9 @@ namespace SyncFoldersApi
                     iFileSystem.Delete(fiSavedInfo);
                 }
 
-                using (IFile s = iFileSystem.CreateBufferedStream(iFileSystem.Create(strPathSavedChkInfoFile),
+                // Save calculated info to .chk file (version 0 or 2)
+                using (IFile s = iFileSystem.CreateBufferedStream(
+                    iFileSystem.Create(strPathSavedChkInfoFile),
                     1024 * 1024))
                 {
                     if (nVersion == 0)
@@ -2197,14 +2208,15 @@ namespace SyncFoldersApi
                     s.Close();
                 }
 
-                // save last write time also at the time of the .chk file
+                // Set last write time and attributes for .chk file
                 fiSavedInfo = iFileSystem.GetFileInfo(strPathSavedChkInfoFile);
                 fiSavedInfo.LastWriteTimeUtc = finfo.LastWriteTimeUtc;
 
-                fiSavedInfo.Attributes = fiSavedInfo.Attributes 
+                fiSavedInfo.Attributes = fiSavedInfo.Attributes
                     | System.IO.FileAttributes.Hidden
                     | System.IO.FileAttributes.System;
 
+                // Create or update confirmation file for checked info
                 CreateOrUpdateFileChecked(strPathSavedChkInfoFile,
                     iFileSystem, iLogWriter);
 
@@ -2212,6 +2224,7 @@ namespace SyncFoldersApi
             catch (System.IO.IOException oEx)
             {
                 /* TODO: this line of code isn't hit by any unit tests */
+                // Log I/O error during writing
                 iLogWriter.WriteLogFormattedLocalized(0,
                     Properties.Resources.IOErrorWritingFile,
                     strPathSavedChkInfoFile, oEx.Message);
