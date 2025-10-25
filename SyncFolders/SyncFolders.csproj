@@ -1,6 +1,7 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <Version>1.6.1.0</Version>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
@@ -8,8 +9,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <ApplicationIcon>SyncFolders.ico</ApplicationIcon>
     <Version>1.6.0</Version>
-    <AssemblyVersion>1.6.0.2</AssemblyVersion>
-    <FileVersion>1.6.0.2</FileVersion>
+    <AssemblyVersion>1.6.1.0</AssemblyVersion>
+    <FileVersion>1.6.1.0</FileVersion>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression>GPL-2.0-or-later</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/NataljaNeumann/SyncFolders.git</RepositoryUrl>
@@ -22,11 +23,13 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Version>1.6.1.0</Version>
     <IsPublishable>False</IsPublishable>
     <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Version>1.6.1.0</Version>
     <IsPublishable>False</IsPublishable>
     <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
   </PropertyGroup>
