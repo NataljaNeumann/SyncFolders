@@ -3176,35 +3176,31 @@ namespace SyncFolders
         {
             // open in browser in case we don't have any special jump point in help.
             // maybe browser can translate somethig.
-            if (Resources.ReadmeHtmlHelpJumpPoint.Equals("#en"))
+            string strUrl = System.IO.Path.Combine(Application.StartupPath, "Readme.html");
+            try
             {
-                string strUrl = System.IO.Path.Combine(Application.StartupPath, "Readme.html");
-                try
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 {
-                    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                    {
-                        Process.Start(new ProcessStartInfo(strUrl) { UseShellExecute = true });
-                    }
-                    else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-                    {
-                        Process.Start("xdg-open", strUrl);
-                    }
-                    else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-                    {
-                        Process.Start("open", strUrl);
-                    }
+                    Process.Start(new ProcessStartInfo(strUrl) { UseShellExecute = true });
                 }
-                catch (Exception oEx)
+                else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
                 {
-                    MessageBox.Show("Could not open browser: " + oEx.Message);
+                    Process.Start("xdg-open", strUrl);
+                }
+                else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                {
+                    Process.Start("open", strUrl);
                 }
             }
-            else
+            catch (Exception oEx)
             {
+                MessageBox.Show("Could not open browser: " + oEx.Message);
+
                 using (HelpForm oForm = new HelpForm(Resources.ReadmeHtmlHelpJumpPoint))
                 {
                     oForm.ShowDialog();
                 }
+
             }
         }
 
