@@ -364,8 +364,8 @@ jobs:
           # Append author(s) Part B
           if ($sameMinorAuthors.Count -gt 1) { $sameMinorCommits += ("`n`nContributors: *" + ($sameMinorAuthors -join ", ") + "*") }
           elseif ($sameMinorAuthors.Count -gt 0) { $sameMinorCommits += ("`n`nContributor: *" + ($sameMinorAuthors -join ", ") + "*") }
-          
-          $releaseBody = "### Changes since $($prevTag -replace "_v", " v"):`n"
+
+          $releaseBody = "### Changes since $(($prevTag -replace "_v", " v") -replace "_", ".")`n"
           $releaseBody += ($commitsSinceTag -join "`n")
           $releaseBody += "`n`n### Changes of ${major}.${minor}:`n"
           $releaseBody += ($sameMinorCommits -join "`n")
@@ -439,7 +439,7 @@ jobs:
         if: steps.check_release.outputs.release_exists == 'false'
         with:
           tag_name: ${{ env.APP_NAME }}_v${{ steps.increment.outputs.version }}
-          release_name: ${{ env.APP_NAME }} v${{ steps.increment.outputs.version }}
+          release_name: "Version ${{ steps.increment.outputs.version }}"
           body: ${{ steps.generate_release_notes.outputs.release_body }}
           draft: false # Set to true to create a draft release
           prerelease: false # Set to true for pre-release
