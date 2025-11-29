@@ -2707,7 +2707,8 @@ namespace SyncFolders
                 System.DateTime now = utc.ToLocalTime();
                 lock (m_oLogToShow)
                 {
-                    m_oLogFile.Write("{0}UT\t={1}=\t", utc.ToString("yyyy-MM-dd HH:mm:ss.fff"),
+                    m_oLogFile.Write("{0}UT\t={1}=\t", utc.ToString("yyyy-MM-dd HH:mm:ss.fff",
+                        System.Globalization.CultureInfo.InvariantCulture),
                         System.Threading.Thread.CurrentThread.ManagedThreadId);
                     if (!bOnlyToNonlocalizedLog && m_oLogFileLocalized!=null)
                     {
