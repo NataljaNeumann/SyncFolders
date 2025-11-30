@@ -603,8 +603,17 @@ namespace SyncFolders
         private void TestIfRunningFromReadonnly()
         {
             // try to create a file in the location of exe file
-            string strTempFileName = Application.StartupPath + "test.tmp";
-            bool bProgramFiles = strTempFileName.StartsWith("C:\\progra", StringComparison.InvariantCultureIgnoreCase);
+            string strTempFileName = Path.Combine(Application.StartupPath,"test.tmp");
+
+            bool bProgramFiles = strTempFileName.StartsWith("C:\\progra", 
+                StringComparison.InvariantCultureIgnoreCase);
+
+            string strStartupPathWOTrailingSlash =
+                Application.StartupPath.EndsWith(Path.DirectorySeparatorChar) ?
+                   Application.StartupPath.Substring(0, Application.StartupPath.Length - 1) : 
+                   Application.StartupPath;
+
+
             // compiler seems to have a problem: doesn' recognize that there can be an exception in Create()...
 #pragma warning disable CS0219
             bool bFolderWritable = false;
@@ -754,7 +763,7 @@ namespace SyncFolders
                 // Chinese traditional (Taiwan)
                 oLocalizationSubdirs["zh-CHT"] = true;
 
-                foreach (string strSubdir in System.IO.Directory.GetDirectories(Application.StartupPath))
+                foreach (string strSubdir in System.IO.Directory.GetDirectories(strStartupPathWOTrailingSlash))
                 {
                     if (oLocalizationSubdirs.ContainsKey(strSubdir.Substring(strSubdir.LastIndexOf('\\') + 1)))
                         ++nFoundLocalizationSubdirs;
@@ -771,19 +780,20 @@ namespace SyncFolders
 #else
             if (!bProgramFiles)
             {
+
                 if (bFolderWritable)
                 {
                     m_tbxSecondFolder.Text = 
                         nFoundLocalizationSubdirs>2?
-                            System.IO.Directory.GetParent(Application.StartupPath).FullName:
-                            Application.StartupPath;
+                            System.IO.Directory.GetParent(strStartupPathWOTrailingSlash).FullName:
+                            strStartupPathWOTrailingSlash;
                 }
                 else
                 {
                     m_tbxFirstFolder.Text = 
                         nFoundLocalizationSubdirs>2?
-                            System.IO.Directory.GetParent(Application.StartupPath).FullName:
-                            Application.StartupPath;
+                            System.IO.Directory.GetParent(strStartupPathWOTrailingSlash).FullName:
+                            strStartupPathWOTrailingSlash;
 
                     m_cbFirstToSecond.Checked = true;
                     m_cbFirstReadonly.Checked = true;
