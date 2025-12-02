@@ -609,6 +609,7 @@ namespace SyncFolders
                 StringComparison.InvariantCultureIgnoreCase);
 
             string strStartupPathWOTrailingSlash =
+                Application.StartupPath.Length>3 &&
                 Application.StartupPath.EndsWith(Path.DirectorySeparatorChar) ?
                    Application.StartupPath.Substring(0, Application.StartupPath.Length - 1) : 
                    Application.StartupPath;
