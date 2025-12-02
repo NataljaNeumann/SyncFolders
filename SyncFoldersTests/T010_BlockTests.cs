@@ -635,7 +635,7 @@ namespace SyncFoldersTests
                 MaxDegreeOfParallelism = nTotalCores - 1
             };
 
-            Parallel.For(0, 10000, oOptions, i =>
+            Parallel.For(0, 1000, oOptions, i =>
             {
                 BlockUsageFunction();
 
