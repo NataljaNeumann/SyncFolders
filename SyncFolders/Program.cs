@@ -44,6 +44,9 @@ namespace SyncFolders
         [STAThread]
         static void Main()
         {
+#if DEBUG
+            System.Diagnostics.Debugger.Launch();
+#endif
             SetCultureForThread(Thread.CurrentThread);
 
             // Init API resources
