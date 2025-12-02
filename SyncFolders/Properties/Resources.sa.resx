@@ -208,7 +208,7 @@
     <value>आन्तरिकदोषः: सञ्चिकानां प्रतिलिपिं कर्तुं न शक्तवती “{0}” | "{1}" पुनः स्थापयितुं शक्यते</value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>सञ्चिकायां प्रतिलिपिं मरम्मतं कुर्वन् I/O त्रुटिः: "{0}": {1}</value>
+    <value>सञ्चिकायां युगपत् मरम्मतेन सह प्रतिलिपिं कुर्वन् I/O त्रुटिः: "{0}": {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>“{0}” सञ्चिकां पठन् I/O त्रुटिः: {1}</value>

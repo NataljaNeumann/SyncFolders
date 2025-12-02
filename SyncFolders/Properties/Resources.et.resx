@@ -208,19 +208,19 @@
     <value>Sisemine viga: failide koopiaid, ei "{0}" ega "{1}", ei saanud taastada </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>I/O viga faili koopia parandamisel: "{0}": {1}</value>
+    <value>Sisend-/väljundviga faili „{0}” samaaegse parandamisega kopeerimisel: {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
-    <value>I/O viga faili „{0}” lugemisel: {1}</value>
+    <value>Sisend-/väljundviga faili „{0}” lugemisel: {1}</value>
   </data>
   <data name="IOErrorReadingFileOffset" xml:space="preserve">
-    <value>I/O viga faili lugemisel: „{0}” asukohas {1}: {2}</value>
+    <value>Sisend-/väljundviga faili lugemisel: „{0}” asukohas {1}: {2}</value>
   </data>
   <data name="IOErrorWhileReadingPositionFillDummyWhileCopy" xml:space="preserve">
-    <value>I/O viga faili "{0}" lugemisel asukohas {1}: {2}. Plokk asendatakse kopeerimisel tühja plokiga.</value>
+    <value>Sisend-/väljundviga faili "{0}" lugemisel asukohas {1}: {2}. Plokk asendatakse kopeerimisel tühja plokiga.</value>
   </data>
   <data name="IOErrorWritingFile" xml:space="preserve">
-    <value>I/O viga faili „{0}” kirjutamisel: {1}</value>
+    <value>Sisend-/väljundviga faili „{0}” kirjutamisel: {1}</value>
   </data>
   <data name="KeepingReadableButNotRecoverableBlockAtOffset" xml:space="preserve">
     <value>Loetav, kuid taastamatu plokk positsioonis {0} jääb alles. Kontrollsumma näitab, et plokk on vale</value>

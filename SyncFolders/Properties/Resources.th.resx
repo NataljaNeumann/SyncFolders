@@ -208,7 +208,7 @@
     <value>ข้อผิดพลาดภายใน: ไม่สามารถกู้คืนสำเนาของไฟล์ “{0}” หรือ “{1}” ได้ </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>ข้อผิดพลาด I/O ขณะซ่อมแซมสำเนาไปยังไฟล์: “{0}”: {1}</value>
+    <value>ข้อผิดพลาด I/O เมื่อคัดลอกพร้อมการซ่อมแซมพร้อมกันไปยังไฟล์: “{0}”: {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>ไฟล์การอ่านข้อผิดพลาด I/O “{0}”: {1}</value>

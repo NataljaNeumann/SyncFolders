@@ -208,7 +208,7 @@
     <value>Innri villa: Afrit af skránum, hvorki „{0}“ né „{1}“, var hægt að endurheimta </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>I/O villa við viðgerð á afriti í skrá: "{0}": {1}</value>
+    <value>I/O villa við afritun með samtímis viðgerð á skránni: "{0}": {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>I/O villa við lestur skráar „{0}“: {1}</value>

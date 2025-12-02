@@ -208,7 +208,7 @@
     <value>Ralat dalaman: Salinan fail, “{0}” atau “{1}”, tidak boleh dipulihkan </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>Ralat I/O semasa membaiki salinan ke fail: “{0}”: {1}</value>
+    <value>Ralat I/O semasa menyalin dengan pembaikan serentak pada fail: “{0}”: {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>Ralat I/O membaca fail “{0}”: {1}</value>

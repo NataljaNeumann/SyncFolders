@@ -208,7 +208,7 @@
     <value>Interná chyba: Kópiu súborov, ani „{0}“ ani „{1}“, nebolo možné obnoviť </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>Chyba I/O pri oprave kópie do súboru: „{0}“: {1}</value>
+    <value>Chyba I/O pri kopírovaní so súčasnou opravou súboru: „{0}“: {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>I/O chyba pri čítaní súboru „{0}“: {1}</value>

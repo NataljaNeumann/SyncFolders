@@ -215,7 +215,7 @@
     <value>Internal error: Couldn't restore any of the copies of the file "{0}" | "{1}"</value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>I/O Error during repair copy to file: "{0}": {1}</value>
+    <value>I/O Error during repair-copy to file: "{0}": {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>I/O Error reading file "{0}": {1}</value>

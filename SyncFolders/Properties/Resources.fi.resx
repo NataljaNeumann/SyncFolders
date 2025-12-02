@@ -208,7 +208,7 @@
     <value>Sisäinen virhe: Tiedostojen kopiota, ei "{0}" tai "{1}", ei voitu palauttaa </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>I/O-virhe korjattaessa kopiota tiedostoon: "{0}": {1}</value>
+    <value>I/O-virhe kopioitaessa ja korjattaessa tiedostoa samanaikaisesti: "{0}": {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>I/O-virhe luettaessa tiedostoa "{0}": {1}</value>

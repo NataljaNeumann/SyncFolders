@@ -1400,7 +1400,7 @@ namespace SyncFoldersApi
                 iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.IOErrorDuringRepairCopyOf,
                     strPathTargetFile, oEx.Message);
 
-                iLogWriter.WriteLog(true, 0, "I/O Error during repair copy to file: \"",
+                iLogWriter.WriteLog(true, 0, "I/O Error during repair-copy to file: \"",
                     strPathTargetFile, "\": " + oEx.Message);
 
                 return false;

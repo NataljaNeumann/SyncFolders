@@ -208,7 +208,7 @@
     <value>Vidinė klaida: nepavyko atkurti failų kopijos, nei „{0}“, nei „{1}“. </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>Įvesties / išvesties klaida taisant kopiją į failą: „{0}“: {1}</value>
+    <value>Įvesties/išvesties klaida kopijuojant ir tuo pačiu metu taisant failą: „{0}“: {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>Įvesties / išvesties klaida skaitant failą „{0}“: {1}</value>

@@ -208,7 +208,7 @@
     <value>Внутренняя ошибка: не удалось ни скопировать ни восстановить ни одного из файлов «{0}» | «{1}»</value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>Ошибка ввода-вывода при восстановлении копии в файл: «{0}»: {1}</value>
+    <value>Ошибка ввода-вывода при копировании с одновременным восстановлением файла: «{0}»: {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>Ошибка ввода-вывода при чтении файла  «{0}»: {1}</value>

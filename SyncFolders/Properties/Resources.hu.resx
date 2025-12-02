@@ -208,7 +208,7 @@
     <value>Belső hiba: A fájlok másolatát (sem „{0}”, sem „{1}”) nem sikerült visszaállítani </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>I/O hiba a következő fájlba másolás javítása közben: „{0}”: {1}</value>
+    <value>I/O hiba a fájl egyidejű javításával történő másolás során: „{0}”: {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>I/O hiba a(z) „{0}” fájl olvasásakor: {1}</value>

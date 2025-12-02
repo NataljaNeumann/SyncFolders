@@ -208,7 +208,7 @@
     <value>Błąd wewnętrzny: nie można było przywrócić kopii plików, ani „{0}”, ani „{1}”. </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>Błąd we/wy podczas naprawy kopii do pliku: „{0}”: {1}</value>
+    <value>Błąd wejścia/wyjścia podczas kopiowania z jednoczesną naprawą pliku: „{0}”: {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>Błąd we/wy podczas odczytu pliku „{0}”: {1}</value>

@@ -208,7 +208,7 @@
     <value>Error intern: ningú pot restaurar la capçalera dels fitxers, ni "{0}" o "{1}". </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>Error d'E/S en reparar el cap del fitxer: "{0}": {1}</value>
+    <value>Error d'E/S en copiar amb reparació simultània al fitxer: "{0}": {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>Error d'E/S en llegir el fitxer "{0}": {1}</value>

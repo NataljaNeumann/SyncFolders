@@ -208,7 +208,7 @@
     <value>內部錯誤：無法複製檔案「{0}」 | 「{1}」可以恢復 </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>修正複製到檔案時發生 I/O 錯誤：「{0}」：{1}</value>
+    <value>在複製並同時修復檔案「{0}」時發生 I/O 錯誤：{1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>讀取檔案「{0}」時出現 I/O 錯誤：{1}</value>

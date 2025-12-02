@@ -209,19 +209,19 @@ Una data così vecchia indica che era l'ultima possibilità di recuperare il fil
     <value>Errore interno: impossibile copiare i file “{0}” | “{1}” può essere ripristinato </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>Errore I/O durante la riparazione della copia nel file: “{0}”: {1}</value>
+    <value>Errore di I/O durante la copia con riparazione simultanea nel file: “{0}”: {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
-    <value>Errore I/O durante la lettura del file “{0}”: {1}</value>
+    <value>Errore di I/O durante la lettura del file “{0}”: {1}</value>
   </data>
   <data name="IOErrorReadingFileOffset" xml:space="preserve">
-    <value>Errore I/O durante la lettura del file: “{0}” nella posizione {1}: {2}</value>
+    <value>Errore di I/O durante la lettura del file: “{0}” nella posizione {1}: {2}</value>
   </data>
   <data name="IOErrorWhileReadingPositionFillDummyWhileCopy" xml:space="preserve">
-    <value>Errore I/O durante la lettura del file “{0}” nella posizione {1}: {2}. Il blocco viene sostituito da un fittizio quando viene copiato.</value>
+    <value>Errore di I/O durante la lettura del file “{0}” nella posizione {1}: {2}. Il blocco viene sostituito da un fittizio quando viene copiato.</value>
   </data>
   <data name="IOErrorWritingFile" xml:space="preserve">
-    <value>Errore I/O durante la scrittura del file “{0}”: {1}</value>
+    <value>Errore di I/O durante la scrittura del file “{0}”: {1}</value>
   </data>
   <data name="KeepingReadableButNotRecoverableBlockAtOffset" xml:space="preserve">
     <value>Rimane il blocco leggibile ma irrecuperabile nella posizione {0}. Il checksum indica che il blocco non è corretto</value>

@@ -127,7 +127,7 @@
     <value>Interne fout: 'n Afskrif van die lêers, nóg "{0}" nóg "{1}", kon herstel word </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>I/O-fout tydens die herstel van kopie na lêer: "{0}": {1}</value>
+    <value>I/O-fout tydens kopiëring met gelyktydige herstel na lêer:</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>I/O-fout lees lêer "{0}": {1}</value>

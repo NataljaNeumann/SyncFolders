@@ -208,19 +208,19 @@
     <value>Интерна грешка: Копија датотека, ни „{0}“ ни „{1}“, није могла да се врати </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>И/О грешка при поправљању копије у датотеку: „{0}“: {1}</value>
+    <value>Грешка улазно/излазних операција при копирању са истовременом поправком датотеке: „{0}“: {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
-    <value>И/О грешка при читању датотеке „{0}“: {1}</value>
+    <value>Грешка улазно/излазних операција при читању датотеке „{0}“: {1}</value>
   </data>
   <data name="IOErrorReadingFileOffset" xml:space="preserve">
-    <value>И/О грешка читања датотеке: „{0}“ на позицији {1}: {2}</value>
+    <value>Грешка улазно/излазних операција читања датотеке: „{0}“ на позицији {1}: {2}</value>
   </data>
   <data name="IOErrorWhileReadingPositionFillDummyWhileCopy" xml:space="preserve">
-    <value>И/О грешка при читању датотеке „{0}“ на локацији {1}: {2}. Блок се замењује празним блоком када се копира.</value>
+    <value>Грешка улазно/излазних операција при читању датотеке „{0}“ на локацији {1}: {2}. Блок се замењује празним блоком када се копира.</value>
   </data>
   <data name="IOErrorWritingFile" xml:space="preserve">
-    <value>И/О грешка при писању датотеке „{0}“: {1}</value>
+    <value>Грешка улазно/излазних операција при писању датотеке „{0}“: {1}</value>
   </data>
   <data name="KeepingReadableButNotRecoverableBlockAtOffset" xml:space="preserve">
     <value>Остаје читљив, али непоправљив блок на позицији {0}. Контролна сума указује да је блок нетачан</value>

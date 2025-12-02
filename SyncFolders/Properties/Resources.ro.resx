@@ -208,7 +208,7 @@
     <value>Eroare internă: o copie a fișierelor, nici „{0}”, nici „{1}”, nu a putut fi restaurată </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>Eroare I/O la repararea copiei în fișier: „{0}”: {1}</value>
+    <value>Eroare I/O la copierea cu reparare simultană a fișierului: „{0}”: {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>Eroare I/O la citirea fișierului „{0}”: {1}</value>

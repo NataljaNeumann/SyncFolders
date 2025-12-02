@@ -208,7 +208,7 @@
     <value>Унутраная памылка: копія файлаў, ні "{0}", ні "{1}", не можа быць адноўлена </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>Памылка ўводу-вываду пры аднаўленні копіі ў файл: "{0}": {1}</value>
+    <value>Памылка ўводу/вываду пры капіяванні з адначасовым выпраўленнем файла: "{0}": {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>Памылка ўводу-вываду пры чытанні файла “{0}”: {1}</value>

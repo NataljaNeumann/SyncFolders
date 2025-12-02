@@ -208,7 +208,7 @@
     <value>내부 오류: "{0}" | "{1}" 파일의 복사본을 복원할 수 없습니다. </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>파일 복사를 복구하는 중 I/O 오류: "{0}": {1}</value>
+    <value>파일 "{0}"를 동시에 복구하면서 복사하는 동안 I/O 오류가 발생했습니다: {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>"{0}" 파일을 읽는 동안 I/O 오류가 발생했습니다: {1}</value>

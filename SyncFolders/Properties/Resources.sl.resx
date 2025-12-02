@@ -208,7 +208,7 @@
     <value>Notranja napaka: Kopije datotek, niti »{0}« niti »{1}«, ni bilo mogoče obnoviti </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>V/I napaka med popravljanjem kopije v datoteko: »{0}«: {1}</value>
+    <value>V/I napaka pri kopiranju s hkratnim popravljanjem datoteke: »{0}«: {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>V/I napaka pri branju datoteke »{0}«: {1}</value>

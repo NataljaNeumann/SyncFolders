@@ -208,7 +208,7 @@
     <value>Kesalahan internal: Salinan file, baik "{0}" maupun "{1}", tidak dapat dipulihkan </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>Kesalahan I/O saat memperbaiki penyalinan ke file: "{0}": {1}</value>
+    <value>Kesalahan I/O saat menyalin dengan perbaikan simultan ke file: "{0}": {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>File pembacaan kesalahan I/O “{0}”: {1}</value>

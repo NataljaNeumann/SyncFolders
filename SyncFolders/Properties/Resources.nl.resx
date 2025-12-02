@@ -208,7 +208,7 @@
     <value>Interne fout: een kopie van de bestanden "{0}" | "{1}" kon niet worden hersteld</value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>I/O-fout tijdens het repareren van kopiëren naar bestand: “{0}”: {1}</value>
+    <value>I/O-fout bij kopiëren met gelijktijdige reparatie van het bestand: “{0}”: {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>I/O-fout bij het lezen van bestand ‘{0}’: {1}</value>

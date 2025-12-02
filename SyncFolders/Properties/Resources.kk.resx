@@ -208,7 +208,7 @@
     <value>Ішкі қате: "{0}" немесе "{1}" файлдарының көшірмесін қалпына келтіру мүмкін емес </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>Файлға көшіруді жөндеу кезінде енгізу/шығару қатесі: "{0}": {1}</value>
+    <value>Файлға бір уақытта жөндеумен көшіру кезінде енгізу/шығару қатесі: "{0}": {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>"{0}" файлын оқудағы енгізу/шығару қатесі: {1}</value>

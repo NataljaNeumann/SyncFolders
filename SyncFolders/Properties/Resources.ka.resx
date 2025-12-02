@@ -208,7 +208,7 @@
     <value>შიდა შეცდომა: ფაილების ასლი, არც „{0}“ და არც „{1}“, ვერ აღდგება </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>I/O შეცდომა ფაილში ასლის შეკეთებისას: „{0}“: {1}</value>
+    <value>ფაილში ერთდროული შეკეთებით კოპირებისას შეყვანის/გამოყვანის შეცდომა: „{0}“: {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>I/O შეცდომა ფაილის წაკითხვისას „{0}“: {1}</value>

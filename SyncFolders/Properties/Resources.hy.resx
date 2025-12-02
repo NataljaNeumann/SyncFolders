@@ -208,7 +208,7 @@
     <value>Ներքին սխալ. ֆայլերի պատճենը, ոչ «{0}», ոչ էլ «{1}», հնարավոր չէ վերականգնել: </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>I/O սխալ ֆայլում պատճենը վերանորոգելիս՝ «{0}»: {1}</value>
+    <value>Մուտքի/ելքի սխալ ֆայլը միաժամանակյա վերանորոգմամբ պատճենելիս.՝ «{0}»: {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>«{0}» ֆայլը կարդալիս I/O սխալ՝ {1}</value>

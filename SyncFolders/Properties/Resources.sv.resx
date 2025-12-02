@@ -208,7 +208,7 @@
     <value>Internt fel: En kopia av filerna, varken "{0}" eller "{1}", kunde återställas </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>I/O-fel vid reparation av kopia till fil: "{0}": {1}</value>
+    <value>I/O-fel vid kopiering med samtidig reparation till filen: "{0}": {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>I/O-fel vid läsning av filen "{0}": {1}</value>

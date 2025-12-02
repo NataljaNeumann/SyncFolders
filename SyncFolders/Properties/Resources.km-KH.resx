@@ -208,7 +208,7 @@
     <value>កំហុសខាងក្នុង៖ ច្បាប់ចម្លងនៃឯកសារ ទាំង “{0}” ឬ “{1}” មិនអាចស្ដារឡើងវិញបានទេ </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>កំហុស I/O ខណៈពេលកំពុងជួសជុលច្បាប់ចម្លងទៅឯកសារ៖ “{0}”: {1}</value>
+    <value>កំហុស I/O នៅពេលចម្លងជាមួយការជួសជុលក្នុងពេលដំណាលគ្នាទៅកាន់ឯកសារ៖ “{0}”: {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>កំហុស I/O ការអានឯកសារ “{0}”៖ {1}</value>

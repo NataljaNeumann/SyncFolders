@@ -208,7 +208,7 @@
     <value>Iekšēja kļūda: nevarēja atjaunot ne “{0}”, ne “{1}” failu kopiju </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>I/O kļūda, labojot kopiju failā: “{0}”: {1}</value>
+    <value>I/O kļūda, kopējot ar vienlaicīgu faila “{0}” labošanu: {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>I/O kļūda, lasot failu “{0}”: {1}</value>

@@ -208,7 +208,7 @@
     <value>Içerki ýalňyşlyk: “{0}” ýa-da “{1}” faýllaryň bir nusgasy dikeldilip bilinmedi </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>Göçürmäni faýl bilen bejermekde I / O ýalňyşlygy: “{0}”: {1}</value>
+    <value>Bir wagtyň özünde abatlaýyş faýlyna göçürilende I / O ýalňyşlygy: “{0}”: {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>I / O ýalňyş okamak faýly “{0}”: {1}</value>

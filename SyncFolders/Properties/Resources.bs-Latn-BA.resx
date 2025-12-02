@@ -208,19 +208,19 @@
     <value>Interna pogreška: Kopija datoteka, ni "{0}" ni "{1}", ne može se vratiti </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>I/O pogreška tijekom popravka kopiranja u datoteku: "{0}": {1}</value>
+    <value>U/I greška prilikom kopiranja sa istovremenim popravkom datoteke: "{0}": {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
-    <value>I/O pogreška pri čitanju datoteke “{0}”: {1}</value>
+    <value>U/I greška pri čitanju datoteke “{0}”: {1}</value>
   </data>
   <data name="IOErrorReadingFileOffset" xml:space="preserve">
-    <value>I/O pogreška čitanja datoteke: “{0}” na poziciji {1}: {2}</value>
+    <value>U/I greška čitanja datoteke: “{0}” na poziciji {1}: {2}</value>
   </data>
   <data name="IOErrorWhileReadingPositionFillDummyWhileCopy" xml:space="preserve">
-    <value>I/O pogreška pri čitanju datoteke "{0}" na lokaciji {1}: {2}. Prilikom kopiranja blok se zamjenjuje praznim blokom.</value>
+    <value>U/I greška pri čitanju datoteke "{0}" na lokaciji {1}: {2}. Prilikom kopiranja blok se zamjenjuje praznim blokom.</value>
   </data>
   <data name="IOErrorWritingFile" xml:space="preserve">
-    <value>I/O pogreška pisanja datoteke “{0}”: {1}</value>
+    <value>U/I greška pisanja datoteke “{0}”: {1}</value>
   </data>
   <data name="KeepingReadableButNotRecoverableBlockAtOffset" xml:space="preserve">
     <value>Čitljiv, ali nepopravljiv blok na poziciji {0} ostaje. Kontrolni zbroj pokazuje da je blok netočan</value>

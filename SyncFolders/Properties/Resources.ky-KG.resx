@@ -208,7 +208,7 @@
     <value>Ички ката: "{0}" же "{1}" файлдарынын көчүрмөсүн калыбына келтирүү мүмкүн эмес </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>Файлга көчүрүүнү оңдоодо киргизүү/чыгаруу катасы: "{0}": {1}</value>
+    <value>Файлга бир убакта оңдоо менен көчүрүүдөгү киргизүү/чыгаруу катасы: "{0}": {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>"{0}" файлын окууда I/O катасы: {1}</value>

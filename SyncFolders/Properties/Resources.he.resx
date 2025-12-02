@@ -208,7 +208,7 @@
     <value>שגיאה פנימית: לא ניתן היה להעתיק את הקבצים "{0}" | ניתן לשחזר את "{1}". </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>שגיאת קלט/פלט במהלך תיקון עותק לקובץ: "{0}": {1}</value>
+    <value>שגיאת קלט/פלט בעת העתקה עם תיקון סימולטני לקובץ: "{0}": {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>שגיאת I/O בקריאת קובץ "{0}": {1}</value>

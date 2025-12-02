@@ -208,7 +208,7 @@
     <value>Внатрешна грешка: копија од датотеките, ниту „{0}“ ниту „{1}“, може да се врати </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>I/O грешка при поправка на копијата во датотека: „{0}“: {1}</value>
+    <value>Грешка при влезно/излез при копирање со истовремена поправка на датотеката: „{0}“: {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>I/O грешка при читање на датотеката „{0}“: {1}</value>

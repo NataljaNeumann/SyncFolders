@@ -208,7 +208,7 @@
     <value>خطای داخلی: یک کپی از فایل‌ها، نه "{0}" و نه "{1}" قابل بازیابی نیست. </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>خطای I/O هنگام تعمیر کپی در فایل: "{0}": {1}</value>
+    <value>خطای ورودی/خروجی هنگام کپی کردن با تعمیر همزمان فایل: "{0}": {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>خطای ورودی/خروجی در خواندن فایل "{0}": {1}</value>

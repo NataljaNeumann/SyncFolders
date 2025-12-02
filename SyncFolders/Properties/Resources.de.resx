@@ -208,7 +208,7 @@
     <value>Interner Fehler: Es konnte keine Kopie der Dateien „{0}“ | „{1}“ wiederhergestellt werden </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>E/A-Fehler beim Reparieren der Kopie in Datei: „{0}“: {1}</value>
+    <value>E/A-Fehler beim Kopieren mit gleichzeitiger Reparatur in die Datei: „{0}“: {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>E/A-Fehler beim Lesen der Datei „{0}“: {1}</value>

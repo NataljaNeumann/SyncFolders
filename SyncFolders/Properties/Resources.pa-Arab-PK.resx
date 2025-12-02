@@ -208,7 +208,7 @@
     <value>اندرونی غلطی: فائلاں دی اک کاپی، نہ "{0}" تے نہ ہی "{1}"، بحال کیتی جا سکی </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>کاپی ٹو فائل دی مرمت کردے ویلے I/O غلطی: "{0}": {1}</value>
+    <value>فائل تے بیک وقت مرمت دے نال کاپی کردے ویلے I/O دی غلطی: "{0}": {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>I/O فائل "{0}" پڑھن چ غلطی: {1}</value>

@@ -208,7 +208,7 @@
     <value>خطأ داخلي: تعذر نسخ الملفات "{0}" | يمكن استعادة "{1}". </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>خطأ إدخال/إخراج أثناء إصلاح النسخة إلى الملف: "{0}": {1}</value>
+    <value>خطأ إدخال/إخراج أثناء النسخ مع الإصلاح المتزامن للملف: "{0}": {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>خطأ في الإدخال/الإخراج في قراءة الملف "{0}": {1}</value>

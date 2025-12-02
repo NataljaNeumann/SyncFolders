@@ -208,7 +208,7 @@
     <value>Dahili hata: “{0}” | “{1}” dosyalarının bir kopyası geri yüklenemedi </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>Dosyaya kopya onarılırken G/Ç hatası: “{0}”: {1} </value>
+    <value>“{0}” dosyasına eş zamanlı onarımla kopyalama sırasında G/Ç hatası: {1} </value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>“{0}” dosyası okunurken G/Ç hatası: {1}</value>

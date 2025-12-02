@@ -208,7 +208,7 @@
     <value>داخلي تېروتنه: د دوتنو یوه کاپي، نه "{0}" او نه هم "{1}"، بیا رغول کېدای شي </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>فایل ته د کاپي ترمیم کولو پرمهال I/O تېروتنه: "{0}": {1}</value>
+    <value>د فایل سره د ورته ترمیم سره د کاپي کولو پر مهال د I/O تېروتنه: "{0}": {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>I/O د دوتنې لوستلو تېروتنه "{0}": {1}</value>

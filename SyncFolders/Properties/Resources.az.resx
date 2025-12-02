@@ -208,7 +208,7 @@
     <value>Daxili xəta: Faylların nə “{0}”, nə də “{1}” surəti bərpa edilə bilməz </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>Fayla köçürmə təmiri zamanı I/O xətası: “{0}”: {1}</value>
+    <value>Fayla eyni vaxtda təmirlə kopyalanarkən I/O xətası: “{0}”: {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>“{0}” faylını oxumaqda I/O xətası: {1}</value>

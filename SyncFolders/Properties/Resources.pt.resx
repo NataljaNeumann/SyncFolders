@@ -208,7 +208,7 @@
     <value>Erro interno: Não foi possível copiar os arquivos “{0}” | "{1}" pode ser restaurado </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>Erro de E/S ao reparar cópia para arquivo: "{0}": {1}</value>
+    <value>Erro de E/S ao copiar com reparo simultâneo do arquivo: "{0}": {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>Erro de E/S ao ler o arquivo “{0}”: {1} </value>

@@ -208,7 +208,7 @@
     <value>Хатои дохилӣ: Нусхаи файлҳоро, на "{0}" ва на "{1}" барқарор кардан мумкин нест </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>Хатогии I/O ҳангоми таъмири нусхабардорӣ ба файл: "{0}": {1}</value>
+    <value>Хатогии I/O ҳангоми нусхабардорӣ бо таъмири ҳамзамон ба файл: "{0}": {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>Хатогии I/O хондани файли "{0}": {1}</value>

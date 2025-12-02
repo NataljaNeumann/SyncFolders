@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BlockOfAtPositionWillBeCopiedFromNoMatterChecksum" xml:space="preserve">
-    <value>Blokk av fil "{0}" på posisjon {1} er kopiert fra "{2}" selv om kontrollsummen viser at blokkeringen er feil</value>
+    <value>Blokk av fil «{0}» på posisjon {1} er kopiert fra «{2}» selv om kontrollsummen viser at blokkeringen er feil</value>
   </data>
   <data name="BlockOfAtPositionWillBeRestoredFrom" xml:space="preserve">
-    <value>Blokk av fil "{0}" på posisjon {1} er gjenopprettet fra samme posisjon som fil "{2}".</value>
+    <value>Blokk av fil «{0}» på posisjon {1} er gjenopprettet fra samme posisjon som fil «{2}».</value>
   </data>
   <data name="BlocksOfAndAtPositionNonRecoverableFillDummy" xml:space="preserve">
-    <value>Blokkene med filene "{0}" og "{1}" på posisjon {2} kan ikke gjenopprettes og vil bli fylt med en tom blokk</value>
+    <value>Blokkene med filene «{0}» og «{1}» på posisjon {2} kan ikke gjenopprettes og vil bli fylt med en tom blokk</value>
   </data>
   <data name="ChecksumOfBlockAtOffsetNotOK" xml:space="preserve">
     <value>{0}: Sjekksum av blokken ved posisjon {1} er ikke OK</value>
@@ -148,25 +148,25 @@
     <value>Jeg fjerner gammel lagret informasjon som har blitt foreldet...</value>
   </data>
   <data name="EncounteredErrorOlderOk" xml:space="preserve">
-    <value>Advarsel: Det oppstod en I/U-feil under kopiering av filen "{0}". Den eldre filen "{1}" ser ut til å være i orden</value>
+    <value>Advarsel: Det oppstod en I/U-feil under kopiering av filen «{0}». Den eldre filen «{1}» ser ut til å være i orden</value>
   </data>
   <data name="EncounteredErrorOtherBadToo" xml:space="preserve">
-    <value>Advarsel: Det oppstod en I/U-feil under kopiering av filen "{0}". Den andre filen «{1}» har også feil eller er et produkt av siste-sjanse-gjenoppretting. Forsøker å reparere «{0}» automatisk.</value>
+    <value>Advarsel: Det oppstod en I/U-feil under kopiering av filen «{0}». Den andre filen «{1}» har også feil eller er et produkt av siste-sjanse-gjenoppretting. Forsøker å reparere «{0}» automatisk.</value>
   </data>
   <data name="EncounteredErrorWhileCopyingTryingToRepair" xml:space="preserve">
-    <value>Advarsel: Det oppstod en feil under kopiering av filen "{0}". Jeg prøver å fikse feilen.</value>
+    <value>Advarsel: Det oppstod en feil under kopiering av filen «{0}». Jeg prøver å fikse feilen.</value>
   </data>
   <data name="ErrorDeleting" xml:space="preserve">
-    <value>Feil ved sletting av filen "{0}": {1}</value>
+    <value>Feil ved sletting av filen «{0}»: {1}</value>
   </data>
   <data name="ErrorProcessinngFilePair" xml:space="preserve">
-    <value>Feil ved behandling av filparet "{0}" | «{1}»: {2}</value>
+    <value>Feil ved behandling av filparet «{0}» | «{1}»: {2}</value>
   </data>
   <data name="ErrorReadingPositionWillFillWithDummy" xml:space="preserve">
-    <value>Feil ved lesing av filen "{0}" på posisjon {1}: {2}. Blokken er fylt med en tom blokk</value>
+    <value>Feil ved lesing av filen «{0}» på posisjon {1}: {2}. Blokken er fylt med en tom blokk</value>
   </data>
   <data name="ErrorWhileTestingFile" xml:space="preserve">
-    <value>Feil ved testing av filen "{0}"</value>
+    <value>Feil ved testing av filen «{0}»</value>
   </data>
   <data name="FileCopied" xml:space="preserve">
     <value>Kopier fullført «{0}» til «{1}»  {2}</value>
@@ -175,13 +175,13 @@
     <value>(Filen har en annen dato eller lengde)</value>
   </data>
   <data name="FileHasZeroLength" xml:space="preserve">
-    <value>Advarsel: Filen har null lengde, noe som indikerer en mislykket kopieringsoperasjon i fortiden: "{0}"</value>
+    <value>Advarsel: Filen har null lengde, noe som indikerer en mislykket kopieringsoperasjon i fortiden: «{0}»</value>
   </data>
   <data name="FileHealthyOrRepaired" xml:space="preserve">
     <value>(Filen var feilfri eller reparert)</value>
   </data>
   <data name="FilesHaveZeroLength" xml:space="preserve">
-    <value>Advarsel: Begge filene har null lengde, noe som indikerer en mislykket kopieringsoperasjon i fortiden: "{0}" | "{1}"</value>
+    <value>Advarsel: Begge filene har null lengde, noe som indikerer en mislykket kopieringsoperasjon i fortiden: «{0}» | «{1}»</value>
   </data>
   <data name="FileWasHealthy" xml:space="preserve">
     <value>(Filen var feilfri)</value>
@@ -193,34 +193,34 @@
     <value>(Filen var nyere eller større)</value>
   </data>
   <data name="FillingNotRecoverableAtOffsetOfCopyWithDummy" xml:space="preserve">
-    <value>Den ugjenopprettelige blokken på posisjon {0} i den kopierte filen "{1}" er fylt med en tom blokk</value>
+    <value>Den ugjenopprettelige blokken på posisjon {0} i den kopierte filen «{1}» er fylt med en tom blokk</value>
   </data>
   <data name="FillingNotRecoverableAtOffsetWithDummy" xml:space="preserve">
     <value>Der nicht wiederherstellbare Block an der Position {0} wird mit einem Dummy-Block gefüllt</value>
   </data>
   <data name="FirstFileHasBadBlocks" xml:space="preserve">
-    <value>Advarsel: Den første filen "{0}" har dårlige blokker. Overskriving av filen "{1}" ble hoppet over, og la den som en sikkerhetskopi</value>
+    <value>Advarsel: Den første filen «{0}» har dårlige blokker. Overskriving av filen «{1}» ble hoppet over, og la den som en sikkerhetskopi</value>
   </data>
   <data name="FoundFileForSync" xml:space="preserve">
     <value>Fant en fil for mulig synkronisering</value>
   </data>
   <data name="FoundFilesForSync" xml:space="preserve">
-    <value>{0} filer funnet for mulig synkronisering{0} filer funnet for mulig synkronisering</value>
+    <value>{0} filer funnet for mulig synkronisering</value>
   </data>
   <data name="InternalErrorCouldntRestoreAny" xml:space="preserve">
-    <value>Intern feil: Kunne ikke kopiere filene "{0}" | "{1}" kan gjenopprettes</value>
+    <value>Intern feil: Kunne ikke kopiere filene «{0}» | «{1}» kan gjenopprettes</value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>I/U-feil under reparasjon av kopi til fil: "{0}": {1}</value>
+    <value>I/O-feil ved kopiering med samtidig reparasjon til filen: «{0}»: {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>I/U-feil ved lesing av filen «{0}»: {1}</value>
   </data>
   <data name="IOErrorReadingFileOffset" xml:space="preserve">
-    <value>I/O-feil ved lesing av fil: "{0}" ved posisjon {1}: {2}</value>
+    <value>I/O-feil ved lesing av fil: «{0}» ved posisjon {1}: {2}</value>
   </data>
   <data name="IOErrorWhileReadingPositionFillDummyWhileCopy" xml:space="preserve">
-    <value>I/U-feil ved lesing av filen "{0}" på plassering {1}: {2}. Blokken erstattes av en dummy når den kopieres.</value>
+    <value>I/U-feil ved lesing av filen «{0}» på plassering {1}: {2}. Blokken erstattes av en dummy når den kopieres.</value>
   </data>
   <data name="IOErrorWritingFile" xml:space="preserve">
     <value>I/U-feil ved skriving av filen «{0}»: {1}</value>
@@ -229,7 +229,7 @@
     <value>Den lesbare, men uopprettelige blokken ved posisjon {0} forblir. Kontrollsummen indikerer at blokkeringen er feil</value>
   </data>
   <data name="KeepingReadableNonRecovBBlockAtAlsoInCopy" xml:space="preserve">
-    <value>Den lesbare, men uopprettelige blokken på posisjon {0} av den opprinnelige filen "{1}" forblir også i kopien "{2}". Kontrollsummen indikerer at blokkeringen er feil</value>
+    <value>Den lesbare, men uopprettelige blokken på posisjon {0} av den opprinnelige filen «{1}» forblir også i kopien «{2}». Kontrollsummen indikerer at blokkeringen er feil</value>
   </data>
   <data name="LogFileName" xml:space="preserve">
     <value>Kataloger Synkroniser Logg norsk</value>
@@ -247,7 +247,7 @@
     <value>Prosessen avsluttetProsessen avsluttet</value>
   </data>
   <data name="OutOfBadBlocksNotRestoredInCopyBytes" xml:space="preserve">
-    <value>Av {0} dårlige blokker i den opprinnelige filen, ble ikke {2} byte gjenopprettet i kopien "{1}".</value>
+    <value>Av {0} dårlige blokker i den opprinnelige filen, ble ikke {2} byte gjenopprettet i kopien «{1}».</value>
   </data>
   <data name="ProcessNo" xml:space="preserve">
     <value>№</value>
@@ -256,16 +256,16 @@
     <value>Blokkeringen ved posisjon {0} av den kopierte målfilen «{1}» er gjenopprettet</value>
   </data>
   <data name="RecoveringBlockAtOffsetOfFile" xml:space="preserve">
-    <value>Blokkeringen ved posisjon {0} av filen "{1}" er gjenopprettet.</value>
+    <value>Blokkeringen ved posisjon {0} av filen «{1}» er gjenopprettet.</value>
   </data>
   <data name="RightToLeft" xml:space="preserve">
     <value>no</value>
   </data>
   <data name="RunningWithoutRepairOptionUndecided" xml:space="preserve">
-    <value>Synkronisering kjører uten reparasjonsalternativ og kunne derfor ikke bestemme om filen "{0}" kan gjenopprettes med "{1}".</value>
+    <value>Synkronisering kjører uten reparasjonsalternativ og kunne derfor ikke bestemme om filen «{0}» kan gjenopprettes med «{1}».</value>
   </data>
   <data name="SavedInfoFileCantBeUsedForTesting" xml:space="preserve">
-    <value>Den lagrede infofilen "{0}" kan ikke brukes til å teste filen "{1}": den ble opprettet for en annen versjon av filen</value>
+    <value>Den lagrede infofilen «{0}» kan ikke brukes til å teste filen «{1}»: den ble opprettet for en annen versjon av filen</value>
   </data>
   <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
     <value>Den lagrede infofilen «{0}» ble ødelagt og må gjenskapes fra «{1}».</value>
@@ -274,70 +274,70 @@
     <value>Jeg ser etter mapper og filer som skal synkroniseres...</value>
   </data>
   <data name="SecondFolderNoDelete" xml:space="preserve">
-    <value>Feil: Den andre mappen inneholder filen "{0}". Den valgte mappen ser ut til å være feil for slettealternativet. Hopp over behandlingen av mappen og undermappene</value>
+    <value>Feil: Den andre mappen inneholder filen «{0}». Den valgte mappen ser ut til å være feil for slettealternativet. Hopp over behandlingen av mappen og undermappene</value>
   </data>
   <data name="SkippingFilePairDontDelete" xml:space="preserve">
-    <value>Filparet «{0}» | «{1}» hoppes over. En spesiell fil forhindrer bruk av slettealternativet i feil rotmappe.Filparet «{0}» | «{1}» hoppes over. En spesiell fil forhindrer bruk av slettealternativet i feil rotmappe.</value>
+    <value>Filparet «{0}» | «{1}» hoppes over. En spesiell fil forhindrer bruk av slettealternativet i feil rotmappe.</value>
   </data>
   <data name="TheFileCantBeModifiedMissingRepairApplyToCopy" xml:space="preserve">
     <value>Filen kan ikke endres på grunn av mangel på et reparasjonsalternativ. Gjenopprettingsprosessen brukes på kopien.</value>
   </data>
   <data name="ThereAreBadBlocksInFileNonRestorableParts" xml:space="preserve">
-    <value>Det er {0} dårlige blokker i filen "{1}", deler som ikke kan gjenopprettes: {2} byte.</value>
+    <value>Det er {0} dårlige blokker i filen «{1}», deler som ikke kan gjenopprettes: {2} byte.</value>
   </data>
   <data name="ThereAreBadBlocksInNonRestorableMayRetryLater" xml:space="preserve">
-    <value>Det er {0} dårlige blokker i filen "{1}", deler som ikke kan gjenopprettes: {2} byte. Prosessen kan ikke fortsette på grunn av uopprettelighet.  Det kan prøves igjen senere.</value>
+    <value>Det er {0} dårlige blokker i filen «{1}», deler som ikke kan gjenopprettes: {2} byte. Prosessen kan ikke fortsette på grunn av uopprettelighet.  Det kan prøves igjen senere.</value>
   </data>
   <data name="ThereAreBadBlocksNonRestorableCantBeBackup" xml:space="preserve">
-    <value>Det er {0} dårlige blokker i filen "{1}", deler som ikke kan gjenopprettes: {2} byte, filen kan ikke brukes som sikkerhetskopi</value>
+    <value>Det er {0} dårlige blokker i filen «{1}», deler som ikke kan gjenopprettes: {2} byte, filen kan ikke brukes som sikkerhetskopi</value>
   </data>
   <data name="ThereAreBadBlocksNonRestorableOnlyTested" xml:space="preserve">
-    <value>Det er {0} dårlige blokker i filen "{1}", deler som ikke kan gjenopprettes: {2} byte. Filen forblir uendret, den ble nettopp testet</value>
+    <value>Det er {0} dårlige blokker i filen «{1}», deler som ikke kan gjenopprettes: {2} byte. Filen forblir uendret, den ble nettopp testet</value>
   </data>
   <data name="ThereIsBadBlockInFileNonRestorableParts" xml:space="preserve">
-    <value>Det er en dårlig blokk i filen "{0}", ugjenopprettelige deler: {1} byte.</value>
+    <value>Det er en dårlig blokk i filen «{0}», ugjenopprettelige deler: {1} byte.</value>
   </data>
   <data name="ThereIsBadBlockNonRestorableCantBeBackup" xml:space="preserve">
-    <value>Det er en dårlig blokk i filen "{0}" som ikke kan gjenopprettes: {1} byte, fil kan ikke brukes som sikkerhetskopi</value>
+    <value>Det er en dårlig blokk i filen «{0}» som ikke kan gjenopprettes: {1} byte, fil kan ikke brukes som sikkerhetskopi</value>
   </data>
   <data name="ThereIsOneBadBlockNonRestorableOnlyTested" xml:space="preserve">
-    <value>Det er en dårlig blokk i filen "{0}", deler som ikke kan gjenopprettes: {1} byte, filen forblir uendret, den ble nettopp testet</value>
+    <value>Det er en dårlig blokk i filen «{0}», deler som ikke kan gjenopprettes: {1} byte, filen forblir uendret, den ble nettopp testet</value>
   </data>
   <data name="ThereRemainBadBlocksInBecauseReadOnly" xml:space="preserve">
-    <value>{0} dårlige blokker forblir i "{1}" fordi filen ikke kan endres</value>
+    <value>{0} dårlige blokker forblir i «{1}» fordi filen ikke kan endres</value>
   </data>
   <data name="ThereWasBadBlockInFileNotRestoredParts" xml:space="preserve">
-    <value>Det var en dårlig blokkering i filen "{0}", uopprettede deler: {1} byte</value>
+    <value>Det var en dårlig blokkering i filen «{0}», uopprettede deler: {1} byte</value>
   </data>
   <data name="ThereWasBadBlockNotRestoredInCopyBytes" xml:space="preserve">
-    <value>Det var en dårlig blokkering i den opprinnelige filen, ugjenopprettede deler i kopien "{0}": {1} byte.</value>
+    <value>Det var en dårlig blokkering i den opprinnelige filen, ugjenopprettede deler i kopien «{0}»: {1} byte.</value>
   </data>
   <data name="ThereWereBadBlocksInFileNotRestoredParts" xml:space="preserve">
-    <value>Det var {0} dårlige blokker i filen "{1}", uopprettede deler: {2} byte</value>
+    <value>Det var {0} dårlige blokker i filen «{1}», uopprettede deler: {2} byte</value>
   </data>
   <data name="ThisIsASimulatedIOErrorAtPosition" xml:space="preserve">
     <value>Dette er en simulert I/O-feil på stedet {0}</value>
   </data>
   <data name="WarningChecksumOffsetPrimarySavedInfoIgnored" xml:space="preserve">
-    <value>Advarsel: Kontrollsummen for blokken ved posisjon {0} samsvarer ikke med de tilgjengelige primærblokkene med lagret informasjon "{1}". Den primære lagrede informasjonen for blokken ignoreresAdvarsel: Kontrollsummen for blokken ved posisjon {0} samsvarer ikke med de tilgjengelige primærblokkene med lagret informasjon "{1}". Den primære lagrede informasjonen for blokken ignoreres</value>
+    <value>Advarsel: Kontrollsummen for blokken ved posisjon {0} samsvarer ikke med de tilgjengelige primærblokkene med lagret informasjon «{1}». Den primære lagrede informasjonen for blokken ignoreres</value>
   </data>
   <data name="WarningChecksumOffsetSecondarySavedInfoIgnored" xml:space="preserve">
-    <value>Advarsel: Kontrollsummen for blokken ved posisjon {0} samsvarer ikke med de tilgjengelige sekundære blokkene med lagret informasjon "{1}". Sekundær lagret informasjon for blokken ignoreres</value>
+    <value>Advarsel: Kontrollsummen for blokken ved posisjon {0} samsvarer ikke med de tilgjengelige sekundære blokkene med lagret informasjon «{1}». Sekundær lagret informasjon for blokken ignoreres</value>
   </data>
   <data name="WarningCopiedToWithErrors" xml:space="preserve">
     <value>Advarsel: «{0}» ble kopiert til «{1}» med feil {2}</value>
   </data>
   <data name="WarningIOErrorWhileCopyingToReason" xml:space="preserve">
-    <value>Advarsel: I/U-feil under kopiering av filen "{0}" til "{1}": {2}</value>
+    <value>Advarsel: I/U-feil under kopiering av filen «{0}» til «{1}»: {2}</value>
   </data>
   <data name="WarningSeveralBlocksDontMatchInSIWillBeIgnored" xml:space="preserve">
-    <value>Advarsel: Flere blokker samsvarer ikke med lagret informasjon "{0}". Den lagrede informasjonen blir fullstendig ignorert</value>
+    <value>Advarsel: Flere blokker samsvarer ikke med lagret informasjon «{0}». Den lagrede informasjonen blir fullstendig ignorert</value>
   </data>
   <data name="WarningWhileCreating" xml:space="preserve">
-    <value>Advarsel: {0} mens du oppretter filen "{1}"</value>
+    <value>Advarsel: {0} mens du oppretter filen «{1}»</value>
   </data>
   <data name="WarningWhileDiscoveringIfNeedsToBeRechecked" xml:space="preserve">
-    <value>Advarsel: {0} mens det avgjøres om "{1}" må sjekkes på nytt.</value>
+    <value>Advarsel: {0} mens det avgjøres om «{1}» må sjekkes på nytt.</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>ja</value>

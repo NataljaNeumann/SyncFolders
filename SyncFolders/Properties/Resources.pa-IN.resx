@@ -208,7 +208,7 @@
     <value>ਅੰਦਰੂਨੀ ਗਲਤੀ: ਫਾਈਲਾਂ ਦੀ ਇੱਕ ਕਾਪੀ, ਨਾ ਤਾਂ “{0}” ਅਤੇ ਨਾ ਹੀ “{1}”, ਰੀਸਟੋਰ ਕੀਤੀ ਜਾ ਸਕਦੀ ਹੈ। </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>ਫਾਈਲ ਵਿੱਚ ਕਾਪੀ ਦੀ ਮੁਰੰਮਤ ਕਰਦੇ ਸਮੇਂ I/O ਗਲਤੀ: “{0}”: {1}</value>
+    <value>ਫਾਈਲ ਦੀ ਇੱਕੋ ਸਮੇਂ ਮੁਰੰਮਤ ਦੇ ਨਾਲ ਕਾਪੀ ਕਰਨ ਵੇਲੇ I/O ਗਲਤੀ: “{0}”: {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>I/O ਫਾਈਲ “{0}” ਨੂੰ ਪੜ੍ਹਨ ਵਿੱਚ ਗਲਤੀ: {1}</value>

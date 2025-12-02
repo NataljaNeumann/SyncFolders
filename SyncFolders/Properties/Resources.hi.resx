@@ -208,7 +208,7 @@
     <value>आंतरिक त्रुटि: "{0}" | "{1}" फ़ाइलों की प्रतिलिपि पुनर्स्थापित नहीं की जा सकी</value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>फ़ाइल की प्रतिलिपि सुधारते समय I/O त्रुटि: "{0}": {1}</value>
+    <value>फ़ाइल में एक साथ सुधार के साथ प्रतिलिपि बनाते समय I/O त्रुटि: "{0}": {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>फ़ाइल "{0}" को पढ़ने में I/O त्रुटि: {1}</value>

@@ -208,7 +208,7 @@
     <value>Intern fejl: En kopi af filerne, hverken "{0}" eller "{1}", kunne gendannes </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>I/O-fejl under reparation af kopi til fil: "{0}": {1}</value>
+    <value>I/O-fejl ved kopiering med samtidig reparation til filen: "{0}": {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>I/O-fejl ved læsning af filen "{0}": {1}</value>

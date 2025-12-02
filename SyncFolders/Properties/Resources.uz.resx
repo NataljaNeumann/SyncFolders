@@ -208,7 +208,7 @@
     <value>Ichki xato: “{0}” yoki “{1}” fayllar nusxasini tiklab bo'lmadi. </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>Faylga nusxa ko'chirishni tuzatishda kiritish/chiqarish xatosi: “{0}”: {1}</value>
+    <value>Faylni bir vaqtda tuzatish bilan nusxalashda kiritish/chiqarish xatosi: “{0}”: {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>“{0}” faylini o‘qishda I/U xatosi: {1}</value>

@@ -208,7 +208,7 @@
     <value>Дотоод алдаа: “{0}” болон “{1}” файлуудын хуулбарыг сэргээх боломжгүй </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>Файл руу хуулбарлахыг засах үед оролт гаралтын алдаа: “{0}”: {1}</value>
+    <value>“{0}” файлыг нэгэн зэрэг засварлахад хуулах үед оролт гаралтын алдаа: {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>“{0}” файлыг унших I/O алдаа: {1}</value>

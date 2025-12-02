@@ -208,7 +208,7 @@
     <value>Вътрешна грешка: Копие на файловете, нито „{0}“, нито „{1}“, може да бъде възстановено </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>I/O грешка при поправка на копие във файл: "{0}": {1}</value>
+    <value>Грешка при I/O операции при копиране с едновременно поправяне на файла: „{0}“: {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>I/O грешка при четене на файл „{0}“: {1}</value>

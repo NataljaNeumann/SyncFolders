@@ -209,7 +209,7 @@
     <value>内部エラー: ファイル 「{0}」 および 「{1}」 のコピーを復元できませんでした</value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>ファイルへのコピーの修復中に I/O エラーが発生しました: 「{0}」: {1}</value>
+    <value>ファイル「{0}」への同時修復コピー中に I/O エラーが発生しました: {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>ファイル「{0}」の読み取り中の I/O エラー: {1}</value>

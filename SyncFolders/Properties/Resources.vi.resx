@@ -208,7 +208,7 @@
     <value>Lỗi nội bộ: Không thể khôi phục bản sao của tệp, cả “{0}” và “{1}” </value>
   </data>
   <data name="IOErrorDuringRepairCopyOf" xml:space="preserve">
-    <value>Lỗi I/O khi sửa bản sao vào tệp: “{0}”: {1}</value>
+    <value>Lỗi I/O khi sao chép đồng thời sửa chữa vào tệp: “{0}”: {1}</value>
   </data>
   <data name="IOErrorReadingFile" xml:space="preserve">
     <value>Lỗi I/O khi đọc tệp “{0}”: {1}</value>
