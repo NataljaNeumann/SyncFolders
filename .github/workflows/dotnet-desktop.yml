@@ -176,13 +176,13 @@ jobs:
       - name: Restore NuGet packages
         run: nuget restore ${{ env.APP_NAME }}.sln
 
-      # - name: Download SNK file from secrets
-      #   run: |
-      #     $snkBytes = [System.Convert]::FromBase64String("${{ secrets.SNK_FILE }}")
-      #     [System.IO.File]::WriteAllBytes("${{ env.APP_NAME }}/MyKey.snk", $snkBytes)
+      - name: Download SNK file from secrets
+        run: |
+          $snkBytes = [System.Convert]::FromBase64String("${{ secrets.SNK_FILE }}")
+          [System.IO.File]::WriteAllBytes("${{ env.APP_NAME }}/MyKey.snk", $snkBytes)
 
-      # - name: Build and sign with SNK
-      #   run: msbuild ${{ env.APP_NAME }}.sln /p:Configuration=Release /p:SignAssembly=true /p:AssemblyOriginatorKeyFile=MyKey.snk
+      - name: Build and sign with SNK
+        run: msbuild ${{ env.APP_NAME }}.sln /p:Configuration=Release /p:SignAssembly=true /p:AssemblyOriginatorKeyFile=MyKey.snk
 
 
       # - name: Download PFX file from secrets
@@ -195,8 +195,8 @@ jobs:
       #     & "C:\Program Files (x86)\Windows Kits\10\bin\x64\signtool.exe" sign /f ${{ env.APP_NAME }}/MyCert.pfx /p ${{ secrets.PFX_PASSWORD }} /tr http://timestamp.digicert.com /td sha256 /fd sha256 ${{ env.APP_NAME }}/bin/Release/${{ env.APP_NAME }}.exe
 
 
-      - name: Build solution
-        run: msbuild ${{ env.APP_NAME }}.sln /p:Configuration=Release
+      # - name: Build solution
+      #  run: msbuild ${{ env.APP_NAME }}.sln /p:Configuration=Release
       # /verbosity:diag
 
 
