@@ -1027,7 +1027,7 @@ namespace SyncFoldersApi
                 if (aFileContent[i] != aExpectedFileContent[i])
                 {
                     System.Console.WriteLine("Contents of " + strPath + " don't match: e.g. at position " + i +
-                        "expected " + aExpectedFileContent[i] + " got " + aFileContent[i]);
+                        " expected " + aExpectedFileContent[i] + " got " + aFileContent[i]);
                     return false;
                 }
             }
