@@ -290,7 +290,7 @@ namespace SyncFoldersApi
                 if (nLastFound > nStartWith)
                 {
                     // then just find the needed one
-                    for (int i = 0; i < s_oFoundPrimes.Count - 1; ++i)
+                    for (int i = 0; i < s_oFoundPrimes.Count; ++i)
                         if (s_oFoundPrimes[i] > nStartWith)
                             return s_oFoundPrimes[i];
                 };
