@@ -173,6 +173,9 @@ jobs:
       #  with:
       #    vs-version: '17.8'
 
+      - name: Setup SignTool Path
+        uses: KamaranL/add-signtool-action@v1
+
       - name: Restore NuGet packages
         run: nuget restore ${{ env.APP_NAME }}.sln
 
@@ -180,19 +183,40 @@ jobs:
         run: |
           $snkBytes = [System.Convert]::FromBase64String("${{ secrets.SNK_FILE }}")
           [System.IO.File]::WriteAllBytes("${{ env.APP_NAME }}/MyKey.snk", $snkBytes)
+          Write-Host "Wrote SNK to $targetPath"
 
       - name: Build and sign with SNK
-        run: msbuild ${{ env.APP_NAME }}.sln /p:Configuration=Release /p:SignAssembly=true /p:AssemblyOriginatorKeyFile=MyKey.snk
+        run: |
+          & msbuild ${{ env.APP_NAME }}.sln /p:Configuration=Release /p:SignAssembly=true /p:AssemblyOriginatorKeyFile=MyKey.snk
+          Remove-Item -Force -Verbose -ErrorAction SilentlyContinue "${{ env.APP_NAME }}/MyKey.snk"
 
+      # SNK creation:
+      # sn -k MyKey.snk
+      # [Convert]::ToBase64String([IO.File]::ReadAllBytes("MyKey.snk")) | Set-Clipboard
 
-      # - name: Download PFX file from secrets
-      #   run: |
-      #     $pfxBytes = [System.Convert]::FromBase64String("${{ secrets.PFX_FILE }}")
-      #     [System.IO.File]::WriteAllBytes("${{ env.APP_NAME }}/MyCert.pfx", $pfxBytes)
+      - name: Download PFX file from secrets
+        run: |
+          $pfxBytes = [System.Convert]::FromBase64String("${{ secrets.PFX_FILE }}")
+          [System.IO.File]::WriteAllBytes("${{ env.APP_NAME }}/MyCert.pfx", $pfxBytes)
 
-      # - name: Sign executable with PFX
-      #   run: |
-      #     & "C:\Program Files (x86)\Windows Kits\10\bin\x64\signtool.exe" sign /f ${{ env.APP_NAME }}/MyCert.pfx /p ${{ secrets.PFX_PASSWORD }} /tr http://timestamp.digicert.com /td sha256 /fd sha256 ${{ env.APP_NAME }}/bin/Release/${{ env.APP_NAME }}.exe
+      - name: Sign executable with PFX
+        run: |
+          & signtool.exe sign /f ${{ env.APP_NAME }}/MyCert.pfx /p ${{ secrets.PFX_PASSWORD }} /tr http://timestamp.digicert.com /td sha256 /fd sha256 ${{ env.APP_NAME }}/bin/Release/net8.0-windows/${{ env.APP_NAME }}.exe
+          Remove-Item -Force -Verbose -ErrorAction SilentlyContinue "${{ env.APP_NAME }}/MyCert.pfx"
+
+      - name: Pack the release with signed EXE
+        run: |
+          cd ${{ env.APP_NAME }}/bin/Release/net8.0-windows
+          Get-ChildItem -Path . -Include *.snk, *.pfx -Recurse -Force | Remove-Item -Force -ErrorAction SilentlyContinue
+          Remove-Item -Force -ErrorAction SilentlyContinue "../../${{ env.APP_NAME }}_v${{ steps.increment.outputs.version }}.zip"
+          tar.exe -a -c -f  ../../${{ env.APP_NAME }}_v${{ steps.increment.outputs.version }}.zip *.*
+          cd $env:GITHUB_WORKSPACE
+          #cd ../../../..
+
+      # certificate creation in powershell:
+      # "C:\Program Files\Git\usr\bin\openssl.exe" req -x509 -newkey rsa:4096 -keyout MeinSchluessel.key -out MeinZertifikat.crt -days 1825 -nodes -subj "/CN=..."
+      # "C:\Program Files\Git\usr\bin\openssl.exe" pkcs12 -export -out MyCert.pfx -inkey MeinSchluessel.key -in MeinZertifikat.crt
+      # [Convert]::ToBase64String([System.IO.File]::ReadAllBytes("MyCert.pfx")) | Set-Clipboard
 
 
       # - name: Build solution

@@ -50,6 +50,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Public.crt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Readme.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
