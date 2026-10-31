@@ -69,13 +69,13 @@ namespace SyncFoldersTests
             Assert.IsFalse(oFS.IsTestFile("\\\\sim\\dir\\File1.dat", 2, 1024 * 1024, dtmToUse, false, false, null, null, null));
 
             // test presence of saved info is recognized
-            Assert.IsFalse(oFS.IsTestFile("\\\\sim\\dir\\File1.dat", 1, 1024 * 1024 + 1, dtmToUse, true, false, null, null, null));
+            Assert.IsFalse(oFS.IsTestFile("\\\\sim\\dir\\File1.dat", 1, 1024 * 1024, dtmToUse, true, false, null, null, null));
 
             // test presence of an erased block is recognized
-            Assert.IsFalse(oFS.IsTestFile("\\\\sim\\dir\\File1.dat", 1, 1024 * 1024 + 1, dtmToUse, false, false, new List<long>(aBlockAt4096), null, null));
+            Assert.IsFalse(oFS.IsTestFile("\\\\sim\\dir\\File1.dat", 1, 1024 * 1024, dtmToUse, false, false, new List<long>(aBlockAt4096), null, null));
 
             // test presence of a read error is recognized
-            Assert.IsFalse(oFS.IsTestFile("\\\\sim\\dir\\File1.dat", 1, 1024 * 1024 + 1, dtmToUse, false, false, null, new List<long>(aBlockAt4096), null));
+            Assert.IsFalse(oFS.IsTestFile("\\\\sim\\dir\\File1.dat", 1, 1024 * 1024, dtmToUse, false, false, null, new List<long>(aBlockAt4096), null));
 
 
             // continue with file 2 that has saved info and a different length
