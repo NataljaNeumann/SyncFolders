@@ -40,6 +40,10 @@
     <Using Include="NUnit.Framework" />
   </ItemGroup>
 
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="if &quot;$(ConfigurationName)&quot; == &quot;Release&quot; (&#xD;&#xA;  if exist &quot;$(ProjectDir)*.snk&quot; del /f /q &quot;$(ProjectDir)*.snk&quot;&#xD;&#xA;  if exist &quot;$(ProjectDir)*.pfx&quot; del /f /q &quot;$(ProjectDir)*.pfx&quot;&#xD;&#xA;)&#xD;&#xA;" />
+  </Target>
+
 </Project>
 
 
