@@ -187,7 +187,7 @@ jobs:
 
       - name: Build and sign with SNK
         run: |
-          & msbuild ${{ env.APP_NAME }}.sln /p:Configuration=Release /p:SignAssembly=true /p:AssemblyOriginatorKeyFile=MyKey.snk
+          & msbuild ${{ env.APP_NAME }}.sln /p:Configuration=Release /p:SignAssembly=true /p:AssemblyOriginatorKeyFile="${{ github.workspace }}\${{ env.APP_NAME }}\MyKey.snk"
           Remove-Item -Force -Verbose -ErrorAction SilentlyContinue "${{ env.APP_NAME }}/MyKey.snk"
 
       # SNK creation:
@@ -201,7 +201,7 @@ jobs:
 
       - name: Sign executable with PFX
         run: |
-          & signtool.exe sign /f ${{ env.APP_NAME }}/MyCert.pfx /p ${{ secrets.PFX_PASSWORD }} /tr http://timestamp.digicert.com /td sha256 /fd sha256 ${{ env.APP_NAME }}/bin/Release/net8.0-windows/${{ env.APP_NAME }}.exe
+          & signtool.exe sign /f ${{ env.APP_NAME }}/MyCert.pfx /p ${{ secrets.PFX_PASSWORD }} /tr http://timestamp.digicert.com /td sha256 /fd sha256 "${{ env.APP_NAME }}/bin/Release/net8.0-windows/${{ env.APP_NAME }}*.exe"
           Remove-Item -Force -Verbose -ErrorAction SilentlyContinue "${{ env.APP_NAME }}/MyCert.pfx"
 
       - name: Pack the release with signed EXE
