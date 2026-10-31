@@ -16,7 +16,7 @@
     <RepositoryUrl>https://github.com/NataljaNeumann/SyncFolders.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <Copyright>Copyright © 2024-2025 NataljaNeumann@gmx.de</Copyright>
+    <Copyright>Copyright © 2024-2026 NataljaNeumann@gmx.de</Copyright>
     <PackageProjectUrl>https://github.com/NataljaNeumann/SyncFolders</PackageProjectUrl>
     <BaseOutputPath></BaseOutputPath>
     <AssemblyName>$(MSBuildProjectName)_v1.6</AssemblyName>
