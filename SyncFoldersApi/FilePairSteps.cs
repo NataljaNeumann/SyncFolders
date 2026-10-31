@@ -4240,15 +4240,15 @@ namespace SyncFoldersApi
 
                     // This randomly skips testing of files,
                     // so the user doesn't have to wait long, when performing checks annually:
-                    // 100% of files are skipped within first 2 years after last check
-                    // 0% after 7 years after last check
+                    // 100% of files are skipped within first 4 years after last check
+                    // 0% after 6 years after last check
 
                     if (fichecked.Exists && finfo.Exists &&
                         (!fiSavedInfo.Exists || fiSavedInfo.LastWriteTimeUtc == finfo.LastWriteTimeUtc) &&
-                        fichecked.LastWriteTimeUtc.CompareTo(finfo.LastWriteTimeUtc) > 0 &&
+                        fichecked.LastWriteTimeUtc.CompareTo(finfo.LastWriteTimeUtc) >= 0 &&
                         Math.Abs(DateTime.UtcNow.Year * 366 + DateTime.UtcNow.DayOfYear
                             - fichecked.LastWriteTimeUtc.Year * 366 - fichecked.LastWriteTimeUtc.DayOfYear)
-                        < 366 * 2.2 + 366 * 4.6 * Utils.RandomForRecentlyChecked.NextDouble())
+                        < 366 * 4.2 + 366 * 1.6 * Utils.RandomForRecentlyChecked.NextDouble())
                     {
                         return true;
                     }
