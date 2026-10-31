@@ -187,7 +187,7 @@ jobs:
 
       - name: Build and sign with SNK
         run: |
-          & msbuild ${{ env.APP_NAME }}.sln /p:Configuration=Release /p:SignAssembly=true /p:AssemblyOriginatorKeyFile=MyKey.snk
+          & msbuild ${{ env.APP_NAME }}.sln /p:Configuration=Release /p:SignAssembly=true /p:AssemblyOriginatorKeyFile="${{ github.workspace }}\${{ env.APP_NAME }}\MyKey.snk"
           Remove-Item -Force -Verbose -ErrorAction SilentlyContinue "${{ env.APP_NAME }}/MyKey.snk"
 
       # SNK creation:
