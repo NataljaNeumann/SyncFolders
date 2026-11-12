@@ -1028,11 +1028,9 @@ namespace SyncFolders
                 m_oLogFile.WriteLine("    FirstReadOnly: " + (m_oSettings.FirstReadOnly ? "yes" : "no"));
                 m_oLogFile.WriteLine("   DeleteInSecond: " + (m_oSettings.FirstToSecondDeleteInSecond ? "yes" : "no"));
 
-                m_oLogFileLocalized.WriteLine(m_cbFirstToSecond.Text + ":" + (m_oSettings.FirstToSecond ? Resources.Yes : Resources.No));
-                m_oLogFile.WriteLine(m_cbSyncMode.Text + ": " + (m_oSettings.FirstToSecondSyncMode ? Resources.Yes : Resources.No));
-                m_oLogFile.WriteLine(m_cbFirstReadonly + ": " + (m_oSettings.FirstReadOnly ? Resources.Yes : Resources.No));
-                m_oLogFile.WriteLine(m_cbDeleteFilesInSecond.Text + ": " + (m_oSettings.FirstToSecondDeleteInSecond ? Resources.Yes : Resources.No));
-
+                m_oLogFileLocalized.WriteLine(m_cbSyncMode.Text + ": " + (m_oSettings.FirstToSecondSyncMode ? Resources.Yes : Resources.No));
+                m_oLogFileLocalized.WriteLine(m_cbFirstReadonly + ": " + (m_oSettings.FirstReadOnly ? Resources.Yes : Resources.No));
+                m_oLogFileLocalized.WriteLine(m_cbDeleteFilesInSecond.Text + ": " + (m_oSettings.FirstToSecondDeleteInSecond ? Resources.Yes : Resources.No));
             }
 
             m_oLogFile.WriteLine("CreateRestoreInfo: " + (m_oSettings.CreateInfo ? "yes" : "no"));
@@ -1050,6 +1048,7 @@ namespace SyncFolders
 
                 m_oLogFile.WriteLine("      RepairFiles: " + (m_oSettings.RepairFiles ? "yes" : "no"));
                 m_oLogFileLocalized.WriteLine(m_cbRepairBlockFailures.Text + ": " + (m_oSettings.RepairFiles ? Resources.Yes : Resources.No));
+
                 if (m_oSettings.RepairFiles)
                 {
                     m_oLogFile.WriteLine("     PreferCopies: " + (m_oSettings.PreferPhysicalCopies ? "yes" : "no"));
@@ -1057,9 +1056,9 @@ namespace SyncFolders
                 }
             }
             m_oLogFile.WriteLine("         Folder 1: " + m_strFolder1);
-            m_oLogFileLocalized.WriteLine(m_lblFolder1.Text + (m_lblFolder1.Text.Contains(":")?" ":": ") + m_strFolder1);
+            m_oLogFileLocalized.WriteLine(m_lblFolder1.Text + (m_lblFolder1.Text.Contains(':')?" ":": ") + m_strFolder1);
             m_oLogFile.WriteLine("         Folder 2: " + m_strFolder2);
-            m_oLogFileLocalized.WriteLine(m_lblSecondFolder.Text + (m_lblSecondFolder.Text.Contains(":") ? " " : ": ") + m_strFolder2);
+            m_oLogFileLocalized.WriteLine(m_lblSecondFolder.Text + (m_lblSecondFolder.Text.Contains(':') ? " " : ": ") + m_strFolder2);
 
             // end of the path can be in wrong direction, so set it again for the separator
             if (Resources.RightToLeft.Equals("yes"))
