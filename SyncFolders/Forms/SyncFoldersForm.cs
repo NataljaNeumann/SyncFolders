@@ -945,6 +945,19 @@ namespace SyncFolders
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
+
+                fiDontDelete =
+                    m_iFileSystem.GetFileInfo(System.IO.Path.Combine(
+                    m_strFolder2, "SyncFolders-Dont-Delete.txt.txt"));
+                if (fiDontDelete.Exists)
+                {
+                    System.Windows.Forms.MessageBox.Show(this,
+                        "The second folder contains file \"SyncFolders-Dont-Delete.txt.txt\", " +
+                        "the selected folder seem to be wrong for delete option", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 fiDontDelete = 
                     m_iFileSystem.GetFileInfo(System.IO.Path.Combine(
                         m_strFolder2, "SyncFolders-Don't-Delete.txt"));
@@ -953,6 +966,18 @@ namespace SyncFolders
                     System.Windows.Forms.MessageBox.Show(this, 
                         "The second folder contains file \"SyncFolders-Don't-Delete.txt\", "+
                         "the selected folder seem to be wrong for delete option", "Error", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                fiDontDelete =
+                    m_iFileSystem.GetFileInfo(System.IO.Path.Combine(
+                        m_strFolder2, "SyncFolders-Don't-Delete.txt.txt"));
+                if (fiDontDelete.Exists)
+                {
+                    System.Windows.Forms.MessageBox.Show(this,
+                        "The second folder contains file \"SyncFolders-Don't-Delete.txt.txt\", " +
+                        "the selected folder seem to be wrong for delete option", "Error",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }

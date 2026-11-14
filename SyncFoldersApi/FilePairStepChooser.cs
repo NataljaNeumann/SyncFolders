@@ -99,9 +99,17 @@ namespace SyncFoldersApi
                     StringComparison.InvariantCultureIgnoreCase) ||
                 fi1.Name.Equals("SyncFolders-Don't-Delete.txt",
                     StringComparison.InvariantCultureIgnoreCase) ||
+                fi1.Name.Equals("SyncFolders-Dont-Delete.txt.txt",
+                    StringComparison.InvariantCultureIgnoreCase) ||
+                fi1.Name.Equals("SyncFolders-Don't-Delete.txt.txt",
+                    StringComparison.InvariantCultureIgnoreCase) ||
                 fi2.Name.Equals("SyncFolders-Dont-Delete.txt",
                     StringComparison.InvariantCultureIgnoreCase) ||
                 fi2.Name.Equals("SyncFolders-Don't-Delete.txt",
+                    StringComparison.InvariantCultureIgnoreCase) ||
+                fi2.Name.Equals("SyncFolders-Dont-Delete.txt.txt",
+                    StringComparison.InvariantCultureIgnoreCase) ||
+                fi2.Name.Equals("SyncFolders-Don't-Delete.txt.txt",
                     StringComparison.InvariantCultureIgnoreCase))
             {
                 iLogWriter.WriteLogFormattedLocalized(
