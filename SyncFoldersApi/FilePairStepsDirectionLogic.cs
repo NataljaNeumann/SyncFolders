@@ -254,6 +254,13 @@ namespace SyncFoldersApi
             IFileInfo fiSavedInfo2 = iFileSystem.GetFileInfo(
                 Utils.CreatePathOfChkFile(fi2.DirectoryName, "RestoreInfo", fi2.Name, ".chk"));
 
+            string strReasonEn = !iSettings.FirstToSecondSyncMode ?
+                "(file has different time or size)" :
+                "(file newer or bigger)";
+            string strReasonTranslated = !iSettings.FirstToSecondSyncMode ?
+                Properties.Resources.FileHasDifferentTime :
+                Properties.Resources.FileWasNewer;
+
             try
             {
                 //TODO: reactivate semaphores m_oSemaphoreCopyFiles.WaitOne();
@@ -263,7 +270,7 @@ namespace SyncFoldersApi
                 {
                     if ((fiSavedInfo1.Exists && fiSavedInfo1.LastWriteTimeUtc == fi1.LastWriteTimeUtc) ||
                         !iStepsImpl.CreateSavedInfoAndCopy(strFilePath1, fiSavedInfo2.FullName,
-                            strFilePath2, "(file newer or bigger)", Properties.Resources.FileWasNewer,
+                            strFilePath2, strReasonEn, strReasonTranslated,
                             iFileSystem, iSettings, iLogWriter))
                     {
                         bool bForceCreateInfo = false;
@@ -272,8 +279,8 @@ namespace SyncFoldersApi
                         try
                         {
                             if (iStepsImpl.CopyRepairSingleFile(strFilePath2, strFilePath1, fiSavedInfo1.FullName,
-                                ref bForceCreateInfo, ref bForceCreateInfoTarget, "(file newer or bigger)",
-                                Properties.Resources.FileWasNewer, true, false, iFileSystem, iSettings, iLogWriter))
+                                ref bForceCreateInfo, ref bForceCreateInfoTarget, strReasonEn,
+                                strReasonTranslated, true, false, iFileSystem, iSettings, iLogWriter))
                             {
                                 if (bForceCreateInfo || bForceCreateInfoTarget)
                                 {
@@ -343,8 +350,7 @@ namespace SyncFoldersApi
                 {
                     try
                     {
-                        iStepsImpl.CopyFileSafely(fi1, strFilePath2, "(file newer or bigger)",
-                            Properties.Resources.FileWasNewer,
+                        iStepsImpl.CopyFileSafely(fi1, strFilePath2, strReasonEn, strReasonTranslated,
                             iFileSystem, iSettings, iLogWriter);
 
                         iStepsImpl.CreateOrUpdateFileChecked(fiSavedInfo2.FullName, iFileSystem, iLogWriter);
