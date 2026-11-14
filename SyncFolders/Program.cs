@@ -113,7 +113,7 @@ namespace SyncFolders
                 // "sa-IN";
                 // "sk-SK";
                 // "sl-SL";
-                // "sr-Latn-RS"; // TODO: need a fix
+                // "sr"; 
                 // "sv-SE";
                 // "tg-Cyrl-TJ";
                 // "th-TH";
