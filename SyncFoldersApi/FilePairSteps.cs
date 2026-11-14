@@ -1,9 +1,23 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Resources;
-using System.Text;
-using System.Threading.Tasks;
+/*  SyncFolders aims to help you to synchronize two folders or drives, 
+    e.g. keeping one as a backup with your family photos. Optionally, 
+    some information for restoring of files can be added
+ 
+    Copyright (C) 2024-2026 NataljaNeumann@gmx.de
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*/
 using SyncFoldersApi.Localization;
 
 namespace SyncFoldersApi
@@ -800,7 +814,7 @@ namespace SyncFoldersApi
                     // Try to copy file safely (buffered copy)
                     CopyFileSafely(finfo, strPathTargetFile,
                         strReasonEn, strReasonTranslated,
-                        iFileSystem, iLogWriter);
+                        iFileSystem, iSettings, iLogWriter);
 
                     // update information that we just tested the two files
                     IFileInfo fi2 = iFileSystem.GetFileInfo(strPathTargetFile);
@@ -2367,6 +2381,7 @@ namespace SyncFoldersApi
         /// <param name="strReasonEn">The reason of copy for messages</param>
         /// <param name="strReasonTranslated">The reason of copy for messages, localized</param>
         /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iCancelable">The cancelable setting with info about retries. Retries may play a role.</param>
         /// <param name="iLogWriter">Logger used for outputting messages</param>
         //===================================================================================================
         public void CopyFileSafely(
@@ -2375,6 +2390,7 @@ namespace SyncFoldersApi
             string strReasonEn,
             string strReasonTranslated,
             IFileOperations iFileSystem,
+            ICancelableWithRepeats iCancelable,
             ILogWriter iLogWriter)
         {
             // Check if resources are present
@@ -2383,11 +2399,106 @@ namespace SyncFoldersApi
 
             // Create temporary target path
             string strTempTargetPath = strTargetPath + ".tmp";
+            bool bNeedsMessageAboutFinishing = false;
 
             try
             {
                 // Copy to target destination as .tmp
-                iFileSystem.CopyTo(fi, strTempTargetPath, true);
+                if (iCancelable.Retries == 0)
+                    // if no retries, then we'll try to copy it as a whole
+                    iFileSystem.CopyTo(fi, strTempTargetPath, true);
+                else
+                {
+                    try
+                    {
+                        // first we try to copy it as a whole
+                        iFileSystem.CopyTo(fi, strTempTargetPath, true);
+                    }
+                    catch (IOException oEx)
+                    {
+                        // Log I/O error during copy
+                        iLogWriter.WriteLogFormattedLocalized(0,
+                            Properties.Resources.WarningIOErrorWhileCopyingToReason,
+                            fi.FullName, strTargetPath, oEx.Message);
+
+                        iLogWriter.WriteLog(true, 0, "Warning: I/O problem while copying file: \"",
+                            fi.FullName, "\" to \"", strTargetPath, "\": " + oEx.Message);
+
+                        bNeedsMessageAboutFinishing = true;
+
+                        int nRetries = iCancelable.Retries;
+                        int nFlushingCounter = 0;
+                        int nFlushingMinute = System.DateTime.Now.Minute;
+
+                        while (--nRetries >= 0)
+                        {
+                            System.Threading.Thread.Sleep(iCancelable.RetryDelay);
+
+                            try
+                            {
+                                Block oBlock = new Block();
+
+                                // continue writing, open both files
+                                using (IFile s =
+                                    iFileSystem.CreateBufferedStream(iFileSystem.OpenRead(fi.FullName),
+                                    (int)Math.Min(fi.Length + 1, 16 * 1024 * 1024)))
+                                using (IFile s2 =
+                                    iFileSystem.CreateBufferedStream(iFileSystem.OpenWrite(strTempTargetPath),
+                                    (int)Math.Min(fi.Length, 16 * 1024 * 1024)))
+                                {
+                                    // seek the end of the target file
+                                    s2.Seek(0, SeekOrigin.End);
+                                    // then the same position in the input file
+                                    s.Seek(s2.Position, SeekOrigin.Begin);
+
+                                    int nReadCount;
+                                    while ((nReadCount = oBlock.ReadFrom(s)) == oBlock.Length)
+                                    {
+                                        oBlock.WriteTo(s2, nReadCount);
+
+                                        // flush from time to time (every 400M), so we can continue
+                                        if (++nFlushingCounter % 100000 == 0)
+                                        {
+                                            s2.Flush();
+                                            nFlushingMinute = System.DateTime.Now.Minute;
+                                        }
+                                        else
+                                        {
+                                            if (nFlushingMinute != System.DateTime.Now.Minute)
+                                            {
+                                                s2.Flush();
+                                                nFlushingCounter = 0;
+                                                nFlushingMinute = System.DateTime.Now.Minute;
+                                            }
+                                        }
+                                    }
+
+
+                                    oBlock.WriteFirstPartTo(s2, nReadCount);
+                                    s2.Flush();
+                                    s2.Close();
+                                }
+
+                                IFileInfo fi2tmp2 = iFileSystem.GetFileInfo(strTempTargetPath);
+                                fi2tmp2.LastWriteTimeUtc = fi.LastWriteTimeUtc;
+
+                                break;
+                            } catch (Exception oEx2)
+                            {
+                                if (nRetries <= 0)
+                                    throw;
+
+                                // Log I/O error during copy
+                                iLogWriter.WriteLogFormattedLocalized(0,
+                                    Properties.Resources.WarningIOErrorWhileCopyingToReason,
+                                    fi.FullName, strTargetPath, oEx2.Message);
+
+                                iLogWriter.WriteLog(true, 0, "Warning: I/O problem while continuing to copy file: \"",
+                                    fi.FullName, "\" to \"", strTargetPath, "\": " + oEx2.Message);
+                            }
+                        }
+                    }
+                }
 
                 // Get informatio about target file exists
                 IFileInfo fi2 = iFileSystem.GetFileInfo(strTargetPath);
@@ -2400,13 +2511,19 @@ namespace SyncFoldersApi
                 IFileInfo fi2tmp = iFileSystem.GetFileInfo(strTempTargetPath);
                 fi2tmp.MoveTo(strTargetPath);
 
-                // Add log message about the copy
-                iLogWriter.WriteLogFormattedLocalized(0, 
-                    Properties.Resources.FileCopied, fi.FullName,
-                    strTargetPath, strReasonTranslated);
+                if (bNeedsMessageAboutFinishing || !string.IsNullOrEmpty(strReasonTranslated))
+                {
+                    // Add log message about the copy
+                    iLogWriter.WriteLogFormattedLocalized(0,
+                        Properties.Resources.FileCopied, fi.FullName,
+                        strTargetPath, strReasonTranslated);
+                }
 
-                iLogWriter.WriteLog(true, 0, "Copied ", fi.FullName, " to ",
-                    strTargetPath, " ", strReasonEn);
+                if (bNeedsMessageAboutFinishing || !string.IsNullOrEmpty(strReasonEn))
+                {
+                    iLogWriter.WriteLog(true, 0, "Copied ", fi.FullName, " to ",
+                        strTargetPath, " ", strReasonEn);
+                }
             }
             catch
             {
@@ -3737,7 +3854,7 @@ namespace SyncFoldersApi
             string strReasonEn,
             string strReasonTranslated,
             IFileOperations iFileSystem,
-            ICancelable iCancelable,
+            ICancelableWithRepeats iCancelable,
             ILogWriter iLogWriter)
         {
             // Test for existence of localization resources
@@ -3760,56 +3877,208 @@ namespace SyncFoldersApi
             // create two different saved infos, in order to improve redundancy
             SavedInfo.Create2DifferentSavedInfos(out si1, out si2, finfo.Length, finfo.LastWriteTimeUtc);
 
+            int nFlushingCounter = 0;
+            int nFlushingMinute = System.DateTime.Now.Minute;
             try
             {
                 // Copy the file to temporary location while creating saved infos
                 // first file is read, second file is written
-                using (IFile s =
+                IFile s =
                     iFileSystem.CreateBufferedStream(iFileSystem.OpenRead(finfo.FullName),
-                        (int)Math.Min(finfo.Length + 1, 16 * 1024 * 1024)))
+                        (int)Math.Min(finfo.Length + 1, 16 * 1024 * 1024));
+                try
                 {
                     try
                     {
-                        using (IFile s2 =
+                        IFile s2 =
                             iFileSystem.CreateBufferedStream(iFileSystem.Create(strPathTmpFileCopy),
-                            (int)Math.Min(finfo.Length + 1, 16 * 1024 * 1024)))
+                            (int)Math.Min(finfo.Length + 1, 16 * 1024 * 1024));
+                        try
                         {
                             Block oBlock = new Block();
 
                             // Read blocks from source file, write to target file, 
                             // and analyze for calculation of saved infos at the same time 
+                            int nReadRetries = iCancelable.Retries;
+                            int nWriteRetries = iCancelable.Retries;
+                            int nRetryDelay = iCancelable.RetryDelay;
+
+                            long lAnalyzedUntilBlock = -1;
                             for (long lIndex = 0; ; lIndex++)
                             {
                                 int nReadCount = 0;
-                                if ((nReadCount = oBlock.ReadFrom(s)) == oBlock.Length)
-                                {
-                                    // Write complete block
-                                    oBlock.WriteTo(s2);
 
-                                    // Analyze the block for calculation of saved infos
+                                do
+                                {
+                                    try
+                                    {
+                                        nReadCount = oBlock.ReadFrom(s);
+                                        // we got a valid response, so break out of the retry loop
+                                        break;
+                                    }
+                                    catch (IOException oEx)
+                                    {
+                                        // if no retries left
+                                        if (--nReadRetries < 0)
+                                            throw;
+
+                                        // Log I/O error during copy, if we are retrying
+                                        iLogWriter.WriteLogFormattedLocalized(0,
+                                            Properties.Resources.WarningIOErrorWhileCopyingToReason,
+                                            finfo.FullName, strTargetPath, oEx.Message);
+
+                                        iLogWriter.WriteLog(true, 0, "Warning: I/O problem while reading file: \"",
+                                            finfo.FullName, "\": " + oEx.Message);
+
+                                        // close the old input stream
+                                        try
+                                        {
+                                            s.Dispose();
+                                        }
+                                        catch
+                                        {
+                                            // ignore
+                                        }
+
+                                        // sleep the specified amount of time
+                                        System.Threading.Thread.Sleep(nRetryDelay);
+
+                                        // reopen the file after delay
+                                        s = iFileSystem.CreateBufferedStream(iFileSystem.OpenRead(finfo.FullName),
+                                            (int)Math.Min(finfo.Length + 1, 16 * 1024 * 1024));
+
+                                        // and seek the old position before the exception
+                                        s.Seek(lIndex * oBlock.Length, SeekOrigin.Begin);
+                                    }
+                                } while (true);
+
+                                // no more information
+                                if (nReadCount == 0)
+                                    break;
+
+                                // Erase the remaining part, if not the whole block was filled
+                                if (nReadCount < oBlock.Length)
+                                    oBlock.EraseFrom(nReadCount);
+
+                                // Analyze the complete block for calculation of saved infos
+                                if (lAnalyzedUntilBlock < lIndex)
+                                {
                                     si1.AnalyzeForInfoCollection(oBlock, lIndex);
                                     si2.AnalyzeForInfoCollection(oBlock, lIndex);
-                                }
-                                else
-                                {
-                                    if (nReadCount > 0)
-                                    {
-                                        // Erase the remaining part
-                                        oBlock.EraseFrom(nReadCount);
-
-                                        // Write partial block
-                                        oBlock.WriteTo(s2, nReadCount);
-
-                                        // Analyze the complete block for calculation of saved infos
-                                        si1.AnalyzeForInfoCollection(oBlock, lIndex);
-                                        si2.AnalyzeForInfoCollection(oBlock, lIndex);
-                                    }
-                                    break;
+                                    lAnalyzedUntilBlock = lIndex;
                                 }
 
                                 // Check for cancellation
                                 if (iCancelable.CancelClicked)
                                     throw new OperationCanceledException();
+
+                                bool bBlockWritten = false;
+                                do
+                                {
+                                    // Write read amount of the block
+                                    try
+                                    {
+                                        oBlock.WriteTo(s2, nReadCount);
+
+                                        // if we written to the end then flush the buffer, so a possible
+                                        // exception happens there
+                                        if (nReadCount < oBlock.Length || lIndex * oBlock.Length + nReadCount == finfo.Length)
+                                        {
+                                            s2.Flush();
+                                        }
+                                        else
+                                        {
+                                            // flush from time to time (every 400M), so we can continue
+                                            if (++nFlushingCounter % 100000 == 0)
+                                            {
+                                                s2.Flush();
+                                                nFlushingMinute = System.DateTime.Now.Minute;
+                                            }
+                                            else
+                                            {
+                                                if (nFlushingMinute != System.DateTime.Now.Minute)
+                                                {
+                                                    s2.Flush();
+                                                    nFlushingCounter = 0;
+                                                    nFlushingMinute = System.DateTime.Now.Minute;
+                                                }
+                                            }
+                                        }
+
+                                        bBlockWritten = true;
+
+                                        // we got a valid response, so break out of the retry loop
+                                        break;
+                                    }
+                                    catch (IOException oEx)
+                                    {
+                                        // if no retries left
+                                        if (--nWriteRetries < 0)
+                                            throw;
+
+                                        // Log I/O error during copy, if we are retrying
+                                        iLogWriter.WriteLogFormattedLocalized(0,
+                                            Properties.Resources.WarningIOErrorWhileCopyingToReason,
+                                            finfo.FullName, strTargetPath, oEx.Message);
+
+                                        iLogWriter.WriteLog(true, 0, "Warning: I/O problem while writing file: \"",
+                                            strTargetPath, "\": " + oEx.Message);
+
+                                        // close the old output stream
+                                        try
+                                        {
+                                            s2.Dispose();
+                                        }
+                                        catch
+                                        {
+                                            // ignore
+                                        }
+
+                                        // sleep the specified amount of time
+                                        System.Threading.Thread.Sleep(nRetryDelay);
+
+                                        // we know the position, but we don't know if we could write up to this position
+                                        // so get the length of the file
+                                        IFileInfo finfotmp = iFileSystem.GetFileInfo(strPathTmpFileCopy);
+                                        if (!finfo.Exists)
+                                        {
+                                            // too complicated for now, maybe we'll handle this case later
+                                            throw;
+                                        } else
+                                        {
+                                            // get the new length of the file
+                                            long lWritingPosition = finfo.Length;
+
+                                            // reopen the file after delay for writing
+                                            s2 =
+                                                iFileSystem.CreateBufferedStream(iFileSystem.OpenWrite(strPathTmpFileCopy),
+                                                (int)Math.Min(finfo.Length + 1, 16 * 1024 * 1024));
+
+                                            if (lWritingPosition < lIndex * oBlock.Length)
+                                            {
+                                                // if we didn't write until the last position, then seek the last
+                                                // written block
+                                                lIndex = lWritingPosition / oBlock.Length;
+                                                s.Seek(lIndex * oBlock.Length, SeekOrigin.Begin);
+                                                s2.Seek(lIndex * oBlock.Length, SeekOrigin.Begin);
+
+                                                // -1 because the for loop will increase it by 1.
+                                                --lIndex;
+
+                                                break;
+                                            } else
+                                            {
+                                                // The length is enough? I don't believe it, well seek the position.
+                                                s2.Seek(lIndex * oBlock.Length, SeekOrigin.Begin);
+                                            }
+                                        }
+                                    }
+                                } while (true);
+
+                                // break out of the loop, if not the whole block was filled
+                                // (which means we wrote to the end)
+                                if (bBlockWritten && nReadCount < oBlock.Length)
+                                    break;
                             }
 
                             // Close the output stream
@@ -3837,6 +4106,10 @@ namespace SyncFoldersApi
 
                             iLogWriter.WriteLog(true, 0, "Copied ", strPathFile, " to ",
                                 strTargetPath, " ", strReasonEn);
+                        } finally
+                        {
+                            // this is an analogon of the using directive, but we can reopen the streams
+                            s2.Dispose();
                         }
                     }
                     catch
@@ -3859,6 +4132,11 @@ namespace SyncFoldersApi
                     }
 
                     s.Close();
+                }
+                finally
+                {
+                    // this is an analogon of the using directive, but we can reopen the streams
+                    s.Dispose();
                 }
             }
             catch (System.IO.IOException oEx)
@@ -3893,11 +4171,45 @@ namespace SyncFoldersApi
                         | System.IO.FileAttributes.System;
                 }
 
-                // Save the first saved-info to file
-                using (IFile s = iFileSystem.Create(strPathSavedInfoFile))
+                if (iCancelable.Retries > 0)
                 {
-                    si1.SaveTo(s);
-                    s.Close();
+                    for (int nRetriesRemaining = iCancelable.Retries; --nRetriesRemaining >= 0;)
+                    {
+                        try
+                        {
+                            // Save the first saved-info to file
+                            using (IFile s = iFileSystem.Create(strPathSavedInfoFile))
+                            {
+                                si1.SaveTo(s);
+                                s.Close();
+                            }
+                            break;
+                        }
+                        catch (IOException oEx)
+                        {
+                            if (nRetriesRemaining <= 0)
+                                throw;
+
+                            // Log I/O error during copy
+                            iLogWriter.WriteLogFormattedLocalized(0,
+                                Properties.Resources.WarningIOErrorWhileCopyingToReason,
+                                finfo.FullName, strPathSavedInfoFile, oEx.Message);
+
+                            iLogWriter.WriteLog(true, 0, "Warning: I/O Error while creating saved info file: \"",
+                                strPathSavedInfoFile, "\": " + oEx.Message);
+
+                            System.Threading.Thread.Sleep(iCancelable.RetryDelay);
+                        }
+                    }
+                }
+                else
+                {
+                    // Save the first saved-info to file
+                    using (IFile s = iFileSystem.Create(strPathSavedInfoFile))
+                    {
+                        si1.SaveTo(s);
+                        s.Close();
+                    }
                 }
 
                 // save last write time also at the time of the .chk file
@@ -3941,11 +4253,46 @@ namespace SyncFoldersApi
                         | System.IO.FileAttributes.System;
                 }
 
-                // Save the second saved-info to file
-                using (IFile s = iFileSystem.Create(strPathSavedInfoFile2))
+                if (iCancelable.Retries > 0)
                 {
-                    si2.SaveTo(s);
-                    s.Close();
+                    for (int nRetriesRemaining = iCancelable.Retries; --nRetriesRemaining >= 0;)
+                    {
+                        try
+                        {
+
+                            // Save the second saved-info to file
+                            using (IFile s = iFileSystem.Create(strPathSavedInfoFile2))
+                            {
+                                si2.SaveTo(s);
+                                s.Close();
+                            }
+
+                            break;
+                        }
+                        catch (IOException oEx)
+                        {
+                            if (nRetriesRemaining <= 0)
+                                throw;
+
+                            // Log I/O error during copy
+                            iLogWriter.WriteLogFormattedLocalized(0,
+                                Properties.Resources.WarningIOErrorWhileCopyingToReason,
+                                finfo.FullName, strPathSavedInfoFile2, oEx.Message);
+
+                            iLogWriter.WriteLog(true, 0, "Warning: I/O Error while creating saved info file: \"",
+                                strPathSavedInfoFile2, "\": " + oEx.Message);
+
+                            System.Threading.Thread.Sleep(iCancelable.RetryDelay);
+                        }
+                    }
+                } else
+                {
+                    // Save the second saved-info to file
+                    using (IFile s = iFileSystem.Create(strPathSavedInfoFile2))
+                    {
+                        si2.SaveTo(s);
+                        s.Close();
+                    }
                 }
 
                 // save last write time also at the time of the .chk file

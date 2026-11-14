@@ -1,8 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/*  SyncFolders aims to help you to synchronize two folders or drives, 
+    e.g. keeping one as a backup with your family photos. Optionally, 
+    some information for restoring of files can be added
+ 
+    Copyright (C) 2024-2026 NataljaNeumann@gmx.de
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*/
 
 namespace SyncFoldersApi
 {
@@ -209,6 +224,7 @@ namespace SyncFoldersApi
         /// <param name="strReasonEn">The reason of copy for messages</param>
         /// <param name="strReasonTranslated">The reason of copy for messages, localized</param>
         /// <param name="iFileSystem">File system abstraction for performing operations</param>
+        /// <param name="iCancelable">The cancelable setting with info about retries.</param>
         /// <param name="iLogWriter">Logger used for outputting messages</param>
         //===================================================================================================
         void CopyFileSafely(
@@ -217,6 +233,7 @@ namespace SyncFoldersApi
             string strReasonEn,
             string strReasonTranslated,
             IFileOperations iFileSystem,
+            ICancelableWithRepeats iCancelable,
             ILogWriter iLogWriter);
 
 
@@ -322,7 +339,7 @@ namespace SyncFoldersApi
             string strReasonEn,
             string strReasonTranslated,
             IFileOperations iFileSystem,
-            ICancelable iCancelable,
+            ICancelableWithRepeats iCancelable,
             ILogWriter iLogWriter);
 
 

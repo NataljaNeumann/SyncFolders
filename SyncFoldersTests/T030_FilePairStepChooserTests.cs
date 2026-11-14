@@ -21,7 +21,6 @@
 
 using SyncFoldersApi;
 using SyncFoldersApi.Localization;
-using System.Linq;
 
 #pragma warning disable NUnit2005
 

@@ -19,9 +19,6 @@
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-using NUnit.Framework;
-using System;
-using System.IO;
 using SyncFoldersApi;
 
 #pragma warning disable NUnit2005

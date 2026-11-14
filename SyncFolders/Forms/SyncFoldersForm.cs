@@ -19,14 +19,10 @@
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+
 using System.Diagnostics;
-using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Windows.Forms;
 using SyncFolders.Properties;
 using SyncFolders.Taskbar;
 using SyncFoldersApi;
@@ -994,8 +990,22 @@ namespace SyncFolders
             m_lblProgress.Text = Properties. Resources.ScanningFolders;
             m_oTimerUpdateFileDescription.Start();
 
-
-
+            // if there is a network folder involved
+            if (m_strFolder1.StartsWith("\\") || m_strFolder2.StartsWith("\\"))
+            {
+                // set at least 10 retries with a break of at least 30 seconds
+                // the setting may be discarded by the actual code,
+                // it is implemented only at few places
+                m_oSettings.Retries = 10;
+                m_oSettings.RetryDelay = 30000;
+            } else
+            {
+                // set at least three retries with a short retry break for presumably local folder
+                // the setting may be discarded by the actual code,
+                // it is implemented only at few places
+                m_oSettings.Retries = 3;
+                m_oSettings.RetryDelay = 100;
+            }
 
             m_oSettings.CancelClicked = false;
             m_oLogToShow = new StringBuilder();

@@ -288,24 +288,31 @@ namespace SyncFoldersTests
             oLog.Log.Clear();
             oLog.LocalizedLog.Clear();
 
-            Assert.Throws<IOException>(() => oStepsImpl.CopyFileSafely(oFS.GetFileInfo(strPath1), strPath2, "testing file", "testing file", oFS, oLog));
+            Assert.Throws<IOException>(() => 
+                oStepsImpl.CopyFileSafely(oFS.GetFileInfo(strPath1), strPath2, 
+                "testing file", "testing file", oFS, new SettingsAndEnvironment(), oLog));
+
             Assert.True(oFS.IsTestFile(strPath1, 1,
                 nLengthB, dtmToUse, false, false, null,
                 new List<long>(aListOfReadErrorsInFile),
                 null
                 ));
+
             Assert.True(oFS.IsTestFile(strPath2, 2,
                 nLengthB, dtmToUse, true, false, null,
                 null,
                 null
                 ));
+
             Assert.AreEqual(0, oLog.Log.Count);
             Assert.AreEqual(oLog.Log.Count, oLog.LocalizedLog.Count);
 
 
             oLog.Log.Clear();
             oLog.LocalizedLog.Clear();
-            oStepsImpl.CopyFileSafely(oFS.GetFileInfo(strPath2), strPath1, "testing file", "testing file", oFS, oLog);
+
+            oStepsImpl.CopyFileSafely(oFS.GetFileInfo(strPath2), strPath1, 
+                "testing file", "testing file", oFS, new SettingsAndEnvironment(), oLog);
 
             Assert.IsTrue(oLog.Log.Contains($"Copied {strPath2} to {strPath1} testing file"));
             Assert.AreEqual(1, oLog.Log.Count);
@@ -1284,6 +1291,168 @@ namespace SyncFoldersTests
                     strPath2, 1, true, null, null, null));
             }
         }
+
+        //===================================================================================================
+        /// <summary>
+        /// Tests Create2SavedsInfosAndCopy with network errors and retries
+        /// </summary>
+        //===================================================================================================
+        [Test]
+        public void Test12_Create2SavedInfosAndCopyWithTemporaryNetworkErrors()
+        {
+            // we actually don't need anything from configuration, but need to provide one
+            SettingsAndEnvironment oSettings = new SettingsAndEnvironment(
+                false, false, false, false, false, false, false, false, false, false);
+            oSettings.Retries = 1000;
+            oSettings.RetryDelay = 1;
+
+            DateTime dtmToUse = DateTime.Now;
+
+            InMemoryFileSystem oFS = new InMemoryFileSystem();
+
+            bool bSimulatedWritingErrorHappened = false;
+            bool bSimulatedReadingErrorHappened = false;
+
+            for (int nLengthKB = 200; nLengthKB <= 264; ++nLengthKB)
+            {
+
+                string strPath1 = $@"c:\temp\Create2SavedInfosAndCopyTempErrors{nLengthKB}.dat";
+                string strPathSavedInfo1 = $@"c:\temp\RestoreInfo\Create2SavedInfosAndCopyTempErrors{nLengthKB}.dat.chk";
+                string strPath2 = $@"c:\temp2\Create2SavedInfosAndCopyTempErrors{nLengthKB}.dat";
+                string strPathSavedInfo2 = $@"c:\temp2\RestoreInfo\Create2SavedInfosAndCopyTempErrors{nLengthKB}.dat.chk";
+
+                FilePairSteps oStepsImpl = new FilePairSteps();
+                HashSetLog oLog = new HashSetLog();
+
+                oFS.SetSimulatedNetworkErrors(false);
+
+                oFS.CreateTestFile(strPath1, nLengthKB,
+                    nLengthKB * 1024, dtmToUse,
+                    false, false, null,
+                    null,
+                    null,
+                    true);
+
+
+                oFS.SetSimulatedNetworkErrors(true);
+
+                // ensure dest directory exists
+                oFS.GetFileInfo(strPath2).Directory.Create();
+
+                Assert.IsTrue(oStepsImpl.Create2SavedInfosAndCopy(
+                    strPath1, strPathSavedInfo1, strPath2, strPathSavedInfo2,
+                    "(testing)", "(testing)", oFS, oSettings, oLog));
+
+                Assert.IsTrue(oFS.AreTwoTestFiles(
+                    strPath1, nLengthKB,
+                    nLengthKB * 1024, dtmToUse,
+                    true, null,
+                    null, null,
+
+                    strPath2,
+                    nLengthKB,
+                    true,
+                    null,
+                    null, null)
+                    );
+
+                foreach (string strMessage in oLog.Log) {
+                    if (strMessage.StartsWith("Warning: I/O problem while writing file"))
+                    {
+                        bSimulatedWritingErrorHappened = true;
+                    } else
+                        if (strMessage.StartsWith("Warning: I/O problem while reading file"))
+                        {
+                            bSimulatedReadingErrorHappened = true;
+                        }
+                }
+            }
+
+            Assert.IsTrue(bSimulatedWritingErrorHappened, "There was no simulated network write error during network error test");
+            Assert.IsTrue(bSimulatedReadingErrorHappened, "There was no simulated network read error during network error test");
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// Tests Create2SavedsInfosAndCopy with network errors and retries
+        /// </summary>
+        //===================================================================================================
+        [Test]
+        public void Test13_CopyFileSafelyWithTemporaryNetworkErrors()
+        {
+            // we actually don't need anything from configuration, but need to provide one
+            SettingsAndEnvironment oSettings = new SettingsAndEnvironment(
+                false, false, false, false, false, false, false, false, false, false);
+            oSettings.Retries = 1000;
+            oSettings.RetryDelay = 1;
+
+            DateTime dtmToUse = DateTime.Now;
+
+            InMemoryFileSystem oFS = new InMemoryFileSystem();
+
+            bool bSimulatedErrorHappened = false;
+            bool bSimulatedError2Happened = false;
+
+            for (int nLengthKB = 200; nLengthKB <= 264; ++nLengthKB)
+            {
+
+                string strPath1 = $@"c:\temp\Create2SavedInfosAndCopyTempErrors{nLengthKB}.dat";
+                string strPath2 = $@"c:\temp2\Create2SavedInfosAndCopyTempErrors{nLengthKB}.dat";
+
+                FilePairSteps oStepsImpl = new FilePairSteps();
+                HashSetLog oLog = new HashSetLog();
+
+                oFS.SetSimulatedNetworkErrors(false);
+
+                oFS.CreateTestFile(strPath1, nLengthKB,
+                    nLengthKB * 1024, dtmToUse,
+                    false, false, null,
+                    null,
+                    null,
+                    true);
+
+
+                oFS.SetSimulatedNetworkErrors(true);
+
+                // ensure dest directory exists
+                oFS.GetFileInfo(strPath2).Directory.Create();
+
+                oStepsImpl.CopyFileSafely(oFS.GetFileInfo(strPath1), strPath2, 
+                    " test copy with network errors",
+                    " test copy with network errors", oFS, oSettings, oLog);
+
+
+                Assert.IsTrue(oFS.AreTwoTestFiles(
+                    strPath1, nLengthKB,
+                    nLengthKB * 1024, dtmToUse,
+                    false, null,
+                    null, null,
+
+                    strPath2,
+                    nLengthKB,
+                    false,
+                    null,
+                    null, null)
+                    );
+
+                foreach (string strMessage in oLog.Log)
+                {
+                    if (strMessage.StartsWith("Warning: I/O problem while copying file"))
+                    {
+                        bSimulatedErrorHappened = true;
+                    } else
+                        if (strMessage.StartsWith("Warning: I/O problem while continuing to copy file"))
+                        {
+                            bSimulatedError2Happened = true;
+                        }
+
+                }
+            }
+
+            Assert.IsTrue(bSimulatedErrorHappened, "There was no simulated network error during network error test");
+            Assert.IsTrue(bSimulatedError2Happened, "There was no simulated network read error during network error test");
+        }
+
 
 
 

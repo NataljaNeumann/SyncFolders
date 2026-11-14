@@ -1,8 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/*  SyncFolders aims to help you to synchronize two folders or drives, 
+    e.g. keeping one as a backup with your family photos. Optionally, 
+    some information for restoring of files can be added
+ 
+    Copyright (C) 2024-2026 NataljaNeumann@gmx.de
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*/
 
 namespace SyncFoldersApi
 {
@@ -173,6 +188,26 @@ namespace SyncFoldersApi
 
         //===================================================================================================
         /// <summary>
+        /// The number of retries, in case there are errors. This configuration parameter isn't used by
+        /// all methods and can be discarded by the actual code
+        /// </summary>
+        public int Retries
+        {
+            get; set;
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// The number of milliseconds to wait before a retry. This configuration parameter isn't used by
+        /// all methods and can be discarded by the actual code
+        /// </summary>
+        public int RetryDelay
+        {
+            get; set;
+        }
+
+        //===================================================================================================
+        /// <summary>
         /// Converts to string, showing the configuration
         /// </summary>
         /// <returns>String representation</returns>
@@ -189,7 +224,8 @@ namespace SyncFoldersApi
                     RepairFiles ? "Repair" : "",
                     CreateInfo ? "CreateInfo" : "",
                     IgnoreTimeDifferencesBetweenDataAndSaveInfo ? "IgnoreTD" : "",
-                    PreferPhysicalCopies ? "PreferPhysical" : ""
+                    PreferPhysicalCopies ? "PreferPhysical" : "",
+                    Retries>0?Retries.ToString()+"Retries"+(RetryDelay%1000==0?RetryDelay.ToString() + "s": RetryDelay.ToString()+"ms"):""
                 );
         }
     }

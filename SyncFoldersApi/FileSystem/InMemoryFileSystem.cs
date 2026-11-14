@@ -37,6 +37,19 @@ namespace SyncFoldersApi
     {
         //===================================================================================================
         /// <summary>
+        /// Random number for random network errors
+        /// </summary>
+        static readonly Random s_oRandom = 
+            new Random(DateTime.Now.Microsecond * 365 + DateTime.Now.DayOfYear);
+
+        //===================================================================================================
+        /// <summary>
+        /// Indicates, if there shall be random network errors
+        /// </summary>
+        bool m_bRandomNetworkErrors;
+
+        //===================================================================================================
+        /// <summary>
         /// Files in file system
         /// </summary>
         public Dictionary<string, MemoryStreamWithErrors> m_oFiles = 
@@ -148,6 +161,24 @@ namespace SyncFoldersApi
 
         //===================================================================================================
         /// <summary>
+        /// Sets read errors to simulate for a file
+        /// </summary>
+        /// <param name="bNetworkErrors">List of simulated errors for each file</param>
+        //===================================================================================================
+        public void SetSimulatedNetworkErrors(
+            bool bNetworkErrors
+            )
+        {
+            m_bRandomNetworkErrors = bNetworkErrors;
+            foreach (var oFile in m_oFiles.Values)
+            {
+                oFile.SetSimulatedNetworkErrors(bNetworkErrors);
+            }
+        }
+
+
+        //===================================================================================================
+        /// <summary>
         /// If the file is in the list and one of specified positions is in the list then throws an
         /// intentional I/O exception
         /// </summary>
@@ -219,7 +250,8 @@ namespace SyncFoldersApi
             {
                 if (!m_oFiles.ContainsKey(strPath))
                 {
-                    m_oFiles[strPath] = new MemoryStreamWithErrors(new List<long>());
+                    m_oFiles[strPath] = new MemoryStreamWithErrors(new List<long>(),
+                        m_bRandomNetworkErrors);
                     m_oFileWriteTimes[strPath] = DateTime.UtcNow;
                 }
                 return new InMemoryFile(m_oFiles[strPath], m_oFileWriteTimes, strPath, false);
@@ -246,7 +278,8 @@ namespace SyncFoldersApi
                 {
                     m_oFiles[strPath].Dispose();
                 }
-                m_oFiles[strPath] = new MemoryStreamWithErrors(new List<long>());
+                m_oFiles[strPath] = new MemoryStreamWithErrors(new List<long>(),
+                    m_bRandomNetworkErrors);
                 m_oFileWriteTimes[strPath] = DateTime.UtcNow;
             }
             return new InMemoryFile(m_oFiles[strPath], m_oFileWriteTimes, strPath, false);
@@ -282,19 +315,46 @@ namespace SyncFoldersApi
             ThrowIfReadOnly(strDestinationPath);
 
             TestDirectoryExists(Path.GetDirectoryName(strDestinationPath));
-            if (m_oFiles.ContainsKey(strSourcePath))
+            lock (m_oFiles)
             {
-                ThrowSimulatedReadErrorIfNeeded(strSourcePath, 0, m_oFiles.ContainsKey(strSourcePath) ? m_oFiles[strSourcePath].Length : 0);
-                m_oFiles[strDestinationPath] = new MemoryStreamWithErrors(m_oFiles[strSourcePath].ToArray(), new List<long>());
-                m_oFileWriteTimes[strDestinationPath] = m_oFileWriteTimes[strSourcePath];
-                if (m_oSimulatedReadErrors.ContainsKey(strDestinationPath.ToUpper()))
+                if (m_oFiles.ContainsKey(strSourcePath))
                 {
-                    m_oSimulatedReadErrors.Remove(strDestinationPath.ToUpper());
+                    ThrowSimulatedReadErrorIfNeeded(
+                        strSourcePath, 0,
+                        m_oFiles.ContainsKey(strSourcePath) ? m_oFiles[strSourcePath].Length : 0);
+
+                    if (m_bRandomNetworkErrors && m_oFiles[strSourcePath].Length > 150000)
+                    {
+                        throw new IOException(
+                            string.Format(Properties.Resources.ThisIsASimulatedIOErrorAtPosition,
+                            0));
+                    }
+
+                    if (m_bRandomNetworkErrors && m_oFiles[strSourcePath].Length > 16384)
+                    {
+                        if (InMemoryFileSystem.s_oRandom.NextInt64() % 64 == 0)
+                        {
+                            throw new IOException(
+                                string.Format(Properties.Resources.ThisIsASimulatedIOErrorAtPosition,
+                                0));
+                        }
+                    }
+
+                    m_oFiles[strDestinationPath] =
+                        new MemoryStreamWithErrors(m_oFiles[strSourcePath].ToArray(),
+                        new List<long>(), m_bRandomNetworkErrors);
+
+                    m_oFileWriteTimes[strDestinationPath] = m_oFileWriteTimes[strSourcePath];
+
+                    if (m_oSimulatedReadErrors.ContainsKey(strDestinationPath.ToUpper()))
+                    {
+                        m_oSimulatedReadErrors.Remove(strDestinationPath.ToUpper());
+                    }
                 }
-            }
-            else
-            {
-                throw new FileNotFoundException("Source file not found in memory.");
+                else
+                {
+                    throw new FileNotFoundException("Source file not found in memory.");
+                }
             }
         }
 
@@ -314,7 +374,10 @@ namespace SyncFoldersApi
             using (FileStream s = File.OpenRead(strSourcePath))
             {
                 byte[] buffer = new byte[s.Length];
-                m_oFiles[strDestinationPath] = new MemoryStreamWithErrors(buffer, new List<long>());
+
+                m_oFiles[strDestinationPath] = 
+                    new MemoryStreamWithErrors(buffer, new List<long>(),m_bRandomNetworkErrors);
+
                 m_oFileWriteTimes[strDestinationPath] = File.GetLastWriteTimeUtc(strSourcePath);
             }
         }
@@ -353,7 +416,8 @@ namespace SyncFoldersApi
             TestDirectoryExists(Path.GetDirectoryName(strPath));
             ThrowIfReadOnly(strPath);
 
-            MemoryStreamWithErrors oStream = new MemoryStreamWithErrors(new List<long>());
+            MemoryStreamWithErrors oStream = 
+                new MemoryStreamWithErrors(new List<long>(),m_bRandomNetworkErrors);
 
             using (StreamWriter oWriter = new StreamWriter(oStream))
                 oWriter.Write(strContent);
@@ -1319,38 +1383,47 @@ namespace SyncFoldersApi
             List<long>? aReadErrorsSavedInfo2
             )
         {
-            byte[]? aExpectedFileContent = null;
-            byte[]? aExpectedFileContent2 = null;
-
-            // first test that the file matches
-            if (!IsTestFileWithoutChecksum(out aExpectedFileContent, strPath, nId, nLength,
-                dtmLastWriteTimeUtc, aErasedBlockPositions, aReadErrorsFile))
-                return false;
-
-            if (aExpectedFileContent == null)
-                throw new Exception("Internal error: expected data not returned");
-
-            if (!IsTestFileWithoutChecksum(out aExpectedFileContent2, strPath2, nId2, nLength,
-                dtmLastWriteTimeUtc, aErasedBlockPositions2, aReadErrorsFile2))
-                return false;
-
-            if (aExpectedFileContent2 == null)
-                throw new Exception("Internal error: expected data not returned");
-
-            // create 2 different saved infos
-            IFileInfo fi = GetFileInfo(strPath);
-            SavedInfo oSavedInfo1, oSavedInfo2;
-            SavedInfo.Create2DifferentSavedInfos(out oSavedInfo1, out oSavedInfo2, nLength, fi.LastWriteTimeUtc);
-
-            // test both
-            if (!IsTestChkFile(aExpectedFileContent, oSavedInfo1, strPath, nId, nLength,
-                    dtmLastWriteTimeUtc, bWithSavedInfo, false, aReadErrorsSavedInfo))
+            bool bPrevNetworkErrors = m_bRandomNetworkErrors;
+            try
             {
-                return false;
-            }
+                m_bRandomNetworkErrors = false;
+                byte[]? aExpectedFileContent = null;
+                byte[]? aExpectedFileContent2 = null;
 
-            return IsTestChkFile(aExpectedFileContent2, oSavedInfo2, strPath2, nId2, nLength,
-                dtmLastWriteTimeUtc, bWithSavedInfo2, false, aReadErrorsSavedInfo2);
+                // first test that the file matches
+                if (!IsTestFileWithoutChecksum(out aExpectedFileContent, strPath, nId, nLength,
+                    dtmLastWriteTimeUtc, aErasedBlockPositions, aReadErrorsFile))
+                    return false;
+
+                if (aExpectedFileContent == null)
+                    throw new Exception("Internal error: expected data not returned");
+
+                if (!IsTestFileWithoutChecksum(out aExpectedFileContent2, strPath2, nId2, nLength,
+                    dtmLastWriteTimeUtc, aErasedBlockPositions2, aReadErrorsFile2))
+                    return false;
+
+                if (aExpectedFileContent2 == null)
+                    throw new Exception("Internal error: expected data not returned");
+
+                // create 2 different saved infos
+                IFileInfo fi = GetFileInfo(strPath);
+                SavedInfo oSavedInfo1, oSavedInfo2;
+                SavedInfo.Create2DifferentSavedInfos(out oSavedInfo1, out oSavedInfo2, nLength, fi.LastWriteTimeUtc);
+
+                // test both
+                if (!IsTestChkFile(aExpectedFileContent, oSavedInfo1, strPath, nId, nLength,
+                        dtmLastWriteTimeUtc, bWithSavedInfo, false, aReadErrorsSavedInfo))
+                {
+                    return false;
+                }
+
+                return IsTestChkFile(aExpectedFileContent2, oSavedInfo2, strPath2, nId2, nLength,
+                    dtmLastWriteTimeUtc, bWithSavedInfo2, false, aReadErrorsSavedInfo2);
+            }
+            finally
+            {
+                m_bRandomNetworkErrors = bPrevNetworkErrors;
+            }
         }
 
         //===================================================================================================
@@ -1428,6 +1501,7 @@ namespace SyncFoldersApi
         //***************************************************************************************************
         public class MemoryStreamWithErrors : MemoryStream
         {
+            //===============================================================================================
             /// <summary>
             /// List of errors to simulate
             /// </summary>
@@ -1435,16 +1509,27 @@ namespace SyncFoldersApi
 
             //===============================================================================================
             /// <summary>
+            /// Identifies, if there are sporadic network errors
+            /// </summary>
+            bool m_bSimulatedNetworkErrors;
+
+
+            //===============================================================================================
+            /// <summary>
             /// Constructs a new FileStreamWithErrors for simulation of reading errors
             /// </summary>
             /// <param name="aListOfReadErrors">List of errors to simulate</param>
+            /// <param name="bSimulatedNetworkErrors">Indicates, if there shall be random network errors
+            /// </param>
             //===============================================================================================
             public MemoryStreamWithErrors(
-                List<long> aListOfReadErrors
+                List<long> aListOfReadErrors,
+                bool bSimulatedNetworkErrors
                 )
                 : base()
             {
                 m_aListOfReadErrors = aListOfReadErrors;
+                m_bSimulatedNetworkErrors = bSimulatedNetworkErrors;
             }
 
 
@@ -1454,14 +1539,18 @@ namespace SyncFoldersApi
             /// </summary>
             /// <param name="aBuffer">The data of the file</param>
             /// <param name="aListOfReadErrors">List of errors to simulate</param>
+            /// <param name="bSimulatedNetworkErrors">Indicates, if there shall be random network erros
+            /// </param>
             //===============================================================================================
             public MemoryStreamWithErrors(
                 byte [] aBuffer,
-                List<long> aListOfReadErrors
+                List<long> aListOfReadErrors,
+                bool bSimulatedNetworkErrors
                 )
                 : base(aBuffer)
             {
                 m_aListOfReadErrors = aListOfReadErrors;
+                m_bSimulatedNetworkErrors = bSimulatedNetworkErrors;
             }
 
 
@@ -1494,6 +1583,21 @@ namespace SyncFoldersApi
                         }
                     }
                 }
+
+                if (m_bSimulatedNetworkErrors && nCount > 1000)
+                {
+                    for (int i = (int)(InMemoryFileSystem.s_oRandom.NextInt64() % 1000); i >= 0; --i)
+                        InMemoryFileSystem.s_oRandom.NextInt64();
+
+
+                    if (InMemoryFileSystem.s_oRandom.NextInt64() % 16 == 0)
+                    {
+                        throw new IOException(
+                            string.Format(Properties.Resources.ThisIsASimulatedIOErrorAtPosition,
+                            nOffset));
+                    }
+                }
+
                 return base.Read(aArray, nOffset, nCount);
             }
 
@@ -1522,6 +1626,8 @@ namespace SyncFoldersApi
                         }
                     }
                 }
+
+
                 return base.ReadByte();
             }
 
@@ -1537,6 +1643,11 @@ namespace SyncFoldersApi
             //===============================================================================================
             public override void Write(byte[] aArray, int nOffset, int nCount)
             {
+                //if (Properties.Resources == null)
+                //{
+                //    throw new ArgumentNullException(nameof(Properties.Resources));
+                //}
+
                 if (m_aListOfReadErrors.Count > 0)
                 {
                     // if the program overwrites the error then we simulate its
@@ -1551,6 +1662,20 @@ namespace SyncFoldersApi
                         }
                     }
                 }
+
+                if (m_bSimulatedNetworkErrors && nCount>1000)
+                {
+                    for (int i = (int)(InMemoryFileSystem.s_oRandom.NextInt64() % 1000); i >= 0; --i)
+                        InMemoryFileSystem.s_oRandom.NextInt64();
+
+                    if (InMemoryFileSystem.s_oRandom.NextInt64() % 16 == 0)
+                    {
+                        throw new IOException(
+                            string.Format(Properties.Resources.ThisIsASimulatedIOErrorAtPosition,
+                            nOffset));
+                    }
+                }
+
                 base.Write(aArray, nOffset, nCount);
             }
 
@@ -1600,6 +1725,18 @@ namespace SyncFoldersApi
             {
                 m_aListOfReadErrors = aListOfReadErrors;
             }
+
+            //===============================================================================================
+            /// <summary>
+            /// Sets new identification, if there shall be simulated network errors
+            /// </summary>
+            /// <param name="bSimulatedNetworkErrors">indication abot simulated network errors</param>
+            //===============================================================================================
+            public void SetSimulatedNetworkErrors(bool bSimulatedNetworkErrors)
+            {
+                m_bSimulatedNetworkErrors = bSimulatedNetworkErrors;
+            }
+
 
         }
     }
