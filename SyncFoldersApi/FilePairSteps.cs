@@ -19,6 +19,7 @@
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 using SyncFoldersApi.Localization;
+using System.Diagnostics;
 
 namespace SyncFoldersApi
 {
@@ -2166,7 +2167,7 @@ namespace SyncFoldersApi
         /// <param name="strPathFile">Path of the original file</param>
         /// <param name="strPathSavedChkInfoFile">The target path for .CHK file</param>
         /// <param name="iFileSystem">File system abstraction for performing operations</param>
-        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iCancelable">Object that provides information about cancelation and repeats</param>
         /// <param name="iLogWriter">Logger used for outputting messages</param>
         /// <returns>true iff the operation succeeded</returns>
         //===================================================================================================
@@ -2174,12 +2175,12 @@ namespace SyncFoldersApi
             string strPathFile,
             string strPathSavedChkInfoFile,
             IFileOperations iFileSystem,
-            ICancelable iSettings,
+            ICancelableWithRepeats iCancelable,
             ILogWriter iLogWriter
             )
         {
             return CreateSavedInfo(strPathFile, strPathSavedChkInfoFile, 1, false,
-                iFileSystem, iSettings, iLogWriter);
+                iFileSystem, iCancelable, iLogWriter);
         }
 
 
@@ -2191,7 +2192,7 @@ namespace SyncFoldersApi
         /// <param name="strPathSavedChkInfoFile">The target path for .CHK file</param>
         /// <param name="bForceSecondBlocks">Indicates that a second row of blocks must be created</param>
         /// <param name="iFileSystem">File system abstraction for performing operations</param>
-        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iCancelable">Object that provides information about cancelation and repeats</param>
         /// <param name="iLogWriter">Logger used for outputting messages</param>
         /// <returns>true iff the operation succeeded</returns>
         //===================================================================================================
@@ -2200,13 +2201,13 @@ namespace SyncFoldersApi
             string strPathSavedChkInfoFile,
             bool bForceSecondBlocks,
             IFileOperations iFileSystem,
-            ICancelable iSettings,
+            ICancelableWithRepeats iCancelable,
             ILogWriter iLogWriter
             )
         {
             /* TODO: this line of code isn't hit by any unit tests */
             return CreateSavedInfo(strPathFile, strPathSavedChkInfoFile, 1, bForceSecondBlocks,
-                iFileSystem, iSettings, iLogWriter);
+                iFileSystem, iCancelable, iLogWriter);
         }
 
         //===================================================================================================
@@ -2218,7 +2219,7 @@ namespace SyncFoldersApi
         /// <param name="nVersion">The version to save supported values: 0, 1</param>
         /// <param name="bForceSecondBlocks">Indicates that a second row of blocks must be created</param>
         /// <param name="iFileSystem">File system abstraction for performing operations</param>
-        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iCancelable">Object that provides information about cancelation and repeats</param>
         /// <param name="iLogWriter">Logger used for outputting messages</param>
         /// <returns>true iff the operation succeeded</returns>
         //===================================================================================================
@@ -2228,7 +2229,7 @@ namespace SyncFoldersApi
             int nVersion,
             bool bForceSecondBlocks,
             IFileOperations iFileSystem,
-            ICancelable iSettings,
+            ICancelableWithRepeats iCancelable,
             ILogWriter iLogWriter
             )
         {
@@ -2244,17 +2245,65 @@ namespace SyncFoldersApi
             try
             {
                 // Open the file for reading with buffering
-                using (IFile s =
+                IFile s =
                     iFileSystem.CreateBufferedStream(iFileSystem.OpenRead(finfo.FullName),
-                        (int)Math.Min(finfo.Length + 1, 64 * 1024 * 1024)))
+                        (int)Math.Min(finfo.Length + 1, 64 * 1024 * 1024));
+                try
                 {
                     Block oBlock = new Block();
+
+                    int nReadRetries = iCancelable.Retries;
+                    int nRetryDelay = iCancelable.RetryDelay;
 
                     // Read blocks sequentially from the file
                     for (long lIndex = 0; ; lIndex++)
                     {
                         int nReadCount = 0;
-                        if ((nReadCount = oBlock.ReadFrom(s)) == oBlock.Length)
+
+                        do
+                        {
+                            try
+                            {
+                                nReadCount = oBlock.ReadFrom(s);
+                                // we got a valid response, so break out of the retry loop
+                                break;
+                            }
+                            catch (IOException oEx)
+                            {
+                                // if no retries left
+                                if (--nReadRetries < 0)
+                                    throw;
+
+                                // Log I/O error during reading
+                                iLogWriter.WriteLogFormattedLocalized(0, Properties.Resources.IOErrorReadingFile,
+                                    finfo.FullName, oEx.Message);
+
+                                iLogWriter.WriteLog(true, 0, "Warning: I/O problem while reading file: \"",
+                                    finfo.FullName, "\": " + oEx.Message);
+
+                                // close the old input stream
+                                try
+                                {
+                                    s.Dispose();
+                                }
+                                catch
+                                {
+                                    // ignore
+                                }
+
+                                // sleep the specified amount of time
+                                System.Threading.Thread.Sleep(nRetryDelay);
+
+                                // reopen the file after delay
+                                s = iFileSystem.CreateBufferedStream(iFileSystem.OpenRead(finfo.FullName),
+                                    (int)Math.Min(finfo.Length + 1, 16 * 1024 * 1024));
+
+                                // and seek the old position before the exception
+                                s.Seek(lIndex * oBlock.Length, SeekOrigin.Begin);
+                            }
+                        } while (true);
+
+                        if (nReadCount == oBlock.Length)
                         {
                             // Analyze block for info collection
                             si.AnalyzeForInfoCollection(oBlock, lIndex);
@@ -2273,11 +2322,21 @@ namespace SyncFoldersApi
                         }
 
                         // Check for cancellation
-                        if (iSettings.CancelClicked)
+                        if (iCancelable.CancelClicked)
                             throw new OperationCanceledException();
                     }
 
                     s.Close();
+                }
+                finally
+                {
+                    try
+                    {
+                        s.Dispose();
+                    } catch (ObjectDisposedException)
+                    {
+                        // ignore
+                    }
                 }
             }
             catch (System.IO.IOException oEx)
@@ -2320,23 +2379,69 @@ namespace SyncFoldersApi
                     iFileSystem.Delete(fiSavedInfo);
                 }
 
-                // Save calculated info to .chk file (version 0 or 2)
-                using (IFile s = iFileSystem.CreateBufferedStream(
-                    iFileSystem.Create(strPathSavedChkInfoFile),
-                    1024 * 1024))
+
+                if (iCancelable.Retries > 0)
                 {
-                    if (nVersion == 0)
+                    for (int nRetriesRemaining = iCancelable.Retries; --nRetriesRemaining >= 0;)
                     {
-                        // Save in version 0 format
-                        si.SaveTo_v0(s);
+                        try
+                        {
+                            // Save calculated info to .chk file (version 0 or 2)
+                            using (IFile s = iFileSystem.CreateBufferedStream(
+                                iFileSystem.Create(strPathSavedChkInfoFile), 1024 * 1024))
+                            {
+                                if (nVersion == 0)
+                                {
+                                    // Save in version 0 format
+                                    si.SaveTo_v0(s);
+                                }
+                                else
+                                {
+                                    // Save in version 2 format
+                                    si.SaveTo(s);
+                                }
+                                s.Close();
+                            }
+                            break;
+                        }
+                        catch (IOException oEx)
+                        {
+                            if (nRetriesRemaining <= 0)
+                                throw;
+
+                            // Log I/O error during copy
+                            iLogWriter.WriteLogFormattedLocalized(0,
+                                Properties.Resources.WarningIOErrorWhileCopyingToReason,
+                                finfo.FullName, strPathSavedChkInfoFile, oEx.Message);
+
+                            iLogWriter.WriteLog(true, 0, "Warning: I/O Error while creating saved info file: \"",
+                                strPathSavedChkInfoFile, "\": " + oEx.Message);
+
+                            System.Threading.Thread.Sleep(iCancelable.RetryDelay);
+                        }
                     }
-                    else
-                    {
-                        // Save in version 2 format
-                        si.SaveTo(s);
-                    }
-                    s.Close();
                 }
+                else
+                {
+                    // Save calculated info to .chk file (version 0 or 2)
+                    using (IFile s = iFileSystem.CreateBufferedStream(
+                        iFileSystem.Create(strPathSavedChkInfoFile),
+                        1024 * 1024))
+                    {
+                        if (nVersion == 0)
+                        {
+                            // Save in version 0 format
+                            si.SaveTo_v0(s);
+                        }
+                        else
+                        {
+                            // Save in version 2 format
+                            si.SaveTo(s);
+                        }
+                        s.Close();
+                    }
+                }
+
 
                 // Set last write time and attributes for .chk file
                 fiSavedInfo = iFileSystem.GetFileInfo(strPathSavedChkInfoFile);
@@ -2405,8 +2510,10 @@ namespace SyncFoldersApi
             {
                 // Copy to target destination as .tmp
                 if (iCancelable.Retries == 0)
+                {
                     // if no retries, then we'll try to copy it as a whole
                     iFileSystem.CopyTo(fi, strTempTargetPath, true);
+                }
                 else
                 {
                     try
@@ -2428,7 +2535,7 @@ namespace SyncFoldersApi
 
                         int nRetries = iCancelable.Retries;
                         int nFlushingCounter = 0;
-                        int nFlushingMinute = System.DateTime.Now.Minute;
+                        Stopwatch oStopwatch = Stopwatch.StartNew();
 
                         while (--nRetries >= 0)
                         {
@@ -2460,21 +2567,24 @@ namespace SyncFoldersApi
                                         if (++nFlushingCounter % 100000 == 0)
                                         {
                                             s2.Flush();
-                                            nFlushingMinute = System.DateTime.Now.Minute;
+                                            oStopwatch.Restart();
                                         }
                                         else
                                         {
-                                            if (nFlushingMinute != System.DateTime.Now.Minute)
+                                            if (oStopwatch.ElapsedMilliseconds >= 60 * 1000)
                                             {
                                                 s2.Flush();
                                                 nFlushingCounter = 0;
-                                                nFlushingMinute = System.DateTime.Now.Minute;
+                                                oStopwatch.Restart();
                                             }
                                         }
                                     }
 
+                                    if (nReadCount > 0)
+                                    {
+                                        oBlock.WriteFirstPartTo(s2, nReadCount);
+                                    }
 
-                                    oBlock.WriteFirstPartTo(s2, nReadCount);
                                     s2.Flush();
                                     s2.Close();
                                 }
@@ -2483,7 +2593,8 @@ namespace SyncFoldersApi
                                 fi2tmp2.LastWriteTimeUtc = fi.LastWriteTimeUtc;
 
                                 break;
-                            } catch (Exception oEx2)
+                            }
+                            catch (Exception oEx2)
                             {
                                 if (nRetries <= 0)
                                     throw;
@@ -3659,7 +3770,7 @@ namespace SyncFoldersApi
             SavedInfo si = new SavedInfo(finfo.Length, finfo.LastWriteTimeUtc, false);
 
             int nFlushingCounter = 0;
-            int nFlushingMinute = System.DateTime.Now.Minute;
+            Stopwatch oStopwatch = Stopwatch.StartNew();
 
             try
             {
@@ -3776,15 +3887,15 @@ namespace SyncFoldersApi
                                             if (++nFlushingCounter % 100000 == 0)
                                             {
                                                 s2.Flush();
-                                                nFlushingMinute = System.DateTime.Now.Minute;
+                                                oStopwatch.Restart();
                                             }
                                             else
                                             {
-                                                if (nFlushingMinute != System.DateTime.Now.Minute)
+                                                if (oStopwatch.ElapsedMilliseconds >= 60 * 1000)
                                                 {
                                                     s2.Flush();
                                                     nFlushingCounter = 0;
-                                                    nFlushingMinute = System.DateTime.Now.Minute;
+                                                    oStopwatch.Restart();
                                                 }
                                             }
                                         }
@@ -3980,7 +4091,8 @@ namespace SyncFoldersApi
                         try
                         {
                             // Save the first saved-info to file
-                            using (IFile s = iFileSystem.Create(strPathSavedInfoFile))
+                            using (IFile s = iFileSystem.CreateBufferedStream(
+                                iFileSystem.Create(strPathSavedInfoFile), 1024 * 1024))
                             {
                                 si.SaveTo(s);
                                 s.Close();
@@ -4096,7 +4208,7 @@ namespace SyncFoldersApi
             SavedInfo.Create2DifferentSavedInfos(out si1, out si2, finfo.Length, finfo.LastWriteTimeUtc);
 
             int nFlushingCounter = 0;
-            int nFlushingMinute = System.DateTime.Now.Minute;
+            Stopwatch oStopwatch = Stopwatch.StartNew();
             try
             {
                 // Copy the file to temporary location while creating saved infos
@@ -4210,15 +4322,15 @@ namespace SyncFoldersApi
                                             if (++nFlushingCounter % 100000 == 0)
                                             {
                                                 s2.Flush();
-                                                nFlushingMinute = System.DateTime.Now.Minute;
+                                                oStopwatch.Restart();
                                             }
                                             else
                                             {
-                                                if (nFlushingMinute != System.DateTime.Now.Minute)
+                                                if (oStopwatch.ElapsedMilliseconds > 60 * 1000)
                                                 {
                                                     s2.Flush();
                                                     nFlushingCounter = 0;
-                                                    nFlushingMinute = System.DateTime.Now.Minute;
+                                                    oStopwatch.Restart();
                                                 }
                                             }
                                         }
@@ -4410,7 +4522,8 @@ namespace SyncFoldersApi
                         try
                         {
                             // Save the first saved-info to file
-                            using (IFile s = iFileSystem.Create(strPathSavedInfoFile))
+                            using (IFile s = iFileSystem.CreateBufferedStream(
+                                iFileSystem.Create(strPathSavedInfoFile), 1024 * 1024))
                             {
                                 si1.SaveTo(s);
                                 s.Close();
@@ -4493,7 +4606,8 @@ namespace SyncFoldersApi
                         {
 
                             // Save the second saved-info to file
-                            using (IFile s = iFileSystem.Create(strPathSavedInfoFile2))
+                            using (IFile s = iFileSystem.CreateBufferedStream(
+                                iFileSystem.Create(strPathSavedInfoFile2), 1024 * 1024))
                             {
                                 si2.SaveTo(s);
                                 s.Close();
@@ -4567,7 +4681,7 @@ namespace SyncFoldersApi
         /// <param name="strPathSavedInfoFile">The target path for saved info</param>
         /// <param name="strPathSavedInfoFile2">The target path for second saved info</param>
         /// <param name="iFileSystem">File system abstraction for performing operations</param>
-        /// <param name="iCancelable">Settings defining synchronization mode and behavior</param>
+        /// <param name="iCancelable">Object that provides information about cancelation and repeats</param>
         /// <param name="iLogWriter">Logger used for outputting messages</param>
         /// <returns>true iff the operation succeeded</returns>
         //===================================================================================================
@@ -4576,7 +4690,7 @@ namespace SyncFoldersApi
             string strPathSavedInfoFile,
             string strPathSavedInfoFile2,
             IFileOperations iFileSystem,
-            ICancelable iCancelable,
+            ICancelableWithRepeats iCancelable,
             ILogWriter iLogWriter)
         {
             // Test for existence of localization resources

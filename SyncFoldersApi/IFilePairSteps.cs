@@ -93,7 +93,7 @@ namespace SyncFoldersApi
         /// <param name="strPathFile">Path of the original file</param>
         /// <param name="strPathSavedChkInfoFile">The target path for .CHK file</param>
         /// <param name="iFileSystem">File system abstraction for performing operations</param>
-        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iCancelable">Object that provides information about cancelation and repeats</param>
         /// <param name="iLogWriter">Logger used for outputting messages</param>
         /// <returns>true iff the operation succeeded</returns>
         //===================================================================================================
@@ -101,7 +101,7 @@ namespace SyncFoldersApi
             string strPathFile,
             string strPathSavedChkInfoFile,
             IFileOperations iFileSystem,
-            ICancelable iSettings,
+            ICancelableWithRepeats iCancelable,
             ILogWriter iLogWriter
             );
 
@@ -113,7 +113,7 @@ namespace SyncFoldersApi
         /// <param name="strPathSavedChkInfoFile">The target path for .CHK file</param>
         /// <param name="bForceSecondBlocks">Indicates that a second row of blocks must be created</param>
         /// <param name="iFileSystem">File system abstraction for performing operations</param>
-        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iCancelable">Object that provides information about cancelation and repeats</param>
         /// <param name="iLogWriter">Logger used for outputting messages</param>
         /// <returns>true iff the operation succeeded</returns>
         //===================================================================================================
@@ -122,7 +122,7 @@ namespace SyncFoldersApi
             string strPathSavedChkInfoFile,
             bool bForceSecondBlocks,
             IFileOperations iFileSystem,
-            ICancelable iSettings,
+            ICancelableWithRepeats iCancelable,
             ILogWriter iLogWriter
             );
 
@@ -135,7 +135,7 @@ namespace SyncFoldersApi
         /// <param name="nVersion">The version to save supported values: 0, 1</param>
         /// <param name="bForceSecondBlocks">Indicates that a second row of blocks must be created</param>
         /// <param name="iFileSystem">File system abstraction for performing operations</param>
-        /// <param name="iSettings">Settings defining synchronization mode and behavior</param>
+        /// <param name="iCancelable">Object that provides information about cancelation and repeats</param>
         /// <param name="iLogWriter">Logger used for outputting messages</param>
         /// <returns>true iff the operation succeeded</returns>
         //===================================================================================================
@@ -145,7 +145,7 @@ namespace SyncFoldersApi
             int nVersion,
             bool bForceSecondBlocks,
             IFileOperations iFileSystem,
-            ICancelable iSettings,
+            ICancelableWithRepeats iCancelable,
             ILogWriter iLogWriter
             );
 
@@ -351,7 +351,7 @@ namespace SyncFoldersApi
         /// <param name="strPathSavedInfoFile">The target path for saved info</param>
         /// <param name="strPathSavedInfoFile2">The target path for second saved info</param>
         /// <param name="iFileSystem">File system abstraction for performing operations</param>
-        /// <param name="iCancelable">Settings defining synchronization mode and behavior</param>
+        /// <param name="iCancelable">Object that provides information about cancelation and repeats</param>
         /// <param name="iLogWriter">Logger used for outputting messages</param>
         /// <returns>true iff the operation succeeded</returns>
         //===================================================================================================
@@ -360,7 +360,7 @@ namespace SyncFoldersApi
             string strPathSavedInfoFile,
             string strPathSavedInfoFile2,
             IFileOperations iFileSystem,
-            ICancelable iCancelable,
+            ICancelableWithRepeats iCancelable,
             ILogWriter iLogWriter);
 
         //===================================================================================================

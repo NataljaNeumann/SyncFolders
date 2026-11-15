@@ -571,6 +571,8 @@ namespace SyncFoldersApi
             m_aBlocks.Clear();
             m_aOtherBlocks.Clear();
             m_aChecksums.Clear();
+            // get the length of the block from a test block
+            int nBlockLength = new Block().Length;
 
 
             oMetadataChecksum.AddByte(0);
@@ -734,6 +736,13 @@ namespace SyncFoldersApi
                 m_aChecksums.Clear();
             }
 
+            // after all calculate, if the number of checksum matches the number of blocks 
+            // in the file. There can be cases, when old code added checksum of an empty block at the end
+            while (m_aChecksums != null &&
+                m_aChecksums.Count > (m_lFileLength + nBlockLength - 1) / nBlockLength)
+            {
+                m_aChecksums.RemoveAt(m_aChecksums.Count - 1);
+            }
         }
 
         //===================================================================================================
@@ -1229,6 +1238,14 @@ namespace SyncFoldersApi
 
                 // error while reading checksums? clear checksums
                 m_aChecksums.Clear();
+            }
+
+            // after all calculate, if the number of checksum matches the number of blocks 
+            // in the file. There can be cases, when old code added checksum of an empty block at the end
+            while (m_aChecksums != null &&
+                m_aChecksums.Count > (m_lFileLength + oBlockForLength.Length - 1) / oBlockForLength.Length)
+            {
+                m_aChecksums.RemoveAt(m_aChecksums.Count-1);
             }
         }
 
