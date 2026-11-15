@@ -310,7 +310,7 @@ namespace SyncFoldersApi
             string strReasonEn,
             string strReasonTranslated,
             IFileOperations iFileSystem,
-            ICancelable iCancelable,
+            ICancelableWithRepeats iCancelable,
             ILogWriter iLogWriter);
 
 
