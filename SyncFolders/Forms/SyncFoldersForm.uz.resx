@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
+  <!--
+    Microsoft ResX Schema
+
     Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
     associated with the data types.
-    
+
     Example:
-    
+
     ... ado.net/XML headers & schema ...
     <resheader name="resmimetype">text/microsoft-resx</resheader>
     <resheader name="version">2.0</resheader>
@@ -26,36 +26,36 @@
         <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
     </data>
-                
-    There are any number of "resheader" rows that contain simple 
+
+    There are any number of "resheader" rows that contain simple
     name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
     mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
     extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
     read any of the formats listed below.
-    
+
     mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-    
+
     mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
 
     mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
+    value   : The object must be serialized into a byte array
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
@@ -117,36 +117,36 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="m_lblFolder1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>74, 16</value>
+    <value>73, 16</value>
   </data>
   <data name="m_lblFolder1.Text" xml:space="preserve">
     <value>Birinchi jild:</value>
   </data>
   <data name="m_tbxFirstFolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>600, 22</value>
+    <value>597, 22</value>
   </data>
   <data name="m_btnSelectFirstFolder.Location" type="System.Drawing.Point, System.Drawing">
-    <value>635, 33</value>
+    <value>632, 33</value>
   </data>
   <data name="m_lblSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 16</value>
+    <value>74, 16</value>
   </data>
   <data name="m_lblSecondFolder.Text" xml:space="preserve">
     <value>Ikkinchi jild:</value>
   </data>
   <data name="m_tbxSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>600, 22</value>
+    <value>597, 22</value>
   </data>
   <data name="m_btnSelectSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
-    <value>636, 89</value>
+    <value>633, 89</value>
   </data>
   <data name="m_cbCreateRestoreInfo.Location" type="System.Drawing.Point, System.Drawing">
     <value>20, 247</value>
   </data>
   <data name="m_cbCreateRestoreInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>540, 20</value>
+    <value>539, 20</value>
   </data>
   <data name="m_cbCreateRestoreInfo.Text" xml:space="preserve">
     <value>Bitta bloklarni tiklash uchun ba'zi ma'lumotlarni saqlash, agar ular etishmayotgan bo'lsa</value>
@@ -155,7 +155,7 @@
     <value>292, 276</value>
   </data>
   <data name="m_cbTestAllFiles.Size" type="System.Drawing.Size, System.Drawing">
-    <value>298, 20</value>
+    <value>297, 20</value>
   </data>
   <data name="m_cbTestAllFiles.Text" xml:space="preserve">
     <value>barcha fayllarning o'qish qobiliyatini tekshirish</value>
@@ -164,23 +164,23 @@
     <value>37, 303</value>
   </data>
   <data name="m_cbRepairBlockFailures.Size" type="System.Drawing.Size, System.Drawing">
-    <value>187, 20</value>
+    <value>186, 20</value>
   </data>
   <data name="m_cbRepairBlockFailures.Text" xml:space="preserve">
     <value>Alohida bloklarni ta'mirlash</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="m_btnSync.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
   <data name="m_btnSync.Location" type="System.Drawing.Point, System.Drawing">
-    <value>467, 401</value>
+    <value>464, 401</value>
   </data>
   <data name="m_btnSync.Text" xml:space="preserve">
     <value>Sinxronlash</value>
   </data>
   <data name="m_btnCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>575, 401</value>
+    <value>572, 401</value>
   </data>
   <data name="m_btnCancel.Text" xml:space="preserve">
     <value>Bekor qilish</value>
@@ -189,10 +189,10 @@
     <value>20, 401</value>
   </data>
   <data name="m_ctlProgressBar.Size" type="System.Drawing.Size, System.Drawing">
-    <value>547, 28</value>
+    <value>544, 28</value>
   </data>
   <data name="m_btnSelfTest.Location" type="System.Drawing.Point, System.Drawing">
-    <value>616, 132</value>
+    <value>613, 132</value>
   </data>
   <data name="m_btnSelfTest.Size" type="System.Drawing.Size, System.Drawing">
     <value>63, 28</value>
@@ -204,7 +204,7 @@
     <value>55, 334</value>
   </data>
   <data name="m_cbPreferCopies.Size" type="System.Drawing.Size, System.Drawing">
-    <value>624, 20</value>
+    <value>623, 20</value>
   </data>
   <data name="m_cbPreferCopies.Text" xml:space="preserve">
     <value>Ta'mirlash paytida mojarolar yuzaga kelganda jismoniy nusxalarga ustunlik berish (tavsiya etilmaydi)</value>
@@ -213,24 +213,24 @@
     <value>21, 327</value>
   </data>
   <data name="m_lblProgress.Size" type="System.Drawing.Size, System.Drawing">
-    <value>654, 53</value>
+    <value>651, 53</value>
   </data>
   <data name="m_cbFirstToSecond.Size" type="System.Drawing.Size, System.Drawing">
-    <value>280, 20</value>
+    <value>279, 20</value>
   </data>
   <data name="m_cbFirstToSecond.Text" xml:space="preserve">
     <value>Bir tomonlama, birinchi jilddan ikkinchisiga </value>
   </data>
   <data name="m_cbFirstReadonly.Size" type="System.Drawing.Size, System.Drawing">
-    <value>333, 20</value>
+    <value>332, 20</value>
   </data>
   <data name="m_cbFirstReadonly.Text" xml:space="preserve">
     <value>Birinchi papkani o'zgartirib bo'lmaydi (masalan, CD)</value>
   </data>
   <data name="m_cbDeleteFilesInSecond.Size" type="System.Drawing.Size, System.Drawing">
-    <value>368, 20</value>
+    <value>367, 20</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="m_cbDeleteFilesInSecond.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
   </data>
@@ -241,7 +241,7 @@
     <value>22, 407</value>
   </data>
   <data name="m_lblAbout.Size" type="System.Drawing.Size, System.Drawing">
-    <value>226, 16</value>
+    <value>225, 16</value>
   </data>
   <data name="m_lblAbout.Text" xml:space="preserve">
     <value>"Papkalarni sinxronlashtiring" haqida</value>
@@ -250,7 +250,7 @@
     <value>284, 407</value>
   </data>
   <data name="m_lblLicence.Size" type="System.Drawing.Size, System.Drawing">
-    <value>121, 16</value>
+    <value>120, 16</value>
   </data>
   <data name="m_lblLicence.Text" xml:space="preserve">
     <value>Litsenziya (GPL v2)</value>
@@ -259,7 +259,7 @@
     <value>20, 276</value>
   </data>
   <data name="m_cbSkipRecentlyTested.Size" type="System.Drawing.Size, System.Drawing">
-    <value>265, 20</value>
+    <value>264, 20</value>
   </data>
   <data name="m_cbSkipRecentlyTested.Text" xml:space="preserve">
     <value>Agar yaqinda sinovdan o'tmagan bo'lsa</value>
@@ -268,7 +268,7 @@
     <value>439, 137</value>
   </data>
   <data name="m_cbParallel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>128, 20</value>
+    <value>127, 20</value>
   </data>
   <data name="m_cbParallel.Text" xml:space="preserve">
     <value>Parallel ravishda</value>
@@ -277,7 +277,7 @@
     <value>306, 137</value>
   </data>
   <data name="m_cbSyncMode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 20</value>
+    <value>130, 20</value>
   </data>
   <data name="m_cbSyncMode.Text" xml:space="preserve">
     <value>Sinxronlash rejimi</value>
@@ -286,7 +286,7 @@
     <value>37, 217</value>
   </data>
   <data name="m_cbIgnoreTime.Size" type="System.Drawing.Size, System.Drawing">
-    <value>452, 20</value>
+    <value>451, 20</value>
   </data>
   <data name="m_cbIgnoreTime.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
@@ -295,7 +295,30 @@
     <value>Fayl va saqlangan ma'lumotlar o'rtasidagi vaqt farqiga e'tibor bermaslik</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>692, 448</value>
+    <value>689, 448</value>
+  </data>
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAQEACAAEAAQAwBAAAFgAAACgAAABAAAAAgAAAAAEAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAgV5UAAAAAAP//////////////////////////////////////////////////////////9///////
+        ///j/////////8H/9X//////wP/gP/////8Af+B//////4A/4D//////wB/gf//////gD+A///////AH
+        4H//////+APgP//////8AeA///////4A4D///////wBgf+qqqqqqgCA/wAAAAAAAAH/AAAAAAAAAP8AA
+        AAAAAAB/4AAAAAAAAD/AAAAAAAAAP+iIiIiIgCA///////8AYH///////gDgP//////8AeB////+//gD
+        4D/d//x/8Afgf+D/+D/gD+A/wH/gH8Af4D/g/+AfgD/gP8B/wB8Af+B/4P+Af4D/4D/AfgB/wf/wf8D+
+        Af/j////wHwB//f////g+Af//////8BgB///////4OAP///////AQAAAAAAAf+AAAAAAAAA/wAAAAAAA
+        AH/AAAAAAAAAP8AAAAAAAAB/4IAAAAAAAD/AQBd3V3dXf+DgD///////wHAH///////g+AP//////8B8
+        Af//////wP4A///////AfwB//////+D/gD//////wH/AH//////g/+A//////8B/8D/////////4////
+        //////z/////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////3/////////+P/////////wf/1f//////A/+A//////wB/
+        4H//////gD/gP//////AH+B//////+AP4D//////8Afgf//////4A+A///////wB4D///////gDgP///
+        ////AGB/6qqqqqqAID/AAAAAAAAAf8AAAAAAAAA/wAAAAAAAAH/gAAAAAAAAP8AAAAAAAAA/6IiIiIiA
+        ID///////wBgf//////+AOA///////wB4H////7/+APgP93//H/wB+B/4P/4P+AP4D/Af+AfwB/gP+D/
+        4B+AP+A/wH/AHwB/4H/g/4B/gP/gP8B+AH/B//B/wP4B/+P////AfAH/9////+D4B///////wGAH////
+        ///g4A///////8BAAAAAAAB/4AAAAAAAAD/AAAAAAAAAf8AAAAAAAAA/wAAAAAAAAH/ggAAAAAAAP8BA
+        F3dXd1d/4OAP///////AcAf//////+D4A///////wHwB///////A/gD//////8B/AH//////4P+AP///
+        ///Af8Af/////+D/4D//////wH/wP/////////j//////////P//////////////////////////////
+        //////////////////8=
+</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Papkalarni sinxronlashtiring v1.6</value>

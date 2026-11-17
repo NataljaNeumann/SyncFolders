@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
+  <!--
+    Microsoft ResX Schema
+
     Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
     associated with the data types.
-    
+
     Example:
-    
+
     ... ado.net/XML headers & schema ...
     <resheader name="resmimetype">text/microsoft-resx</resheader>
     <resheader name="version">2.0</resheader>
@@ -26,36 +26,36 @@
         <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
     </data>
-                
-    There are any number of "resheader" rows that contain simple 
+
+    There are any number of "resheader" rows that contain simple
     name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
     mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
     extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
     read any of the formats listed below.
-    
+
     mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-    
+
     mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
 
     mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
+    value   : The object must be serialized into a byte array
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
@@ -117,9 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="m_lblFolder1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>79, 16</value>
+    <value>78, 16</value>
   </data>
   <data name="m_lblFolder1.Text" xml:space="preserve">
     <value>Eerste gids:</value>
@@ -131,7 +131,7 @@
     <value>622, 33</value>
   </data>
   <data name="m_lblSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>90, 16</value>
+    <value>89, 16</value>
   </data>
   <data name="m_lblSecondFolder.Text" xml:space="preserve">
     <value>Tweede gids:</value>
@@ -146,7 +146,7 @@
     <value>20, 219</value>
   </data>
   <data name="m_cbCreateRestoreInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>396, 20</value>
+    <value>395, 20</value>
   </data>
   <data name="m_cbCreateRestoreInfo.Text" xml:space="preserve">
     <value>Stoor inligting vir die herstel van enkele blokke, as dit ontbreek</value>
@@ -155,7 +155,7 @@
     <value>20, 247</value>
   </data>
   <data name="m_cbTestAllFiles.Size" type="System.Drawing.Size, System.Drawing">
-    <value>228, 20</value>
+    <value>227, 20</value>
   </data>
   <data name="m_cbTestAllFiles.Text" xml:space="preserve">
     <value>Toets leesbaarheid van alle lêers</value>
@@ -164,12 +164,12 @@
     <value>37, 275</value>
   </data>
   <data name="m_cbRepairBlockFailures.Size" type="System.Drawing.Size, System.Drawing">
-    <value>186, 20</value>
+    <value>185, 20</value>
   </data>
   <data name="m_cbRepairBlockFailures.Text" xml:space="preserve">
     <value>Herstel van enkelblokfoute</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="m_btnSync.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
@@ -198,7 +198,7 @@
     <value>Selftoets</value>
   </data>
   <data name="m_cbPreferCopies.Size" type="System.Drawing.Size, System.Drawing">
-    <value>491, 20</value>
+    <value>490, 20</value>
   </data>
   <data name="m_cbPreferCopies.Text" xml:space="preserve">
     <value>Verkies fisiese kopieë in geval van konflikte tydens herstel (nie aanbeveel nie)</value>
@@ -210,19 +210,19 @@
     <value>641, 53</value>
   </data>
   <data name="m_cbFirstToSecond.Size" type="System.Drawing.Size, System.Drawing">
-    <value>218, 20</value>
+    <value>217, 20</value>
   </data>
   <data name="m_cbFirstToSecond.Text" xml:space="preserve">
     <value>Eenrigting, van 1ste gids tot 2de </value>
   </data>
   <data name="m_cbFirstReadonly.Size" type="System.Drawing.Size, System.Drawing">
-    <value>286, 20</value>
+    <value>285, 20</value>
   </data>
   <data name="m_cbFirstReadonly.Text" xml:space="preserve">
     <value>Eerste gids is nie veranderbaar nie (bv. CD)</value>
   </data>
   <data name="m_cbDeleteFilesInSecond.Size" type="System.Drawing.Size, System.Drawing">
-    <value>385, 20</value>
+    <value>384, 20</value>
   </data>
   <data name="m_cbDeleteFilesInSecond.Text" xml:space="preserve">
     <value>Vee lêers in tweede gids uit wat nie meer in eerste gids is nie</value>
@@ -231,7 +231,7 @@
     <value>22, 379</value>
   </data>
   <data name="m_lblAbout.Size" type="System.Drawing.Size, System.Drawing">
-    <value>187, 16</value>
+    <value>186, 16</value>
   </data>
   <data name="m_lblAbout.Text" xml:space="preserve">
     <value>Meer oor "Sinkroniseer gidse"</value>
@@ -240,7 +240,7 @@
     <value>241, 379</value>
   </data>
   <data name="m_lblLicence.Size" type="System.Drawing.Size, System.Drawing">
-    <value>112, 16</value>
+    <value>111, 16</value>
   </data>
   <data name="m_lblLicence.Text" xml:space="preserve">
     <value>Lisensie (GPL v2)</value>
@@ -249,7 +249,7 @@
     <value>255, 247</value>
   </data>
   <data name="m_cbSkipRecentlyTested.Size" type="System.Drawing.Size, System.Drawing">
-    <value>204, 20</value>
+    <value>203, 20</value>
   </data>
   <data name="m_cbSkipRecentlyTested.Text" xml:space="preserve">
     <value>indien nie onlangs getoets nie</value>
@@ -261,7 +261,7 @@
     <value>244, 137</value>
   </data>
   <data name="m_cbSyncMode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>146, 20</value>
+    <value>145, 20</value>
   </data>
   <data name="m_cbSyncMode.Text" xml:space="preserve">
     <value>Sinkroniseer modus</value>
@@ -270,13 +270,36 @@
     <value>329, 164</value>
   </data>
   <data name="m_cbIgnoreTime.Size" type="System.Drawing.Size, System.Drawing">
-    <value>343, 20</value>
+    <value>342, 20</value>
   </data>
   <data name="m_cbIgnoreTime.Text" xml:space="preserve">
     <value>Ignoreer tydsverskil tussen lêer en gestoorde inligting</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>679, 420</value>
+  </data>
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAQEACAAEAAQAwBAAAFgAAACgAAABAAAAAgAAAAAEAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAgV5UAAAAAAP//////////////////////////////////////////////////////////9///////
+        ///j/////////8H/9X//////wP/gP/////8Af+B//////4A/4D//////wB/gf//////gD+A///////AH
+        4H//////+APgP//////8AeA///////4A4D///////wBgf+qqqqqqgCA/wAAAAAAAAH/AAAAAAAAAP8AA
+        AAAAAAB/4AAAAAAAAD/AAAAAAAAAP+iIiIiIgCA///////8AYH///////gDgP//////8AeB////+//gD
+        4D/d//x/8Afgf+D/+D/gD+A/wH/gH8Af4D/g/+AfgD/gP8B/wB8Af+B/4P+Af4D/4D/AfgB/wf/wf8D+
+        Af/j////wHwB//f////g+Af//////8BgB///////4OAP///////AQAAAAAAAf+AAAAAAAAA/wAAAAAAA
+        AH/AAAAAAAAAP8AAAAAAAAB/4IAAAAAAAD/AQBd3V3dXf+DgD///////wHAH///////g+AP//////8B8
+        Af//////wP4A///////AfwB//////+D/gD//////wH/AH//////g/+A//////8B/8D/////////4////
+        //////z/////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////3/////////+P/////////wf/1f//////A/+A//////wB/
+        4H//////gD/gP//////AH+B//////+AP4D//////8Afgf//////4A+A///////wB4D///////gDgP///
+        ////AGB/6qqqqqqAID/AAAAAAAAAf8AAAAAAAAA/wAAAAAAAAH/gAAAAAAAAP8AAAAAAAAA/6IiIiIiA
+        ID///////wBgf//////+AOA///////wB4H////7/+APgP93//H/wB+B/4P/4P+AP4D/Af+AfwB/gP+D/
+        4B+AP+A/wH/AHwB/4H/g/4B/gP/gP8B+AH/B//B/wP4B/+P////AfAH/9////+D4B///////wGAH////
+        ///g4A///////8BAAAAAAAB/4AAAAAAAAD/AAAAAAAAAf8AAAAAAAAA/wAAAAAAAAH/ggAAAAAAAP8BA
+        F3dXd1d/4OAP///////AcAf//////+D4A///////wHwB///////A/gD//////8B/AH//////4P+AP///
+        ///Af8Af/////+D/4D//////wH/wP/////////j//////////P//////////////////////////////
+        //////////////////8=
+</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Sinkroniseer gidse v1.6</value>
