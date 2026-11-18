@@ -136,6 +136,9 @@
     <value>警告: 1975 年以前のファイル "{0}" は、ファイル "{1}" の復元に使用できませんでした。
 このような古い日付は、ファイル「{0}」を回復する最後の機会であったことを示しています。</value>
   </data>
+  <data name="DateFormat" xml:space="preserve">
+    <value>{1}年{2}月{3}日 {5}:{6}:{7}</value>
+  </data>
   <data name="DefaultCulture" xml:space="preserve">
     <value>no</value>
   </data>
@@ -144,6 +147,12 @@
   </data>
   <data name="DeletedFolder" xml:space="preserve">
     <value>「{1}」が存在しないため、コンテンツを含むフォルダー「{0}」が削除されました</value>
+  </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>古くなった古い保存情報を削除しています...</value>
+  </data>
+  <data name="Digits" xml:space="preserve">
+    <value>Japan</value>
   </data>
   <data name="EncounteredErrorOlderOk" xml:space="preserve">
     <value>警告: ファイル 「{0}」 のコピー中に I/O エラーが発生しました。古いファイル「{1}」は問題ないようです </value>
@@ -250,6 +259,9 @@
   <data name="ProcessNo" xml:space="preserve">
     <value>№</value>
   </data>
+  <data name="ReadmeHtmlHelpJumpPoint" xml:space="preserve">
+    <value>#ja</value>
+  </data>
   <data name="RecoveringBlockAtOfCopiedFile" xml:space="preserve">
     <value>コピーされたターゲットファイル「{1}」の位置{0}のブロックが復元されます</value>
   </data>
@@ -267,6 +279,9 @@
   </data>
   <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
     <value>保存された情報ファイル「{0}」が破損しているため、「{1}」から再作成する必要があります。</value>
+  </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>フォルダーとファイルが検査されます...</value>
   </data>
   <data name="SecondFolderNoDelete" xml:space="preserve">
     <value>エラー: 2 番目のフォルダーにはファイル 「{0}」 が含まれています。選択したフォルダーは削除オプションとしては間違っているようです。フォルダーとサブフォルダーの処理をスキップします</value>
@@ -336,20 +351,5 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>はい </value>
-  </data>
-  <data name="Digits" xml:space="preserve">
-    <value>Japan</value>
-  </data>
-  <data name="DateFormat" xml:space="preserve">
-    <value>{1}年{2}月{3}日 {5}:{6}:{7}</value>
-  </data>
-  <data name="ReadmeHtmlHelpJumpPoint" xml:space="preserve">
-    <value>#ja</value>
-  </data>
-  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
-    <value>古くなった古い保存情報を削除しています...</value>
-  </data>
-  <data name="ScanningFolders" xml:space="preserve">
-    <value>フォルダーとファイルが検査されます...</value>
   </data>
 </root>

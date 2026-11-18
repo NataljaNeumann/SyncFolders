@@ -100,6 +100,7 @@ namespace SyncFolders
             m_tbxFirstFolder.AutoCompleteMode = AutoCompleteMode.Suggest;
             m_tbxFirstFolder.AutoCompleteSource = AutoCompleteSource.FileSystemDirectories;
             m_tbxFirstFolder.Name = "m_tbxFirstFolder";
+            m_tbxFirstFolder.RightToLeft = RightToLeft.No;
             m_tbxFirstFolder.TextChanged += textBoxFirstFolder_TextChanged;
             m_tbxFirstFolder.Enter += textBoxFirstFolder_Enter;
             // 
@@ -121,6 +122,7 @@ namespace SyncFolders
             m_tbxSecondFolder.AutoCompleteMode = AutoCompleteMode.Suggest;
             m_tbxSecondFolder.AutoCompleteSource = AutoCompleteSource.FileSystemDirectories;
             m_tbxSecondFolder.Name = "m_tbxSecondFolder";
+            m_tbxSecondFolder.RightToLeft = RightToLeft.No;
             m_tbxSecondFolder.TextChanged += textBoxSecondFolder_TextChanged;
             // 
             // m_btnSelectSecondFolder

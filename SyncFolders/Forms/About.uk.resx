@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Про «Синхронізувати папки» </value>
+  </data>
   <data name="label1.Text" xml:space="preserve">
     <value>SyncFolders v1.6
 Авторське право © 2024-2026 NataljaNeumann@gmx.de
@@ -127,8 +130,5 @@
 
 Ви мали отримати копію GNU General Public License разом із цією програмою; якщо ні, напишіть до  Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 </value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Про «Синхронізувати папки» </value>
   </data>
 </root>

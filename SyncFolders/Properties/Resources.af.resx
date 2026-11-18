@@ -120,6 +120,9 @@
   <data name="DefaultCulture" xml:space="preserve">
     <value>No</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>Ek vee ou gestoorde data uit wat verval het...</value>
+  </data>
   <data name="FoundFilesForSync" xml:space="preserve">
     <value>{0} lêers gevind vir moontlike sinchronisasie</value>
   </data>
@@ -185,6 +188,9 @@
   </data>
   <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
     <value>Die gestoorde inligtinglêer "{0}" is beskadig en moet herskep word vanaf "{1}".</value>
+  </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>Ek soek vouers en lêers om te sinkroniseer...</value>
   </data>
   <data name="SecondFolderNoDelete" xml:space="preserve">
     <value>Fout: Die tweede vouer bevat die lêer "{0}". Die geselekteerde vouer blyk verkeerd te wees vir die uitvee-opsie. Verwerking van die gids en subgidse word oorgeslaan.</value>
@@ -254,11 +260,5 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Ja</value>
-  </data>
-  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
-    <value>Ek vee ou gestoorde data uit wat verval het...</value>
-  </data>
-  <data name="ScanningFolders" xml:space="preserve">
-    <value>Ek soek vouers en lêers om te sinkroniseer...</value>
   </data>
 </root>

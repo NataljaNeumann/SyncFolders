@@ -144,6 +144,9 @@
   <data name="DeletedFolder" xml:space="preserve">
     <value>Folder “{0}” termasuk kandungan dipadamkan kerana “{1}” tidak lagi wujud</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>Saya sedang mengalih keluar maklumat disimpan lama yang telah menjadi usang...</value>
+  </data>
   <data name="EncounteredErrorOlderOk" xml:space="preserve">
     <value>Amaran: Ralat I/O berlaku semasa menyalin fail “{0}”. Fail lama “{1}” nampaknya baik</value>
   </data>
@@ -267,6 +270,9 @@
   <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
     <value>Fail maklumat yang disimpan “{0}” telah rosak dan perlu dicipta semula daripada “{1}”.</value>
   </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>Saya sedang mencari folder dan fail untuk disegerakkan...</value>
+  </data>
   <data name="SecondFolderNoDelete" xml:space="preserve">
     <value>Ralat: Folder kedua mengandungi fail “{0}”. Folder yang dipilih nampaknya tidak betul untuk pilihan padam. Pemprosesan folder dan subfolder dilangkau.</value>
   </data>
@@ -335,11 +341,5 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>ya</value>
-  </data>
-  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
-    <value>Saya sedang mengalih keluar maklumat disimpan lama yang telah menjadi usang...</value>
-  </data>
-  <data name="ScanningFolders" xml:space="preserve">
-    <value>Saya sedang mencari folder dan fail untuk disegerakkan...</value>
   </data>
 </root>

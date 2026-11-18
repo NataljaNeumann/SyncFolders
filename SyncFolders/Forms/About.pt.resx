@@ -118,6 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>508, 296</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Sobre "Sincronizar pastas"</value>
+  </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>484, 278</value>
   </data>
@@ -131,11 +137,5 @@ Este programa é distribuído na esperança de que seja útil, mas SEM QUALQUER 
 
 Você deverá ter recebido uma cópia da Licença Pública Geral GNU junto com este programa; caso contrário, escreva para a Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 </value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>508, 296</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Sobre "Sincronizar pastas"</value>
   </data>
 </root>

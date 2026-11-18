@@ -144,6 +144,9 @@
   <data name="DeletedFolder" xml:space="preserve">
     <value>Map “{0}” inclusief inhoud verwijderd omdat “{1}” niet meer bestaat</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>Ik verwijder oude opgeslagen informatie die verouderd is...</value>
+  </data>
   <data name="EncounteredErrorOlderOk" xml:space="preserve">
     <value>Waarschuwing: er is een I/O-fout opgetreden tijdens het kopiëren van bestand “{0}”. Het oudere bestand “{1}” lijkt in orde te zijn</value>
   </data>
@@ -249,6 +252,9 @@
   <data name="ProcessNo" xml:space="preserve">
     <value>№</value>
   </data>
+  <data name="ReadmeHtmlHelpJumpPoint" xml:space="preserve">
+    <value>#nl</value>
+  </data>
   <data name="RecoveringBlockAtOfCopiedFile" xml:space="preserve">
     <value>Blok op positie {0} van het gekopieerde doelbestand “{1}” is hersteld</value>
   </data>
@@ -266,6 +272,9 @@
   </data>
   <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
     <value>Het opgeslagen informatiebestand “{0}” is beschadigd en moet opnieuw worden gemaakt vanaf “{1}”.</value>
+  </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>Mappen en bestanden worden onderzocht...</value>
   </data>
   <data name="SecondFolderNoDelete" xml:space="preserve">
     <value>Fout: de tweede map bevat het bestand “{0}”. Het lijkt erop dat de geselecteerde map niet geschikt is voor de verwijderoptie. Sla het verwerken van de map en submappen over</value>
@@ -335,14 +344,5 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Ja </value>
-  </data>
-  <data name="ReadmeHtmlHelpJumpPoint" xml:space="preserve">
-    <value>#nl</value>
-  </data>
-  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
-    <value>Ik verwijder oude opgeslagen informatie die verouderd is...</value>
-  </data>
-  <data name="ScanningFolders" xml:space="preserve">
-    <value>Mappen en bestanden worden onderzocht...</value>
   </data>
 </root>

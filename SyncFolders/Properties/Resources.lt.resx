@@ -144,6 +144,9 @@
   <data name="DeletedFolder" xml:space="preserve">
     <value>Aplankas „{0}“, įskaitant turinį, ištrintas, nes „{1}“ nebėra</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>Pašalinu seną išsaugotą informaciją, kuri paseno...</value>
+  </data>
   <data name="EncounteredErrorOlderOk" xml:space="preserve">
     <value>Įspėjimas: kopijuojant failą „{0}“ įvyko įvesties / išvesties klaida. Senesnis failas „{1}“ atrodo tinkamas</value>
   </data>
@@ -249,6 +252,9 @@
   <data name="ProcessNo" xml:space="preserve">
     <value>№</value>
   </data>
+  <data name="ReadmeHtmlHelpJumpPoint" xml:space="preserve">
+    <value>#it</value>
+  </data>
   <data name="RecoveringBlockAtOfCopiedFile" xml:space="preserve">
     <value>Atkuriamas nukopijuoto tikslinio failo „{1}“ blokavimas {0} pozicijoje</value>
   </data>
@@ -266,6 +272,9 @@
   </data>
   <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
     <value>Išsaugotas informacijos failas „{0}“ buvo sugadintas ir jį reikia sukurti iš naujo iš „{1}“.</value>
+  </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>Ieškau aplankų ir failų, kuriuos reikia sinchronizuoti...</value>
   </data>
   <data name="SecondFolderNoDelete" xml:space="preserve">
     <value>Klaida: antrame aplanke yra failas „{0}“. Atrodo, kad pasirinktas aplankas netinkamas ištrynimo parinktims. Aplanko ir poaplankių apdorojimas praleidžiamas.</value>
@@ -335,14 +344,5 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Taip</value>
-  </data>
-  <data name="ReadmeHtmlHelpJumpPoint" xml:space="preserve">
-    <value>#it</value>
-  </data>
-  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
-    <value>Pašalinu seną išsaugotą informaciją, kuri paseno...</value>
-  </data>
-  <data name="ScanningFolders" xml:space="preserve">
-    <value>Ieškau aplankų ir failų, kuriuos reikia sinchronizuoti...</value>
   </data>
 </root>

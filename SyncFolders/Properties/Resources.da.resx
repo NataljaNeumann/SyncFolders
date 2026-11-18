@@ -144,6 +144,9 @@
   <data name="DeletedFolder" xml:space="preserve">
     <value>Mappe "{0}" inklusive indhold slettet, fordi "{1}" ikke længere eksisterer</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>Jeg fjerner gamle gemte oplysninger, der er blevet forældede...</value>
+  </data>
   <data name="EncounteredErrorOlderOk" xml:space="preserve">
     <value>Advarsel: Der opstod en I/O-fejl under kopiering af filen "{0}". Den ældre fil "{1}" ser ud til at være i orden</value>
   </data>
@@ -249,6 +252,9 @@
   <data name="ProcessNo" xml:space="preserve">
     <value>№</value>
   </data>
+  <data name="ReadmeHtmlHelpJumpPoint" xml:space="preserve">
+    <value>#da</value>
+  </data>
   <data name="RecoveringBlockAtOfCopiedFile" xml:space="preserve">
     <value>Blok ved position {0} af den kopierede målfil "{1}" gendannes</value>
   </data>
@@ -266,6 +272,9 @@
   </data>
   <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
     <value>Den gemte infofil "{0}" var beskadiget og skal genskabes fra "{1}".</value>
+  </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>Jeg leder efter mapper og filer til synkronisering...</value>
   </data>
   <data name="SecondFolderNoDelete" xml:space="preserve">
     <value>Fejl: Den anden mappe indeholder filen "{0}". Den valgte mappe ser ud til at være forkert for sletningsindstillingen. Behandling af mappen og undermapper springes over.</value>
@@ -335,14 +344,5 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Ja</value>
-  </data>
-  <data name="ReadmeHtmlHelpJumpPoint" xml:space="preserve">
-    <value>#da</value>
-  </data>
-  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
-    <value>Jeg fjerner gamle gemte oplysninger, der er blevet forældede...</value>
-  </data>
-  <data name="ScanningFolders" xml:space="preserve">
-    <value>Jeg leder efter mapper og filer til synkronisering...</value>
   </data>
 </root>

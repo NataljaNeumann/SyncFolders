@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Acerca de "Sincronizar carpetas" </value>
+  </data>
   <data name="label1.Text" xml:space="preserve">
     <value>SyncFolders v1.6
 Derechos de autor © 2024-2026 NataljaNeumann@gmx.de
@@ -127,8 +130,5 @@ Este programa se distribuye con la esperanza de que sea de utilidad, pero SIN NI
 
 Debería haber recibido una copia de la Licencia Pública General GNU junto con este programa; si no, escriba a la Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 </value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Acerca de "Sincronizar carpetas" </value>
   </data>
 </root>

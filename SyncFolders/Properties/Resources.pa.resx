@@ -144,6 +144,9 @@
   <data name="DeletedFolder" xml:space="preserve">
     <value>ਫੋਲਡਰ “{0}” ਸਮੱਗਰੀ ਸਮੇਤ ਮਿਟਾਇਆ ਗਿਆ ਕਿਉਂਕਿ “{1}” ਹੁਣ ਮੌਜੂਦ ਨਹੀਂ ਹੈ</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>ਮੈਂ ਪੁਰਾਣੀ ਸੁਰੱਖਿਅਤ ਕੀਤੀ ਜਾਣਕਾਰੀ ਨੂੰ ਹਟਾ ਰਿਹਾ/ਰਹੀ ਹਾਂ ਜੋ ਪੁਰਾਣੀ ਹੋ ਗਈ ਹੈ...</value>
+  </data>
   <data name="EncounteredErrorOlderOk" xml:space="preserve">
     <value>ਚੇਤਾਵਨੀ: ਫਾਈਲ “{0}” ਦੀ ਨਕਲ ਕਰਦੇ ਸਮੇਂ ਇੱਕ I/O ਗਲਤੀ ਆਈ ਹੈ। ਪੁਰਾਣੀ ਫ਼ਾਈਲ “{1}” ਠੀਕ ਜਾਪਦੀ ਹੈ</value>
   </data>
@@ -267,6 +270,9 @@
   <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
     <value>ਸੁਰੱਖਿਅਤ ਕੀਤੀ ਜਾਣਕਾਰੀ ਫਾਈਲ “{0}” ਖਰਾਬ ਹੋ ਗਈ ਸੀ ਅਤੇ ਇਸਨੂੰ “{1}” ਤੋਂ ਦੁਬਾਰਾ ਬਣਾਉਣ ਦੀ ਲੋੜ ਹੈ।</value>
   </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>ਮੈਂ ਸਿੰਕ ਕਰਨ ਲਈ ਫੋਲਡਰਾਂ ਅਤੇ ਫ਼ਾਈਲਾਂ ਨੂੰ ਲੱਭ ਰਿਹਾ/ਰਹੀ ਹਾਂ...</value>
+  </data>
   <data name="SecondFolderNoDelete" xml:space="preserve">
     <value>ਗਲਤੀ: ਦੂਜੇ ਫੋਲਡਰ ਵਿੱਚ “{0}” ਫਾਈਲ ਹੈ। ਮਿਟਾਓ ਵਿਕਲਪ ਲਈ ਚੁਣਿਆ ਫੋਲਡਰ ਗਲਤ ਜਾਪਦਾ ਹੈ। ਫੋਲਡਰ ਅਤੇ ਸਬਫੋਲਡਰ ਦੀ ਪ੍ਰਕਿਰਿਆ ਛੱਡ ਦਿੱਤੀ ਗਈ ਹੈ।</value>
   </data>
@@ -335,11 +341,5 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>ਹਾਂ</value>
-  </data>
-  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
-    <value>ਮੈਂ ਪੁਰਾਣੀ ਸੁਰੱਖਿਅਤ ਕੀਤੀ ਜਾਣਕਾਰੀ ਨੂੰ ਹਟਾ ਰਿਹਾ/ਰਹੀ ਹਾਂ ਜੋ ਪੁਰਾਣੀ ਹੋ ਗਈ ਹੈ...</value>
-  </data>
-  <data name="ScanningFolders" xml:space="preserve">
-    <value>ਮੈਂ ਸਿੰਕ ਕਰਨ ਲਈ ਫੋਲਡਰਾਂ ਅਤੇ ਫ਼ਾਈਲਾਂ ਨੂੰ ਲੱਭ ਰਿਹਾ/ਰਹੀ ਹਾਂ...</value>
   </data>
 </root>

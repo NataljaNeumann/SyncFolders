@@ -144,6 +144,9 @@
   <data name="DeletedFolder" xml:space="preserve">
     <value>“{1}” artık mevcut olmadığından silinen içerikleri içeren “{0}” klasörü </value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>Artık geçerliliğini yitirmiş eski kayıtlı bilgileri kaldırıyorum...</value>
+  </data>
   <data name="EncounteredErrorOlderOk" xml:space="preserve">
     <value>Uyarı: “{0}” dosyası kopyalanırken bir G/Ç hatası oluştu. Eski dosya “{1}” iyi görünüyor</value>
   </data>
@@ -249,6 +252,9 @@
   <data name="ProcessNo" xml:space="preserve">
     <value>№</value>
   </data>
+  <data name="ReadmeHtmlHelpJumpPoint" xml:space="preserve">
+    <value>#tr</value>
+  </data>
   <data name="RecoveringBlockAtOfCopiedFile" xml:space="preserve">
     <value>Kopyalanan “{1}” hedef dosyasının {0} konumundaki blok geri yüklendi</value>
   </data>
@@ -266,6 +272,9 @@
   </data>
   <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
     <value>Kaydedilen “{0}” bilgi dosyası bozulmuş ve “{1}” dosyasından yeniden oluşturulması gerekiyor.</value>
+  </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>Senkronize edilecek klasörleri ve dosyaları arıyorum...</value>
   </data>
   <data name="SecondFolderNoDelete" xml:space="preserve">
     <value>Hata: İkinci klasör “{0}” dosyasını içeriyor. Seçilen klasör, silme seçeneği için yanlış görünüyor. Klasörü ve alt klasörleri işlemeyi atla</value>
@@ -335,14 +344,5 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Evet </value>
-  </data>
-  <data name="ReadmeHtmlHelpJumpPoint" xml:space="preserve">
-    <value>#tr</value>
-  </data>
-  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
-    <value>Artık geçerliliğini yitirmiş eski kayıtlı bilgileri kaldırıyorum...</value>
-  </data>
-  <data name="ScanningFolders" xml:space="preserve">
-    <value>Senkronize edilecek klasörleri ve dosyaları arıyorum...</value>
   </data>
 </root>

@@ -118,184 +118,8 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="m_lblFolder1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>77, 24</value>
-  </data>
-  <data name="m_lblFolder1.Text" xml:space="preserve">
-    <value>پہلا فولڈر:</value>
-  </data>
-  <data name="m_tbxFirstFolder.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 14.25pt</value>
-  </data>
-  <data name="m_tbxFirstFolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>722, 29</value>
-  </data>
-  <data name="m_btnSelectFirstFolder.Location" type="System.Drawing.Point, System.Drawing">
-    <value>757, 33</value>
-  </data>
-  <data name="m_lblSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>80, 24</value>
-  </data>
-  <data name="m_lblSecondFolder.Text" xml:space="preserve">
-    <value>دوجا فولڈر:</value>
-  </data>
-  <data name="m_tbxSecondFolder.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 14.25pt</value>
-  </data>
-  <data name="m_tbxSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>722, 29</value>
-  </data>
-  <data name="m_btnSelectSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
-    <value>758, 89</value>
-  </data>
-  <data name="m_cbCreateRestoreInfo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 212</value>
-  </data>
-  <data name="m_cbCreateRestoreInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>476, 28</value>
-  </data>
-  <data name="m_cbCreateRestoreInfo.Text" xml:space="preserve">
-    <value>سنگل بلاکس دی بحالی لئی کجھ معلومات محفوظ کرنا، جے ایہ غائب اے</value>
-  </data>
-  <data name="m_cbTestAllFiles.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 240</value>
-  </data>
-  <data name="m_cbTestAllFiles.Size" type="System.Drawing.Size, System.Drawing">
-    <value>289, 28</value>
-  </data>
-  <data name="m_cbTestAllFiles.Text" xml:space="preserve">
-    <value>ساریاں فائلاں دی پڑھن دی اہلیت دی جانچ</value>
-  </data>
-  <data name="m_cbRepairBlockFailures.Location" type="System.Drawing.Point, System.Drawing">
-    <value>37, 268</value>
-  </data>
-  <data name="m_cbRepairBlockFailures.Size" type="System.Drawing.Size, System.Drawing">
-    <value>239, 28</value>
-  </data>
-  <data name="m_cbRepairBlockFailures.Text" xml:space="preserve">
-    <value>سنگل بلاک ناکامیاں دی مرمت کرنا</value>
-  </data>
-  <data name="m_btnSync.Location" type="System.Drawing.Point, System.Drawing">
-    <value>580, 374</value>
-  </data>
-  <data name="m_btnSync.Size" type="System.Drawing.Size, System.Drawing">
-    <value>109, 34</value>
-  </data>
-  <data name="m_btnSync.Text" xml:space="preserve">
-    <value>مطابقت پذیر کرو</value>
-  </data>
-  <data name="m_btnCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>697, 374</value>
-  </data>
-  <data name="m_btnCancel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 34</value>
-  </data>
-  <data name="m_btnCancel.Text" xml:space="preserve">
-    <value>منسوخ کرو</value>
-  </data>
-  <data name="m_ctlProgressBar.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 374</value>
-  </data>
-  <data name="m_ctlProgressBar.Size" type="System.Drawing.Size, System.Drawing">
-    <value>670, 34</value>
-  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="m_btnSelfTest.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="m_btnSelfTest.Location" type="System.Drawing.Point, System.Drawing">
-    <value>701, 132</value>
-  </data>
-  <data name="m_btnSelfTest.Text" xml:space="preserve">
-    <value>سیلفسٹ</value>
-  </data>
-  <data name="m_cbPreferCopies.Location" type="System.Drawing.Point, System.Drawing">
-    <value>54, 298</value>
-  </data>
-  <data name="m_cbPreferCopies.Size" type="System.Drawing.Size, System.Drawing">
-    <value>635, 28</value>
-  </data>
-  <data name="m_cbPreferCopies.Text" xml:space="preserve">
-    <value>مرمت دے دوران تنازعات دی صورت وچ جسمانی کاپیاں نو ترجیح دینا (سفارش نئیں کیتی جاندی)</value>
-  </data>
-  <data name="m_lblProgress.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 298</value>
-  </data>
-  <data name="m_lblProgress.Size" type="System.Drawing.Size, System.Drawing">
-    <value>776, 70</value>
-  </data>
-  <data name="m_cbFirstToSecond.Size" type="System.Drawing.Size, System.Drawing">
-    <value>319, 28</value>
-  </data>
-  <data name="m_cbFirstToSecond.Text" xml:space="preserve">
-    <value>یک طرفہ طور تے، پہلے فولڈر توں دوجے تک</value>
-  </data>
-  <data name="m_cbFirstReadonly.Size" type="System.Drawing.Size, System.Drawing">
-    <value>338, 28</value>
-  </data>
-  <data name="m_cbFirstReadonly.Text" xml:space="preserve">
-    <value>پہلا فولڈر تبدیل نئیں کیتا جا سکدا (جیویں سی ڈی)</value>
-  </data>
-  <data name="m_cbDeleteFilesInSecond.Size" type="System.Drawing.Size, System.Drawing">
-    <value>496, 28</value>
-  </data>
-  <data name="m_cbDeleteFilesInSecond.Text" xml:space="preserve">
-    <value>دوجے فولڈر چوں اوہ فائلاں مٹا رئی اے جہڑیاں ہن پہلے فولڈر چ نئیں نیں</value>
-  </data>
-  <data name="m_lblAbout.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 380</value>
-  </data>
-  <data name="m_lblAbout.Size" type="System.Drawing.Size, System.Drawing">
-    <value>256, 24</value>
-  </data>
-  <data name="m_lblAbout.Text" xml:space="preserve">
-    <value>"فولڈراں نوں ہم آہنگ کرو" دے بارے چ</value>
-  </data>
-  <data name="m_lblLicence.Location" type="System.Drawing.Point, System.Drawing">
-    <value>312, 380</value>
-  </data>
-  <data name="m_lblLicence.Size" type="System.Drawing.Size, System.Drawing">
-    <value>133, 24</value>
-  </data>
-  <data name="m_lblLicence.Text" xml:space="preserve">
-    <value>لائسنس (GPL v2)</value>
-  </data>
-  <data name="m_cbSkipRecentlyTested.Location" type="System.Drawing.Point, System.Drawing">
-    <value>260, 239</value>
-  </data>
-  <data name="m_cbSkipRecentlyTested.Size" type="System.Drawing.Size, System.Drawing">
-    <value>251, 28</value>
-  </data>
-  <data name="m_cbSkipRecentlyTested.Text" xml:space="preserve">
-    <value> جے حال ای چ جانچ نئیں کیتی گئی</value>
-  </data>
-  <data name="m_cbParallel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>533, 137</value>
-  </data>
-  <data name="m_cbParallel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>133, 28</value>
-  </data>
-  <data name="m_cbParallel.Text" xml:space="preserve">
-    <value>متوازی طور تے</value>
-  </data>
-  <data name="m_cbSyncMode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>368, 137</value>
-  </data>
-  <data name="m_cbSyncMode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 28</value>
-  </data>
-  <data name="m_cbSyncMode.Text" xml:space="preserve">
-    <value>مطابقت پذیری موڈ</value>
-  </data>
-  <data name="m_cbIgnoreTime.Location" type="System.Drawing.Point, System.Drawing">
-    <value>314, 164</value>
-  </data>
-  <data name="m_cbIgnoreTime.Size" type="System.Drawing.Size, System.Drawing">
-    <value>484, 28</value>
-  </data>
-  <data name="m_cbIgnoreTime.Text" xml:space="preserve">
-    <value>ائل تے محفوظ کردہ معلومات دے وچکار ویلے دے فرق نو نظر انداز کرنا</value>
-  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>814, 421</value>
   </data>
@@ -325,11 +149,187 @@
   <data name="$this.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
     <value>Yes</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="$this.RightToLeftLayout" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>فولڈراں نوں ہم آہنگ کرو v1.6</value>
+  </data>
+  <data name="m_btnCancel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>697, 374</value>
+  </data>
+  <data name="m_btnCancel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 34</value>
+  </data>
+  <data name="m_btnCancel.Text" xml:space="preserve">
+    <value>منسوخ کرو</value>
+  </data>
+  <data name="m_btnSelectFirstFolder.Location" type="System.Drawing.Point, System.Drawing">
+    <value>757, 33</value>
+  </data>
+  <data name="m_btnSelectSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
+    <value>758, 89</value>
+  </data>
+  <data name="m_btnSelfTest.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="m_btnSelfTest.Location" type="System.Drawing.Point, System.Drawing">
+    <value>701, 132</value>
+  </data>
+  <data name="m_btnSelfTest.Text" xml:space="preserve">
+    <value>سیلفسٹ</value>
+  </data>
+  <data name="m_btnSync.Location" type="System.Drawing.Point, System.Drawing">
+    <value>580, 374</value>
+  </data>
+  <data name="m_btnSync.Size" type="System.Drawing.Size, System.Drawing">
+    <value>109, 34</value>
+  </data>
+  <data name="m_btnSync.Text" xml:space="preserve">
+    <value>مطابقت پذیر کرو</value>
+  </data>
+  <data name="m_cbCreateRestoreInfo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 212</value>
+  </data>
+  <data name="m_cbCreateRestoreInfo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>476, 28</value>
+  </data>
+  <data name="m_cbCreateRestoreInfo.Text" xml:space="preserve">
+    <value>سنگل بلاکس دی بحالی لئی کجھ معلومات محفوظ کرنا، جے ایہ غائب اے</value>
+  </data>
+  <data name="m_cbDeleteFilesInSecond.Size" type="System.Drawing.Size, System.Drawing">
+    <value>496, 28</value>
+  </data>
+  <data name="m_cbDeleteFilesInSecond.Text" xml:space="preserve">
+    <value>دوجے فولڈر چوں اوہ فائلاں مٹا رئی اے جہڑیاں ہن پہلے فولڈر چ نئیں نیں</value>
+  </data>
+  <data name="m_cbFirstReadonly.Size" type="System.Drawing.Size, System.Drawing">
+    <value>338, 28</value>
+  </data>
+  <data name="m_cbFirstReadonly.Text" xml:space="preserve">
+    <value>پہلا فولڈر تبدیل نئیں کیتا جا سکدا (جیویں سی ڈی)</value>
+  </data>
+  <data name="m_cbFirstToSecond.Size" type="System.Drawing.Size, System.Drawing">
+    <value>319, 28</value>
+  </data>
+  <data name="m_cbFirstToSecond.Text" xml:space="preserve">
+    <value>یک طرفہ طور تے، پہلے فولڈر توں دوجے تک</value>
+  </data>
+  <data name="m_cbIgnoreTime.Location" type="System.Drawing.Point, System.Drawing">
+    <value>314, 164</value>
+  </data>
+  <data name="m_cbIgnoreTime.Size" type="System.Drawing.Size, System.Drawing">
+    <value>484, 28</value>
+  </data>
+  <data name="m_cbIgnoreTime.Text" xml:space="preserve">
+    <value>ائل تے محفوظ کردہ معلومات دے وچکار ویلے دے فرق نو نظر انداز کرنا</value>
+  </data>
+  <data name="m_cbParallel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>533, 137</value>
+  </data>
+  <data name="m_cbParallel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>133, 28</value>
+  </data>
+  <data name="m_cbParallel.Text" xml:space="preserve">
+    <value>متوازی طور تے</value>
+  </data>
+  <data name="m_cbPreferCopies.Location" type="System.Drawing.Point, System.Drawing">
+    <value>54, 298</value>
+  </data>
+  <data name="m_cbPreferCopies.Size" type="System.Drawing.Size, System.Drawing">
+    <value>635, 28</value>
+  </data>
+  <data name="m_cbPreferCopies.Text" xml:space="preserve">
+    <value>مرمت دے دوران تنازعات دی صورت وچ جسمانی کاپیاں نو ترجیح دینا (سفارش نئیں کیتی جاندی)</value>
+  </data>
+  <data name="m_cbRepairBlockFailures.Location" type="System.Drawing.Point, System.Drawing">
+    <value>37, 268</value>
+  </data>
+  <data name="m_cbRepairBlockFailures.Size" type="System.Drawing.Size, System.Drawing">
+    <value>239, 28</value>
+  </data>
+  <data name="m_cbRepairBlockFailures.Text" xml:space="preserve">
+    <value>سنگل بلاک ناکامیاں دی مرمت کرنا</value>
+  </data>
+  <data name="m_cbSkipRecentlyTested.Location" type="System.Drawing.Point, System.Drawing">
+    <value>260, 239</value>
+  </data>
+  <data name="m_cbSkipRecentlyTested.Size" type="System.Drawing.Size, System.Drawing">
+    <value>251, 28</value>
+  </data>
+  <data name="m_cbSkipRecentlyTested.Text" xml:space="preserve">
+    <value> جے حال ای چ جانچ نئیں کیتی گئی</value>
+  </data>
+  <data name="m_cbSyncMode.Location" type="System.Drawing.Point, System.Drawing">
+    <value>368, 137</value>
+  </data>
+  <data name="m_cbSyncMode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>143, 28</value>
+  </data>
+  <data name="m_cbSyncMode.Text" xml:space="preserve">
+    <value>مطابقت پذیری موڈ</value>
+  </data>
+  <data name="m_cbTestAllFiles.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 240</value>
+  </data>
+  <data name="m_cbTestAllFiles.Size" type="System.Drawing.Size, System.Drawing">
+    <value>289, 28</value>
+  </data>
+  <data name="m_cbTestAllFiles.Text" xml:space="preserve">
+    <value>ساریاں فائلاں دی پڑھن دی اہلیت دی جانچ</value>
+  </data>
+  <data name="m_ctlProgressBar.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 374</value>
+  </data>
+  <data name="m_ctlProgressBar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>670, 34</value>
+  </data>
+  <data name="m_lblAbout.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 380</value>
+  </data>
+  <data name="m_lblAbout.Size" type="System.Drawing.Size, System.Drawing">
+    <value>256, 24</value>
+  </data>
+  <data name="m_lblAbout.Text" xml:space="preserve">
+    <value>"فولڈراں نوں ہم آہنگ کرو" دے بارے چ</value>
+  </data>
+  <data name="m_lblFolder1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>77, 24</value>
+  </data>
+  <data name="m_lblFolder1.Text" xml:space="preserve">
+    <value>پہلا فولڈر:</value>
+  </data>
+  <data name="m_lblLicence.Location" type="System.Drawing.Point, System.Drawing">
+    <value>312, 380</value>
+  </data>
+  <data name="m_lblLicence.Size" type="System.Drawing.Size, System.Drawing">
+    <value>133, 24</value>
+  </data>
+  <data name="m_lblLicence.Text" xml:space="preserve">
+    <value>لائسنس (GPL v2)</value>
+  </data>
+  <data name="m_lblProgress.Location" type="System.Drawing.Point, System.Drawing">
+    <value>13, 298</value>
+  </data>
+  <data name="m_lblProgress.Size" type="System.Drawing.Size, System.Drawing">
+    <value>776, 70</value>
+  </data>
+  <data name="m_lblSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 24</value>
+  </data>
+  <data name="m_lblSecondFolder.Text" xml:space="preserve">
+    <value>دوجا فولڈر:</value>
+  </data>
+  <data name="m_tbxFirstFolder.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14.25pt</value>
+  </data>
+  <data name="m_tbxFirstFolder.Size" type="System.Drawing.Size, System.Drawing">
+    <value>722, 29</value>
+  </data>
+  <data name="m_tbxSecondFolder.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 14.25pt</value>
+  </data>
+  <data name="m_tbxSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
+    <value>722, 29</value>
   </data>
 </root>

@@ -144,6 +144,9 @@
   <data name="DeletedFolder" xml:space="preserve">
     <value>فولڈر "{0}" جس چ مواد مٹا دتا گیا اے کیونکہ "{1}" ہن موجود نئیں اے۔</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>میں پرانی محفوظ کیتی گئی معلومات ہٹا ریا واں جہڑی متروک ہو چکی اے۔</value>
+  </data>
   <data name="EncounteredErrorOlderOk" xml:space="preserve">
     <value>خبردار: فائل "{0}" دی کاپی کردے ویلے I/O دی غلطی ہو گئی اے۔ پرانی فائل "{1}" ٹھیک لگدی اے</value>
   </data>
@@ -267,6 +270,9 @@
   <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
     <value>محفوظ کیتی گئی معلومات دی فائل "{0}" خراب ہو گئی سی تے اینوں "{1}" توں دوبارہ بنان دی لوڑ اے۔</value>
   </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>میں فولڈراں تے فائلاں نوں مطابقت پذیر کرن لئی لبھ ریا واں...</value>
+  </data>
   <data name="SecondFolderNoDelete" xml:space="preserve">
     <value>غلطی: دوجے فولڈر چ فائل "{0}" اے۔ مٹان دے اختیار لئی منتخب کردہ فولڈر غلط لگدا اے۔ فولڈر تے ذیلی فولڈراں دی پروسیسنگ چھڈ دتی گئی اے۔</value>
   </data>
@@ -335,11 +341,5 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>آہو</value>
-  </data>
-  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
-    <value>میں پرانی محفوظ کیتی گئی معلومات ہٹا ریا واں جہڑی متروک ہو چکی اے۔</value>
-  </data>
-  <data name="ScanningFolders" xml:space="preserve">
-    <value>میں فولڈراں تے فائلاں نوں مطابقت پذیر کرن لئی لبھ ریا واں...</value>
   </data>
 </root>

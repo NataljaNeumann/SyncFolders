@@ -144,6 +144,9 @@
   <data name="DeletedFolder" xml:space="preserve">
     <value>โฟลเดอร์ “{0}” รวมถึงเนื้อหาที่ถูกลบเนื่องจาก “{1}” ไม่มีอยู่แล้ว</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>ฉันกำลังลบข้อมูลที่บันทึกไว้เก่าที่ล้าสมัยออก...</value>
+  </data>
   <data name="EncounteredErrorOlderOk" xml:space="preserve">
     <value>คำเตือน: เกิดข้อผิดพลาด I/O ขณะคัดลอกไฟล์ “{0}” ไฟล์เก่า “{1}” ดูเหมือนจะปกติดี</value>
   </data>
@@ -267,6 +270,9 @@
   <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
     <value>ไฟล์ข้อมูลที่บันทึกไว้ “{0}” เสียหายและจำเป็นต้องสร้างใหม่จาก “{1}”</value>
   </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>ฉันกำลังมองหาโฟลเดอร์และไฟล์ที่จะซิงค์...</value>
+  </data>
   <data name="SecondFolderNoDelete" xml:space="preserve">
     <value>ข้อผิดพลาด: โฟลเดอร์ที่สองมีไฟล์ “{0}” โฟลเดอร์ที่เลือกดูเหมือนจะไม่ถูกต้องสำหรับตัวเลือกการลบ การประมวลผลโฟลเดอร์และโฟลเดอร์ย่อยถูกข้ามไป</value>
   </data>
@@ -335,11 +341,5 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>ใช่</value>
-  </data>
-  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
-    <value>ฉันกำลังลบข้อมูลที่บันทึกไว้เก่าที่ล้าสมัยออก...</value>
-  </data>
-  <data name="ScanningFolders" xml:space="preserve">
-    <value>ฉันกำลังมองหาโฟลเดอร์และไฟล์ที่จะซิงค์...</value>
   </data>
 </root>

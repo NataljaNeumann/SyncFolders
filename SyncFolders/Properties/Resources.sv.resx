@@ -144,6 +144,9 @@
   <data name="DeletedFolder" xml:space="preserve">
     <value>Mappen "{0}" inklusive innehåll har tagits bort eftersom "{1}" inte längre existerar</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>Jag tar bort gammal sparad information som har blivit föråldrad...</value>
+  </data>
   <data name="EncounteredErrorOlderOk" xml:space="preserve">
     <value>Varning: Ett I/O-fel inträffade när filen "{0}" kopierades. Den äldre filen "{1}" verkar vara bra</value>
   </data>
@@ -249,6 +252,9 @@
   <data name="ProcessNo" xml:space="preserve">
     <value>№</value>
   </data>
+  <data name="ReadmeHtmlHelpJumpPoint" xml:space="preserve">
+    <value>#sv</value>
+  </data>
   <data name="RecoveringBlockAtOfCopiedFile" xml:space="preserve">
     <value>Blocket vid position {0} i den kopierade målfilen "{1}" återställs</value>
   </data>
@@ -266,6 +272,9 @@
   </data>
   <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
     <value>Den sparade infofilen "{0}" var skadad och måste återskapas från "{1}".</value>
+  </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>Jag letar efter mappar och filer att synkronisera...</value>
   </data>
   <data name="SecondFolderNoDelete" xml:space="preserve">
     <value>Fel: Den andra mappen innehåller filen "{0}". Den valda mappen verkar vara felaktig för raderingsalternativet. Bearbetning av mappen och undermappar hoppas över.</value>
@@ -335,14 +344,5 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Ja</value>
-  </data>
-  <data name="ReadmeHtmlHelpJumpPoint" xml:space="preserve">
-    <value>#sv</value>
-  </data>
-  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
-    <value>Jag tar bort gammal sparad information som har blivit föråldrad...</value>
-  </data>
-  <data name="ScanningFolders" xml:space="preserve">
-    <value>Jag letar efter mappar och filer att synkronisera...</value>
   </data>
 </root>

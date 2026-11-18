@@ -144,6 +144,9 @@
   <data name="DeletedFolder" xml:space="preserve">
     <value>“{1}” байхгүй болсон тул агуулгыг багтаасан “{0}” хавтас устгагдсан</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>Би хуучирсан хуучин мэдээллийг устгаж байна...</value>
+  </data>
   <data name="EncounteredErrorOlderOk" xml:space="preserve">
     <value>Анхааруулга: “{0}” файлыг хуулах явцад оролт гаралтын алдаа гарлаа. Хуучин файл “{1}” зүгээр бололтой</value>
   </data>
@@ -267,6 +270,9 @@
   <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
     <value>Хадгалсан мэдээллийн “{0}” файл гэмтсэн тул “{1}”-ээс дахин үүсгэх шаардлагатай.</value>
   </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>Би синк хийх хавтас болон файлуудыг хайж байна...</value>
+  </data>
   <data name="SecondFolderNoDelete" xml:space="preserve">
     <value>Алдаа: Хоёр дахь хавтас нь “{0}” файлыг агуулж байна. Сонгосон хавтас нь устгах сонголтын хувьд буруу байна. Фолдер болон дэд хавтаснуудыг боловсруулах ажлыг алгассан.</value>
   </data>
@@ -335,11 +341,5 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Тиймээ</value>
-  </data>
-  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
-    <value>Би хуучирсан хуучин мэдээллийг устгаж байна...</value>
-  </data>
-  <data name="ScanningFolders" xml:space="preserve">
-    <value>Би синк хийх хавтас болон файлуудыг хайж байна...</value>
   </data>
 </root>

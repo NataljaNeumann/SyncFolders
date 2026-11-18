@@ -144,6 +144,9 @@
   <data name="DeletedFolder" xml:space="preserve">
     <value>Folder „{0}” zawierający zawartość został usunięty, ponieważ „{1}” już nie istnieje</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>Usuwam stare zapisane informacje, które stały się nieaktualne...</value>
+  </data>
   <data name="EncounteredErrorOlderOk" xml:space="preserve">
     <value>Ostrzeżenie: Wystąpił błąd we/wy podczas kopiowania pliku „{0}”. Starszy plik „{1}” wydaje się być w porządku</value>
   </data>
@@ -249,6 +252,9 @@
   <data name="ProcessNo" xml:space="preserve">
     <value>№</value>
   </data>
+  <data name="ReadmeHtmlHelpJumpPoint" xml:space="preserve">
+    <value>#pl</value>
+  </data>
   <data name="RecoveringBlockAtOfCopiedFile" xml:space="preserve">
     <value>Blok w pozycji {0} skopiowanego pliku docelowego „{1}” zostaje przywrócony</value>
   </data>
@@ -266,6 +272,9 @@
   </data>
   <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
     <value>Zapisany plik informacyjny „{0}” został uszkodzony i należy go odtworzyć z „{1}”.</value>
+  </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>Foldery i pliki są sprawdzane...</value>
   </data>
   <data name="SecondFolderNoDelete" xml:space="preserve">
     <value>Błąd: drugi folder zawiera plik „{0}”. Wybrany folder wydaje się być nieprawidłowy dla opcji usuwania. Przetwarzanie folderu i podfolderów jest pomijane.</value>
@@ -335,14 +344,5 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Tak</value>
-  </data>
-  <data name="ReadmeHtmlHelpJumpPoint" xml:space="preserve">
-    <value>#pl</value>
-  </data>
-  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
-    <value>Usuwam stare zapisane informacje, które stały się nieaktualne...</value>
-  </data>
-  <data name="ScanningFolders" xml:space="preserve">
-    <value>Foldery i pliki są sprawdzane...</value>
   </data>
 </root>

@@ -144,6 +144,9 @@
   <data name="DeletedFolder" xml:space="preserve">
     <value>Mappa „{0}“ þar á meðal innihaldi eytt vegna þess að „{1}“ er ekki lengur til</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>Ég er að fjarlægja gamlar vistaðar upplýsingar sem eru orðnar úreltar...</value>
+  </data>
   <data name="EncounteredErrorOlderOk" xml:space="preserve">
     <value>Viðvörun: I/O villa kom upp við að afrita skrána „{0}“. Eldri skráin „{1}“ virðist vera í lagi</value>
   </data>
@@ -267,6 +270,9 @@
   <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
     <value>Vistaða upplýsingaskráin „{0}“ var skemmd og þarf að endurgera hana úr „{1}“.</value>
   </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>Ég er að leita að möppum og skrám til að samstilla...</value>
+  </data>
   <data name="SecondFolderNoDelete" xml:space="preserve">
     <value>Villa: Önnur mappan inniheldur skrána „{0}“. Valin mappa virðist vera röng fyrir eyða valkostinn. Vinnsla á möppu og undirmöppum er sleppt.</value>
   </data>
@@ -335,11 +341,5 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Já</value>
-  </data>
-  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
-    <value>Ég er að fjarlægja gamlar vistaðar upplýsingar sem eru orðnar úreltar...</value>
-  </data>
-  <data name="ScanningFolders" xml:space="preserve">
-    <value>Ég er að leita að möppum og skrám til að samstilla...</value>
   </data>
 </root>

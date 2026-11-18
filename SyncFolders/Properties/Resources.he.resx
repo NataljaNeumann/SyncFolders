@@ -144,6 +144,9 @@
   <data name="DeletedFolder" xml:space="preserve">
     <value>התיקיה "{0}" כולל תוכן שנמחק מכיוון ש"{1}" אינו קיים יותר</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>אני מסיר מידע שמור ישן שהתיישן...</value>
+  </data>
   <data name="EncounteredErrorOlderOk" xml:space="preserve">
     <value>אזהרה: אירעה שגיאת קלט/פלט בעת העתקת "{0}". נראה שהקובץ הישן יותר "{1}" תקין </value>
   </data>
@@ -228,6 +231,15 @@
   <data name="KeepingReadableNonRecovBBlockAtAlsoInCopy" xml:space="preserve">
     <value>הבלוק הקריא אך בלתי ניתן לשחזור במיקום {0} של הקובץ המקורי "{1}" נשאר גם בעותק "{2}". סכום הבדיקה מציין שהחסימה שגויה</value>
   </data>
+  <data name="LogFileName" xml:space="preserve">
+    <value>פרוטוקול סנכרון בעברית</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>דיווח על תהליך ההעתקה</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>לֹא</value>
+  </data>
   <data name="OperationCanceled" xml:space="preserve">
     <value>התהליך הופסק</value>
   </data>
@@ -236,6 +248,12 @@
   </data>
   <data name="OutOfBadBlocksNotRestoredInCopyBytes" xml:space="preserve">
     <value>מתוך {0} בלוקים פגומים בקובץ המקורי, {2} בתים לא שוחזרו בעותק "{1}".</value>
+  </data>
+  <data name="ProcessNo" xml:space="preserve">
+    <value>מספר תהליך</value>
+  </data>
+  <data name="ReadmeHtmlHelpJumpPoint" xml:space="preserve">
+    <value>#he</value>
   </data>
   <data name="RecoveringBlockAtOfCopiedFile" xml:space="preserve">
     <value>החסימה במיקום {0} של קובץ היעד שהועתק "{1}" שוחזר</value>
@@ -254,6 +272,9 @@
   </data>
   <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
     <value>קובץ המידע השמור "{0}" פגום ויש ליצור אותו מחדש מ-"{1}".</value>
+  </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>אני בוחן תיקיות וקבצים...</value>
   </data>
   <data name="SecondFolderNoDelete" xml:space="preserve">
     <value>שגיאה: התיקיה השנייה מכילה את הקובץ "{0}". נראה שהתיקיה שנבחרה אינה נכונה עבור אפשרות המחיקה. דלג על עיבוד התיקיה ותיקיות המשנה</value>
@@ -321,28 +342,7 @@
   <data name="WarningWhileDiscoveringIfNeedsToBeRechecked" xml:space="preserve">
     <value>אזהרה: {0} בעת קביעה אם יש לבדוק שוב את "{1}". </value>
   </data>
-  <data name="LogFileName" xml:space="preserve">
-    <value>פרוטוקול סנכרון בעברית</value>
-  </data>
-  <data name="Message" xml:space="preserve">
-    <value>דיווח על תהליך ההעתקה</value>
-  </data>
-  <data name="No" xml:space="preserve">
-    <value>לֹא</value>
-  </data>
-  <data name="ProcessNo" xml:space="preserve">
-    <value>מספר תהליך</value>
-  </data>
   <data name="Yes" xml:space="preserve">
     <value>כֵּן</value>
-  </data>
-  <data name="ReadmeHtmlHelpJumpPoint" xml:space="preserve">
-    <value>#he</value>
-  </data>
-  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
-    <value>אני מסיר מידע שמור ישן שהתיישן...</value>
-  </data>
-  <data name="ScanningFolders" xml:space="preserve">
-    <value>אני בוחן תיקיות וקבצים...</value>
   </data>
 </root>

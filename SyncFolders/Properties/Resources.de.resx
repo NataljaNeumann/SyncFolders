@@ -144,6 +144,9 @@
   <data name="DeletedFolder" xml:space="preserve">
     <value>Ordner „{0}“ inklusive Inhalt gelöscht, da kein „{1}“ mehr vorhanden ist</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>Entferne alte gespeicherte Informationen, die veraltet geworden sind...</value>
+  </data>
   <data name="EncounteredErrorOlderOk" xml:space="preserve">
     <value>Warnung: Beim Kopieren der Datei „{0}“ ist ein E/A-Fehler aufgetreten. Die ältere Datei „{1}“ scheint in Ordnung zu sein</value>
   </data>
@@ -249,6 +252,9 @@
   <data name="ProcessNo" xml:space="preserve">
     <value>№</value>
   </data>
+  <data name="ReadmeHtmlHelpJumpPoint" xml:space="preserve">
+    <value>#de</value>
+  </data>
   <data name="RecoveringBlockAtOfCopiedFile" xml:space="preserve">
     <value>Block an Position {0} der kopierten Zieldatei „{1}“ wird wiederhergestellt</value>
   </data>
@@ -266,6 +272,9 @@
   </data>
   <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
     <value>Die gespeicherte Infodatei „{0}“ wurde beschädigt und muss aus „{1}“ neu erstellt werden.</value>
+  </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>Untersuche Verzeichnisse...</value>
   </data>
   <data name="SecondFolderNoDelete" xml:space="preserve">
     <value>Fehler: Der zweite Ordner enthält die Datei „{0}“. Der ausgewählte Ordner scheint für die Löschoption falsch zu sein. Überspringen der Verarbeitung des Ordners und der Unterordner</value>
@@ -335,14 +344,5 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>ja</value>
-  </data>
-  <data name="ReadmeHtmlHelpJumpPoint" xml:space="preserve">
-    <value>#de</value>
-  </data>
-  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
-    <value>Entferne alte gespeicherte Informationen, die veraltet geworden sind...</value>
-  </data>
-  <data name="ScanningFolders" xml:space="preserve">
-    <value>Untersuche Verzeichnisse...</value>
   </data>
 </root>

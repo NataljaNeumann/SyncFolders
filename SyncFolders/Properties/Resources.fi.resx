@@ -144,6 +144,9 @@
   <data name="DeletedFolder" xml:space="preserve">
     <value>Kansio "{0}", sisältäen sisällön, poistettiin, koska "{1}" ei ole enää olemassa</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>Poistan vanhoja tallennettuja tietoja, jotka ovat vanhentuneet...</value>
+  </data>
   <data name="EncounteredErrorOlderOk" xml:space="preserve">
     <value>Varoitus: I/O-virhe kopioitaessa tiedostoa "{0}". Vanhempi tiedosto "{1}" näyttää olevan kunnossa</value>
   </data>
@@ -249,6 +252,9 @@
   <data name="ProcessNo" xml:space="preserve">
     <value>№</value>
   </data>
+  <data name="ReadmeHtmlHelpJumpPoint" xml:space="preserve">
+    <value>#fi</value>
+  </data>
   <data name="RecoveringBlockAtOfCopiedFile" xml:space="preserve">
     <value>Kopioidun kohdetiedoston "{1}" esto kohdassa {0} palautetaan</value>
   </data>
@@ -266,6 +272,9 @@
   </data>
   <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
     <value>Tallennettu tietotiedosto "{0}" oli vioittunut ja se on luotava uudelleen tiedostosta "{1}".</value>
+  </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>Etsin synkronoitavia kansioita ja tiedostoja...</value>
   </data>
   <data name="SecondFolderNoDelete" xml:space="preserve">
     <value>Virhe: Toinen kansio sisältää tiedoston "{0}". Valittu kansio näyttää olevan virheellinen poistovaihtoehdolle. Kansion ja alikansioiden käsittely ohitetaan.</value>
@@ -335,14 +344,5 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Kyllä</value>
-  </data>
-  <data name="ReadmeHtmlHelpJumpPoint" xml:space="preserve">
-    <value>#fi</value>
-  </data>
-  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
-    <value>Poistan vanhoja tallennettuja tietoja, jotka ovat vanhentuneet...</value>
-  </data>
-  <data name="ScanningFolders" xml:space="preserve">
-    <value>Etsin synkronoitavia kansioita ja tiedostoja...</value>
   </data>
 </root>

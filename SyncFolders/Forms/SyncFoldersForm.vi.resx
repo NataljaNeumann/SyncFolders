@@ -118,169 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="m_lblFolder1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>111, 16</value>
-  </data>
-  <data name="m_lblFolder1.Text" xml:space="preserve">
-    <value>Thư mục đầu tiên:</value>
-  </data>
-  <data name="m_tbxFirstFolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>622, 22</value>
-  </data>
-  <data name="m_btnSelectFirstFolder.Location" type="System.Drawing.Point, System.Drawing">
-    <value>657, 33</value>
-  </data>
-  <data name="m_lblSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>102, 16</value>
-  </data>
-  <data name="m_lblSecondFolder.Text" xml:space="preserve">
-    <value>Thư mục thứ hai:</value>
-  </data>
-  <data name="m_tbxSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>622, 22</value>
-  </data>
-  <data name="m_btnSelectSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
-    <value>658, 89</value>
-  </data>
-  <data name="m_cbCreateRestoreInfo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 218</value>
-  </data>
-  <data name="m_cbCreateRestoreInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>373, 20</value>
-  </data>
-  <data name="m_cbCreateRestoreInfo.Text" xml:space="preserve">
-    <value>Lưu một số thông tin để khôi phục các khối đơn lẻ, nếu thiếu</value>
-  </data>
-  <data name="m_cbTestAllFiles.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 246</value>
-  </data>
-  <data name="m_cbTestAllFiles.Size" type="System.Drawing.Size, System.Drawing">
-    <value>265, 20</value>
-  </data>
-  <data name="m_cbTestAllFiles.Text" xml:space="preserve">
-    <value>Kiểm tra khả năng đọc của tất cả các tệp</value>
-  </data>
-  <data name="m_cbRepairBlockFailures.Location" type="System.Drawing.Point, System.Drawing">
-    <value>37, 274</value>
-  </data>
-  <data name="m_cbRepairBlockFailures.Size" type="System.Drawing.Size, System.Drawing">
-    <value>178, 20</value>
-  </data>
-  <data name="m_cbRepairBlockFailures.Text" xml:space="preserve">
-    <value>Sửa chữa các lỗi khối đơn</value>
-  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="m_btnSync.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="m_btnSync.Location" type="System.Drawing.Point, System.Drawing">
-    <value>489, 372</value>
-  </data>
-  <data name="m_btnSync.Text" xml:space="preserve">
-    <value>Đồng bộ hóa</value>
-  </data>
-  <data name="m_btnCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>597, 372</value>
-  </data>
-  <data name="m_btnCancel.Text" xml:space="preserve">
-    <value>Hủy</value>
-  </data>
-  <data name="m_ctlProgressBar.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 372</value>
-  </data>
-  <data name="m_ctlProgressBar.Size" type="System.Drawing.Size, System.Drawing">
-    <value>569, 28</value>
-  </data>
-  <data name="m_btnSelfTest.Location" type="System.Drawing.Point, System.Drawing">
-    <value>601, 132</value>
-  </data>
-  <data name="m_btnSelfTest.Text" xml:space="preserve">
-    <value>Tự kiểm tra</value>
-  </data>
-  <data name="m_cbPreferCopies.Size" type="System.Drawing.Size, System.Drawing">
-    <value>601, 20</value>
-  </data>
-  <data name="m_cbPreferCopies.Text" xml:space="preserve">
-    <value>Ưu tiên các bản sao vật lý trong trường hợp xung đột trong quá trình sửa chữa (không khuyến khích)</value>
-  </data>
-  <data name="m_lblProgress.Location" type="System.Drawing.Point, System.Drawing">
-    <value>21, 298</value>
-  </data>
-  <data name="m_lblProgress.Size" type="System.Drawing.Size, System.Drawing">
-    <value>676, 53</value>
-  </data>
-  <data name="m_cbFirstToSecond.Size" type="System.Drawing.Size, System.Drawing">
-    <value>310, 20</value>
-  </data>
-  <data name="m_cbFirstToSecond.Text" xml:space="preserve">
-    <value>Một chiều, từ thư mục thứ nhất đến thư mục thứ hai</value>
-  </data>
-  <data name="m_cbFirstReadonly.Size" type="System.Drawing.Size, System.Drawing">
-    <value>302, 20</value>
-  </data>
-  <data name="m_cbFirstReadonly.Text" xml:space="preserve">
-    <value>Thư mục đầu tiên không thể thay đổi (ví dụ: CD)</value>
-  </data>
-  <data name="m_cbDeleteFilesInSecond.Size" type="System.Drawing.Size, System.Drawing">
-    <value>456, 20</value>
-  </data>
-  <data name="m_cbDeleteFilesInSecond.Text" xml:space="preserve">
-    <value>Xóa các tập tin trong thư mục thứ hai không còn trong thư mục đầu tiên nữa</value>
-  </data>
-  <data name="m_lblAbout.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 378</value>
-  </data>
-  <data name="m_lblAbout.Size" type="System.Drawing.Size, System.Drawing">
-    <value>201, 16</value>
-  </data>
-  <data name="m_lblAbout.Text" xml:space="preserve">
-    <value>Tin tức về "đồng bộ hóa thư mục"</value>
-  </data>
-  <data name="m_lblLicence.Location" type="System.Drawing.Point, System.Drawing">
-    <value>259, 378</value>
-  </data>
-  <data name="m_lblLicence.Size" type="System.Drawing.Size, System.Drawing">
-    <value>123, 16</value>
-  </data>
-  <data name="m_lblLicence.Text" xml:space="preserve">
-    <value>Giấy phép (GPL v2)</value>
-  </data>
-  <data name="m_cbSkipRecentlyTested.Location" type="System.Drawing.Point, System.Drawing">
-    <value>293, 246</value>
-  </data>
-  <data name="m_cbSkipRecentlyTested.Size" type="System.Drawing.Size, System.Drawing">
-    <value>223, 20</value>
-  </data>
-  <data name="m_cbSkipRecentlyTested.Text" xml:space="preserve">
-    <value>nếu gần đây không được kiểm tra</value>
-  </data>
-  <data name="m_cbParallel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>466, 137</value>
-  </data>
-  <data name="m_cbParallel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>89, 20</value>
-  </data>
-  <data name="m_cbParallel.Text" xml:space="preserve">
-    <value>song song</value>
-  </data>
-  <data name="m_cbSyncMode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>337, 137</value>
-  </data>
-  <data name="m_cbSyncMode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>122, 20</value>
-  </data>
-  <data name="m_cbSyncMode.Text" xml:space="preserve">
-    <value>Chế độ đồng bộ</value>
-  </data>
-  <data name="m_cbIgnoreTime.Location" type="System.Drawing.Point, System.Drawing">
-    <value>346, 164</value>
-  </data>
-  <data name="m_cbIgnoreTime.Size" type="System.Drawing.Size, System.Drawing">
-    <value>349, 20</value>
-  </data>
-  <data name="m_cbIgnoreTime.Text" xml:space="preserve">
-    <value>Bỏ qua chênh lệch thời gian giữa tệp và thông tin đã lưu</value>
-  </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>714, 419</value>
   </data>
@@ -309,5 +147,167 @@
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Đồng bộ hóa thư mục v1.6</value>
+  </data>
+  <data name="m_btnCancel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>597, 372</value>
+  </data>
+  <data name="m_btnCancel.Text" xml:space="preserve">
+    <value>Hủy</value>
+  </data>
+  <data name="m_btnSelectFirstFolder.Location" type="System.Drawing.Point, System.Drawing">
+    <value>657, 33</value>
+  </data>
+  <data name="m_btnSelectSecondFolder.Location" type="System.Drawing.Point, System.Drawing">
+    <value>658, 89</value>
+  </data>
+  <data name="m_btnSelfTest.Location" type="System.Drawing.Point, System.Drawing">
+    <value>601, 132</value>
+  </data>
+  <data name="m_btnSelfTest.Text" xml:space="preserve">
+    <value>Tự kiểm tra</value>
+  </data>
+  <data name="m_btnSync.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="m_btnSync.Location" type="System.Drawing.Point, System.Drawing">
+    <value>489, 372</value>
+  </data>
+  <data name="m_btnSync.Text" xml:space="preserve">
+    <value>Đồng bộ hóa</value>
+  </data>
+  <data name="m_cbCreateRestoreInfo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 218</value>
+  </data>
+  <data name="m_cbCreateRestoreInfo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>373, 20</value>
+  </data>
+  <data name="m_cbCreateRestoreInfo.Text" xml:space="preserve">
+    <value>Lưu một số thông tin để khôi phục các khối đơn lẻ, nếu thiếu</value>
+  </data>
+  <data name="m_cbDeleteFilesInSecond.Size" type="System.Drawing.Size, System.Drawing">
+    <value>456, 20</value>
+  </data>
+  <data name="m_cbDeleteFilesInSecond.Text" xml:space="preserve">
+    <value>Xóa các tập tin trong thư mục thứ hai không còn trong thư mục đầu tiên nữa</value>
+  </data>
+  <data name="m_cbFirstReadonly.Size" type="System.Drawing.Size, System.Drawing">
+    <value>302, 20</value>
+  </data>
+  <data name="m_cbFirstReadonly.Text" xml:space="preserve">
+    <value>Thư mục đầu tiên không thể thay đổi (ví dụ: CD)</value>
+  </data>
+  <data name="m_cbFirstToSecond.Size" type="System.Drawing.Size, System.Drawing">
+    <value>310, 20</value>
+  </data>
+  <data name="m_cbFirstToSecond.Text" xml:space="preserve">
+    <value>Một chiều, từ thư mục thứ nhất đến thư mục thứ hai</value>
+  </data>
+  <data name="m_cbIgnoreTime.Location" type="System.Drawing.Point, System.Drawing">
+    <value>346, 164</value>
+  </data>
+  <data name="m_cbIgnoreTime.Size" type="System.Drawing.Size, System.Drawing">
+    <value>349, 20</value>
+  </data>
+  <data name="m_cbIgnoreTime.Text" xml:space="preserve">
+    <value>Bỏ qua chênh lệch thời gian giữa tệp và thông tin đã lưu</value>
+  </data>
+  <data name="m_cbParallel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>466, 137</value>
+  </data>
+  <data name="m_cbParallel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>89, 20</value>
+  </data>
+  <data name="m_cbParallel.Text" xml:space="preserve">
+    <value>song song</value>
+  </data>
+  <data name="m_cbPreferCopies.Size" type="System.Drawing.Size, System.Drawing">
+    <value>601, 20</value>
+  </data>
+  <data name="m_cbPreferCopies.Text" xml:space="preserve">
+    <value>Ưu tiên các bản sao vật lý trong trường hợp xung đột trong quá trình sửa chữa (không khuyến khích)</value>
+  </data>
+  <data name="m_cbRepairBlockFailures.Location" type="System.Drawing.Point, System.Drawing">
+    <value>37, 274</value>
+  </data>
+  <data name="m_cbRepairBlockFailures.Size" type="System.Drawing.Size, System.Drawing">
+    <value>178, 20</value>
+  </data>
+  <data name="m_cbRepairBlockFailures.Text" xml:space="preserve">
+    <value>Sửa chữa các lỗi khối đơn</value>
+  </data>
+  <data name="m_cbSkipRecentlyTested.Location" type="System.Drawing.Point, System.Drawing">
+    <value>293, 246</value>
+  </data>
+  <data name="m_cbSkipRecentlyTested.Size" type="System.Drawing.Size, System.Drawing">
+    <value>223, 20</value>
+  </data>
+  <data name="m_cbSkipRecentlyTested.Text" xml:space="preserve">
+    <value>nếu gần đây không được kiểm tra</value>
+  </data>
+  <data name="m_cbSyncMode.Location" type="System.Drawing.Point, System.Drawing">
+    <value>337, 137</value>
+  </data>
+  <data name="m_cbSyncMode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>122, 20</value>
+  </data>
+  <data name="m_cbSyncMode.Text" xml:space="preserve">
+    <value>Chế độ đồng bộ</value>
+  </data>
+  <data name="m_cbTestAllFiles.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 246</value>
+  </data>
+  <data name="m_cbTestAllFiles.Size" type="System.Drawing.Size, System.Drawing">
+    <value>265, 20</value>
+  </data>
+  <data name="m_cbTestAllFiles.Text" xml:space="preserve">
+    <value>Kiểm tra khả năng đọc của tất cả các tệp</value>
+  </data>
+  <data name="m_ctlProgressBar.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 372</value>
+  </data>
+  <data name="m_ctlProgressBar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>569, 28</value>
+  </data>
+  <data name="m_lblAbout.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 378</value>
+  </data>
+  <data name="m_lblAbout.Size" type="System.Drawing.Size, System.Drawing">
+    <value>201, 16</value>
+  </data>
+  <data name="m_lblAbout.Text" xml:space="preserve">
+    <value>Tin tức về "đồng bộ hóa thư mục"</value>
+  </data>
+  <data name="m_lblFolder1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>111, 16</value>
+  </data>
+  <data name="m_lblFolder1.Text" xml:space="preserve">
+    <value>Thư mục đầu tiên:</value>
+  </data>
+  <data name="m_lblLicence.Location" type="System.Drawing.Point, System.Drawing">
+    <value>259, 378</value>
+  </data>
+  <data name="m_lblLicence.Size" type="System.Drawing.Size, System.Drawing">
+    <value>123, 16</value>
+  </data>
+  <data name="m_lblLicence.Text" xml:space="preserve">
+    <value>Giấy phép (GPL v2)</value>
+  </data>
+  <data name="m_lblProgress.Location" type="System.Drawing.Point, System.Drawing">
+    <value>21, 298</value>
+  </data>
+  <data name="m_lblProgress.Size" type="System.Drawing.Size, System.Drawing">
+    <value>676, 53</value>
+  </data>
+  <data name="m_lblSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
+    <value>102, 16</value>
+  </data>
+  <data name="m_lblSecondFolder.Text" xml:space="preserve">
+    <value>Thư mục thứ hai:</value>
+  </data>
+  <data name="m_tbxFirstFolder.Size" type="System.Drawing.Size, System.Drawing">
+    <value>622, 22</value>
+  </data>
+  <data name="m_tbxSecondFolder.Size" type="System.Drawing.Size, System.Drawing">
+    <value>622, 22</value>
   </data>
 </root>

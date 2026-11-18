@@ -135,6 +135,9 @@
   <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
     <value>警告：1975 年或更早的文件“{0}”无法用于恢复文件“{1}”。这些数据表明这是恢复文件“{0}”的最后机会。</value>
   </data>
+  <data name="DateFormat" xml:space="preserve">
+    <value>{1}年{2}月{3}日 {5}:{6}:{7}</value>
+  </data>
   <data name="DefaultCulture" xml:space="preserve">
     <value>No</value>
   </data>
@@ -143,6 +146,12 @@
   </data>
   <data name="DeletedFolder" xml:space="preserve">
     <value>文件夹“{0}”包含已删除的内容，因为“{1}”不再存在</value>
+  </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>我正在删除已过时的旧保存信息...</value>
+  </data>
+  <data name="Digits" xml:space="preserve">
+    <value>CHS</value>
   </data>
   <data name="EncounteredErrorOlderOk" xml:space="preserve">
     <value>警告：复制文件“{0}”时发生 I/O 错误。旧文件“{1}”似乎没问题</value>
@@ -249,6 +258,9 @@
   <data name="ProcessNo" xml:space="preserve">
     <value>○</value>
   </data>
+  <data name="ReadmeHtmlHelpJumpPoint" xml:space="preserve">
+    <value>#chs</value>
+  </data>
   <data name="RecoveringBlockAtOfCopiedFile" xml:space="preserve">
     <value>复制的目标文件“{1}”的位置{0}处的块已恢复</value>
   </data>
@@ -266,6 +278,9 @@
   </data>
   <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
     <value>保存的信息文件“{0}”已损坏，需要从“{1}”重新创建。</value>
+  </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>我正在寻找要同步的文件夹和文件...</value>
   </data>
   <data name="SecondFolderNoDelete" xml:space="preserve">
     <value>错误：第二个文件夹包含文件“{0}”。所选文件夹对于删除选项似乎不正确。跳过处理文件夹和子文件夹</value>
@@ -335,20 +350,5 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>是的 </value>
-  </data>
-  <data name="Digits" xml:space="preserve">
-    <value>CHS</value>
-  </data>
-  <data name="DateFormat" xml:space="preserve">
-    <value>{1}年{2}月{3}日 {5}:{6}:{7}</value>
-  </data>
-  <data name="ReadmeHtmlHelpJumpPoint" xml:space="preserve">
-    <value>#chs</value>
-  </data>
-  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
-    <value>我正在删除已过时的旧保存信息...</value>
-  </data>
-  <data name="ScanningFolders" xml:space="preserve">
-    <value>我正在寻找要同步的文件夹和文件...</value>
   </data>
 </root>

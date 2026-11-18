@@ -144,6 +144,9 @@
   <data name="DeletedFolder" xml:space="preserve">
     <value>Folder “{0}” termasuk isinya dihapus karena “{1}” sudah tidak ada lagi</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>Saya akan menghapus informasi tersimpan lama yang sudah usang....</value>
+  </data>
   <data name="EncounteredErrorOlderOk" xml:space="preserve">
     <value>Peringatan: Terjadi kesalahan I/O saat menyalin file "{0}". File lama “{1}” tampaknya baik-baik saja</value>
   </data>
@@ -267,6 +270,9 @@
   <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
     <value>File info yang disimpan “{0}” rusak dan perlu dibuat ulang dari “{1}”.</value>
   </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>Saya mencari folder dan file untuk disinkronkan...</value>
+  </data>
   <data name="SecondFolderNoDelete" xml:space="preserve">
     <value>Kesalahan: Folder kedua berisi file "{0}". Folder yang dipilih tampaknya salah untuk opsi hapus. Pemrosesan folder dan subfolder dilewati.</value>
   </data>
@@ -335,11 +341,5 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Ya</value>
-  </data>
-  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
-    <value>Saya akan menghapus informasi tersimpan lama yang sudah usang....</value>
-  </data>
-  <data name="ScanningFolders" xml:space="preserve">
-    <value>Saya mencari folder dan file untuk disinkronkan...</value>
   </data>
 </root>

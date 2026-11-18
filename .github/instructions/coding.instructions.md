@@ -1,9 +1,5 @@
 ---
-
-applyTo: "SyncFolders/**/*.cs"
-applyTo: "SyncFoldersApi/**/*.cs"
-applyTo: "SyncFoldersTests/**/*.cs"
-
+applyTo: "**/*.cs"
 ---
 
 <!-- This project is licensed under GPL-2.0-or-later. See ../../LICENSE.TXT for the complete license text. -->
@@ -12,7 +8,7 @@ applyTo: "SyncFoldersTests/**/*.cs"
 
 These instructions apply only to source files matching `applyTo`. Project-specific `.editorconfig`, `CONTRIBUTING.md`, and build configuration take precedence if they define a conflicting rule.
 
-Use Hungarian notation. The prefix for bool is "b", the prefix for date and time is "dtm", the prefix for float is "f", the prefix for double is "dbl", the prefix for byte is "by", prefix for string is "str", the prefix for ints is "n", the prefix for longs is "l", the prefix for chars is "c", the prefix for arrays is "a", the prefix of arrays of strings is "astr", the prefix for text boxes is "tbx", the prefix for labels is "lbl", the prefix for check boxes is "chk", the prefix for buttons is "btn", the prefix for other controls is "ctl", the prefix for other objects is "o". If variables represent physical values, (e.g. pixels, meters, inches, circular degrees, etc.) then they shall have an additional prefix that represents the units of the variable. Member variables have an additional prefix "m_". Static member variables have an additional prefix "s_", instead of "m_".
+Use Hungarian notation. The prefix for bool is "b", the prefix for date and time is "dtm", the prefix for float is "f", the prefix for double is "dbl", the prefix for byte is "by", prefix for string is "str", the prefix for ints is "n", the prefix for longs is "l", the prefix for chars is "c", the prefix for arrays is "a", the prefix of arrays of strings is "astr", the prefix for text boxes is "tbx", the prefix for labels is "lbl", the prefix for check boxes is "chk", the prefix for buttons is "btn", the prefix for other controls is "ctl", the prefix for other objects is "o". If variables represent physical values, (e.g. pixels, meters, inches, circular degrees, etc.) then they shall have an additional prefix that represents the units of the variable. Member variables have an additional prefix "m_". Static member variables have an additional prefix "s_", instead of "m_". Properties don't have prefixes.
 
 Document the source code, functions, and their parameters. The documentation must be in English. Be generous in commenting the code, explain the situation and what shall be done. XML documentation may use `<b>`, `</b>`, `<i>`, `</i>`, and `<br/>` to format text in IntelliSense. Use `<br/><br/>` to separate paragraphs.
 
@@ -32,6 +28,10 @@ If a COM object is created then please take care of its release. Please take car
 
 Please take care of localization/internationalization of source code. The used strings need to be taken from resources, so they are localizable for different cultures.
 
+When designing a new method in SyncFoldersApi, please design also one or several unit tests for it in SyncFoldersTests.
+
+For SyncFoldersApi: This project works with different kinds of situations. If there are no errors, then a fast method shall be used, preferrably buffered reading and writing with big buffers, e.g. 16M. If network errors are expected, or occuring, then a re-read/re-write/retry shall be done, also periodic flushes of write buffers shall be done. If there are physical errors at the disk level or errors are expected, then an unbuffered blockwise reading shall be performed, so the error positions and bad blocks are correctly identified.
+
 Avoid known security issues.
 
 ## Reference Implementations
@@ -50,6 +50,7 @@ See these files for the available settings, when processing a file pair:
 
 - [`IFilePairStepsSetting`](../../SyncFoldersApi/IFilePairStepsSetting.cs)
 - [`ICancelable`](../../SyncFoldersApi/ICancelable.cs)
+- [`ICancelableWithRepeats`](../../SyncFoldersApi/ICancelableWithRepeats.cs)
 
 
 There are many missing unit tests, the most important examples for creation of new unit tests are in following files:

@@ -144,6 +144,9 @@
   <data name="DeletedFolder" xml:space="preserve">
     <value>Папка «{0}» вместе с содержимым удалена, поскольку «{1}» больше не существует.</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>Я удаляю старую сохраненную информацию, которая устарела...</value>
+  </data>
   <data name="EncounteredErrorOlderOk" xml:space="preserve">
     <value>Предупреждение: при копировании «{0}» произошла ошибка ввода-вывода. Со старым файлом «{1}» все в порядке.</value>
   </data>
@@ -249,6 +252,9 @@
   <data name="ProcessNo" xml:space="preserve">
     <value>№</value>
   </data>
+  <data name="ReadmeHtmlHelpJumpPoint" xml:space="preserve">
+    <value>#ru</value>
+  </data>
   <data name="RecoveringBlockAtOfCopiedFile" xml:space="preserve">
     <value>Блок в местоположении {0} скопированного целевого файла «{1}» восстановлен.</value>
   </data>
@@ -266,6 +272,9 @@
   </data>
   <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
     <value>Сохраненный информационный файл «{0}» поврежден, и его необходимо воссоздать из «{1}».</value>
+  </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>Ищу папки и файлы для синхронизации...</value>
   </data>
   <data name="SecondFolderNoDelete" xml:space="preserve">
     <value>Ошибка: вторая папка содержит файл «{0}». Выбранная папка не подходит для опции удаления. Обработка папки и подпапок пропускается</value>
@@ -335,14 +344,5 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Да </value>
-  </data>
-  <data name="ReadmeHtmlHelpJumpPoint" xml:space="preserve">
-    <value>#ru</value>
-  </data>
-  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
-    <value>Я удаляю старую сохраненную информацию, которая устарела...</value>
-  </data>
-  <data name="ScanningFolders" xml:space="preserve">
-    <value>Ищу папки и файлы для синхронизации...</value>
   </data>
 </root>

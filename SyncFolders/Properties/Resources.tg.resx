@@ -144,6 +144,9 @@
   <data name="DeletedFolder" xml:space="preserve">
     <value>Ҷузвдони "{0}" бо шумули мундариҷа тоза карда шуд, зеро "{1}" дигар вуҷуд надорад</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>Ман маълумоти кӯҳнаи захирашударо, ки кӯҳна шудаанд, хориҷ мекунам...</value>
+  </data>
   <data name="EncounteredErrorOlderOk" xml:space="preserve">
     <value>Огоҳӣ: Ҳангоми нусхабардории файли "{0}" хатогии воридотӣ ба вуҷуд омад. Ба назар чунин мерасад, ки файли кӯҳнаи "{1}" хуб аст</value>
   </data>
@@ -267,6 +270,9 @@
   <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
     <value>Файли иттилоотии захирашудаи "{0}" вайрон шудааст ва бояд аз "{1}" аз нав сохта шавад.</value>
   </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>Ман папкаҳо ва файлҳоро барои ҳамоҳангсозӣ меҷӯям...</value>
+  </data>
   <data name="SecondFolderNoDelete" xml:space="preserve">
     <value>Хатогӣ: Дар папкаи дуюм файли "{0}" мавҷуд аст. Ба назар чунин мерасад, ки ҷузвдони интихобшуда барои интихоби тозакунӣ нодуруст аст. Коркарди ҷузвдон ва зерпапкаҳо гузаронида мешавад.</value>
   </data>
@@ -335,11 +341,5 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Бале</value>
-  </data>
-  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
-    <value>Ман маълумоти кӯҳнаи захирашударо, ки кӯҳна шудаанд, хориҷ мекунам...</value>
-  </data>
-  <data name="ScanningFolders" xml:space="preserve">
-    <value>Ман папкаҳо ва файлҳоро барои ҳамоҳангсозӣ меҷӯям...</value>
   </data>
 </root>

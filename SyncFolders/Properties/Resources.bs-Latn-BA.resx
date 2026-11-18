@@ -144,6 +144,9 @@
   <data name="DeletedFolder" xml:space="preserve">
     <value>Mapa “{0}” uključujući sadržaj izbrisan jer “{1}” više ne postoji</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>Uklanjam stare sačuvane podatke koji su zastarjeli...</value>
+  </data>
   <data name="EncounteredErrorOlderOk" xml:space="preserve">
     <value>Upozorenje: Došlo je do I/O pogreške tijekom kopiranja datoteke "{0}". Čini se da je starija datoteka “{1}” u redu</value>
   </data>
@@ -267,6 +270,9 @@
   <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
     <value>Spremljena info datoteka “{0}” je oštećena i potrebno ju je ponovno izraditi iz “{1}”.</value>
   </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>Tražim foldere i fajlove za sinhronizaciju...</value>
+  </data>
   <data name="SecondFolderNoDelete" xml:space="preserve">
     <value>Pogreška: druga mapa sadrži datoteku "{0}". Čini se da odabrana mapa nije točna za opciju brisanja. Obrada mape i podmapa je preskočena.</value>
   </data>
@@ -335,11 +341,5 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Da</value>
-  </data>
-  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
-    <value>Uklanjam stare sačuvane podatke koji su zastarjeli...</value>
-  </data>
-  <data name="ScanningFolders" xml:space="preserve">
-    <value>Tražim foldere i fajlove za sinhronizaciju...</value>
   </data>
 </root>

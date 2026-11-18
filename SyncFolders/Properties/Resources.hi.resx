@@ -144,6 +144,9 @@
   <data name="DeletedFolder" xml:space="preserve">
     <value>फ़ोल्डर "{0}" सामग्री सहित हटा दिया गया क्योंकि "{1}" अब मौजूद नहीं है</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>मैं पुरानी सहेजी गई जानकारी हटा रहा हूं जो अप्रचलित हो गई है...</value>
+  </data>
   <data name="EncounteredErrorOlderOk" xml:space="preserve">
     <value>चेतावनी: फ़ाइल "{0}" की प्रतिलिपि बनाते समय एक I/O त्रुटि उत्पन्न हुई। पुरानी फ़ाइल "{1}" ठीक प्रतीत होती है</value>
   </data>
@@ -249,6 +252,9 @@
   <data name="ProcessNo" xml:space="preserve">
     <value>№</value>
   </data>
+  <data name="ReadmeHtmlHelpJumpPoint" xml:space="preserve">
+    <value>#hi</value>
+  </data>
   <data name="RecoveringBlockAtOfCopiedFile" xml:space="preserve">
     <value>कॉपी की गई लक्ष्य फ़ाइल "{1}" की स्थिति {0} पर ब्लॉक पुनर्स्थापित किया गया है</value>
   </data>
@@ -266,6 +272,9 @@
   </data>
   <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
     <value>सहेजी गई जानकारी फ़ाइल "{0}" दूषित हो गई थी और इसे "{1}" से पुनः बनाने की आवश्यकता है।</value>
+  </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>मैं फ़ोल्डरों और फ़ाइलों की जाँच करता हूँ...</value>
   </data>
   <data name="SecondFolderNoDelete" xml:space="preserve">
     <value>त्रुटि: दूसरे फ़ोल्डर में "{0}" फ़ाइल है। डिलीट विकल्प के लिए चयनित फ़ोल्डर गलत प्रतीत होता है। फ़ोल्डर और सबफ़ोल्डर्स को संसाधित करना छोड़ें</value>
@@ -335,14 +344,5 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>हाँ</value>
-  </data>
-  <data name="ReadmeHtmlHelpJumpPoint" xml:space="preserve">
-    <value>#hi</value>
-  </data>
-  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
-    <value>मैं पुरानी सहेजी गई जानकारी हटा रहा हूं जो अप्रचलित हो गई है...</value>
-  </data>
-  <data name="ScanningFolders" xml:space="preserve">
-    <value>मैं फ़ोल्डरों और फ़ाइलों की जाँच करता हूँ...</value>
   </data>
 </root>

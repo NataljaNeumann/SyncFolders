@@ -144,6 +144,9 @@
   <data name="DeletedFolder" xml:space="preserve">
     <value>Thư mục “{0}” bao gồm các nội dung đã bị xóa vì “{1}” không còn tồn tại</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>Tôi đang xóa thông tin đã lưu cũ đã trở nên lỗi thời...</value>
+  </data>
   <data name="EncounteredErrorOlderOk" xml:space="preserve">
     <value>Cảnh báo: Đã xảy ra lỗi I/O khi sao chép tệp “{0}”. Tệp cũ hơn “{1}” có vẻ ổn</value>
   </data>
@@ -267,6 +270,9 @@
   <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
     <value>Tệp thông tin đã lưu “{0}” bị hỏng và cần được tạo lại từ “{1}”.</value>
   </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>Tôi đang tìm kiếm các thư mục và tập tin để đồng bộ hóa...</value>
+  </data>
   <data name="SecondFolderNoDelete" xml:space="preserve">
     <value>Lỗi: Thư mục thứ hai chứa tệp “{0}”. Thư mục đã chọn có vẻ không chính xác đối với tùy chọn xóa. Quá trình xử lý thư mục và thư mục con bị bỏ qua.</value>
   </data>
@@ -335,11 +341,5 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Đúng</value>
-  </data>
-  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
-    <value>Tôi đang xóa thông tin đã lưu cũ đã trở nên lỗi thời...</value>
-  </data>
-  <data name="ScanningFolders" xml:space="preserve">
-    <value>Tôi đang tìm kiếm các thư mục và tập tin để đồng bộ hóa...</value>
   </data>
 </root>

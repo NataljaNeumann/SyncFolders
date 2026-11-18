@@ -144,6 +144,9 @@
   <data name="DeletedFolder" xml:space="preserve">
     <value>Папката „{0}“ со содржината е избришана затоа што „{1}“ повеќе не постои</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>Ги отстранувам старите зачувани информации што станаа застарени...</value>
+  </data>
   <data name="EncounteredErrorOlderOk" xml:space="preserve">
     <value>Предупредување: се појави грешка при влез/излез при копирање на датотеката „{0}“. Постарата датотека „{1}“ се чини дека е во ред</value>
   </data>
@@ -267,6 +270,9 @@
   <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
     <value>Зачуваната датотека со информации „{0}“ е оштетена и треба повторно да се создаде од „{1}“.</value>
   </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>Барам папки и датотеки за синхронизација...</value>
+  </data>
   <data name="SecondFolderNoDelete" xml:space="preserve">
     <value>Грешка: втората папка ја содржи датотеката „{0}“. Избраната папка се чини дека е неточна за опцијата за бришење. Обработката на папката и подпапките е прескокната.</value>
   </data>
@@ -335,11 +341,5 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Да</value>
-  </data>
-  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
-    <value>Ги отстранувам старите зачувани информации што станаа застарени...</value>
-  </data>
-  <data name="ScanningFolders" xml:space="preserve">
-    <value>Барам папки и датотеки за синхронизација...</value>
   </data>
 </root>

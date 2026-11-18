@@ -135,6 +135,9 @@
   <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
     <value>ཉེན་བརྡ། ཡིག་ཆ་ “{0}” ༡༩༧༥ ཡང་ན་དེ་སྔོན་གྱི་ཡིག་ཆ་ “{1}” སླར་གསོ་བྱེད་པར་བེད་སྤྱོད་གཏོང་མི་ཐུབ། དེ་ལྟ་བུའི་ཚེས་གྲངས་རྙིང་པ་དེས་ཡིག་ཆ་ “{0}” སླར་གསོ་བྱེད་པའི་གོ་སྐབས་མཐའ་མ་དེ་ཡིན་པ་སྟོན་གྱི་ཡོད།</value>
   </data>
+  <data name="DateFormat" xml:space="preserve">
+    <value>{1}ལོའི་ཟླ {2}ཚེས {3} {5}:{6}:{7}</value>
+  </data>
   <data name="DefaultCulture" xml:space="preserve">
     <value>No</value>
   </data>
@@ -143,6 +146,9 @@
   </data>
   <data name="DeletedFolder" xml:space="preserve">
     <value>སྣོད་ཐོ “{0}” ནང་དོན་བསུབས་འདུག རྒྱུ་མཚན་ནི་ “{1}” ད་ལྟ་མེད་པ་རེད།</value>
+  </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>ངས་ཉར་ཚགས་བྱས་པའི་ཆ་འཕྲིན་རྙིང་པ་དེ་ཚོ་མེད་པར་བཟོ་བཞིན་ཡོད།</value>
   </data>
   <data name="Digits" xml:space="preserve">
     <value>Tibet</value>
@@ -270,6 +276,9 @@
   <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
     <value>གསོག་འཇོག་བྱས་པའི་ཆ་འཕྲིན་ཡིག་ཆ་ “{0}” དེ་ཉམས་ཆག་ཤོར་བས་ “{1}” ནས་བསྐྱར་བཟོ་བྱེད་དགོས།</value>
   </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>ངས་མཉམ་སྒྲིག་བྱེད་པའི་སྣོད་དང་ཡིག་ཆ་འཚོལ་བཞིན་ཡོད།</value>
+  </data>
   <data name="SecondFolderNoDelete" xml:space="preserve">
     <value>ནོར་འཁྲུལ། སྣོད་ཐོ་གཉིས་པ་དེའི་ནང་ཡིག་ཆ་ “{0}” ཡོད། བདམས་པའི་སྣོད་ཐོ་དེ་སུབ་པའི་གདམ་ཁའི་ཆེད་དུ་ནོར་འཁྲུལ་ཅན་དུ་སྣང་། སྣོད་ཐོ་དང་ཡན་ལག་སྣོད་ཐོ་ལས་སྣོན་བྱེད་པ་བརྒལ་ཡོད།</value>
   </data>
@@ -338,14 +347,5 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>ཡིན</value>
-  </data>
-  <data name="DateFormat" xml:space="preserve">
-    <value>{1}ལོའི་ཟླ {2}ཚེས {3} {5}:{6}:{7}</value>
-  </data>
-  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
-    <value>ངས་ཉར་ཚགས་བྱས་པའི་ཆ་འཕྲིན་རྙིང་པ་དེ་ཚོ་མེད་པར་བཟོ་བཞིན་ཡོད།</value>
-  </data>
-  <data name="ScanningFolders" xml:space="preserve">
-    <value>ངས་མཉམ་སྒྲིག་བྱེད་པའི་སྣོད་དང་ཡིག་ཆ་འཚོལ་བཞིན་ཡོད།</value>
   </data>
 </root>

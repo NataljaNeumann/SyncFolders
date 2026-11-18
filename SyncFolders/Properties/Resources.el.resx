@@ -144,6 +144,9 @@
   <data name="DeletedFolder" xml:space="preserve">
     <value>Ο φάκελος "{0}" συμπεριλαμβανομένων των περιεχομένων διαγράφηκε επειδή το "{1}" δεν υπάρχει πλέον</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>Καταργώ παλιές αποθηκευμένες πληροφορίες που έχουν καταστεί παρωχημένες...</value>
+  </data>
   <data name="EncounteredErrorOlderOk" xml:space="preserve">
     <value>Προειδοποίηση: Παρουσιάστηκε σφάλμα I/O κατά την αντιγραφή του αρχείου "{0}". Το παλαιότερο αρχείο "{1}" φαίνεται να είναι εντάξει</value>
   </data>
@@ -249,6 +252,9 @@
   <data name="ProcessNo" xml:space="preserve">
     <value>№</value>
   </data>
+  <data name="ReadmeHtmlHelpJumpPoint" xml:space="preserve">
+    <value>#el</value>
+  </data>
   <data name="RecoveringBlockAtOfCopiedFile" xml:space="preserve">
     <value>Ο αποκλεισμός στη θέση {0} του αντιγραμμένου αρχείου στόχου "{1}" αποκαθίσταται</value>
   </data>
@@ -266,6 +272,9 @@
   </data>
   <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
     <value>Το αποθηκευμένο αρχείο πληροφοριών "{0}" ήταν κατεστραμμένο και πρέπει να δημιουργηθεί εκ νέου από το "{1}".</value>
+  </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>Εξετάζω καταλόγους...</value>
   </data>
   <data name="SecondFolderNoDelete" xml:space="preserve">
     <value>Σφάλμα: Ο δεύτερος φάκελος περιέχει το αρχείο "{0}". Ο επιλεγμένος φάκελος φαίνεται να είναι λανθασμένος για την επιλογή διαγραφής. Παράλειψη επεξεργασίας του φακέλου και των υποφακέλων</value>
@@ -335,14 +344,5 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Ναί </value>
-  </data>
-  <data name="ReadmeHtmlHelpJumpPoint" xml:space="preserve">
-    <value>#el</value>
-  </data>
-  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
-    <value>Καταργώ παλιές αποθηκευμένες πληροφορίες που έχουν καταστεί παρωχημένες...</value>
-  </data>
-  <data name="ScanningFolders" xml:space="preserve">
-    <value>Εξετάζω καταλόγους...</value>
   </data>
 </root>

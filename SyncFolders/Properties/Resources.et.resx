@@ -144,6 +144,9 @@
   <data name="DeletedFolder" xml:space="preserve">
     <value>Kaust „{0}” koos sisuga kustutati, kuna „{1}” pole enam olemas</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>Eemaldan vana salvestatud teabe, mis on aegunud...</value>
+  </data>
   <data name="EncounteredErrorOlderOk" xml:space="preserve">
     <value>Hoiatus: faili "{0}" kopeerimisel ilmnes I/O viga. Vanem fail "{1}" näib olevat korras</value>
   </data>
@@ -267,6 +270,9 @@
   <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
     <value>Salvestatud teabefail "{0}" on rikutud ja see tuleb failist "{1}" uuesti luua.</value>
   </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>Otsin sünkroonimiseks kaustu ja faile...</value>
+  </data>
   <data name="SecondFolderNoDelete" xml:space="preserve">
     <value>Viga: teine ​​kaust sisaldab faili "{0}". Valitud kaust näib olevat kustutamisvaliku jaoks vale. Kausta ja alamkaustade töötlemine jäetakse vahele.</value>
   </data>
@@ -335,11 +341,5 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Jah</value>
-  </data>
-  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
-    <value>Eemaldan vana salvestatud teabe, mis on aegunud...</value>
-  </data>
-  <data name="ScanningFolders" xml:space="preserve">
-    <value>Otsin sünkroonimiseks kaustu ja faile...</value>
   </data>
 </root>

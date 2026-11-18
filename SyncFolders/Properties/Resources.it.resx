@@ -145,6 +145,9 @@ Una data così vecchia indica che era l'ultima possibilità di recuperare il fil
   <data name="DeletedFolder" xml:space="preserve">
     <value>La cartella “{0}” che include i contenuti è stata eliminata perché “{1}” non esiste più</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>Sto rimuovendo le vecchie informazioni salvate che sono diventate obsolete...</value>
+  </data>
   <data name="EncounteredErrorOlderOk" xml:space="preserve">
     <value>Avviso: si è verificato un errore I/O durante la copia del file “{0}”. Il file più vecchio “{1}” sembra essere a posto</value>
   </data>
@@ -268,6 +271,9 @@ Una data così vecchia indica che era l'ultima possibilità di recuperare il fil
   <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
     <value>Il file di informazioni salvato “{0}” è stato danneggiato e deve essere ricreato da “{1}”.</value>
   </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>Esamino cartelle e file...</value>
+  </data>
   <data name="SecondFolderNoDelete" xml:space="preserve">
     <value>Errore: la seconda cartella contiene il file “{0}”. La cartella selezionata sembra non essere corretta per l'opzione di eliminazione. Saltare l'elaborazione della cartella e delle sottocartelle</value>
   </data>
@@ -336,11 +342,5 @@ Una data così vecchia indica che era l'ultima possibilità di recuperare il fil
   </data>
   <data name="Yes" xml:space="preserve">
     <value>SÌ </value>
-  </data>
-  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
-    <value>Sto rimuovendo le vecchie informazioni salvate che sono diventate obsolete...</value>
-  </data>
-  <data name="ScanningFolders" xml:space="preserve">
-    <value>Esamino cartelle e file...</value>
   </data>
 </root>

@@ -144,6 +144,9 @@
   <data name="DeletedFolder" xml:space="preserve">
     <value>Папката „{0}“, включително съдържанието е изтрито, защото „{1}“ вече не съществува</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>Премахвам стара запазена информация, която е остаряла...</value>
+  </data>
   <data name="EncounteredErrorOlderOk" xml:space="preserve">
     <value>Предупреждение: Възникна I/O грешка при копиране на файл „{0}“. По-старият файл „{1}“ изглежда добре</value>
   </data>
@@ -267,6 +270,9 @@
   <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
     <value>Запазеният информационен файл „{0}“ е повреден и трябва да бъде създаден отново от „{1}“.</value>
   </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>Търся папки и файлове за синхронизиране...</value>
+  </data>
   <data name="SecondFolderNoDelete" xml:space="preserve">
     <value>Грешка: Втората папка съдържа файла „{0}“. Избраната папка изглежда неправилна за опцията за изтриване. Обработката на папката и подпапките се пропуска.</value>
   </data>
@@ -335,11 +341,5 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>да</value>
-  </data>
-  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
-    <value>Премахвам стара запазена информация, която е остаряла...</value>
-  </data>
-  <data name="ScanningFolders" xml:space="preserve">
-    <value>Търся папки и файлове за синхронизиране...</value>
   </data>
 </root>

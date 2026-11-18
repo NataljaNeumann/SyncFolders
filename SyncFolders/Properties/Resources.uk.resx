@@ -144,6 +144,9 @@
   <data name="DeletedFolder" xml:space="preserve">
     <value>Папку «{0}» із вмістом видалено, оскільки «{1}» більше не існує</value>
   </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>Я видаляю стару збережену інформацію, яка застаріла...</value>
+  </data>
   <data name="EncounteredErrorOlderOk" xml:space="preserve">
     <value>Попередження: під час копіювання файлу «{0}» сталася помилка введення-виведення. Старіший файл «{1}» виглядає добре</value>
   </data>
@@ -267,6 +270,9 @@
   <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
     <value>Збережений інформаційний файл «{0}» було пошкоджено, і його потрібно створити заново з «{1}».</value>
   </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>Я шукаю папки та файли для синхронізації...</value>
+  </data>
   <data name="SecondFolderNoDelete" xml:space="preserve">
     <value>Помилка: друга папка містить файл «{0}». Здається, вибрана папка не підходить для параметра видалення. Обробка папки та вкладених папок пропускається.</value>
   </data>
@@ -335,11 +341,5 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>так</value>
-  </data>
-  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
-    <value>Я видаляю стару збережену інформацію, яка застаріла...</value>
-  </data>
-  <data name="ScanningFolders" xml:space="preserve">
-    <value>Я шукаю папки та файли для синхронізації...</value>
   </data>
 </root>

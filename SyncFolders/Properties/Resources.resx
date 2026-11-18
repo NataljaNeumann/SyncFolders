@@ -141,6 +141,9 @@
   <data name="CouldntUseOutdatedFileForRestoringOther" xml:space="preserve">
     <value>Warning: File "{0}" with year 1975 or earlier could not be used to restore file "{1}". Such an old date indicates that it was the last chance to recover the file “{0}”.</value>
   </data>
+  <data name="DateFormat" xml:space="preserve">
+    <value>{0}</value>
+  </data>
   <data name="DefaultCulture" xml:space="preserve">
     <value>yes</value>
     <comment>Provides indication, if this is the standard (english) culture</comment>
@@ -150,6 +153,13 @@
   </data>
   <data name="DeletedFolder" xml:space="preserve">
     <value>Deleted folder {0} including contents, because there is no {1} anymore</value>
+  </data>
+  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
+    <value>Removing saved infos that became obsolete...</value>
+  </data>
+  <data name="Digits" xml:space="preserve">
+    <value>standard/arab</value>
+    <comment>Provides indication, which kind of digits must be used for messages: arab, Japan, Korea, CHS, CHT, Tibet, Latin</comment>
   </data>
   <data name="EncounteredErrorOlderOk" xml:space="preserve">
     <value>Warning: Encountered I/O error while copying "{0}". The older file "{1}" seems to be OK</value>
@@ -235,6 +245,17 @@
   <data name="KeepingReadableNonRecovBBlockAtAlsoInCopy" xml:space="preserve">
     <value>Keeping readable but not recoverable block at offset {0} of original file "{1}" also in copy "{2}", checksum indicates the block is wrong</value>
   </data>
+  <data name="LogFileName" xml:space="preserve">
+    <value>Sync Folders Log English</value>
+    <comment>The name of the localized log file</comment>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Message from copy process</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>no</value>
+    <comment>The string for "No"</comment>
+  </data>
   <data name="OperationCanceled" xml:space="preserve">
     <value>Operation canceled</value>
   </data>
@@ -244,11 +265,21 @@
   <data name="OutOfBadBlocksNotRestoredInCopyBytes" xml:space="preserve">
     <value>Out of {0} bad blocks in the original file not restored parts in the copy "{1}": {2} bytes.</value>
   </data>
+  <data name="ProcessNo" xml:space="preserve">
+    <value>№</value>
+  </data>
+  <data name="ReadmeHtmlHelpJumpPoint" xml:space="preserve">
+    <value>#en</value>
+  </data>
   <data name="RecoveringBlockAtOfCopiedFile" xml:space="preserve">
     <value>Recovering block at position {0} of copied destination file "{1}"</value>
   </data>
   <data name="RecoveringBlockAtOffsetOfFile" xml:space="preserve">
     <value>Recovering block at offset {0} of the file "{1}"</value>
+  </data>
+  <data name="RightToLeft" xml:space="preserve">
+    <value>no</value>
+    <comment>Provides indicaton, if in this culture the text goes from right to left</comment>
   </data>
   <data name="RunningWithoutRepairOptionUndecided" xml:space="preserve">
     <value>Running without repair option, so couldn't decide, if the file "{0}" can be restored using "{1}"</value>
@@ -258,6 +289,9 @@
   </data>
   <data name="SavedInfoHasBeenDamagedNeedsRecreation" xml:space="preserve">
     <value>Saved info file "{0}" has been damaged and needs to be recreated from "{1}"</value>
+  </data>
+  <data name="ScanningFolders" xml:space="preserve">
+    <value>Scanning folders...</value>
   </data>
   <data name="SecondFolderNoDelete" xml:space="preserve">
     <value>Error: The second folder contains file "{0}", the selected folder seem to be wrong for delete option. Skipping processing of the folder and subfolders</value>
@@ -325,42 +359,8 @@
   <data name="WarningWhileDiscoveringIfNeedsToBeRechecked" xml:space="preserve">
     <value>Warning: {0}, while discovering, if "{1}" needs to be rechecked.</value>
   </data>
-  <data name="LogFileName" xml:space="preserve">
-    <value>Sync Folders Log English</value>
-    <comment>The name of the localized log file</comment>
-  </data>
-  <data name="Message" xml:space="preserve">
-    <value>Message from copy process</value>
-  </data>
-  <data name="No" xml:space="preserve">
-    <value>no</value>
-    <comment>The string for "No"</comment>
-  </data>
-  <data name="ProcessNo" xml:space="preserve">
-    <value>№</value>
-  </data>
-  <data name="RightToLeft" xml:space="preserve">
-    <value>no</value>
-    <comment>Provides indicaton, if in this culture the text goes from right to left</comment>
-  </data>
   <data name="Yes" xml:space="preserve">
     <value>yes</value>
     <comment>String for "yes"</comment>
-  </data>
-  <data name="Digits" xml:space="preserve">
-    <value>standard/arab</value>
-    <comment>Provides indication, which kind of digits must be used for messages: arab, Japan, Korea, CHS, CHT, Tibet, Latin</comment>
-  </data>
-  <data name="DateFormat" xml:space="preserve">
-    <value>{0}</value>
-  </data>
-  <data name="ReadmeHtmlHelpJumpPoint" xml:space="preserve">
-    <value>#en</value>
-  </data>
-  <data name="DeletingObsoleteSavedInfos" xml:space="preserve">
-    <value>Removing saved infos that became obsolete...</value>
-  </data>
-  <data name="ScanningFolders" xml:space="preserve">
-    <value>Scanning folders...</value>
   </data>
 </root>
