@@ -2,7 +2,7 @@
 # e.g. keeping one as a backup with your family photos. Optionally, 
 # some information for restoring of files can be added
 #
-# Copyright (C) 2024-2025 NataljaNeumann@gmx.de
+# Copyright (C) 2024-2026 NataljaNeumann@gmx.de
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -34,6 +34,7 @@ permissions:
 
 jobs:
   build:
+    if: github.event_name == 'pull_request' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
     runs-on: windows-latest
     steps:
       - name: Checkout code
@@ -166,15 +167,15 @@ jobs:
           Add-Content -Path $env:GITHUB_OUTPUT -Value "version=$newVersion"
 
       - name: Setup NuGet
-        uses: NuGet/setup-nuget@v2
+        uses: NuGet/setup-nuget@d105a947828025cd7a980103c35ba2bfae586d0f # v2
 
       - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v2
+        uses: microsoft/setup-msbuild@6fb02220983dee41ce7ae257b6f4d8f9bf5ed4ce # v2
       #  with:
       #    vs-version: '17.8'
 
       - name: Setup SignTool Path
-        uses: KamaranL/add-signtool-action@v1
+        uses: KamaranL/add-signtool-action@d0027a4cf430f8dfdb15fba53410d0c76b7566f4 # v1
 
       - name: Restore NuGet packages
         run: nuget restore ${{ env.APP_NAME }}.sln
@@ -253,7 +254,7 @@ jobs:
       # Useful parameters: message (commit message), add (files to add), github_token (auth token)
       # Threat: If no files are found, this step will be skipped and no commit will be made.
       - name: Commit version change
-        uses: EndBug/add-and-commit@v9
+        uses: EndBug/add-and-commit@a94899bca583c204427a224a7af87c02f9b325d5 # v9
         if: steps.find_files_to_commit.outputs.files_to_commit != ''
         with:
           message: "Set version to ${{ steps.increment.outputs.version }}"
@@ -458,22 +459,22 @@ jobs:
       #   - target_commitish: Commit SHA or branch to create the release from
       # Threats: If secrets are misconfigured, release may expose sensitive info. If a release already exists, this step will fail unless conditionally skipped as below.
       - name: Create GitHub Release
+        if: steps.check_release.outputs.release_exists == 'false'
         id: create_release
         uses: actions/create-release@v1
-        if: steps.check_release.outputs.release_exists == 'false'
         with:
           tag_name: ${{ env.APP_NAME }}_v${{ steps.increment.outputs.version }}
           release_name: "Version ${{ steps.increment.outputs.version }}"
           body: ${{ steps.generate_release_notes.outputs.release_body }}
           draft: false # Set to true to create a draft release
-          prerelease: false # Set to true for pre-release
+          prerelease: false # Set to true for pre-release, or false for release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-
 
         # Threat: This action publishes a release. If secrets are misconfigured, it may expose sensitive info.
         # Useful parameters: 'body_path' to load release notes from a file, 'target_commitish' to specify commit.
       - name: Upload release asset(s) (all bin/*v<version>.zip)
+        if: steps.check_release.outputs.release_exists == 'false'
         shell: pwsh
         env:
           UPLOAD_URL: ${{ steps.create_release.outputs.upload_url }}
