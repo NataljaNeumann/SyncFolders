@@ -1,5 +1,5 @@
-﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
-  <Package Name="SyncFolders" Language="1033" Version="1.6.4.0" Manufacturer="NataljaNeumann@gmx.de" UpgradeCode="C587DE19-0019-4DC4-94BE-1F52551C960C" Scope="perMachine">
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
+  <Package Name="SyncFolders" Language="1033" Version="1.6.5.0" Manufacturer="NataljaNeumann@gmx.de" UpgradeCode="C587DE19-0019-4DC4-94BE-1F52551C960C" Scope="perMachine">
     <MajorUpgrade DowngradeErrorMessage="A newer version of SyncFolders has already been installed." />
     <MediaTemplate EmbedCab="yes" />
     <Directory Id="TARGETDIR" Name="SourceDir">
