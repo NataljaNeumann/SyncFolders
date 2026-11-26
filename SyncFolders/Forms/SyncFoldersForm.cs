@@ -611,7 +611,7 @@ namespace SyncFolders
                    Application.StartupPath;
 
 
-            // compiler seems to have a problem: doesn' recognize that there can be an exception in Create()...
+            // compiler seems to have a problem: doesn't recognize that there can be an exception in Create()...
 #pragma warning disable CS0219
             bool bFolderWritable = false;
 #pragma warning disable CS0219
@@ -646,15 +646,15 @@ namespace SyncFolders
                 // Azerbaijan
                 oLocalizationSubdirs["az"] = true;
                 // Belarussian
-                oLocalizationSubdirs["be-BY"] = true;
+                oLocalizationSubdirs["be"] = true;
                 // Bulgarian
                 oLocalizationSubdirs["bg"] = true;
                 // Tibetan
-                oLocalizationSubdirs["bo-CN"] = true;
+                oLocalizationSubdirs["bo"] = true;
                 // Bulgarian
                 oLocalizationSubdirs["bg"] = true;
                 // Bosnian
-                oLocalizationSubdirs["bs-Latn-BA"] = true;
+                oLocalizationSubdirs["bs"] = true;
                 // Catalun
                 oLocalizationSubdirs["ca"] = true;
                 // Chech
@@ -696,13 +696,13 @@ namespace SyncFolders
                 // Kazakh
                 oLocalizationSubdirs["kk"] = true;
                 // Khmer (Kambodscha)
-                oLocalizationSubdirs["km-KH"] = true;
+                oLocalizationSubdirs["km"] = true;
                 // Korean
                 oLocalizationSubdirs["ko"] = true;
                 // Kyrgis
-                oLocalizationSubdirs["ky-KG"] = true;
+                oLocalizationSubdirs["ky"] = true;
                 // Latin (Vatikan)
-                oLocalizationSubdirs["la-001"] = true;
+                oLocalizationSubdirs["la"] = true;
                 // Lithuanian
                 oLocalizationSubdirs["lt"] = true;
                 // Latvian
@@ -720,11 +720,11 @@ namespace SyncFolders
                 // Punjabi (Pakistan)
                 oLocalizationSubdirs["pa-Arab-PK"] = true;
                 // Punjabi (India)
-                oLocalizationSubdirs["pa-IN"] = true;
+                oLocalizationSubdirs["pa"] = true;
                 // Polish
                 oLocalizationSubdirs["pl"] = true;
                 // Pashtu (Afganistan)
-                oLocalizationSubdirs["ps-AF"] = true;
+                oLocalizationSubdirs["ps"] = true;
                 // Portuguese
                 oLocalizationSubdirs["pt"] = true;
                 // Romanian
@@ -742,11 +742,11 @@ namespace SyncFolders
                 // Svedish
                 oLocalizationSubdirs["sv"] = true;
                 // Tadjikistan
-                oLocalizationSubdirs["tg-Cyrl-TJ"] = true;
+                oLocalizationSubdirs["tg"] = true;
                 // Thailand
                 oLocalizationSubdirs["th"] = true;
                 // Turkmenistan
-                oLocalizationSubdirs["tk-TM"] = true;
+                oLocalizationSubdirs["tk"] = true;
                 // Turkish
                 oLocalizationSubdirs["tr"] = true;
                 // Ukrainian
@@ -756,9 +756,9 @@ namespace SyncFolders
                 // Vietnam
                 oLocalizationSubdirs["vi"] = true;
                 // Chinese simplified (Peoples republic of China)
-                oLocalizationSubdirs["zh-CHS"] = true;
+                oLocalizationSubdirs["zh-Hans"] = true;
                 // Chinese traditional (Taiwan)
-                oLocalizationSubdirs["zh-CHT"] = true;
+                oLocalizationSubdirs["zh-Hant"] = true;
 
                 foreach (string strSubdir in System.IO.Directory.GetDirectories(strStartupPathWOTrailingSlash))
                 {
@@ -797,8 +797,159 @@ namespace SyncFolders
                     m_cbParallel.Checked = false;
                     m_bForwardFocusToSecondFolder = true;
                 }
+            } else
+            {
+                bool bfirstSet = false;
+                bool bSecondSet = false;
+                string strFirstFolderVolumeInfo = Settings.Default.FirstFolderVolumeInfo;
+                string strSecondFolderVolumeInfo = Settings.Default.SecondFolderVolumeInfo;
+
+                bfirstSet = TryRestoreFolder(
+                    Settings.Default.FirstFolder,
+                    strFirstFolderVolumeInfo,
+                    out string strFirstFolder);
+                if (bfirstSet)
+                    m_tbxFirstFolder.Text = strFirstFolder;
+
+                bSecondSet = TryRestoreFolder(
+                    Settings.Default.SecondFolder,
+                    strSecondFolderVolumeInfo,
+                    out string strSecondFolder);
+                if (bSecondSet)
+                    m_tbxSecondFolder.Text = strSecondFolder;
+
+                if (bfirstSet && bSecondSet)
+                {
+                    m_cbFirstToSecond.Checked = Settings.Default.FirstToSecond;
+                    m_cbSyncMode.Checked = Settings.Default.FirstToSecondSync;
+                    m_cbFirstReadonly.Checked = Settings.Default.FirstReadonly;
+                    m_cbParallel.Checked = Settings.Default.Parallel;
+                    m_cbTestAllFiles.Checked = Settings.Default.TestFiles;
+                    m_cbSkipRecentlyTested.Checked = Settings.Default.TestIfNotTestedRecently;
+                    m_cbRepairBlockFailures.Checked = Settings.Default.RepairBlockFailures;
+                }
             }
 #endif
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// Restores a saved folder, using its volume label if the drive letter changed
+        /// </summary>
+        //===================================================================================================
+        private bool TryRestoreFolder(
+            string strFolder,
+            string strVolumeInfo,
+            out string strRestoredFolder)
+        {
+            strRestoredFolder = "";
+            if (string.IsNullOrWhiteSpace(strFolder))
+                return false;
+
+            if (strFolder.StartsWith("\\\\", StringComparison.Ordinal))
+            {
+                strRestoredFolder = strFolder;
+                return true;
+            }
+
+            if (string.IsNullOrWhiteSpace(strVolumeInfo))
+                return false;
+
+            string? strSavedRoot = Path.GetPathRoot(strFolder);
+            if (string.IsNullOrEmpty(strSavedRoot))
+                return false;
+
+            string? strMatchingRoot = null;
+            foreach (DriveInfo oDrive in DriveInfo.GetDrives())
+            {
+                try
+                {
+                    if (oDrive.DriveType == DriveType.Network ||
+                        !oDrive.IsReady ||
+                        !string.Equals(
+                            oDrive.VolumeLabel,
+                            strVolumeInfo,
+                            StringComparison.OrdinalIgnoreCase))
+                        continue;
+
+                    if (strMatchingRoot != null)
+                        return false;
+
+                    strMatchingRoot = oDrive.RootDirectory.FullName;
+                }
+                catch (IOException)
+                {
+                    // ignore drives that become unavailable while checking them
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    // ignore drives that cannot be queried
+                }
+            }
+
+            if (strMatchingRoot == null)
+                return false;
+
+            try
+            {
+                string strRelativeFolder = Path.GetRelativePath(strSavedRoot, strFolder);
+                if (Path.IsPathRooted(strRelativeFolder) ||
+                    strRelativeFolder == ".." ||
+                    strRelativeFolder.StartsWith(
+                        ".." + Path.DirectorySeparatorChar,
+                        StringComparison.Ordinal))
+                {
+                    return false;
+                }
+
+                if (strMatchingRoot.Equals(strSavedRoot, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    strMatchingRoot = strSavedRoot;
+
+                }
+
+                strRestoredFolder = Path.Combine(strMatchingRoot, strRelativeFolder);
+                return true;
+            }
+            catch (ArgumentException)
+            {
+                return false;
+            }
+        }
+
+        //===================================================================================================
+        /// <summary>
+        /// Gets the volume label for a local folder
+        /// </summary>
+        //===================================================================================================
+        private string GetVolumeInfoForFolder(string strFolder)
+        {
+            if (string.IsNullOrWhiteSpace(strFolder) ||
+                strFolder.StartsWith("\\\\", StringComparison.Ordinal))
+                return "";
+
+            try
+            {
+                string? strRoot = Path.GetPathRoot(strFolder);
+                if (string.IsNullOrEmpty(strRoot))
+                    return "";
+
+                DriveInfo oDrive = new DriveInfo(strRoot);
+                return oDrive.DriveType != DriveType.Network && oDrive.IsReady ?
+                    oDrive.VolumeLabel : "";
+            }
+            catch (IOException)
+            {
+                return "";
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return "";
+            }
+            catch (ArgumentException)
+            {
+                return "";
+            }
         }
 
         //===================================================================================================
@@ -918,6 +1069,21 @@ namespace SyncFolders
             object oSender, 
             EventArgs oEventArgs)
         {
+
+            Settings.Default.FirstFolder = m_tbxFirstFolder.Text;
+            Settings.Default.FirstFolderVolumeInfo =
+                GetVolumeInfoForFolder(m_tbxFirstFolder.Text);
+            Settings.Default.SecondFolder = m_tbxSecondFolder.Text;
+            Settings.Default.SecondFolderVolumeInfo =
+                GetVolumeInfoForFolder(m_tbxSecondFolder.Text);
+            Settings.Default.FirstToSecond = m_cbFirstToSecond.Checked;
+            Settings.Default.FirstToSecondSync = m_cbSyncMode.Checked;
+            Settings.Default.FirstReadonly = m_cbFirstReadonly.Checked;
+            Settings.Default.Parallel = m_cbParallel.Checked;
+            Settings.Default.TestFiles = m_cbTestAllFiles.Checked;
+            Settings.Default.TestIfNotTestedRecently = m_cbSkipRecentlyTested.Checked;
+            Settings.Default.RepairBlockFailures = m_cbRepairBlockFailures.Checked;
+            Settings.Default.Save();
 
             m_strFolder1 = m_tbxFirstFolder.Text;
             m_strFolder2 = m_tbxSecondFolder.Text;

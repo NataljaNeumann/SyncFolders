@@ -1,8 +1,8 @@
-*/obj/**
-*/bin/*.zip
-*/bin/Release/**
-*/bin/Debug/**
-*/bin/RestoreInfo/**
+**/obj/**
+**/bin/*.zip
+**/Release/**
+**/Debug/**
+**/RestoreInfo/**
 **/*.exe
 **/.vs/**
 Backup/**

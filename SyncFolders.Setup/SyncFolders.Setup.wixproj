@@ -1,0 +1,13 @@
+﻿<Project Sdk="WixToolset.Sdk/4.0.5" ToolsVersion="4.0">
+  <PropertyGroup>
+    <OutputType>Package</OutputType>
+    <OutputName>SyncFolders.Setup</OutputName>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="WixToolset.UI.wixext" Version="4.0.5" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SyncFolders\SyncFolders.csproj" />
+  </ItemGroup>
+</Project>

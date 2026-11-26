@@ -1,6 +1,8 @@
-# SyncFolders aims to help you to synchronize two folders or drives, 
-# e.g. keeping one as a backup with your family photos. Optionally, 
-# some information for restoring of files can be added
+# This script builds your app at the GitHub server.
+# You need to set up APP_NAME below, and store your secrets at GitHub:
+# GH_TOKEN, if you also store PFX_FILE, PFX_PASSWORD, SNK_FILE
+# and change the corresponding code below, then the script will also
+# sign your executables.
 #
 # Copyright (C) 2024-2026 NataljaNeumann@gmx.de
 #
@@ -18,7 +20,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-name: Build .NET Desktop
+name: Build .NET Desktop .Net8.0-Windows
 
 env:
   APP_NAME: SyncFolders
@@ -26,8 +28,7 @@ env:
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
+
 
 permissions:
   contents: write
@@ -36,6 +37,9 @@ jobs:
   build:
     if: github.event_name == 'pull_request' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
     runs-on: windows-latest
+    env:
+      IS_MAIN_PUSH: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+      HAS_SIGNING_SECRETS: ${{ secrets.SNK_FILE != '' && secrets.PFX_FILE != '' && secrets.PFX_PASSWORD != '' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -118,13 +122,6 @@ jobs:
               $text = $text -replace '<Version>\s*\d+\.\d+\.\d+\.\d+\s*</Version>', "<Version>$newVersion</Version>"
               $changed = $true
               Write-Host "Modifying Version in $path"
-            } else {
-              # Insert <Version> into the first PropertyGroup if none exists
-              if ($text -match '(?s)(<PropertyGroup[^>]*>)') {
-                $text = $text -replace '(?s)(<PropertyGroup[^>]*>)', "`$1`n    <Version>$newVersion</Version>"
-                $changed = $true
-                Write-Host "Adding Version in $path"
-              }
             }
             
             # Replace AssemblyVersion and FileVersion tags if present
@@ -140,6 +137,10 @@ jobs:
             }
 
             if ($changed) {
+
+              # Remove trailing empty lines after </Project>
+              $text = $text.TrimEnd("`r", "`n", " ")
+
               Set-Content -LiteralPath $path -Value $text -Encoding UTF8
               Write-Host "Updated $path"
             }
@@ -163,6 +164,28 @@ jobs:
             Write-Host "Updated $path"
           }
 
+          # Update the first Version attribute in the first WXS file found
+          $wxsFile = Get-ChildItem -Path . -Recurse -File -Filter *.wxs -ErrorAction SilentlyContinue |
+            Select-Object -First 1
+
+          if ($wxsFile) {
+            $wxsText = Get-Content -Raw -LiteralPath $wxsFile.FullName
+            if ($wxsText -match '\bVersion\s*=\s*"[^"]*"') {
+              $wxsText = [regex]::Replace(
+                $wxsText,
+                '\bVersion\s*=\s*"[^"]*"',
+                "Version=`"$newVersion`"",
+                1
+              )
+              Set-Content -LiteralPath $wxsFile.FullName -Value $wxsText -Encoding UTF8
+              Write-Host "Updated Version attribute in $($wxsFile.FullName)"
+            } else {
+              Write-Host "No Version attribute found in $($wxsFile.FullName)"
+            }
+          } else {
+            Write-Host "No WXS files found"
+          }
+
           # publish the version as a step output in the new ($GITHUB_OUTPUT) format
           Add-Content -Path $env:GITHUB_OUTPUT -Value "version=$newVersion"
 
@@ -175,35 +198,81 @@ jobs:
       #    vs-version: '17.8'
 
       - name: Setup SignTool Path
+        if: env.IS_MAIN_PUSH == 'true' && env.HAS_SIGNING_SECRETS == 'true'
         uses: KamaranL/add-signtool-action@d0027a4cf430f8dfdb15fba53410d0c76b7566f4 # v1
 
       - name: Restore NuGet packages
         run: nuget restore ${{ env.APP_NAME }}.sln
 
       - name: Download SNK file from secrets
+        if: env.IS_MAIN_PUSH == 'true' && env.HAS_SIGNING_SECRETS == 'true'
         run: |
           $snkBytes = [System.Convert]::FromBase64String("${{ secrets.SNK_FILE }}")
           [System.IO.File]::WriteAllBytes("${{ env.APP_NAME }}/MyKey.snk", $snkBytes)
-          Write-Host "Wrote SNK to $targetPath"
+          Write-Host "Wrote SNK to ${{ env.APP_NAME }}/MyKey.snk"
 
       - name: Build and sign with SNK
+        if: env.IS_MAIN_PUSH == 'true' && env.HAS_SIGNING_SECRETS == 'true'
         run: |
           & msbuild ${{ env.APP_NAME }}.sln /p:Configuration=Release /p:SignAssembly=true /p:AssemblyOriginatorKeyFile="${{ github.workspace }}\${{ env.APP_NAME }}\MyKey.snk"
           Remove-Item -Force -Verbose -ErrorAction SilentlyContinue "${{ env.APP_NAME }}/MyKey.snk"
 
+      - name: Build without signing
+        if: env.IS_MAIN_PUSH != 'true' || env.HAS_SIGNING_SECRETS != 'true'
+        run: msbuild ${{ env.APP_NAME }}.sln /p:Configuration=Release
+
       # SNK creation:
       # sn -k MyKey.snk
-      # [Convert]::ToBase64String([IO.File]::ReadAllBytes("MyKey.snk")) | Set-Clipboard
+      #  [Convert]::ToBase64String([IO.File]::ReadAllBytes("MyKey.snk")) | Set-Clipboard
 
       - name: Download PFX file from secrets
+        if: env.IS_MAIN_PUSH == 'true' && env.HAS_SIGNING_SECRETS == 'true'
         run: |
           $pfxBytes = [System.Convert]::FromBase64String("${{ secrets.PFX_FILE }}")
           [System.IO.File]::WriteAllBytes("${{ env.APP_NAME }}/MyCert.pfx", $pfxBytes)
 
       - name: Sign executable with PFX
+        if: env.IS_MAIN_PUSH == 'true' && env.HAS_SIGNING_SECRETS == 'true'
         run: |
           & signtool.exe sign /f ${{ env.APP_NAME }}/MyCert.pfx /p ${{ secrets.PFX_PASSWORD }} /tr http://timestamp.digicert.com /td sha256 /fd sha256 "${{ env.APP_NAME }}/bin/Release/net8.0-windows/${{ env.APP_NAME }}*.exe"
           Remove-Item -Force -Verbose -ErrorAction SilentlyContinue "${{ env.APP_NAME }}/MyCert.pfx"
+
+      - name: Pack the MSI with signed EXE
+        run: |
+          cd ${{ env.APP_NAME }}.Setup
+          Remove-Item -Force -ErrorAction SilentlyContinue "bin/x86/Release/*.msi"
+
+          $project = Get-ChildItem -Filter "*.wixproj" | Select-Object -First 1
+          if (-not $project) {
+            throw "No WiX project was found in $PWD"
+          }
+
+          # The application build outputs to bin/Release/net8.0-windows, while the x86 WiX
+          # project expects its files under bin/x86/Release/net8.0-windows.
+          $appOutput = Join-Path $env:GITHUB_WORKSPACE "${{ env.APP_NAME }}\bin\Release\net8.0-windows"
+          $x86Output = Join-Path $env:GITHUB_WORKSPACE "${{ env.APP_NAME }}\bin\x86\Release\net8.0-windows"
+          if (-not (Test-Path $appOutput)) {
+            throw "Application build output was not found: $appOutput"
+          }
+
+          Remove-Item -Recurse -Force -ErrorAction SilentlyContinue $x86Output
+          New-Item -ItemType Directory -Force -Path $x86Output | Out-Null
+          Copy-Item -Path (Join-Path $appOutput "*") -Destination $x86Output -Recurse -Force
+
+          & msbuild $project.FullName /p:Configuration=Release /p:Platform=x86 /p:BuildProjectReferences=false
+          if ($LASTEXITCODE -ne 0) {
+            exit $LASTEXITCODE
+          }
+
+          $msi = Get-ChildItem "bin/x86/Release" -Filter "*.msi" |
+            Sort-Object LastWriteTime -Descending |
+            Select-Object -First 1
+          if (-not $msi) {
+            throw "The WiX build did not produce an MSI."
+          }
+
+          Rename-Item -LiteralPath $msi.FullName -NewName "${{ env.APP_NAME }}_v${{ steps.increment.outputs.version }}.msi"
+          cd $env:GITHUB_WORKSPACE
 
       - name: Pack the release with signed EXE
         run: |
@@ -214,13 +283,32 @@ jobs:
           cd $env:GITHUB_WORKSPACE
           #cd ../../../..
 
+      - name: Download PFX file from secrets a second time
+        if: env.IS_MAIN_PUSH == 'true' && env.HAS_SIGNING_SECRETS == 'true'
+        run: |
+          $pfxBytes = [System.Convert]::FromBase64String("${{ secrets.PFX_FILE }}")
+          [System.IO.File]::WriteAllBytes("${{ env.APP_NAME }}/MyCert.pfx", $pfxBytes)
+
+      - name: Sign MSI with PFX
+        if: env.IS_MAIN_PUSH == 'true' && env.HAS_SIGNING_SECRETS == 'true'
+        run: |
+          $msi = Get-ChildItem "${{ env.APP_NAME }}.Setup/bin/x86/Release" -Filter "*.msi" |
+            Sort-Object LastWriteTime -Descending |
+            Select-Object -First 1
+          if (-not $msi) {
+            throw "The WiX build did not produce an MSI."
+          }
+          & signtool.exe sign /f ${{ env.APP_NAME }}/MyCert.pfx /p ${{ secrets.PFX_PASSWORD }} /tr http://timestamp.digicert.com /td sha256 /fd sha256 $msi.FullName
+          Write-Host $msi
+          Remove-Item -Force -Verbose -ErrorAction SilentlyContinue "${{ env.APP_NAME }}/MyCert.pfx"
+       
       # certificate creation in powershell:
       # "C:\Program Files\Git\usr\bin\openssl.exe" req -x509 -newkey rsa:4096 -keyout MeinSchluessel.key -out MeinZertifikat.crt -days 1825 -nodes -subj "/CN=..."
       # "C:\Program Files\Git\usr\bin\openssl.exe" pkcs12 -export -out MyCert.pfx -inkey MeinSchluessel.key -in MeinZertifikat.crt
       # [Convert]::ToBase64String([System.IO.File]::ReadAllBytes("MyCert.pfx")) | Set-Clipboard
 
 
-      # - name: Build solution
+      #- name: Build solution
       #  run: msbuild ${{ env.APP_NAME }}.sln /p:Configuration=Release
       # /verbosity:diag
 
@@ -240,6 +328,13 @@ jobs:
               $files += $found
             }
           }
+
+          $wxsFile = Get-ChildItem -Path . -Recurse -File -Filter *.wxs -ErrorAction SilentlyContinue |
+            Select-Object -First 1
+          if ($wxsFile -ne $null) {
+            $files += $wxsFile
+          }
+
           if ($files.Count -eq 0) {
             Write-Host "No files found to commit."
             echo "files_to_commit=" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
@@ -255,18 +350,11 @@ jobs:
       # Threat: If no files are found, this step will be skipped and no commit will be made.
       - name: Commit version change
         uses: EndBug/add-and-commit@a94899bca583c204427a224a7af87c02f9b325d5 # v9
-        if: steps.find_files_to_commit.outputs.files_to_commit != ''
+        if: env.IS_MAIN_PUSH == 'true' && steps.find_files_to_commit.outputs.files_to_commit != ''
         with:
           message: "Set version to ${{ steps.increment.outputs.version }}"
           add: ${{ steps.find_files_to_commit.outputs.files_to_commit }}
           github_token: ${{ secrets.GH_TOKEN }}
-
-
-      #- name: Upload built zip archive
-      #  uses: actions/upload-artifact@v4
-      #  with:
-      #    name: ${{ env.APP_NAME }}-zip
-      #    path: ${{ env.APP_NAME }}/bin/${{ env.APP_NAME }}.zip
 
       - name: Rename output zip to include version
         shell: pwsh
@@ -285,12 +373,21 @@ jobs:
           }
 
       - name: Upload built zip archive(s) as workflow artifact(s)
+        if: env.IS_MAIN_PUSH == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.APP_NAME }}-v${{ steps.increment.outputs.version }}
           path: ${{ env.APP_NAME }}/bin/*v${{ steps.increment.outputs.version }}.zip
 
+      - name: Upload built msi archive(s) as workflow artifact(s)
+        if: env.IS_MAIN_PUSH == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.APP_NAME }}-v${{ steps.increment.outputs.version }}-msi
+          path: ${{ env.APP_NAME }}.Setup/bin/x86/Release/*v${{ steps.increment.outputs.version }}.msi
+
       - name: Generate release notes (commits since last tag and same major.minor)
+        if: env.IS_MAIN_PUSH == 'true'
         id: generate_release_notes
         shell: pwsh
         run: |
@@ -400,6 +497,7 @@ jobs:
 
       # Creates a tag for the next release
       - name: Create and push tag
+        if: env.IS_MAIN_PUSH == 'true'
         shell: pwsh
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
@@ -428,23 +526,31 @@ jobs:
       # If the release exists, it sets the output 'release_exists' to true, otherwise false.
       # Useful parameters: GITHUB_TOKEN (must have repo access)
       # Threats: API rate limits, leaking sensitive info if token is misconfigured.
+      # For the Template repository no released binary files are expected
       - name: Check if release exists
+        if: env.IS_MAIN_PUSH == 'true'
         id: check_release
         shell: pwsh
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          $tag = "${{ env.APP_NAME }}_v${{ steps.increment.outputs.version }}"
-          $headers = @{ Authorization = "token $env:GITHUB_TOKEN"; "Accept" = "application/vnd.github.v3+json" }
-          $repo = "${{ github.repository }}"
-          $url = "https://api.github.com/repos/$repo/releases/tags/$tag"
-          try {
-            $response = Invoke-RestMethod -Uri $url -Headers $headers -Method Get -ErrorAction Stop
-            Write-Host "Release for tag $tag exists."
+          if ("${{ env.APP_NAME }}" -eq "Template")
+          {
             echo "release_exists=true" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
-          } catch {
-            Write-Host "Release for tag $tag does not exist."
-            echo "release_exists=false" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          } else
+          {
+            $tag = "${{ env.APP_NAME }}_v${{ steps.increment.outputs.version }}"
+            $headers = @{ Authorization = "token $env:GITHUB_TOKEN"; "Accept" = "application/vnd.github.v3+json" }
+            $repo = "${{ github.repository }}"
+            $url = "https://api.github.com/repos/$repo/releases/tags/$tag"
+            try {
+              $response = Invoke-RestMethod -Uri $url -Headers $headers -Method Get -ErrorAction Stop
+              Write-Host "Release for tag $tag exists."
+              echo "release_exists=true" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+            } catch {
+              Write-Host "Release for tag $tag does not exist."
+              echo "release_exists=false" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+            }
           }
 
       # Step: Create GitHub Release only if it does not already exist
@@ -459,7 +565,7 @@ jobs:
       #   - target_commitish: Commit SHA or branch to create the release from
       # Threats: If secrets are misconfigured, release may expose sensitive info. If a release already exists, this step will fail unless conditionally skipped as below.
       - name: Create GitHub Release
-        if: steps.check_release.outputs.release_exists == 'false'
+        if: env.IS_MAIN_PUSH == 'true' && steps.check_release.outputs.release_exists == 'false'
         id: create_release
         uses: actions/create-release@v1
         with:
@@ -473,8 +579,8 @@ jobs:
 
         # Threat: This action publishes a release. If secrets are misconfigured, it may expose sensitive info.
         # Useful parameters: 'body_path' to load release notes from a file, 'target_commitish' to specify commit.
-      - name: Upload release asset(s) (all bin/*v<version>.zip)
-        if: steps.check_release.outputs.release_exists == 'false'
+      - name: Upload release asset(s) (all bin/*v<version>.zip, *.msi)
+        if: env.IS_MAIN_PUSH == 'true' && steps.check_release.outputs.release_exists == 'false'
         shell: pwsh
         env:
           UPLOAD_URL: ${{ steps.create_release.outputs.upload_url }}
@@ -504,9 +610,15 @@ jobs:
           $pattern = Join-Path -Path $app -ChildPath "bin/*v$version.zip"
           Write-Host "Searching for files matching: $pattern"
 
+          $pattern2 = Join-Path -Path "${app}.Setup" -ChildPath "bin/x86/Release/*v$version.msi"
+          Write-Host "Searching for files matching: $pattern2"
+
           $files = Get-ChildItem -Path $pattern -File -ErrorAction SilentlyContinue
-          if (-not $files -or $files.Count -eq 0) {
-            Write-Host "No files found to upload to release for pattern: $pattern"
+          $files2 = Get-ChildItem -Path $pattern2 -File -ErrorAction SilentlyContinue
+
+          if ((-not $files -or $files.Count -eq 0) -and
+              (-not $files2 -or $files2.Count -eq 0)){
+            Write-Host "No files found to upload to release for patterns: $pattern $pattern2"
             exit 0
           }
 
@@ -523,3 +635,18 @@ jobs:
               exit 1
             }
           }
+
+          foreach ($f in $files2) {
+            $name = $f.Name
+            $uri = "${uploadUrl}?name=$([System.Uri]::EscapeDataString(${name}))"
+            Write-Host "Uploading $($f.FullName) to $uri"
+            $bytes = [System.IO.File]::ReadAllBytes($f.FullName)
+            try {
+              Invoke-RestMethod -Uri $uri -Method Post -Headers @{ Authorization = "token $env:GITHUB_TOKEN"; "Content-Type" = "application/zip" } -Body $bytes
+              Write-Host "Uploaded $name"
+            } catch {
+              Write-Error ("Failed to upload ${name}: " + $_.Exception.Message)
+              exit 1
+            }
+          }
+

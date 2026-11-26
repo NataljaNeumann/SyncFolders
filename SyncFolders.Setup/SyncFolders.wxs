@@ -1,0 +1,291 @@
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
+  <Package Name="SyncFolders" Language="1033" Version="1.6.4.0" Manufacturer="SyncFolders_v1.6" UpgradeCode="C587DE19-0019-4DC4-94BE-1F52551C960C" Scope="perMachine">
+    <MajorUpgrade DowngradeErrorMessage="A newer version of SyncFolders has already been installed." />
+    <MediaTemplate EmbedCab="yes" />
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="PublisherFolder" Name="SyncFolders_v1.6">
+          <Directory Id="INSTALLFOLDER" Name="SyncFolders" />
+        </Directory>
+      </Directory>
+    </Directory>
+    <StandardDirectory Id="ProgramMenuFolder">
+      <Directory Id="WindowsMenuFolder" Name="SyncFolders" />
+    </StandardDirectory>
+    <StandardDirectory Id="DesktopFolder" />
+    <WixVariable Id="WixUILicenseRtf" Value="$(var.SyncFolders.TargetDir)license.rtf" />
+    <ui:WixUI Id="WixUI_InstallDir" InstallDirectory="INSTALLFOLDER" />
+    <DirectoryRef Id="INSTALLFOLDER">
+      <Component Id="_" Guid="8E221C97-E241-466F-97F6-57AB6E0059A2">
+        <File Id="desktop_ini" Source="$(var.SyncFolders.TargetDir)desktop.ini" />
+        <File Id="license_rtf" Source="$(var.SyncFolders.TargetDir)license.rtf" />
+        <File Id="license_txt" Source="$(var.SyncFolders.TargetDir)license.txt" />
+        <File Id="Public_crt" Source="$(var.SyncFolders.TargetDir)Public.crt" />
+        <File Id="Readme_html" Source="$(var.SyncFolders.TargetDir)Readme.html" />
+        <File Id="source_code_tar_zip" Source="$(var.SyncFolders.TargetDir)source_code.tar.zip" />
+        <File Id="SyncFolders_ico" Source="$(var.SyncFolders.TargetDir)SyncFolders.ico" />
+        <File Id="SyncFoldersApi_dll" Source="$(var.SyncFolders.TargetDir)SyncFoldersApi.dll" />
+        <File Id="SyncFolders_v1_6_deps_json" Source="$(var.SyncFolders.TargetDir)SyncFolders_v1.6.deps.json" />
+        <File Id="SyncFolders_v1_6_dll" Source="$(var.SyncFolders.TargetDir)SyncFolders_v1.6.dll" />
+        <File Id="SyncFolders_v1_6_exe" Source="$(var.SyncFolders.TargetDir)SyncFolders_v1.6.exe" KeyPath="yes" />
+        <File Id="SyncFolders_v1_6_runtimeconfig_json" Source="$(var.SyncFolders.TargetDir)SyncFolders_v1.6.runtimeconfig.json" />
+      </Component>
+      <Component Id="af" Guid="416CB994-EC0B-4DFD-9685-3ECD42E6752B" Subdirectory="af">
+        <File Id="af_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)af\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="ar" Guid="B92458D5-D202-4083-B958-74A02689555B" Subdirectory="ar">
+        <File Id="ar_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)ar\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="az" Guid="8891AF0E-59F9-4989-ABA9-F12F2429FA1B" Subdirectory="az">
+        <File Id="az_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)az\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="be" Guid="00E36E6B-53C1-4400-9D25-0B6C3433BE3A" Subdirectory="be">
+        <File Id="be_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)be\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="bg" Guid="4E237596-AD4F-4C99-BCCA-86237F3EE99B" Subdirectory="bg">
+        <File Id="bg_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)bg\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="bo" Guid="A9A2D6E1-9D07-4830-A16C-2710718BEBAC" Subdirectory="bo">
+        <File Id="bo_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)bo\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="bs" Guid="95947B73-99A7-44A1-9A2D-53534C69EC69" Subdirectory="bs">
+        <File Id="bs_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)bs\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="bsLatnBA" Guid="A3301C0C-64F1-4810-B9AF-53D36113543A" Subdirectory="bs-Latn-BA">
+        <File Id="bsLatnBA_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)bs-Latn-BA\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="ca" Guid="39100FAC-B885-420E-B80E-03046F50D8D2" Subdirectory="ca">
+        <File Id="ca_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)ca\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="cs" Guid="44EF8211-04BF-4507-AE0C-F9E68D7D051E" Subdirectory="cs">
+        <File Id="cs_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)cs\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="da" Guid="A1F87FFC-ADE9-45A1-99D5-50287A63BC95" Subdirectory="da">
+        <File Id="da_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)da\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="de" Guid="5623DB9A-7AFA-4EE1-AA99-9E4827F57061" Subdirectory="de">
+        <File Id="de_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)de\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="el" Guid="7ADE23D3-F78A-4BDE-80A9-699407C4E0D8" Subdirectory="el">
+        <File Id="el_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)el\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="es" Guid="E043135E-3F06-458B-9FB2-10D30939BA5E" Subdirectory="es">
+        <File Id="es_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)es\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="et" Guid="2EA67AF0-2FA6-4DA4-A669-0DC2068772FB" Subdirectory="et">
+        <File Id="et_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)et\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="fa" Guid="41B528B4-6269-4454-9C3B-5575D34C0280" Subdirectory="fa">
+        <File Id="fa_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)fa\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="fi" Guid="A09821E0-E85A-45AF-842B-742A78C1D6F1" Subdirectory="fi">
+        <File Id="fi_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)fi\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="fr" Guid="BC2630EA-1D4F-4B36-A130-C9EBAF293245" Subdirectory="fr">
+        <File Id="fr_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)fr\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="he" Guid="BD05A40E-64CC-4764-9249-B2EA56F7F1D9" Subdirectory="he">
+        <File Id="he_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)he\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="hi" Guid="65087179-A2F9-450F-943F-66BE23134B33" Subdirectory="hi">
+        <File Id="hi_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)hi\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="hu" Guid="9A264FB2-E02F-4246-B1E4-76B672F08F8E" Subdirectory="hu">
+        <File Id="hu_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)hu\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="hy" Guid="C497D742-B2D9-42D0-AAF2-5503B56F508C" Subdirectory="hy">
+        <File Id="hy_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)hy\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="id" Guid="88AD4001-BA2F-4744-819F-9991A17B5E8C" Subdirectory="id">
+        <File Id="id_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)id\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="Images" Guid="E2DA99FC-0AAC-4892-AF9D-376B8E6AC233" Subdirectory="Images">
+        <File Id="Images_SyncFoldersHeader_jpg" Source="$(var.SyncFolders.TargetDir)Images\SyncFoldersHeader.jpg" />
+      </Component>
+      <Component Id="is" Guid="CDA11196-D0F0-4CC9-97B1-7F34365B49D7" Subdirectory="is">
+        <File Id="is_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)is\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="it" Guid="AD0261F3-CE90-4F81-9CB1-73FB7B8D6930" Subdirectory="it">
+        <File Id="it_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)it\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="ja" Guid="8B32F2B8-3681-4C30-9797-EB03B07AF4A3" Subdirectory="ja">
+        <File Id="ja_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)ja\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="ka" Guid="4DB5BA2F-76D3-4F32-8AC1-DB6C95520A7C" Subdirectory="ka">
+        <File Id="ka_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)ka\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="kk" Guid="39121AD4-5215-4FB1-931E-D8131E3A5BFA" Subdirectory="kk">
+        <File Id="kk_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)kk\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="km" Guid="919DC8E3-CA74-436F-8631-046D7CE922B7" Subdirectory="km">
+        <File Id="km_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)km\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="ko" Guid="B6FB1D49-0712-47FD-BCE1-EFBED50D9ADA" Subdirectory="ko">
+        <File Id="ko_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)ko\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="ky" Guid="801A9574-D638-406C-AF49-A6DBD41C32DD" Subdirectory="ky">
+        <File Id="ky_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)ky\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="la" Guid="232247BF-DA9C-4CC7-B07C-4BD868476337" Subdirectory="la">
+        <File Id="la_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)la\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="lt" Guid="CC5C37E5-8AB3-472B-8C44-2DAE7CE20557" Subdirectory="lt">
+        <File Id="lt_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)lt\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="lv" Guid="9071A8D4-B938-4BE9-ABFC-8B0F795F9B94" Subdirectory="lv">
+        <File Id="lv_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)lv\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="mk" Guid="3B4DFB5A-5DC1-40B9-9816-11313AD28A6A" Subdirectory="mk">
+        <File Id="mk_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)mk\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="mnMN" Guid="B709DA82-34EF-4807-9113-0356992BF965" Subdirectory="mn-MN">
+        <File Id="mnMN_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)mn-MN\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="ms" Guid="EA4309D2-8F8B-44A0-BAE1-BDEB87FA5D80" Subdirectory="ms">
+        <File Id="ms_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)ms\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="nl" Guid="99EB7936-20E0-4587-B49E-78A187C93849" Subdirectory="nl">
+        <File Id="nl_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)nl\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="no" Guid="EFD8EDD0-344E-47F5-801E-7A361EBA1D50" Subdirectory="no">
+        <File Id="no_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)no\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="pa" Guid="827FBD5B-218E-4820-ABCD-B5C591747517" Subdirectory="pa">
+        <File Id="pa_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)pa\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="paArabPK" Guid="1E74611C-5FA7-4DAA-B8A0-8A8ACCA4A20C" Subdirectory="pa-Arab-PK">
+        <File Id="paArabPK_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)pa-Arab-PK\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="pl" Guid="666A02FB-DA9A-42CF-9656-FF40F306EFD4" Subdirectory="pl">
+        <File Id="pl_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)pl\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="ps" Guid="B79D7521-C135-4EA6-9EB0-115447AD1E81" Subdirectory="ps">
+        <File Id="ps_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)ps\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="pt" Guid="195189BB-0465-4645-A26B-8E3D0CDE032C" Subdirectory="pt">
+        <File Id="pt_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)pt\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="ro" Guid="800EA90C-D42B-4AA9-946D-F0DEEC56097E" Subdirectory="ro">
+        <File Id="ro_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)ro\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="ru" Guid="16639F9E-C98C-4E90-8D48-93960F4C34E1" Subdirectory="ru">
+        <File Id="ru_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)ru\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="sa" Guid="19D966C5-DB20-4CF9-AC00-0D7EA11DCF46" Subdirectory="sa">
+        <File Id="sa_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)sa\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="sk" Guid="091390C4-FCCE-4E45-9D6A-60DF890E6D3D" Subdirectory="sk">
+        <File Id="sk_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)sk\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="sl" Guid="7164871B-FBD3-4CDF-B6C8-1CC42E4355E8" Subdirectory="sl">
+        <File Id="sl_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)sl\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="sr" Guid="632516F6-84E8-4FF6-A4F9-2F69174990AC" Subdirectory="sr">
+        <File Id="sr_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)sr\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="sv" Guid="36BAE11D-E47F-4105-B526-FE1A7BE846A3" Subdirectory="sv">
+        <File Id="sv_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)sv\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="tg" Guid="AC99FC01-458B-4912-833A-3FF3C413281D" Subdirectory="tg">
+        <File Id="tg_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)tg\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="th" Guid="3BD1353D-32BC-4202-AF7D-85225F63B448" Subdirectory="th">
+        <File Id="th_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)th\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="tk" Guid="FF7E6192-9730-497C-81C4-3EC2F58901C6" Subdirectory="tk">
+        <File Id="tk_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)tk\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="tr" Guid="CEB3D305-8671-444E-BA74-B4C51792DEE8" Subdirectory="tr">
+        <File Id="tr_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)tr\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="uk" Guid="2A86961E-5C91-4956-8792-A155F4EC279E" Subdirectory="uk">
+        <File Id="uk_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)uk\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="uz" Guid="D173EC6D-2F33-4A35-8419-9CC634932CF7" Subdirectory="uz">
+        <File Id="uz_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)uz\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="vi" Guid="841FA439-BA00-452F-81A4-683CF69EC6B7" Subdirectory="vi">
+        <File Id="vi_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)vi\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="zhHans" Guid="AD85D77D-CC36-47DA-906A-175B3A85CAEA" Subdirectory="zh-Hans">
+        <File Id="zhHans_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)zh-Hans\SyncFolders_v1.6.resources.dll" />
+      </Component>
+      <Component Id="zhHant" Guid="93C4BB28-2146-4BE2-9285-1B4B813C6EF4" Subdirectory="zh-Hant">
+        <File Id="zhHant_SyncFolders_v1_6_resources_dll" Source="$(var.SyncFolders.TargetDir)zh-Hant\SyncFolders_v1.6.resources.dll" />
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="WindowsMenuFolder">
+      <Component Id="WindowsMenuShortcuts" Guid="B9CC3AC6-E423-4E5C-B1B3-E88D4F61053A">
+        <RemoveFolder Id="RemoveWindowsMenuFolder" Directory="WindowsMenuFolder" On="uninstall" />
+        <RegistryValue Root="HKCU" Key="Software\SyncFolders_v1.6\SyncFolders" Name="Installed" Type="integer" Value="1" KeyPath="yes" />
+        <Shortcut Id="SyncFolders_v1_6_exe_pfx" Directory="WindowsMenuFolder" Name="Sync Folders V1.6" Target="[INSTALLFOLDER]SyncFolders_v1.6.exe" WorkingDirectory="INSTALLFOLDER" />
+        <Shortcut Id="SyncFolders_v1_6_exe_2_pfx" Directory="DesktopFolder" Name="Sync Folders V1.6" Target="[INSTALLFOLDER]SyncFolders_v1.6.exe" WorkingDirectory="INSTALLFOLDER" />
+      </Component>
+    </DirectoryRef>
+    <Feature Id="SyncFolders" Title="SyncFolders" Level="1">
+      <ComponentRef Id="WindowsMenuShortcuts" />
+      <ComponentRef Id="_" />
+      <ComponentRef Id="af" />
+      <ComponentRef Id="ar" />
+      <ComponentRef Id="az" />
+      <ComponentRef Id="be" />
+      <ComponentRef Id="bg" />
+      <ComponentRef Id="bo" />
+      <ComponentRef Id="bs" />
+      <ComponentRef Id="bsLatnBA" />
+      <ComponentRef Id="ca" />
+      <ComponentRef Id="cs" />
+      <ComponentRef Id="da" />
+      <ComponentRef Id="de" />
+      <ComponentRef Id="el" />
+      <ComponentRef Id="es" />
+      <ComponentRef Id="et" />
+      <ComponentRef Id="fa" />
+      <ComponentRef Id="fi" />
+      <ComponentRef Id="fr" />
+      <ComponentRef Id="he" />
+      <ComponentRef Id="hi" />
+      <ComponentRef Id="hu" />
+      <ComponentRef Id="hy" />
+      <ComponentRef Id="id" />
+      <ComponentRef Id="Images" />
+      <ComponentRef Id="is" />
+      <ComponentRef Id="it" />
+      <ComponentRef Id="ja" />
+      <ComponentRef Id="ka" />
+      <ComponentRef Id="kk" />
+      <ComponentRef Id="km" />
+      <ComponentRef Id="ko" />
+      <ComponentRef Id="ky" />
+      <ComponentRef Id="la" />
+      <ComponentRef Id="lt" />
+      <ComponentRef Id="lv" />
+      <ComponentRef Id="mk" />
+      <ComponentRef Id="mnMN" />
+      <ComponentRef Id="ms" />
+      <ComponentRef Id="nl" />
+      <ComponentRef Id="no" />
+      <ComponentRef Id="pa" />
+      <ComponentRef Id="paArabPK" />
+      <ComponentRef Id="pl" />
+      <ComponentRef Id="ps" />
+      <ComponentRef Id="pt" />
+      <ComponentRef Id="ro" />
+      <ComponentRef Id="ru" />
+      <ComponentRef Id="sa" />
+      <ComponentRef Id="sk" />
+      <ComponentRef Id="sl" />
+      <ComponentRef Id="sr" />
+      <ComponentRef Id="sv" />
+      <ComponentRef Id="tg" />
+      <ComponentRef Id="th" />
+      <ComponentRef Id="tk" />
+      <ComponentRef Id="tr" />
+      <ComponentRef Id="uk" />
+      <ComponentRef Id="uz" />
+      <ComponentRef Id="vi" />
+      <ComponentRef Id="zhHans" />
+      <ComponentRef Id="zhHant" />
+    </Feature>
+  </Package>
+</Wix>
