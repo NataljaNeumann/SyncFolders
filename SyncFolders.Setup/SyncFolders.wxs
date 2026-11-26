@@ -1,11 +1,11 @@
 ﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
-  <Package Name="SyncFolders" Language="1033" Version="1.6.4.0" Manufacturer="SyncFolders_v1.6" UpgradeCode="C587DE19-0019-4DC4-94BE-1F52551C960C" Scope="perMachine">
+  <Package Name="SyncFolders" Language="1033" Version="1.6.4.0" Manufacturer="NataljaNeumann@gmx.de" UpgradeCode="C587DE19-0019-4DC4-94BE-1F52551C960C" Scope="perMachine">
     <MajorUpgrade DowngradeErrorMessage="A newer version of SyncFolders has already been installed." />
     <MediaTemplate EmbedCab="yes" />
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFilesFolder">
-        <Directory Id="PublisherFolder" Name="SyncFolders_v1.6">
-          <Directory Id="INSTALLFOLDER" Name="SyncFolders" />
+        <Directory Id="PublisherFolder" Name="NataljaNeumann">
+          <Directory Id="INSTALLFOLDER" Name="SyncFolders_v1.6" />
         </Directory>
       </Directory>
     </Directory>
@@ -217,7 +217,7 @@
     <DirectoryRef Id="WindowsMenuFolder">
       <Component Id="WindowsMenuShortcuts" Guid="B9CC3AC6-E423-4E5C-B1B3-E88D4F61053A">
         <RemoveFolder Id="RemoveWindowsMenuFolder" Directory="WindowsMenuFolder" On="uninstall" />
-        <RegistryValue Root="HKCU" Key="Software\SyncFolders_v1.6\SyncFolders" Name="Installed" Type="integer" Value="1" KeyPath="yes" />
+        <RegistryValue Root="HKCU" Key="Software\NataljaNeumann\SyncFolders" Name="Installed" Type="integer" Value="1" KeyPath="yes" />
         <Shortcut Id="SyncFolders_v1_6_exe_pfx" Directory="WindowsMenuFolder" Name="Sync Folders V1.6" Target="[INSTALLFOLDER]SyncFolders_v1.6.exe" WorkingDirectory="INSTALLFOLDER" />
         <Shortcut Id="SyncFolders_v1_6_exe_2_pfx" Directory="DesktopFolder" Name="Sync Folders V1.6" Target="[INSTALLFOLDER]SyncFolders_v1.6.exe" WorkingDirectory="INSTALLFOLDER" />
       </Component>
