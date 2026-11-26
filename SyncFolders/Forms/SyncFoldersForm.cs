@@ -1230,7 +1230,7 @@ namespace SyncFolders
                 m_oLogFile.WriteLine("   DeleteInSecond: " + (m_oSettings.FirstToSecondDeleteInSecond ? "yes" : "no"));
 
                 m_oLogFileLocalized.WriteLine(m_cbSyncMode.Text + ": " + (m_oSettings.FirstToSecondSyncMode ? Resources.Yes : Resources.No));
-                m_oLogFileLocalized.WriteLine(m_cbFirstReadonly + ": " + (m_oSettings.FirstReadOnly ? Resources.Yes : Resources.No));
+                m_oLogFileLocalized.WriteLine(m_cbFirstReadonly.Text + ": " + (m_oSettings.FirstReadOnly ? Resources.Yes : Resources.No));
                 m_oLogFileLocalized.WriteLine(m_cbDeleteFilesInSecond.Text + ": " + (m_oSettings.FirstToSecondDeleteInSecond ? Resources.Yes : Resources.No));
             }
 
@@ -1245,7 +1245,7 @@ namespace SyncFolders
             if (m_oSettings.TestFiles)
             {
                 m_oLogFile.WriteLine("Skip rectnl.tsted: " + (m_oSettings.TestFilesSkipRecentlyTested ? "yes" : "no"));
-                m_oLogFileLocalized.WriteLine(m_cbSkipRecentlyTested.Text + ": " + (m_oSettings.TestFilesSkipRecentlyTested ? Resources.Yes : Resources.No));
+                //m_oLogFileLocalized.WriteLine(m_cbSkipRecentlyTested.Text + ": " + (m_oSettings.TestFilesSkipRecentlyTested ? Resources.Yes : Resources.No));
 
                 m_oLogFile.WriteLine("      RepairFiles: " + (m_oSettings.RepairFiles ? "yes" : "no"));
                 m_oLogFileLocalized.WriteLine(m_cbRepairBlockFailures.Text + ": " + (m_oSettings.RepairFiles ? Resources.Yes : Resources.No));
